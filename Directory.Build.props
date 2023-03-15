@@ -1,0 +1,24 @@
+<Project>
+  <PropertyGroup>
+    <PackageIdPrefix>CommunityToolkit</PackageIdPrefix>
+    <RepositoryDirectory>$(MSBuildThisFileDirectory)</RepositoryDirectory>
+    <ToolingDirectory>$(RepositoryDirectory)\tooling</ToolingDirectory>
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+
+  <Import Project="Windows.Toolkit.Common.props" />
+
+  <PropertyGroup>
+    <DebugType>Embedded</DebugType>
+    <PackageOutputPath>bin\Package</PackageOutputPath>
+    <AllowedOutputExtensionsInPackageBuildOutputFolder>.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+  </PropertyGroup>
+
+</Project>

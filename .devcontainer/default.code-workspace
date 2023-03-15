@@ -1,0 +1,19 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		}
+	],
+	"settings": {
+		"omnisharp.defaultLaunchSolution": "CommunityToolkit.AllComponents.sln",
+		"omnisharp.disableMSBuildDiagnosticWarning": true,
+		"omnisharp.enableRoslynAnalyzers": true,
+		"omnisharp.useGlobalMono": "never",
+		"csharp.suppressBuildAssetsNotification": true,
+		"csharp.suppressDotnetInstallWarning": true,
+		"csharp.suppressDotnetRestoreNotification": true,
+		"csharp.semanticHighlighting.enabled": true,
+		"omnisharp.enableImportCompletion": true,
+		"omnisharp.enableMsBuildLoadProjectsOnDemand": true
+	}
+}
