@@ -1,0 +1,37 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "All samples app",
+      "type": "coreclr",
+      "request": "launch",
+      "program": "dotnet",
+      "args": [
+        "run",
+        "build",
+        "/r",
+        "/bl",
+        "/p:UnoSourceGeneratorUseGenerationHost=true",
+        "/p:UnoSourceGeneratorUseGenerationController=false",
+        "/p:UnoRemoteControlPort=443",
+        "--project=${workspaceFolder}/tooling/ProjectHeads/AllComponents/Wasm/CommunityToolkit.App.Wasm.csproj"
+      ],
+      "presentation": {
+        "group": "1",
+        "order": 1
+      },
+      "cwd": "${workspaceFolder}/tooling/ProjectHeads/AllComponents/Wasm",
+      "preLaunchTask": "generateAllSolution"
+    },
+    {
+      "type": "PowerShell",
+      "request": "launch",
+      "name": "Discover samples",
+      "script": "foreach ($component in Get-ChildItem -Directory -Depth 0 -Path './components/*') { ${workspaceFolder}/tooling/ProjectHeads/GenerateSingleSampleHeads.ps1 -ComponentPath $component } ; ${workspaceFolder}/tooling/GenerateVSCodeLaunchConfig.ps1; ",
+      "presentation": {
+        "group": "2",
+        "order": 2
+      }
+    }
+  ]
+}
