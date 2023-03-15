@@ -1,0 +1,3 @@
+[submodule "tooling"]
+	path = tooling
+	url = https://github.com/CommunityToolkit/Tooling-Windows-Submodule.git
