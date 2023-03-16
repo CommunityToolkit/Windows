@@ -1,0 +1,23 @@
+<!--  Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license. See the LICENSE file in the project root for more information.  -->
+<Page x:Class="ConvertersExperiment.Samples.StringFormatConverterSample"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:converters="using:CommunityToolkit.WinUI.Converters"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="using:ConvertersExperiment.Samples"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d">
+
+    <Page.Resources>
+        <converters:StringFormatConverter x:Key="StringFormatConverter" />
+    </Page.Resources>
+
+    <StackPanel Spacing="16">
+        <!--  TODO: We should show a regular binding way here too  -->
+        <TextBlock Text="{x:Bind MyBooleanValue, Mode=OneWay, Converter={StaticResource StringFormatConverter}, ConverterParameter='Is Checked: {0}'}" />
+
+        <TextBlock Text="{x:Bind MyDoubleValue, Mode=OneWay, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}{0:0.##}'}" />
+
+        <!--  TODO: We should show using an x:Bind function/helper instead as well though note https://github.com/microsoft/microsoft-ui-xaml/issues/2654  -->
+    </StackPanel>
+</Page>
