@@ -1,0 +1,16 @@
+<Project Sdk="MSBuild.Sdk.Extras/3.0.23">
+  <PropertyGroup>
+    <ToolkitComponentName>Converters</ToolkitComponentName>
+  </PropertyGroup>
+
+  <!-- Sets this up as a toolkit component's sample project -->
+  <Import Project="$(ToolingDirectory)\ToolkitComponent.SampleProject.props" />
+  <ItemGroup>
+    <UpToDateCheckInput Remove="StringFormatConverterSample.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="StringFormatConverterSample.xaml.cs">
+      <DependentUpon>StringFormatConverterSample.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+</Project>
