@@ -34,10 +34,10 @@ public class ColorToDisplayNameConverter : IValueConverter
             return DependencyProperty.UnsetValue;
         }
 
-#if WINAPPSDK
-        throw new NotSupportedException("See https://github.com/microsoft/microsoft-ui-xaml/issues/8287");
-#else
+#if !WINAPPSDK && !HAS_UNO
         return Windows.UI.ColorHelper.ToDisplayName(color);
+#else
+        throw new NotSupportedException("See https://github.com/microsoft/microsoft-ui-xaml/issues/8287");
 #endif
     }
 
