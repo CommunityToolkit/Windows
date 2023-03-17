@@ -125,10 +125,11 @@ jobs:
       - name: Setup VSTest Path
         uses: darenm/Setup-VSTest@v1
 
-      - name: Install Testspace Module
-        uses: testspace-com/setup-testspace@v1
-        with:
-          domain: ${{ github.repository_owner }}
+      # See https://github.com/CommunityToolkit/Windows/issues/3
+      # - name: Install Testspace Module
+      #   uses: testspace-com/setup-testspace@v1
+      #   with:
+      #     domain: ${{ github.repository_owner }}
 
       - name: Run SourceGenerators tests
         id: test-generator
@@ -138,10 +139,10 @@ jobs:
         id: test-platform
         run:  vstest.console.exe ./tooling/**/CommunityToolkit.Tests.${{ env.TEST_PLATFORM }}.build.appxrecipe /Framework:FrameworkUap10 /logger:"trx;LogFileName=${{ env.TEST_PLATFORM }}.trx"
 
-      - name: Create test reports
-        run: |
-          testspace '[${{ matrix.platform }}]./TestResults/*.trx'
-        if: ${{ always() && (steps.test-generator.conclusion == 'success' || steps.test-platform.conclusion == 'success') }}
+      # - name: Create test reports
+      #   run: |
+      #     testspace '[${{ matrix.platform }}]./TestResults/*.trx'
+      #   if: ${{ always() && (steps.test-generator.conclusion == 'success' || steps.test-platform.conclusion == 'success') }}
 
       - name: Artifact - Diagnostic Logs
         uses: actions/upload-artifact@v3
