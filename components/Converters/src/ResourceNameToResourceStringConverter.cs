@@ -2,7 +2,9 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
-#if WINAPPSDK
+// TODO: Need to better understand how this works/maps on Uno between Uno.UI/Uno.WinUI,
+// This should be the equivelant code from Uno.WinUI from: https://github.com/unoplatform/Uno.WindowsCommunityToolkit/blob/uno/CommunityToolkit.WinUI.UI/Converters/ResourceNameToResourceStringConverter.cs
+#if WINAPPSDK && !HAS_UNO
 using Microsoft.Windows.ApplicationModel.Resources;
 #else
 using Windows.ApplicationModel.Resources;
@@ -15,7 +17,7 @@ namespace CommunityToolkit.WinUI.Converters;
 /// </summary>
 public sealed class ResourceNameToResourceStringConverter : IValueConverter
 {
-#if WINAPPSDK
+#if WINAPPSDK && !HAS_UNO
     private readonly ResourceManager _resourceManager = new ResourceManager();
 #else
     private readonly ResourceLoader _resourceLoader = ResourceLoader.GetForViewIndependentUse();
@@ -37,7 +39,7 @@ public sealed class ResourceNameToResourceStringConverter : IValueConverter
             return string.Empty;
         }
 
-#if WINAPPSDK
+#if WINAPPSDK && !HAS_UNO
         return _resourceManager.MainResourceMap.TryGetValue(value.ToString()).ValueAsString;
 #else
         return _resourceLoader.GetString(value.ToString());
