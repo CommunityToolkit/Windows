@@ -115,11 +115,11 @@ jobs:
       # Push Packages to our DevOps Artifacts Feed
       - name: Add source
         if: ${{ github.ref == 'refs/heads/main' }}
-        run: dotnet nuget add source "https://pkgs.dev.azure.com/dotnet/CommunityToolkit/_packaging/CommunityToolkit-Labs/nuget/v3/index.json" --name LabsFeed --username dummy --password ${{ secrets.DEVOPS_PACKAGE_PUSH_TOKEN }}
+        run: dotnet nuget add source "https://pkgs.dev.azure.com/dotnet/CommunityToolkit/_packaging/CommunityToolkit-MainLatest/nuget/v3/index.json" --name ToolkitNightly --username dummy --password ${{ secrets.DEVOPS_PACKAGE_PUSH_TOKEN }}
 
       - name: Push packages
         if: ${{ github.ref == 'refs/heads/main' }}
-        run: dotnet nuget push "**/*.nupkg" --api-key dummy --source LabsFeed --skip-duplicate
+        run: dotnet nuget push "**/*.nupkg" --api-key dummy --source ToolkitNightly --skip-duplicate
 
       # Run tests
       - name: Setup VSTest Path
