@@ -25,6 +25,9 @@ public sealed class TaskResultConverter : IValueConverter
         }
         else if (value is null)
         {
+            // Note: We don't return unset value here as normal, as whatever expecting the result
+            // may be trying to process this value and would get an unexpected type not normally seen.
+            // See this comment here: https://github.com/CommunityToolkit/WindowsCommunityToolkit/issues/4505#issuecomment-1286221861
             return null!;
         }
 
