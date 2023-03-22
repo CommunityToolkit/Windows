@@ -18,7 +18,7 @@ Please read the [Getting Started with the Windows Community Toolkit](https://doc
 The [tooling](https://github.com/CommunityToolkit/Tooling-Windows-Submodule) is in a submodule, so you'll need to use `--recurse-submodules` when cloning or pulling for the first time:
 
 ```shell
-git clone --recurse-submodules https://github.com/CommunityToolkit/Labs-Windows.git
+git clone --recurse-submodules https://github.com/CommunityToolkit/Windows.git
 ```
 
 ## Build Requirements
