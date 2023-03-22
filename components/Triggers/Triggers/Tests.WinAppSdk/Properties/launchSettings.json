@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Triggers.Tests.WinAppSdk (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "Triggers.Tests.WinAppSdk (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}

@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk.Web" TreatAsLocalProperty="TargetFramework">
+
+  <Import Project="$(ToolingDirectory)\MultiTarget\TargetFrameworks.props" />
+  <PropertyGroup>
+    <IsDeployableHead>true</IsDeployableHead>
+    <IsUno>true</IsUno>
+    <IsWasm>true</IsWasm>
+    <IsWasmHead>true</IsWasmHead>
+    <IsWasmLib>false</IsWasmLib>
+    <IsDroid>false</IsDroid>
+    <IsMacOS>false</IsMacOS>
+    <IsiOS>false</IsiOS>
+    <IsUwp>false</IsUwp>
+    <IsWinAppSdk>false</IsWinAppSdk>
+    <IsWpf>false</IsWpf>
+    <IsWpfHead>false</IsWpfHead>
+    <IsWpfLib>false</IsWpfLib>
+    <IsGtk>false</IsGtk>
+    <IsGtkHead>false</IsGtkHead>
+    <IsGtkLib>false</IsGtkLib>
+  </PropertyGroup>
+  <Import Project="$(ToolingDirectory)\MultiTarget\ProjectIdentifiers.props" />
+  <Import Project="$(ToolingDirectory)\ProjectHeads\App.Head.Wasm.props" />
+
+  <ItemGroup>
+    <EmbeddedResource Include="WasmScripts\AppManifest.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\*.csproj" />
+    <ProjectReference Include="..\..\samples\*.csproj" />
+  </ItemGroup>
+</Project>
