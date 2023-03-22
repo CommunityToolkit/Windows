@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$([MSBuild]::GetPathOfFileAbove(directory.build.props))" Condition="Exists('$([MSBuild]::GetPathOfFileAbove(directory.build.props))')" />
-  
   <Import Project="$(ToolingDirectory)\MultiTarget\TargetFrameworks.props" />
   <PropertyGroup>
     <IsDeployableHead>true</IsDeployableHead>
@@ -23,7 +22,6 @@
   </PropertyGroup>
   <Import Project="$(ToolingDirectory)\MultiTarget\ProjectIdentifiers.props" />
   <Import Project="$(ToolingDirectory)\ProjectHeads\App.Head.Uwp.props" />
-
   <PropertyGroup>
     <RootNamespace>TriggersExperiment.Samples</RootNamespace>
     <AssemblyName>TriggersExperiment.Samples.Uwp</AssemblyName>
@@ -38,10 +36,9 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\*.csproj"/>
-    <ProjectReference Include="..\..\samples\*.csproj"/>
+    <ProjectReference Include="..\..\src\CommunityToolkit.WinUI.Controls.Triggers.csproj" />
+    <ProjectReference Include="..\..\samples\Triggers.Samples.csproj" />
   </ItemGroup>
-  
   <!-- Must be imported after any shared projects in non-sdk style projects -->
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
 </Project>
