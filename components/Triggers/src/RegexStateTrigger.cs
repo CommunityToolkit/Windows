@@ -2,7 +2,7 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
-namespace CommunityToolkit.WinUI.UI;
+namespace CommunityToolkit.WinUI;
 /// <summary>
 /// Enables a state if the regex expression is true for a given string value
 /// </summary>

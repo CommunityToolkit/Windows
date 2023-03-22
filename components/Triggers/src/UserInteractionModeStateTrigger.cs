@@ -7,7 +7,7 @@ using Windows.UI.ViewManagement;
 using Windows.UI.Core;
 #endif
 
-namespace CommunityToolkit.WinUI.UI;
+namespace CommunityToolkit.WinUI;
 
 /// <summary>
 /// Trigger for switching when the User interaction mode changes (tablet mode)

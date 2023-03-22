@@ -2,132 +2,124 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
-using CommunityToolkit.Tooling.TestGen;
+using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Threading.Tasks;
 using CommunityToolkit.Tests;
-using CommunityToolkit.WinUI.Controls;
+using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Threading.Tasks;
 
 namespace TriggersExperiment.Tests;
 
 [TestClass]
-public partial class ExampleTriggersTestClass : VisualUITestBase
+[TestCategory("Test_ControlSizeTrigger")]
+public class Test_ControlSizeTrigger : VisualUITestBase
 {
-    // If you don't need access to UI objects directly or async code, use this pattern.
-    [TestMethod]
-    public void SimpleSynchronousExampleTest()
+    [DataTestMethod]
+    [DataRow(450, 450, true)]
+    [DataRow(400, 400, true)]
+    [DataRow(500, 500, false)]
+    [DataRow(399, 400, false)]
+    [DataRow(400, 399, false)]
+    public async Task ControlSizeTriggerTest(double width, double height, bool expectedResult)
     {
-        //var assembly = typeof(Triggers).Assembly;
-        //var type = assembly.GetType(typeof(Triggers).FullName ?? string.Empty);
-
-        //Assert.IsNotNull(type, "Could not find Triggers type.");
-        //Assert.AreEqual(typeof(Triggers), type, "Type of Triggers does not match expected type.");
-    }
-
-    // If you don't need access to UI objects directly, use this pattern.
-    [TestMethod]
-    public async Task SimpleAsyncExampleTest()
-    {
-        await Task.Delay(250);
-
-        Assert.IsTrue(true);
-    }
-
-    // Example that shows how to check for exception throwing.
-    [TestMethod]
-    public void SimpleExceptionCheckTest()
-    {
-        // If you need to check exceptions occur for invalid inputs, etc...
-        // Use Assert.ThrowsException to limit the scope to where you expect the error to occur.
-        // Otherwise, using the ExpectedException attribute could swallow or
-        // catch other issues in setup code.
-        Assert.ThrowsException<NotImplementedException>(() => throw new NotImplementedException());
-    }
-
-    // The UIThreadTestMethod automatically dispatches to the UI for us to work with UI objects.
-    [UIThreadTestMethod]
-    public void SimpleUIAttributeExampleTest()
-    {
-        var component = new CompareStateTrigger();
-        Assert.IsNotNull(component);
-    }
-
-    // The UIThreadTestMethod can also easily grab a XAML Page for us by passing its type as a parameter.
-    // This lets us actually test a control as it would behave within an actual application.
-    // The page will already be loaded by the time your test is called.
-    [UIThreadTestMethod]
-    public void SimpleUIExamplePageTest(ExampleTriggersTestPage page)
-    {
-        // You can use the Toolkit Visual Tree helpers here to find the component by type or name:
-        var component = page.FindDescendant<CompareStateTrigger>();
-
-        Assert.IsNotNull(component);
-
-        var componentByName = page.FindDescendant("TriggersControl");
-
-        Assert.IsNotNull(componentByName);
-    }
-
-    // You can still do async work with a UIThreadTestMethod as well.
-    [UIThreadTestMethod]
-    public async Task SimpleAsyncUIExamplePageTest(ExampleTriggersTestPage page)
-    {
-        // This helper can be used to wait for a rendering pass to complete.
-        await CompositionTargetHelper.ExecuteAfterCompositionRenderingAsync(() => { });
-
-        var component = page.FindDescendant<CompareStateTrigger>();
-
-        Assert.IsNotNull(component);
-    }
-
-    //// ----------------------------- ADVANCED TEST SCENARIOS -----------------------------
-
-    // If you need to use DataRow, you can use this pattern with the UI dispatch still.
-    // Otherwise, checkout the UIThreadTestMethod attribute above.
-    // See https://github.com/CommunityToolkit/Labs-Windows/issues/186
-    [TestMethod]
-    public async Task ComplexAsyncUIExampleTest()
-    {
-        await EnqueueAsync(() =>
+        await App.DispatcherQueue.EnqueueAsync(async () =>
         {
-            var component = new CompareStateTrigger();
-            Assert.IsNotNull(component);
+            Grid grid = CreateGrid(width, height);
+            await LoadTestContentAsync(grid);
+            var trigger = new ControlSizeTrigger();
+
+            trigger.TargetElement = grid;
+            trigger.MaxHeight = 500;
+            trigger.MinHeight = 400;
+            trigger.MaxWidth = 500;
+            trigger.MinWidth = 400;
+
+            Assert.AreEqual(expectedResult, trigger.IsActive);
         });
     }
 
-    // If you want to load other content not within a XAML page using the UIThreadTestMethod above.
-    // Then you can do that using the Load/UnloadTestContentAsync methods.
-    [TestMethod]
-    public async Task ComplexAsyncLoadUIExampleTest()
+    [DataTestMethod]
+    [DataRow(400, 400, true)]
+    [DataRow(400, 399, false)]
+    public async Task ControlSizeMinHeightTriggerTest(double width, double height, bool expectedResult)
     {
-        await EnqueueAsync(async () =>
+        await App.DispatcherQueue.EnqueueAsync(async () =>
         {
-            var component = new CompareStateTrigger();
-            Assert.IsNotNull(component);
-            //Assert.IsFalse(component.IsLoaded);
+            Grid grid = CreateGrid(width, height);
+            await LoadTestContentAsync(grid);
+            var trigger = new ControlSizeTrigger();
 
-           // await LoadTestContentAsync(component);
+            trigger.TargetElement = grid;
+            trigger.MinHeight = 400;
 
-           // Assert.IsTrue(component.IsLoaded);
-
-            //await UnloadTestContentAsync(component);
-
-           // Assert.IsFalse(component.IsLoaded);
+            Assert.AreEqual(expectedResult, trigger.IsActive);
         });
     }
 
-    // You can still use the UIThreadTestMethod to remove the extra layer for the dispatcher as well:
-    [UIThreadTestMethod]
-    public async Task ComplexAsyncLoadUIExampleWithoutDispatcherTest()
+    [DataTestMethod]
+    [DataRow(399, 400, false)]
+    [DataRow(400, 400, true)]
+    public async Task ControlSizeMinWidthTriggerTest(double width, double height, bool expectedResult)
     {
-        var component = new CompareStateTrigger();
-        Assert.IsNotNull(component);
-        //Assert.IsFalse(component.IsLoaded);
+        await App.DispatcherQueue.EnqueueAsync(async () =>
+        {
+            Grid grid = CreateGrid(width, height);
+            await LoadTestContentAsync(grid);
+            var trigger = new ControlSizeTrigger();
 
-        //await LoadTestContentAsync(component);
+            trigger.TargetElement = grid;
+            trigger.MinWidth = 400;
 
-        //Assert.IsTrue(component.IsLoaded);
+            Assert.AreEqual(expectedResult, trigger.IsActive);
+        });
+    }
 
-        //await UnloadTestContentAsync(component);
+    [DataTestMethod]
+    [DataRow(450, 450, false)]
+    [DataRow(450, 449, true)]
+    public async Task ControlSizeMaxHeightTriggerTest(double width, double height, bool expectedResult)
+    {
+        await App.DispatcherQueue.EnqueueAsync(async () =>
+        {
+            Grid grid = CreateGrid(width, height);
+            await LoadTestContentAsync(grid);
+            var trigger = new ControlSizeTrigger();
 
-        //Assert.IsFalse(component.IsLoaded);
+            trigger.TargetElement = grid;
+            trigger.MaxHeight = 450;
+
+            Assert.AreEqual(expectedResult, trigger.IsActive);
+        });
+    }
+
+    [DataTestMethod]
+    [DataRow(450, 450, false)]
+    [DataRow(449, 450, true)]
+    public async Task ControlSizeMaxWidthTriggerTest(double width, double height, bool expectedResult)
+    {
+        await App.DispatcherQueue.EnqueueAsync(async () =>
+        {
+            Grid grid = CreateGrid(width, height);
+            await LoadTestContentAsync(grid);
+            var trigger = new ControlSizeTrigger();
+
+            trigger.TargetElement = grid;
+            trigger.MaxWidth = 450;
+
+            Assert.AreEqual(expectedResult, trigger.IsActive);
+        });
+    }
+
+    private Grid CreateGrid(double width, double height)
+    {
+        var grid = new Grid()
+        {
+            Height = height,
+            Width = width
+        };
+
+        return grid;
     }
 }

@@ -5,7 +5,7 @@
 using Windows.Networking.Connectivity;
 using Windows.System;
 
-namespace CommunityToolkit.WinUI.UI;
+namespace CommunityToolkit.WinUI;
 
 /// <summary>
 /// Trigger for switching when the network availability changes

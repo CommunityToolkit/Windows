@@ -94,12 +94,17 @@ namespace CommunityToolkit.WinUI;
                 {
                     if (v1 is Enum)
                     {
-                        v2 = Enum.Parse(v1.GetType(), v2.ToString());
-                    }
-                    else if (v2 is Enum)
+#pragma warning disable CS8604 // Possible null reference argument
+                    v2 = Enum.Parse(v1.GetType(), v2.ToString());
+#pragma warning restore CS8604 // Possible null reference argument.
+
+                }
+                else if (v2 is Enum)
                     {
-                        v1 = Enum.Parse(v2.GetType(), v1.ToString());
-                    }
+#pragma warning disable CS8604 // Possible null reference argument.
+                    v1 = Enum.Parse(v2.GetType(), v1.ToString());
+#pragma warning restore CS8604 // Possible null reference argument.
+                }
                     else if (v1 is IComparable)
                     {
                         v2 = Convert.ChangeType(v2, v1.GetType(), CultureInfo.InvariantCulture);
