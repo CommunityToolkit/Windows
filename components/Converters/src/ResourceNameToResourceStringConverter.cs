@@ -3,7 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 // TODO: Need to better understand how this works/maps on Uno between Uno.UI/Uno.WinUI,
-// This should be the equivelant code from Uno.WinUI from: https://github.com/unoplatform/Uno.WindowsCommunityToolkit/blob/uno/CommunityToolkit.WinUI.UI/Converters/ResourceNameToResourceStringConverter.cs
+// This should be the equivalent code from Uno.WinUI from: https://github.com/unoplatform/Uno.WindowsCommunityToolkit/blob/uno/CommunityToolkit.WinUI.UI/Converters/ResourceNameToResourceStringConverter.cs
 #if WINAPPSDK && !HAS_UNO
 using Microsoft.Windows.ApplicationModel.Resources;
 #else

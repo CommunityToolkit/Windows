@@ -2,24 +2,21 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
-using Microsoft.UI.Xaml.Media;
+namespace CommunityToolkit.WinUI;
 
-namespace CommunityToolkit.WinUI.UI
+/// <summary>
+/// Extension methods for <see cref="TranslateTransform"/>.
+/// </summary>
+public static class TranslateTransformExtensions
 {
     /// <summary>
-    /// Extension methods for <see cref="TranslateTransform"/>.
+    /// Gets the matrix that represents this transform.
+    /// Implements WPF's TranslateTransform.Value.
     /// </summary>
-    public static class TranslateTransformExtensions
+    /// <param name="transform">Extended TranslateTranform.</param>
+    /// <returns>Matrix representing transform.</returns>
+    public static Matrix GetMatrix(this TranslateTransform transform)
     {
-        /// <summary>
-        /// Gets the matrix that represents this transform.
-        /// Implements WPF's TranslateTransform.Value.
-        /// </summary>
-        /// <param name="transform">Extended TranslateTranform.</param>
-        /// <returns>Matrix representing transform.</returns>
-        public static Matrix GetMatrix(this TranslateTransform transform)
-        {
-            return Matrix.Identity.Translate(transform.X, transform.Y);
-        }
+        return Matrix.Identity.Translate(transform.X, transform.Y);
     }
 }

@@ -2,23 +2,23 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
-using System;
-using Microsoft.UI.Xaml.Markup;
+namespace CommunityToolkit.WinUI;
 
-namespace CommunityToolkit.WinUI.UI
+/// <summary>
+/// A markup extension that returns a collection of values of a specific <see langword="enum"/>
+/// </summary>
+[MarkupExtensionReturnType(ReturnType = typeof(Array))]
+public sealed class EnumValuesExtension : MarkupExtension
 {
     /// <summary>
-    /// A markup extension that returns a collection of values of a specific <see langword="enum"/>
+    /// Gets or sets the <see cref="global::System.Type"/> of the target <see langword="enum"/>
     /// </summary>
-    [MarkupExtensionReturnType(ReturnType = typeof(Array))]
-    public sealed class EnumValuesExtension : MarkupExtension
-    {
-        /// <summary>
-        /// Gets or sets the <see cref="global::System.Type"/> of the target <see langword="enum"/>
-        /// </summary>
-        public Type Type { get; set; }
+    public Type? Type { get; set; }
 
-        /// <inheritdoc/>
-        protected override object ProvideValue() => Enum.GetValues(Type);
+    /// <inheritdoc/>
+    protected override object ProvideValue()
+    {
+        // TODO: We should probably make a throw helper and throw here if type is null?
+        return Enum.GetValues(Type!);
     }
 }
