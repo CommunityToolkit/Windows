@@ -5,32 +5,31 @@
 using System;
 using System.Runtime.CompilerServices;
 
-namespace CommunityToolkit.WinUI.UI.Predicates
+namespace CommunityToolkit.WinUI.Predicates;
+
+/// <summary>
+/// An <see cref="IPredicate{T}"/> type matching items of a given type.
+/// </summary>
+internal readonly struct PredicateByType : IPredicate<object>
 {
     /// <summary>
-    /// An <see cref="IPredicate{T}"/> type matching items of a given type.
+    /// The type of element to match.
     /// </summary>
-    internal readonly struct PredicateByType : IPredicate<object>
+    private readonly Type type;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="PredicateByType"/> struct.
+    /// </summary>
+    /// <param name="type">The type of element to match.</param>
+    public PredicateByType(Type type)
     {
-        /// <summary>
-        /// The type of element to match.
-        /// </summary>
-        private readonly Type type;
+        this.type = type;
+    }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="PredicateByType"/> struct.
-        /// </summary>
-        /// <param name="type">The type of element to match.</param>
-        public PredicateByType(Type type)
-        {
-            this.type = type;
-        }
-
-        /// <inheritdoc/>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool Match(object element)
-        {
-            return element.GetType() == this.type;
-        }
+    /// <inheritdoc/>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public bool Match(object element)
+    {
+        return element.GetType() == this.type;
     }
 }

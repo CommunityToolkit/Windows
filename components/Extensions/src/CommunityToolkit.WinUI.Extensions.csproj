@@ -10,4 +10,7 @@
 
   <!-- Sets this up as a toolkit component's source project -->
   <Import Project="$(ToolingDirectory)\ToolkitComponent.SourceProject.props" />
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Common" Version="8.1.0" />
+  </ItemGroup>
 </Project>

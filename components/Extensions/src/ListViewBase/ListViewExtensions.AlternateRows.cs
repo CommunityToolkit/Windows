@@ -2,81 +2,70 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
-using System.Collections.Generic;
-using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Controls.Primitives;
-using Microsoft.UI.Xaml.Media;
-using Windows.Foundation.Collections;
 
-namespace CommunityToolkit.WinUI.UI
+namespace CommunityToolkit.WinUI;
+
+/// <summary>
+/// Provides attached dependency properties for the <see cref="ListViewBase"/>
+/// </summary>
+public static partial class ListViewExtensions
 {
+    private static Dictionary<IObservableVector<object>, ListViewBase> _itemsForList = new Dictionary<IObservableVector<object>, ListViewBase>();
+
     /// <summary>
-    /// Provides attached dependency properties for the <see cref="Microsoft.UI.Xaml.Controls.ListViewBase"/>
+    /// Attached <see cref="DependencyProperty"/> for binding a <see cref="Brush"/> as an alternate background color to a <see cref="ListViewBase"/>
     /// </summary>
-    public static partial class ListViewExtensions
+    public static readonly DependencyProperty AlternateColorProperty = DependencyProperty.RegisterAttached("AlternateColor", typeof(Brush), typeof(ListViewExtensions), new PropertyMetadata(null, OnAlternateColorPropertyChanged));
+
+    /// <summary>
+    /// Attached <see cref="DependencyProperty"/> for binding a <see cref="DataTemplate"/> as an alternate template to a <see cref="ListViewBase"/>
+    /// </summary>
+    public static readonly DependencyProperty AlternateItemTemplateProperty = DependencyProperty.RegisterAttached("AlternateItemTemplate", typeof(DataTemplate), typeof(ListViewExtensions), new PropertyMetadata(null, OnAlternateItemTemplatePropertyChanged));
+
+    /// <summary>
+    /// Gets the alternate <see cref="Brush"/> associated with the specified <see cref="ListViewBase"/>
+    /// </summary>
+    /// <param name="obj">The <see cref="ListViewBase"/> to get the associated <see cref="Brush"/> from</param>
+    /// <returns>The <see cref="Brush"/> associated with the <see cref="ListViewBase"/></returns>
+    public static Brush GetAlternateColor(ListViewBase obj)
     {
-        private static Dictionary<IObservableVector<object>, Microsoft.UI.Xaml.Controls.ListViewBase> _itemsForList = new Dictionary<IObservableVector<object>, Microsoft.UI.Xaml.Controls.ListViewBase>();
+        return (Brush)obj.GetValue(AlternateColorProperty);
+    }
 
-        /// <summary>
-        /// Attached <see cref="DependencyProperty"/> for binding a <see cref="Brush"/> as an alternate background color to a <see cref="Microsoft.UI.Xaml.Controls.ListViewBase"/>
-        /// </summary>
-        public static readonly DependencyProperty AlternateColorProperty = DependencyProperty.RegisterAttached("AlternateColor", typeof(Brush), typeof(ListViewExtensions), new PropertyMetadata(null, OnAlternateColorPropertyChanged));
+    /// <summary>
+    /// Sets the alternate <see cref="Brush"/> associated with the specified <see cref="DependencyObject"/>
+    /// </summary>
+    /// <param name="obj">The <see cref="ListViewBase"/> to associate the <see cref="Brush"/> with</param>
+    /// <param name="value">The <see cref="Brush"/> for binding to the <see cref="ListViewBase"/></param>
+    public static void SetAlternateColor(ListViewBase obj, Brush value)
+    {
+        obj.SetValue(AlternateColorProperty, value);
+    }
 
-        /// <summary>
-        /// Attached <see cref="DependencyProperty"/> for binding a <see cref="DataTemplate"/> as an alternate template to a <see cref="Microsoft.UI.Xaml.Controls.ListViewBase"/>
-        /// </summary>
-        public static readonly DependencyProperty AlternateItemTemplateProperty = DependencyProperty.RegisterAttached("AlternateItemTemplate", typeof(DataTemplate), typeof(ListViewExtensions), new PropertyMetadata(null, OnAlternateItemTemplatePropertyChanged));
+    /// <summary>
+    /// Gets the <see cref="DataTemplate"/> associated with the specified <see cref="ListViewBase"/>
+    /// </summary>
+    /// <param name="obj">The <see cref="ListViewBase"/> to get the associated <see cref="DataTemplate"/> from</param>
+    /// <returns>The <see cref="DataTemplate"/> associated with the <see cref="ListViewBase"/></returns>
+    public static DataTemplate GetAlternateItemTemplate(ListViewBase obj)
+    {
+        return (DataTemplate)obj.GetValue(AlternateItemTemplateProperty);
+    }
 
-        /// <summary>
-        /// Gets the alternate <see cref="Brush"/> associated with the specified <see cref="Microsoft.UI.Xaml.Controls.ListViewBase"/>
-        /// </summary>
-        /// <param name="obj">The <see cref="Microsoft.UI.Xaml.Controls.ListViewBase"/> to get the associated <see cref="Brush"/> from</param>
-        /// <returns>The <see cref="Brush"/> associated with the <see cref="Microsoft.UI.Xaml.Controls.ListViewBase"/></returns>
-        public static Brush GetAlternateColor(Microsoft.UI.Xaml.Controls.ListViewBase obj)
+    /// <summary>
+    /// Sets the <see cref="DataTemplate"/> associated with the specified <see cref="ListViewBase"/>
+    /// </summary>
+    /// <param name="obj">The <see cref="ListViewBase"/> to associate the <see cref="DataTemplate"/> with</param>
+    /// <param name="value">The <see cref="DataTemplate"/> for binding to the <see cref="ListViewBase"/></param>
+    public static void SetAlternateItemTemplate(ListViewBase obj, DataTemplate value)
+    {
+        obj.SetValue(AlternateItemTemplateProperty, value);
+    }
+
+    private static void OnAlternateColorPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+    {
+        if (sender is ListViewBase listViewBase)
         {
-            return (Brush)obj.GetValue(AlternateColorProperty);
-        }
-
-        /// <summary>
-        /// Sets the alternate <see cref="Brush"/> associated with the specified <see cref="DependencyObject"/>
-        /// </summary>
-        /// <param name="obj">The <see cref="Microsoft.UI.Xaml.Controls.ListViewBase"/> to associate the <see cref="Brush"/> with</param>
-        /// <param name="value">The <see cref="Brush"/> for binding to the <see cref="Microsoft.UI.Xaml.Controls.ListViewBase"/></param>
-        public static void SetAlternateColor(Microsoft.UI.Xaml.Controls.ListViewBase obj, Brush value)
-        {
-            obj.SetValue(AlternateColorProperty, value);
-        }
-
-        /// <summary>
-        /// Gets the <see cref="DataTemplate"/> associated with the specified <see cref="Microsoft.UI.Xaml.Controls.ListViewBase"/>
-        /// </summary>
-        /// <param name="obj">The <see cref="Microsoft.UI.Xaml.Controls.ListViewBase"/> to get the associated <see cref="DataTemplate"/> from</param>
-        /// <returns>The <see cref="DataTemplate"/> associated with the <see cref="Microsoft.UI.Xaml.Controls.ListViewBase"/></returns>
-        public static DataTemplate GetAlternateItemTemplate(Microsoft.UI.Xaml.Controls.ListViewBase obj)
-        {
-            return (DataTemplate)obj.GetValue(AlternateItemTemplateProperty);
-        }
-
-        /// <summary>
-        /// Sets the <see cref="DataTemplate"/> associated with the specified <see cref="Microsoft.UI.Xaml.Controls.ListViewBase"/>
-        /// </summary>
-        /// <param name="obj">The <see cref="Microsoft.UI.Xaml.Controls.ListViewBase"/> to associate the <see cref="DataTemplate"/> with</param>
-        /// <param name="value">The <see cref="DataTemplate"/> for binding to the <see cref="Microsoft.UI.Xaml.Controls.ListViewBase"/></param>
-        public static void SetAlternateItemTemplate(Microsoft.UI.Xaml.Controls.ListViewBase obj, DataTemplate value)
-        {
-            obj.SetValue(AlternateItemTemplateProperty, value);
-        }
-
-        private static void OnAlternateColorPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
-        {
-            Microsoft.UI.Xaml.Controls.ListViewBase listViewBase = sender as Microsoft.UI.Xaml.Controls.ListViewBase;
-
-            if (listViewBase == null)
-            {
-                return;
-            }
-
             listViewBase.ContainerContentChanging -= ColorContainerContentChanging;
             listViewBase.Items.VectorChanged -= ColorItemsVectorChanged;
             listViewBase.Unloaded -= OnListViewBaseUnloaded;
@@ -89,22 +78,18 @@ namespace CommunityToolkit.WinUI.UI
                 listViewBase.Unloaded += OnListViewBaseUnloaded;
             }
         }
+    }
 
-        private static void ColorContainerContentChanging(Microsoft.UI.Xaml.Controls.ListViewBase sender, ContainerContentChangingEventArgs args)
+    private static void ColorContainerContentChanging(ListViewBase sender, ContainerContentChangingEventArgs args)
+    {
+        var itemContainer = args.ItemContainer as Control;
+        SetItemContainerBackground(sender, itemContainer, args.ItemIndex);
+    }
+
+    private static void OnAlternateItemTemplatePropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+    {
+        if (sender is ListViewBase listViewBase)
         {
-            var itemContainer = args.ItemContainer as Control;
-            SetItemContainerBackground(sender, itemContainer, args.ItemIndex);
-        }
-
-        private static void OnAlternateItemTemplatePropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
-        {
-            Microsoft.UI.Xaml.Controls.ListViewBase listViewBase = sender as Microsoft.UI.Xaml.Controls.ListViewBase;
-
-            if (listViewBase == null)
-            {
-                return;
-            }
-
             listViewBase.ContainerContentChanging -= ItemTemplateContainerContentChanging;
             listViewBase.Unloaded -= OnListViewBaseUnloaded;
 
@@ -114,30 +99,24 @@ namespace CommunityToolkit.WinUI.UI
                 listViewBase.Unloaded += OnListViewBaseUnloaded;
             }
         }
+    }
 
-        private static void ItemTemplateContainerContentChanging(Microsoft.UI.Xaml.Controls.ListViewBase sender, ContainerContentChangingEventArgs args)
+    private static void ItemTemplateContainerContentChanging(ListViewBase sender, ContainerContentChangingEventArgs args)
+    {
+        if (args.ItemIndex % 2 == 0)
         {
-            var itemContainer = args.ItemContainer as SelectorItem;
-
-            if (args.ItemIndex % 2 == 0)
-            {
-                itemContainer.ContentTemplate = GetAlternateItemTemplate(sender);
-            }
-            else
-            {
-                itemContainer.ContentTemplate = sender.ItemTemplate;
-            }
+            args.ItemContainer.ContentTemplate = GetAlternateItemTemplate(sender);
         }
-
-        private static void OnItemContainerStretchDirectionPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+        else
         {
-            Microsoft.UI.Xaml.Controls.ListViewBase listViewBase = sender as Microsoft.UI.Xaml.Controls.ListViewBase;
+            args.ItemContainer.ContentTemplate = sender.ItemTemplate;
+        }
+    }
 
-            if (listViewBase == null)
-            {
-                return;
-            }
-
+    private static void OnItemContainerStretchDirectionPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+    {
+        if (sender is ListViewBase listViewBase)
+        {
             listViewBase.ContainerContentChanging -= ItemContainerStretchDirectionChanging;
             listViewBase.Unloaded -= OnListViewBaseUnloaded;
 
@@ -147,26 +126,27 @@ namespace CommunityToolkit.WinUI.UI
                 listViewBase.Unloaded += OnListViewBaseUnloaded;
             }
         }
+    }
 
-        private static void ItemContainerStretchDirectionChanging(Microsoft.UI.Xaml.Controls.ListViewBase sender, ContainerContentChangingEventArgs args)
+    private static void ItemContainerStretchDirectionChanging(ListViewBase sender, ContainerContentChangingEventArgs args)
+    {
+        var stretchDirection = GetItemContainerStretchDirection(sender);
+
+        if (stretchDirection == ItemContainerStretchDirection.Vertical || stretchDirection == ItemContainerStretchDirection.Both)
         {
-            var itemContainer = args.ItemContainer as SelectorItem;
-            var stretchDirection = GetItemContainerStretchDirection(sender);
-
-            if (stretchDirection == ItemContainerStretchDirection.Vertical || stretchDirection == ItemContainerStretchDirection.Both)
-            {
-                itemContainer.VerticalContentAlignment = VerticalAlignment.Stretch;
-            }
-
-            if (stretchDirection == ItemContainerStretchDirection.Horizontal || stretchDirection == ItemContainerStretchDirection.Both)
-            {
-                itemContainer.HorizontalContentAlignment = HorizontalAlignment.Stretch;
-            }
+            args.ItemContainer.VerticalContentAlignment = VerticalAlignment.Stretch;
         }
 
-        private static void OnListViewBaseUnloaded(object sender, RoutedEventArgs e)
+        if (stretchDirection == ItemContainerStretchDirection.Horizontal || stretchDirection == ItemContainerStretchDirection.Both)
         {
-            Microsoft.UI.Xaml.Controls.ListViewBase listViewBase = sender as Microsoft.UI.Xaml.Controls.ListViewBase;
+            args.ItemContainer.HorizontalContentAlignment = HorizontalAlignment.Stretch;
+        }
+    }
+
+    private static void OnListViewBaseUnloaded(object sender, RoutedEventArgs e)
+    {
+        if (sender is ListViewBase listViewBase)
+        {
             _itemsForList.Remove(listViewBase.Items);
 
             listViewBase.ContainerContentChanging -= ItemContainerStretchDirectionChanging;
@@ -175,47 +155,47 @@ namespace CommunityToolkit.WinUI.UI
             listViewBase.Items.VectorChanged -= ColorItemsVectorChanged;
             listViewBase.Unloaded -= OnListViewBaseUnloaded;
         }
+    }
 
-        private static void ColorItemsVectorChanged(IObservableVector<object> sender, IVectorChangedEventArgs args)
+    private static void ColorItemsVectorChanged(IObservableVector<object> sender, IVectorChangedEventArgs args)
+    {
+        // If the index is at the end we can ignore
+        if (args.Index == (sender.Count - 1))
         {
-            // If the index is at the end we can ignore
-            if (args.Index == (sender.Count - 1))
+            return;
+        }
+
+        // Only need to handle Inserted and Removed because we'll handle everything else in the
+        // ColorContainerContentChanging method
+        if ((args.CollectionChange == CollectionChange.ItemInserted) || (args.CollectionChange == CollectionChange.ItemRemoved))
+        {
+            _itemsForList.TryGetValue(sender, out ListViewBase? listViewBase);
+            if (listViewBase == null)
             {
                 return;
             }
 
-            // Only need to handle Inserted and Removed because we'll handle everything else in the
-            // ColorContainerContentChanging method
-            if ((args.CollectionChange == CollectionChange.ItemInserted) || (args.CollectionChange == CollectionChange.ItemRemoved))
+            int index = (int)args.Index;
+            for (int i = index; i < sender.Count; i++)
             {
-                _itemsForList.TryGetValue(sender, out Microsoft.UI.Xaml.Controls.ListViewBase listViewBase);
-                if (listViewBase == null)
+                var itemContainer = listViewBase.ContainerFromIndex(i) as Control;
+                if (itemContainer != null)
                 {
-                    return;
-                }
-
-                int index = (int)args.Index;
-                for (int i = index; i < sender.Count; i++)
-                {
-                    var itemContainer = listViewBase.ContainerFromIndex(i) as Control;
-                    if (itemContainer != null)
-                    {
-                        SetItemContainerBackground(listViewBase, itemContainer, i);
-                    }
+                    SetItemContainerBackground(listViewBase, itemContainer, i);
                 }
             }
         }
+    }
 
-        private static void SetItemContainerBackground(Microsoft.UI.Xaml.Controls.ListViewBase sender, Control itemContainer, int itemIndex)
+    private static void SetItemContainerBackground(ListViewBase sender, Control itemContainer, int itemIndex)
+    {
+        if (itemIndex % 2 == 0)
         {
-            if (itemIndex % 2 == 0)
-            {
-                itemContainer.Background = GetAlternateColor(sender);
-            }
-            else
-            {
-                itemContainer.Background = null;
-            }
+            itemContainer.Background = GetAlternateColor(sender);
+        }
+        else
+        {
+            itemContainer.Background = null;
         }
     }
 }

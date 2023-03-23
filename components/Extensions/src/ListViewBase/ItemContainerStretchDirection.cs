@@ -2,26 +2,25 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
-namespace CommunityToolkit.WinUI.UI
+namespace CommunityToolkit.WinUI;
+
+/// <summary>
+/// Stretch direction
+/// </summary>
+public enum ItemContainerStretchDirection
 {
     /// <summary>
-    /// Stretch direction
+    /// Horizontal stretch
     /// </summary>
-    public enum ItemContainerStretchDirection
-    {
-        /// <summary>
-        /// Horizontal stretch
-        /// </summary>
-        Horizontal,
+    Horizontal,
 
-        /// <summary>
-        /// Vertical stretch
-        /// </summary>
-        Vertical,
+    /// <summary>
+    /// Vertical stretch
+    /// </summary>
+    Vertical,
 
-        /// <summary>
-        /// Horizontal and Vertical stretch
-        /// </summary>
-        Both
-    }
+    /// <summary>
+    /// Horizontal and Vertical stretch
+    /// </summary>
+    Both
 }

@@ -13,6 +13,22 @@
     <Compile Include="$(MSBuildThisFileDirectory)ExampleExtensionsTestPage.xaml.cs">
       <DependentUpon>ExampleExtensionsTestPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\ObjectWithNullableBoolProperty.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Test_BitmapIconExtensionMarkupExtension.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Test_DispatcherQueueExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Test_DispatcherQueueTimerExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Test_EnumValuesExtension.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Test_FontIconExtensionMarkupExtension.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Test_FontIconSourceExtensionMarkupExtension.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Test_LogicalTreeExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Test_NullableBoolMarkupExtension.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Test_PointExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Test_RectExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Test_SizeExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Test_StringExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Test_UIElementExtensions_Coordinates.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Test_VisualExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Test_VisualTreeExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="$(MSBuildThisFileDirectory)ExampleExtensionsTestPage.xaml">

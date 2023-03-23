@@ -2,66 +2,65 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
-namespace CommunityToolkit.WinUI.UI
+namespace CommunityToolkit.WinUI;
+
+/// <inheritdoc cref="TextBoxExtensions"/>
+public static partial class TextBoxExtensions
 {
-    /// <inheritdoc cref="TextBoxExtensions"/>
-    public static partial class TextBoxExtensions
+    /// <summary>
+    /// Regex validation mode.
+    /// </summary>
+    public enum ValidationMode
     {
         /// <summary>
-        /// Regex validation mode.
+        /// Update <see cref="IsValidProperty"/> with validation result at text changed.
         /// </summary>
-        public enum ValidationMode
-        {
-            /// <summary>
-            /// Update <see cref="IsValidProperty"/> with validation result at text changed.
-            /// </summary>
-            Normal,
-
-            /// <summary>
-            /// Update <see cref="IsValidProperty"/> with validation result and in case the textbox is not valid clear its value when the TextBox lose focus
-            /// </summary>
-            Forced,
-
-            /// <summary>
-            /// Update <see cref="IsValidProperty"/> with validation result at text changed and clear the newest character at input which is not valid
-            /// </summary>
-            Dynamic
-        }
+        Normal,
 
         /// <summary>
-        /// Specify the type of validation required
+        /// Update <see cref="IsValidProperty"/> with validation result and in case the textbox is not valid clear its value when the TextBox lose focus
         /// </summary>
-        public enum ValidationType
-        {
-            /// <summary>
-            /// The default validation that required property Regex to be setted
-            /// </summary>
-            Custom,
+        Forced,
 
-            /// <summary>
-            /// Email validation
-            /// </summary>
-            Email,
+        /// <summary>
+        /// Update <see cref="IsValidProperty"/> with validation result at text changed and clear the newest character at input which is not valid
+        /// </summary>
+        Dynamic
+    }
 
-            /// <summary>
-            /// Number validation
-            /// </summary>
-            Number,
+    /// <summary>
+    /// Specify the type of validation required
+    /// </summary>
+    public enum ValidationType
+    {
+        /// <summary>
+        /// The default validation that required property Regex to be setted
+        /// </summary>
+        Custom,
 
-            /// <summary>
-            /// Decimal validation
-            /// </summary>
-            Decimal,
+        /// <summary>
+        /// Email validation
+        /// </summary>
+        Email,
 
-            /// <summary>
-            /// Text only validation
-            /// </summary>
-            Characters,
+        /// <summary>
+        /// Number validation
+        /// </summary>
+        Number,
 
-            /// <summary>
-            /// Phone number validation
-            /// </summary>
-            PhoneNumber
-        }
+        /// <summary>
+        /// Decimal validation
+        /// </summary>
+        Decimal,
+
+        /// <summary>
+        /// Text only validation
+        /// </summary>
+        Characters,
+
+        /// <summary>
+        /// Phone number validation
+        /// </summary>
+        PhoneNumber
     }
 }
