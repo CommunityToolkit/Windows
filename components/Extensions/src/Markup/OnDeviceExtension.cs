@@ -4,6 +4,10 @@
 
 using Windows.System.Profile;
 
+// TODO: For Uno we probably want to extend this with extra properties the light up on WASM/iOS/MacOS/Android/etc...?
+//       Or is this just XAML conditional Markup that Uno provides? https://platform.uno/docs/articles/platform-specific-xaml.html
+// TODO: Do we want a Trigger version of this as well?
+
 namespace CommunityToolkit.WinUI;
 
 /// <summary>

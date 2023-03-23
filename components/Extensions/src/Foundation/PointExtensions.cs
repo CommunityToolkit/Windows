@@ -67,4 +67,8 @@ public static class PointExtensions
     {
         return new Vector3(point.ToVector2(), 0f);
     }
+
+    // Note: Uno fork had Vector2 helpers here and in SizeExtensions, but should be in Uno main now:
+    // See https://github.com/unoplatform/uno/blob/master/src/Uno.UI/Extensions/VectorExtensions.cs
+    // As from: https://learn.microsoft.com/dotnet/api/system.numerics.vectorextensions.tovector2
 }

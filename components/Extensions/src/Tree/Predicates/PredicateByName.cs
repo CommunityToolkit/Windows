@@ -37,6 +37,6 @@ internal readonly struct PredicateByName : IPredicate<FrameworkElement>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public bool Match(FrameworkElement element)
     {
-        return element.Name.Equals(this.name, this.comparisonType);
+        return element.Name?.Equals(this.name, this.comparisonType) ?? false;
     }
 }

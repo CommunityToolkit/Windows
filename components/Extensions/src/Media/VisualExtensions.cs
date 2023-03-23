@@ -20,6 +20,8 @@ namespace CommunityToolkit.WinUI;
 /// </summary>
 public static class VisualExtensions
 {
+    // TODO: Investigate Uno Guard https://github.com/unoplatform/Uno.WindowsCommunityToolkit/blob/uno/CommunityToolkit.WinUI.UI/Extensions/VisualExtensions.cs#L20
+
     /// <summary>
     /// Retrieves the <see cref="Visual"/> object of a <see cref="UIElement"/>
     /// </summary>
