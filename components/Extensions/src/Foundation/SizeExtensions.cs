@@ -53,4 +53,8 @@ public static class SizeExtensions
     {
         return new Rect(point, size);
     }
+
+    // Note: Uno fork had Vector2 helpers here and in PointExtensions, but should be in Uno main now:
+    // See https://github.com/unoplatform/uno/blob/master/src/Uno.UI/Extensions/VectorExtensions.cs
+    // As from: https://learn.microsoft.com/dotnet/api/system.numerics.vectorextensions.tovector2
 }

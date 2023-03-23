@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 // TODO: Need to better understand how this works/maps on Uno between Uno.UI/Uno.WinUI
+// Differences to understand with https://github.com/unoplatform/Uno.WindowsCommunityToolkit/blob/uno/CommunityToolkit.WinUI/Extensions/StringExtensions.cs
 #if WINAPPSDK && !HAS_UNO
 using Microsoft.Windows.ApplicationModel.Resources;
 #else
@@ -62,7 +63,7 @@ public static partial class StringExtensions
     }
 #endif
 
-#if WINAPPSDK
+#if WINAPPSDK && !HAS_UNO
     //// Note: WindowsAppSDK doesn't seem to have the notion of a UIContext, so that's why we have a different signature here.
 
     /// <summary>
@@ -141,10 +142,14 @@ public static partial class StringExtensions
 
         if (string.IsNullOrEmpty(result))
         {
+#if HAS_UNO
+            result = new ResourceLoader(resourcePath).GetString(resourceKey);
+#else
             result = ResourceLoader.GetForViewIndependentUse(resourcePath).GetString(resourceKey);
+#endif
         }
 #endif
 
-        return result;
+            return result;
     }
 }
