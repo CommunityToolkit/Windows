@@ -2,19 +2,32 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
+#if WINAPPSDK
+using CommunityToolkit.Tests;
+using CommunityToolkit.Tooling.TestGen;
+using DispatcherQueue = Microsoft.UI.Dispatching.DispatcherQueue;
+using DispatcherQueuePriority = Microsoft.UI.Dispatching.DispatcherQueuePriority;
+using DispatcherQueueTimer = Microsoft.UI.Dispatching.DispatcherQueueTimer;
+#else
+using Windows.Foundation.Metadata;
+using DispatcherQueue = Windows.System.DispatcherQueue;
+using DispatcherQueuePriority = Windows.System.DispatcherQueuePriority;
+using DispatcherQueueTimer = Windows.System.DispatcherQueueTimer;
+#endif
+
 namespace ExtensionsComponent.Tests;
 
 [TestClass]
-public class Test_DispatcherQueueTimerExtensions
+public class DispatcherQueueTimerExtensionTests
 {
     [TestCategory("DispatcherQueueTimerExtensions")]
     [TestMethod]
     public async Task Test_DispatcherQueueTimerExtensions_Debounce()
     {
-        var debounceTimer = App.DispatcherQueue.CreateTimer();
+        var debounceTimer = DispatcherQueue.GetForCurrentThread().CreateTimer();
 
         var triggeredCount = 0;
-        string triggeredValue = null;
+        string? triggeredValue = null;
 
         var value = "He";
         debounceTimer.Debounce(
