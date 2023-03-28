@@ -9,14 +9,13 @@
     <Import_RootNamespace>ExtensionsExperiment.Tests</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)ExampleExtensionsTestClass.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ExampleExtensionsTestPage.xaml.cs">
-      <DependentUpon>ExampleExtensionsTestPage.xaml</DependentUpon>
+    <Compile Include="$(MSBuildThisFileDirectory)BitmapIconExtensionTestPage.xaml.cs">
+      <DependentUpon>BitmapIconExtensionTestPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\ObjectWithNullableBoolProperty.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Test_BitmapIconExtensionMarkupExtension.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Test_DispatcherQueueExtensions.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Test_DispatcherQueueTimerExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BitmapIconExtensionTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DispatcherQueueExtensionTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DispatcherQueueTimerExtensionTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Test_EnumValuesExtension.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Test_FontIconExtensionMarkupExtension.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Test_FontIconSourceExtensionMarkupExtension.cs" />
@@ -31,7 +30,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Test_VisualTreeExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="$(MSBuildThisFileDirectory)ExampleExtensionsTestPage.xaml">
+    <Page Include="$(MSBuildThisFileDirectory)BitmapIconExtensionTestPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

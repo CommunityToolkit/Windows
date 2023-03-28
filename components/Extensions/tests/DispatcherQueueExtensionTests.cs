@@ -2,10 +2,21 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
+#if WINAPPSDK
+using CommunityToolkit.Tests;
+using CommunityToolkit.Tooling.TestGen;
+using DispatcherQueue = Microsoft.UI.Dispatching.DispatcherQueue;
+using DispatcherQueuePriority = Microsoft.UI.Dispatching.DispatcherQueuePriority;
+#else
+using Windows.Foundation.Metadata;
+using DispatcherQueue = Windows.System.DispatcherQueue;
+using DispatcherQueuePriority = Windows.System.DispatcherQueuePriority;
+#endif
+
 namespace ExtensionsComponent.Tests;
 
 [TestClass]
-public class Test_DispatcherQueueExtensions
+public partial class DispatcherQueueExtensionTests : VisualUITestBase
 {
     private const int TIME_OUT = 5000;
 
@@ -180,7 +191,7 @@ public class Test_DispatcherQueueExtensions
     [TestMethod]
     public async Task Test_DispatcherQueueHelper_FuncOfTask_Ok_NonUIThread()
     {
-        var taskSource = new TaskCompletionSource<object>();
+        var taskSource = new TaskCompletionSource<object?>();
         await App.DispatcherQueue.EnqueueAsync(
             async () =>
             {
@@ -250,7 +261,7 @@ public class Test_DispatcherQueueExtensions
     [TestMethod]
     public async Task Test_DispatcherQueueHelper_FuncOfTaskOfT_Ok_NonUIThread()
     {
-        var taskSource = new TaskCompletionSource<object>();
+        var taskSource = new TaskCompletionSource<object?>();
         await App.DispatcherQueue.EnqueueAsync(
             async () =>
             {
