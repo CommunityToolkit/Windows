@@ -8,7 +8,5 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
 
-    <StackPanel Spacing="16">
-        </StackPanel>
-    </StackPanel>
+    <StackPanel Spacing="16" />
 </Page>
