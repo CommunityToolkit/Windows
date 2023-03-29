@@ -3,6 +3,12 @@ title: NullableBoolExtension
 author: michael-hawker
 description: The NullableBoolExtension type allows developers to specify default values in XAML for nullable bool dependency properties.
 keywords: windows 10, uwp, uwp community toolkit, uwp toolkit, nullable bool, dependency property, markup extension, XAML, markup 
+dev_langs:
+  - csharp
+category: Extensions
+subcategory: Media
+discussion-id: 0
+issue-id: 0
 ---
 
 # NullableBoolExtension

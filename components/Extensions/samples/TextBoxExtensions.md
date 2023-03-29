@@ -3,6 +3,12 @@ title: TextBoxExtensions
 author: Sergio0694
 description: The TextBoxExtensions class provides extensions and additional functionality for the TextBox control.
 keywords: windows 10, uwp, windows community toolkit, uwp community toolkit, uwp toolkit, TextBoxMask, XAML
+dev_langs:
+  - csharp
+category: Extensions
+subcategory: Input
+discussion-id: 0
+issue-id: 0
 ---
 
 # TextBoxExtensions

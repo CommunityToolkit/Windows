@@ -3,6 +3,12 @@ title: EnumValuesExtensions
 author: Sergio0694
 description: A markup extension that returns a collection of values of a specific enum type.
 keywords: windows 10, uwp, uwp community toolkit, uwp toolkit, markup extension, XAML, markup, enum
+dev_langs:
+  - csharp
+category: Extensions
+subcategory: Markup
+discussion-id: 0
+issue-id: 0
 ---
 
 # EnumValuesExtensions

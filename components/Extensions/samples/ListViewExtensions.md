@@ -3,6 +3,12 @@ title: ListViewExtensions
 author: nmetulev
 description: ListViewExtensions extensions provide a lightweight way to extend every control that inherits the ListViewBase class with attached properties.
 keywords: windows 10, uwp, windows community toolkit, uwp community toolkit, uwp toolkit, ListViewBase, extensions
+dev_langs:
+  - csharp
+category: Extensions
+subcategory: Layout
+discussion-id: 0
+issue-id: 0
 ---
 
 # ListViewExtensions

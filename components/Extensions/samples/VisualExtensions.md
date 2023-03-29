@@ -3,6 +3,12 @@ title: Composition Visual Extensions
 author: nmetulev
 description: The Composition Visual Attached Properties Extension allow Composition Visual Properties to be modified directly in XAML
 keywords: windows 10, uwp, windows community toolkit, uwp community toolkit, uwp toolkit, Visual, composition, xaml, attached property
+dev_langs:
+  - csharp
+category: Extensions
+subcategory: Layout
+discussion-id: 0
+issue-id: 0
 ---
 
 # Composition Visual Attached Properties Extension

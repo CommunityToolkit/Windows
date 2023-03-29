@@ -3,6 +3,12 @@ title: FontIcon, FontIconSource, BitmapIcon markup extensions
 author: sergio0694
 description: The FontIcon, FontIconSource and BitmapIcon markup extensions allow developers to easily declare these types of icons directly from XAML in a compact manner.
 keywords: windows 10, uwp, uwp community toolkit, uwp toolkit, nullable bool, dependency property, markup extension, XAML, markup
+dev_langs:
+  - csharp
+category: Extensions
+subcategory: Markup
+discussion-id: 0
+issue-id: 0
 ---
 
 # IconMarkupExtensions

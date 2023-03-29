@@ -3,6 +3,12 @@ title: ScrollViewerExtensions
 author: ST-Apps
 description: ScrollViewerExtensions type provides a simple way to manage Margin for any ScrollBar inside any container.
 keywords: windows 10, uwp, windows community toolkit, uwp community toolkit, uwp toolkit, ScrollViewer, extensions
+dev_langs:
+  - csharp
+category: Extensions
+subcategory: Layout
+discussion-id: 0
+issue-id: 0
 ---
 
 # ScrollViewerExtensions
