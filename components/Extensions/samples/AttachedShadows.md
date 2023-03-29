@@ -5,6 +5,10 @@ description: Attached Shadows allow you to easily create shadow effects on eleme
 keywords: windows 10, uwp, windows community toolkit, uwp community toolkit, uwp toolkit, shadow, shadows, dropshadow, dropshadowpanel, attachedshadow, attacheddropshadow, attachedcardshadow
 dev_langs:
   - csharp
+category: Extensions
+subcategory: Media
+discussion-id: 0
+issue-id: 0
 ---
 
 # Attached Shadows

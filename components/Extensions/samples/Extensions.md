@@ -5,8 +5,8 @@ description: TODO: Your experiment's description here
 keywords: Extensions, Control, Layout
 dev_langs:
   - csharp
-category: Controls
-subcategory: Layout
+category: Extensions
+subcategory: None
 discussion-id: 0
 issue-id: 0
 ---

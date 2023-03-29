@@ -5,6 +5,10 @@ description: Helpers for executing code on a specific UI thread through a Dispat
 keywords: windows 10, uwp, windows community toolkit, uwp community toolkit, uwp toolkit, extensions, winui3, xaml islands, dispatcher, dispatcherqueue, DispatcherHelper, DispatcherQueueExtensions
 dev_langs:
   - csharp
+category: Extensions
+subcategory: None
+discussion-id: 0
+issue-id: 0
 ---
 
 # DispatcherQueueExtensions

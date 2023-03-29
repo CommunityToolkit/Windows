@@ -3,6 +3,12 @@ title: Array Extensions
 author: michael-hawker
 description: Learn about array extension methods from the community toolkit. See code examples and view requirements.
 keywords: windows 10, uwp, uwp community toolkit, uwp toolkit, Extensions, array
+dev_langs:
+  - csharp
+category: Extensions
+subcategory: Math
+discussion-id: 0
+issue-id: 0
 ---
 
 # Array Extensions

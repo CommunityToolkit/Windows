@@ -5,6 +5,10 @@ description: Learn about Matrix extensions, which provide methods to transform a
 keywords: windows 10, uwp, windows community toolkit, uwp community toolkit, uwp toolkit, Extensions, matrix
 dev_langs:
   - csharp
+category: Extensions
+subcategory: Math
+discussion-id: 0
+issue-id: 0
 ---
 
 # Matrix Extensions

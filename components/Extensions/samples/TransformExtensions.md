@@ -5,6 +5,10 @@ description: Learn about Transform extensions. Transform extensions provide the 
 keywords: windows 10, uwp, windows community toolkit, uwp community toolkit, uwp toolkit, Extensions, matrix, transform, rotate, skew, scale, RotateTransform, Value, ScaleTransform, SkewTransform, TranslateTransform
 dev_langs:
   - csharp
+category: Extensions
+subcategory: Media
+discussion-id: 0
+issue-id: 0
 ---
 
 # Transform Extensions

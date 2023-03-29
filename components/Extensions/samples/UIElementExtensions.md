@@ -3,6 +3,12 @@ title: UIElementExtensions
 author: vgromfeld
 description: UIElementExtensions provides a simple way to extend the UIElement class
 keywords: windows 10, uwp, windows community toolkit, uwp community toolkit, uwp toolkit, UIElement, extensions
+dev_langs:
+  - csharp
+category: Extensions
+subcategory: Layout
+discussion-id: 0
+issue-id: 0
 ---
 
 # UIElementExtensions

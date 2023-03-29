@@ -4,6 +4,12 @@ author: avknaidu
 description: Learn about string extension methods from the community toolkit. See code examples, requirements, and API information.
 
 keywords: windows 10, uwp, windows community toolkit, uwp community toolkit, uwp toolkit, Extensions, string
+dev_langs:
+  - csharp
+category: Extensions
+subcategory: Input
+discussion-id: 0
+issue-id: 0
 ---
 
 # String Extensions
