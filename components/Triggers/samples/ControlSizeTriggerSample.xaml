@@ -14,7 +14,7 @@
                 <VisualState>
                     <VisualState.StateTriggers>
                         <triggers:ControlSizeTrigger MinWidth="400"
-                                                     MaxWidth="500"
+                                                     MaxWidth="501"
                                                      TargetElement="{Binding ElementName=ParentGrid}" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
