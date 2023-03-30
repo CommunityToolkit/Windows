@@ -96,10 +96,12 @@ public class IsEqualStateTrigger : StateTriggerBase
 #pragma warning disable CS8603 // Possible null reference return.
         return value switch
             {
+#if !HAS_UNO
                 string str => Enum.TryParse(enumType, str, out var e) ? e : null,
                 int or uint or byte or sbyte or long or ulong or short or ushort
                     => Enum.ToObject(enumType, value),
                 _ => null
+#endif
             };
 #pragma warning restore CS8603 // Possible null reference return.
     }
