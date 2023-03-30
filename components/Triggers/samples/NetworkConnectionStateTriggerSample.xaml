@@ -10,7 +10,7 @@
 
     <Grid>
         <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup >
+            <VisualStateGroup>
                 <VisualState x:Name="connected">
                     <VisualState.StateTriggers>
                         <triggers:NetworkConnectionStateTrigger ConnectionState="Connected" />
@@ -29,7 +29,6 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-
         <TextBlock x:Name="connectionStatus" />
     </Grid>
 </Page>

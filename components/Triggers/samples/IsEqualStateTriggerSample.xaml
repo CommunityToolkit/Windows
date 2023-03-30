@@ -10,21 +10,23 @@
 
     <Grid>
         <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup >
+            <VisualStateGroup>
                 <VisualState x:Name="checkstate">
                     <VisualState.StateTriggers>
-                        <!--Checkbox is null when indeterminate-->
-                        <triggers:IsEqualStateTrigger Value="{Binding IsChecked, ElementName=checkbox, Mode=OneWay}" To="{x:Null}" />
+                        <!--  Checkbox is null when indeterminate  -->
+                        <triggers:IsEqualStateTrigger Value="{Binding IsChecked, ElementName=checkbox, Mode=OneWay}"
+                                                      To="{x:Null}" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="checkStatus.Text" Value="Checkbox value is indeterminate" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
-            <VisualStateGroup >
+            <VisualStateGroup>
                 <VisualState x:Name="sliderstate">
                     <VisualState.StateTriggers>
-                        <triggers:IsEqualStateTrigger Value="{Binding Value, ElementName=slider, Mode=OneWay}" To="0" />
+                        <triggers:IsEqualStateTrigger Value="{Binding Value, ElementName=slider, Mode=OneWay}"
+                                                      To="0" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="sliderStatus.Text" Value="Slider value is 0" />
@@ -34,10 +36,18 @@
         </VisualStateManager.VisualStateGroups>
 
         <StackPanel MaxWidth="400">
-            <TextBlock x:Name="checkStatus" Text="Checkbox value is not indeterminate" HorizontalAlignment="Center"  />
-            <CheckBox Content="Check me" x:Name="checkbox" IsChecked="True" IsThreeState="True" />
-            <Slider x:Name="slider" Minimum="0" Maximum="5" />
-            <TextBlock x:Name="sliderStatus" Text="Slider value is not 0" />
+            <TextBlock x:Name="checkStatus"
+                       HorizontalAlignment="Center"
+                       Text="Checkbox value is not indeterminate" />
+            <CheckBox x:Name="checkbox"
+                      Content="Check me"
+                      IsChecked="True"
+                      IsThreeState="True" />
+            <Slider x:Name="slider"
+                    Maximum="5"
+                    Minimum="0" />
+            <TextBlock x:Name="sliderStatus"
+                       Text="Slider value is not 0" />
         </StackPanel>
     </Grid>
 </Page>

@@ -10,7 +10,7 @@
 
     <Grid>
         <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup >
+            <VisualStateGroup>
                 <VisualState x:Name="fullScreen">
                     <VisualState.StateTriggers>
                         <triggers:FullScreenModeStateTrigger IsFullScreen="true" />
@@ -31,9 +31,10 @@
         </VisualStateManager.VisualStateGroups>
         <StackPanel>
             <TextBlock x:Name="fullScreenModeStatus"
-              HorizontalAlignment="Center"
-				      VerticalAlignment="Center" />
-            <Button Content="Toggle full screen"  Click="FullScreen_Click"/>
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center" />
+            <Button Click="FullScreen_Click"
+                    Content="Toggle full screen" />
         </StackPanel>
     </Grid>
 </Page>
