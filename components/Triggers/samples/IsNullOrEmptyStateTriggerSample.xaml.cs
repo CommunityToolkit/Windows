@@ -13,4 +13,49 @@ public sealed partial class IsNullOrEmptyStateTriggerSample : Page
     {
         this.InitializeComponent();
     }
+
+    public void OnXamlRendered(FrameworkElement control)
+    {
+        if (_addButton != null)
+        {
+            _addButton.Click -= this.AddButton_Click;
+        }
+
+        if (control.FindDescendant("AddButton") is Button btn)
+        {
+            _addButton = btn;
+
+            _addButton.Click += this.AddButton_Click;
+        }
+
+        if (_removeButton != null)
+        {
+            _removeButton.Click -= this.RemoveButton_Click;
+        }
+
+        if (control.FindDescendant("RemoveButton") is Button btn2)
+        {
+            _removeButton = btn2;
+
+            _removeButton.Click += this.RemoveButton_Click;
+        }
+
+        _listBox = control.FindDescendant("OurList") as ListBox;
+    }
+
+    private void AddButton_Click(object sender, RoutedEventArgs e)
+    {
+        if (OurList != null)
+        {
+            OurList.Items.Add("Item");
+        }
+    }
+
+    private void RemoveButton_Click(object sender, RoutedEventArgs e)
+    {
+        if (OurList != null)
+        {
+            OurList.Items.RemoveAt(0);
+        }
+    }
 }

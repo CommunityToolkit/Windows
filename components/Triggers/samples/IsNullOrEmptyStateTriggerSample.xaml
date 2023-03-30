@@ -9,13 +9,13 @@
       mc:Ignorable="d">
 
     <Grid>
-        <!--<VisualStateManager.VisualStateGroups>
+        <VisualStateManager.VisualStateGroups>
 
             <VisualStateGroup x:Name="TextBoxStates">
                 <VisualState x:Name="TextBoxNotEmptyState" />
                 <VisualState x:Name="TextBoxEmptyState">
                     <VisualState.StateTriggers>
-                        <triggers:IsNullOrEmptyStateTrigger Value="{Binding Text, ElementName=OurTextBox, Mode=OneWay}"/>
+                        <triggers:IsNullOrEmptyStateTrigger Value="{Binding Text, ElementName=OurTextBox, Mode=OneWay}" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="OurTextBox.BorderBrush" Value="Red" />
@@ -27,7 +27,7 @@
                 <VisualState x:Name="ListNotEmptyState" />
                 <VisualState x:Name="ListEmptyState">
                     <VisualState.StateTriggers>
-                        <triggers:IsNullOrEmptyStateTrigger Value="{Binding Items, ElementName=OurList, Mode=OneWay}"/>
+                        <triggers:IsNullOrEmptyStateTrigger Value="{Binding Items, ElementName=OurList, Mode=OneWay}" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="RemoveButton.IsEnabled" Value="False" />
@@ -37,20 +37,37 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
 
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+        <StackPanel HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
             <TextBlock Text="The TextBox below will warn if it is empty." />
 
-            <StackPanel Orientation="Horizontal" Margin="0 0 0 20">
-                <TextBox x:Name="OurTextBox" Text="" Width="200" />
-                <TextBlock x:Name="OurTextBoxError" Text="* Required" Foreground="Red" Margin="10 0 0 0" Visibility="Collapsed" VerticalAlignment="Center" />
+            <StackPanel Margin="0,0,0,20"
+                        Orientation="Horizontal">
+                <TextBox x:Name="OurTextBox"
+                         Width="200"
+                         Text="" />
+                <TextBlock x:Name="OurTextBoxError"
+                           Margin="10,0,0,0"
+                           VerticalAlignment="Center"
+                           Foreground="Red"
+                           Text="* Required"
+                           Visibility="Collapsed" />
             </StackPanel>
 
             <StackPanel Orientation="Horizontal">
-                <Button x:Name="AddButton" Content="Add" Margin="0 0 10 0"/>
-                <Button x:Name="RemoveButton" Content="Remove"/>
+                <Button x:Name="AddButton"
+                        Margin="0,0,10,0"
+                        Click="AddButton_Click"
+                        Content="Add" />
+                <Button x:Name="RemoveButton"
+                        Click="RemoveButton_Click"
+                        Content="Remove" />
             </StackPanel>
-            <TextBlock x:Name="ListEmptyMessage" Text="List is empty, add some items" Visibility="Collapsed"/>
-            <ListBox x:Name="OurList" HorizontalAlignment="Left">
+            <TextBlock x:Name="ListEmptyMessage"
+                       Text="List is empty, add some items"
+                       Visibility="Collapsed" />
+            <ListBox x:Name="OurList"
+                     HorizontalAlignment="Left">
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel Orientation="Horizontal" />
@@ -65,7 +82,7 @@
                     </Style>
                 </ListBox.ItemContainerStyle>
             </ListBox>
-        </StackPanel>-->
+        </StackPanel>
 
     </Grid>
 </Page>
