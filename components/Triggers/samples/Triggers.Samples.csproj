@@ -5,4 +5,15 @@
 
   <!-- Sets this up as a toolkit component's sample project -->
   <Import Project="$(ToolingDirectory)\ToolkitComponent.SampleProject.props" />
+  <ItemGroup>
+    <UpToDateCheckInput Remove="ControlSizeTriggerSample.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="ControlSizeTriggerSample.xaml.cs">
+      <DependentUpon>ControlSizeTriggerSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="CompareStateTriggerSample.xaml.cs">
+      <DependentUpon>CompareStateTriggerSample.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
 </Project>

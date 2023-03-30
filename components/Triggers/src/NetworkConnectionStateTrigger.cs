@@ -12,7 +12,7 @@ namespace CommunityToolkit.WinUI;
 /// </summary>
 public class NetworkConnectionStateTrigger : StateTriggerBase
 {
-#if HAS_UNO
+#if !WINAPPSDK
     private DispatcherQueue _dispatcherQueue;
 #endif
     /// <summary>
@@ -20,7 +20,7 @@ public class NetworkConnectionStateTrigger : StateTriggerBase
     /// </summary>
     public NetworkConnectionStateTrigger()
     {
-#if HAS_UNO
+#if !WINAPPSDK
         _dispatcherQueue = DispatcherQueue.GetForCurrentThread();
 #endif
         var weakEvent =
@@ -35,11 +35,10 @@ public class NetworkConnectionStateTrigger : StateTriggerBase
 
     private void NetworkInformation_NetworkStatusChanged(object sender)
     {
-#if HAS_UNO
-         _ = _dispatcherQueue.EnqueueAsync(UpdateState, DispatcherQueuePriority.Normal);
-#endif
 #if WINAPPSDK
         _ = DispatcherQueue.EnqueueAsync(UpdateState, Microsoft.UI.Dispatching.DispatcherQueuePriority.Normal);
+#else
+ _ = _dispatcherQueue.EnqueueAsync(UpdateState, DispatcherQueuePriority.Normal);
 #endif
     }
 
