@@ -13,33 +13,33 @@
             <VisualStateGroup>
                 <VisualState>
                     <VisualState.StateTriggers>
-                        <triggers:ControlSizeTrigger 
-                            TargetElement="{Binding ElementName=ParentGrid}" 
-                            MinWidth="400" 
-                            MaxWidth="500"/>
+                        <triggers:ControlSizeTrigger MinWidth="400"
+                                                     MaxWidth="500"
+                                                     TargetElement="{Binding ElementName=ParentGrid}" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="ResizingText.FontSize" Value="20"/>
+                        <Setter Target="ResizingText.Text" Value="Control size is more than 400" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
 
-        <StackPanel VerticalAlignment="Center" Width="500">
-            <Grid 
-                x:Name="ParentGrid"
-                Width="{Binding Value, ElementName=Slider, Mode=OneWay}"
-                Height="50"
-                Background="Blue"/>
-            <TextBlock 
-                x:Name="ResizingText" 
-                FontSize="12" 
-                Text="Windows Community Toolkit" 
-                HorizontalAlignment="Center"/>
-            <Slider 
-                x:Name="Slider" 
-                Minimum="0" 
-                Maximum="500" />
+        <StackPanel MaxWidth="400"
+                    Spacing="12">
+
+            <Slider x:Name="Slider"
+                    Maximum="500"
+                    Minimum="1" />
+            <Grid x:Name="ParentGrid"
+                  Width="{Binding Value, ElementName=Slider, Mode=OneWay}"
+                  Height="48"
+                  Background="{ThemeResource AccentFillColorDefaultBrush}"
+                  CornerRadius="{StaticResource ControlCornerRadius}" />
+
+            <TextBlock x:Name="ResizingText"
+                       HorizontalAlignment="Center"
+                       Style="{StaticResource CaptionTextBlockStyle}"
+                       Text="Control size is less than 400" />
         </StackPanel>
     </Grid>
 </Page>

@@ -6,14 +6,35 @@
   <!-- Sets this up as a toolkit component's sample project -->
   <Import Project="$(ToolingDirectory)\ToolkitComponent.SampleProject.props" />
   <ItemGroup>
-    <UpToDateCheckInput Remove="ControlSizeTriggerSample.xaml" />
-  </ItemGroup>
-  <ItemGroup>
+    <Compile Update="CompareStateTriggerSample.xaml.cs">
+      <DependentUpon>CompareStateTriggerSample.xaml</DependentUpon>
+    </Compile>
     <Compile Update="ControlSizeTriggerSample.xaml.cs">
       <DependentUpon>ControlSizeTriggerSample.xaml</DependentUpon>
     </Compile>
-    <Compile Update="CompareStateTriggerSample.xaml.cs">
-      <DependentUpon>CompareStateTriggerSample.xaml</DependentUpon>
+    <Compile Update="FullScreenModeStateTriggerSample.xaml.cs">
+      <DependentUpon>FullScreenModeStateTriggerSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="IsEqualStateTriggerSample.xaml.cs">
+      <DependentUpon>IsEqualStateTriggerSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="IsNotEqualStateTriggerSample.xaml.cs">
+      <DependentUpon>IsNotEqualStateTriggerSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="IsNullOrEmptyStateTriggerSample.xaml.cs">
+      <DependentUpon>IsNullOrEmptyStateTriggerSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="NetworkConnectionStateTriggerSample - Copy.xaml.cs">
+      <DependentUpon>NetworkConnectionStateTriggerSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="NetworkConnectionStateTriggerSample.xaml.cs">
+      <DependentUpon>NetworkConnectionStateTriggerSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="RegexStateTriggerSample.xaml.cs">
+      <DependentUpon>RegexStateTriggerSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="UserInteractionModeStateTriggerSample.xaml.cs">
+      <DependentUpon>UserInteractionModeStateTriggerSample.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 </Project>
