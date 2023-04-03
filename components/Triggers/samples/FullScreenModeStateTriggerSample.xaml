@@ -1,4 +1,4 @@
-<!--  Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license. See the LICENSE file in the project root for more information.  -->
+﻿<!--  Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license. See the LICENSE file in the project root for more information.  -->
 <Page x:Class="TriggersExperiment.Samples.FullScreenModeStateTriggerSample"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -16,7 +16,7 @@
                         <triggers:FullScreenModeStateTrigger IsFullScreen="true" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="fullScreenModeStatus.Text" Value="App is in full screen mode" />
+                        <Setter Target="fullScreenModeStatus.Text" Value="full screen mode" />
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="windowed">
@@ -24,17 +24,20 @@
                         <triggers:FullScreenModeStateTrigger IsFullScreen="false" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="fullScreenModeStatus.Text" Value="App is in windowed mode" />
+                        <Setter Target="fullScreenModeStatus.Text" Value="windowed mode" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-        <StackPanel>
-            <TextBlock x:Name="fullScreenModeStatus"
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Center" />
+        <StackPanel HorizontalAlignment="Center">
             <Button Click="FullScreen_Click"
                     Content="Toggle full screen" />
+            <TextBlock Margin="0,12,0,0"
+                       Style="{StaticResource CaptionTextBlockStyle}">
+                <Run Text="App is in" />
+                <Run x:Name="fullScreenModeStatus"
+                     FontWeight="SemiBold" />
+            </TextBlock>
         </StackPanel>
     </Grid>
 </Page>

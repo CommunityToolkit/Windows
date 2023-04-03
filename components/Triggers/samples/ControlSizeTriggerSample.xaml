@@ -18,28 +18,31 @@
                                                      TargetElement="{Binding ElementName=ParentGrid}" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="ResizingText.Text" Value="Control size is more than 400" />
+                        <Setter Target="ResizingText.Text" Value="more than 400" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
 
-        <StackPanel MaxWidth="400"
-                    Spacing="12">
+        <StackPanel MaxWidth="400">
 
             <Slider x:Name="Slider"
                     Maximum="500"
                     Minimum="1" />
             <Grid x:Name="ParentGrid"
                   Width="{Binding Value, ElementName=Slider, Mode=OneWay}"
-                  Height="48"
+                  Height="32"
                   Background="{ThemeResource AccentFillColorDefaultBrush}"
                   CornerRadius="{StaticResource ControlCornerRadius}" />
 
-            <TextBlock x:Name="ResizingText"
+            <TextBlock Margin="0,12,0,0"
                        HorizontalAlignment="Center"
-                       Style="{StaticResource CaptionTextBlockStyle}"
-                       Text="Control size is less than 400" />
+                       Style="{StaticResource CaptionTextBlockStyle}">
+                <Run Text="Control size is" />
+                <Run x:Name="ResizingText"
+                     FontWeight="SemiBold"
+                     Text="less than 400" />
+            </TextBlock>
         </StackPanel>
     </Grid>
 </Page>
