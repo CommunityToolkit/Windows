@@ -70,7 +70,9 @@ public sealed class UserInteractionModeStateTrigger : StateTriggerBase
 
     private void UpdateTrigger(UserInteractionMode interactionMode)
     {
+#if !HAS_UNO
         SetActive(interactionMode == UIViewSettings.GetForCurrentView().UserInteractionMode);
+#endif
     }
 
     private void UserInteractionModeTrigger_SizeChanged(object sender, WindowSizeChangedEventArgs e)

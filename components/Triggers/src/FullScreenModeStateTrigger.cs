@@ -18,6 +18,7 @@ public class FullScreenModeStateTrigger : StateTriggerBase
     /// </summary>
     public FullScreenModeStateTrigger()
     {
+#if WINDOWS_UWP // Not supported in Uno, in WASDK we'd need another way to get the current view
         if (!Windows.ApplicationModel.DesignMode.DesignModeEnabled)
         {
             var weakEvent =
@@ -26,21 +27,23 @@ public class FullScreenModeStateTrigger : StateTriggerBase
                     OnEventAction = static (instance, source, eventArgs) => instance.FullScreenModeTrigger_VisibleBoundsChanged(source, eventArgs),
                     OnDetachAction = (weakEventListener) =>
                     {
-#if WINAPPSDK
-                        if (CoreWindow.GetForCurrentThread() != null)
-#endif
-                            ApplicationView.GetForCurrentView().VisibleBoundsChanged -= weakEventListener.OnEvent;
+
+                        ApplicationView.GetForCurrentView().VisibleBoundsChanged -= weakEventListener.OnEvent;
+
                     }
                 };
 
-#if WINAPPSDK
-            if (CoreWindow.GetForCurrentThread() != null)
-#endif
             ApplicationView.GetForCurrentView().VisibleBoundsChanged += weakEvent.OnEvent;
         }
+#endif
     }
 
-    private void FullScreenModeTrigger_VisibleBoundsChanged(ApplicationView sender, object args) => UpdateTrigger(sender.IsFullScreenMode);
+    private void FullScreenModeTrigger_VisibleBoundsChanged(ApplicationView sender, object args)
+    {
+#if WINDOWS_UWP // Not supported in Uno, in WASDK we'd need another way to get the current view
+        UpdateTrigger(sender.IsFullScreenMode);
+#endif
+    }
 
     private bool _isFullScreen;
 
@@ -53,11 +56,13 @@ public class FullScreenModeStateTrigger : StateTriggerBase
         set
         {
             _isFullScreen = value;
+#if WINDOWS_UWP // Not supported in Uno, in WASDK we'd need another way to get the current view
             if (!Windows.ApplicationModel.DesignMode.DesignModeEnabled)
             {
                 var isFullScreenMode = ApplicationView.GetForCurrentView().IsFullScreenMode;
                 UpdateTrigger(isFullScreenMode);
             }
+#endif
         }
     }
 

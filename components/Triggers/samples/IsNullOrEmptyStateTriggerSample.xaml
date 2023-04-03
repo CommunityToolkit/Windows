@@ -1,4 +1,4 @@
-<!--  Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license. See the LICENSE file in the project root for more information.  -->
+﻿<!--  Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license. See the LICENSE file in the project root for more information.  -->
 <Page x:Class="TriggersExperiment.Samples.IsNullOrEmptyStateTriggerSample"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -38,50 +38,39 @@
         </VisualStateManager.VisualStateGroups>
 
         <StackPanel HorizontalAlignment="Center"
-                    VerticalAlignment="Center">
-            <TextBlock Text="The TextBox below will warn if it is empty." />
+                    Spacing="12">
+            <TextBox x:Name="OurTextBox"
+                     Header="The TextBox below will warn if it is empty."
+                     Text="" />
+            <TextBlock x:Name="OurTextBoxError"
+                       VerticalAlignment="Center"
+                       Foreground="{ThemeResource SystemFillColorCriticalBrush}"
+                       Text="* required"
+                       Visibility="Collapsed" />
 
-            <StackPanel Margin="0,0,0,20"
-                        Orientation="Horizontal">
-                <TextBox x:Name="OurTextBox"
-                         Width="200"
-                         Text="" />
-                <TextBlock x:Name="OurTextBoxError"
-                           Margin="10,0,0,0"
-                           VerticalAlignment="Center"
-                           Foreground="Red"
-                           Text="* Required"
-                           Visibility="Collapsed" />
-            </StackPanel>
-
+            <TextBlock x:Name="ListEmptyMessage"
+                       Margin="0,24,0,0"
+                       Text="List is empty, add some items"
+                       Visibility="Collapsed" />
             <StackPanel Orientation="Horizontal">
                 <Button x:Name="AddButton"
-                        Margin="0,0,10,0"
+                        Margin="0,0,4,0"
                         Click="AddButton_Click"
                         Content="Add" />
                 <Button x:Name="RemoveButton"
                         Click="RemoveButton_Click"
                         Content="Remove" />
             </StackPanel>
-            <TextBlock x:Name="ListEmptyMessage"
-                       Text="List is empty, add some items"
-                       Visibility="Collapsed" />
-            <ListBox x:Name="OurList"
-                     HorizontalAlignment="Left">
-                <ListBox.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <StackPanel Orientation="Horizontal" />
-                    </ItemsPanelTemplate>
-                </ListBox.ItemsPanel>
-                <ListBox.ItemContainerStyle>
-                    <Style TargetType="ListBoxItem">
-                        <Setter Property="Padding" Value="3" />
-                        <Setter Property="Margin" Value="3" />
-                        <Setter Property="Background" Value="Red" />
-                        <Setter Property="Foreground" Value="White" />
-                    </Style>
-                </ListBox.ItemContainerStyle>
-            </ListBox>
+            <ListView x:Name="OurList"
+                      HorizontalAlignment="Left">
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="x:String">
+                        <Grid>
+                            <TextBlock Text="{Binding}" />
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </StackPanel>
 
     </Grid>
