@@ -9,6 +9,7 @@
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <NoWarn>$(NoWarn);Uno0001</NoWarn>
   </PropertyGroup>
 
   <Import Project="Windows.Toolkit.Common.props" />
