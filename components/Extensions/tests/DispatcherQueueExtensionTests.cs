@@ -2,9 +2,10 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
-#if WINAPPSDK
 using CommunityToolkit.Tests;
-using CommunityToolkit.Tooling.TestGen;
+using CommunityToolkit.WinUI;
+
+#if WINAPPSDK
 using DispatcherQueue = Microsoft.UI.Dispatching.DispatcherQueue;
 using DispatcherQueuePriority = Microsoft.UI.Dispatching.DispatcherQueuePriority;
 #else
@@ -48,7 +49,7 @@ public partial class DispatcherQueueExtensionTests : VisualUITestBase
     [TestMethod]
     public async Task Test_DispatcherQueueHelper_Action_Ok_NonUIThread()
     {
-        var taskSource = new TaskCompletionSource<object>();
+        var taskSource = new TaskCompletionSource<object?>();
         await App.DispatcherQueue.EnqueueAsync(
             async () =>
             {
@@ -118,7 +119,7 @@ public partial class DispatcherQueueExtensionTests : VisualUITestBase
     [TestMethod]
     public async Task Test_DispatcherQueueHelper_FuncOfT_Ok_NonUIThread()
     {
-        var taskSource = new TaskCompletionSource<object>();
+        var taskSource = new TaskCompletionSource<object?>();
         await App.DispatcherQueue.EnqueueAsync(
             async () =>
             {

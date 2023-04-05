@@ -4,6 +4,7 @@
 
 using CommunityToolkit.Tests;
 using CommunityToolkit.Tooling.TestGen;
+using CommunityToolkit.WinUI;
 using ExtensionsExperiment.Tests;
 
 namespace ExtensionsComponent.Tests;
@@ -15,8 +16,7 @@ public partial class BitmapIconExtensionTests : VisualUITestBase
     [UIThreadTestMethod]
     public void BitmapIconExtension_MarkupExtension_ProvideImage(BitmapIconExtensionTestPage page)
     {
-        // TODO: Temp until we get a package for this.
-        var button = CommunityToolkit.WinUI.DependencyObjectExtensions.FindDescendant(page, "ColorButton") as Button;
+        var button = page.FindDescendant("ColorButton") as Button;
 
         Assert.IsNotNull(button, $"Could not find the {nameof(Button)} control in tree.");
 
@@ -37,7 +37,7 @@ public partial class BitmapIconExtensionTests : VisualUITestBase
     public void BitmapIconExtension_MarkupExtension_ProvideImageAsMonochrome(BitmapIconExtensionTestPage page)
     {
         // TODO: Temp until we get a package for this.
-        var button = CommunityToolkit.WinUI.DependencyObjectExtensions.FindDescendant(page, "MonochromeButton") as Button;
+        var button = page.FindDescendant("MonochromeButton") as Button;
 
         Assert.IsNotNull(button, $"Could not find the {nameof(Button)} control in tree.");
 

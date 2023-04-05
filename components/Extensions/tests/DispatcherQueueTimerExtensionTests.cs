@@ -2,9 +2,11 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
-#if WINAPPSDK
 using CommunityToolkit.Tests;
 using CommunityToolkit.Tooling.TestGen;
+using CommunityToolkit.WinUI;
+
+#if WINAPPSDK
 using DispatcherQueue = Microsoft.UI.Dispatching.DispatcherQueue;
 using DispatcherQueuePriority = Microsoft.UI.Dispatching.DispatcherQueuePriority;
 using DispatcherQueueTimer = Microsoft.UI.Dispatching.DispatcherQueueTimer;
