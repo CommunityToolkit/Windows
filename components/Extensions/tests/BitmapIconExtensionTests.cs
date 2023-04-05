@@ -36,7 +36,6 @@ public partial class BitmapIconExtensionTests : VisualUITestBase
     [UIThreadTestMethod]
     public void BitmapIconExtension_MarkupExtension_ProvideImageAsMonochrome(BitmapIconExtensionTestPage page)
     {
-        // TODO: Temp until we get a package for this.
         var button = page.FindDescendant("MonochromeButton") as Button;
 
         Assert.IsNotNull(button, $"Could not find the {nameof(Button)} control in tree.");
