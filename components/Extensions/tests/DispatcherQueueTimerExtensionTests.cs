@@ -20,11 +20,11 @@ using DispatcherQueueTimer = Windows.System.DispatcherQueueTimer;
 namespace ExtensionsComponent.Tests;
 
 [TestClass]
-public class DispatcherQueueTimerExtensionTests
+public partial class DispatcherQueueTimerExtensionTests : VisualUITestBase
 {
     [TestCategory("DispatcherQueueTimerExtensions")]
-    [TestMethod]
-    public async Task Test_DispatcherQueueTimerExtensions_Debounce()
+    [UIThreadTestMethod]
+    public async Task DispatcherQueueTimer_Debounce_Interrupt()
     {
         var debounceTimer = DispatcherQueue.GetForCurrentThread().CreateTimer();
 

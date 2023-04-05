@@ -3,7 +3,9 @@
 // See the LICENSE file in the project root for more information.
 
 using CommunityToolkit.Tests;
+using CommunityToolkit.Tooling.TestGen;
 using CommunityToolkit.WinUI;
+using System.Threading.Tasks;
 
 #if WINAPPSDK
 using DispatcherQueue = Microsoft.UI.Dispatching.DispatcherQueue;
@@ -22,284 +24,336 @@ public partial class DispatcherQueueExtensionTests : VisualUITestBase
     private const int TIME_OUT = 5000;
 
     [TestCategory("DispatcherQueueExtensions")]
-    [UITestMethod]
-    public void Test_DispatcherQueueHelper_Action_Null()
+    [UIThreadTestMethod]
+    public async Task DispatcherQueueHelper_Action_Exception()
+    {
+        var task = DispatcherQueue.GetForCurrentThread().EnqueueAsync(() =>
+        {
+            throw new ArgumentException(nameof(this.DispatcherQueueHelper_Action_Exception));
+        });
+
+        Assert.IsNotNull(task);
+
+        try
+        {
+            await task;
+        }
+        catch { }
+
+        Assert.AreEqual(TaskStatus.Faulted, task.Status);
+        Assert.IsNotNull(task.Exception);
+        Assert.IsInstanceOfType(task.Exception.InnerExceptions.FirstOrDefault(), typeof(ArgumentException));
+    }
+
+    [TestCategory("DispatcherQueueExtensions")]
+    [UIThreadTestMethod]
+    public async Task DispatcherQueueHelper_Action_Null()
     {
         var task = DispatcherQueue.GetForCurrentThread().EnqueueAsync(default(Action)!);
 
         Assert.IsNotNull(task);
-        Assert.AreEqual(task.Status, TaskStatus.Faulted);
+
+        try
+        {
+            await task;
+        }
+        catch { }
+
+        Assert.AreEqual(TaskStatus.Faulted, task.Status);
         Assert.IsNotNull(task.Exception);
         Assert.IsInstanceOfType(task.Exception.InnerExceptions.FirstOrDefault(), typeof(NullReferenceException));
     }
 
     [TestCategory("DispatcherQueueExtensions")]
-    [UITestMethod]
-    public void Test_DispatcherQueueHelper_Action_Ok_UIThread()
+    [UIThreadTestMethod]
+    public async Task DispatcherQueueHelper_Action_Ok_UIThread()
     {
-        DispatcherQueue.GetForCurrentThread().EnqueueAsync(() =>
+        await DispatcherQueue.GetForCurrentThread().EnqueueAsync(() =>
         {
-            var textBlock = new TextBlock { Text = nameof(Test_DispatcherQueueHelper_Action_Ok_UIThread) };
+            var textBlock = new TextBlock { Text = nameof(DispatcherQueueHelper_Action_Ok_UIThread) };
 
-            Assert.AreEqual(textBlock.Text, nameof(Test_DispatcherQueueHelper_Action_Ok_UIThread));
-        }).Wait();
+            Assert.AreEqual(textBlock.Text, nameof(DispatcherQueueHelper_Action_Ok_UIThread));
+        });
     }
 
     [TestCategory("DispatcherQueueExtensions")]
-    [TestMethod]
-    public async Task Test_DispatcherQueueHelper_Action_Ok_NonUIThread()
+    [UIThreadTestMethod]
+    public async Task DispatcherQueueHelper_Action_Ok_From_NonUIThread()
     {
         var taskSource = new TaskCompletionSource<object?>();
-        await App.DispatcherQueue.EnqueueAsync(
-            async () =>
-            {
-                try
-                {
-                    var dispatcherQueue = DispatcherQueue.GetForCurrentThread();
-                    await Task.Run(async () =>
-                    {
-                        await dispatcherQueue.EnqueueAsync(() =>
-                        {
-                            var textBlock = new TextBlock { Text = nameof(Test_DispatcherQueueHelper_Action_Ok_NonUIThread) };
-
-                            Assert.AreEqual(textBlock.Text, nameof(Test_DispatcherQueueHelper_Action_Ok_NonUIThread));
-
-                            taskSource.SetResult(null);
-                        });
-                    });
-                }
-                catch (Exception e)
-                {
-                    taskSource.SetException(e);
-                }
-            }, DispatcherQueuePriority.Normal);
-        await taskSource.Task;
-    }
-
-    [TestCategory("DispatcherQueueExtensions")]
-    [UITestMethod]
-    public void Test_DispatcherQueueHelper_Action_Exception()
-    {
-        var task = DispatcherQueue.GetForCurrentThread().EnqueueAsync(() =>
+        try
         {
-            throw new ArgumentException(nameof(this.Test_DispatcherQueueHelper_Action_Exception));
-        });
+            var dispatcherQueue = DispatcherQueue.GetForCurrentThread();
+            await Task.Run(async () =>
+            {
+                await dispatcherQueue.EnqueueAsync(() =>
+                {
+                    var textBlock = new TextBlock { Text = nameof(DispatcherQueueHelper_Action_Ok_From_NonUIThread) };
 
-        Assert.IsNotNull(task);
-        Assert.AreEqual(task.Status, TaskStatus.Faulted);
-        Assert.IsNotNull(task.Exception);
-        Assert.IsInstanceOfType(task.Exception.InnerExceptions.FirstOrDefault(), typeof(ArgumentException));
+                    Assert.AreEqual(textBlock.Text, nameof(DispatcherQueueHelper_Action_Ok_From_NonUIThread));
+
+                    taskSource.SetResult(null);
+                });
+            });
+        }
+        catch (Exception e)
+        {
+            taskSource.SetException(e);
+        }
+        await taskSource.Task;
+
+        Assert.AreEqual(TaskStatus.RanToCompletion, taskSource.Task.Status);
+        Assert.IsNull(taskSource.Task.Exception);
     }
 
     [TestCategory("DispatcherQueueExtensions")]
-    [UITestMethod]
-    public void Test_DispatcherQueueHelper_FuncOfT_Null()
+    [UIThreadTestMethod]
+    public async Task DispatcherQueueHelper_FuncOfT_Null()
     {
         var task = DispatcherQueue.GetForCurrentThread().EnqueueAsync(default(Func<int>)!);
 
         Assert.IsNotNull(task);
-        Assert.AreEqual(task.Status, TaskStatus.Faulted);
+
+        try
+        {
+            await task;
+        }
+        catch { }
+
+        Assert.AreEqual(TaskStatus.Faulted, task.Status);
         Assert.IsNotNull(task.Exception);
         Assert.IsInstanceOfType(task.Exception.InnerExceptions.FirstOrDefault(), typeof(NullReferenceException));
     }
 
     [TestCategory("DispatcherQueueExtensions")]
-    [UITestMethod]
-    public void Test_DispatcherQueueHelper_FuncOfT_Ok_UIThread()
+    [UIThreadTestMethod]
+    public async Task DispatcherQueueHelper_FuncOfT_Ok_UIThread()
     {
-        var textBlock = DispatcherQueue.GetForCurrentThread().EnqueueAsync(() =>
+        var textBlock = await DispatcherQueue.GetForCurrentThread().EnqueueAsync(() =>
         {
-            return new TextBlock { Text = nameof(Test_DispatcherQueueHelper_FuncOfT_Ok_UIThread) };
-        }).Result;
+            return new TextBlock { Text = nameof(DispatcherQueueHelper_FuncOfT_Ok_UIThread) };
+        });
 
-        Assert.AreEqual(textBlock.Text, nameof(Test_DispatcherQueueHelper_FuncOfT_Ok_UIThread));
+        Assert.AreEqual(textBlock.Text, nameof(DispatcherQueueHelper_FuncOfT_Ok_UIThread));
     }
 
     [TestCategory("DispatcherQueueExtensions")]
-    [TestMethod]
-    public async Task Test_DispatcherQueueHelper_FuncOfT_Ok_NonUIThread()
+    [UIThreadTestMethod]
+    public async Task DispatcherQueueHelper_FuncOfT_Ok_From_NonUIThread()
     {
         var taskSource = new TaskCompletionSource<object?>();
-        await App.DispatcherQueue.EnqueueAsync(
-            async () =>
+        try
+        {
+            var dispatcherQueue = DispatcherQueue.GetForCurrentThread();
+            await Task.Run(async () =>
             {
-                try
+                var textBlock = await dispatcherQueue.EnqueueAsync(() =>
                 {
-                    var dispatcherQueue = DispatcherQueue.GetForCurrentThread();
-                    await Task.Run(async () =>
-                    {
-                        var textBlock = await dispatcherQueue.EnqueueAsync(() =>
-                        {
-                            return new TextBlock { Text = nameof(Test_DispatcherQueueHelper_FuncOfT_Ok_NonUIThread) };
-                        });
-                        await dispatcherQueue.EnqueueAsync(() =>
-                        {
-                            Assert.AreEqual(textBlock.Text, nameof(Test_DispatcherQueueHelper_FuncOfT_Ok_NonUIThread));
-                            taskSource.SetResult(null);
-                        });
-                    });
-                }
-                catch (Exception e)
+                    return new TextBlock { Text = nameof(DispatcherQueueHelper_FuncOfT_Ok_From_NonUIThread) };
+                });
+                await dispatcherQueue.EnqueueAsync(() =>
                 {
-                    taskSource.SetException(e);
-                }
-            }, DispatcherQueuePriority.Normal);
+                    Assert.AreEqual(textBlock.Text, nameof(DispatcherQueueHelper_FuncOfT_Ok_From_NonUIThread));
+                    taskSource.SetResult(null);
+                });
+            });
+        }
+        catch (Exception e)
+        {
+            taskSource.SetException(e);
+        }
         await taskSource.Task;
+
+        Assert.AreEqual(TaskStatus.RanToCompletion, taskSource.Task.Status);
+        Assert.IsNull(taskSource.Task.Exception);
     }
 
     [TestCategory("DispatcherQueueExtensions")]
-    [UITestMethod]
-    public void Test_DispatcherQueueHelper_FuncOfT_Exception()
+    [UIThreadTestMethod]
+    public async Task DispatcherQueueHelper_FuncOfT_Exception()
     {
         var task = DispatcherQueue.GetForCurrentThread().EnqueueAsync(new Func<int>(() =>
         {
-            throw new ArgumentException(nameof(this.Test_DispatcherQueueHelper_FuncOfT_Exception));
+            throw new ArgumentException(nameof(this.DispatcherQueueHelper_FuncOfT_Exception));
         }));
 
         Assert.IsNotNull(task);
-        Assert.AreEqual(task.Status, TaskStatus.Faulted);
+
+        try
+        {
+            await task;
+        }
+        catch { }
+
+        Assert.AreEqual(TaskStatus.Faulted, task.Status);
         Assert.IsNotNull(task.Exception);
         Assert.IsInstanceOfType(task.Exception.InnerExceptions.FirstOrDefault(), typeof(ArgumentException));
     }
 
     [TestCategory("DispatcherQueueExtensions")]
-    [UITestMethod]
-    public void Test_DispatcherQueueHelper_FuncOfTask_Null()
+    [UIThreadTestMethod]
+    public async Task DispatcherQueueHelper_FuncOfTask_Null()
     {
         var task = DispatcherQueue.GetForCurrentThread().EnqueueAsync(default(Func<Task>)!);
 
         Assert.IsNotNull(task);
-        Assert.AreEqual(task.Status, TaskStatus.Faulted);
+
+        try
+        {
+            await task;
+        }
+        catch { }
+
+        Assert.AreEqual(TaskStatus.Faulted, task.Status);
         Assert.IsNotNull(task.Exception);
         Assert.IsInstanceOfType(task.Exception.InnerExceptions.FirstOrDefault(), typeof(NullReferenceException));
     }
 
     [TestCategory("Helpers")]
-    [UITestMethod]
-    public void Test_DispatcherQueueHelper_FuncOfTask_Ok_UIThread()
+    [UIThreadTestMethod]
+    public async Task DispatcherQueueHelper_FuncOfTask_Ok_UIThread()
     {
-        DispatcherQueue.GetForCurrentThread().EnqueueAsync(() =>
+        await DispatcherQueue.GetForCurrentThread().EnqueueAsync(() =>
         {
-            var textBlock = new TextBlock { Text = nameof(Test_DispatcherQueueHelper_FuncOfTask_Ok_UIThread) };
+            var textBlock = new TextBlock { Text = nameof(DispatcherQueueHelper_FuncOfTask_Ok_UIThread) };
 
-            Assert.AreEqual(textBlock.Text, nameof(Test_DispatcherQueueHelper_FuncOfTask_Ok_UIThread));
+            Assert.AreEqual(textBlock.Text, nameof(DispatcherQueueHelper_FuncOfTask_Ok_UIThread));
 
             return Task.CompletedTask;
-        }).Wait();
+        });
     }
 
     [TestCategory("DispatcherQueueExtensions")]
-    [TestMethod]
-    public async Task Test_DispatcherQueueHelper_FuncOfTask_Ok_NonUIThread()
+    [UIThreadTestMethod]
+    public async Task DispatcherQueueHelper_FuncOfTask_Ok_From_NonUIThread()
     {
         var taskSource = new TaskCompletionSource<object?>();
-        await App.DispatcherQueue.EnqueueAsync(
-            async () =>
+        try
+        {
+            await DispatcherQueue.GetForCurrentThread().EnqueueAsync(async () =>
             {
-                try
-                {
-                    await DispatcherQueue.GetForCurrentThread().EnqueueAsync(async () =>
-                    {
-                        await Task.Yield();
+                await Task.Yield();
 
-                        var textBlock = new TextBlock { Text = nameof(Test_DispatcherQueueHelper_FuncOfTask_Ok_NonUIThread) };
+                var textBlock = new TextBlock { Text = nameof(DispatcherQueueHelper_FuncOfTask_Ok_From_NonUIThread) };
 
-                        Assert.AreEqual(textBlock.Text, nameof(Test_DispatcherQueueHelper_FuncOfTask_Ok_NonUIThread));
+                Assert.AreEqual(textBlock.Text, nameof(DispatcherQueueHelper_FuncOfTask_Ok_From_NonUIThread));
 
-                        taskSource.SetResult(null);
-                    });
-                }
-                catch (Exception e)
-                {
-                    taskSource.SetException(e);
-                }
-            }, DispatcherQueuePriority.Normal);
+                taskSource.SetResult(null);
+            });
+        }
+        catch (Exception e)
+        {
+            taskSource.SetException(e);
+        }
         await taskSource.Task;
+
+        Assert.AreEqual(TaskStatus.RanToCompletion, taskSource.Task.Status);
+        Assert.IsNull(taskSource.Task.Exception);
     }
 
     [TestCategory("DispatcherQueueExtensions")]
-    [UITestMethod]
-    public void Test_DispatcherQueueHelper_FuncOfTask_Exception()
+    [UIThreadTestMethod]
+    public async Task DispatcherQueueHelper_FuncOfTask_Exception()
     {
         var task = DispatcherQueue.GetForCurrentThread().EnqueueAsync(new Func<Task>(() =>
         {
-            throw new ArgumentException(nameof(this.Test_DispatcherQueueHelper_FuncOfTask_Exception));
+            throw new ArgumentException(nameof(this.DispatcherQueueHelper_FuncOfTask_Exception));
         }));
 
         Assert.IsNotNull(task);
-        Assert.AreEqual(task.Status, TaskStatus.Faulted);
+
+        try
+        {
+            await task;
+        }
+        catch { }
+
+        Assert.AreEqual(TaskStatus.Faulted, task.Status);
         Assert.IsNotNull(task.Exception);
         Assert.IsInstanceOfType(task.Exception.InnerExceptions.FirstOrDefault(), typeof(ArgumentException));
     }
 
     [TestCategory("DispatcherQueueExtensions")]
-    [UITestMethod]
-    public void Test_DispatcherQueueHelper_FuncOfTaskOfT_Null()
+    [UIThreadTestMethod]
+    public async Task DispatcherQueueHelper_FuncOfTaskOfT_Null()
     {
         var task = DispatcherQueue.GetForCurrentThread().EnqueueAsync(default(Func<Task<int>>)!);
 
         Assert.IsNotNull(task);
-        Assert.AreEqual(task.Status, TaskStatus.Faulted);
+
+        try
+        {
+            await task;
+        }
+        catch { }
+
+        Assert.AreEqual(TaskStatus.Faulted, task.Status);
         Assert.IsNotNull(task.Exception);
         Assert.IsInstanceOfType(task.Exception.InnerExceptions.FirstOrDefault(), typeof(NullReferenceException));
     }
 
     [TestCategory("DispatcherQueueExtensions")]
-    [UITestMethod]
-    public void Test_DispatcherQueueHelper_FuncOfTaskOfT_Ok_UIThread()
+    [UIThreadTestMethod]
+    public async Task DispatcherQueueHelper_FuncOfTaskOfT_Ok_UIThread()
     {
-        DispatcherQueue.GetForCurrentThread().EnqueueAsync(() =>
+        await DispatcherQueue.GetForCurrentThread().EnqueueAsync(() =>
         {
-            var textBlock = new TextBlock { Text = nameof(Test_DispatcherQueueHelper_FuncOfTaskOfT_Ok_UIThread) };
+            var textBlock = new TextBlock { Text = nameof(DispatcherQueueHelper_FuncOfTaskOfT_Ok_UIThread) };
 
-            Assert.AreEqual(textBlock.Text, nameof(Test_DispatcherQueueHelper_FuncOfTaskOfT_Ok_UIThread));
+            Assert.AreEqual(textBlock.Text, nameof(DispatcherQueueHelper_FuncOfTaskOfT_Ok_UIThread));
 
-            return Task.FromResult(1);
-        }).Wait();
+            return Task.CompletedTask;
+        });
     }
 
     [TestCategory("DispatcherQueueExtensions")]
-    [TestMethod]
-    public async Task Test_DispatcherQueueHelper_FuncOfTaskOfT_Ok_NonUIThread()
+    [UIThreadTestMethod]
+    public async Task DispatcherQueueHelper_FuncOfTaskOfT_Ok_From_NonUIThread()
     {
         var taskSource = new TaskCompletionSource<object?>();
-        await App.DispatcherQueue.EnqueueAsync(
-            async () =>
+        try
+        {
+            await DispatcherQueue.GetForCurrentThread().EnqueueAsync(async () =>
             {
-                try
-                {
-                    await DispatcherQueue.GetForCurrentThread().EnqueueAsync(async () =>
-                    {
-                        await Task.Yield();
+                await Task.Yield();
 
-                        var textBlock = new TextBlock { Text = nameof(Test_DispatcherQueueHelper_FuncOfTaskOfT_Ok_NonUIThread) };
+                var textBlock = new TextBlock { Text = nameof(DispatcherQueueHelper_FuncOfTaskOfT_Ok_From_NonUIThread) };
 
-                        Assert.AreEqual(textBlock.Text, nameof(Test_DispatcherQueueHelper_FuncOfTaskOfT_Ok_NonUIThread));
+                Assert.AreEqual(textBlock.Text, nameof(DispatcherQueueHelper_FuncOfTaskOfT_Ok_From_NonUIThread));
 
-                        taskSource.SetResult(null);
+                taskSource.SetResult(null);
 
-                        return textBlock;
-                    });
-                }
-                catch (Exception e)
-                {
-                    taskSource.SetException(e);
-                }
-            }, DispatcherQueuePriority.Normal);
+                return textBlock;
+            });
+        }
+        catch (Exception e)
+        {
+            taskSource.SetException(e);
+        }
         await taskSource.Task;
+
+        Assert.AreEqual(TaskStatus.RanToCompletion, taskSource.Task.Status);
+        Assert.IsNull(taskSource.Task.Exception);
     }
 
     [TestCategory("DispatcherQueueExtensions")]
-    [UITestMethod]
-    public void Test_DispatcherQueueHelper_FuncOfTaskOfT_Exception()
+    [UIThreadTestMethod]
+    public async Task DispatcherQueueHelper_FuncOfTaskOfT_Exception()
     {
         var task = DispatcherQueue.GetForCurrentThread().EnqueueAsync(new Func<Task<int>>(() =>
         {
-            throw new ArgumentException(nameof(this.Test_DispatcherQueueHelper_FuncOfTaskOfT_Exception));
+            throw new ArgumentException(nameof(this.DispatcherQueueHelper_FuncOfTaskOfT_Exception));
         }));
 
         Assert.IsNotNull(task);
-        Assert.AreEqual(task.Status, TaskStatus.Faulted);
+
+        try
+        {
+            await task;
+        }
+        catch { }
+
+        Assert.AreEqual(TaskStatus.Faulted, task.Status);
         Assert.IsNotNull(task.Exception);
         Assert.IsInstanceOfType(task.Exception.InnerExceptions.FirstOrDefault(), typeof(ArgumentException));
     }
