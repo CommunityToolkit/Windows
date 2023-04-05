@@ -14,7 +14,9 @@ public class UserHandPreferenceStateTrigger : StateTriggerBase
 
     static UserHandPreferenceStateTrigger()
     {
-#if !HAS_UNO
+#if HAS_UNO
+        handPreference = HandPreference.RightHanded;
+#else
         handPreference = new UISettings().HandPreference;
 #endif
     }

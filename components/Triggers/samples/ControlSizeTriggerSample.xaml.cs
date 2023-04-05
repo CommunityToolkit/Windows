@@ -6,10 +6,10 @@ using CommunityToolkit.WinUI;
 
 namespace TriggersExperiment.Samples;
 
-[ToolkitSample(id: nameof(ControlStateTriggerSample), "ControlStateTrigger", description: $"A sample for showing how to create and use a {nameof(ControlSizeTrigger)}.")]
-public sealed partial class ControlStateTriggerSample : Page
+[ToolkitSample(id: nameof(ControlSizeTriggerSample), "ControlStateTrigger", description: $"A sample for showing how to create and use a {nameof(ControlSizeTrigger)}.")]
+public sealed partial class ControlSizeTriggerSample : Page
 {
-    public ControlStateTriggerSample()
+    public ControlSizeTriggerSample()
     {
         this.InitializeComponent();
     }
