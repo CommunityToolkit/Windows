@@ -9,6 +9,18 @@
     <Import_RootNamespace>ExtensionsExperiment.Tests</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)BitmapIconExtensionTestPage.xaml.cs">
+      <DependentUpon>BitmapIconExtensionTestPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)BitmapIconExtensionTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DispatcherQueueExtensionTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DispatcherQueueTimerExtensionTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\ObjectWithNullableBoolProperty.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="$(MSBuildThisFileDirectory)BitmapIconExtensionTestPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
 </Project>
