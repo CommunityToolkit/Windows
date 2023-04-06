@@ -9,6 +9,6 @@
     <Import_RootNamespace>TriggersExperiment.Tests</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)ExampleTriggersTestClass.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ControlSizeTriggerTests.cs" />
   </ItemGroup>
 </Project>
