@@ -26,12 +26,6 @@ Enables a state if the target control meets the specified size
 
 > [!Sample ControlSizeTriggerSample]
 
-## FullScreenModeStateTrigger
-
-Trigger for switching when in full screen mode.
-
-> [!Sample FullScreenModeStateTriggerSample]
-
 ## IsEqualStateTrigger
 
 Enables a state if the value is equal to another value.
@@ -67,9 +61,3 @@ Enables a state if the regex expression is true for a given string value.
 Trigger for switching UI based on whether the user favors their left or right hand.
 
 > [!Sample UserHandPreferenceStateTriggerSample]
-
-## UserInteractionModeStateTrigger
-
-Trigger for switching when the User interaction mode changes (tablet mode).
-
-> [!Sample UserInteractionModeStateTriggerSample]
