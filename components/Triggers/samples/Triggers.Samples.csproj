@@ -12,9 +12,6 @@
     <Compile Update="ControlSizeTriggerSample.xaml.cs">
       <DependentUpon>ControlSizeTriggerSample.xaml</DependentUpon>
     </Compile>
-    <Compile Update="FullScreenModeStateTriggerSample.xaml.cs">
-      <DependentUpon>FullScreenModeStateTriggerSample.xaml</DependentUpon>
-    </Compile>
     <Compile Update="IsEqualStateTriggerSample.xaml.cs">
       <DependentUpon>IsEqualStateTriggerSample.xaml</DependentUpon>
     </Compile>
@@ -32,9 +29,6 @@
     </Compile>
     <Compile Update="RegexStateTriggerSample.xaml.cs">
       <DependentUpon>RegexStateTriggerSample.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="UserInteractionModeStateTriggerSample.xaml.cs">
-      <DependentUpon>UserInteractionModeStateTriggerSample.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 </Project>
