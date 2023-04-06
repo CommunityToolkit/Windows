@@ -8,8 +8,8 @@ using CommunityToolkit.WinUI;
 namespace TriggersExperiment.Tests;
 
 [TestClass]
-[TestCategory("Test_ControlSizeTrigger")]
-public class Test_ControlSizeTrigger : VisualUITestBase
+[TestCategory("ControlSizeTriggerTests")]
+public class ControlSizeTriggerTests : VisualUITestBase
 {
     [DataTestMethod]
     [DataRow(450, 450, true)]
