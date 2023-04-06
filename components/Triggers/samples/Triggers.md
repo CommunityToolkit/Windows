@@ -1,12 +1,12 @@
 ---
 title: Triggers
-author: githubaccount
+author: dotMorten
 description: A collection of custom visual State Triggers
-keywords: Triggers, Control, Layout
+keywords: CompareStateTrigger, ControlSizeTrigger, FullScreenModeStateTrigger, IsEqualStateTrigger, IsNotEqualStateTrigger, IsNullOrEmptyStateTriggers, NetworkConnectionStateTrigger, RegexStateTrigger, UserHandPreferenceStateTrigger, UserInteractionModeStateTrigger
 dev_langs:
   - csharp
-category: Controls
-subcategory: Layout
+category: Xaml
+subcategory: Triggers
 discussion-id: 0
 issue-id: 0
 ---

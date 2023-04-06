@@ -140,33 +140,33 @@ namespace CommunityToolkit.WinUI;
         }
     }
 
+/// <summary>
+/// Comparison types
+/// </summary>
+public enum Comparison : int
+{
     /// <summary>
-    /// Comparison types
+    /// Less than
     /// </summary>
-    public enum Comparison : int
-    {
-        /// <summary>
-        /// Less than
-        /// </summary>
-        LessThan,
+    LessThan,
 
-        /// <summary>
-        /// Less than or equal
-        /// </summary>
-        LessThanOrEqual,
+    /// <summary>
+    /// Less than or equal
+    /// </summary>
+    LessThanOrEqual,
 
-        /// <summary>
-        /// Equals
-        /// </summary>
-        Equal,
+    /// <summary>
+    /// Equals
+    /// </summary>
+    Equal,
 
-        /// <summary>
-        /// Greater than or equal
-        /// </summary>
-        GreaterThanOrEqual,
+    /// <summary>
+    /// Greater than or equal
+    /// </summary>
+    GreaterThanOrEqual,
 
-        /// <summary>
-        /// Greater than
-        /// </summary>
-        GreaterThan
-    }
+    /// <summary>
+    /// Greater than
+    /// </summary>
+    GreaterThan
+}

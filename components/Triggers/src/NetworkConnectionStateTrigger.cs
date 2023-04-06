@@ -13,7 +13,7 @@ namespace CommunityToolkit.WinUI;
 public class NetworkConnectionStateTrigger : StateTriggerBase
 {
 #if !WINAPPSDK
-    private DispatcherQueue _dispatcherQueue;
+    private DispatcherQueue DispatcherQueue;
 #endif
     /// <summary>
     /// Initializes a new instance of the <see cref="NetworkConnectionStateTrigger"/> class.
@@ -21,7 +21,7 @@ public class NetworkConnectionStateTrigger : StateTriggerBase
     public NetworkConnectionStateTrigger()
     {
 #if !WINAPPSDK
-        _dispatcherQueue = DispatcherQueue.GetForCurrentThread();
+        DispatcherQueue = DispatcherQueue.GetForCurrentThread();
 #endif
         var weakEvent =
             new WeakEventListener<NetworkConnectionStateTrigger, object>(this)
@@ -35,11 +35,7 @@ public class NetworkConnectionStateTrigger : StateTriggerBase
 
     private void NetworkInformation_NetworkStatusChanged(object sender)
     {
-#if WINAPPSDK
-        _ = DispatcherQueue.EnqueueAsync(UpdateState, Microsoft.UI.Dispatching.DispatcherQueuePriority.Normal);
-#else
- _ = _dispatcherQueue.EnqueueAsync(UpdateState, DispatcherQueuePriority.Normal);
-#endif
+        _ = DispatcherQueue.EnqueueAsync(UpdateState, DispatcherQueuePriority.Normal);
     }
 
     private void UpdateState()
