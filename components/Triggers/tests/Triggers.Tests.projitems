@@ -10,14 +10,5 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)ExampleTriggersTestClass.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ExampleTriggersTestPage.xaml.cs">
-      <DependentUpon>ExampleTriggersTestPage.xaml</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Include="$(MSBuildThisFileDirectory)ExampleTriggersTestPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
 </Project>
