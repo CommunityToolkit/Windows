@@ -5,6 +5,10 @@
 using Windows.Networking.Connectivity;
 using Windows.System;
 
+#if WINAPPSDK
+using DispatcherQueuePriority = Microsoft.UI.Dispatching.DispatcherQueuePriority;
+#endif
+
 namespace CommunityToolkit.WinUI;
 
 /// <summary>
