@@ -205,7 +205,7 @@ public sealed class AttachedShadowElementContext
     /// <returns>True if the resource exists, false otherwise</returns>
     public bool TryGetResource<T>(string key, out T? resource)
     {
-        if (_resources != null && _resources.TryGetValue(key, out var objResource) && objResource is T tResource)
+        if (_resources.TryGetValue(key, out var objResource) && objResource is T tResource)
         {
             resource = tResource;
             return true;
@@ -315,14 +315,11 @@ public sealed class AttachedShadowElementContext
     /// </summary>
     public void ClearAndDisposeResources()
     {
-        if (_resources != null)
+        foreach (var kvp in _resources)
         {
-            foreach (var kvp in _resources)
-            {
-                (kvp.Value as IDisposable)?.Dispose();
-            }
-
-            _resources.Clear();
+            (kvp.Value as IDisposable)?.Dispose();
         }
+
+        _resources.Clear();
     }
 }

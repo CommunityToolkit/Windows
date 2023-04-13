@@ -54,7 +54,7 @@ public partial class AttachedDropShadowTests : VisualUITestBase
     // This lets us actually test a control as it would behave within an actual application.
     // The page will already be loaded by the time your test is called.
     [UIThreadTestMethod]
-    public void SimpleUIExamplePageTest(AttachedDropShadowTest page)
+    public void SimpleUIExamplePageTest(AttachedDropShadowTestPage page)
     {
         // You can use the Toolkit Visual Tree helpers here to find the component by type or name:
         var border = page.FindDescendant<Border>();
