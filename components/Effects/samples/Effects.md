@@ -23,13 +23,6 @@ issue-id: 0
 
 TODO: Fill in information about this experiment and how to get started here...
 
-## Custom Control
-
-You can inherit from an existing component as well, like `Panel`, this example shows a control without a
-XAML Style that will be more light-weight to consume by an app developer:
-
-> [!Sample EffectsCustomSample]
-
 ## Templated Controls
 
 The Toolkit is built with templated controls. This provides developers a flexible way to restyle components
