@@ -2,9 +2,9 @@
   <PropertyGroup>
     <PackageIdPrefix>CommunityToolkit</PackageIdPrefix>
     <RepositoryDirectory>$(MSBuildThisFileDirectory)</RepositoryDirectory>
-    <ToolingDirectory>$(RepositoryDirectory)\tooling</ToolingDirectory>
+    <ToolingDirectory>$(RepositoryDirectory)tooling</ToolingDirectory>
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
-    <ToolkitExtensionSourceProject>$(RepositoryDirectory)\components\Extensions\src\CommunityToolkit.WinUI.Extensions.csproj</ToolkitExtensionSourceProject>
+    <ToolkitExtensionSourceProject>$(RepositoryDirectory)components\Extensions\src\CommunityToolkit.WinUI.Extensions.csproj</ToolkitExtensionSourceProject>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
