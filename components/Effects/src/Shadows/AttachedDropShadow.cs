@@ -25,6 +25,11 @@ public sealed class AttachedDropShadow : AttachedShadowBase
 {
     private const float MaxBlurRadius = 72;
 
+#if !WINAPPSDK
+    /// <inheritdoc/>
+    protected override bool IsSupported => true;
+#endif
+
     /// <inheritdoc/>
     protected internal override bool SupportsOnSizeChangedEvent => true;
 
@@ -270,7 +275,12 @@ public sealed class AttachedDropShadow : AttachedShadowBase
 
             // If we don't have a mask and have specified rounded corners, we'll generate a simple quick mask.
             // This is the same code from link:AttachedCardShadow.cs:GetShadowMask
-            if (mask == null && CornerRadius > 0 && context.Compositor != null)
+            if (mask == null
+#if !WINAPPSDK
+                && SupportsCompositionVisualSurface
+#endif
+                && CornerRadius > 0
+                && context.Compositor != null)
             {
                 // Create rounded rectangle geometry and add it to a shape
                 var geometry = context.GetResource(RoundedRectangleGeometryResourceKey) ?? context.AddResource(
@@ -284,7 +294,10 @@ public sealed class AttachedDropShadow : AttachedShadowBase
                 // Create a ShapeVisual so that our geometry can be rendered to a visual
                 var shapeVisual = context.GetResource(ShapeVisualResourceKey) ??
                                   context.AddResource(ShapeVisualResourceKey, context.Compositor.CreateShapeVisual());
-                shapeVisual.Shapes.Add(shape);
+                if (!shapeVisual.Shapes.Contains(shape))
+                {
+                	shapeVisual.Shapes.Add(shape);
+                }
 
                 // Create a CompositionVisualSurface, which renders our ShapeVisual to a texture
                 var visualSurface = context.GetResource(VisualSurfaceResourceKey) ??
@@ -345,6 +358,7 @@ public sealed class AttachedDropShadow : AttachedShadowBase
         }
 
         UpdateShadowClip(context);
+    	UpdateShadowMask(context);
 
         base.OnSizeChanged(context, newSize, previousSize);
     }

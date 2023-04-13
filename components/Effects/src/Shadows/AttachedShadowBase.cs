@@ -10,6 +10,7 @@ using Microsoft.UI;
 using Microsoft.UI.Composition;
 using Microsoft.UI.Xaml.Hosting;
 #else
+using Windows.Foundation.Metadata;
 using Windows.UI.Composition;
 using Windows.UI.Xaml.Hosting;
 #endif
@@ -21,6 +22,14 @@ namespace CommunityToolkit.WinUI;
 /// </summary>
 public abstract partial class AttachedShadowBase : DependencyObject, IAttachedShadow
 {
+#if !WINAPPSDK
+    // TODO: If we ever bump UWP min-version, remove this, as available after 1903.
+    /// <summary>
+    /// Gets a value indicating whether or not Composition's VisualSurface is supported.
+    /// </summary>
+    protected static readonly bool SupportsCompositionVisualSurface = ApiInformation.IsTypePresent(typeof(CompositionVisualSurface).FullName);
+#endif
+
     /// <summary>
     /// The <see cref="DependencyProperty"/> for <see cref="BlurRadius"/>.
     /// </summary>
@@ -48,6 +57,13 @@ public abstract partial class AttachedShadowBase : DependencyObject, IAttachedSh
     /// </summary>
     public static readonly DependencyProperty OpacityProperty =
         DependencyProperty.Register(nameof(Opacity), typeof(double), typeof(AttachedShadowBase), new PropertyMetadata(1d, OnDependencyPropertyChanged));
+
+#if !WINAPPSDK
+    /// <summary>
+    /// Gets a value indicating whether or not this <see cref="AttachedShadowBase"/> implementation is supported on the current platform.
+    /// </summary>
+    protected abstract bool IsSupported { get; }
+#endif
 
     /// <summary>
     /// Gets or sets the collection of <see cref="AttachedShadowElementContext"/> for each element this <see cref="AttachedShadowBase"/> is connected to.
@@ -97,6 +113,13 @@ public abstract partial class AttachedShadowBase : DependencyObject, IAttachedSh
 
     internal void ConnectElement(FrameworkElement element)
     {
+#if !WINAPPSDK
+        if (!IsSupported)
+        {
+        	return;
+        }
+#endif
+
         if (ShadowElementContextTable.TryGetValue(element, out var context))
         {
             return;
