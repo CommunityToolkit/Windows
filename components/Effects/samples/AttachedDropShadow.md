@@ -1,6 +1,6 @@
 ---
-title: Effects
-author: githubaccount
+title: Attached Drop Shadow
+author: michael-hawker
 description: TODO: Your experiment's description here
 keywords: Effects, Control, Layout
 dev_langs:
@@ -11,7 +11,7 @@ discussion-id: 0
 issue-id: 0
 ---
 
-# Effects
+# Attached Drop Shadow
 
 The Effects package contains Composition-based helpers for WinUI 2 & 3.
 

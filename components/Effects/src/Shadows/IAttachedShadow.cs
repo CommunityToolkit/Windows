@@ -2,9 +2,6 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
-using System.Collections.Generic;
-using System.Numerics;
-using Microsoft.UI.Xaml;
 using Windows.UI;
 
 namespace CommunityToolkit.WinUI;
@@ -38,7 +35,7 @@ public interface IAttachedShadow
     /// Get the associated <see cref="AttachedShadowElementContext"/> for the specified <see cref="FrameworkElement"/>.
     /// </summary>
     /// <returns>The <see cref="AttachedShadowElementContext"/> for the element.</returns>
-    AttachedShadowElementContext GetElementContext(FrameworkElement element);
+    AttachedShadowElementContext? GetElementContext(FrameworkElement element);
 
     /// <summary>
     /// Gets an enumeration over the current list of <see cref="AttachedShadowElementContext"/> of elements using this shared shadow definition.

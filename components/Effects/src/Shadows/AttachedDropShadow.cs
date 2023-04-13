@@ -2,16 +2,19 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
-using System;
-using System.Linq;
 using System.Numerics;
+
+#if WINAPPSDK
 using Microsoft.UI;
 using Microsoft.UI.Composition;
-using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Hosting;
 using Microsoft.UI.Xaml.Shapes;
-using Windows.Foundation;
+#else
+using Windows.UI;
+using Windows.UI.Composition;
+using Windows.UI.Xaml.Hosting;
+using Windows.UI.Xaml.Shapes;
+#endif
 
 namespace CommunityToolkit.WinUI;
 
@@ -83,7 +86,7 @@ public sealed class AttachedDropShadow : AttachedShadowBase
     public static readonly DependencyProperty CastToProperty =
         DependencyProperty.Register(nameof(CastTo), typeof(FrameworkElement), typeof(AttachedDropShadow), new PropertyMetadata(null, OnCastToPropertyChanged)); // TODO: Property Change
 
-    private ContainerVisual _container;
+    private ContainerVisual? _container;
 
     private static void OnCastToPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
@@ -91,7 +94,7 @@ public sealed class AttachedDropShadow : AttachedShadowBase
         {
             if (e.OldValue is FrameworkElement element)
             {
-                ElementCompositionPreview.SetElementChildVisual(element, null);
+                ElementCompositionPreview.SetElementChildVisual(element, null!);
                 element.SizeChanged -= shadow.CastToElement_SizeChanged;
             }
 
@@ -142,7 +145,7 @@ public sealed class AttachedDropShadow : AttachedShadowBase
         }
     }
 
-    private void CastToElement_SizeChanged(object sender, SizeChangedEventArgs e)
+    private void CastToElement_SizeChanged(object? sender, SizeChangedEventArgs? e)
     {
         // Don't use sender or 'e' here as related to container element not
         // element for shadow, grab values off context. (Also may be null from internal call.)
@@ -161,7 +164,7 @@ public sealed class AttachedDropShadow : AttachedShadowBase
     {
         if (_container != null && _container.Children.Contains(context.SpriteVisual))
         {
-            _container.Children.Remove(context.SpriteVisual);
+            _container!.Children.Remove(context.SpriteVisual);
         }
 
         context.SpriteVisual?.StopAnimation("Size");
@@ -182,7 +185,7 @@ public sealed class AttachedDropShadow : AttachedShadowBase
     {
         if (_container != null && !_container.Children.Contains(context.SpriteVisual))
         {
-            _container.Children.InsertAtTop(context.SpriteVisual);
+            _container!.Children.InsertAtTop(context.SpriteVisual);
         }
 
         // Handles size changing and other elements around it updating.
@@ -198,7 +201,7 @@ public sealed class AttachedDropShadow : AttachedShadowBase
         context.VisibilityToken = context.Element.RegisterPropertyChangedCallback(UIElement.VisibilityProperty, Element_VisibilityChanged);
     }
 
-    private void Element_LayoutUpdated(object sender, object e)
+    private void Element_LayoutUpdated(object? sender, object e)
     {
         // Update other shadows to account for layout changes
         CastToElement_SizeChanged(null, null);
@@ -206,22 +209,21 @@ public sealed class AttachedDropShadow : AttachedShadowBase
 
     private void Element_VisibilityChanged(DependencyObject sender, DependencyProperty dp)
     {
-        if (sender is FrameworkElement element)
+        if (sender is FrameworkElement element
+            && GetElementContext(element) is AttachedShadowElementContext context)
         {
-            var context = GetElementContext(element);
-
             if (element.Visibility == Visibility.Collapsed)
             {
                 if (_container != null && _container.Children.Contains(context.SpriteVisual))
                 {
-                    _container.Children.Remove(context.SpriteVisual);
+                    _container!.Children.Remove(context.SpriteVisual);
                 }
             }
             else
             {
                 if (_container != null && !_container.Children.Contains(context.SpriteVisual))
                 {
-                    _container.Children.InsertAtTop(context.SpriteVisual);
+                    _container!.Children.InsertAtTop(context.SpriteVisual);
                 }
             }
         }
@@ -231,14 +233,9 @@ public sealed class AttachedDropShadow : AttachedShadowBase
     }
 
     /// <inheritdoc/>
-    protected override CompositionBrush GetShadowMask(AttachedShadowElementContext context)
+    protected override CompositionBrush? GetShadowMask(AttachedShadowElementContext context)
     {
-        CompositionBrush mask = null;
-
-        if (DesignTimeHelpers.IsRunningInLegacyDesignerMode)
-        {
-            return null;
-        }
+        CompositionBrush? mask = null;
 
         if (context.Element != null)
         {
@@ -273,7 +270,7 @@ public sealed class AttachedDropShadow : AttachedShadowBase
 
             // If we don't have a mask and have specified rounded corners, we'll generate a simple quick mask.
             // This is the same code from link:AttachedCardShadow.cs:GetShadowMask
-            if (mask == null && CornerRadius > 0)
+            if (mask == null && CornerRadius > 0 && context.Compositor != null)
             {
                 // Create rounded rectangle geometry and add it to a shape
                 var geometry = context.GetResource(RoundedRectangleGeometryResourceKey) ?? context.AddResource(
@@ -286,7 +283,7 @@ public sealed class AttachedDropShadow : AttachedShadowBase
 
                 // Create a ShapeVisual so that our geometry can be rendered to a visual
                 var shapeVisual = context.GetResource(ShapeVisualResourceKey) ??
-                                    context.AddResource(ShapeVisualResourceKey, context.Compositor.CreateShapeVisual());
+                                  context.AddResource(ShapeVisualResourceKey, context.Compositor.CreateShapeVisual());
                 shapeVisual.Shapes.Add(shape);
 
                 // Create a CompositionVisualSurface, which renders our ShapeVisual to a texture
@@ -304,12 +301,15 @@ public sealed class AttachedDropShadow : AttachedShadowBase
 
                 mask = surfaceBrush;
             }
+
+            // Position our shadow in the correct spot to match the corresponding element.
+            if (context.SpriteVisual != null)
+            {
+                context.SpriteVisual.Offset = context.Element.CoordinatesFrom(CastTo).ToVector3();
+
+                BindSizeAndScale(context.SpriteVisual, context.Element);
+            }
         }
-
-        // Position our shadow in the correct spot to match the corresponding element.
-        context.SpriteVisual.Offset = context.Element.CoordinatesFrom(CastTo).ToVector3();
-
-        BindSizeAndScale(context.SpriteVisual, context.Element);
 
         return mask;
     }
@@ -327,18 +327,22 @@ public sealed class AttachedDropShadow : AttachedShadowBase
 
     private void CustomMaskedElement_Loaded(object sender, RoutedEventArgs e)
     {
-        var context = GetElementContext(sender as FrameworkElement);
+        if (sender is FrameworkElement element && GetElementContext(element) is AttachedShadowElementContext context)
+        {
+            context.Element.Loaded -= CustomMaskedElement_Loaded;
 
-        context.Element.Loaded -= CustomMaskedElement_Loaded;
-
-        UpdateShadowClip(context);
-        UpdateShadowMask(context);
+            UpdateShadowClip(context);
+            UpdateShadowMask(context);
+        }
     }
 
     /// <inheritdoc/>
     protected internal override void OnSizeChanged(AttachedShadowElementContext context, Size newSize, Size previousSize)
     {
-        context.SpriteVisual.Offset = context.Element.CoordinatesFrom(CastTo).ToVector3();
+        if (context.SpriteVisual != null)
+        {
+            context.SpriteVisual.Offset = context.Element.CoordinatesFrom(CastTo).ToVector3();
+        }
 
         UpdateShadowClip(context);
 
