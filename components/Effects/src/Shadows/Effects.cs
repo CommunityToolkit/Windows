@@ -4,55 +4,54 @@
 
 using Microsoft.UI.Xaml;
 
-namespace CommunityToolkit.WinUI.UI
+namespace CommunityToolkit.WinUI;
+
+/// <summary>
+/// Helper class for attaching <see cref="AttachedShadowBase"/> shadows to <see cref="FrameworkElement"/>s.
+/// </summary>
+public static class Effects
 {
     /// <summary>
-    /// Helper class for attaching <see cref="AttachedShadowBase"/> shadows to <see cref="FrameworkElement"/>s.
+    /// Gets the shadow attached to a <see cref="FrameworkElement"/> by getting the value of the <see cref="ShadowProperty"/> property.
     /// </summary>
-    public static class Effects
+    /// <param name="obj">The <see cref="FrameworkElement"/> the <see cref="AttachedShadowBase"/> is attached to.</param>
+    /// <returns>The <see cref="AttachedShadowBase"/> that is attached to the <paramref name="obj">FrameworkElement.</paramref></returns>
+    public static AttachedShadowBase GetShadow(FrameworkElement obj)
     {
-        /// <summary>
-        /// Gets the shadow attached to a <see cref="FrameworkElement"/> by getting the value of the <see cref="ShadowProperty"/> property.
-        /// </summary>
-        /// <param name="obj">The <see cref="FrameworkElement"/> the <see cref="AttachedShadowBase"/> is attached to.</param>
-        /// <returns>The <see cref="AttachedShadowBase"/> that is attached to the <paramref name="obj">FrameworkElement.</paramref></returns>
-        public static AttachedShadowBase GetShadow(FrameworkElement obj)
+        return (AttachedShadowBase)obj.GetValue(ShadowProperty);
+    }
+
+    /// <summary>
+    /// Attaches a shadow to an element by setting the <see cref="ShadowProperty"/> property.
+    /// </summary>
+    /// <param name="obj">The <see cref="FrameworkElement"/> to attach the shadow to.</param>
+    /// <param name="value">The <see cref="AttachedShadowBase"/> that will be attached to the element</param>
+    public static void SetShadow(FrameworkElement obj, AttachedShadowBase value)
+    {
+        obj.SetValue(ShadowProperty, value);
+    }
+
+    /// <summary>
+    /// Attached <see cref="DependencyProperty"/> for setting an <see cref="AttachedShadowBase"/> to a <see cref="FrameworkElement"/>.
+    /// </summary>
+    public static readonly DependencyProperty ShadowProperty =
+        DependencyProperty.RegisterAttached("Shadow", typeof(AttachedShadowBase), typeof(Effects), new PropertyMetadata(null, OnShadowChanged));
+
+    private static void OnShadowChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+        if (!(d is FrameworkElement element))
         {
-            return (AttachedShadowBase)obj.GetValue(ShadowProperty);
+            return;
         }
 
-        /// <summary>
-        /// Attaches a shadow to an element by setting the <see cref="ShadowProperty"/> property.
-        /// </summary>
-        /// <param name="obj">The <see cref="FrameworkElement"/> to attach the shadow to.</param>
-        /// <param name="value">The <see cref="AttachedShadowBase"/> that will be attached to the element</param>
-        public static void SetShadow(FrameworkElement obj, AttachedShadowBase value)
+        if (e.OldValue is AttachedShadowBase oldShadow)
         {
-            obj.SetValue(ShadowProperty, value);
+            oldShadow.DisconnectElement(element);
         }
 
-        /// <summary>
-        /// Attached <see cref="DependencyProperty"/> for setting an <see cref="AttachedShadowBase"/> to a <see cref="FrameworkElement"/>.
-        /// </summary>
-        public static readonly DependencyProperty ShadowProperty =
-            DependencyProperty.RegisterAttached("Shadow", typeof(AttachedShadowBase), typeof(Effects), new PropertyMetadata(null, OnShadowChanged));
-
-        private static void OnShadowChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        if (e.NewValue is AttachedShadowBase newShadow)
         {
-            if (!(d is FrameworkElement element))
-            {
-                return;
-            }
-
-            if (e.OldValue is AttachedShadowBase oldShadow)
-            {
-                oldShadow.DisconnectElement(element);
-            }
-
-            if (e.NewValue is AttachedShadowBase newShadow)
-            {
-                newShadow.ConnectElement(element);
-            }
+            newShadow.ConnectElement(element);
         }
     }
 }
