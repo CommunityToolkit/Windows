@@ -2,6 +2,14 @@
   <PropertyGroup>
     <ToolkitComponentName>Effects</ToolkitComponentName>
   </PropertyGroup>
+  <ItemGroup>
+    <None Remove="Assets\Llama.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\Llama.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 
   <!-- Sets this up as a toolkit component's sample project -->
   <Import Project="$(ToolingDirectory)\ToolkitComponent.SampleProject.props" />

@@ -9,13 +9,13 @@
     <Import_RootNamespace>EffectsExperiment.Tests</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)ExampleEffectsTestClass.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ExampleEffectsTestPage.xaml.cs">
-      <DependentUpon>ExampleEffectsTestPage.xaml</DependentUpon>
+    <Compile Include="$(MSBuildThisFileDirectory)AttachedDropShadowTestPage.xaml.cs">
+      <DependentUpon>AttachedDropShadowTests.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)AttachedDropShadowTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="$(MSBuildThisFileDirectory)ExampleEffectsTestPage.xaml">
+    <Page Include="$(MSBuildThisFileDirectory)AttachedDropShadowTestPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -2,23 +2,24 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
-using System.Collections.Generic;
-using System.Numerics;
 using System.Runtime.CompilerServices;
+using Windows.UI;
+
+#if WINAPPSDK
 using Microsoft.UI;
 using Microsoft.UI.Composition;
-using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Hosting;
-using Windows.Foundation;
-using Windows.Foundation.Metadata;
-using Windows.UI;
+#else
+using Windows.UI.Composition;
+using Windows.UI.Xaml.Hosting;
+#endif
 
 namespace CommunityToolkit.WinUI;
 
 /// <summary>
 /// The base class for attached shadows.
 /// </summary>
-public abstract class AttachedShadowBase : DependencyObject, IAttachedShadow
+public abstract partial class AttachedShadowBase : DependencyObject, IAttachedShadow
 {
     /// <summary>
     /// The <see cref="DependencyProperty"/> for <see cref="BlurRadius"/>.
@@ -51,7 +52,7 @@ public abstract class AttachedShadowBase : DependencyObject, IAttachedShadow
     /// <summary>
     /// Gets or sets the collection of <see cref="AttachedShadowElementContext"/> for each element this <see cref="AttachedShadowBase"/> is connected to.
     /// </summary>
-    private ConditionalWeakTable<FrameworkElement, AttachedShadowElementContext> ShadowElementContextTable { get; set; }
+    private ConditionalWeakTable<FrameworkElement, AttachedShadowElementContext> ShadowElementContextTable { get; set; } = new();
 
     /// <inheritdoc/>
     public double BlurRadius
@@ -96,24 +97,17 @@ public abstract class AttachedShadowBase : DependencyObject, IAttachedShadow
 
     internal void ConnectElement(FrameworkElement element)
     {
-        ShadowElementContextTable = ShadowElementContextTable ?? new ConditionalWeakTable<FrameworkElement, AttachedShadowElementContext>();
         if (ShadowElementContextTable.TryGetValue(element, out var context))
         {
             return;
         }
 
-        context = new AttachedShadowElementContext();
-        context.ConnectToElement(this, element);
+        context = new AttachedShadowElementContext(this, element);
         ShadowElementContextTable.Add(element, context);
     }
 
     internal void DisconnectElement(FrameworkElement element)
     {
-        if (ShadowElementContextTable == null)
-        {
-            return;
-        }
-
         if (ShadowElementContextTable.TryGetValue(element, out var context))
         {
             context.DisconnectFromElement();
@@ -147,9 +141,9 @@ public abstract class AttachedShadowBase : DependencyObject, IAttachedShadow
     }
 
     /// <inheritdoc/>
-    public AttachedShadowElementContext GetElementContext(FrameworkElement element)
+    public AttachedShadowElementContext? GetElementContext(FrameworkElement element)
     {
-        if (ShadowElementContextTable != null && ShadowElementContextTable.TryGetValue(element, out var context))
+        if (ShadowElementContextTable.TryGetValue(element, out var context))
         {
             return context;
         }
@@ -177,11 +171,6 @@ public abstract class AttachedShadowBase : DependencyObject, IAttachedShadow
 
     private void CallPropertyChangedForEachElement(DependencyProperty property, object oldValue, object newValue)
     {
-        if (ShadowElementContextTable == null)
-        {
-            return;
-        }
-
         foreach (var context in ShadowElementContextTable)
         {
             if (context.Value.IsInitialized)
@@ -195,7 +184,7 @@ public abstract class AttachedShadowBase : DependencyObject, IAttachedShadow
     /// Get a <see cref="CompositionBrush"/> in the shape of the element that is casting the shadow.
     /// </summary>
     /// <returns>A <see cref="CompositionBrush"/> representing the shape of an element.</returns>
-    protected virtual CompositionBrush GetShadowMask(AttachedShadowElementContext context)
+    protected virtual CompositionBrush? GetShadowMask(AttachedShadowElementContext context)
     {
         return null;
     }
@@ -204,7 +193,7 @@ public abstract class AttachedShadowBase : DependencyObject, IAttachedShadow
     /// Get the <see cref="CompositionClip"/> for the shadow's <see cref="SpriteVisual"/>
     /// </summary>
     /// <returns>A <see cref="CompositionClip"/> for the extent of the shadowed area.</returns>
-    protected virtual CompositionClip GetShadowClip(AttachedShadowElementContext context)
+    protected virtual CompositionClip? GetShadowClip(AttachedShadowElementContext context)
     {
         return null;
     }
@@ -214,7 +203,7 @@ public abstract class AttachedShadowBase : DependencyObject, IAttachedShadow
     /// </summary>
     protected void UpdateShadowMask(AttachedShadowElementContext context)
     {
-        if (!context.IsInitialized)
+        if (!context.IsInitialized || context.Shadow == null)
         {
             return;
         }
@@ -227,7 +216,7 @@ public abstract class AttachedShadowBase : DependencyObject, IAttachedShadow
     /// </summary>
     protected void UpdateShadowClip(AttachedShadowElementContext context)
     {
-        if (!context.IsInitialized)
+        if (!context.IsInitialized || context.SpriteVisual == null)
         {
             return;
         }
@@ -240,7 +229,7 @@ public abstract class AttachedShadowBase : DependencyObject, IAttachedShadow
     /// </summary>
     protected virtual void OnPropertyChanged(AttachedShadowElementContext context, DependencyProperty property, object oldValue, object newValue)
     {
-        if (!context.IsInitialized)
+        if (!context.IsInitialized || context.Shadow == null)
         {
             return;
         }
@@ -253,13 +242,13 @@ public abstract class AttachedShadowBase : DependencyObject, IAttachedShadow
         {
             context.Shadow.Opacity = (float)(double)newValue;
         }
-        else if (property == ColorProperty)
+        else if (property == ColorProperty && newValue is Color color)
         {
-            context.Shadow.Color = (Color)newValue;
+            context.Shadow.Color = color;
         }
-        else if (property == OffsetProperty)
+        else if (property == OffsetProperty && newValue is string value)
         {
-            context.Shadow.Offset = (Vector3)(newValue as string)?.ToVector3();
+            context.Shadow.Offset = value.ToVector3();
         }
     }
 

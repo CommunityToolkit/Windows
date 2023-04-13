@@ -2,12 +2,15 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
-using System;
-using System.Collections.Generic;
 using System.Numerics;
+
+#if WINAPPSDK
 using Microsoft.UI.Composition;
-using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Hosting;
+#else
+using Windows.UI.Composition;
+using Windows.UI.Xaml.Hosting;
+#endif
 
 namespace CommunityToolkit.WinUI;
 
@@ -18,7 +21,7 @@ public sealed class AttachedShadowElementContext
 {
     private bool _isConnected;
 
-    private Dictionary<string, object> _resources;
+    private Dictionary<string, object> _resources = new();
 
     internal long? VisibilityToken { get; set; }
 
@@ -40,29 +43,29 @@ public sealed class AttachedShadowElementContext
     /// <summary>
     /// Gets the <see cref="Visual"/> for the <see cref="FrameworkElement"/> this instance is attached to.
     /// </summary>
-    public Visual ElementVisual { get; private set; }
+    public Visual? ElementVisual { get; private set; }
 
     /// <summary>
     /// Gets the <see cref="Windows.UI.Composition.Compositor"/> for this instance.
     /// </summary>
-    public Compositor Compositor { get; private set; }
+    public Compositor? Compositor { get; private set; }
 
     /// <summary>
     /// Gets the <see cref="SpriteVisual"/> that contains the <see cref="DropShadow">shadow</see> for this instance
     /// </summary>
-    public SpriteVisual SpriteVisual { get; private set; }
+    public SpriteVisual? SpriteVisual { get; private set; }
 
     /// <summary>
     /// Gets the <see cref="DropShadow"/> that is rendered on this instance's <see cref="Element"/>
     /// </summary>
-    public DropShadow Shadow { get; private set; }
+    public DropShadow? Shadow { get; private set; }
 
     /// <summary>
     /// Connects a <see cref="FrameworkElement"/> to its parent <see cref="AttachedShadowBase"/> definition.
     /// </summary>
     /// <param name="parent">The <see cref="AttachedShadowBase"/> that is using this context.</param>
     /// <param name="element">The <see cref="FrameworkElement"/> that a shadow is being attached to.</param>
-    internal void ConnectToElement(AttachedShadowBase parent, FrameworkElement element)
+    internal AttachedShadowElementContext(AttachedShadowBase parent, FrameworkElement element)
     {
         if (_isConnected)
         {
@@ -88,9 +91,6 @@ public sealed class AttachedShadowElementContext
 
         Element.Loaded -= OnElementLoaded;
         Element.Unloaded -= OnElementUnloaded;
-        Element = null;
-
-        Parent = null;
 
         _isConnected = false;
     }
@@ -118,12 +118,12 @@ public sealed class AttachedShadowElementContext
         SpriteVisual.RelativeSizeAdjustment = Vector2.One;
         SpriteVisual.Shadow = Shadow;
 
-        if (Parent.SupportsOnSizeChangedEvent)
+        if (Parent.SupportsOnSizeChangedEvent == true)
         {
             Element.SizeChanged += OnElementSizeChanged;
         }
 
-        Parent?.OnElementContextInitialized(this);
+        Parent.OnElementContextInitialized(this);
     }
 
     private void Uninitialize()
@@ -137,14 +137,22 @@ public sealed class AttachedShadowElementContext
 
         Parent.OnElementContextUninitialized(this);
 
-        SpriteVisual.Shadow = null;
-        SpriteVisual.Dispose();
+        if (SpriteVisual != null)
+        {
+            SpriteVisual.Shadow = null;
+            SpriteVisual.Dispose();
+        }
 
-        Shadow.Dispose();
+        if (Shadow != null)
+        {
+            Shadow.Dispose();
+        }
 
-        ElementCompositionPreview.SetElementChildVisual(Element, null);
-
-        Element.SizeChanged -= OnElementSizeChanged;
+        if (Element != null)
+        {
+            ElementCompositionPreview.SetElementChildVisual(Element, null!);
+            Element.SizeChanged -= OnElementSizeChanged;
+        }
 
         SpriteVisual = null;
         Shadow = null;
@@ -163,7 +171,7 @@ public sealed class AttachedShadowElementContext
 
     private void OnElementSizeChanged(object sender, SizeChangedEventArgs e)
     {
-        Parent?.OnSizeChanged(this, e.NewSize, e.PreviousSize);
+        Parent.OnSizeChanged(this, e.NewSize, e.PreviousSize);
     }
 
     /// <summary>
@@ -174,8 +182,8 @@ public sealed class AttachedShadowElementContext
     /// <param name="resource">Object to store within the resource dictionary.</param>
     /// <returns>The added resource</returns>
     public T AddResource<T>(string key, T resource)
+        where T : notnull
     {
-        _resources = _resources ?? new Dictionary<string, object>();
         if (_resources.ContainsKey(key))
         {
             _resources[key] = resource;
@@ -195,7 +203,7 @@ public sealed class AttachedShadowElementContext
     /// <param name="key">Key to use to lookup the resource.</param>
     /// <param name="resource">Object to retrieved from the resource dictionary or default value.</param>
     /// <returns>True if the resource exists, false otherwise</returns>
-    public bool TryGetResource<T>(string key, out T resource)
+    public bool TryGetResource<T>(string key, out T? resource)
     {
         if (_resources != null && _resources.TryGetValue(key, out var objResource) && objResource is T tResource)
         {
@@ -213,9 +221,9 @@ public sealed class AttachedShadowElementContext
     /// <typeparam name="T">The type of the resource being retrieved.</typeparam>
     /// <param name="key">Key to use to lookup the resource.</param>
     /// <returns>The resource if available, otherwise default value.</returns>
-    public T GetResource<T>(string key)
+    public T? GetResource<T>(string key)
     {
-        if (TryGetResource(key, out T resource))
+        if (TryGetResource(key, out T? resource))
         {
             return resource;
         }
@@ -229,7 +237,7 @@ public sealed class AttachedShadowElementContext
     /// <typeparam name="T">The type of the resource being removed.</typeparam>
     /// <param name="key">Key to use to lookup the resource.</param>
     /// <returns>The resource that was removed, if any</returns>
-    public T RemoveResource<T>(string key)
+    public T? RemoveResource<T>(string key)
     {
         if (_resources.TryGetValue(key, out var objResource))
         {
@@ -249,7 +257,7 @@ public sealed class AttachedShadowElementContext
     /// <typeparam name="T">The type of the resource being removed.</typeparam>
     /// <param name="key">Key to use to lookup the resource.</param>
     /// <returns>The resource that was removed, if any</returns>
-    public T RemoveAndDisposeResource<T>(string key)
+    public T? RemoveAndDisposeResource<T>(string key)
         where T : IDisposable
     {
         if (_resources.TryGetValue(key, out var objResource))
@@ -270,35 +278,36 @@ public sealed class AttachedShadowElementContext
     /// </summary>
     /// <typeparam name="T">The type of the resource being added.</typeparam>
     /// <returns>The resource that was added</returns>
-    internal T AddResource<T>(TypedResourceKey<T> key, T resource) => AddResource(key.Key, resource);
+    internal T AddResource<T>(TypedResourceKey<T> key, T resource)
+        where T : notnull => AddResource(key.Key, resource);
 
     /// <summary>
     /// Retrieves a resource with the specified key and type if it exists
     /// </summary>
     /// <typeparam name="T">The type of the resource being retrieved.</typeparam>
     /// <returns>True if the resource exists, false otherwise</returns>
-    internal bool TryGetResource<T>(TypedResourceKey<T> key, out T resource) => TryGetResource(key.Key, out resource);
+    internal bool TryGetResource<T>(TypedResourceKey<T> key, out T? resource) => TryGetResource(key.Key, out resource);
 
     /// <summary>
     /// Retries a resource with the specified key and type
     /// </summary>
     /// <typeparam name="T">The type of the resource being retrieved.</typeparam>
     /// <returns>The resource if it exists or a default value.</returns>
-    internal T GetResource<T>(TypedResourceKey<T> key) => GetResource<T>(key.Key);
+    internal T? GetResource<T>(TypedResourceKey<T> key) => GetResource<T>(key.Key);
 
     /// <summary>
     /// Removes an existing resource with the specified key and type
     /// </summary>
     /// <typeparam name="T">The type of the resource being removed.</typeparam>
     /// <returns>The resource that was removed, if any</returns>
-    internal T RemoveResource<T>(TypedResourceKey<T> key) => RemoveResource<T>(key.Key);
+    internal T? RemoveResource<T>(TypedResourceKey<T> key) => RemoveResource<T>(key.Key);
 
     /// <summary>
     /// Removes an existing resource with the specified key and type, and <see cref="IDisposable.Dispose">disposes</see> it
     /// </summary>
     /// <typeparam name="T">The type of the resource being removed.</typeparam>
     /// <returns>The resource that was removed, if any</returns>
-    internal T RemoveAndDisposeResource<T>(TypedResourceKey<T> key)
+    internal T? RemoveAndDisposeResource<T>(TypedResourceKey<T> key)
         where T : IDisposable => RemoveAndDisposeResource<T>(key.Key);
 
     /// <summary>

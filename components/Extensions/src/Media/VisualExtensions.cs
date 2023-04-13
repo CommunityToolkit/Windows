@@ -39,7 +39,7 @@ public static class VisualExtensions
     /// <returns>A <see cref="Vector2"/> string representation of the <see cref="Visual.AnchorPoint"/></returns>
     public static string GetAnchorPoint(DependencyObject obj)
     {
-        if (!DesignTimeHelpers.IsRunningInLegacyDesignerMode && obj is UIElement element)
+        if (obj is UIElement element)
         {
             return GetAnchorPointForElement(element);
         }
@@ -54,7 +54,7 @@ public static class VisualExtensions
     /// <param name="value">The string representation of the <see cref="Vector2"/> to be set</param>
     public static void SetAnchorPoint(DependencyObject obj, string value)
     {
-        if (!DesignTimeHelpers.IsRunningInLegacyDesignerMode && obj is UIElement element)
+        if (obj is UIElement element)
         {
             SetAnchorPointForElement(value, element);
         }
@@ -69,7 +69,7 @@ public static class VisualExtensions
     /// <returns>A <see cref="Vector3"/> string representation of the <see cref="Visual.CenterPoint"/></returns>
     public static string GetCenterPoint(DependencyObject obj)
     {
-        if (!DesignTimeHelpers.IsRunningInLegacyDesignerMode && obj is UIElement element)
+        if (obj is UIElement element)
         {
             return GetCenterPointForElement(element);
         }
@@ -84,7 +84,7 @@ public static class VisualExtensions
     /// <param name="value">The string representation of the <see cref="Vector3"/> to be set</param>
     public static void SetCenterPoint(DependencyObject obj, string value)
     {
-        if (!DesignTimeHelpers.IsRunningInLegacyDesignerMode && obj is UIElement element)
+        if (obj is UIElement element)
         {
             SetCenterPointForElement(value, element);
         }
@@ -99,7 +99,7 @@ public static class VisualExtensions
     /// <returns>A <see cref="Vector3"/> string representation of the <see cref="Visual.Offset"/></returns>
     public static string GetOffset(DependencyObject obj)
     {
-        if (!DesignTimeHelpers.IsRunningInLegacyDesignerMode && obj is UIElement element)
+        if (obj is UIElement element)
         {
             return GetOffsetForElement(element);
         }
@@ -114,7 +114,7 @@ public static class VisualExtensions
     /// <param name="value">The string representation of the <see cref="Vector3"/> to be set</param>
     public static void SetOffset(DependencyObject obj, string value)
     {
-        if (!DesignTimeHelpers.IsRunningInLegacyDesignerMode && obj is UIElement element)
+        if (obj is UIElement element)
         {
             SetOffsetForElement(value, element);
         }
@@ -129,7 +129,7 @@ public static class VisualExtensions
     /// <returns>The <see cref="string"/> representation of the <c>"Translation"</c> property property.</returns>
     public static string GetTranslation(DependencyObject obj)
     {
-        if (!DesignTimeHelpers.IsRunningInLegacyDesignerMode && obj is UIElement element)
+        if (obj is UIElement element)
         {
             return GetTranslationForElement(element);
         }
@@ -144,7 +144,7 @@ public static class VisualExtensions
     /// <param name="value">The <see cref="string"/> representation of the <c>"Translation"</c> property property to be set.</param>
     public static void SetTranslation(DependencyObject obj, string value)
     {
-        if (!DesignTimeHelpers.IsRunningInLegacyDesignerMode && obj is UIElement element)
+        if (obj is UIElement element)
         {
             SetTranslationForElement(value, element);
         }
@@ -159,7 +159,7 @@ public static class VisualExtensions
     /// <returns>The <see cref="Visual.Opacity"/> of the <see cref="UIElement"/></returns>
     public static double GetOpacity(DependencyObject obj)
     {
-        if (!DesignTimeHelpers.IsRunningInLegacyDesignerMode && obj is UIElement element)
+        if (obj is UIElement element)
         {
             return GetOpacityForElement(element);
         }
@@ -174,7 +174,7 @@ public static class VisualExtensions
     /// <param name="value">The opacity to be set between 0.0 and 1.0</param>
     public static void SetOpacity(DependencyObject obj, double value)
     {
-        if (!DesignTimeHelpers.IsRunningInLegacyDesignerMode && obj is UIElement element)
+        if (obj is UIElement element)
         {
             SetOpacityForElement(value, element);
         }
@@ -189,7 +189,7 @@ public static class VisualExtensions
     /// <returns>The <see cref="Visual.RotationAngle"/> of the <see cref="UIElement"/></returns>
     public static double GetRotationAngle(DependencyObject obj)
     {
-        if (!DesignTimeHelpers.IsRunningInLegacyDesignerMode && obj is UIElement element)
+        if (obj is UIElement element)
         {
             return GetRotationAngleForElement(element);
         }
@@ -204,7 +204,7 @@ public static class VisualExtensions
     /// <param name="value">The rotation in radians</param>
     public static void SetRotationAngle(DependencyObject obj, double value)
     {
-        if (!DesignTimeHelpers.IsRunningInLegacyDesignerMode && obj is UIElement element)
+        if (obj is UIElement element)
         {
             SetRotationAngleForElement(value, element);
         }
@@ -219,7 +219,7 @@ public static class VisualExtensions
     /// <returns>The <see cref="Visual.RotationAngleInDegrees"/> of the <see cref="UIElement"/></returns>
     public static double GetRotationAngleInDegrees(DependencyObject obj)
     {
-        if (!DesignTimeHelpers.IsRunningInLegacyDesignerMode && obj is UIElement element)
+        if (obj is UIElement element)
         {
             return GetRotationAngleInDegreesForElement(element);
         }
@@ -234,7 +234,7 @@ public static class VisualExtensions
     /// <param name="value">The rotation in degrees</param>
     public static void SetRotationAngleInDegrees(DependencyObject obj, double value)
     {
-        if (!DesignTimeHelpers.IsRunningInLegacyDesignerMode && obj is UIElement element)
+        if (obj is UIElement element)
         {
             SetRotationAngleInDegreesForElement(value, element);
         }
@@ -249,7 +249,7 @@ public static class VisualExtensions
     /// <returns>A <see cref="Vector3"/> string representation of the <see cref="Visual.RotationAxis"/></returns>
     public static string GetRotationAxis(DependencyObject obj)
     {
-        if (!DesignTimeHelpers.IsRunningInLegacyDesignerMode && obj is UIElement element)
+        if (obj is UIElement element)
         {
             return GetRotationAxisForElement(element);
         }
@@ -264,7 +264,7 @@ public static class VisualExtensions
     /// <param name="value">The string representation of the <see cref="Vector3"/> to be set</param>
     public static void SetRotationAxis(DependencyObject obj, string value)
     {
-        if (!DesignTimeHelpers.IsRunningInLegacyDesignerMode && obj is UIElement element)
+        if (obj is UIElement element)
         {
             SetRotationAxisForElement(value, element);
         }
@@ -279,7 +279,7 @@ public static class VisualExtensions
     /// <returns>A <see cref="Vector3"/> string representation of the <see cref="Visual.Scale"/></returns>
     public static string GetScale(DependencyObject obj)
     {
-        if (!DesignTimeHelpers.IsRunningInLegacyDesignerMode && obj is UIElement element)
+        if (obj is UIElement element)
         {
             return GetScaleForElement(element);
         }
@@ -294,7 +294,7 @@ public static class VisualExtensions
     /// <param name="value">The string representation of the <see cref="Vector3"/> to be set</param>
     public static void SetScale(DependencyObject obj, string value)
     {
-        if (!DesignTimeHelpers.IsRunningInLegacyDesignerMode && obj is UIElement element)
+        if (obj is UIElement element)
         {
             SetScaleForElement(value, element);
         }
@@ -309,7 +309,7 @@ public static class VisualExtensions
     /// <returns>A <see cref="Vector2"/> string representation of the <see cref="Visual.Size"/></returns>
     public static string GetSize(DependencyObject obj)
     {
-        if (!DesignTimeHelpers.IsRunningInLegacyDesignerMode && obj is UIElement element)
+        if (obj is UIElement element)
         {
             return GetSizeForElement(element);
         }
@@ -324,7 +324,7 @@ public static class VisualExtensions
     /// <param name="value">The string representation of the <see cref="Vector2"/> to be set</param>
     public static void SetSize(DependencyObject obj, string value)
     {
-        if (!DesignTimeHelpers.IsRunningInLegacyDesignerMode && obj is UIElement element)
+        if (obj is UIElement element)
         {
             SetSizeForElement(value, element);
         }
@@ -503,7 +503,6 @@ public static class VisualExtensions
     private static void OnNormalizedCenterPointChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
         if (d is FrameworkElement element &&
-            !DesignTimeHelpers.IsRunningInLegacyDesignerMode &&
             e.NewValue is string newValue)
         {
             Vector2 center = newValue.ToVector2();
