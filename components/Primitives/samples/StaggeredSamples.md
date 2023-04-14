@@ -13,7 +13,7 @@ issue-id: 0
 
 # StaggeredLayout
 
-The [StaggeredLayout](/dotnet/api/microsoft.toolkit.uwp.ui.controls.StaggeredLayout) allows for layout of items in a column approach where an item will be added to whichever column has used the least amount of space.
+The [StaggeredLayout](/dotnet/api/microsoft.toolkit.uwp.ui.controls.staggeredlayout) allows for layout of items in a column approach where an item will be added to whichever column has used the least amount of space.
 
 ## Syntax
 

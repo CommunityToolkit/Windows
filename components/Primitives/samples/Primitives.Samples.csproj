@@ -6,19 +6,14 @@
   <!-- Sets this up as a toolkit component's sample project -->
   <Import Project="$(ToolingDirectory)\ToolkitComponent.SampleProject.props" />
   <ItemGroup>
+    <Compile Update="UniformGridSample.xaml.cs">
+      <DependentUpon>UniformGridSample.xaml</DependentUpon>
+    </Compile>
     <Compile Update="StaggeredLayoutSample.xaml.cs">
       <DependentUpon>StaggeredLayoutSample.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Update="StaggeredLayoutSample.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="Assets\" />
-  </ItemGroup>
-  <ItemGroup>
-    <SlnGenSolutionItem Remove="StaggeredSamples.md" />
   </ItemGroup>
 </Project>
