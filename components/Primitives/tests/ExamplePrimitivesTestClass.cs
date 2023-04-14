@@ -61,7 +61,7 @@ public partial class ExamplePrimitivesTestClass : VisualUITestBase
 
     // You can still do async work with a UIThreadTestMethod as well.
     [UIThreadTestMethod]
-    public async Task SimpleAsyncUIExamplePageTest(ExamplePrimitivesTestPage page)
+    public void SimpleAsyncUIExamplePageTest(ExamplePrimitivesTestPage page)
     {
         // This helper can be used to wait for a rendering pass to complete.
      
