@@ -73,7 +73,7 @@ public partial class ExamplePrimitivesTestClass : VisualUITestBase
     // Otherwise, checkout the UIThreadTestMethod attribute above.
     // See https://github.com/CommunityToolkit/Labs-Windows/issues/186
     [TestMethod]
-    public async Task ComplexAsyncUIExampleTest()
+    public void ComplexAsyncUIExampleTest()
     {
         //await EnqueueAsync(() =>
         //{
@@ -85,7 +85,7 @@ public partial class ExamplePrimitivesTestClass : VisualUITestBase
     // If you want to load other content not within a XAML page using the UIThreadTestMethod above.
     // Then you can do that using the Load/UnloadTestContentAsync methods.
     [TestMethod]
-    public async Task ComplexAsyncLoadUIExampleTest()
+    public void ComplexAsyncLoadUIExampleTest()
     {
         //await EnqueueAsync(async () =>
         //{
@@ -105,7 +105,7 @@ public partial class ExamplePrimitivesTestClass : VisualUITestBase
 
     // You can still use the UIThreadTestMethod to remove the extra layer for the dispatcher as well:
     [UIThreadTestMethod]
-    public async Task ComplexAsyncLoadUIExampleWithoutDispatcherTest()
+    public void ComplexAsyncLoadUIExampleWithoutDispatcherTest()
     {
         //var component = new Primitives_ClassicBinding();
         //Assert.IsNotNull(component);
