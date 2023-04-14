@@ -6,6 +6,9 @@
   <!-- Sets this up as a toolkit component's sample project -->
   <Import Project="$(ToolingDirectory)\ToolkitComponent.SampleProject.props" />
   <ItemGroup>
+    <Content Include="Assets\WestSeattleView.jpg" />
+  </ItemGroup>
+  <ItemGroup>
     <Compile Update="UniformGridSample.xaml.cs">
       <DependentUpon>UniformGridSample.xaml</DependentUpon>
     </Compile>
