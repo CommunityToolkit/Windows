@@ -34,8 +34,7 @@
         </StackPanel>
 
         <controls:DockPanel x:Name="SampleDockPanel"
-                            Grid.Row="2"
-                            Margin="4"
+                            Grid.Column="1"
                             Background="{ThemeResource CardBackgroundFillColorSecondaryBrush}"
                             LastChildFill="False">
             <StackPanel Height="100"
