@@ -54,13 +54,22 @@ public partial class AttachedDropShadowTests : VisualUITestBase
     // This lets us actually test a control as it would behave within an actual application.
     // The page will already be loaded by the time your test is called.
     [UIThreadTestMethod]
-    public void SimpleUIExamplePageTest(AttachedDropShadowTestPage page)
+    public void AttachedDropShadow_AttachInXaml(AttachedDropShadowTestPage page)
     {
         // You can use the Toolkit Visual Tree helpers here to find the component by type or name:
-        var border = page.FindDescendant<Border>();
+        var border = page.FindDescendants().Where(e => e is Border).Cast<Border>().ToArray();
 
-        Assert.IsNotNull(border);
+        Assert.AreEqual(2, border.Length);
 
-        // TODO: Get effect value
+        var target = border[0];
+
+        Assert.AreEqual(target.Name, "ShadowTarget", "Could not get target shadow area.");
+
+        var shadow = Effects.GetShadow(border[1]) as AttachedDropShadow;
+
+        Assert.IsNotNull(shadow, "Could not get attached drop shadow.");
+
+        Assert.AreEqual(target, shadow.CastTo);
+        Assert.AreEqual(32, shadow.CornerRadius, 0.05);
     }
 }
