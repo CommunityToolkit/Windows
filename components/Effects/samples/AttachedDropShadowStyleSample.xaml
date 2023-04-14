@@ -1,0 +1,43 @@
+<!--  Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license. See the LICENSE file in the project root for more information.  -->
+<Page x:Class="EffectsExperiment.Samples.AttachedDropShadowStyleSample"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:ui="using:CommunityToolkit.WinUI"
+      mc:Ignorable="d">
+
+    <Page.Resources>
+        <!--  First define a shadow resource with a target as we did in the previous example  -->
+        <ui:AttachedDropShadow x:Key="CommonShadow"
+                               CastTo="{x:Bind ShadowTarget}"
+                               Offset="4" />
+
+        <!--  Because we have to specify the shadow target, this style can at most be at the Page level  -->
+        <Style BasedOn="{StaticResource DefaultButtonStyle}"
+               TargetType="Button">
+            <!--  We must use an existing resource (defined above) as a style value here  -->
+            <Setter Property="ui:Effects.Shadow" Value="{StaticResource CommonShadow}" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <!--
+                We set a solid color for the background button otherwise the shadow bleeds through as
+                the new style is transparent. See AttachedCardShadow for proper element clipping.
+            -->
+            <Setter Property="Background" Value="Red" />
+        </Style>
+    </Page.Resources>
+
+
+    <Grid>
+        <Border x:Name="ShadowTarget" />
+        <StackPanel VerticalAlignment="Center"
+                    Spacing="32">
+            <!--
+                All buttons on this page have the shadow from the common style!
+                The Shadow definition is Shared!
+            -->
+            <Button Content="I Have a Shadow!" />
+            <Button Content="I Also have a Shadow!" />
+        </StackPanel>
+    </Grid>
+</Page>
