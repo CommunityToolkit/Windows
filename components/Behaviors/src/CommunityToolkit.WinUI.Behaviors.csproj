@@ -1,0 +1,14 @@
+<Project Sdk="MSBuild.Sdk.Extras/3.0.23">
+  <PropertyGroup>
+    <ToolkitComponentName>Behaviors</ToolkitComponentName>
+    <Description>This package contains Behaviors.</Description>
+    <Version>8.0.0-beta.1</Version>
+
+    <!-- Rns suffix is required for namespaces shared across projects. See https://github.com/CommunityToolkit/Labs-Windows/issues/152 -->
+    <PackageId>CommunityToolkit.WinUI.Behaviors</PackageId>
+    <RootNamespace>$(PackageId)Rns</RootNamespace>
+  </PropertyGroup>
+
+  <!-- Sets this up as a toolkit component's source project -->
+  <Import Project="$(ToolingDirectory)\ToolkitComponent.SourceProject.props" />
+</Project>
