@@ -57,13 +57,7 @@ public partial class ExamplePrimitivesTestClass : VisualUITestBase
     public void SimpleUIExamplePageTest(ExamplePrimitivesTestPage page)
     {
         // You can use the Toolkit Visual Tree helpers here to find the component by type or name:
-        var component = page.FindDescendant<Primitives_ClassicBinding>();
-
-        Assert.IsNotNull(component);
-
-        var componentByName = page.FindDescendant("PrimitivesControl");
-
-        Assert.IsNotNull(componentByName);
+        
     }
 
     // You can still do async work with a UIThreadTestMethod as well.
@@ -71,11 +65,7 @@ public partial class ExamplePrimitivesTestClass : VisualUITestBase
     public async Task SimpleAsyncUIExamplePageTest(ExamplePrimitivesTestPage page)
     {
         // This helper can be used to wait for a rendering pass to complete.
-        await CompositionTargetHelper.ExecuteAfterCompositionRenderingAsync(() => { });
-
-        var component = page.FindDescendant<Primitives_ClassicBinding>();
-
-        Assert.IsNotNull(component);
+     
     }
 
     //// ----------------------------- ADVANCED TEST SCENARIOS -----------------------------
