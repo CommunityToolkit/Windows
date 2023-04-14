@@ -39,12 +39,18 @@ public sealed class FocusBehavior : BehaviorBase<UIElement>
         typeof(FocusBehavior),
         new PropertyMetadata(TimeSpan.FromMilliseconds(100)));
 
-    private DispatcherQueueTimer? _timer;
+    private DispatcherQueueTimer _timer;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="FocusBehavior"/> class.
     /// </summary>
-    public FocusBehavior() => Targets = new FocusTargetList();
+    public FocusBehavior()
+    {
+        _timer = DispatcherQueue.GetForCurrentThread().CreateTimer();
+        _timer.Tick += OnEngagementTimerTick;
+
+        Targets = new FocusTargetList();
+    }
 
     /// <summary>
     /// Gets or sets the ordered list of controls which should receive the focus when the associated object is loaded.
@@ -150,18 +156,8 @@ public sealed class FocusBehavior : BehaviorBase<UIElement>
             // We have been able to set the focus on one control.
             // We start the timer to detect if we can focus another control with an higher priority.
             // This allows us to handle the case where the controls are not loaded in the order we expect.
-            if (_timer is null)
-            {
-#if !WINAPPSDK
-                _timer = DispatcherQueue.GetForCurrentThread().CreateTimer();
-#else
-                _timer = DispatcherQueue.CreateTimer();
-#endif
-
-                _timer.Interval = FocusEngagementTimeout;
-                _timer.Tick += OnEngagementTimerTick;
-                _timer.Start();
-            }
+            _timer.Interval = FocusEngagementTimeout;
+            _timer.Start();
         }
     }
 
@@ -183,10 +179,9 @@ public sealed class FocusBehavior : BehaviorBase<UIElement>
 
     private void Stop(FocusTargetList? targets = null)
     {
-        if (_timer != null)
+        if (_timer.IsRunning)
         {
             _timer.Stop();
-            _timer = null;
         }
 
         foreach (var target in targets ?? Targets)
