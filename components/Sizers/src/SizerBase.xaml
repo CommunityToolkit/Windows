@@ -48,7 +48,6 @@
             <Setter.Value>
                 <ControlTemplate TargetType="controls:SizerBase">
                     <Grid x:Name="RootGrid"
-                          local:FrameworkElementExtensions.Cursor="{TemplateBinding Cursor}"
                           Background="{TemplateBinding Background}">
 
                         <!--  Note: These align with Thumb  -->

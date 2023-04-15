@@ -72,7 +72,7 @@ public partial class SizerBase
     /// <inheritdoc />
     protected override void OnManipulationDelta(ManipulationDeltaRoutedEventArgs e)
     {
-        // We use Trancate here to provide 'snapping' points with the DragIncrement property
+        // We use Truncate here to provide 'snapping' points with the DragIncrement property
         // It works for both our negative and positive values, as otherwise we'd need to use
         // Ceiling when negative and Floor when positive to maintain the correct behavior.
         var horizontalChange =

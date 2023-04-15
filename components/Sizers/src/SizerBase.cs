@@ -21,7 +21,7 @@ public abstract partial class SizerBase : Control
 
     /// <summary>
     /// Called when the <see cref="SizerBase"/> control starts to be dragged by the user.
-    /// Implementor should record current state of manipulated target at this point in time.
+    /// Implementer should record current state of manipulated target at this point in time.
     /// They will receive the cumulative change in <see cref="OnDragHorizontal(double)"/> or
     /// <see cref="OnDragVertical(double)"/> based on the <see cref="Orientation"/> property.
     /// </summary>
@@ -42,7 +42,7 @@ public abstract partial class SizerBase : Control
     /// manipulation. This method will be used regardless of input device. It will already
     /// be adjusted for RightToLeft <see cref="FlowDirection"/> of the containing
     /// layout/settings. It will also already account for any settings such as
-    /// <see cref="DragIncrement"/> or <see cref="KeyboardIncrement"/>. The implementor
+    /// <see cref="DragIncrement"/> or <see cref="KeyboardIncrement"/>. The implementer
     /// just needs to use the provided value to manipulate their baseline stored
     /// in <see cref="OnDragStarting"/> to provide the desired change.
     /// </remarks>
@@ -57,7 +57,7 @@ public abstract partial class SizerBase : Control
     /// The value provided here is the cumulative change from the beginning of the
     /// manipulation. This method will be used regardless of input device. It will also
     /// already account for any settings such as <see cref="DragIncrement"/> or
-    /// <see cref="KeyboardIncrement"/>. The implementor just needs
+    /// <see cref="KeyboardIncrement"/>. The implementer just needs
     /// to use the provided value to manipulate their baseline stored
     /// in <see cref="OnDragStarting"/> to provide the desired change.
     /// </remarks>
@@ -83,7 +83,7 @@ public abstract partial class SizerBase : Control
 // On Uno the ProtectedCursor isn't supported yet, so we don't need this value.
 #if WINAPPSDK && !HAS_UNO
     // Used to track when we're in the OnApplyTemplateStep to change ProtectedCursor value.
-    private bool _applyingTemplate = false;
+    private bool _appliedTemplate = false;
 #endif
 
     /// <inheritdoc/>
@@ -115,9 +115,9 @@ public abstract partial class SizerBase : Control
         SizerBase_IsEnabledChanged(this, null!);
 #if WINAPPSDK && !HAS_UNO
         // On WinAppSDK, we'll trigger this to setup the initial ProtectedCursor value.
-        _applyingTemplate = true;
+        _appliedTemplate = true;
 #endif
-        // On UWP, we'll check the current Orientation and set the Cursor property to use here still.
+        // Ensure we have the proper cursor value setup, as we can only set now for WinUI 3
         OnOrientationPropertyChanged(this, null!);
     }
 
