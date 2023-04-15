@@ -4,6 +4,8 @@
 
 namespace CommunityToolkit.WinUI.Controls.SizerBaseLocal;
 
+//// TODO: Make this part of the WCT converters package?
+
 /// <summary>
 /// This class returns a value depending on the <see cref="Orientation"/> of the value provided to the converter. In case of default will return the <see cref="VerticalValue"/>.
 /// </summary>

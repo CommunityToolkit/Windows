@@ -2,6 +2,8 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
+using CommunityToolkit.WinUI;
+
 #if !WINAPPSDK
 using CursorEnum = Windows.UI.Core.CoreCursorType;
 #else
@@ -17,7 +19,7 @@ namespace CommunityToolkit.WinUI.Controls;
 public partial class SizerBase : Control
 {
     /// <summary>
-    /// Gets or sets the cursor to use when hovering over the gripper bar. If left as <c>null</c>, the control will manage the cursor automatically based on the <see cref="Orientation"/> property value.
+    /// Gets or sets the cursor to use when hovering over the gripper bar. If left as <c>null</c>, the control will manage the cursor automatically based on the <see cref="Orientation"/> property value (default).
     /// </summary>
     public CursorEnum Cursor
     {
@@ -38,7 +40,7 @@ public partial class SizerBase : Control
     /// For instance, if the DragIncrement is set to 16. Then when a component is resized with the sizer, it will only increase or decrease in size in that increment. I.e. -16, 0, 16, 32, 48, etc...
     /// </example>
     /// <remarks>
-    /// This value is indepedent of the <see cref="KeyboardIncrement"/> property. If you need to provide consistent snapping when moving regardless of input device, set these properties to the same value.
+    /// This value is independent of the <see cref="KeyboardIncrement"/> property. If you need to provide consistent snapping when moving regardless of input device, set these properties to the same value.
     /// </remarks>
     public double DragIncrement
     {
@@ -92,35 +94,38 @@ public partial class SizerBase : Control
     {
         if (d is SizerBase gripper)
         {
-            CursorEnum cursorToUse = gripper.Orientation == Orientation.Vertical ? CursorEnum.SizeWestEast : CursorEnum.SizeNorthSouth;
+            CursorEnum cursorByOrientation = gripper.Orientation == Orientation.Vertical ? CursorEnum.SizeWestEast : CursorEnum.SizeNorthSouth;
 
             // See if there's been a cursor override, otherwise we'll pick
             var cursor = gripper.ReadLocalValue(CursorProperty);
             if (cursor == DependencyProperty.UnsetValue || cursor == null)
             {
-                cursor = cursorToUse;
-
-                // On UWP, we use the extension in XAML to control this behavior,
-                // so we'll update it here (and maintain binding).
-                // We'll keep it in-sync to maintain behavior for WinUI 3 as well.
-                gripper.SetValue(CursorProperty, cursor);
-
-                // We return here, as the Cursor will trigger this function again anyway to set for WinUI 3
-                return;
+                cursor = cursorByOrientation;
             }
+
+#if !WINAPPSDK
+            // On UWP, we use our XAML extension to control this behavior,
+            // so we'll update it here (and maintain any cursor override).
+            if (cursor is CursorEnum cursorValue)
+            {
+                FrameworkElementExtensions.SetCursor(gripper, cursorValue);
+            }
+
+            return;
+#endif
 
             // TODO: [UNO] Only supported on certain platforms
             // See ProtectedCursor here: https://github.com/unoplatform/uno/blob/3fe3862b270b99dbec4d830b547942af61b1a1d9/src/Uno.UI/UI/Xaml/UIElement.cs#L1015-L1023
 #if WINAPPSDK && !HAS_UNO
             // Need to wait until we're at least applying template step of loading before setting Cursor
             // See https://github.com/microsoft/microsoft-ui-xaml/issues/7062
-            if (gripper._applyingTemplate &&
-                cursor is CursorEnum cursorToSet &&
+            if (gripper._appliedTemplate &&
+                cursor is CursorEnum cursorValue &&
                 (gripper.ProtectedCursor == null ||
                     (gripper.ProtectedCursor is InputSystemCursor current &&
-                     current.CursorShape != cursorToSet)))
+                     current.CursorShape != cursorValue)))
             {
-                gripper.ProtectedCursor = InputSystemCursor.Create(cursorToSet);
+                gripper.ProtectedCursor = InputSystemCursor.Create(cursorValue);
             }
 #endif
         }
