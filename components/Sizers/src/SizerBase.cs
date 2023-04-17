@@ -9,8 +9,28 @@ namespace CommunityToolkit.WinUI.Controls;
 /// <summary>
 /// Base class for splitting/resizing type controls like <see cref="GridSplitter"/> and <see cref="ContentSizer"/>. Acts similar to an enlarged <see cref="Windows.UI.Xaml.Controls.Primitives.Thumb"/> type control, but with keyboard support. Subclasses should override the various abstract methods here to implement their behavior.
 /// </summary>
+
+[TemplateVisualState(Name = NormalState, GroupName = CommonStates)]
+[TemplateVisualState(Name = PointerOverState, GroupName = CommonStates)]
+[TemplateVisualState(Name = PressedState, GroupName = CommonStates)]
+[TemplateVisualState(Name = DisabledState, GroupName = CommonStates)]
+[TemplateVisualState(Name = HorizontalState, GroupName = OrientationStates)]
+[TemplateVisualState(Name = VerticalState, GroupName = OrientationStates)]
+[TemplateVisualState(Name = VisibleState, GroupName = ThumbVisibilityStates)]
+[TemplateVisualState(Name = CollapsedState, GroupName = ThumbVisibilityStates)]
 public abstract partial class SizerBase : Control
 {
+    internal const string CommonStates = "CommonStates";
+    internal const string NormalState = "Normal";
+    internal const string PointerOverState = "PointerOver";
+    internal const string PressedState = "Pressed";
+    internal const string DisabledState = "Disabled";
+    internal const string OrientationStates = "OrientationStates";
+    internal const string HorizontalState = "Horizontal";
+    internal const string VerticalState = "Vertical";
+    internal const string ThumbVisibilityStates = "ThumbVisibilityStates";
+    internal const string VisibleState = "Visible";
+    internal const string CollapsedState = "Collapsed";
     /// <summary>
     /// Called when the control has been initialized.
     /// </summary>
@@ -119,6 +139,9 @@ public abstract partial class SizerBase : Control
 #endif
         // Ensure we have the proper cursor value setup, as we can only set now for WinUI 3
         OnOrientationPropertyChanged(this, null!);
+
+        // Ensure we set the Thumb visiblity
+        OnIsThumbVisiblePropertyChanged(this, null!);
     }
 
     private void SizerBase_Loaded(object sender, RoutedEventArgs e)
