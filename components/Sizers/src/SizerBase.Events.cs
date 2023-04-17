@@ -117,7 +117,7 @@ public partial class SizerBase
 
         if (IsEnabled)
         {
-            VisualStateManager.GoToState(this, _pointerEntered ? "PointerOver" : "Normal", true);
+            VisualStateManager.GoToState(this, _pointerEntered ? PointerOverState : NormalState, true);
         }
     }
 
@@ -127,7 +127,7 @@ public partial class SizerBase
 
         if (IsEnabled)
         {
-            VisualStateManager.GoToState(this, "Pressed", true);
+            VisualStateManager.GoToState(this, PointerOverState, true);
         }
     }
 
@@ -137,7 +137,7 @@ public partial class SizerBase
 
         if (!_pressed && !_dragging && IsEnabled)
         {
-            VisualStateManager.GoToState(this, "Normal", true);
+            VisualStateManager.GoToState(this, NormalState, true);
         }
     }
 
@@ -147,7 +147,7 @@ public partial class SizerBase
 
         if (!_pressed && !_dragging && IsEnabled)
         {
-            VisualStateManager.GoToState(this, "PointerOver", true);
+            VisualStateManager.GoToState(this, PointerOverState, true);
         }
     }
 
@@ -155,24 +155,24 @@ public partial class SizerBase
     {
         _dragging = false;
         _pressed = false;
-        VisualStateManager.GoToState(this, _pointerEntered ? "PointerOver" : "Normal", true);
+        VisualStateManager.GoToState(this, _pointerEntered ? PointerOverState : NormalState, true);
     }
 
     private void SizerBase_ManipulationStarted(object sender, ManipulationStartedRoutedEventArgs e)
     {
         _dragging = true;
-        VisualStateManager.GoToState(this, "Pressed", true);
+        VisualStateManager.GoToState(this, PressedState, true);
     }
 
     private void SizerBase_IsEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)
     {
         if (!IsEnabled)
         {
-            VisualStateManager.GoToState(this, "Disabled", true);
+            VisualStateManager.GoToState(this, DisabledState, true);
         }
         else
         {
-            VisualStateManager.GoToState(this, _pointerEntered ? "PointerOver" : "Normal", true);
+            VisualStateManager.GoToState(this, _pointerEntered ? PointerOverState : NormalState, true);
         }
     }
 }
