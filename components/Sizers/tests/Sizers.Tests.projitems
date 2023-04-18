@@ -9,13 +9,13 @@
     <Import_RootNamespace>SizersExperiment.Tests</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)ExampleSizersTestClass.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ExampleSizersTestPage.xaml.cs">
-      <DependentUpon>ExampleSizersTestPage.xaml</DependentUpon>
+    <Compile Include="$(MSBuildThisFileDirectory)ExampleSizerBaseTestClass.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PropertySizerTestInitialBinding.xaml.cs">
+      <DependentUpon>PropertySizerTestInitialBinding.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="$(MSBuildThisFileDirectory)ExampleSizersTestPage.xaml">
+    <Page Include="$(MSBuildThisFileDirectory)PropertySizerTestInitialBinding.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

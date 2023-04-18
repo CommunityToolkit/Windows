@@ -1,0 +1,43 @@
+<!--  Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license. See the LICENSE file in the project root for more information.  -->
+<Page x:Class="SizersExperiment.Samples.ContentSizerTopShelfPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:controls="using:CommunityToolkit.WinUI.Controls"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+      mc:Ignorable="d">
+
+    <Grid MinHeight="300">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!--  Bottom 'Shelf', In this case you cannot use GridSplitter as row would maintain its size when Expander gets collapsed  -->
+        <muxc:Expander x:Name="TopExpander"
+                       VerticalAlignment="Top"
+                       HorizontalContentAlignment="Stretch"
+                       ExpandDirection="Up"
+                       Header="This is some Shelf"
+                       IsExpanded="True">
+            <Grid x:Name="ExpandContent"
+                  Height="128"
+                  MinHeight="32"
+                  MaxHeight="256">
+                <TextBlock HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Text="This is the expanded content"
+                           TextWrapping="Wrap" />
+            </Grid>
+        </muxc:Expander>
+        <!--  We expand the inner content size here so that Expander maintains it's size properly.  -->
+        <controls:ContentSizer Grid.Row="1"
+                               Height="16"
+                               VerticalAlignment="Top"
+                               Orientation="Horizontal"
+                               TargetControl="{x:Bind ExpandContent}"
+                               Visibility="{x:Bind TopExpander.IsExpanded, Mode=OneWay}" />
+    </Grid>
+</Page>
