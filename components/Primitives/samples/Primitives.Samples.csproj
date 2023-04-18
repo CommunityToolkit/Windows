@@ -5,7 +5,13 @@
 
   <!-- Sets this up as a toolkit component's sample project -->
   <Import Project="$(ToolingDirectory)\ToolkitComponent.SampleProject.props" />
+
   <ItemGroup>
+    <ProjectReference Include="..\..\Extensions\src\CommunityToolkit.WinUI.Extensions.csproj"></ProjectReference>
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Content Include="Assets\BigFourSummerHeat.jpg" />
     <Content Include="Assets\WestSeattleView.jpg" />
   </ItemGroup>
   <ItemGroup>
