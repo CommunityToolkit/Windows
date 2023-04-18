@@ -11,8 +11,9 @@
     <Grid>
         <controls:UniformGrid Columns="{x:Bind (x:Int32)Columns, Mode=OneWay}"
                               FirstColumn="{x:Bind (x:Int32)FirstColumn, Mode=OneWay}"
+                              Orientation="{x:Bind local:UniformGridSample.ConvertStringToOrientation(OrientationProperty), Mode=OneWay}"
                               Rows="{x:Bind (x:Int32)Rows, Mode=OneWay}">
-            <!--  Orientation="{x:Bind local:UniformGridSample.ConvertStringToOrientation(Orientation), Mode=OneWay}"  -->
+
             <Border Grid.Row="1"
                     Grid.RowSpan="{x:Bind (x:Int32)Item1RowSpan, Mode=OneWay}"
                     Grid.Column="1"
