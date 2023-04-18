@@ -1,0 +1,25 @@
+﻿<!--  Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license. See the LICENSE file in the project root for more information.  -->
+<Page x:Class="SizersExperiment.Samples.SizersCustomSample"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:controls="using:CommunityToolkit.WinUI.Controls"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="using:SizersExperiment.Samples"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d">
+
+    <StackPanel Spacing="16">
+        <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}"
+                   Text="{x:Bind TitleText, Mode=OneWay}" />
+        <StackPanel Spacing="16">
+            <controls:Sizers Orientation="{x:Bind local:SizersCustomSample.ConvertStringToOrientation(LayoutOrientation), Mode=OneWay}">
+                <TextBlock Text="1" />
+                <TextBlock Text="2" />
+                <TextBlock Text="3" />
+                <TextBlock Text="4" />
+                <TextBlock Text="5" />
+                <TextBlock Text="6" />
+            </controls:Sizers>
+        </StackPanel>
+    </StackPanel>
+</Page>
