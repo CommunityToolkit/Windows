@@ -7,7 +7,7 @@ using CommunityToolkit.WinUI.Behaviors;
 namespace BehaviorsExperiment.Samples;
 
 [ToolkitSampleBoolOption("IsAlwaysOn", true, Title = "IsAlwaysOn")]
-[ToolkitSample(id: nameof(ViewportBehaviorSample), nameof(ViewportBehavior), description: $"A sample for showing how to use the ViewportBehavior.")]
+[ToolkitSample(id: nameof(ViewportBehaviorSample), nameof(ViewportBehavior), description: $"A sample for showing how to use the {nameof(ViewportBehavior)}.")]
 public sealed partial class ViewportBehaviorSample : Page
 {
     public ViewportBehaviorSample()
