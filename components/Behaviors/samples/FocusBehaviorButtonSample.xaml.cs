@@ -8,7 +8,7 @@ namespace BehaviorsExperiment.Samples;
 
 [ToolkitSampleBoolOption("IsButtonEnabled", true, Title = "Enable button")]
 [ToolkitSampleBoolOption("ControlLoaded", true, Title = "Toggle x:Bind")]
-[ToolkitSample(id: nameof(FocusBehaviorButtonSample), $"{nameof(FocusBehavior)}: Disabled / Unloaded items", description: $"A sample how FocusBehavior affects disabled or unloaded controls.")]
+[ToolkitSample(id: nameof(FocusBehaviorButtonSample), $"{nameof(FocusBehavior)}: Disabled / Unloaded items", description: $"A sample demonstrating how {nameof(FocusBehavior)} affects disabled or unloaded controls.")]
 public sealed partial class FocusBehaviorButtonSample : Page
 {
     public FocusBehaviorButtonSample()

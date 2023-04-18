@@ -6,7 +6,7 @@ using CommunityToolkit.WinUI.Behaviors;
 
 namespace BehaviorsExperiment.Samples;
 
-[ToolkitSample(id: nameof(KeyDownTriggerBehaviorSample), nameof(KeyDownTriggerBehavior), description: $"A sample for showing how to use the KeyDownTriggerBehavior.")]
+[ToolkitSample(id: nameof(KeyDownTriggerBehaviorSample), nameof(KeyDownTriggerBehavior), description: $"A sample for showing how to use the {nameof(KeyDownTriggerBehavior)}.")]
 public sealed partial class KeyDownTriggerBehaviorSample : Page, INotifyPropertyChanged
 {
     public KeyDownTriggerBehaviorSample()
