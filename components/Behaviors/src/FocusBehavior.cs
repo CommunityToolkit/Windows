@@ -133,7 +133,6 @@ public sealed class FocusBehavior : BehaviorBase<UIElement>
 
                 if (control is ListViewBase listViewBase)
                 {
-                    // The list may not have any item yet, we wait until the first item is rendered.
                     listViewBase.ContainerContentChanging -= OnContainerContentChanging;
                     listViewBase.ContainerContentChanging += OnContainerContentChanging;
                     hasListViewBaseControl = true;
@@ -148,7 +147,6 @@ public sealed class FocusBehavior : BehaviorBase<UIElement>
 
         if (focusedControlIndex == 0 || (!hasListViewBaseControl && Targets.All(t => t.Control?.IsLoaded == true)))
         {
-            // The first control has received the focus or all the control are loaded and none can take the focus: we stop.
             Stop();
         }
         else if (focusedControlIndex > 0)
