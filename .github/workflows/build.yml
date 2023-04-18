@@ -105,7 +105,7 @@ jobs:
         if: ${{ matrix.platform == 'WinUI3' }}
 
       - name: MSBuild
-        run: msbuild.exe CommunityToolkit.AllComponents.sln /restore /nowarn:MSB4011 -p:Configuration=Release
+        run: msbuild.exe CommunityToolkit.AllComponents.sln /restore /nowarn:MSB4011 -p:Configuration=Release -m
 
       # Build All Packages
       - name: pack experiments
