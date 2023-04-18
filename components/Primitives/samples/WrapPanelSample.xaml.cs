@@ -6,19 +6,18 @@ using CommunityToolkit.WinUI;
 
 namespace PrimitivesExperiment.Samples;
 
-[ToolkitSampleNumericOption("HorizontalSpacing", initial: 5, min: 0, max: 200, step: 1, Title = "HorizontalSpacing")]
+[ToolkitSampleNumericOption("HorizontalSpacing", initial: 5, min: 0, max: 200, step: 1, Title = "Horizontal Spacing")]
 [ToolkitSampleNumericOption("VerticalSpacing", initial: 5, min: 0, max: 200, step: 1, Title = "VerticalSpacing")]
 
 [ToolkitSample(id: nameof(WrapPanelSample), "WrapPanel", description: $"A sample for showing how to create and use a {nameof(CommunityToolkit.WinUI.WrapPanel)}.")]
 public sealed partial class WrapPanelSample : Page
 {
     private static readonly Random Rand = new Random();
-    private ObservableCollection<PhotoDataItemWithDimension> WrapPanelCollection;
+    private ObservableCollection<PhotoDataItemWithDimension> WrapPanelCollection = new();
 
     public WrapPanelSample()
     {
         this.InitializeComponent();
-        WrapPanelCollection = new ObservableCollection<PhotoDataItemWithDimension>();
     }
 
     private void ItemControl_ItemClick(object sender, ItemClickEventArgs e)
@@ -37,7 +36,7 @@ public sealed partial class WrapPanelSample : Page
         WrapPanelCollection.Add(new PhotoDataItemWithDimension
         {
             Category = "Remove",
-            Thumbnail = "ms-appx:///Assets/Photos/BigFourSummerHeat.jpg",
+            Thumbnail = "ms-appx:///Assets/BigFourSummerHeat.jpg",
             Width = Rand.Next(60, 180),
             Height = Rand.Next(40, 140)
         });
@@ -48,7 +47,7 @@ public sealed partial class WrapPanelSample : Page
         WrapPanelCollection.Add(new PhotoDataItemWithDimension
         {
             Category = "Remove",
-            Thumbnail = "ms-appx:///Assets/Photos/BigFourSummerHeat.jpg",
+            Thumbnail = "ms-appx:///Assets/BigFourSummerHeat.jpg",
             Width = 150,
             Height = 100
         });

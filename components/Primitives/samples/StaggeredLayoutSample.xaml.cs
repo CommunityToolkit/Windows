@@ -16,6 +16,7 @@ public sealed partial class StaggeredLayoutSample : Page
 {
     public ObservableCollection<ColorItem> ColorsCollection = new();
     public Random random;
+
     public StaggeredLayoutSample()
     {
         this.InitializeComponent();

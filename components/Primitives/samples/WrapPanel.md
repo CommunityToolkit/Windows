@@ -21,15 +21,7 @@ Spacing can be automatically added between items using the HorizontalSpacing and
 
 When the Orientation is Vertical, HorizontalSpacing adds uniform spacing between each column of items, and VerticalSpacing adds uniform vertical spacing between individual items.
 
-> [!SAMPLE DockPanelSample]
-
-## Syntax
-
-```xaml
-<wrapPanel:WrapPanel Name="VerticalWrapPanel" Grid.Row="1" Margin="2"
-                     HorizontalSpacing="10" VerticalSpacing="10" Orientation="Vertical"/>
-```
-
+> [!SAMPLE WrapPanelSample]
 
 ## Properties
 

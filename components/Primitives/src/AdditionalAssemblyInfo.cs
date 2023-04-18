@@ -8,6 +8,8 @@ using System.Runtime.CompilerServices;
 // for any internal code to be testable in all the different test projects
 // used with the Labs infrastructure.
 [assembly: InternalsVisibleTo("Primitives.Tests.Uwp")]
+[assembly: InternalsVisibleTo("PrimitivesExperiment.Tests.Uwp")]
+[assembly: InternalsVisibleTo("PrimitivesExperiment.Tests.WinAppSdk")]
 [assembly: InternalsVisibleTo("Primitives.Tests.WinAppSdk")]
 [assembly: InternalsVisibleTo("CommunityToolkit.Tests.Uwp")]
 [assembly: InternalsVisibleTo("CommunityToolkit.Tests.WinAppSdk")]
