@@ -9,27 +9,23 @@
     For UWP / WinAppSDK / Uno packages, place the package references here.
 -->
 <Project>
-    <!-- WinUI 2 / UWP -->
-    <ItemGroup Condition="'$(IsUwp)' == 'true'">
-      <PackageReference Include="Microsoft.Xaml.Behaviors.Uwp.Managed" Version="2.0.1"/>
-      <PackageReference Include="CommunityToolkit.Uwp.Extensions" Version="8.0.0-beta.1" />
-    </ItemGroup>
+  <!-- WinUI 2 / UWP -->
+  <ItemGroup Condition="'$(IsUwp)' == 'true'">
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Uwp.Managed" Version="2.0.1"/>
+  </ItemGroup>
 
-    <!-- WinUI 2 / Uno -->
-    <ItemGroup Condition="'$(IsUno)' == 'true' AND '$(WinUIMajorVersion)' == '2'">
-      <PackageReference Include="Uno.Microsoft.Xaml.Behaviors.Uwp.Managed" Version="2.3.1-uno.2" />
-      <PackageReference Include="CommunityToolkit.Uwp.Extensions" Version="8.0.0-beta.1" />
-    </ItemGroup>
+  <!-- WinUI 2 / Uno -->
+  <ItemGroup Condition="'$(IsUno)' == 'true' AND '$(WinUIMajorVersion)' == '2'">
+    <PackageReference Include="Uno.Microsoft.Xaml.Behaviors.Uwp.Managed" Version="2.3.1-uno.2" />
+  </ItemGroup>
 
-    <!-- WinUI 3 / WinAppSdk -->
-    <ItemGroup Condition="'$(IsWinAppSdk)' == 'true'">
-      <PackageReference Include="Microsoft.Xaml.Behaviors.WinUI.Managed" Version="2.0.9" />
-      <PackageReference Include="CommunityToolkit.WinUI.Extensions" Version="8.0.0-beta.1" />
-    </ItemGroup>
-    
-    <!-- WinUI 3 / Uno -->
-    <ItemGroup Condition="'$(IsUno)' == 'true' AND '$(WinUIMajorVersion)' == '3'">
-      <PackageReference Include="Uno.Microsoft.Xaml.Behaviors.WinUI.Managed" Version="2.3.1-uno.2" />
-      <PackageReference Include="CommunityToolkit.WinUI.Extensions" Version="8.0.0-beta.1" />
-    </ItemGroup>
+  <!-- WinUI 3 / WinAppSdk -->
+  <ItemGroup Condition="'$(IsWinAppSdk)' == 'true'">
+    <PackageReference Include="Microsoft.Xaml.Behaviors.WinUI.Managed" Version="2.0.9" />
+  </ItemGroup>
+
+  <!-- WinUI 3 / Uno -->
+  <ItemGroup Condition="'$(IsUno)' == 'true' AND '$(WinUIMajorVersion)' == '3'">
+    <PackageReference Include="Uno.Microsoft.Xaml.Behaviors.WinUI.Managed" Version="2.3.1-uno.2" />
+  </ItemGroup>
 </Project>
