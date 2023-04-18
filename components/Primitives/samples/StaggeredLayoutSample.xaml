@@ -29,7 +29,7 @@
 
         </DataTemplate>
     </Page.Resources>
-    <Grid Padding="48">
+    <Grid>
         <ScrollViewer>
             <muxc:ItemsRepeater x:Name="StaggeredRepeater"
                                 ItemTemplate="{StaticResource StaggeredTemplate}"

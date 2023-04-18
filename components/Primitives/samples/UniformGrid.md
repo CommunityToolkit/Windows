@@ -29,19 +29,6 @@ When porting your UniformGrid XAML from WPF, just add the `controls:` namespace 
 
 See further notes below on the additional features the UWP UniformGrid provides compared to the WPF UniformGrid.  The behavior of `FirstColumn` has changed slightly, but only in cases where it was previously ignored in WPF.
 
-## Syntax
-
-```xaml
-
-<controls:UniformGrid Margin="10" Rows="1"
-        HorizontalAlignment="Right"
-        VerticalAlignment="Bottom">
-      <Button Grid.Column="0" Content="No" FontSize="18" Margin="5" Padding="6,3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-      <Button Grid.Column="1" Content="Yes, Absolutely" Margin="5" Padding="6,3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-      <Button Grid.Column="2" Content="Maybe" Margin="5" Padding="6,3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-</controls:UniformGrid>
-```
-
 ## Additional Features
 
 ### Grid Properties

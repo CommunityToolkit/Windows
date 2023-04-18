@@ -1,5 +1,5 @@
 ---
-title: UniformGrid
+title: ConstrainedBox
 author: michael-hawker
 description: The ConstrainedBox is a FrameworkElement which can allow a developer to constrain the scale, multiple of, or aspect ratio of its content.
 keywords: viewbox, content decorator, ConstrainedBox

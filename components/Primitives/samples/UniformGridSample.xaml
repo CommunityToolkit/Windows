@@ -9,7 +9,6 @@
       xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
       mc:Ignorable="d">
     <Grid>
-
         <controls:UniformGrid Columns="{x:Bind (x:Int32)Columns, Mode=OneWay}"
                               FirstColumn="{x:Bind (x:Int32)FirstColumn, Mode=OneWay}"
                               Rows="{x:Bind (x:Int32)Rows, Mode=OneWay}">
