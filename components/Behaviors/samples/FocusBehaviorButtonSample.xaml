@@ -1,25 +1,24 @@
-<Page
-	x:Class="BehaviorsExperiment.Samples.FocusBehaviorButtonSample"
-	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-	xmlns:behaviors="using:CommunityToolkit.WinUI.Behaviors"
-	xmlns:interactivity="using:Microsoft.Xaml.Interactivity">
+﻿<Page x:Class="BehaviorsExperiment.Samples.FocusBehaviorButtonSample"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:behaviors="using:CommunityToolkit.WinUI.Behaviors"
+      xmlns:interactivity="using:Microsoft.Xaml.Interactivity">
 
-	<interactivity:Interaction.Behaviors>
-		<behaviors:FocusBehavior>
-			<behaviors:FocusTarget Control="{x:Bind ButtonOne}" />
-			<behaviors:FocusTarget Control="{x:Bind ButtonTwo}" />
-		</behaviors:FocusBehavior>
-	</interactivity:Interaction.Behaviors>
+    <interactivity:Interaction.Behaviors>
+        <behaviors:FocusBehavior>
+            <behaviors:FocusTarget Control="{x:Bind ButtonOne}" />
+            <behaviors:FocusTarget Control="{x:Bind ButtonTwo}" />
+        </behaviors:FocusBehavior>
+    </interactivity:Interaction.Behaviors>
 
-	<StackPanel Spacing="12">
-		<Button
-			x:Name="ButtonOne"
-			x:Load="{x:Bind ControlLoaded, Mode=OneWay}"
-			Content="Button One"
-			IsEnabled="{x:Bind IsButtonEnabled, Mode=OneWay}" />
+    <StackPanel Spacing="12">
+        <Button x:Name="ButtonOne"
+                x:Load="{x:Bind ControlLoaded, Mode=OneWay}"
+                Content="Button One"
+                IsEnabled="{x:Bind IsButtonEnabled, Mode=OneWay}" />
 
-		<Button x:Name="ButtonTwo" Content="Button Two" />
-	</StackPanel>
+        <Button x:Name="ButtonTwo"
+                Content="Button Two" />
+    </StackPanel>
 
 </Page>
