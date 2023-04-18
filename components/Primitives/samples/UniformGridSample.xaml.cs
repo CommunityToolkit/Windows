@@ -7,7 +7,7 @@ using CommunityToolkit.WinUI;
 namespace PrimitivesExperiment.Samples;
 
 [ToolkitSampleNumericOption("FirstColumn", initial: 1, min: 0, max: 3, step: 1, Title = "FirstColumn")]
-[ToolkitSampleMultiChoiceOption("Orientation", "Horizontal", "Vertical", Title = "Orientation")]
+[ToolkitSampleMultiChoiceOption("OrientationProperty", "Horizontal", "Vertical", Title = "Orientatifon")]
 [ToolkitSampleNumericOption("Rows", initial: 1, min: 0, max: 5, step: 1, Title = "Rows")]
 [ToolkitSampleNumericOption("Columns", initial: 3, min: 0, max: 5, step: 1, Title = "Columns")]
 [ToolkitSampleNumericOption("Item1RowSpan", initial: 2, min: 1, max: 3, step: 1, Title = "Item 1 RowSpan")]
@@ -21,10 +21,10 @@ public sealed partial class UniformGridSample : Page
         this.InitializeComponent();
     }
 
-    //public Orientation ConvertStringToOrientation(string str) => str switch
-    //{
-    //    "Horizontal" => Orientation.Horizontal,
-    //    "Vertical" => Orientation.Vertical,
-    //    _ => throw new System.NotImplementedException(),
-    //};
+    public static Orientation ConvertStringToOrientation(string orientation) => orientation switch
+    {
+        "Horizontal" => Orientation.Horizontal,
+        "Vertical" => Orientation.Vertical,
+        _ => throw new System.NotImplementedException(),
+    };
 }

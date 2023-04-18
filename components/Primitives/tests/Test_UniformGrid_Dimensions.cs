@@ -31,7 +31,7 @@ public class Test_UniformGrid_Dimensions
 
         Assert.AreEqual(0, grid.Children.Count());
 
-        var (rows, columns) = UniformGrid.GetDimensions(children, 0, 0, 0);
+        var (rows, columns) = UniformGrid.GetDimensions(children!, 0, 0, 0);
 
         Assert.AreEqual(1, rows);
         Assert.AreEqual(1, columns);
@@ -67,7 +67,7 @@ public class Test_UniformGrid_Dimensions
 
         Assert.AreEqual(8, grid.Children.Count());
 
-        var (rows, columns) = UniformGrid.GetDimensions(children, 0, 0, 0);
+        var (rows, columns) = UniformGrid.GetDimensions(children!, 0, 0, 0);
 
         Assert.AreEqual(3, rows);
         Assert.AreEqual(3, columns);
@@ -108,7 +108,7 @@ public class Test_UniformGrid_Dimensions
 
         Assert.AreEqual(4, visible.Count());
 
-        var (rows, columns) = UniformGrid.GetDimensions(visible, 0, 0, 0);
+        var (rows, columns) = UniformGrid.GetDimensions(visible!, 0, 0, 0);
 
         Assert.AreEqual(2, rows);
         Assert.AreEqual(2, columns);
@@ -144,7 +144,7 @@ public class Test_UniformGrid_Dimensions
 
         Assert.AreEqual(8, grid.Children.Count());
 
-        var (rows, columns) = UniformGrid.GetDimensions(children, 0, 0, 2);
+        var (rows, columns) = UniformGrid.GetDimensions(children!, 0, 0, 2);
 
         Assert.AreEqual(4, rows);
         Assert.AreEqual(4, columns);
@@ -180,7 +180,7 @@ public class Test_UniformGrid_Dimensions
 
         Assert.AreEqual(8, grid.Children.Count());
 
-        var (rows, columns) = UniformGrid.GetDimensions(children, 0, 0, 0);
+        var (rows, columns) = UniformGrid.GetDimensions(children!, 0, 0, 0);
 
         Assert.AreEqual(4, rows);
         Assert.AreEqual(4, columns);
@@ -217,7 +217,7 @@ public class Test_UniformGrid_Dimensions
 
         // columns == first column
         // In WPF, First Column is ignored and we have a 1x7 layout.
-        var (rows, columns) = UniformGrid.GetDimensions(children, 0, 7, 7);
+        var (rows, columns) = UniformGrid.GetDimensions(children!, 0, 7, 7);
 
         Assert.AreEqual(1, rows, "Expected single row.");
         Assert.AreEqual(7, columns, "Expected seven columns.");
