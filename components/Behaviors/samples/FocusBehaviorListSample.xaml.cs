@@ -6,7 +6,7 @@ using CommunityToolkit.WinUI.Behaviors;
 
 namespace BehaviorsExperiment.Samples;
 
-[ToolkitSample(id: nameof(FocusBehaviorListSample), $"{nameof(FocusBehavior)}: Lists", description: $"A sample for showing how to use the FocusBehavior.")]
+[ToolkitSample(id: nameof(FocusBehaviorListSample), $"{nameof(FocusBehavior)}: Lists", description: $"A sample demonstrating how {nameof(FocusBehavior)} affects lists.")]
 public sealed partial class FocusBehaviorListSample : Page
 {
     public FocusBehaviorListSample()
