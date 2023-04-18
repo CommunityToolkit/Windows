@@ -1,0 +1,26 @@
+<Page
+	x:Class="BehaviorsExperiment.Samples.FocusBehaviorListSample"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:behaviors="using:CommunityToolkit.WinUI.Behaviors"
+	xmlns:interactivity="using:Microsoft.Xaml.Interactivity">
+
+	<interactivity:Interaction.Behaviors>
+		<behaviors:FocusBehavior>
+			<behaviors:FocusTarget Control="{x:Bind EmptyList}" />
+			<behaviors:FocusTarget Control="{x:Bind NonEmptyList}" />
+		</behaviors:FocusBehavior>
+	</interactivity:Interaction.Behaviors>
+
+	<StackPanel>
+		<ListView x:Name="EmptyList" />
+
+		<ListView x:Name="NonEmptyList">
+			<ListView.Items>
+				<x:String>Item 1</x:String>
+				<x:String>Item 2</x:String>
+			</ListView.Items>
+		</ListView>
+	</StackPanel>
+
+</Page>

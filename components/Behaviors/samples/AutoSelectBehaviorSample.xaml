@@ -1,0 +1,16 @@
+<Page
+	x:Class="BehaviorsExperiment.Samples.AutoSelectBehaviorSample"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:behaviors="using:CommunityToolkit.WinUI.Behaviors"
+	xmlns:interactivity="using:Microsoft.Xaml.Interactivity">
+
+	<StackPanel Padding="8" Spacing="8">
+		<TextBox Text="My content is not selected when loaded" />
+		<TextBox Text="My content is selected when loaded">
+			<interactivity:Interaction.Behaviors>
+				<behaviors:AutoSelectBehavior />
+			</interactivity:Interaction.Behaviors>
+		</TextBox>
+	</StackPanel>
+</Page>
