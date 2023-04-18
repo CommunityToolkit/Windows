@@ -1,61 +1,58 @@
-<Page
-	x:Class="BehaviorsExperiment.Samples.ViewportBehaviorSample"
-	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-	xmlns:behaviors="using:CommunityToolkit.WinUI.Behaviors"
-	xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
-	x:Name="RootElement">
+﻿<Page x:Class="BehaviorsExperiment.Samples.ViewportBehaviorSample"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:behaviors="using:CommunityToolkit.WinUI.Behaviors"
+      xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+      x:Name="RootElement">
 
-	<Grid Padding="12">
+    <Grid Padding="12">
 
-		<Grid
-			MaxWidth="500"
-			MaxHeight="500"
-			BorderBrush="#55000000"
-			BorderThickness="2">
+        <Grid MaxWidth="500"
+              MaxHeight="500"
+              BorderBrush="#55000000"
+              BorderThickness="2">
 
-			<TextBlock
-				Padding="8"
-				HorizontalAlignment="Center"
-				Foreground="OrangeRed"
-				IsHitTestVisible="False"
-				Text="Scroll to see the effect" />
+            <TextBlock Padding="8"
+                       HorizontalAlignment="Center"
+                       Foreground="OrangeRed"
+                       IsHitTestVisible="False"
+                       Text="Scroll to see the effect" />
 
-			<ScrollViewer>
-				<Grid Height="3000">
-					<Border
-						Width="200"
-						Height="200"
-						Background="Gray">
+            <ScrollViewer>
+                <Grid Height="3000">
+                    <Border Width="200"
+                            Height="200"
+                            Background="Gray">
 
-						<interactivity:Interaction.Behaviors>
-							<behaviors:ViewportBehavior x:Name="ViewportBehavior" IsAlwaysOn="{x:Bind IsAlwaysOn, Mode=OneWay}" />
-						</interactivity:Interaction.Behaviors>
+                        <interactivity:Interaction.Behaviors>
+                            <behaviors:ViewportBehavior x:Name="ViewportBehavior"
+                                                        IsAlwaysOn="{x:Bind IsAlwaysOn, Mode=OneWay}" />
+                        </interactivity:Interaction.Behaviors>
 
-						<Rectangle
-							Width="100"
-							Height="100"
-							Fill="Red" />
-					</Border>
-				</Grid>
-			</ScrollViewer>
+                        <Rectangle Width="100"
+                                   Height="100"
+                                   Fill="Red" />
+                    </Border>
+                </Grid>
+            </ScrollViewer>
 
-			<StackPanel
-				Padding="12"
-				HorizontalAlignment="Right"
-				VerticalAlignment="Bottom"
-				Background="#55000000">
-				<TextBlock>
-					<Run Foreground="#75FFFFFF" Text="IsFullyInViewport:" />
-					<Run Text="{x:Bind ViewportBehavior.IsFullyInViewport, Mode=OneWay}" />
-				</TextBlock>
+            <StackPanel Padding="12"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Bottom"
+                        Background="#55000000">
+                <TextBlock>
+                    <Run Foreground="#75FFFFFF"
+                         Text="IsFullyInViewport:" />
+                    <Run Text="{x:Bind ViewportBehavior.IsFullyInViewport, Mode=OneWay}" />
+                </TextBlock>
 
-				<TextBlock>
-					<Run Foreground="#75FFFFFF" Text="IsInViewport:" />
-					<Run Text="{x:Bind ViewportBehavior.IsInViewport, Mode=OneWay}" />
-				</TextBlock>
-			</StackPanel>
-		</Grid>
+                <TextBlock>
+                    <Run Foreground="#75FFFFFF"
+                         Text="IsInViewport:" />
+                    <Run Text="{x:Bind ViewportBehavior.IsInViewport, Mode=OneWay}" />
+                </TextBlock>
+            </StackPanel>
+        </Grid>
 
-	</Grid>
+    </Grid>
 </Page>

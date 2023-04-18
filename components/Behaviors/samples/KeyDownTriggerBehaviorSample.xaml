@@ -1,24 +1,25 @@
-<Page
-	x:Class="BehaviorsExperiment.Samples.KeyDownTriggerBehaviorSample"
-	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-	xmlns:behaviors="using:CommunityToolkit.WinUI.Behaviors"
-	xmlns:core="using:Microsoft.Xaml.Interactions.Core"
-	xmlns:interactivity="using:Microsoft.Xaml.Interactivity">
+﻿<Page x:Class="BehaviorsExperiment.Samples.KeyDownTriggerBehaviorSample"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:behaviors="using:CommunityToolkit.WinUI.Behaviors"
+      xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+      xmlns:interactivity="using:Microsoft.Xaml.Interactivity">
 
-	<StackPanel Padding="12" Spacing="8">
-		<TextBox PlaceholderText="Set the focus to this TextBox and press enter">
-			<interactivity:Interaction.Behaviors>
-				<behaviors:KeyDownTriggerBehavior Key="Enter">
-					<core:CallMethodAction MethodName="IncrementCount" TargetObject="{x:Bind}" />
-				</behaviors:KeyDownTriggerBehavior>
-			</interactivity:Interaction.Behaviors>
-		</TextBox>
+    <StackPanel Padding="12"
+                Spacing="8">
+        <TextBox PlaceholderText="Set the focus to this TextBox and press enter">
+            <interactivity:Interaction.Behaviors>
+                <behaviors:KeyDownTriggerBehavior Key="Enter">
+                    <core:CallMethodAction MethodName="IncrementCount"
+                                           TargetObject="{x:Bind}" />
+                </behaviors:KeyDownTriggerBehavior>
+            </interactivity:Interaction.Behaviors>
+        </TextBox>
 
-		<TextBlock>
-			<Run Text="Enter pressed" />
-			<Run Text="{x:Bind Count, Mode=OneWay}" />
-			<Run Text="times." />
-		</TextBlock>
-	</StackPanel>
+        <TextBlock>
+            <Run Text="Enter pressed" />
+            <Run Text="{x:Bind Count, Mode=OneWay}" />
+            <Run Text="times." />
+        </TextBlock>
+    </StackPanel>
 </Page>
