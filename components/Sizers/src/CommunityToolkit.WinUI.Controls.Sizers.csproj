@@ -1,8 +1,8 @@
 <Project Sdk="MSBuild.Sdk.Extras/3.0.23">
   <PropertyGroup>
     <ToolkitComponentName>Sizers</ToolkitComponentName>
-    <Description>This package contains Sizers.</Description>
-    <Version>0.0.1</Version>
+    <Description>This package contains SizerBase.</Description>
+    <Version>8.0.0-beta.1</Version>
 
     <!-- Rns suffix is required for namespaces shared across projects. See https://github.com/CommunityToolkit/Labs-Windows/issues/152 -->
     <RootNamespace>CommunityToolkit.WinUI.Controls.SizersRns</RootNamespace>

@@ -1,0 +1,85 @@
+<!--  Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license. See the LICENSE file in the project root for more information.  -->
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:controls="using:CommunityToolkit.WinUI.Controls"
+                    xmlns:local="using:CommunityToolkit.WinUI.Controls.SizerBaseLocal"
+                    xmlns:win="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+
+    <ResourceDictionary.ThemeDictionaries>
+        <ResourceDictionary x:Key="Default">
+            <SolidColorBrush x:Key="GripperBarBackgroundPointerOver"
+                             Color="{ThemeResource SystemBaseLowColor}" />
+            <SolidColorBrush x:Key="GripperBarBackgroundPressedOver"
+                             Color="{ThemeResource SystemBaseHighColor}" />
+            <SolidColorBrush x:Key="GripperBarForeground"
+                             Color="{ThemeResource SystemAltHighColor}" />
+        </ResourceDictionary>
+        <ResourceDictionary x:Key="HighContrast">
+            <SolidColorBrush x:Key="GripperBarBackgroundPointerOver"
+                             Color="{ThemeResource SystemColorHighlightColor}" />
+            <SolidColorBrush x:Key="GripperBarBackgroundPressedOver"
+                             Color="{ThemeResource SystemColorHighlightColor}" />
+            <SolidColorBrush x:Key="GripperBarForeground"
+                             Color="{ThemeResource SystemAltHighColor}" />
+        </ResourceDictionary>
+    </ResourceDictionary.ThemeDictionaries>
+
+    <local:OrientationToObjectConverter x:Key="OrientationToGlyphConverter"
+                                        HorizontalValue="&#xE76F;"
+                                        VerticalValue="&#xE784;" />
+
+    <StaticResource x:Key="GripperBarFontFamily"
+                    ResourceKey="SymbolThemeFontFamily" />
+
+    <Style TargetType="controls:SizerBase">
+        <Setter Property="IsTabStop" Value="True" />
+        <Setter Property="UseSystemFocusVisuals" Value="True" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="VerticalAlignment" Value="Stretch" />
+        <Setter Property="IsFocusEngagementEnabled" Value="True" />
+        <Setter Property="MinWidth" Value="16" />
+        <Setter Property="MinHeight" Value="16" />
+        <Setter Property="Background" Value="{ThemeResource SystemControlHighlightChromeHighBrush}" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="AutomationProperties.Name" Value="ms-resource://CommunityToolkit.Labs.WinUI.SizerBase/CommunityToolkit.Labs.WinUI.SizerBase/Resources/WCT_SizerBase_AutomationName" />
+        <Setter Property="ManipulationMode" Value="TranslateX,TranslateY" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="controls:SizerBase">
+                    <Grid x:Name="RootGrid"
+                          local:FrameworkElementExtensions.Cursor="{TemplateBinding Cursor}"
+                          Background="{TemplateBinding Background}">
+
+                        <!--  Note: These align with Thumb  -->
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="PointerOver">
+                                    <VisualState.Setters>
+                                        <Setter Target="RootGrid.Background" Value="{ThemeResource GripperBarBackgroundPointerOver}" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState x:Name="Pressed">
+                                    <VisualState.Setters>
+                                        <Setter Target="RootGrid.Background" Value="{ThemeResource GripperBarBackgroundPressedOver}" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <!--  TODO  -->
+                                <VisualState x:Name="Disabled" />
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+
+                        <TextBlock HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                   VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                   win:AutomationProperties.AccessibilityView="Raw"
+                                   FontFamily="{ThemeResource GripperBarFontFamily}"
+                                   Foreground="{ThemeResource GripperBarForeground}"
+                                   Text="{Binding Orientation, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource OrientationToGlyphConverter}}" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>
