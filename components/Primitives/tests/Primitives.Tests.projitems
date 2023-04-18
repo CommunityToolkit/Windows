@@ -9,15 +9,18 @@
     <Import_RootNamespace>PrimitivesExperiment.Tests</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)ExamplePrimitivesTestClass.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ExamplePrimitivesTestPage.xaml.cs">
-      <DependentUpon>ExamplePrimitivesTestPage.xaml</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Include="$(MSBuildThisFileDirectory)ExamplePrimitivesTestPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
+    <Compile Include="$(MSBuildThisFileDirectory)Test_ConstrainedBox.Alignment.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Test_ConstrainedBox.AspectRatio.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Test_ConstrainedBox.Coerce.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Test_ConstrainedBox.Combined.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Test_ConstrainedBox.Constrict.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Test_ConstrainedBox.Infinity.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Test_ConstrainedBox.Multiple.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Test_UniformGrid_AutoLayout.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Test_UniformGrid_Dimensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Test_UniformGrid_FreeSpots.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Test_UniformGrid_RowColDefinitions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Test_WrapPanel_BasicLayout.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Test_WrapPanel_Visibility.cs" />
   </ItemGroup>
 </Project>
