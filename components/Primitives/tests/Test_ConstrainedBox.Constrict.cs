@@ -23,7 +23,7 @@ public partial class Test_ConstrainedBox : VisualUITestBase
             var treeRoot = XamlReader.Load(@"<Page
     xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""
     xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml""
-    xmlns:controls=""using:Microsoft.Toolkit.Uwp.UI.Controls"">
+    xmlns:controls=""using:CommunityToolkit.WinUI"">
     <Grid HorizontalAlignment=""Center"" VerticalAlignment=""Center"">
       <controls:ConstrainedBox x:Name=""ConstrainedBox"" AspectRatio=""2:1"" MaxHeight=""100"">
         <Border HorizontalAlignment=""Stretch"" VerticalAlignment=""Stretch"" Background=""Red""/>
@@ -62,7 +62,7 @@ public partial class Test_ConstrainedBox : VisualUITestBase
             var treeRoot = XamlReader.Load(@"<Page
     xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""
     xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml""
-    xmlns:controls=""using:Microsoft.Toolkit.Uwp.UI.Controls"">
+    xmlns:controls=""using:CommunityToolkit.WinUI"">
     <Grid HorizontalAlignment=""Center"" VerticalAlignment=""Center"">
       <controls:ConstrainedBox x:Name=""ConstrainedBox"" AspectRatio=""2:1"" MaxWidth=""100"">
         <Border HorizontalAlignment=""Stretch"" VerticalAlignment=""Stretch"" Background=""Red""/>
@@ -101,7 +101,7 @@ public partial class Test_ConstrainedBox : VisualUITestBase
             var treeRoot = XamlReader.Load(@"<Page
     xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""
     xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml""
-    xmlns:controls=""using:Microsoft.Toolkit.Uwp.UI.Controls"">
+    xmlns:controls=""using:CommunityToolkit.WinUI"">
     <Grid HorizontalAlignment=""Center"" VerticalAlignment=""Center"">
       <controls:ConstrainedBox x:Name=""ConstrainedBox"" AspectRatio=""1:2"" MaxWidth=""200"" MaxHeight=""200"">
         <Border HorizontalAlignment=""Stretch"" VerticalAlignment=""Stretch"" Background=""Red""/>

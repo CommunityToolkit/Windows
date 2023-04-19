@@ -21,7 +21,7 @@ public class Test_WrapPanel_Visibility : VisualUITestBase
             var treeRoot = XamlReader.Load(@"<Page
     xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""
     xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml""
-    xmlns:controls=""using:Microsoft.Toolkit.Uwp.UI.Controls"">
+    xmlns:controls=""using:CommunityToolkit.WinUI"">
     <controls:WrapPanel x:Name=""WrapPanel"">
         <Border Width=""150"" Height=""50"" Visibility=""Collapsed""/>
         <Border Width=""100"" Height=""50""/>
@@ -83,7 +83,7 @@ public class Test_WrapPanel_Visibility : VisualUITestBase
             var treeRoot = XamlReader.Load(@"<Page
     xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""
     xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml""
-    xmlns:controls=""using:Microsoft.Toolkit.Uwp.UI.Controls"">
+    xmlns:controls=""using:CommunityToolkit.WinUI"">
     <controls:WrapPanel x:Name=""WrapPanel"">
         <Border Width=""150"" Height=""50""/>
         <Border Width=""100"" Height=""50"" Visibility=""Collapsed""/>
@@ -143,7 +143,7 @@ public class Test_WrapPanel_Visibility : VisualUITestBase
             var treeRoot = XamlReader.Load(@"<Page
     xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""
     xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml""
-    xmlns:controls=""using:Microsoft.Toolkit.Uwp.UI.Controls"">
+    xmlns:controls=""using:CommunityToolkit.WinUI"">
     <controls:WrapPanel x:Name=""WrapPanel"">
         <Border Width=""150"" Height=""50""/>
         <Border Width=""100"" Height=""50""/>

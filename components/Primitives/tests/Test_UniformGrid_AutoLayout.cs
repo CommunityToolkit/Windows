@@ -16,7 +16,7 @@ public class Test_UniformGrid_AutoLayout
         var treeRoot = XamlReader.Load(@"<Page
     xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""
     xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml""
-    xmlns:controls=""using:Microsoft.Toolkit.Uwp.UI.Controls"">
+    xmlns:controls=""using:CommunityToolkit.WinUI"">
     <controls:UniformGrid x:Name=""UniformGrid"">
         <Border/>
         <Border Grid.Row=""1"" Grid.Column=""1""/>
@@ -78,7 +78,7 @@ public class Test_UniformGrid_AutoLayout
     xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""
     xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml""
     xmlns:ui=""using:Microsoft.Toolkit.Uwp.UI""
-    xmlns:controls=""using:Microsoft.Toolkit.Uwp.UI.Controls"">
+    xmlns:controls=""using:CommunityToolkit.WinUI"">
     <controls:UniformGrid x:Name=""UniformGrid"">
         <Border/>
         <Border/>
@@ -139,7 +139,7 @@ public class Test_UniformGrid_AutoLayout
         var treeRoot = XamlReader.Load(@"<Page
     xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""
     xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml""
-    xmlns:controls=""using:Microsoft.Toolkit.Uwp.UI.Controls"">
+    xmlns:controls=""using:CommunityToolkit.WinUI"">
     <controls:UniformGrid x:Name=""UniformGrid"">
         <Border/>
         <Border Grid.Row=""1"" Grid.Column=""1"" Grid.RowSpan=""2"" Grid.ColumnSpan=""2""/>
@@ -199,7 +199,7 @@ public class Test_UniformGrid_AutoLayout
         var treeRoot = XamlReader.Load(@"<Page
     xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""
     xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml""
-    xmlns:controls=""using:Microsoft.Toolkit.Uwp.UI.Controls"">
+    xmlns:controls=""using:CommunityToolkit.WinUI"">
     <controls:UniformGrid x:Name=""UniformGrid"">
         <Border/>
         <Border Grid.Row=""1"" Grid.Column=""1"" Grid.RowSpan=""2"" x:Name=""OurItem""/>
@@ -246,7 +246,7 @@ public class Test_UniformGrid_AutoLayout
         var treeRoot = XamlReader.Load(@"<Page
     xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""
     xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml""
-    xmlns:controls=""using:Microsoft.Toolkit.Uwp.UI.Controls"">
+    xmlns:controls=""using:CommunityToolkit.WinUI"">
     <controls:UniformGrid x:Name=""UniformGrid"">
         <Border/>
         <Border/>
@@ -293,7 +293,7 @@ public class Test_UniformGrid_AutoLayout
         var treeRoot = XamlReader.Load(@"<Page
     xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""
     xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml""
-    xmlns:controls=""using:Microsoft.Toolkit.Uwp.UI.Controls"">
+    xmlns:controls=""using:CommunityToolkit.WinUI"">
     <controls:UniformGrid x:Name=""UniformGrid"">
         <Border/>
         <Border Grid.ColumnSpan=""2"" x:Name=""OurItem""/>
@@ -340,7 +340,7 @@ public class Test_UniformGrid_AutoLayout
         var treeRoot = XamlReader.Load(@"<Page
     xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""
     xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml""
-    xmlns:controls=""using:Microsoft.Toolkit.Uwp.UI.Controls"">
+    xmlns:controls=""using:CommunityToolkit.WinUI"">
     <controls:UniformGrid x:Name=""UniformGrid"">
         <Border Grid.ColumnSpan=""2"" Grid.RowSpan=""2""/>
         <Border/>
@@ -388,7 +388,7 @@ public class Test_UniformGrid_AutoLayout
         var treeRoot = XamlReader.Load(@"<Page
     xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""
     xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml""
-    xmlns:controls=""using:Microsoft.Toolkit.Uwp.UI.Controls"">
+    xmlns:controls=""using:CommunityToolkit.WinUI"">
     <controls:UniformGrid x:Name=""UniformGrid"">
         <Border/>
         <Border Grid.Row=""1"" Grid.Column=""1"" Grid.ColumnSpan=""2"" x:Name=""OurItem""/>
