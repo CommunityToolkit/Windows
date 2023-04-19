@@ -77,7 +77,6 @@ public class Test_UniformGrid_AutoLayout
         var treeRoot = XamlReader.Load(@"<Page
     xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""
     xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml""
-    xmlns:ui=""using:Microsoft.Toolkit.Uwp.UI""
     xmlns:controls=""using:CommunityToolkit.WinUI"">
     <controls:UniformGrid x:Name=""UniformGrid"">
         <Border/>
@@ -89,7 +88,7 @@ public class Test_UniformGrid_AutoLayout
         <!-- Since Grid Row/Columns are 0 by default, we need to also add
              AutoLayout False here as well to get the desired behavior,
              Otherwise we can't tell it apart from the other items. -->
-        <Border Grid.Row=""0"" Grid.Column=""0"" controls:UniformGrid.AutoLayout=""{ui:NullableBool Value=False}""/>
+        <Border Grid.Row=""0"" Grid.Column=""0"" controls:UniformGrid.AutoLayout=""{controls:NullableBool Value=False}""/>
         <Border/>
     </controls:UniformGrid>
 </Page>") as FrameworkElement;
