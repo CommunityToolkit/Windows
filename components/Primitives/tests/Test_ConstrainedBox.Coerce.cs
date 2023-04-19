@@ -21,7 +21,7 @@ public partial class Test_ConstrainedBox : VisualUITestBase
             var treeRoot = XamlReader.Load(@"<Page
     xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""
     xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml""
-    xmlns:controls=""using:Microsoft.Toolkit.Uwp.UI.Controls"">
+    xmlns:controls=""using:CommunityToolkit.WinUI"">
       <controls:ConstrainedBox x:Name=""ConstrainedBox"" ScaleX=""0.5"" ScaleY=""0.5""/>
 </Page>") as FrameworkElement;
 
@@ -70,7 +70,7 @@ public partial class Test_ConstrainedBox : VisualUITestBase
             var treeRoot = XamlReader.Load(@"<Page
     xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""
     xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml""
-    xmlns:controls=""using:Microsoft.Toolkit.Uwp.UI.Controls"">
+    xmlns:controls=""using:CommunityToolkit.WinUI"">
       <controls:ConstrainedBox x:Name=""ConstrainedBox"" MultipleX=""32"" MultipleY=""32""/>
 </Page>") as FrameworkElement;
 
@@ -105,7 +105,7 @@ public partial class Test_ConstrainedBox : VisualUITestBase
             var treeRoot = XamlReader.Load(@"<Page
     xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""
     xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml""
-    xmlns:controls=""using:Microsoft.Toolkit.Uwp.UI.Controls"">
+    xmlns:controls=""using:CommunityToolkit.WinUI"">
       <controls:ConstrainedBox x:Name=""ConstrainedBox"" AspectRatio=""1.25:3.5""/>
 </Page>") as FrameworkElement;
 

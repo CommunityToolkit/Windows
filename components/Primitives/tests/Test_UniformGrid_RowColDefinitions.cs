@@ -16,7 +16,7 @@ public class Test_UniformGrid_RowColDefinitions
         var treeroot = XamlReader.Load(@"<Page
     xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""
     xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml""
-    xmlns:controls=""using:Microsoft.Toolkit.Uwp.UI.Controls"">
+    xmlns:controls=""using:CommunityToolkit.WinUI"">
     <controls:UniformGrid x:Name=""UniformGrid"">
         <Border/>
         <Border/>
@@ -87,7 +87,7 @@ public class Test_UniformGrid_RowColDefinitions
         var treeroot = XamlReader.Load(@"<Page
     xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""
     xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml""
-    xmlns:controls=""using:Microsoft.Toolkit.Uwp.UI.Controls"">
+    xmlns:controls=""using:CommunityToolkit.WinUI"">
     <controls:UniformGrid x:Name=""UniformGrid"">
         <controls:UniformGrid.RowDefinitions>
             <RowDefinition Height=""48""/>
@@ -182,7 +182,7 @@ public class Test_UniformGrid_RowColDefinitions
         var treeroot = XamlReader.Load(@"<Page
     xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""
     xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml""
-    xmlns:controls=""using:Microsoft.Toolkit.Uwp.UI.Controls"">
+    xmlns:controls=""using:CommunityToolkit.WinUI"">
     <controls:UniformGrid x:Name=""UniformGrid"" Rows=""5"">
         <controls:UniformGrid.RowDefinitions>
             <RowDefinition Height=""48""/>
@@ -282,7 +282,7 @@ public class Test_UniformGrid_RowColDefinitions
         var treeroot = XamlReader.Load(@"<Page
     xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""
     xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml""
-    xmlns:controls=""using:Microsoft.Toolkit.Uwp.UI.Controls"">
+    xmlns:controls=""using:CommunityToolkit.WinUI"">
     <controls:UniformGrid x:Name=""UniformGrid"" Rows=""5"">
         <controls:UniformGrid.RowDefinitions>
             <RowDefinition/>
@@ -417,7 +417,7 @@ public class Test_UniformGrid_RowColDefinitions
         var treeroot = XamlReader.Load(@"<Page
     xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""
     xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml""
-    xmlns:controls=""using:Microsoft.Toolkit.Uwp.UI.Controls"">
+    xmlns:controls=""using:CommunityToolkit.WinUI"">
     <controls:UniformGrid x:Name=""UniformGrid"">
         <Border/>
         <Border/>
@@ -488,7 +488,7 @@ public class Test_UniformGrid_RowColDefinitions
         var treeroot = XamlReader.Load(@"<Page
     xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""
     xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml""
-    xmlns:controls=""using:Microsoft.Toolkit.Uwp.UI.Controls"">
+    xmlns:controls=""using:CommunityToolkit.WinUI"">
     <controls:UniformGrid x:Name=""UniformGrid"">
         <controls:UniformGrid.ColumnDefinitions>
             <ColumnDefinition Width=""48""/>
@@ -583,7 +583,7 @@ public class Test_UniformGrid_RowColDefinitions
         var treeroot = XamlReader.Load(@"<Page
     xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""
     xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml""
-    xmlns:controls=""using:Microsoft.Toolkit.Uwp.UI.Controls"">
+    xmlns:controls=""using:CommunityToolkit.WinUI"">
     <controls:UniformGrid x:Name=""UniformGrid"" Columns=""5"">
         <controls:UniformGrid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -685,7 +685,7 @@ public class Test_UniformGrid_RowColDefinitions
         var treeroot = XamlReader.Load(@"<Page
     xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""
     xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml""
-    xmlns:controls=""using:Microsoft.Toolkit.Uwp.UI.Controls"">
+    xmlns:controls=""using:CommunityToolkit.WinUI"">
     <controls:UniformGrid x:Name=""UniformGrid"" Columns=""5"">
         <controls:UniformGrid.ColumnDefinitions>
             <ColumnDefinition Width=""48""/>

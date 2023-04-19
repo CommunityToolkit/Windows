@@ -18,7 +18,7 @@ public partial class Test_ConstrainedBox : VisualUITestBase
             var treeRoot = XamlReader.Load(@"<Page
     xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""
     xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml""
-    xmlns:controls=""using:Microsoft.Toolkit.Uwp.UI.Controls"">
+    xmlns:controls=""using:CommunityToolkit.WinUI"">
     <Grid x:Name=""ParentGrid"" Width=""200"" Height=""200"">
       <controls:ConstrainedBox x:Name=""ConstrainedBox"" ScaleX=""0.5""
                                HorizontalAlignment=""Stretch"" VerticalAlignment=""Stretch"">
@@ -67,7 +67,7 @@ public partial class Test_ConstrainedBox : VisualUITestBase
             var treeRoot = XamlReader.Load(@"<Page
     xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""
     xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml""
-    xmlns:controls=""using:Microsoft.Toolkit.Uwp.UI.Controls"">
+    xmlns:controls=""using:CommunityToolkit.WinUI"">
     <Grid x:Name=""ParentGrid"" Width=""200"" Height=""200"">
       <controls:ConstrainedBox x:Name=""ConstrainedBox"" ScaleY=""0.5""
                                HorizontalAlignment=""Stretch"" VerticalAlignment=""Stretch"">

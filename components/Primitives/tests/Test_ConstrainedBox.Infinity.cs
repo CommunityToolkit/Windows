@@ -25,7 +25,7 @@ public partial class Test_ConstrainedBox : VisualUITestBase
             var treeRoot = XamlReader.Load(@"<Page
     xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""
     xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml""
-    xmlns:controls=""using:Microsoft.Toolkit.Uwp.UI.Controls"">
+    xmlns:controls=""using:CommunityToolkit.WinUI"">
     <ScrollViewer HorizontalScrollMode=""Enabled"" HorizontalScrollBarVisibility=""Visible""
                   VerticalScrollMode=""Enabled"" VerticalScrollBarVisibility=""Visible""
                   Width=""200"">
@@ -66,7 +66,7 @@ public partial class Test_ConstrainedBox : VisualUITestBase
             var treeRoot = XamlReader.Load(@"<Page
     xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""
     xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml""
-    xmlns:controls=""using:Microsoft.Toolkit.Uwp.UI.Controls"">
+    xmlns:controls=""using:CommunityToolkit.WinUI"">
     <ScrollViewer HorizontalScrollMode=""Enabled"" HorizontalScrollBarVisibility=""Visible""
                   VerticalScrollMode=""Enabled"" VerticalScrollBarVisibility=""Visible""
                   Height=""200"">
@@ -107,7 +107,7 @@ public partial class Test_ConstrainedBox : VisualUITestBase
             var treeRoot = XamlReader.Load(@"<Page
     xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""
     xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml""
-    xmlns:controls=""using:Microsoft.Toolkit.Uwp.UI.Controls"">
+    xmlns:controls=""using:CommunityToolkit.WinUI"">
     <ScrollViewer x:Name=""ScrollArea""
                   HorizontalScrollMode=""Enabled"" HorizontalScrollBarVisibility=""Visible""
                   VerticalScrollMode=""Enabled"" VerticalScrollBarVisibility=""Visible"">
