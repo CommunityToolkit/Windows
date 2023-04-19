@@ -1,7 +1,7 @@
 ---
 title: Attached Drop Shadow
 author: michael-hawker
-description: TODO: Your experiment's description here
+description: Allows many elements to share a common backdrop for casting shadows.
 keywords: Effects, Control, Layout
 dev_langs:
   - csharp
