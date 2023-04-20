@@ -1,9 +1,11 @@
 
 # 🧪 Windows Community Toolkit 🧰
 
-![Windows Community Toolkit Labs Social Image](tooling/ToolkitLabsSocial.png)
+![Windows Community Toolkit Labs Social Image](ToolkitHeader.png)
 
-Welcome to the home of Windows Community Toolkit. Our components are built on top of WinUI 2, [WinUI 3](https://aka.ms/winui3), and [Uno Platform](https://platform.uno))! 
+Welcome to the home of Windows Community Toolkit. Our components are built on top of [WinUI 2](https://aka.ms/winuigithub), [WinUI 3](https://aka.ms/winui3), and [Uno Platform](https://platform.uno)!
+
+**Find out more and provide feedback in the [2023 Windows Community Toolkit Feedback Thread](https://github.com/CommunityToolkit/Windows/discussions/31).**
 
 ## Getting Started
 
@@ -30,7 +32,9 @@ git clone --recurse-submodules https://github.com/CommunityToolkit/Windows.git
 
 ## 🚀 Contribution
 
-Do you want to contribute? Check out our [Windows Community Toolkit Wiki](https://aka.ms/wct/wiki) page to learn more about contribution and guidelines.
+Find out the latest info in out [discussion thread here](https://github.com/CommunityToolkit/Windows/discussions/31)
+
+Do you want to contribute? Check out our [Windows Community Toolkit Wiki](https://aka.ms/wct/wiki) page to learn more about contribution and guidelines in general.
 
 ## 📦 NuGet Packages
 
