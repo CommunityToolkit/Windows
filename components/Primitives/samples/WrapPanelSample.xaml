@@ -1,24 +1,24 @@
 <!--  Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license. See the LICENSE file in the project root for more information.  -->
-<Page x:Class="PrimitivesExperiment.Samples.WrapPanelSample"
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:attributes="using:CommunityToolkit.Tooling.SampleGen.Attributes"
-      xmlns:controls="using:CommunityToolkit.WinUI.Controls"
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:local="using:PrimitivesExperiment.Samples"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-      mc:Ignorable="d">
+<Page
+	x:Class="PrimitivesExperiment.Samples.WrapPanelSample"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:attributes="using:CommunityToolkit.Tooling.SampleGen.Attributes"
+	xmlns:controls="using:CommunityToolkit.WinUI.Controls"
+	xmlns:local="using:PrimitivesExperiment.Samples"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+	x:Name="ThisSamplePage">
+
     <Page.Resources>
         <DataTemplate x:Key="PhotoTemplate">
-            <Grid Width="{Binding Width}"
-                  Height="{Binding Height}"
-                  Margin="0">
-                <Image HorizontalAlignment="Center"
-                       Stretch="UniformToFill">
+            <Grid
+				Width="{Binding Width}"
+				Height="{Binding Height}"
+				Margin="0">
+                <Image HorizontalAlignment="Center" Stretch="UniformToFill">
                     <Image.Source>
-                        <BitmapImage DecodePixelHeight="200"
-                                     UriSource="{Binding Thumbnail}" />
+                        <BitmapImage DecodePixelHeight="200" UriSource="{Binding Thumbnail}" />
                     </Image.Source>
                 </Image>
                 <Border VerticalAlignment="Bottom">
@@ -28,10 +28,11 @@
                             <GradientStop Offset="1" Color="#33000000" />
                         </LinearGradientBrush>
                     </Border.Background>
-                    <TextBlock Margin="5,20,5,5"
-                               VerticalAlignment="Bottom"
-                               Foreground="White"
-                               Text="{Binding Category}" />
+                    <TextBlock
+						Margin="5,20,5,5"
+						VerticalAlignment="Bottom"
+						Foreground="White"
+						Text="{Binding Category}" />
                 </Border>
             </Grid>
         </DataTemplate>
@@ -51,28 +52,25 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal"
-                    Spacing="4">
-            <Button Click="AddButton_Click"
-                    Content="Add random sized image" />
-            <Button Click="AddFixedBtn_Click"
-                    Content="Add fixed sized image" />
-            <Button Click="SwitchBtn_Click"
-                    Content="Switch Orientation" />
+        <StackPanel Orientation="Horizontal" Spacing="4">
+            <Button Click="AddButton_Click" Content="Add random sized image" />
+            <Button Click="AddFixedBtn_Click" Content="Add fixed sized image" />
+            <Button Click="SwitchBtn_Click" Content="Switch Orientation" />
         </StackPanel>
-        <ListView Name="WrapPanelContainer"
-                  Grid.Row="1"
-                  IsItemClickEnabled="True"
-                  ItemClick="ItemControl_ItemClick"
-                  ItemTemplate="{StaticResource PhotoTemplate}"
-                  ItemsSource="{x:Bind WrapPanelCollection, Mode=OneWay}">
+        <ListView
+			Name="WrapPanelContainer"
+			Grid.Row="1"
+			IsItemClickEnabled="True"
+			ItemClick="ItemControl_ItemClick"
+			ItemTemplate="{StaticResource PhotoTemplate}"
+			ItemsSource="{x:Bind WrapPanelCollection, Mode=OneWay}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <controls:WrapPanel x:Name="sampleWrapPanel"
-                                        Padding="12"
-                                        HorizontalSpacing="{Binding HorizontalSpacing, Mode=OneWay}"
-                                        VerticalSpacing="{Binding VerticalSpacing, Mode=OneWay}" />
-                    <!--  TO DO: THESE BINDINGS DO NOT SEEM TO WORK  -->
+                    <controls:WrapPanel
+						x:Name="sampleWrapPanel"
+						Padding="12"
+						HorizontalSpacing="{Binding HorizontalSpacing, ElementName=ThisSamplePage, Mode=OneWay}"
+						VerticalSpacing="{Binding VerticalSpacing, ElementName=ThisSamplePage, Mode=OneWay}" />
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
         </ListView>
