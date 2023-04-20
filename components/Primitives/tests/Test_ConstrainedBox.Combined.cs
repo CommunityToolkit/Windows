@@ -4,7 +4,7 @@
 
 using CommunityToolkit.Tests;
 using CommunityToolkit.Tests.Internal;
-using CommunityToolkit.WinUI;
+using CommunityToolkit.WinUI.Controls;
 
 namespace PrimitivesExperiment.Tests;
 
@@ -23,7 +23,7 @@ namespace PrimitivesExperiment.Tests;
                 var treeRoot = XamlReader.Load(@"<Page
     xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""
     xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml""
-    xmlns:controls=""using:CommunityToolkit.WinUI"">
+    xmlns:controls=""using:CommunityToolkit.WinUI.Controls"">
     <Grid x:Name=""ParentGrid"" Width=""100"" Height=""100"">
       <controls:ConstrainedBox x:Name=""ConstrainedBox"" ScaleX=""0.9"" ScaleY=""0.9""
                                MultipleX=""32"" MultipleY=""32""

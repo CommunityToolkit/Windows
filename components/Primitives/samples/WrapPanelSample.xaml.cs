@@ -4,12 +4,15 @@
 
 using CommunityToolkit.WinUI;
 
+// TODO: Discuss with Uno folks about their own internal WrapPanel implementation.
+using WrapPanel = CommunityToolkit.WinUI.Controls.WrapPanel;
+
 namespace PrimitivesExperiment.Samples;
 
 [ToolkitSampleNumericOption("HorizontalSpacing", initial: 5, min: 0, max: 200, step: 1, Title = "Horizontal Spacing")]
 [ToolkitSampleNumericOption("VerticalSpacing", initial: 5, min: 0, max: 200, step: 1, Title = "VerticalSpacing")]
 
-[ToolkitSample(id: nameof(WrapPanelSample), "WrapPanel", description: $"A sample for showing how to create and use a {nameof(CommunityToolkit.WinUI.WrapPanel)}.")]
+[ToolkitSample(id: nameof(WrapPanelSample), "WrapPanel", description: $"A sample for showing how to create and use a {nameof(WrapPanel)}.")]
 public sealed partial class WrapPanelSample : Page
 {
     private static readonly Random Rand = new Random();
@@ -55,9 +58,9 @@ public sealed partial class WrapPanelSample : Page
 
     private void SwitchBtn_Click(object sender, RoutedEventArgs e)
     {
-        if (WrapPanelContainer.FindDescendant<CommunityToolkit.WinUI.WrapPanel>() is var sampleWrapPanel)
+        if (WrapPanelContainer.FindDescendant<WrapPanel>() is WrapPanel sampleWrapPanel)
         {
-            if (sampleWrapPanel!.Orientation == Orientation.Horizontal)
+            if (sampleWrapPanel.Orientation == Orientation.Horizontal)
             {
                 sampleWrapPanel.Orientation = Orientation.Vertical;
                 ScrollViewer.SetVerticalScrollMode(WrapPanelContainer, ScrollMode.Disabled);
@@ -67,7 +70,7 @@ public sealed partial class WrapPanelSample : Page
             }
             else
             {
-                sampleWrapPanel!.Orientation = Orientation.Horizontal;
+                sampleWrapPanel.Orientation = Orientation.Horizontal;
                 ScrollViewer.SetVerticalScrollMode(WrapPanelContainer, ScrollMode.Auto);
                 ScrollViewer.SetVerticalScrollBarVisibility(WrapPanelContainer, ScrollBarVisibility.Auto);
                 ScrollViewer.SetHorizontalScrollMode(WrapPanelContainer, ScrollMode.Disabled);

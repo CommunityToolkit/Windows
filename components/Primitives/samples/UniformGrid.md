@@ -25,7 +25,7 @@ The UniformGrid inherits from [Grid](/uwp/api/Windows.UI.Xaml.Controls.Grid) and
 
 ## WPF Conversion Notes
 
-When porting your UniformGrid XAML from WPF, just add the `controls:` namespace prefix to your `UniformGrid` and add the `xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"` to your XAML namespace list.
+When porting your UniformGrid XAML from WPF, just add the `controls:` namespace prefix to your `UniformGrid` and add the `xmlns:controls="using:CommunityToolkit.WinUI.Controls"` to your XAML namespace list.
 
 See further notes below on the additional features the UWP UniformGrid provides compared to the WPF UniformGrid.  The behavior of `FirstColumn` has changed slightly, but only in cases where it was previously ignored in WPF.
 

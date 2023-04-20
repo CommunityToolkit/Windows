@@ -37,7 +37,7 @@ The following example of adding the WrapLayout layout panel.
 
 ```xaml
 <Page ....
-      xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+      xmlns:controls="using:CommunityToolkit.WinUI.Controls"
       xmlns:winui="using:Microsoft.UI.Xaml.Controls">
 
     <Grid Background="{StaticResource Brush-Grey-05}">

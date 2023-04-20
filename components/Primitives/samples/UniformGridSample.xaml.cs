@@ -2,14 +2,14 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
-using CommunityToolkit.WinUI;
+using CommunityToolkit.WinUI.Controls;
 
 namespace PrimitivesExperiment.Samples;
 
 [ToolkitSampleNumericOption("FirstColumn", initial: 1, min: 0, max: 3, step: 1, Title = "FirstColumn")]
-[ToolkitSampleMultiChoiceOption("OrientationProperty", "Horizontal", "Vertical", Title = "Orientatifon")]
-[ToolkitSampleNumericOption("Rows", initial: 1, min: 0, max: 5, step: 1, Title = "Rows")]
-[ToolkitSampleNumericOption("Columns", initial: 3, min: 0, max: 5, step: 1, Title = "Columns")]
+[ToolkitSampleMultiChoiceOption("OrientationProperty", "Horizontal", "Vertical", Title = "Orientation")]
+[ToolkitSampleNumericOption("Rows", initial: 0, min: 0, max: 5, step: 1, Title = "Rows")]
+[ToolkitSampleNumericOption("Columns", initial: 0, min: 0, max: 5, step: 1, Title = "Columns")]
 [ToolkitSampleNumericOption("Item1RowSpan", initial: 2, min: 1, max: 3, step: 1, Title = "Item 1 RowSpan")]
 [ToolkitSampleNumericOption("Item1ColumnSpan", initial: 2, min: 1, max: 3, step: 1, Title = "Item 1 ColumnSpan")]
 

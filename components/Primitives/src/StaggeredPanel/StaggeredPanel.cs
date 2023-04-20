@@ -2,7 +2,7 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
-namespace CommunityToolkit.WinUI;
+namespace CommunityToolkit.WinUI.Controls;
 
 /// <summary>
 /// Arranges child elements into a staggered grid pattern where items are added to the column that has used least amount of space.

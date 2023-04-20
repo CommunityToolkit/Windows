@@ -15,38 +15,11 @@ issue-id: 0
 
 The [StaggeredLayout](/dotnet/api/microsoft.toolkit.uwp.ui.controls.staggeredlayout) allows for layout of items in a column approach where an item will be added to whichever column has used the least amount of space.
 
-## Syntax
-
-```xaml
-<winui:ItemsRepeater>
-    <winui:ItemsRepeater.Layout>
-        <controls:StaggeredLayout />
-    </winui:ItemsRepeater.Layout>
-    <winui:ItemsRepeater.ItemTemplate>
-        <DataTemplate>
-            <Image Source="{Binding Thumbnail}"/>
-        </DataTemplate>
-    </winui:ItemsRepeater.ItemTemplate>
-</winui:ItemsRepeater>
-
-```
-
-## Properties
-
-| Property | Type | Description |
-| -- | -- | -- |
-| DesiredColumnWidth | double | The desired width of each column. The width of columns can exceed the DesiredColumnWidth if the HorizontalAlignment is set to Stretch. |
-| ColumnSpacing | double  | Gets or sets the distance between columns |
-| RowSpacing | double  | Gets or sets the vertical distance between items |
-
 > [!SAMPLE StaggeredLayoutSample]
-
 
 # StaggeredPanel
 
 The [StaggeredPanel](/dotnet/api/microsoft.toolkit.uwp.ui.controls.staggeredpanel) allows for layout of items in a column approach where an item will be added to whichever column has used the least amount of space.
-
-## Syntax
 
 ```xaml
 <ItemsControl>
@@ -62,12 +35,3 @@ The [StaggeredPanel](/dotnet/api/microsoft.toolkit.uwp.ui.controls.staggeredpane
     </ItemsControl.ItemsPanel>
 </ItemsControl>
 ```
-
-## Properties
-
-| Property | Type | Description |
-| -- | -- | -- |
-| ColumnSpacing | double  | Gets or sets the distance between columns |
-| DesiredColumnWidth | double | The desired width of each column. The width of columns can exceed the DesiredColumnWidth if the HorizontalAlignment is set to Stretch. |
-| Padding | Thickness | The dimensions of the space between the edge and its child as a Thickness value. Thickness is a structure that stores dimension values using pixel measures. |
-| RowSpacing | double  | Gets or sets the vertical distance between items |

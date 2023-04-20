@@ -4,13 +4,13 @@
 
 using System.Globalization;
 
-namespace CommunityToolkit.WinUI;
+namespace CommunityToolkit.WinUI.Controls;
 
 /// <summary>
 /// The <see cref="AspectRatio"/> structure is used by the <see cref="ConstrainedBox"/> control to
 /// define a specific ratio to restrict its content.
 /// </summary>
-[Windows.Foundation.Metadata.CreateFromString(MethodName = "CommunityToolkit.WinUI.AspectRatio.ConvertToAspectRatio")]
+[Windows.Foundation.Metadata.CreateFromString(MethodName = "CommunityToolkit.WinUI.Controls.AspectRatio.ConvertToAspectRatio")]
 public readonly struct AspectRatio
 {
     /// <summary>
@@ -24,7 +24,7 @@ public readonly struct AspectRatio
     public double Height { get; }
 
     /// <summary>
-    /// Gets the raw numeriucal aspect ratio value itself (Width / Height).
+    /// Gets the raw numerical aspect ratio value itself (Width / Height).
     /// </summary>
     public double Value => Width / Height;
 
@@ -51,7 +51,7 @@ public readonly struct AspectRatio
 
     /// <summary>
     /// Implicit conversion operator to convert an <see cref="AspectRatio"/> to a <see cref="double"/> value.
-    /// This lets you use them easily in mathmatical expressions.
+    /// This lets you use them easily in mathematical expressions.
     /// </summary>
     /// <param name="aspect"><see cref="AspectRatio"/> instance.</param>
     public static implicit operator double(AspectRatio aspect) => aspect.Value;

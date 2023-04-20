@@ -5,7 +5,7 @@
 using Microsoft.UI.Xaml.Controls;
 using System.Collections.Specialized;
 
-namespace CommunityToolkit.WinUI;
+namespace CommunityToolkit.WinUI.Controls;
 
 /// <summary>
 /// Arranges elements by wrapping them to fit the available space.

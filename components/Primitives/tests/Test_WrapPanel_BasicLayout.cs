@@ -3,7 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using CommunityToolkit.Tests;
-using CommunityToolkit.WinUI;
+using CommunityToolkit.WinUI.Controls;
 
 namespace PrimitivesExperiment.Tests;
 
@@ -19,7 +19,7 @@ public class Test_WrapPanel_BasicLayout : VisualUITestBase
             var treeRoot = XamlReader.Load(@"<Page
     xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""
     xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml""
-    xmlns:controls=""using:CommunityToolkit.WinUI"">
+    xmlns:controls=""using:CommunityToolkit.WinUI.Controls"">
     <controls:WrapPanel x:Name=""WrapPanel"">
         <Border Width=""100"" Height=""50""/>
         <Border Width=""100"" Height=""50""/>
@@ -72,7 +72,7 @@ public class Test_WrapPanel_BasicLayout : VisualUITestBase
             var treeRoot = XamlReader.Load(@"<Page
     xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""
     xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml""
-    xmlns:controls=""using:CommunityToolkit.WinUI"">
+    xmlns:controls=""using:CommunityToolkit.WinUI.Controls"">
     <controls:WrapPanel x:Name=""WrapPanel"" Orientation=""Vertical"">
         <Border Width=""100"" Height=""50""/>
         <Border Width=""100"" Height=""50""/>
@@ -125,7 +125,7 @@ public class Test_WrapPanel_BasicLayout : VisualUITestBase
             var treeRoot = XamlReader.Load(@"<Page
     xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""
     xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml""
-    xmlns:controls=""using:CommunityToolkit.WinUI"">
+    xmlns:controls=""using:CommunityToolkit.WinUI.Controls"">
     <controls:WrapPanel x:Name=""WrapPanel"" HorizontalSpacing=""10"">
         <Border Width=""100"" Height=""50""/>
         <Border Width=""100"" Height=""50""/>
@@ -178,7 +178,7 @@ public class Test_WrapPanel_BasicLayout : VisualUITestBase
             var treeRoot = XamlReader.Load(@"<Page
     xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""
     xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml""
-    xmlns:controls=""using:CommunityToolkit.WinUI"">
+    xmlns:controls=""using:CommunityToolkit.WinUI.Controls"">
     <controls:WrapPanel x:Name=""WrapPanel"" Orientation=""Vertical"" VerticalSpacing=""10"">
         <Border Width=""100"" Height=""50""/>
         <Border Width=""100"" Height=""50""/>
@@ -231,7 +231,7 @@ public class Test_WrapPanel_BasicLayout : VisualUITestBase
             var treeRoot = XamlReader.Load(@"<Page
     xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""
     xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml""
-    xmlns:controls=""using:CommunityToolkit.WinUI"">
+    xmlns:controls=""using:CommunityToolkit.WinUI.Controls"">
     <controls:WrapPanel x:Name=""WrapPanel"" HorizontalSpacing=""10"" Padding=""20"">
         <Border Width=""100"" Height=""50""/>
         <Border Width=""100"" Height=""50""/>
@@ -284,7 +284,7 @@ public class Test_WrapPanel_BasicLayout : VisualUITestBase
             var treeRoot = XamlReader.Load(@"<Page
     xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""
     xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml""
-    xmlns:controls=""using:CommunityToolkit.WinUI"">
+    xmlns:controls=""using:CommunityToolkit.WinUI.Controls"">
     <controls:WrapPanel x:Name=""WrapPanel"" Orientation=""Vertical"" VerticalSpacing=""10"" Padding=""20"">
         <Border Width=""100"" Height=""50""/>
         <Border Width=""100"" Height=""50""/>
