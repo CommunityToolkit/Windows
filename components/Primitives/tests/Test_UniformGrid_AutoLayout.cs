@@ -2,12 +2,14 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
+using CommunityToolkit.Tests;
+using CommunityToolkit.Tooling.TestGen;
 using CommunityToolkit.WinUI.Controls;
 
 namespace PrimitivesExperiment.Tests;
 
 [TestClass]
-public class Test_UniformGrid_AutoLayout
+public partial class Test_UniformGrid_AutoLayout : VisualUITestBase
 {
     [TestCategory("UniformGrid")]
     [UITestMethod]
@@ -71,29 +73,9 @@ public class Test_UniformGrid_AutoLayout
     /// Note: This one particular special-case scenario requires 16299 for the <see cref="MarkupExtension"/>.
     /// </summary>
     [TestCategory("UniformGrid")]
-    [UITestMethod]
-    public void Test_UniformGrid_AutoLayout_FixedElementZeroZeroSpecial()
+    [UIThreadTestMethod]
+    public void Test_UniformGrid_AutoLayout_FixedElementZeroZeroSpecial(AutoLayoutFixedElementZeroZeroSpecialPage treeRoot)
     {
-        var treeRoot = XamlReader.Load(@"<Page
-    xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""
-    xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml""
-    xmlns:controls=""using:CommunityToolkit.WinUI.Controls""
-    xmlns:ui=""using:CommunityToolkit.WinUI"">
-    <controls:UniformGrid x:Name=""UniformGrid"">
-        <Border/>
-        <Border/>
-        <Border/>
-        <Border/>
-        <Border/>
-        <Border/>
-        <!-- Since Grid Row/Columns are 0 by default, we need to also add
-             AutoLayout False here as well to get the desired behavior,
-             Otherwise we can't tell it apart from the other items. -->
-        <Border Grid.Row=""0"" Grid.Column=""0"" controls:UniformGrid.AutoLayout=""{ui:NullableBool Value=False}""/>
-        <Border/>
-    </controls:UniformGrid>
-</Page>") as FrameworkElement;
-
         var expected = new (int row, int col)[]
         {
                 (0, 1),
