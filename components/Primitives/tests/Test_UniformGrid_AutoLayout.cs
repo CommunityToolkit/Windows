@@ -12,7 +12,7 @@ namespace PrimitivesExperiment.Tests;
 public partial class Test_UniformGrid_AutoLayout : VisualUITestBase
 {
     [TestCategory("UniformGrid")]
-    [UITestMethod]
+    [UIThreadTestMethod]
     public void Test_UniformGrid_AutoLayout_FixedElementSingle()
     {
         var treeRoot = XamlReader.Load(@"<Page
@@ -115,7 +115,7 @@ public partial class Test_UniformGrid_AutoLayout : VisualUITestBase
     }
 
     [TestCategory("UniformGrid")]
-    [UITestMethod]
+    [UIThreadTestMethod]
     public void Test_UniformGrid_AutoLayout_FixedElementSquare()
     {
         var treeRoot = XamlReader.Load(@"<Page
@@ -175,7 +175,7 @@ public partial class Test_UniformGrid_AutoLayout : VisualUITestBase
     }
 
     [TestCategory("UniformGrid")]
-    [UITestMethod]
+    [UIThreadTestMethod]
     public void Test_UniformGrid_AutoLayout_VerticalElement_FixedPosition()
     {
         var treeRoot = XamlReader.Load(@"<Page
@@ -222,7 +222,7 @@ public partial class Test_UniformGrid_AutoLayout : VisualUITestBase
     }
 
     [TestCategory("UniformGrid")]
-    [UITestMethod]
+    [UIThreadTestMethod]
     public void Test_UniformGrid_AutoLayout_VerticalElement()
     {
         var treeRoot = XamlReader.Load(@"<Page
@@ -269,7 +269,7 @@ public partial class Test_UniformGrid_AutoLayout : VisualUITestBase
     }
 
     [TestCategory("UniformGrid")]
-    [UITestMethod]
+    [UIThreadTestMethod]
     public void Test_UniformGrid_AutoLayout_HorizontalElement()
     {
         var treeRoot = XamlReader.Load(@"<Page
@@ -316,7 +316,7 @@ public partial class Test_UniformGrid_AutoLayout : VisualUITestBase
     }
 
     [TestCategory("UniformGrid")]
-    [UITestMethod]
+    [UIThreadTestMethod]
     public void Test_UniformGrid_AutoLayout_LargeElement()
     {
         var treeRoot = XamlReader.Load(@"<Page
@@ -364,7 +364,7 @@ public partial class Test_UniformGrid_AutoLayout : VisualUITestBase
     }
 
     [TestCategory("UniformGrid")]
-    [UITestMethod]
+    [UIThreadTestMethod]
     public void Test_UniformGrid_AutoLayout_HorizontalElement_FixedPosition()
     {
         var treeRoot = XamlReader.Load(@"<Page
