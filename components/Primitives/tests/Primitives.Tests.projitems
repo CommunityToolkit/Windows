@@ -23,5 +23,14 @@
     <Compile Include="$(MSBuildThisFileDirectory)Test_UniformGrid_RowColDefinitions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Test_WrapPanel_BasicLayout.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Test_WrapPanel_Visibility.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UniformGrid\AutoLayoutFixedElementZeroZeroSpecialPage.xaml.cs">
+      <DependentUpon>AutoLayoutFixedElementZeroZeroSpecialPage.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="$(MSBuildThisFileDirectory)UniformGrid\AutoLayoutFixedElementZeroZeroSpecialPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
 </Project>
