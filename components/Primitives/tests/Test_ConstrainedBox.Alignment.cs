@@ -3,7 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using CommunityToolkit.Tests;
-using CommunityToolkit.WinUI;
+using CommunityToolkit.WinUI.Controls;
 
 namespace PrimitivesExperiment.Tests;
 
@@ -32,7 +32,7 @@ public partial class Test_ConstrainedBox : VisualUITestBase
             var treeRoot = XamlReader.Load(@$"<Page
     xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""
     xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml""
-    xmlns:controls=""using:CommunityToolkit.WinUI"">
+    xmlns:controls=""using:CommunityToolkit.WinUI.Controls"">
     <Grid x:Name=""ParentGrid""
           Width=""200"" Height=""200"">
       <controls:ConstrainedBox x:Name=""ConstrainedBox"" AspectRatio=""1:2"" MaxHeight=""100""

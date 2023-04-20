@@ -38,7 +38,7 @@ The following example of adding WrapPanel Control.
 
 ```xaml
 <Page ....
-      xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls">
+      xmlns:controls="using:CommunityToolkit.WinUI.Controls">
 
     <Grid Background="{StaticResource Brush-Grey-05}">
         <Grid.RowDefinitions>

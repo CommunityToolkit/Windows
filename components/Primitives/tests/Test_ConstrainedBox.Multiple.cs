@@ -4,7 +4,7 @@
 
 
 using CommunityToolkit.Tests;
-using CommunityToolkit.WinUI;
+using CommunityToolkit.WinUI.Controls;
 
 namespace PrimitivesExperiment.Tests;
 
@@ -19,7 +19,7 @@ public partial class Test_ConstrainedBox : VisualUITestBase
             var treeRoot = XamlReader.Load(@"<Page
     xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""
     xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml""
-    xmlns:controls=""using:CommunityToolkit.WinUI"">
+    xmlns:controls=""using:CommunityToolkit.WinUI.Controls"">
     <Grid x:Name=""ParentGrid"" Width=""200"" Height=""200"">
       <controls:ConstrainedBox x:Name=""ConstrainedBox"" MultipleX=""32""
                                HorizontalAlignment=""Stretch"" VerticalAlignment=""Stretch"">
@@ -68,7 +68,7 @@ public partial class Test_ConstrainedBox : VisualUITestBase
             var treeRoot = XamlReader.Load(@"<Page
     xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""
     xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml""
-    xmlns:controls=""using:CommunityToolkit.WinUI"">
+    xmlns:controls=""using:CommunityToolkit.WinUI.Controls"">
     <Grid x:Name=""ParentGrid"" Width=""200"" Height=""200"">
       <controls:ConstrainedBox x:Name=""ConstrainedBox"" MultipleY=""32""
                                HorizontalAlignment=""Stretch"" VerticalAlignment=""Stretch"">

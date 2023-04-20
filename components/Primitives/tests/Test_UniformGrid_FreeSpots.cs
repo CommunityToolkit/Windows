@@ -3,7 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using CommunityToolkit.Common;
-using CommunityToolkit.WinUI;
+using CommunityToolkit.WinUI.Controls;
 
 namespace PrimitivesExperiment.Tests;
 

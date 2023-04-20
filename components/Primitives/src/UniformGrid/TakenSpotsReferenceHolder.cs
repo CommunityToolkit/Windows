@@ -5,7 +5,7 @@
 using System.Collections;
 using System.Drawing;
 
-namespace CommunityToolkit.WinUI;
+namespace CommunityToolkit.WinUI.Controls;
 
 /// <summary>
 /// Referencable class object we can use to have a reference shared between

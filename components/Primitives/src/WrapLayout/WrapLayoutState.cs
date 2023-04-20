@@ -4,7 +4,7 @@
 
 using Microsoft.UI.Xaml.Controls;
 
-namespace CommunityToolkit.WinUI;
+namespace CommunityToolkit.WinUI.Controls;
 
 internal class WrapLayoutState
 {

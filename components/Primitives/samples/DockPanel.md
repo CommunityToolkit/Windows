@@ -24,7 +24,7 @@ You can set DockPanel LastChildFill property to true if you want the last item a
 
 ```xaml
 <Page ...
-     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"/>
+     xmlns:controls="using:CommunityToolkit.WinUI.Controls"/>
 
 <controls:DockPanel Name="SampleDockPanel" Margin="2" Background="LightGray" LastChildFill="False" >
   <StackPanel Height="100" controls:DockPanel.Dock="Top" Background="Black"></StackPanel>
