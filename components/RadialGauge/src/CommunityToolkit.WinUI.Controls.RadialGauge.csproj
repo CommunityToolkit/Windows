@@ -10,4 +10,10 @@
 
   <!-- Sets this up as a toolkit component's source project -->
   <Import Project="$(ToolingDirectory)\ToolkitComponent.SourceProject.props" />
+<<<<<<< Updated upstream
+=======
+  <ItemGroup>
+    <UpToDateCheckInput Remove="RadialGauge.xaml" />
+  </ItemGroup>
+>>>>>>> Stashed changes
 </Project>
