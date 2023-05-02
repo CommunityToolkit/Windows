@@ -33,7 +33,7 @@ public class Test_WeakEventListener
 
         SampleClass sample = new SampleClass();
 
-        WeakEventListener<SampleClass, object, EventArgs> weak = new WeakEventListener<SampleClass, object, EventArgs>(sample);
+        CommunityToolkit.WinUI.Helpers.WeakEventListener<SampleClass, object, EventArgs> weak = new CommunityToolkit.WinUI.Helpers.WeakEventListener<SampleClass, object, EventArgs>(sample);
         weak.OnEventAction = (instance, source, eventArgs) => { isOnEventTriggered = true; };
         weak.OnDetachAction = (listener) => { isOnDetachTriggered = true; };
 
