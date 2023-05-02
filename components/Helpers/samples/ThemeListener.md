@@ -19,8 +19,6 @@ KNOWN ISSUE: `ThemeListener` might not work in WinUI3 applications.
 
 > [!Sample ThemeListenerSample]
 
-## Syntax
-
 ```csharp
 var Listener = new ThemeListener();
 Listener.ThemeChanged += Listener_ThemeChanged;
@@ -42,6 +40,7 @@ Private Sub Listener_ThemeChanged(ByVal sender As ThemeListener)
 End Sub
 ```
 
+
 ## Properties
 
 | Property | Type | Description |
@@ -49,6 +48,7 @@ End Sub
 | CurrentTheme | [ApplicationTheme](/uwp/api/Windows.UI.Xaml.ApplicationTheme) | Gets or sets the Current Theme. |
 | CurrentThemeName | string | Gets the Name of the Current Theme. |
 | IsHighContrast | bool | Gets or sets a value indicating whether the current theme is high contrast. |
+
 
 ## Events
 
