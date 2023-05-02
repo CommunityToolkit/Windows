@@ -8,9 +8,8 @@
     <RootNamespace>CommunityToolkit.WinUI.Controls.TriggersRns</RootNamespace>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\Extensions\src\CommunityToolkit.WinUI.Extensions.csproj"></ProjectReference>
-    <ProjectReference Include="..\..\Helpers\src\CommunityToolkit.WinUI.Helpers.csproj"></ProjectReference>
+   <ItemGroup>
+    <ProjectReference Include="$(ToolkitHelperSourceProject)" />
   </ItemGroup>
   
   <!-- Sets this up as a toolkit component's source project -->
