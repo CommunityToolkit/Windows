@@ -11,6 +11,9 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Extensions\src\CommunityToolkit.WinUI.Extensions.csproj"></ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Helpers\src\CommunityToolkit.WinUI.Helpers.csproj"></ProjectReference>
+  </ItemGroup>
   <!-- Sets this up as a toolkit component's source project -->
   <Import Project="$(ToolingDirectory)\ToolkitComponent.SourceProject.props" />
 </Project>
