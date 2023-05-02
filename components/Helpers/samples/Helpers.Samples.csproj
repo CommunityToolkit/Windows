@@ -5,7 +5,4 @@
 
   <!-- Sets this up as a toolkit component's sample project -->
   <Import Project="$(ToolingDirectory)\ToolkitComponent.SampleProject.props" />
-  <ItemGroup>
-    <SlnGenSolutionItem Remove="Helpers.md" />
-  </ItemGroup>
 </Project>

@@ -10,6 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Test_ColorHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Test_ConnectionHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Test_ScreenUnitHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Test_WeakEventListener.cs" />
   </ItemGroup>

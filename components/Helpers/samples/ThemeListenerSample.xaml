@@ -7,19 +7,17 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
 
-    <StackPanel HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                Spacing="12">
-        <StackPanel Orientation="Horizontal" Spacing="12">
-            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}"
-                       Text="System theme:" />
-            <TextBlock x:Name="SystemTheme" />
-        </StackPanel>
+    <StackPanel>
+        <TextBlock>
+            <Run FontWeight="SemiBold"
+                 Text="System theme: " />
+            <Run x:Name="SystemTheme" />
+        </TextBlock>
 
-        <StackPanel Orientation="Horizontal" Spacing="12">
-            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}"
-                       Text="Sample theme:" />
-            <TextBlock x:Name="CurrentTheme" />
-        </StackPanel>
+        <TextBlock>
+            <Run FontWeight="SemiBold"
+                 Text="Sample theme: " />
+            <Run x:Name="CurrentTheme" />
+        </TextBlock>
     </StackPanel>
 </Page>
