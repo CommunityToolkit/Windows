@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 namespace CommunityToolkit.WinUI.Helpers;
+
 /// <summary>
 /// Enumeration listing all screen units.
 /// </summary>

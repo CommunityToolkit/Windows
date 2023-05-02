@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 namespace CommunityToolkit.WinUI.Helpers;
+
 /// <summary>
 /// Implements a weak event listener that allows the owner to be garbage
 /// collected if its only remaining link is an event handler.
