@@ -1,31 +1,50 @@
 ---
 title: Helpers
-author: githubaccount
-description: TODO: Your experiment's description here
-keywords: Helpers, Control, Layout
+author: 
+description: Various helpers to make conversions and other checks easier.
+keywords: Helpers, Theming, theme listerner, themes, screenunithelper, colorhelper
 dev_langs:
   - csharp
-category: Controls
+category: Helpers
 subcategory: Layout
 discussion-id: 0
 issue-id: 0
 ---
 
-<!-- To know about all the available Markdown syntax, Check out https://docs.microsoft.com/contribute/markdown-reference -->
-<!-- Ensure you remove all comments before submission, to ensure that there are no formatting issues when displaying this page.  -->
-<!-- It is recommended to check how the Documentation will look in the sample app, before Merging a PR -->
-<!-- **Note:** All links to other docs.microsoft.com pages should be relative without locale, i.e. for the one above would be /contribute/markdown-reference -->
-<!-- Included images should be optimized for size and not include any Intellectual Property references. -->
+## Syntax
 
-<!-- Be sure to update the discussion/issue numbers above with your Labs discussion/issue id numbers in order for UI links to them from the sample app to work. -->
+```csharp
+if (DesignTimeHelpers.IsRunningInLegacyDesignerMode || DesignTimeHelpers.IsRunningInEnhancedDesignerMode)
+{
+  // Design time
+}
+```
 
-# Helpers
+# ColorHelper
 
-TODO: Fill in information about this experiment and how to get started here...
+The [ColorHelper](/dotnet/api/microsoft.toolkit.uwp.helpers.colorhelper) helps to convert various formats from and to `Color`.
 
-## Custom Control
+## Syntax
 
-You can inherit from an existing component as well, like `Panel`, this example shows a control without a
-XAML Style that will be more light-weight to consume by an app developer:
+```csharp
+Color color = "#FFFF0000".ToColor();
+Color color = "Red".ToColor();
+string hex = Colors.Red.ToHex();
+HslColor hsl = Colors.Red.ToHsl();
+HsvColor hsv = Colors.Red.ToHsv();
+int i = Colors.Red.ToInt();
+```
 
-> [!Sample HelpersCustomSample]
+# ScreenUnitHelper
+
+The [ScreenUnitHelper](/dotnet/api/microsoft.toolkit.uwp.helpers.screenunithelper) helps to convert a screen unit to another screen unit (ex: 1cm => 39.7953px).
+
+## Syntax
+
+```csharp
+float result = ScreenUnitHelper.Convert(ScreenUnit.Inch, ScreenUnit.Pixel, 1); // 96
+```
+
+# DesignTimeHelpers
+
+The [DesignTimeHelpers](/dotnet/api/microsoft.toolkit.uwp.ui.designtimehelpers) helps to convert a screen unit to another screen unit (ex: 1cm => 37.7953px).
