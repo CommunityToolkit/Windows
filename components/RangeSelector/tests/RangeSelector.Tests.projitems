@@ -8,16 +8,4 @@
   <PropertyGroup Label="Configuration">
     <Import_RootNamespace>RangeSelectorExperiment.Tests</Import_RootNamespace>
   </PropertyGroup>
-  <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)ExampleRangeSelectorTestClass.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ExampleRangeSelectorTestPage.xaml.cs">
-      <DependentUpon>ExampleRangeSelectorTestPage.xaml</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Include="$(MSBuildThisFileDirectory)ExampleRangeSelectorTestPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
 </Project>
