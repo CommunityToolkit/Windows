@@ -57,7 +57,7 @@ public partial class ExampleRangeSelectorTestClass : VisualUITestBase
     public void SimpleUIExamplePageTest(ExampleRangeSelectorTestPage page)
     {
         // You can use the Toolkit Visual Tree helpers here to find the component by type or name:
-        var component = page.FindDescendant<RangeSelector_ClassicBinding>();
+        var component = page.FindDescendant<RangeSelector>();
 
         Assert.IsNotNull(component);
 
@@ -74,7 +74,7 @@ public partial class ExampleRangeSelectorTestClass : VisualUITestBase
         // Note, this is already done by loading a Page with the [UIThreadTestMethod] helper.
         await CompositionTargetHelper.ExecuteAfterCompositionRenderingAsync(() => { });
 
-        var component = page.FindDescendant<RangeSelector_ClassicBinding>();
+        var component = page.FindDescendant<RangeSelector>();
 
         Assert.IsNotNull(component);
     }
@@ -89,7 +89,7 @@ public partial class ExampleRangeSelectorTestClass : VisualUITestBase
     {
         await EnqueueAsync(() =>
         {
-            var component = new RangeSelector_ClassicBinding();
+            var component = new RangeSelector();
             Assert.IsNotNull(component);
         });
     }
@@ -101,7 +101,7 @@ public partial class ExampleRangeSelectorTestClass : VisualUITestBase
     {
         await EnqueueAsync(async () =>
         {
-            var component = new RangeSelector_ClassicBinding();
+            var component = new RangeSelector();
             Assert.IsNotNull(component);
             Assert.IsFalse(component.IsLoaded);
 
@@ -119,7 +119,7 @@ public partial class ExampleRangeSelectorTestClass : VisualUITestBase
     [UIThreadTestMethod]
     public async Task ComplexAsyncLoadUIExampleWithoutDispatcherTest()
     {
-        var component = new RangeSelector_ClassicBinding();
+        var component = new RangeSelector();
         Assert.IsNotNull(component);
         Assert.IsFalse(component.IsLoaded);
 

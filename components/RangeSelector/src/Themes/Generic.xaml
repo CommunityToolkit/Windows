@@ -3,7 +3,7 @@
                     xmlns:controls="using:CommunityToolkit.WinUI.Controls">
 
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="ms-appx:///CommunityToolkit.WinUI.Controls.RangeSelector/RangeSelectorStyle.xaml" />
+        <ResourceDictionary Source="ms-appx:///CommunityToolkit.WinUI.Controls.RangeSelector/RangeSelector.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
 </ResourceDictionary>

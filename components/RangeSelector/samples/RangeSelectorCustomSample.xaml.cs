@@ -6,25 +6,16 @@ using CommunityToolkit.WinUI.Controls;
 
 namespace RangeSelectorExperiment.Samples;
 
-/// <summary>
-/// An example sample page of a custom control inheriting from Panel.
-/// </summary>
-[ToolkitSampleTextOption("TitleText", "This is a title", Title = "Input the text")]
-[ToolkitSampleMultiChoiceOption("LayoutOrientation", "Horizontal", "Vertical", Title = "Orientation")]
+[ToolkitSampleNumericOption("Minimum", 0, 0, 100, 1, false, Title = "Minimum")]
+[ToolkitSampleNumericOption("Maximum", 100, 0, 100, 1, false, Title = "Maximum")]
+[ToolkitSampleNumericOption("StepFrequency", 1, 0, 10, 1, false, Title = "StepFrequency")]
+[ToolkitSampleBoolOption("Enable", true, Title = "IsEnabled")]
 
-[ToolkitSample(id: nameof(RangeSelectorCustomSample), "Custom control", description: $"A sample for showing how to create and use a {nameof(RangeSelector)} custom control.")]
-public sealed partial class RangeSelectorCustomSample : Page
+[ToolkitSample(id: nameof(RangeSelectorSample), "RangeSelector", description: $"A sample for showing how to create and use a {nameof(RangeSelector)} control.")]
+public sealed partial class RangeSelectorSample : Page
 {
-    public RangeSelectorCustomSample()
+    public RangeSelectorSample()
     {
         this.InitializeComponent();
     }
-
-    // TODO: See https://github.com/CommunityToolkit/Labs-Windows/issues/149
-    public static Orientation ConvertStringToOrientation(string orientation) => orientation switch
-    {
-        "Vertical" => Orientation.Vertical,
-        "Horizontal" => Orientation.Horizontal,
-        _ => throw new System.NotImplementedException(),
-    };
 }

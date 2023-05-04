@@ -3,60 +3,286 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:controls="using:CommunityToolkit.WinUI.Controls">
 
-    <ResourceDictionary.ThemeDictionaries>
-        <ResourceDictionary x:Key="Light">
-            <SolidColorBrush x:Key="MyBrush"
-                             Color="#000000" />
-        </ResourceDictionary>
-        <ResourceDictionary x:Key="Dark">
-            <SolidColorBrush x:Key="MyBrush"
-                             Color="{StaticResource SystemBaseMediumColor}" />
-        </ResourceDictionary>
-        <ResourceDictionary x:Key="HighContrast">
-            <SolidColorBrush x:Key="MyBrush"
-                             Color="{ThemeResource SystemColorButtonFaceColor}" />
-        </ResourceDictionary>
-    </ResourceDictionary.ThemeDictionaries>
+    <Style BasedOn="{StaticResource DefaultRangeSelectorStyle}"
+           TargetType="controls:RangeSelector" />
 
-    <Thickness x:Key="DefaultRangeSelectorItemPadding">4,4,4,4</Thickness>
+    <Style x:Key="DefaultRangeSelectorStyle"
+           TargetType="controls:RangeSelector">
+        <Setter Property="Background" Value="{ThemeResource SliderTrackFill}" />
+        <Setter Property="BorderThickness" Value="{ThemeResource SliderBorderThemeThickness}" />
+        <Setter Property="Foreground" Value="{ThemeResource SliderTrackValueFill}" />
+        <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}" />
+        <Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}" />
+        <Setter Property="VerticalAlignment" Value="Top" />
+        <Setter Property="CornerRadius" Value="{ThemeResource SliderTrackCornerRadius}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="controls:RangeSelector">
+                    <Grid x:Name="ControlGrid"
+                          Height="{ThemeResource SliderHorizontalHeight}">
+                        <Grid.Resources>
+                            <Style x:Key="SliderThumbStyle"
+                                   TargetType="Thumb">
+                                <Setter Property="UseSystemFocusVisuals" Value="True" />
+                                <Setter Property="BorderThickness" Value="1" />
+                                <Setter Property="Background" Value="{ThemeResource SliderThumbBackground}" />
+                                <Setter Property="Height" Value="{ThemeResource SliderHorizontalThumbHeight}" />
+                                <Setter Property="Width" Value="{ThemeResource SliderHorizontalThumbWidth}" />
+                                <Setter Property="FocusVisualMargin" Value="-7" />
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="Thumb">
+                                            <Border Margin="-2"
+                                                    Background="{ThemeResource SliderOuterThumbBackground}"
+                                                    BorderBrush="{ThemeResource SliderThumbBorderBrush}"
+                                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                                    CornerRadius="{ThemeResource SliderThumbCornerRadius}">
+                                                <VisualStateManager.VisualStateGroups>
+                                                    <VisualStateGroup x:Name="CommonStates">
+                                                        <VisualState x:Name="Normal">
+                                                            <Storyboard>
+                                                                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="SliderInnerThumb"
+                                                                                               Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleX)">
+                                                                    <!--  0.86 is relative scale from 14px to 12px  -->
+                                                                    <SplineDoubleKeyFrame KeySpline="{StaticResource ControlFastOutSlowInKeySpline}"
+                                                                                          KeyTime="{StaticResource ControlFastAnimationDuration}"
+                                                                                          Value="0.86" />
+                                                                </DoubleAnimationUsingKeyFrames>
+                                                                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="SliderInnerThumb"
+                                                                                               Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleY)">
+                                                                    <!--  0.86 is relative scale from 14px to 12px  -->
+                                                                    <SplineDoubleKeyFrame KeySpline="{StaticResource ControlFastOutSlowInKeySpline}"
+                                                                                          KeyTime="{StaticResource ControlFastAnimationDuration}"
+                                                                                          Value="0.86" />
+                                                                </DoubleAnimationUsingKeyFrames>
+                                                            </Storyboard>
+                                                        </VisualState>
+                                                        <VisualState x:Name="PointerOver">
+                                                            <Storyboard>
+                                                                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="SliderInnerThumb"
+                                                                                               Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleX)">
+                                                                    <!--  1.167 is relative scale from 12px to 14px  -->
+                                                                    <SplineDoubleKeyFrame KeySpline="{StaticResource ControlFastOutSlowInKeySpline}"
+                                                                                          KeyTime="{StaticResource ControlNormalAnimationDuration}"
+                                                                                          Value="1.167" />
+                                                                </DoubleAnimationUsingKeyFrames>
+                                                                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="SliderInnerThumb"
+                                                                                               Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleY)">
+                                                                    <!--  1.167 is relative scale from 12px to 14px  -->
+                                                                    <SplineDoubleKeyFrame KeySpline="{StaticResource ControlFastOutSlowInKeySpline}"
+                                                                                          KeyTime="{StaticResource ControlNormalAnimationDuration}"
+                                                                                          Value="1.167" />
+                                                                </DoubleAnimationUsingKeyFrames>
+                                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SliderInnerThumb"
+                                                                                               Storyboard.TargetProperty="Fill">
+                                                                    <DiscreteObjectKeyFrame KeyTime="0"
+                                                                                            Value="{ThemeResource SliderThumbBackgroundPointerOver}" />
+                                                                </ObjectAnimationUsingKeyFrames>
+                                                            </Storyboard>
+                                                        </VisualState>
+                                                        <VisualState x:Name="Pressed">
+                                                            <Storyboard>
+                                                                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="SliderInnerThumb"
+                                                                                               Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleX)">
+                                                                    <!--  0.71 is relative scale from 14px to 10px  -->
+                                                                    <SplineDoubleKeyFrame KeySpline="{StaticResource ControlFastOutSlowInKeySpline}"
+                                                                                          KeyTime="{StaticResource ControlNormalAnimationDuration}"
+                                                                                          Value="0.71" />
+                                                                </DoubleAnimationUsingKeyFrames>
+                                                                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="SliderInnerThumb"
+                                                                                               Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleY)">
+                                                                    <!--  0.71 is relative scale from 14px to 10px  -->
+                                                                    <SplineDoubleKeyFrame KeySpline="{StaticResource ControlFastOutSlowInKeySpline}"
+                                                                                          KeyTime="{StaticResource ControlNormalAnimationDuration}"
+                                                                                          Value="0.71" />
+                                                                </DoubleAnimationUsingKeyFrames>
+                                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SliderInnerThumb"
+                                                                                               Storyboard.TargetProperty="Fill">
+                                                                    <DiscreteObjectKeyFrame KeyTime="0"
+                                                                                            Value="{ThemeResource SliderThumbBackgroundPressed}" />
+                                                                </ObjectAnimationUsingKeyFrames>
+                                                            </Storyboard>
+                                                        </VisualState>
+                                                        <VisualState x:Name="Disabled">
+                                                            <Storyboard>
+                                                                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="SliderInnerThumb"
+                                                                                               Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleX)">
+                                                                    <!--  1.167 is relative scale from 12px to 14px  -->
+                                                                    <SplineDoubleKeyFrame KeySpline="{StaticResource ControlFastOutSlowInKeySpline}"
+                                                                                          KeyTime="{StaticResource ControlFastAnimationDuration}"
+                                                                                          Value="1.167" />
+                                                                </DoubleAnimationUsingKeyFrames>
+                                                                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="SliderInnerThumb"
+                                                                                               Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleY)">
+                                                                    <!--  1.167 is relative scale from 12px to 14px  -->
+                                                                    <SplineDoubleKeyFrame KeySpline="{StaticResource ControlFastOutSlowInKeySpline}"
+                                                                                          KeyTime="{StaticResource ControlFastAnimationDuration}"
+                                                                                          Value="1.167" />
+                                                                </DoubleAnimationUsingKeyFrames>
+                                                            </Storyboard>
+                                                        </VisualState>
+                                                    </VisualStateGroup>
+                                                </VisualStateManager.VisualStateGroups>
+                                                <Ellipse x:Name="SliderInnerThumb"
+                                                         Width="{ThemeResource SliderInnerThumbWidth}"
+                                                         Height="{ThemeResource SliderInnerThumbHeight}"
+                                                         Fill="{TemplateBinding Background}"
+                                                         RenderTransformOrigin="0.5, 0.5">
+                                                    <Ellipse.RenderTransform>
+                                                        <CompositeTransform />
+                                                    </Ellipse.RenderTransform>
+                                                </Ellipse>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </Grid.Resources>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="MinThumb"
+                                                                       Storyboard.TargetProperty="Background">
+                                            <DiscreteObjectKeyFrame KeyTime="0"
+                                                                    Value="{ThemeResource SliderThumbBackground}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="MaxThumb"
+                                                                       Storyboard.TargetProperty="Background">
+                                            <DiscreteObjectKeyFrame KeyTime="0"
+                                                                    Value="{ThemeResource SliderThumbBackground}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="PointerOver">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ActiveRectangle"
+                                                                       Storyboard.TargetProperty="Fill">
+                                            <DiscreteObjectKeyFrame KeyTime="0"
+                                                                    Value="{ThemeResource SliderTrackValueFillPointerOver}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="MinThumb"
+                                                                       Storyboard.TargetProperty="Background">
+                                            <DiscreteObjectKeyFrame KeyTime="0"
+                                                                    Value="{ThemeResource SliderThumbBackgroundPointerOver}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="MaxThumb"
+                                                                       Storyboard.TargetProperty="Background">
+                                            <DiscreteObjectKeyFrame KeyTime="0"
+                                                                    Value="{ThemeResource SliderThumbBackgroundPointerOver}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="MinPressed">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ActiveRectangle"
+                                                                       Storyboard.TargetProperty="Fill">
+                                            <DiscreteObjectKeyFrame KeyTime="0"
+                                                                    Value="{ThemeResource SliderTrackValueFillPressed}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="MinThumb"
+                                                                       Storyboard.TargetProperty="Background">
+                                            <DiscreteObjectKeyFrame KeyTime="0"
+                                                                    Value="{ThemeResource SliderThumbBackgroundPressed}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="MaxThumb"
+                                                                       Storyboard.TargetProperty="Background">
+                                            <DiscreteObjectKeyFrame KeyTime="0"
+                                                                    Value="{ThemeResource SliderThumbBackgroundPressed}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="MaxPressed">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ActiveRectangle"
+                                                                       Storyboard.TargetProperty="Fill">
+                                            <DiscreteObjectKeyFrame KeyTime="0"
+                                                                    Value="{ThemeResource SliderTrackValueFillPressed}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="MinThumb"
+                                                                       Storyboard.TargetProperty="Background">
+                                            <DiscreteObjectKeyFrame KeyTime="0"
+                                                                    Value="{ThemeResource SliderThumbBackgroundPressed}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="MaxThumb"
+                                                                       Storyboard.TargetProperty="Background">
+                                            <DiscreteObjectKeyFrame KeyTime="0"
+                                                                    Value="{ThemeResource SliderThumbBackgroundPressed}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="BackgroundElement"
+                                                                       Storyboard.TargetProperty="Background">
+                                            <DiscreteObjectKeyFrame KeyTime="0"
+                                                                    Value="{ThemeResource SliderTrackFillDisabled}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ActiveRectangle"
+                                                                       Storyboard.TargetProperty="Fill">
+                                            <DiscreteObjectKeyFrame KeyTime="0"
+                                                                    Value="{ThemeResource SliderTrackValueFillDisabled}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="MinThumb"
+                                                                       Storyboard.TargetProperty="Background">
+                                            <DiscreteObjectKeyFrame KeyTime="0"
+                                                                    Value="{ThemeResource SliderThumbBackgroundDisabled}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="MaxThumb"
+                                                                       Storyboard.TargetProperty="Background">
+                                            <DiscreteObjectKeyFrame KeyTime="0"
+                                                                    Value="{ThemeResource SliderThumbBackgroundDisabled}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Border x:Name="OutOfRangeContentContainer"
+                                Grid.Column="1"
+                                Background="Transparent">
+                            <Border x:Name="BackgroundElement"
+                                    Height="4"
+                                    Background="{TemplateBinding Background}"
+                                    CornerRadius="{TemplateBinding CornerRadius}" />
+                        </Border>
 
-    <!--  Implicitly applied default style  -->
-    <Style BasedOn="{StaticResource DefaultClassicBindingRangeSelectorStyle}"
-           TargetType="controls:RangeSelector_ClassicBinding" />
+                        <Canvas x:Name="ContainerCanvas"
+                                Grid.Column="1"
+                                Background="Transparent">
+                            <Rectangle x:Name="ActiveRectangle"
+                                       Height="4"
+                                       HorizontalAlignment="Stretch"
+                                       Fill="{TemplateBinding Foreground}" />
 
-    <Style x:Key="DefaultClassicBindingRangeSelectorStyle"
-           TargetType="controls:RangeSelector_ClassicBinding">
-        <Style.Setters>
-            <Setter Property="MyProperty" Value="This property has been overriden by the style template" />
-            <Setter Property="ItemPadding" Value="{StaticResource DefaultRangeSelectorItemPadding}" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="controls:RangeSelector_ClassicBinding">
-                        <Grid Padding="{TemplateBinding ItemPadding}">
-                            <StackPanel Spacing="20">
-                                <TextBlock x:Name="PART_HelloWorld"
-                                           Foreground="{ThemeResource MyBrush}"
-                                           Text="Hello world!" />
+                            <Grid x:Name="ToolTip"
+                                  Margin="0,-52,0,16"
+                                  Background="{ThemeResource ToolTipBackground}"
+                                  BorderBrush="{ThemeResource ToolTipBorderBrush}"
+                                  BorderThickness="{ThemeResource ToolTipBorderThemeThickness}"
+                                  CornerRadius="{ThemeResource ControlCornerRadius}"
+                                  Visibility="Collapsed">
+                                <TextBlock x:Name="ToolTipText"
+                                           Margin="8,7,8,5"
+                                           Foreground="{ThemeResource ToolTipForeground}" />
+                            </Grid>
 
-                                <TextBlock Text="{TemplateBinding MyProperty}" />
-                                <TextBlock Text="{Binding MyProperty, RelativeSource={RelativeSource Mode=TemplatedParent}}"
-                                           Visibility="Collapsed" />
-                            </StackPanel>
-                        </Grid>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style.Setters>
+                            <Thumb x:Name="MinThumb"
+                                   Margin="0,7,0,0"
+                                   VerticalAlignment="Center"
+                                   AutomationProperties.Name="Min thumb"
+                                   IsTabStop="True"
+                                   Style="{StaticResource SliderThumbStyle}"
+                                   TabIndex="0" />
+                            <Thumb x:Name="MaxThumb"
+                                   Margin="0,7,0,0"
+                                   AutomationProperties.Name="Max thumb"
+                                   IsTabStop="True"
+                                   Style="{StaticResource SliderThumbStyle}"
+                                   TabIndex="1" />
+                        </Canvas>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
-
-    <!--  Minimal, custom style  -->
-    <Style x:Key="CustomClassicBindingRangeSelectorStyle"
-           BasedOn="{StaticResource DefaultClassicBindingRangeSelectorStyle}"
-           TargetType="controls:RangeSelector_ClassicBinding">
-        <Style.Setters>
-            <Setter Property="MyProperty" Value="This property has been overriden by a custom style!" />
-            <Setter Property="ItemPadding" Value="25" />
-        </Style.Setters>
-    </Style>
-
 </ResourceDictionary>

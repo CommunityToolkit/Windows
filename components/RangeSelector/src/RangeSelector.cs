@@ -1,108 +1,294 @@
 // Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
-
+#if !WINAPPSDK
+using Windows.UI.Xaml.Shapes;
+#else
+using Microsoft.UI.Xaml.Shapes;
+#endif
 namespace CommunityToolkit.WinUI.Controls;
 
 /// <summary>
-/// This is an example control based off of the BoxPanel sample here: https://docs.microsoft.com/windows/apps/design/layout/boxpanel-example-custom-panel. If you need this similar sort of layout component for an application, see UniformGrid in the Toolkit.
-/// It is provided as an example of how to inherit from another control like <see cref="Panel"/>.
-/// You can choose to start here or from the <see cref="RangeSelector_ClassicBinding"/> or <see cref="RangeSelector_xBind"/> example components. Remove unused components and rename as appropriate.
+/// RangeSelector is a "double slider" control for range values.
 /// </summary>
-public partial class RangeSelector : Panel
+[TemplateVisualState(Name = NormalState, GroupName = CommonStates)]
+[TemplateVisualState(Name = PointerOverState, GroupName = CommonStates)]
+[TemplateVisualState(Name = MinPressedState, GroupName = CommonStates)]
+[TemplateVisualState(Name = MaxPressedState, GroupName = CommonStates)]
+[TemplateVisualState(Name = DisabledState, GroupName = CommonStates)]
+[TemplatePart(Name = "OutOfRangeContentContainer", Type = typeof(Border))]
+[TemplatePart(Name = "ActiveRectangle", Type = typeof(Rectangle))]
+[TemplatePart(Name = "MinThumb", Type = typeof(Thumb))]
+[TemplatePart(Name = "MaxThumb", Type = typeof(Thumb))]
+[TemplatePart(Name = "ContainerCanvas", Type = typeof(Canvas))]
+[TemplatePart(Name = "ControlGrid", Type = typeof(Grid))]
+[TemplatePart(Name = "ToolTip", Type = typeof(Grid))]
+[TemplatePart(Name = "ToolTipText", Type = typeof(TextBlock))]
+
+public partial class RangeSelector : Control
 {
-    /// <summary>
-    /// Identifies the <see cref="Orientation"/> property.
-    /// </summary>
-    public static readonly DependencyProperty OrientationProperty =
-        DependencyProperty.Register(nameof(Orientation), typeof(Orientation), typeof(RangeSelector), new PropertyMetadata(null, OnOrientationChanged));
+    internal const string CommonStates = "CommonStates";
+    internal const string NormalState = "Normal";
+    internal const string PointerOverState = "PointerOver";
+    internal const string DisabledState = "Disabled";
+    internal const string MinPressedState = "MinPressed";
+    internal const string MaxPressedState = "MaxPressed";
+
+    private const double Epsilon = 0.01;
+    private const double DefaultMinimum = 0.0;
+    private const double DefaultMaximum = 1.0;
+    private const double DefaultStepFrequency = 1;
+    private static readonly TimeSpan TimeToHideToolTipOnKeyUp = TimeSpan.FromSeconds(1);
+
+    private Rectangle? _activeRectangle;
+    private Thumb? _minThumb;
+    private Thumb? _maxThumb;
+    private Canvas? _containerCanvas;
+    private double _oldValue;
+    private bool _valuesAssigned;
+    private bool _minSet;
+    private bool _maxSet;
+    private bool _pointerManipulatingMin;
+    private bool _pointerManipulatingMax;
+    private double _absolutePosition;
+    private Grid? _toolTip;
+    private TextBlock? _toolTipText;
 
     /// <summary>
-    /// Gets the preference of the rows/columns when there are a non-square number of children. Defaults to Vertical.
+    /// Initializes a new instance of the <see cref="RangeSelector"/> class.
+    /// Create a default range selector control.
     /// </summary>
-    public Orientation Orientation
+    public RangeSelector()
     {
-        get { return (Orientation)GetValue(OrientationProperty); }
-        set { SetValue(OrientationProperty, value); }
+        DefaultStyleKey = typeof(RangeSelector);
     }
 
-    // Invalidate our layout when the property changes.
-    private static void OnOrientationChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs args)
+    /// <summary>
+    /// Update the visual state of the control when its template is changed.
+    /// </summary>
+    protected override void OnApplyTemplate()
     {
-        if (dependencyObject is RangeSelector panel)
+        if (_minThumb != null)
         {
-            panel.InvalidateMeasure();
+            _minThumb.DragCompleted -= Thumb_DragCompleted;
+            _minThumb.DragDelta -= MinThumb_DragDelta;
+            _minThumb.DragStarted -= MinThumb_DragStarted;
+            _minThumb.KeyDown -= MinThumb_KeyDown;
+        }
+
+        if (_maxThumb != null)
+        {
+            _maxThumb.DragCompleted -= Thumb_DragCompleted;
+            _maxThumb.DragDelta -= MaxThumb_DragDelta;
+            _maxThumb.DragStarted -= MaxThumb_DragStarted;
+            _maxThumb.KeyDown -= MaxThumb_KeyDown;
+        }
+
+        if (_containerCanvas != null)
+        {
+            _containerCanvas.SizeChanged -= ContainerCanvas_SizeChanged;
+            _containerCanvas.PointerPressed -= ContainerCanvas_PointerPressed;
+            _containerCanvas.PointerMoved -= ContainerCanvas_PointerMoved;
+            _containerCanvas.PointerReleased -= ContainerCanvas_PointerReleased;
+            _containerCanvas.PointerExited -= ContainerCanvas_PointerExited;
+        }
+
+        IsEnabledChanged -= RangeSelector_IsEnabledChanged;
+
+        // Need to make sure the values can be set in XAML and don't overwrite each other
+        VerifyValues();
+        _valuesAssigned = true;
+
+        _activeRectangle = GetTemplateChild("ActiveRectangle") as Rectangle;
+        _minThumb = GetTemplateChild("MinThumb") as Thumb;
+        _maxThumb = GetTemplateChild("MaxThumb") as Thumb;
+        _containerCanvas = GetTemplateChild("ContainerCanvas") as Canvas;
+        _toolTip = GetTemplateChild("ToolTip") as Grid;
+        _toolTipText = GetTemplateChild("ToolTipText") as TextBlock;
+
+        if (_minThumb != null)
+        {
+            _minThumb.DragCompleted += Thumb_DragCompleted;
+            _minThumb.DragDelta += MinThumb_DragDelta;
+            _minThumb.DragStarted += MinThumb_DragStarted;
+            _minThumb.KeyDown += MinThumb_KeyDown;
+            _minThumb.KeyUp += Thumb_KeyUp;
+        }
+
+        if (_maxThumb != null)
+        {
+            _maxThumb.DragCompleted += Thumb_DragCompleted;
+            _maxThumb.DragDelta += MaxThumb_DragDelta;
+            _maxThumb.DragStarted += MaxThumb_DragStarted;
+            _maxThumb.KeyDown += MaxThumb_KeyDown;
+            _maxThumb.KeyUp += Thumb_KeyUp;
+        }
+
+        if (_containerCanvas != null)
+        {
+            _containerCanvas.SizeChanged += ContainerCanvas_SizeChanged;
+            _containerCanvas.PointerEntered += ContainerCanvas_PointerEntered;
+            _containerCanvas.PointerPressed += ContainerCanvas_PointerPressed;
+            _containerCanvas.PointerMoved += ContainerCanvas_PointerMoved;
+            _containerCanvas.PointerReleased += ContainerCanvas_PointerReleased;
+            _containerCanvas.PointerExited += ContainerCanvas_PointerExited;
+        }
+
+        VisualStateManager.GoToState(this, IsEnabled ? NormalState : DisabledState, false);
+
+        IsEnabledChanged += RangeSelector_IsEnabledChanged;
+
+        // Measure our min/max text longest value so we can avoid the length of the scrolling reason shifting in size during use.
+        var tb = new TextBlock { Text = Maximum.ToString() };
+        tb.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+
+        base.OnApplyTemplate();
+    }
+
+    private static void UpdateToolTipText(RangeSelector rangeSelector, TextBlock toolTip, double newValue)
+    {
+        if (toolTip != null)
+        {
+            toolTip.Text = string.Format("{0:0.##}", newValue);
         }
     }
 
-    // Store calculations we want to use between the Measure and Arrange methods.
-    int _columnCount;
-    double _cellWidth, _cellHeight;
-
-    protected override Size MeasureOverride(Size availableSize)
+    private void ContainerCanvas_SizeChanged(object sender, SizeChangedEventArgs e)
     {
-        // Determine the square that can contain this number of items.
-        var maxrc = (int)Math.Ceiling(Math.Sqrt(Children.Count));
-        // Get an aspect ratio from availableSize, decides whether to trim row or column.
-        var aspectratio = availableSize.Width / availableSize.Height;
-        if (Orientation == Orientation.Vertical) { aspectratio = 1 / aspectratio; }
+        SyncThumbs();
+    }
 
-        int rowcount;
-
-        // Now trim this square down to a rect, many times an entire row or column can be omitted.
-        if (aspectratio > 1)
+    private void VerifyValues()
+    {
+        if (Minimum > Maximum)
         {
-            rowcount = maxrc;
-            _columnCount = (maxrc > 2 && Children.Count <= maxrc * (maxrc - 1)) ? maxrc - 1 : maxrc;
+            Minimum = Maximum;
+            Maximum = Maximum;
+        }
+
+        if (Minimum == Maximum)
+        {
+            Maximum += Epsilon;
+        }
+
+        if (!_maxSet)
+        {
+            RangeEnd = Maximum;
+        }
+
+        if (!_minSet)
+        {
+            RangeStart = Minimum;
+        }
+
+        if (RangeStart < Minimum)
+        {
+            RangeStart = Minimum;
+        }
+
+        if (RangeEnd < Minimum)
+        {
+            RangeEnd = Minimum;
+        }
+
+        if (RangeStart > Maximum)
+        {
+            RangeStart = Maximum;
+        }
+
+        if (RangeEnd > Maximum)
+        {
+            RangeEnd = Maximum;
+        }
+
+        if (RangeEnd < RangeStart)
+        {
+            RangeStart = RangeEnd;
+        }
+    }
+
+    private void RangeMinToStepFrequency()
+    {
+        RangeStart = MoveToStepFrequency(RangeStart);
+    }
+
+    private void RangeMaxToStepFrequency()
+    {
+        RangeEnd = MoveToStepFrequency(RangeEnd);
+    }
+
+    private double MoveToStepFrequency(double rangeValue)
+    {
+        double newValue = Minimum + (((int)Math.Round((rangeValue - Minimum) / StepFrequency)) * StepFrequency);
+
+        if (newValue < Minimum)
+        {
+            return Minimum;
+        }
+        else if (newValue > Maximum || Maximum - newValue < StepFrequency)
+        {
+            return Maximum;
         }
         else
         {
-            rowcount = (maxrc > 2 && Children.Count <= maxrc * (maxrc - 1)) ? maxrc - 1 : maxrc;
-            _columnCount = maxrc;
+            return newValue;
         }
-
-        // Now that we have a column count, divide available horizontal, that's our cell width.
-        _cellWidth = (int)Math.Floor(availableSize.Width / _columnCount);
-        // Next get a cell height, same logic of dividing available vertical by rowcount.
-        _cellHeight = Double.IsInfinity(availableSize.Height) ? Double.PositiveInfinity : availableSize.Height / rowcount;
-
-        double maxcellheight = 0;
-
-        foreach (UIElement child in Children)
-        {
-            child.Measure(new Size(_cellWidth, _cellHeight));
-            maxcellheight = (child.DesiredSize.Height > maxcellheight) ? child.DesiredSize.Height : maxcellheight;
-        }
-
-        return LimitUnboundedSize(availableSize, maxcellheight);
     }
 
-    // This method limits the panel height when no limit is imposed by the panel's parent.
-    // That can happen to height if the panel is close to the root of main app window.
-    // In this case, base the height of a cell on the max height from desired size
-    // and base the height of the panel on that number times the #rows.
-    Size LimitUnboundedSize(Size input, double maxcellheight)
-    { 
-        if (Double.IsInfinity(input.Height))
-        {
-            input.Height = maxcellheight * _columnCount;
-            _cellHeight = maxcellheight;
-        }
-        return input;
-    }
-
-    protected override Size ArrangeOverride(Size finalSize)
+    private void SyncThumbs(bool fromMinKeyDown = false, bool fromMaxKeyDown = false)
     {
-        int count = 1;
-        double x, y;
-        foreach (UIElement child in Children)
+        if (_containerCanvas == null)
         {
-            x = (count - 1) % _columnCount * _cellWidth;
-            y = ((int)(count - 1) / _columnCount) * _cellHeight;
-            Point anchorPoint = new Point(x, y);
-            child.Arrange(new Rect(anchorPoint, child.DesiredSize));
-            count++;
+            return;
         }
-        return finalSize;
+
+        var relativeLeft = ((RangeStart - Minimum) / (Maximum - Minimum)) * DragWidth();
+        var relativeRight = ((RangeEnd - Minimum) / (Maximum - Minimum)) * DragWidth();
+
+        Canvas.SetLeft(_minThumb, relativeLeft);
+        Canvas.SetLeft(_maxThumb, relativeRight);
+
+        if (fromMinKeyDown || fromMaxKeyDown)
+        {
+            DragThumb(
+                fromMinKeyDown ? _minThumb : _maxThumb,
+                fromMinKeyDown ? 0 : Canvas.GetLeft(_minThumb),
+                fromMinKeyDown ? Canvas.GetLeft(_maxThumb) : DragWidth(),
+                fromMinKeyDown ? relativeLeft : relativeRight);
+            if (_toolTipText != null)
+            {
+                UpdateToolTipText(this, _toolTipText, fromMinKeyDown ? RangeStart : RangeEnd);
+            }
+        }
+
+        SyncActiveRectangle();
+    }
+
+    private void SyncActiveRectangle()
+    {
+        if (_containerCanvas == null)
+        {
+            return;
+        }
+
+        if (_minThumb == null)
+        {
+            return;
+        }
+
+        if (_maxThumb == null)
+        {
+            return;
+        }
+
+        var relativeLeft = Canvas.GetLeft(_minThumb);
+        Canvas.SetLeft(_activeRectangle, relativeLeft);
+        Canvas.SetTop(_activeRectangle, (_containerCanvas.ActualHeight - _activeRectangle!.ActualHeight) / 2);
+        _activeRectangle.Width = Math.Max(0, Canvas.GetLeft(_maxThumb) - Canvas.GetLeft(_minThumb));
+    }
+
+    private void RangeSelector_IsEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)
+    {
+        VisualStateManager.GoToState(this, IsEnabled ? NormalState : DisabledState, true);
     }
 }
