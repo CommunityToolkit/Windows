@@ -1,31 +1,43 @@
 ---
 title: RangeSelector
-author: githubaccount
-description: TODO: Your experiment's description here
-keywords: RangeSelector, Control, Layout
+author: nmetulev
+description: The RangeSelector Control is a Double Slider control that allows the user to select a sub-range of values from a larger range of possible values.
+keywords: RangeSelector, Control, double slider, slider rangeslider
 dev_langs:
   - csharp
 category: Controls
-subcategory: Layout
+subcategory: Input
 discussion-id: 0
 issue-id: 0
 ---
 
-<!-- To know about all the available Markdown syntax, Check out https://docs.microsoft.com/contribute/markdown-reference -->
-<!-- Ensure you remove all comments before submission, to ensure that there are no formatting issues when displaying this page.  -->
-<!-- It is recommended to check how the Documentation will look in the sample app, before Merging a PR -->
-<!-- **Note:** All links to other docs.microsoft.com pages should be relative without locale, i.e. for the one above would be /contribute/markdown-reference -->
-<!-- Included images should be optimized for size and not include any Intellectual Property references. -->
-
-<!-- Be sure to update the discussion/issue numbers above with your Labs discussion/issue id numbers in order for UI links to them from the sample app to work. -->
-
 # RangeSelector
 
-TODO: Fill in information about this experiment and how to get started here...
+The [RangeSelector](/dotnet/api/microsoft.toolkit.uwp.ui.controls.rangeselector) control is a Double Slider control that allows the user to select a sub-range of values from a larger range of possible values.  The user can slide from the left or right of the range.
 
-## Custom Control
-
-You can inherit from an existing component as well, like `Panel`, this example shows a control without a
-XAML Style that will be more light-weight to consume by an app developer:
+> **Platform APIs:** [`RangeSelector`](/dotnet/api/microsoft.toolkit.uwp.ui.controls.rangeselector)
 
 > [!Sample RangeSelectorSample]
+
+> [!NOTE]
+> If you are using a RangeSelector within a ScrollViewer you'll need to add some codes. This is because by default, the ScrollViewer will block the thumbs of the RangeSelector to capture the pointer.
+
+Here is an example of using RangeSelector within a ScrollViewer:
+
+```xaml
+<controls:RangeSelector x:Name="Selector" ThumbDragStarted="Selector_OnDragStarted" ThumbDragCompleted="Selector_OnDragCompleted"/>
+```
+
+```csharp
+private void Selector_OnDragStarted(object sender, DragStartedEventArgs e)
+{
+ ScrollViewer.HorizontalScrollMode = ScrollMode.Disabled;
+ ScrollViewer.VerticalScrollMode = ScrollMode.Disabled;
+}
+
+private void Selector_OnDragCompleted(object sender, DragCompletedEventArgs e)
+{
+ ScrollViewer.HorizontalScrollMode = ScrollMode.Auto;
+ ScrollViewer.VerticalScrollMode = ScrollMode.Auto;
+}
+```

@@ -36,7 +36,7 @@ public partial class RangeSelector : Control
 
     private const double Epsilon = 0.01;
     private const double DefaultMinimum = 0.0;
-    private const double DefaultMaximum = 1.0;
+    private const double DefaultMaximum = 10.0;
     private const double DefaultStepFrequency = 1;
     private static readonly TimeSpan TimeToHideToolTipOnKeyUp = TimeSpan.FromSeconds(1);
 

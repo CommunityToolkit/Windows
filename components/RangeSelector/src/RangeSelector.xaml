@@ -28,6 +28,7 @@
                                 <Setter Property="Background" Value="{ThemeResource SliderThumbBackground}" />
                                 <Setter Property="Height" Value="{ThemeResource SliderHorizontalThumbHeight}" />
                                 <Setter Property="Width" Value="{ThemeResource SliderHorizontalThumbWidth}" />
+                                <Setter Property="CornerRadius" Value="{ThemeResource SliderThumbCornerRadius}" />
                                 <Setter Property="FocusVisualMargin" Value="-7" />
                                 <Setter Property="Template">
                                     <Setter.Value>
@@ -36,7 +37,7 @@
                                                     Background="{ThemeResource SliderOuterThumbBackground}"
                                                     BorderBrush="{ThemeResource SliderThumbBorderBrush}"
                                                     BorderThickness="{TemplateBinding BorderThickness}"
-                                                    CornerRadius="{ThemeResource SliderThumbCornerRadius}">
+                                                    CornerRadius="{TemplateBinding CornerRadius}">
                                                 <VisualStateManager.VisualStateGroups>
                                                     <VisualStateGroup x:Name="CommonStates">
                                                         <VisualState x:Name="Normal">
