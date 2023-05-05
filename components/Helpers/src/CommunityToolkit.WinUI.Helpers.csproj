@@ -1,15 +1,15 @@
 <Project Sdk="MSBuild.Sdk.Extras/3.0.23">
   <PropertyGroup>
-    <ToolkitComponentName>Triggers</ToolkitComponentName>
-    <Description>This package contains Triggers.</Description>
+    <ToolkitComponentName>Helpers</ToolkitComponentName>
+    <Description>This package contains Helpers.</Description>
     <Version>8.0.0-beta.1</Version>
 
     <!-- Rns suffix is required for namespaces shared across projects. See https://github.com/CommunityToolkit/Labs-Windows/issues/152 -->
-    <RootNamespace>CommunityToolkit.WinUI.Controls.TriggersRns</RootNamespace>
+    <RootNamespace>CommunityToolkit.WinUI.HelpersRns</RootNamespace>
   </PropertyGroup>
 
-   <ItemGroup>
-    <ProjectReference Include="$(ToolkitHelperSourceProject)" />
+  <ItemGroup>
+    <ProjectReference Include="$(ToolkitExtensionSourceProject)"/>
   </ItemGroup>
   
   <!-- Sets this up as a toolkit component's source project -->
