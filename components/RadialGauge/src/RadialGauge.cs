@@ -3,13 +3,15 @@
 // See the LICENSE file in the project root for more information.
 
 using CommunityToolkit.WinUI.Helpers;
-using CommunityToolkit.WinUI.Extensions;
 using System.Numerics;
-using Windows.UI.Composition;
 #if WINAPPSDK
 using Path = Microsoft.UI.Xaml.Shapes.Path;
+using Microsoft.UI.Xaml.Hosting;
+using Microsoft.UI.Composition;
 #else
 using Path = Windows.UI.Xaml.Shapes.Path;
+using Windows.UI.Xaml.Hosting;
+using Windows.UI.Composition;
 #endif
 using VirtualKey = Windows.System.VirtualKey;
 using VirtualKeyModifiers = Windows.System.VirtualKeyModifiers;
@@ -676,7 +678,12 @@ public class RadialGauge : RangeBase
             return;
         }
 
-        radialGauge._root = container.GetVisual();
+        // TO DO: Replace with _radialGauge._root = container.GetVisual();
+        var hostVisual = ElementCompositionPreview.GetElementVisual(container);
+        var root = hostVisual.Compositor.CreateContainerVisual();
+        ElementCompositionPreview.SetElementChildVisual(container, root);
+
+        radialGauge._root = root;
         radialGauge._root.Children.RemoveAll();
         radialGauge._compositor = radialGauge._root.Compositor;
 
