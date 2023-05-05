@@ -13,8 +13,6 @@ using Path = Windows.UI.Xaml.Shapes.Path;
 using Windows.UI.Xaml.Hosting;
 using Windows.UI.Composition;
 #endif
-using VirtualKey = Windows.System.VirtualKey;
-using VirtualKeyModifiers = Windows.System.VirtualKeyModifiers;
 
 namespace CommunityToolkit.WinUI.Controls;
 /// <summary>
@@ -26,128 +24,8 @@ namespace CommunityToolkit.WinUI.Controls;
 [TemplatePart(Name = ScalePartName, Type = typeof(Path))]
 [TemplatePart(Name = TrailPartName, Type = typeof(Path))]
 [TemplatePart(Name = ValueTextPartName, Type = typeof(TextBlock))]
-public class RadialGauge : RangeBase
+public partial class RadialGauge : RangeBase
 {
-    /// <summary>
-    /// Identifies the optional StepSize property.
-    /// </summary>
-    public static readonly DependencyProperty StepSizeProperty =
-        DependencyProperty.Register(nameof(StepSize), typeof(double), typeof(RadialGauge), new PropertyMetadata(0.0));
-
-    /// <summary>
-    /// Identifies the <see cref="IsInteractive"/> property.
-    /// </summary>
-    public static readonly DependencyProperty IsInteractiveProperty =
-        DependencyProperty.Register(nameof(IsInteractive), typeof(bool), typeof(RadialGauge), new PropertyMetadata(false, OnInteractivityChanged));
-
-    /// <summary>
-    /// Identifies the ScaleWidth dependency property.
-    /// </summary>
-    public static readonly DependencyProperty ScaleWidthProperty =
-        DependencyProperty.Register(nameof(ScaleWidth), typeof(double), typeof(RadialGauge), new PropertyMetadata(26.0, OnScaleChanged));
-
-    /// <summary>
-    /// Identifies the NeedleBrush dependency property.
-    /// </summary>
-    public static readonly DependencyProperty NeedleBrushProperty =
-        DependencyProperty.Register(nameof(NeedleBrush), typeof(SolidColorBrush), typeof(RadialGauge), new PropertyMetadata(null, OnFaceChanged));
-
-    /// <summary>
-    /// Identifies the Unit dependency property.
-    /// </summary>
-    public static readonly DependencyProperty UnitProperty =
-        DependencyProperty.Register(nameof(Unit), typeof(string), typeof(RadialGauge), new PropertyMetadata(string.Empty));
-
-    /// <summary>
-    /// Identifies the TrailBrush dependency property.
-    /// </summary>
-    public static readonly DependencyProperty TrailBrushProperty =
-        DependencyProperty.Register(nameof(TrailBrush), typeof(Brush), typeof(RadialGauge), new PropertyMetadata(null));
-
-    /// <summary>
-    /// Identifies the ScaleBrush dependency property.
-    /// </summary>
-    public static readonly DependencyProperty ScaleBrushProperty =
-        DependencyProperty.Register(nameof(ScaleBrush), typeof(Brush), typeof(RadialGauge), new PropertyMetadata(null));
-
-    /// <summary>
-    /// Identifies the ScaleTickBrush dependency property.
-    /// </summary>
-    public static readonly DependencyProperty ScaleTickBrushProperty =
-        DependencyProperty.Register(nameof(ScaleTickBrush), typeof(Brush), typeof(RadialGauge), new PropertyMetadata(null, OnFaceChanged));
-
-    /// <summary>
-    /// Identifies the TickBrush dependency property.
-    /// </summary>
-    public static readonly DependencyProperty TickBrushProperty =
-        DependencyProperty.Register(nameof(TickBrush), typeof(SolidColorBrush), typeof(RadialGauge), new PropertyMetadata(null, OnFaceChanged));
-
-    /// <summary>
-    /// Identifies the ValueStringFormat dependency property.
-    /// </summary>
-    public static readonly DependencyProperty ValueStringFormatProperty =
-        DependencyProperty.Register(nameof(ValueStringFormat), typeof(string), typeof(RadialGauge), new PropertyMetadata("N0", (s, e) => OnValueChanged(s)));
-
-    /// <summary>
-    /// Identifies the TickSpacing dependency property.
-    /// </summary>
-    public static readonly DependencyProperty TickSpacingProperty =
-    DependencyProperty.Register(nameof(TickSpacing), typeof(int), typeof(RadialGauge), new PropertyMetadata(10, OnFaceChanged));
-
-    /// <summary>
-    /// Identifies the NeedleLength dependency property.
-    /// </summary>
-    public static readonly DependencyProperty NeedleLengthProperty =
-        DependencyProperty.Register(nameof(NeedleLength), typeof(double), typeof(RadialGauge), new PropertyMetadata(100d, OnFaceChanged));
-
-    /// <summary>
-    /// Identifies the NeedleWidth dependency property.
-    /// </summary>
-    public static readonly DependencyProperty NeedleWidthProperty =
-        DependencyProperty.Register(nameof(NeedleWidth), typeof(double), typeof(RadialGauge), new PropertyMetadata(5d, OnFaceChanged));
-
-    /// <summary>
-    /// Identifies the ScalePadding dependency property.
-    /// </summary>
-    public static readonly DependencyProperty ScalePaddingProperty =
-        DependencyProperty.Register(nameof(ScalePadding), typeof(double), typeof(RadialGauge), new PropertyMetadata(23d, OnFaceChanged));
-
-    /// <summary>
-    /// Identifies the ScaleTickWidth dependency property.
-    /// </summary>
-    public static readonly DependencyProperty ScaleTickWidthProperty =
-        DependencyProperty.Register(nameof(ScaleTickWidth), typeof(double), typeof(RadialGauge), new PropertyMetadata(2.5, OnFaceChanged));
-
-    /// <summary>
-    /// Identifies the TickWidth dependency property.
-    /// </summary>
-    public static readonly DependencyProperty TickWidthProperty =
-        DependencyProperty.Register(nameof(TickWidth), typeof(double), typeof(RadialGauge), new PropertyMetadata(5d, OnFaceChanged));
-
-    /// <summary>
-    /// Identifies the TickLength dependency property.
-    /// </summary>
-    public static readonly DependencyProperty TickLengthProperty =
-        DependencyProperty.Register(nameof(TickLength), typeof(double), typeof(RadialGauge), new PropertyMetadata(18d, OnFaceChanged));
-
-    /// <summary>
-    /// Identifies the MinAngle dependency property.
-    /// </summary>
-    public static readonly DependencyProperty MinAngleProperty =
-        DependencyProperty.Register(nameof(MinAngle), typeof(int), typeof(RadialGauge), new PropertyMetadata(-150, OnScaleChanged));
-
-    /// <summary>
-    /// Identifies the MaxAngle dependency property.
-    /// </summary>
-    public static readonly DependencyProperty MaxAngleProperty =
-        DependencyProperty.Register(nameof(MaxAngle), typeof(int), typeof(RadialGauge), new PropertyMetadata(150, OnScaleChanged));
-
-    /// <summary>
-    /// Identifies the ValueAngle dependency property.
-    /// </summary>
-    protected static readonly DependencyProperty ValueAngleProperty =
-        DependencyProperty.Register(nameof(ValueAngle), typeof(double), typeof(RadialGauge), new PropertyMetadata(null));
-
     // Template Parts.
     private const string ContainerPartName = "PART_Container";
     private const string ScalePartName = "PART_Scale";
@@ -160,6 +38,7 @@ public class RadialGauge : RangeBase
     // High-contrast accessibility
     private static readonly ThemeListener ThemeListener = new ThemeListener();
     private SolidColorBrush? _needleBrush;
+    private SolidColorBrush? _needleBorderBrush;
     private Brush? _trailBrush;
     private Brush? _scaleBrush;
     private SolidColorBrush? _scaleTickBrush;
@@ -171,7 +50,7 @@ public class RadialGauge : RangeBase
 
     private Compositor? _compositor;
     private ContainerVisual? _root;
-    private SpriteVisual? _needle;
+    private CompositionSpriteShape? _needle;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="RadialGauge"/> class.
@@ -184,79 +63,7 @@ public class RadialGauge : RangeBase
         SmallChange = 1;
         LargeChange = 10;
 
-        // Small step
-        AddKeyboardAccelerator(VirtualKeyModifiers.None, VirtualKey.Left, static (_, kaea) =>
-        {
-            if (kaea.Element is RadialGauge gauge)
-            {
-                gauge.Value = Math.Max(gauge.Minimum, gauge.Value - Math.Max(gauge.StepSize, gauge.SmallChange));
-                kaea.Handled = true;
-            }
-        });
-
-        AddKeyboardAccelerator(VirtualKeyModifiers.None, VirtualKey.Up, static (_, kaea) =>
-        {
-            if (kaea.Element is RadialGauge gauge)
-            {
-                gauge.Value = Math.Min(gauge.Maximum, gauge.Value + Math.Max(gauge.StepSize, gauge.SmallChange));
-                kaea.Handled = true;
-            }
-        });
-
-        AddKeyboardAccelerator(VirtualKeyModifiers.None, VirtualKey.Right, static (_, kaea) =>
-        {
-            if (kaea.Element is RadialGauge gauge)
-            {
-                gauge.Value = Math.Min(gauge.Maximum, gauge.Value + Math.Max(gauge.StepSize, gauge.SmallChange));
-                kaea.Handled = true;
-            }
-        });
-
-        AddKeyboardAccelerator(VirtualKeyModifiers.None, VirtualKey.Down, static (_, kaea) =>
-        {
-            if (kaea.Element is RadialGauge gauge)
-            {
-                gauge.Value = Math.Max(gauge.Minimum, gauge.Value - Math.Max(gauge.StepSize, gauge.SmallChange));
-                kaea.Handled = true;
-            }
-        });
-
-        // Large step
-        AddKeyboardAccelerator(VirtualKeyModifiers.Control, VirtualKey.Left, static (_, kaea) =>
-        {
-            if (kaea.Element is RadialGauge gauge)
-            {
-                gauge.Value = Math.Max(gauge.Minimum, gauge.Value - Math.Max(gauge.StepSize, gauge.LargeChange));
-                kaea.Handled = true;
-            }
-        });
-
-        AddKeyboardAccelerator(VirtualKeyModifiers.Control, VirtualKey.Up, static (_, kaea) =>
-        {
-            if (kaea.Element is RadialGauge gauge)
-            {
-                gauge.Value = Math.Min(gauge.Maximum, gauge.Value + Math.Max(gauge.StepSize, gauge.LargeChange));
-                kaea.Handled = true;
-            }
-        });
-
-        AddKeyboardAccelerator(VirtualKeyModifiers.Control, VirtualKey.Right, static (_, kaea) =>
-        {
-            if (kaea.Element is RadialGauge gauge)
-            {
-                gauge.Value = Math.Min(gauge.Maximum, gauge.Value + Math.Max(gauge.StepSize, gauge.LargeChange));
-                kaea.Handled = true;
-            }
-        });
-
-        AddKeyboardAccelerator(VirtualKeyModifiers.Control, VirtualKey.Down, static (_, kaea) =>
-        {
-            if (kaea.Element is RadialGauge gauge)
-            {
-                gauge.Value = Math.Max(gauge.Minimum, gauge.Value - Math.Max(gauge.StepSize, gauge.LargeChange));
-                kaea.Handled = true;
-            }
-        });
+        SetKeyboardAccelerators();
     }
 
     private void ThemeListener_ThemeChanged(ThemeListener sender)
@@ -274,185 +81,31 @@ public class RadialGauge : RangeBase
     }
 
     /// <summary>
-    /// Gets or sets the rounding interval for the Value.
+    /// Update the visual state of the control when its template is changed.
     /// </summary>
-    public double StepSize
+    protected override void OnApplyTemplate()
     {
-        get { return (double)GetValue(StepSizeProperty); }
-        set { SetValue(StepSizeProperty, value); }
-    }
+        PointerReleased -= RadialGauge_PointerReleased;
+        ThemeListener.ThemeChanged -= ThemeListener_ThemeChanged;
+        Unloaded -= RadialGauge_Unloaded;
 
-    /// <summary>
-    /// Gets or sets a value indicating whether the control accepts setting its value through interaction.
-    /// </summary>
-    public bool IsInteractive
-    {
-        get { return (bool)GetValue(IsInteractiveProperty); }
-        set { SetValue(IsInteractiveProperty, value); }
-    }
+        // Remember local brushes.
+        _needleBrush = ReadLocalValue(NeedleBrushProperty) as SolidColorBrush;
+        _needleBorderBrush = ReadLocalValue(NeedleBorderBrushProperty) as SolidColorBrush;
+        _trailBrush = ReadLocalValue(TrailBrushProperty) as SolidColorBrush;
+        _scaleBrush = ReadLocalValue(ScaleBrushProperty) as SolidColorBrush;
+        _scaleTickBrush = ReadLocalValue(ScaleTickBrushProperty) as SolidColorBrush;
+        _tickBrush = ReadLocalValue(TickBrushProperty) as SolidColorBrush;
+        _foreground = ReadLocalValue(ForegroundProperty) as SolidColorBrush;
 
-    /// <summary>
-    /// Gets or sets the width of the scale, in percentage of the gauge radius.
-    /// </summary>
-    public double ScaleWidth
-    {
-        get { return (double)GetValue(ScaleWidthProperty); }
-        set { SetValue(ScaleWidthProperty, value); }
-    }
+        PointerReleased += RadialGauge_PointerReleased;
+        ThemeListener.ThemeChanged += ThemeListener_ThemeChanged;
+        Unloaded += RadialGauge_Unloaded;
 
-    /// <summary>
-    /// Gets or sets the displayed unit measure.
-    /// </summary>
-    public string Unit
-    {
-        get { return (string)GetValue(UnitProperty); }
-        set { SetValue(UnitProperty, value); }
-    }
+        // Apply color scheme.
+        OnColorsChanged();
 
-    /// <summary>
-    /// Gets or sets the needle brush.
-    /// </summary>
-    public SolidColorBrush NeedleBrush
-    {
-        get { return (SolidColorBrush)GetValue(NeedleBrushProperty); }
-        set { SetValue(NeedleBrushProperty, value); }
-    }
-
-    /// <summary>
-    /// Gets or sets the trail brush.
-    /// </summary>
-    public Brush TrailBrush
-    {
-        get { return (Brush)GetValue(TrailBrushProperty); }
-        set { SetValue(TrailBrushProperty, value); }
-    }
-
-    /// <summary>
-    /// Gets or sets the scale brush.
-    /// </summary>
-    public Brush ScaleBrush
-    {
-        get { return (Brush)GetValue(ScaleBrushProperty); }
-        set { SetValue(ScaleBrushProperty, value); }
-    }
-
-    /// <summary>
-    /// Gets or sets the scale tick brush.
-    /// </summary>
-    public SolidColorBrush ScaleTickBrush
-    {
-        get { return (SolidColorBrush)GetValue(ScaleTickBrushProperty); }
-        set { SetValue(ScaleTickBrushProperty, value); }
-    }
-
-    /// <summary>
-    /// Gets or sets the outer tick brush.
-    /// </summary>
-    public SolidColorBrush TickBrush
-    {
-        get { return (SolidColorBrush)GetValue(TickBrushProperty); }
-        set { SetValue(TickBrushProperty, value); }
-    }
-
-    /// <summary>
-    /// Gets or sets the value string format.
-    /// </summary>
-    public string ValueStringFormat
-    {
-        get { return (string)GetValue(ValueStringFormatProperty); }
-        set { SetValue(ValueStringFormatProperty, value); }
-    }
-
-    /// <summary>
-    /// Gets or sets the tick spacing, in units. Values of zero or less will be ignored when drawing.
-    /// </summary>
-    public int TickSpacing
-    {
-        get { return (int)GetValue(TickSpacingProperty); }
-        set { SetValue(TickSpacingProperty, value); }
-    }
-
-    /// <summary>
-    /// Gets or sets the needle length, in percentage of the gauge radius.
-    /// </summary>
-    public double NeedleLength
-    {
-        get { return (double)GetValue(NeedleLengthProperty); }
-        set { SetValue(NeedleLengthProperty, value); }
-    }
-
-    /// <summary>
-    /// Gets or sets the needle width, in percentage of the gauge radius.
-    /// </summary>
-    public double NeedleWidth
-    {
-        get { return (double)GetValue(NeedleWidthProperty); }
-        set { SetValue(NeedleWidthProperty, value); }
-    }
-
-    /// <summary>
-    /// Gets or sets the distance of the scale from the outside of the control, in percentage of the gauge radius.
-    /// </summary>
-    public double ScalePadding
-    {
-        get { return (double)GetValue(ScalePaddingProperty); }
-        set { SetValue(ScalePaddingProperty, value); }
-    }
-
-    /// <summary>
-    /// Gets or sets the width of the scale ticks, in percentage of the gauge radius.
-    /// </summary>
-    public double ScaleTickWidth
-    {
-        get { return (double)GetValue(ScaleTickWidthProperty); }
-        set { SetValue(ScaleTickWidthProperty, value); }
-    }
-
-    /// <summary>
-    /// Gets or sets the length of the ticks, in percentage of the gauge radius.
-    /// </summary>
-    public double TickLength
-    {
-        get { return (double)GetValue(TickLengthProperty); }
-        set { SetValue(TickLengthProperty, value); }
-    }
-
-    /// <summary>
-    /// Gets or sets the width of the ticks, in percentage of the gauge radius.
-    /// </summary>
-    public double TickWidth
-    {
-        get { return (double)GetValue(TickWidthProperty); }
-        set { SetValue(TickWidthProperty, value); }
-    }
-
-    /// <summary>
-    /// Gets or sets the start angle of the scale, which corresponds with the Minimum value, in degrees.
-    /// </summary>
-    /// <remarks>Changing MinAngle may require retemplating the control.</remarks>
-    public int MinAngle
-    {
-        get { return (int)GetValue(MinAngleProperty); }
-        set { SetValue(MinAngleProperty, value); }
-    }
-
-    /// <summary>
-    /// Gets or sets the end angle of the scale, which corresponds with the Maximum value, in degrees.
-    /// </summary>
-    /// <remarks>Changing MaxAngle may require retemplating the control.</remarks>
-    public int MaxAngle
-    {
-        get { return (int)GetValue(MaxAngleProperty); }
-        set { SetValue(MaxAngleProperty, value); }
-    }
-
-    /// <summary>
-    /// Gets or sets the current angle of the needle (between MinAngle and MaxAngle). Setting the angle will update the Value.
-    /// </summary>
-    protected double ValueAngle
-    {
-        get { return (double)GetValue(ValueAngleProperty); }
-        set { SetValue(ValueAngleProperty, value); }
+        base.OnApplyTemplate();
     }
 
     /// <summary>
@@ -471,33 +124,6 @@ public class RadialGauge : RangeBase
     protected override AutomationPeer OnCreateAutomationPeer()
     {
         return new RadialGaugeAutomationPeer(this);
-    }
-
-    /// <summary>
-    /// Update the visual state of the control when its template is changed.
-    /// </summary>
-    protected override void OnApplyTemplate()
-    {
-        PointerReleased -= RadialGauge_PointerReleased;
-        ThemeListener.ThemeChanged -= ThemeListener_ThemeChanged;
-        Unloaded -= RadialGauge_Unloaded;
-
-        // Remember local brushes.
-        _needleBrush = ReadLocalValue(NeedleBrushProperty) as SolidColorBrush;
-        _trailBrush = ReadLocalValue(TrailBrushProperty) as SolidColorBrush;
-        _scaleBrush = ReadLocalValue(ScaleBrushProperty) as SolidColorBrush;
-        _scaleTickBrush = ReadLocalValue(ScaleTickBrushProperty) as SolidColorBrush;
-        _tickBrush = ReadLocalValue(TickBrushProperty) as SolidColorBrush;
-        _foreground = ReadLocalValue(ForegroundProperty) as SolidColorBrush;
-
-        PointerReleased += RadialGauge_PointerReleased;
-        ThemeListener.ThemeChanged += ThemeListener_ThemeChanged;
-        Unloaded += RadialGauge_Unloaded;
-
-        // Apply color scheme.
-        OnColorsChanged();
-
-        base.OnApplyTemplate();
     }
 
     /// <inheritdoc/>
@@ -557,9 +183,11 @@ public class RadialGauge : RangeBase
                     if (radialGauge.ValueAngle - radialGauge.NormalizedMinAngle == 360)
                     {
                         // Draw full circle.
-                        var eg = new EllipseGeometry();
-                        eg.Center = new Point(100, 100);
-                        eg.RadiusX = 100 - radialGauge.ScalePadding - (radialGauge.ScaleWidth / 2);
+                        var eg = new EllipseGeometry
+                        {
+                            Center = new Point(100, 100),
+                            RadiusX = 100 - radialGauge.ScalePadding - (radialGauge.ScaleWidth / 2)
+                        };
                         eg.RadiusY = eg.RadiusX;
                         trail.Data = eg;
                     }
@@ -567,14 +195,18 @@ public class RadialGauge : RangeBase
                     {
                         // Draw arc.
                         var pg = new PathGeometry();
-                        var pf = new PathFigure();
-                        pf.IsClosed = false;
-                        pf.StartPoint = radialGauge.ScalePoint(radialGauge.NormalizedMinAngle, middleOfScale);
-                        var seg = new ArcSegment();
-                        seg.SweepDirection = SweepDirection.Clockwise;
-                        seg.IsLargeArc = radialGauge.ValueAngle > (180 + radialGauge.NormalizedMinAngle);
-                        seg.Size = new Size(middleOfScale, middleOfScale);
-                        seg.Point = radialGauge.ScalePoint(Math.Min(radialGauge.ValueAngle, radialGauge.NormalizedMaxAngle), middleOfScale);  // On overflow, stop trail at MaxAngle.
+                        var pf = new PathFigure
+                        {
+                            IsClosed = false,
+                            StartPoint = radialGauge.ScalePoint(radialGauge.NormalizedMinAngle, middleOfScale)
+                        };
+                        var seg = new ArcSegment
+                        {
+                            SweepDirection = SweepDirection.Clockwise,
+                            IsLargeArc = radialGauge.ValueAngle > (180 + radialGauge.NormalizedMinAngle),
+                            Size = new Size(middleOfScale, middleOfScale),
+                            Point = radialGauge.ScalePoint(Math.Min(radialGauge.ValueAngle, radialGauge.NormalizedMaxAngle), middleOfScale)  // On overflow, stop trail at MaxAngle.
+                        };
                         pf.Segments.Add(seg);
                         pg.Figures.Add(pf);
                         trail.Data = pg;
@@ -612,11 +244,6 @@ public class RadialGauge : RangeBase
         }
     }
 
-    private static void OnScaleChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-    {
-        OnScaleChanged(d);
-    }
-
     private static void OnScaleChanged(DependencyObject d)
     {
         RadialGauge radialGauge = (RadialGauge)d;
@@ -628,9 +255,11 @@ public class RadialGauge : RangeBase
             if (radialGauge.NormalizedMaxAngle - radialGauge.NormalizedMinAngle == 360)
             {
                 // Draw full circle.
-                var eg = new EllipseGeometry();
-                eg.Center = new Point(100, 100);
-                eg.RadiusX = 100 - radialGauge.ScalePadding - (radialGauge.ScaleWidth / 2);
+                var eg = new EllipseGeometry
+                {
+                    Center = new Point(100, 100),
+                    RadiusX = 100 - radialGauge.ScalePadding - (radialGauge.ScaleWidth / 2)
+                };
                 eg.RadiusY = eg.RadiusX;
                 scale.Data = eg;
             }
@@ -638,15 +267,19 @@ public class RadialGauge : RangeBase
             {
                 // Draw arc.
                 var pg = new PathGeometry();
-                var pf = new PathFigure();
-                pf.IsClosed = false;
+                var pf = new PathFigure
+                {
+                    IsClosed = false
+                };
                 var middleOfScale = 100 - radialGauge.ScalePadding - (radialGauge.ScaleWidth / 2);
                 pf.StartPoint = radialGauge.ScalePoint(radialGauge.NormalizedMinAngle, middleOfScale);
-                var seg = new ArcSegment();
-                seg.SweepDirection = SweepDirection.Clockwise;
-                seg.IsLargeArc = radialGauge.NormalizedMaxAngle > (radialGauge.NormalizedMinAngle + 180);
-                seg.Size = new Size(middleOfScale, middleOfScale);
-                seg.Point = radialGauge.ScalePoint(radialGauge.NormalizedMaxAngle, middleOfScale);
+                var seg = new ArcSegment
+                {
+                    SweepDirection = SweepDirection.Clockwise,
+                    IsLargeArc = radialGauge.NormalizedMaxAngle > (radialGauge.NormalizedMinAngle + 180),
+                    Size = new Size(middleOfScale, middleOfScale),
+                    Point = radialGauge.ScalePoint(radialGauge.NormalizedMaxAngle, middleOfScale)
+                };
                 pf.Segments.Add(seg);
                 pg.Figures.Add(pf);
                 scale.Data = pg;
@@ -659,19 +292,12 @@ public class RadialGauge : RangeBase
         }
     }
 
-    private static void OnFaceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-    {
-        if (!DesignTimeHelpers.IsRunningInLegacyDesignerMode)
-        {
-            OnFaceChanged(d);
-        }
-    }
-
     private static void OnFaceChanged(DependencyObject d)
     {
         RadialGauge radialGauge = (RadialGauge)d;
 
         var container = radialGauge.GetTemplateChild(ContainerPartName) as Grid;
+
         if (container == null || DesignTimeHelpers.IsRunningInLegacyDesignerMode)
         {
             // Bad template.
@@ -682,49 +308,75 @@ public class RadialGauge : RangeBase
         var hostVisual = ElementCompositionPreview.GetElementVisual(container);
         var root = hostVisual.Compositor.CreateContainerVisual();
         ElementCompositionPreview.SetElementChildVisual(container, root);
-
         radialGauge._root = root;
+        //
+
         radialGauge._root.Children.RemoveAll();
         radialGauge._compositor = radialGauge._root.Compositor;
 
         if (radialGauge.TickSpacing > 0)
         {
             // Ticks.
-            SpriteVisual tick;
+            var tick = radialGauge._compositor.CreateShapeVisual();
+            tick.Size = new Vector2((float)(radialGauge.Height), (float)(radialGauge.Width));
+            tick.BorderMode = CompositionBorderMode.Soft;
+            tick.Opacity = (float)radialGauge.TickBrush.Opacity;
+
+            var roundedTickRectangle = radialGauge._compositor.CreateRoundedRectangleGeometry();
+            roundedTickRectangle.Size = new Vector2((float)radialGauge.TickWidth, (float)radialGauge.TickLength);
+            roundedTickRectangle.CornerRadius = new Vector2((float)radialGauge.TickCornerRadius, (float)radialGauge.TickCornerRadius);
+
             for (double i = radialGauge.Minimum; i <= radialGauge.Maximum; i += radialGauge.TickSpacing)
             {
-                tick = radialGauge._compositor.CreateSpriteVisual();
-                tick.Size = new Vector2((float)radialGauge.TickWidth, (float)radialGauge.TickLength);
-                tick.Brush = radialGauge._compositor.CreateColorBrush(radialGauge.TickBrush.Color);
-                tick.Opacity = (float)radialGauge.TickBrush.Opacity;
-                tick.Offset = new Vector3(100 - ((float)radialGauge.TickWidth / 2), 0.0f, 0);
-                tick.CenterPoint = new Vector3((float)radialGauge.TickWidth / 2, 100.0f, 0);
-                tick.RotationAngleInDegrees = (float)radialGauge.ValueToAngle(i);
-                radialGauge._root.Children.InsertAtTop(tick);
+                var tickSpriteShape = radialGauge._compositor.CreateSpriteShape(roundedTickRectangle);
+                tickSpriteShape.FillBrush = radialGauge._compositor.CreateColorBrush(radialGauge.TickBrush.Color);
+                tickSpriteShape.Offset = new Vector2(100 - ((float)radialGauge.TickWidth / 2), (float)radialGauge.TickPadding);
+                tickSpriteShape.CenterPoint = new Vector2((float)radialGauge.TickWidth / 2, 100 - (float)radialGauge.TickPadding);
+                tickSpriteShape.RotationAngleInDegrees = (float)radialGauge.ValueToAngle(i);
+                tick.Shapes.Add(tickSpriteShape);
             }
 
+            radialGauge._root.Children.InsertAtTop(tick);
+
             // Scale Ticks.
+            var scaleTick = radialGauge._compositor.CreateShapeVisual();
+            scaleTick.Size = new Vector2((float)(radialGauge.Height), (float)(radialGauge.Width));
+            scaleTick.BorderMode = CompositionBorderMode.Soft;
+            scaleTick.Opacity = (float)radialGauge.ScaleTickBrush.Opacity;
+
+            var roundedScaleTickRectangle = radialGauge._compositor.CreateRoundedRectangleGeometry();
+            roundedScaleTickRectangle.Size = new Vector2((float)radialGauge.ScaleTickWidth, (float)radialGauge.ScaleTickLength);
+            roundedScaleTickRectangle.CornerRadius = new Vector2((float)radialGauge.ScaleTickCornerRadius, (float)radialGauge.ScaleTickCornerRadius);
+
             for (double i = radialGauge.Minimum; i <= radialGauge.Maximum; i += radialGauge.TickSpacing)
             {
-                tick = radialGauge._compositor.CreateSpriteVisual();
-                tick.Size = new Vector2((float)radialGauge.ScaleTickWidth, (float)radialGauge.ScaleWidth);
-                tick.Brush = radialGauge._compositor.CreateColorBrush(radialGauge.ScaleTickBrush.Color);
-                tick.Opacity = (float)radialGauge.ScaleTickBrush.Opacity;
-                tick.Offset = new Vector3(100 - ((float)radialGauge.ScaleTickWidth / 2), (float)radialGauge.ScalePadding, 0);
-                tick.CenterPoint = new Vector3((float)radialGauge.ScaleTickWidth / 2, 100 - (float)radialGauge.ScalePadding, 0);
-                tick.RotationAngleInDegrees = (float)radialGauge.ValueToAngle(i);
-                radialGauge._root.Children.InsertAtTop(tick);
+                var scaleTickSpriteShape = radialGauge._compositor.CreateSpriteShape(roundedScaleTickRectangle);
+                scaleTickSpriteShape.FillBrush = radialGauge._compositor.CreateColorBrush(radialGauge.ScaleTickBrush.Color);
+                scaleTickSpriteShape.Offset = new Vector2(100 - ((float)radialGauge.ScaleTickWidth / 2), (float)radialGauge.ScalePadding);
+                scaleTickSpriteShape.CenterPoint = new Vector2((float)radialGauge.ScaleTickWidth / 2, 100 - (float)radialGauge.ScalePadding);
+                scaleTickSpriteShape.RotationAngleInDegrees = (float)radialGauge.ValueToAngle(i);
+                scaleTick.Shapes.Add(scaleTickSpriteShape);
             }
+            radialGauge._root.Children.InsertAtTop(scaleTick);
         }
 
         // Needle.
-        radialGauge._needle = radialGauge._compositor.CreateSpriteVisual();
-        radialGauge._needle.Size = new Vector2((float)radialGauge.NeedleWidth, (float)radialGauge.NeedleLength);
-        radialGauge._needle.Brush = radialGauge._compositor.CreateColorBrush(radialGauge.NeedleBrush.Color);
-        radialGauge._needle.Opacity = (float)radialGauge.NeedleBrush.Opacity;
-        radialGauge._needle.CenterPoint = new Vector3((float)radialGauge.NeedleWidth / 2, (float)radialGauge.NeedleLength, 0);
-        radialGauge._needle.Offset = new Vector3(100 - ((float)radialGauge.NeedleWidth / 2), 100 - (float)radialGauge.NeedleLength, 0);
-        radialGauge._root.Children.InsertAtTop(radialGauge._needle);
+        var shapeVisual = radialGauge._compositor.CreateShapeVisual();
+        shapeVisual.Size = new Vector2((float)radialGauge.Height, (float)radialGauge.Width);
+        shapeVisual.BorderMode = CompositionBorderMode.Soft;
+        shapeVisual.Opacity = (float)radialGauge.NeedleBrush.Opacity;
+        var roundedNeedleRectangle = radialGauge._compositor.CreateRoundedRectangleGeometry();
+        roundedNeedleRectangle.Size = new Vector2((float)radialGauge.NeedleWidth, (float)radialGauge.NeedleLength);
+        roundedNeedleRectangle.CornerRadius = new Vector2((float)radialGauge.NeedleWidth / 2, (float)radialGauge.NeedleWidth / 2);
+        radialGauge._needle = radialGauge._compositor.CreateSpriteShape(roundedNeedleRectangle);
+        radialGauge._needle.FillBrush = radialGauge._compositor.CreateColorBrush(radialGauge.NeedleBrush.Color);
+        radialGauge._needle.CenterPoint = new Vector2((float)radialGauge.NeedleWidth / 2, (float)radialGauge.NeedleLength);
+        radialGauge._needle.Offset = new Vector2(100 - ((float)radialGauge.NeedleWidth / 2), 100 - (float)radialGauge.NeedleLength);
+        radialGauge._needle.StrokeThickness = (float)radialGauge.NeedleBorderThickness;
+        radialGauge._needle.StrokeBrush = radialGauge._compositor.CreateColorBrush(radialGauge.NeedleBorderBrush.Color);
+        shapeVisual.Shapes.Add(radialGauge._needle);
+        
+        radialGauge._root.Children.InsertAtTop(shapeVisual);
 
         OnValueChanged(radialGauge);
     }
@@ -735,6 +387,7 @@ public class RadialGauge : RangeBase
         {
             // Apply High Contrast Theme.
             ClearBrush(_needleBrush, NeedleBrushProperty);
+            ClearBrush(_needleBorderBrush, NeedleBorderBrushProperty);
             ClearBrush(_trailBrush, TrailBrushProperty);
             ClearBrush(_scaleBrush, ScaleBrushProperty);
             ClearBrush(_scaleTickBrush, ScaleTickBrushProperty);
@@ -745,6 +398,7 @@ public class RadialGauge : RangeBase
         {
             // Apply User Defined or Default Theme.
             RestoreBrush(_needleBrush, NeedleBrushProperty);
+            RestoreBrush(_needleBorderBrush, NeedleBorderBrushProperty);
             RestoreBrush(_trailBrush, TrailBrushProperty);
             RestoreBrush(_scaleBrush, ScaleBrushProperty);
             RestoreBrush(_scaleTickBrush, ScaleTickBrushProperty);
@@ -768,24 +422,6 @@ public class RadialGauge : RangeBase
         if (source != null)
         {
             SetValue(prop, source);
-        }
-    }
-
-    private void RadialGauge_ManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
-    {
-        SetGaugeValueFromPoint(e.Position);
-    }
-
-    private void RadialGauge_Tapped(object sender, TappedRoutedEventArgs e)
-    {
-        SetGaugeValueFromPoint(e.GetPosition(this));
-    }
-
-    private void RadialGauge_PointerReleased(object sender, PointerRoutedEventArgs e)
-    {
-        if (IsInteractive)
-        {
-            e.Handled = true;
         }
     }
 
@@ -883,19 +519,5 @@ public class RadialGauge : RangeBase
         }
 
         return number + modulo;
-    }
-
-    private void AddKeyboardAccelerator(
-        VirtualKeyModifiers keyModifiers,
-        VirtualKey key,
-        TypedEventHandler<KeyboardAccelerator, KeyboardAcceleratorInvokedEventArgs> handler)
-    {
-        var accelerator = new KeyboardAccelerator()
-        {
-            Modifiers = keyModifiers,
-            Key = key
-        };
-        accelerator.Invoked += handler;
-        KeyboardAccelerators.Add(accelerator);
     }
 }

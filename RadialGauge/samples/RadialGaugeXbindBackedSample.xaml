@@ -9,8 +9,8 @@
 
     <StackPanel Spacing="16">
         <controls:RadialGauge_xBind FontFamily="{x:Bind TextFontFamily, Mode=OneWay}"
-                                        FontSize="{x:Bind TextSize, Mode=OneWay}"
-                                        Foreground="{x:Bind TextForeground, Mode=OneWay}"
-                                        Visibility="{x:Bind IsTextVisible, Mode=OneWay}" />
+                                    FontSize="{x:Bind TextSize, Mode=OneWay}"
+                                    Foreground="{x:Bind TextForeground, Mode=OneWay}"
+                                    Visibility="{x:Bind IsTextVisible, Mode=OneWay}" />
     </StackPanel>
 </Page>
