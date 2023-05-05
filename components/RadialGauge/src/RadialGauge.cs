@@ -2,6 +2,18 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
+using CommunityToolkit.WinUI.Helpers;
+using CommunityToolkit.WinUI.Extensions;
+using System.Numerics;
+using Windows.UI.Composition;
+#if WINAPPSDK
+using Path = Microsoft.UI.Xaml.Shapes.Path;
+#else
+using Path = Windows.UI.Xaml.Shapes.Path;
+#endif
+using VirtualKey = Windows.System.VirtualKey;
+using VirtualKeyModifiers = Windows.System.VirtualKeyModifiers;
+
 namespace CommunityToolkit.WinUI.Controls;
 /// <summary>
 /// A Modern UI Radial Gauge using XAML and Composition API.
@@ -145,19 +157,19 @@ public class RadialGauge : RangeBase
 
     // High-contrast accessibility
     private static readonly ThemeListener ThemeListener = new ThemeListener();
-    private SolidColorBrush _needleBrush;
-    private Brush _trailBrush;
-    private Brush _scaleBrush;
-    private SolidColorBrush _scaleTickBrush;
-    private SolidColorBrush _tickBrush;
-    private Brush _foreground;
+    private SolidColorBrush? _needleBrush;
+    private Brush? _trailBrush;
+    private Brush? _scaleBrush;
+    private SolidColorBrush? _scaleTickBrush;
+    private SolidColorBrush? _tickBrush;
+    private Brush? _foreground;
 
     private double _normalizedMinAngle;
     private double _normalizedMaxAngle;
 
-    private Compositor _compositor;
-    private ContainerVisual _root;
-    private SpriteVisual _needle;
+    private Compositor? _compositor;
+    private ContainerVisual? _root;
+    private SpriteVisual? _needle;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="RadialGauge"/> class.
@@ -609,9 +621,8 @@ public class RadialGauge : RangeBase
 
         radialGauge.UpdateNormalizedAngles();
 
-        var scale = radialGauge.GetTemplateChild(ScalePartName) as Path;
-        if (scale != null)
-        {
+        if (radialGauge.GetTemplateChild(ScalePartName) is Path scale)
+        { 
             if (radialGauge.NormalizedMaxAngle - radialGauge.NormalizedMinAngle == 360)
             {
                 // Draw full circle.
@@ -737,7 +748,7 @@ public class RadialGauge : RangeBase
         OnScaleChanged(this);
     }
 
-    private void ClearBrush(Brush brush, DependencyProperty prop)
+    private void ClearBrush(Brush? brush, DependencyProperty prop)
     {
         if (brush != null)
         {
@@ -745,7 +756,7 @@ public class RadialGauge : RangeBase
         }
     }
 
-    private void RestoreBrush(Brush source, DependencyProperty prop)
+    private void RestoreBrush(Brush? source, DependencyProperty prop)
     {
         if (source != null)
         {
