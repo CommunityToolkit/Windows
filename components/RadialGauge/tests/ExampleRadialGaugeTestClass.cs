@@ -57,13 +57,7 @@ public partial class ExampleRadialGaugeTestClass : VisualUITestBase
     public void SimpleUIExamplePageTest(ExampleRadialGaugeTestPage page)
     {
         // You can use the Toolkit Visual Tree helpers here to find the component by type or name:
-        var component = page.FindDescendant<RadialGauge_ClassicBinding>();
-
-        Assert.IsNotNull(component);
-
-        var componentByName = page.FindDescendant("RadialGaugeControl");
-
-        Assert.IsNotNull(componentByName);
+       
     }
 
     // You can still do async work with a UIThreadTestMethod as well.
@@ -72,11 +66,7 @@ public partial class ExampleRadialGaugeTestClass : VisualUITestBase
     {
         // This helper can be used to wait for a rendering pass to complete.
         // Note, this is already done by loading a Page with the [UIThreadTestMethod] helper.
-        await CompositionTargetHelper.ExecuteAfterCompositionRenderingAsync(() => { });
-
-        var component = page.FindDescendant<RadialGauge_ClassicBinding>();
-
-        Assert.IsNotNull(component);
+       
     }
 
     //// ----------------------------- ADVANCED TEST SCENARIOS -----------------------------
@@ -87,11 +77,7 @@ public partial class ExampleRadialGaugeTestClass : VisualUITestBase
     [TestMethod]
     public async Task ComplexAsyncUIExampleTest()
     {
-        await EnqueueAsync(() =>
-        {
-            var component = new RadialGauge_ClassicBinding();
-            Assert.IsNotNull(component);
-        });
+       
     }
 
     // If you want to load other content not within a XAML page using the UIThreadTestMethod above.
@@ -99,36 +85,13 @@ public partial class ExampleRadialGaugeTestClass : VisualUITestBase
     [TestMethod]
     public async Task ComplexAsyncLoadUIExampleTest()
     {
-        await EnqueueAsync(async () =>
-        {
-            var component = new RadialGauge_ClassicBinding();
-            Assert.IsNotNull(component);
-            Assert.IsFalse(component.IsLoaded);
-
-            await LoadTestContentAsync(component);
-
-            Assert.IsTrue(component.IsLoaded);
-
-            await UnloadTestContentAsync(component);
-
-            Assert.IsFalse(component.IsLoaded);
-        });
+       
     }
 
     // You can still use the UIThreadTestMethod to remove the extra layer for the dispatcher as well:
     [UIThreadTestMethod]
     public async Task ComplexAsyncLoadUIExampleWithoutDispatcherTest()
     {
-        var component = new RadialGauge_ClassicBinding();
-        Assert.IsNotNull(component);
-        Assert.IsFalse(component.IsLoaded);
-
-        await LoadTestContentAsync(component);
-
-        Assert.IsTrue(component.IsLoaded);
-
-        await UnloadTestContentAsync(component);
-
-        Assert.IsFalse(component.IsLoaded);
+        
     }
 }

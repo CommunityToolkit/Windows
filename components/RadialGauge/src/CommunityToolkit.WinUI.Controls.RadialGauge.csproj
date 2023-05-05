@@ -8,12 +8,11 @@
     <RootNamespace>CommunityToolkit.WinUI.Controls.RadialGaugeRns</RootNamespace>
   </PropertyGroup>
 
+<ItemGroup>
+  <ProjectReference Include="..\..\Helpers\src\CommunityToolkit.WinUI.Helpers.csproj" />
+  <ProjectReference Include="..\..\Extensions\src\CommunityToolkit.WinUI.Extensions.csproj" />
+  </ItemGroup>
+
   <!-- Sets this up as a toolkit component's source project -->
   <Import Project="$(ToolingDirectory)\ToolkitComponent.SourceProject.props" />
-<<<<<<< Updated upstream
-=======
-  <ItemGroup>
-    <UpToDateCheckInput Remove="RadialGauge.xaml" />
-  </ItemGroup>
->>>>>>> Stashed changes
 </Project>
