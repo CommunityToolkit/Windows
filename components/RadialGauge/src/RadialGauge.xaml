@@ -1,66 +1,56 @@
-<!--  Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license. See the LICENSE file in the project root for more information.  -->
+﻿<!--  Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license. See the LICENSE file in the project root for more information.  -->
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:controls="using:CommunityToolkit.WinUI.Controls">
 
     <ResourceDictionary.ThemeDictionaries>
-
-        <ResourceDictionary x:Key="Default">
-            <SolidColorBrush x:Key="RadialGaugeNeedleBrush"
-                             Color="{ThemeResource SystemChromeHighColor}" />
-            <SolidColorBrush x:Key="RadialGaugeTrailBrush"
-                             Color="{ThemeResource SystemChromeHighColor}" />
-            <SolidColorBrush x:Key="RadialGaugeScaleBrush"
-                             Color="{ThemeResource SystemBaseMediumLowColor}" />
-            <SolidColorBrush x:Key="RadialGaugeScaleTickBrush"
-                             Color="{ThemeResource SystemBaseMediumLowColor}" />
-            <SolidColorBrush x:Key="RadialGaugeTickBrush"
-                             Color="{ThemeResource SystemBaseHighColor}" />
-            <SolidColorBrush x:Key="RadialGaugeForeground"
-                             Color="{ThemeResource SystemBaseHighColor}" />
-        </ResourceDictionary>
-
         <ResourceDictionary x:Key="Light">
-            <SolidColorBrush x:Key="RadialGaugeNeedleBrush"
-                             Color="{ThemeResource SystemChromeHighColor}" />
-            <SolidColorBrush x:Key="RadialGaugeTrailBrush"
-                             Color="{ThemeResource SystemChromeHighColor}" />
-            <SolidColorBrush x:Key="RadialGaugeScaleBrush"
-                             Color="{ThemeResource SystemBaseMediumLowColor}" />
-            <SolidColorBrush x:Key="RadialGaugeScaleTickBrush"
-                             Color="{ThemeResource SystemBaseMediumLowColor}" />
-            <SolidColorBrush x:Key="RadialGaugeTickBrush"
-                             Color="{ThemeResource SystemBaseHighColor}" />
+            <StaticResource x:Key="RadialGaugeTrailBackground"
+                            ResourceKey="AccentFillColorTertiaryBrush" />
+            <StaticResource x:Key="RadialGaugeScaleBackground"
+                            ResourceKey="SubtleFillColorSecondaryBrush" />
+            <StaticResource x:Key="RadialGaugeTickBackground"
+                            ResourceKey="TextFillColorTertiaryBrush" />
+            <StaticResource x:Key="RadialGaugeScaleTickBackground"
+                            ResourceKey="TextFillColorTertiaryBrush" />
+            <StaticResource x:Key="RadialGaugeNeedleBackground"
+                            ResourceKey="AccentFillColorDefaultBrush" />
+            <StaticResource x:Key="RadialGaugeNeedleBorderBrush"
+                            ResourceKey="ControlSolidFillColorDefaultBrush" />
             <SolidColorBrush x:Key="RadialGaugeForeground"
-                             Color="{ThemeResource SystemBaseHighColor}" />
+                             Color="{ThemeResource TextFillColorPrimaryBrush}" />
         </ResourceDictionary>
 
         <ResourceDictionary x:Key="Dark">
-            <SolidColorBrush x:Key="RadialGaugeNeedleBrush"
-                             Color="{ThemeResource SystemChromeHighColor}" />
-            <SolidColorBrush x:Key="RadialGaugeTrailBrush"
-                             Color="{ThemeResource SystemChromeHighColor}" />
-            <SolidColorBrush x:Key="RadialGaugeScaleBrush"
-                             Color="{ThemeResource SystemBaseMediumLowColor}" />
-            <SolidColorBrush x:Key="RadialGaugeScaleTickBrush"
-                             Color="{ThemeResource SystemBaseMediumLowColor}" />
-            <SolidColorBrush x:Key="RadialGaugeTickBrush"
-                             Color="{ThemeResource SystemBaseHighColor}" />
+            <StaticResource x:Key="RadialGaugeTrailBackground"
+                            ResourceKey="AccentFillColorTertiaryBrush" />
+            <StaticResource x:Key="RadialGaugeScaleBackground"
+                            ResourceKey="SubtleFillColorSecondaryBrush" />
+            <StaticResource x:Key="RadialGaugeTickBackground"
+                            ResourceKey="TextFillColorTertiaryBrush" />
+            <StaticResource x:Key="RadialGaugeScaleTickBackground"
+                            ResourceKey="TextFillColorTertiaryBrush" />
+            <StaticResource x:Key="RadialGaugeNeedleBackground"
+                            ResourceKey="AccentFillColorDefaultBrush" />
+            <StaticResource x:Key="RadialGaugeNeedleBorderBrush"
+                            ResourceKey="ControlSolidFillColorDefaultBrush" />
             <SolidColorBrush x:Key="RadialGaugeForeground"
-                             Color="{ThemeResource SystemBaseHighColor}" />
+                             Color="{ThemeResource TextFillColorPrimaryBrush}" />
         </ResourceDictionary>
 
         <ResourceDictionary x:Key="HighContrast">
-            <SolidColorBrush x:Key="RadialGaugeNeedleBrush"
-                             Color="{ThemeResource SystemColorHotlightColor}" />
-            <SolidColorBrush x:Key="RadialGaugeTrailBrush"
-                             Color="{ThemeResource SystemColorHotlightColor}" />
-            <SolidColorBrush x:Key="RadialGaugeScaleBrush"
-                             Color="{ThemeResource SystemColorWindowColor}" />
-            <SolidColorBrush x:Key="RadialGaugeScaleTickBrush"
-                             Color="{ThemeResource SystemColorWindowColor}" />
-            <SolidColorBrush x:Key="RadialGaugeTickBrush"
-                             Color="{ThemeResource SystemColorWindowTextColor}" />
+            <StaticResource x:Key="RadialGaugeTrailBackground"
+                            ResourceKey="SystemControlHighlightAccentBrush" />
+            <StaticResource x:Key="RadialGaugeScaleBackground"
+                            ResourceKey="SystemControlForegroundBaseMediumLowBrush" />
+            <StaticResource x:Key="RadialGaugeTickBackground"
+                            ResourceKey="SystemControlForegroundBaseMediumLowBrush" />
+            <StaticResource x:Key="RadialGaugeScaleTickBackground"
+                            ResourceKey="SystemControlForegroundBaseMediumLowBrush" />
+            <StaticResource x:Key="RadialGaugeNeedleBackground"
+                            ResourceKey="SystemControlForegroundAccentBrush" />
+            <StaticResource x:Key="RadialGaugeNeedleBorderBrush"
+                            ResourceKey="SystemColorButtonTextColorBrush" />
             <SolidColorBrush x:Key="RadialGaugeForeground"
                              Color="{ThemeResource SystemColorWindowTextColor}" />
         </ResourceDictionary>
@@ -68,11 +58,12 @@
     </ResourceDictionary.ThemeDictionaries>
 
     <Style TargetType="controls:RadialGauge">
-        <Setter Property="NeedleBrush" Value="{ThemeResource RadialGaugeNeedleBrush}" />
-        <Setter Property="TrailBrush" Value="{ThemeResource RadialGaugeTrailBrush}" />
-        <Setter Property="ScaleBrush" Value="{ThemeResource RadialGaugeScaleBrush}" />
-        <Setter Property="ScaleTickBrush" Value="{ThemeResource RadialGaugeScaleTickBrush}" />
-        <Setter Property="TickBrush" Value="{ThemeResource RadialGaugeTickBrush}" />
+        <Setter Property="NeedleBrush" Value="{ThemeResource RadialGaugeNeedleBackground}" />
+        <Setter Property="NeedleBorderBrush" Value="{ThemeResource RadialGaugeNeedleBorderBrush}" />
+        <Setter Property="TrailBrush" Value="{ThemeResource RadialGaugeTrailBackground}" />
+        <Setter Property="ScaleBrush" Value="{ThemeResource RadialGaugeScaleBackground}" />
+        <Setter Property="ScaleTickBrush" Value="{ThemeResource RadialGaugeScaleTickBackground}" />
+        <Setter Property="TickBrush" Value="{ThemeResource RadialGaugeTickBackground}" />
         <Setter Property="Foreground" Value="{ThemeResource RadialGaugeForeground}" />
         <Setter Property="UseSystemFocusVisuals" Value="True" />
         <Setter Property="FlowDirection" Value="LeftToRight" />
@@ -82,17 +73,22 @@
                     <Viewbox>
                         <Grid x:Name="PART_Container"
                               Width="200"
-                              Height="200"
-                              Background="Transparent">
+                              Height="200">
 
                             <!--  Scale  -->
                             <Path Name="PART_Scale"
                                   Stroke="{TemplateBinding ScaleBrush}"
+                                  StrokeEndLineCap="Round"
+                                  StrokeLineJoin="Round"
+                                  StrokeStartLineCap="Round"
                                   StrokeThickness="{TemplateBinding ScaleWidth}" />
 
                             <!--  Trail  -->
                             <Path Name="PART_Trail"
                                   Stroke="{TemplateBinding TrailBrush}"
+                                  StrokeEndLineCap="Round"
+                                  StrokeLineJoin="Round"
+                                  StrokeStartLineCap="Round"
                                   StrokeThickness="{TemplateBinding ScaleWidth}" />
 
                             <!--  Value and Unit  -->
