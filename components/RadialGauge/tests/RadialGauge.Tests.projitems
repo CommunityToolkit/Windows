@@ -9,15 +9,6 @@
     <Import_RootNamespace>RadialGaugeExperiment.Tests</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)ExampleRadialGaugeTestClass.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ExampleRadialGaugeTestPage.xaml.cs">
-      <DependentUpon>ExampleRadialGaugeTestPage.xaml</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Include="$(MSBuildThisFileDirectory)ExampleRadialGaugeTestPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
+    <Compile Include="$(MSBuildThisFileDirectory)Test_RadialGauge.cs" />
   </ItemGroup>
 </Project>
