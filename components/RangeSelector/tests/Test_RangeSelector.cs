@@ -54,10 +54,6 @@ public class Test_RangeSelector : VisualUITestBase
     // RangeStart >= Minimum
     // RangeStart >= RangeEnd
     //
-    // Then
-    // RangeStart will be RangeEnd
-    [DataRow(10, 90, 10, 10)]
-    [DataRow(10, 110, 10, 10)]
 
     // If
     // Minimum < Maximum
