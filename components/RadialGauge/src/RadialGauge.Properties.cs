@@ -8,12 +8,6 @@ namespace CommunityToolkit.WinUI.Controls;
 public partial class RadialGauge : RangeBase
 {
     /// <summary>
-    /// Identifies the optional StepSize property.
-    /// </summary>
-    public static readonly DependencyProperty StepSizeProperty =
-        DependencyProperty.Register(nameof(StepSize), typeof(double), typeof(RadialGauge), new PropertyMetadata(0.0));
-
-    /// <summary>
     /// Identifies the <see cref="IsInteractive"/> property.
     /// </summary>
     public static readonly DependencyProperty IsInteractiveProperty =
@@ -24,6 +18,12 @@ public partial class RadialGauge : RangeBase
     /// </summary>
     public static readonly DependencyProperty ScaleWidthProperty =
         DependencyProperty.Register(nameof(ScaleWidth), typeof(double), typeof(RadialGauge), new PropertyMetadata(12.0, OnScaleChanged));
+
+    /// <summary>
+    /// Identifies the optional StepSize property.
+    /// </summary>
+    public static readonly DependencyProperty StepSizeProperty =
+        DependencyProperty.Register(nameof(StepSize), typeof(double), typeof(RadialGauge), new PropertyMetadata(0.0));
 
     /// <summary>
     /// Identifies the NeedleBrush dependency property.
@@ -41,7 +41,7 @@ public partial class RadialGauge : RangeBase
     /// Identifies the Unit dependency property.
     /// </summary>
     public static readonly DependencyProperty UnitProperty =
-        DependencyProperty.Register(nameof(Unit), typeof(string), typeof(RadialGauge), new PropertyMetadata(string.Empty));
+        DependencyProperty.Register(nameof(Unit), typeof(string), typeof(RadialGauge), new PropertyMetadata(string.Empty, OnUnitChanged));
 
     /// <summary>
     /// Identifies the TrailBrush dependency property.
@@ -74,24 +74,16 @@ public partial class RadialGauge : RangeBase
         DependencyProperty.Register(nameof(ValueStringFormat), typeof(string), typeof(RadialGauge), new PropertyMetadata("N0", (s, e) => OnValueChanged(s)));
 
     /// <summary>
-    /// Identifies the TickSpacing dependency property.
-    /// </summary>
-    public static readonly DependencyProperty TickSpacingProperty =
-    DependencyProperty.Register(nameof(TickSpacing), typeof(int), typeof(RadialGauge), new PropertyMetadata(12, OnFaceChanged));
-
-    /// <summary>
     /// Identifies the NeedleLength dependency property.
     /// </summary>
     public static readonly DependencyProperty NeedleLengthProperty =
-        DependencyProperty.Register(nameof(NeedleLength), typeof(double), typeof(RadialGauge), new PropertyMetadata(100d, OnFaceChanged));
-
+        DependencyProperty.Register(nameof(NeedleLength), typeof(double), typeof(RadialGauge), new PropertyMetadata(58d, OnFaceChanged));
 
     /// <summary>
     /// Identifies the NeedleLength dependency property.
     /// </summary>
     public static readonly DependencyProperty NeedleBorderThicknessProperty =
         DependencyProperty.Register(nameof(NeedleBorderThickness), typeof(double), typeof(RadialGauge), new PropertyMetadata(1d, OnFaceChanged));
-
 
     /// <summary>
     /// Identifies the NeedleWidth dependency property.
@@ -106,18 +98,10 @@ public partial class RadialGauge : RangeBase
         DependencyProperty.Register(nameof(ScalePadding), typeof(double), typeof(RadialGauge), new PropertyMetadata(0d, OnFaceChanged));
 
     /// <summary>
-    /// Identifies the TickPadding dependency property.
-    /// </summary>
-    public static readonly DependencyProperty TickPaddingProperty =
-        DependencyProperty.Register(nameof(TickPadding), typeof(double), typeof(RadialGauge), new PropertyMetadata(24d, OnFaceChanged));
-
-
-
-    /// <summary>
     /// Identifies the ScaleTickWidth dependency property.
     /// </summary>
     public static readonly DependencyProperty ScaleTickWidthProperty =
-        DependencyProperty.Register(nameof(ScaleTickWidth), typeof(double), typeof(RadialGauge), new PropertyMetadata(2d, OnFaceChanged));
+        DependencyProperty.Register(nameof(ScaleTickWidth), typeof(double), typeof(RadialGauge), new PropertyMetadata(0d, OnFaceChanged));
 
     /// <summary>
     /// Identifies the ScaleTickWidth dependency property.
@@ -133,6 +117,12 @@ public partial class RadialGauge : RangeBase
         DependencyProperty.Register(nameof(ScaleTickCornerRadius), typeof(double), typeof(RadialGauge), new PropertyMetadata(2d, OnFaceChanged));
 
     /// <summary>
+    /// Identifies the TickSpacing dependency property.
+    /// </summary>
+    public static readonly DependencyProperty TickSpacingProperty =
+    DependencyProperty.Register(nameof(TickSpacing), typeof(int), typeof(RadialGauge), new PropertyMetadata(15, OnFaceChanged));
+
+    /// <summary>
     /// Identifies the TickWidth dependency property.
     /// </summary>
     public static readonly DependencyProperty TickWidthProperty =
@@ -143,6 +133,12 @@ public partial class RadialGauge : RangeBase
     /// </summary>
     public static readonly DependencyProperty TickLengthProperty =
         DependencyProperty.Register(nameof(TickLength), typeof(double), typeof(RadialGauge), new PropertyMetadata(6d, OnFaceChanged));
+
+    /// <summary>
+    /// Identifies the TickPadding dependency property.
+    /// </summary>
+    public static readonly DependencyProperty TickPaddingProperty =
+        DependencyProperty.Register(nameof(TickPadding), typeof(double), typeof(RadialGauge), new PropertyMetadata(24d, OnFaceChanged));
 
     /// <summary>
     /// Identifies the TickCornerRadius dependency property.
@@ -406,6 +402,10 @@ public partial class RadialGauge : RangeBase
         set { SetValue(ValueAngleProperty, value); }
     }
 
+    private static void OnUnitChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+        OnUnitChanged(d);
+    }
     private static void OnScaleChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
         OnScaleChanged(d);

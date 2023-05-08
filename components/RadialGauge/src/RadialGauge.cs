@@ -4,6 +4,7 @@
 
 using CommunityToolkit.WinUI.Helpers;
 using System.Numerics;
+using Microsoft.UI.Xaml;
 #if WINAPPSDK
 using Path = Microsoft.UI.Xaml.Shapes.Path;
 using Microsoft.UI.Xaml.Hosting;
@@ -24,13 +25,21 @@ namespace CommunityToolkit.WinUI.Controls;
 [TemplatePart(Name = ScalePartName, Type = typeof(Path))]
 [TemplatePart(Name = TrailPartName, Type = typeof(Path))]
 [TemplatePart(Name = ValueTextPartName, Type = typeof(TextBlock))]
+[TemplateVisualState(Name = NormalState, GroupName = CommonStates)]
+[TemplateVisualState(Name = DisabledState, GroupName = CommonStates)]
 public partial class RadialGauge : RangeBase
 {
+    // States
+    private const string NormalState = "Normal";
+    private const string DisabledState = "Disabled";
+    private const string CommonStates = "CommonStates";
+
     // Template Parts.
     private const string ContainerPartName = "PART_Container";
     private const string ScalePartName = "PART_Scale";
     private const string TrailPartName = "PART_Trail";
     private const string ValueTextPartName = "PART_ValueText";
+    private const string UnitTextPartName = "PART_UnitText";
 
     // For convenience.
     private const double Degrees2Radians = Math.PI / 180;
@@ -66,17 +75,13 @@ public partial class RadialGauge : RangeBase
         SetKeyboardAccelerators();
     }
 
-    private void ThemeListener_ThemeChanged(ThemeListener sender)
-    {
-        OnColorsChanged();
-    }
-
     private void RadialGauge_Unloaded(object sender, RoutedEventArgs e)
     {
         // TODO: We should just use a WeakEventListener for ThemeChanged here, but ours currently doesn't support it.
         // See proposal for general helper here: https://github.com/CommunityToolkit/dotnet/issues/404
         ThemeListener.ThemeChanged -= ThemeListener_ThemeChanged;
         PointerReleased -= RadialGauge_PointerReleased;
+        IsEnabledChanged -= RadialGauge_IsEnabledChanged;
         Unloaded -= RadialGauge_Unloaded;
     }
 
@@ -87,8 +92,9 @@ public partial class RadialGauge : RangeBase
     {
         PointerReleased -= RadialGauge_PointerReleased;
         ThemeListener.ThemeChanged -= ThemeListener_ThemeChanged;
+        IsEnabledChanged -= RadialGauge_IsEnabledChanged;
         Unloaded -= RadialGauge_Unloaded;
-
+        
         // Remember local brushes.
         _needleBrush = ReadLocalValue(NeedleBrushProperty) as SolidColorBrush;
         _needleBorderBrush = ReadLocalValue(NeedleBorderBrushProperty) as SolidColorBrush;
@@ -96,16 +102,28 @@ public partial class RadialGauge : RangeBase
         _scaleBrush = ReadLocalValue(ScaleBrushProperty) as SolidColorBrush;
         _scaleTickBrush = ReadLocalValue(ScaleTickBrushProperty) as SolidColorBrush;
         _tickBrush = ReadLocalValue(TickBrushProperty) as SolidColorBrush;
-        _foreground = ReadLocalValue(ForegroundProperty) as SolidColorBrush;
+        _foreground = ReadLocalValue(ForegroundProperty) as SolidColorBrush; 
 
         PointerReleased += RadialGauge_PointerReleased;
         ThemeListener.ThemeChanged += ThemeListener_ThemeChanged;
+        IsEnabledChanged += RadialGauge_IsEnabledChanged;
         Unloaded += RadialGauge_Unloaded;
 
         // Apply color scheme.
         OnColorsChanged();
-
+        OnUnitChanged(this);
+        OnEnabledChanged();
         base.OnApplyTemplate();
+    }
+
+    private void ThemeListener_ThemeChanged(ThemeListener sender)
+    {
+        OnColorsChanged();
+    }
+
+    private void RadialGauge_IsEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)
+    {
+        OnEnabledChanged();
     }
 
     /// <summary>
@@ -407,6 +425,28 @@ public partial class RadialGauge : RangeBase
         }
 
         OnScaleChanged(this);
+    }
+
+    private void OnEnabledChanged()
+    {
+        VisualStateManager.GoToState(this, IsEnabled ? NormalState : DisabledState, true);
+        // OnColorsChanged();
+    }
+
+    private static void OnUnitChanged(DependencyObject d)
+    {
+        RadialGauge radialGauge = (RadialGauge)d;
+        if (radialGauge.GetTemplateChild(UnitTextPartName) is TextBlock unitTextBlock)
+        {
+            if (string.IsNullOrEmpty(radialGauge.Unit))
+            {
+                unitTextBlock.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                unitTextBlock.Visibility = Visibility.Visible;
+            }
+        }
     }
 
     private void ClearBrush(Brush? brush, DependencyProperty prop)
