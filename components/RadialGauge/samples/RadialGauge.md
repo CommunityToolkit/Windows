@@ -2,11 +2,11 @@
 title: RadialGauge
 author: xamlbrewer
 description: The Radial Gauge Control displays a value in a certain range using a needle on a circular face.
-keywords: RadialGauge, Control, Layout
+keywords: RadialGauge, Control, Input
 dev_langs:
   - csharp
 category: Controls
-subcategory: Layout
+subcategory: Input
 discussion-id: 0
 issue-id: 0
 ---
@@ -18,7 +18,7 @@ The round gauges are powerful, easy to use, and highly configurable to present d
 
 The Radial Gauge supports animated transitions between configuration states. The control gradually animates as it redraws changes to the needle, needle position, scale range, color range, and more.
 
-> [!Sample RadialGaugeCustomSample]
+> [!Sample RadialGaugeSample]
 
 ## Properties
 
