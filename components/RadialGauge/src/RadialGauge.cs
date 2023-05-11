@@ -4,7 +4,6 @@
 
 using CommunityToolkit.WinUI.Helpers;
 using System.Numerics;
-using Microsoft.UI.Xaml;
 #if WINAPPSDK
 using Path = Microsoft.UI.Xaml.Shapes.Path;
 using Microsoft.UI.Xaml.Hosting;
@@ -181,65 +180,69 @@ public partial class RadialGauge : RangeBase
             }
 
             var middleOfScale = 100 - radialGauge.ScalePadding - (radialGauge.ScaleWidth / 2);
-            var valueText = radialGauge.GetTemplateChild(ValueTextPartName) as TextBlock;
-            radialGauge.ValueAngle = radialGauge.ValueToAngle(radialGauge.Value);
-
-            // Needle
-            if (radialGauge._needle != null)
+            if (middleOfScale >= 0)
             {
-                radialGauge._needle.RotationAngleInDegrees = (float)radialGauge.ValueAngle;
-            }
+                var valueText = radialGauge.GetTemplateChild(ValueTextPartName) as TextBlock;
+                radialGauge.ValueAngle = radialGauge.ValueToAngle(radialGauge.Value);
 
-            // Trail
-            var trail = radialGauge.GetTemplateChild(TrailPartName) as Path;
-            if (trail != null)
-            {
-                if (radialGauge.ValueAngle > radialGauge.NormalizedMinAngle)
+                // Needle
+                if (radialGauge._needle != null)
                 {
-                    trail.Visibility = Visibility.Visible;
+                    radialGauge._needle.RotationAngleInDegrees = (float)radialGauge.ValueAngle;
+                }
 
-                    if (radialGauge.ValueAngle - radialGauge.NormalizedMinAngle == 360)
+                // Trail
+                var trail = radialGauge.GetTemplateChild(TrailPartName) as Path;
+                if (trail != null)
+                {
+                    if (radialGauge.ValueAngle > radialGauge.NormalizedMinAngle)
                     {
-                        // Draw full circle.
-                        var eg = new EllipseGeometry
+                        trail.Visibility = Visibility.Visible;
+
+                        if (radialGauge.ValueAngle - radialGauge.NormalizedMinAngle == 360)
                         {
-                            Center = new Point(100, 100),
-                            RadiusX = 100 - radialGauge.ScalePadding - (radialGauge.ScaleWidth / 2)
-                        };
-                        eg.RadiusY = eg.RadiusX;
-                        trail.Data = eg;
+                            // Draw full circle.
+                            var eg = new EllipseGeometry
+                            {
+                                Center = new Point(100, 100),
+                                RadiusX = 100 - radialGauge.ScalePadding - (radialGauge.ScaleWidth / 2)
+                            };
+                            eg.RadiusY = eg.RadiusX;
+                            trail.Data = eg;
+                        }
+                        else
+                        {
+                            // Draw arc.
+                            var pg = new PathGeometry();
+                            var pf = new PathFigure
+                            {
+                                IsClosed = false,
+                                StartPoint = radialGauge.ScalePoint(radialGauge.NormalizedMinAngle, middleOfScale)
+                            };
+                            var seg = new ArcSegment
+                            {
+                                SweepDirection = SweepDirection.Clockwise,
+                                IsLargeArc = radialGauge.ValueAngle > (180 + radialGauge.NormalizedMinAngle),
+                                Size = new Size(middleOfScale, middleOfScale),
+                                Point = radialGauge.ScalePoint(Math.Min(radialGauge.ValueAngle, radialGauge.NormalizedMaxAngle), middleOfScale)  // On overflow, stop trail at MaxAngle.
+                            };
+                            pf.Segments.Add(seg);
+                            pg.Figures.Add(pf);
+                            trail.Data = pg;
+                        }
                     }
                     else
                     {
-                        // Draw arc.
-                        var pg = new PathGeometry();
-                        var pf = new PathFigure
-                        {
-                            IsClosed = false,
-                            StartPoint = radialGauge.ScalePoint(radialGauge.NormalizedMinAngle, middleOfScale)
-                        };
-                        var seg = new ArcSegment
-                        {
-                            SweepDirection = SweepDirection.Clockwise,
-                            IsLargeArc = radialGauge.ValueAngle > (180 + radialGauge.NormalizedMinAngle),
-                            Size = new Size(middleOfScale, middleOfScale),
-                            Point = radialGauge.ScalePoint(Math.Min(radialGauge.ValueAngle, radialGauge.NormalizedMaxAngle), middleOfScale)  // On overflow, stop trail at MaxAngle.
-                        };
-                        pf.Segments.Add(seg);
-                        pg.Figures.Add(pf);
-                        trail.Data = pg;
+                        trail.Visibility = Visibility.Collapsed;
                     }
-                }
-                else
-                {
-                    trail.Visibility = Visibility.Collapsed;
-                }
-            }
 
-            // Value Text
-            if (valueText != null)
-            {
-                valueText.Text = radialGauge.Value.ToString(radialGauge.ValueStringFormat);
+                }
+
+                // Value Text
+                if (valueText != null)
+                {
+                    valueText.Text = radialGauge.Value.ToString(radialGauge.ValueStringFormat);
+                }
             }
         }
     }
