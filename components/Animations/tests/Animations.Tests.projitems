@@ -8,4 +8,7 @@
   <PropertyGroup Label="Configuration">
     <Import_RootNamespace>AnimationsExperiment.Tests</Import_RootNamespace>
   </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Test_AnimationBuilderStart.cs" />
+  </ItemGroup>
 </Project>
