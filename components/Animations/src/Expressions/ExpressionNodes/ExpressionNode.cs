@@ -15,12 +15,11 @@ using Windows.UI;
 namespace CommunityToolkit.WinUI.Animations.Expressions;
 #pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
+#pragma warning disable CA1063 // Implement IDisposable Correctly
 /// <summary>
 /// Class ExpressionNode.
 /// </summary>
-#pragma warning disable CA1063 // Implement IDisposable Correctly
 public abstract class ExpressionNode : IDisposable
-#pragma warning restore CA1063 // Implement IDisposable Correctly
 {
 
     private List<ReferenceInfo> _objRefList = null;
@@ -736,3 +735,4 @@ public abstract class ExpressionNode : IDisposable
 
 #pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
 #pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
+#pragma warning restore CA1063 // Implement IDisposable Correctly
