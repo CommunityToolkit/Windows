@@ -18,7 +18,9 @@ namespace CommunityToolkit.WinUI.Animations.Expressions;
 /// <summary>
 /// Class ExpressionNode.
 /// </summary>
+#pragma warning disable CA1063 // Implement IDisposable Correctly
 public abstract class ExpressionNode : IDisposable
+#pragma warning restore CA1063 // Implement IDisposable Correctly
 {
 
     private List<ReferenceInfo> _objRefList = null;
