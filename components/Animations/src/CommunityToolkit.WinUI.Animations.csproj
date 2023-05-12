@@ -5,14 +5,15 @@
     <Version>0.0.1</Version>
 
     <!-- Rns suffix is required for namespaces shared across projects. See https://github.com/CommunityToolkit/Labs-Windows/issues/152 -->
-    <RootNamespace>CommunityToolkit.WinUI.Controls.AnimationsRns</RootNamespace>
+    <RootNamespace>CommunityToolkit.WinUI.AnimationsRns</RootNamespace>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
  <ItemGroup>
-    <ProjectReference Include="$(ToolkitExtensionSourceProject)"/>
-<ProjectReference Include="$(ToolkitEffectSourceProject)"/>
-<ProjectReference Include="$(ToolkitHelperSourceProject)"/>
+    <ProjectReference Include="$(ToolkitExtensionSourceProject)" />
+    <ProjectReference Include="$(ToolkitEffectSourceProject)" />
+    <ProjectReference Include="$(ToolkitHelperSourceProject)" />
+    <ProjectReference Include="$(ToolkitBehaviorSourceProject)" />
   </ItemGroup>
   <!-- Sets this up as a toolkit component's source project -->
   <Import Project="$(ToolingDirectory)\ToolkitComponent.SourceProject.props" />
