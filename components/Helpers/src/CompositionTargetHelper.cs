@@ -2,6 +2,11 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
+#if WINAPPSDK
+using CompositionTarget = Microsoft.UI.Xaml.Media.CompositionTarget;
+#else
+using CompositionTarget = Windows.UI.Xaml.Media.CompositionTarget;
+#endif
 namespace CommunityToolkit.WinUI.Helpers;
 
 /// <summary>

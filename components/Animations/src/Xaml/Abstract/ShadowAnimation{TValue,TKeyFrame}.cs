@@ -82,6 +82,7 @@ public abstract class ShadowAnimation<TValue, TKeyFrame> : Animation<TValue, TKe
 
             return builder;
         }
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
         else if (Effects.GetShadow((FrameworkElement)parent) is AttachedShadowBase shadowBase &&
                  shadowBase.GetElementContext((FrameworkElement)parent).Shadow is DropShadow shadow)
         {
@@ -100,6 +101,7 @@ public abstract class ShadowAnimation<TValue, TKeyFrame> : Animation<TValue, TKe
 
             return builder.ExternalAnimation(shadow, animation);
         }
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
 
         return builder;
     }

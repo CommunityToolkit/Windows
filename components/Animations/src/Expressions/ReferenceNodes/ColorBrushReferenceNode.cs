@@ -26,7 +26,7 @@ public sealed class ColorBrushReferenceNode : ReferenceNode
     /// <returns>ColorBrushReferenceNode.</returns>
     internal static ColorBrushReferenceNode CreateTargetReference()
     {
-        var node = new ColorBrushReferenceNode(null);
+        var node = new ColorBrushReferenceNode(null!);
         node.NodeType = ExpressionNodeType.TargetReference;
 
         return node;

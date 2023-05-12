@@ -128,7 +128,7 @@ public static class Implicit
         {
             var collection = (ImplicitAnimationSet)sender;
 
-            if (collection.ParentReference!.TryGetTarget(out UIElement element))
+            if (collection.ParentReference!.TryGetTarget(out UIElement? element))
             {
                 ElementCompositionPreview.SetImplicitShowAnimation(element, collection.GetCompositionAnimationGroup(element));
             }
@@ -136,7 +136,7 @@ public static class Implicit
 
         if (e.OldValue is ImplicitAnimationSet oldCollection)
         {
-            oldCollection.AnimationsChanged -= OnAnimationsChanged;
+            oldCollection.AnimationsChanged -= OnAnimationsChanged!;
         }
 
         if (d is UIElement element)
@@ -144,8 +144,8 @@ public static class Implicit
             if (e.NewValue is ImplicitAnimationSet collection)
             {
                 collection.ParentReference = new(element);
-                collection.AnimationsChanged -= OnAnimationsChanged;
-                collection.AnimationsChanged += OnAnimationsChanged;
+                collection.AnimationsChanged -= OnAnimationsChanged!;
+                collection.AnimationsChanged += OnAnimationsChanged!;
 
                 ElementCompositionPreview.SetIsTranslationEnabled(element, true);
                 ElementCompositionPreview.SetImplicitShowAnimation(element, collection.GetCompositionAnimationGroup(element));
@@ -168,7 +168,7 @@ public static class Implicit
         {
             var collection = (ImplicitAnimationSet)sender;
 
-            if (collection.ParentReference!.TryGetTarget(out UIElement element))
+            if (collection.ParentReference!.TryGetTarget(out UIElement? element))
             {
                 ElementCompositionPreview.SetImplicitHideAnimation(element, collection.GetCompositionAnimationGroup(element));
             }
@@ -176,7 +176,7 @@ public static class Implicit
 
         if (e.OldValue is ImplicitAnimationSet oldCollection)
         {
-            oldCollection.AnimationsChanged -= OnAnimationsChanged;
+            oldCollection.AnimationsChanged -= OnAnimationsChanged!;
         }
 
         if (d is UIElement element)
@@ -184,8 +184,8 @@ public static class Implicit
             if (e.NewValue is ImplicitAnimationSet collection)
             {
                 collection.ParentReference = new(element);
-                collection.AnimationsChanged -= OnAnimationsChanged;
-                collection.AnimationsChanged += OnAnimationsChanged;
+                collection.AnimationsChanged -= OnAnimationsChanged!;
+                collection.AnimationsChanged += OnAnimationsChanged!;
 
                 ElementCompositionPreview.SetIsTranslationEnabled(element, true);
                 ElementCompositionPreview.SetImplicitHideAnimation(element, collection.GetCompositionAnimationGroup(element));
@@ -208,7 +208,7 @@ public static class Implicit
         {
             var collection = (ImplicitAnimationSet)sender;
 
-            if (collection.ParentReference!.TryGetTarget(out UIElement element))
+            if (collection.ParentReference!.TryGetTarget(out UIElement? element))
             {
                 ElementCompositionPreview.GetElementVisual(element).ImplicitAnimations = collection.GetImplicitAnimationCollection(element);
             }
@@ -216,7 +216,7 @@ public static class Implicit
 
         if (e.OldValue is ImplicitAnimationSet oldCollection)
         {
-            oldCollection.AnimationsChanged -= OnAnimationsChanged;
+            oldCollection.AnimationsChanged -= OnAnimationsChanged!;
         }
 
         if (d is UIElement element)
@@ -224,8 +224,8 @@ public static class Implicit
             if (e.NewValue is ImplicitAnimationSet collection)
             {
                 collection.ParentReference = new(element);
-                collection.AnimationsChanged -= OnAnimationsChanged;
-                collection.AnimationsChanged += OnAnimationsChanged;
+                collection.AnimationsChanged -= OnAnimationsChanged!;
+                collection.AnimationsChanged += OnAnimationsChanged!;
 
                 ElementCompositionPreview.SetIsTranslationEnabled(element, true);
                 ElementCompositionPreview.GetElementVisual(element).ImplicitAnimations = collection.GetImplicitAnimationCollection(element);

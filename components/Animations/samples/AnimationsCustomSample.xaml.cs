@@ -2,7 +2,7 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
-using CommunityToolkit.WinUI.Controls;
+using CommunityToolkit.WinUI.Animations;
 
 namespace AnimationsExperiment.Samples;
 
@@ -12,7 +12,7 @@ namespace AnimationsExperiment.Samples;
 [ToolkitSampleTextOption("TitleText", "This is a title", Title = "Input the text")]
 [ToolkitSampleMultiChoiceOption("LayoutOrientation", "Horizontal", "Vertical", Title = "Orientation")]
 
-[ToolkitSample(id: nameof(AnimationsCustomSample), "Custom control", description: $"A sample for showing how to create and use a {nameof(Animations)} custom control.")]
+[ToolkitSample(id: nameof(AnimationsCustomSample), "Custom control", description: $"A sample for showing how to create and use a {nameof(Animation)} custom control.")]
 public sealed partial class AnimationsCustomSample : Page
 {
     public AnimationsCustomSample()

@@ -25,7 +25,7 @@ public sealed class ManipulationPropertySetReferenceNode : PropertySetReferenceN
     /// Needed for GetSpecializedReference
     /// </summary>
     internal ManipulationPropertySetReferenceNode()
-        : base(null, null)
+        : base(null!, null)
     {
     }
 

@@ -15,8 +15,9 @@ public class PropertySetReferenceNode : ReferenceNode
     /// </summary>
     /// <param name="paramName">Name of the parameter.</param>
     /// <param name="ps">The ps.</param>
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
     internal PropertySetReferenceNode(string paramName, CompositionPropertySet? ps = null)
-        : base(paramName, ps)
+        : base(paramName!, ps)
     {
     }
 
@@ -25,9 +26,10 @@ public class PropertySetReferenceNode : ReferenceNode
     /// </summary>
     // Needed for GetSpecializedReference<>()
     internal PropertySetReferenceNode()
-        : base(null, null)
+        : base(null!, null)
     {
     }
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
     /// <summary>
     /// Gets or sets the source.
@@ -41,7 +43,7 @@ public class PropertySetReferenceNode : ReferenceNode
     /// <returns>PropertySetReferenceNode.</returns>
     internal static PropertySetReferenceNode CreateTargetReference()
     {
-        var node = new PropertySetReferenceNode(null);
+        var node = new PropertySetReferenceNode(null!);
         node.NodeType = ExpressionNodeType.TargetReference;
 
         return node;

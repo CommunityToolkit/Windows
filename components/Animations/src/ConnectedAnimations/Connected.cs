@@ -204,7 +204,7 @@ public static class Connected
     /// <param name="key">The key of the element (same key will need to be used on another page)</param>
     /// <param name="element">The element to animate</param>
     /// <param name="anchors">Any other elements to animate alongside the element</param>
-    public static void RegisterElementForConnectedAnimation(this Page page, string key, UIElement element, IEnumerable<UIElement> anchors = null)
+    public static void RegisterElementForConnectedAnimation(this Page page, string key, UIElement element, IEnumerable<UIElement>? anchors = null)
     {
         if (key != null && element != null)
         {
@@ -307,9 +307,9 @@ public static class Connected
             props[key] = prop;
         }
 
-        if (!prop.ListAnimProperties.Any(lap => lap.ListViewBase == listViewBase && lap.ElementName == elementName))
+        if (!prop.ListAnimProperties!.Any(lap => lap.ListViewBase == listViewBase && lap.ElementName == elementName))
         {
-            prop.ListAnimProperties.Add(new ConnectedAnimationListProperty
+            prop.ListAnimProperties!.Add(new ConnectedAnimationListProperty
             {
                 ElementName = elementName,
                 ListViewBase = listViewBase
@@ -340,10 +340,10 @@ public static class Connected
             }
             else
             {
-                var listAnimProperty = prop.ListAnimProperties.FirstOrDefault(lap => lap.ListViewBase == listViewBase);
+                var listAnimProperty = prop.ListAnimProperties!.FirstOrDefault(lap => lap.ListViewBase == listViewBase);
                 if (listAnimProperty != null)
                 {
-                    prop.ListAnimProperties.Remove(listAnimProperty);
+                    prop.ListAnimProperties!.Remove(listAnimProperty);
                     if (prop.ListAnimProperties.Count == 0)
                     {
                         props.Remove(key);
@@ -471,7 +471,7 @@ public static class Connected
 
         if (frame == null)
         {
-            RoutedEventHandler handler = null;
+            RoutedEventHandler? handler = null;
             handler = (s, args) =>
             {
                 element.Loaded -= handler;

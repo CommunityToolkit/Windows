@@ -60,9 +60,9 @@ public class StartAnimationActivity : Activity
         // that to start the animation, or just use the input (usually the parent) as fallback.
         if (TargetObject is not null)
         {
-            await Animation.StartAsync(TargetObject, token);
+            await Animation!.StartAsync(TargetObject, token);
         }
-        else if (Animation.ParentReference is null)
+        else if (Animation!.ParentReference is null)
         {
             await Animation.StartAsync(element, token);
         }

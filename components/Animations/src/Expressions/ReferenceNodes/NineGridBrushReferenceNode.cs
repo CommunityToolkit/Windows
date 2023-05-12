@@ -26,7 +26,7 @@ public sealed class NineGridBrushReferenceNode : ReferenceNode
     /// <returns>NineGridBrushReferenceNode.</returns>
     internal static NineGridBrushReferenceNode CreateTargetReference()
     {
-        var node = new NineGridBrushReferenceNode(null);
+        var node = new NineGridBrushReferenceNode(null!);
         node.NodeType = ExpressionNodeType.TargetReference;
 
         return node;

@@ -20,12 +20,12 @@ public static class StoryboardAnimations
 
         void OnCompleted(object sender, object e)
         {
-            ((Storyboard)sender).Completed -= OnCompleted;
+            ((Storyboard)sender).Completed -= OnCompleted!;
 
             taskCompletionSource.SetResult(null);
         }
 
-        storyboard.Completed += OnCompleted;
+        storyboard.Completed += OnCompleted!;
 
         storyboard.Begin();
 

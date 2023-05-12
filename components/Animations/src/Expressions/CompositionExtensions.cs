@@ -4,6 +4,8 @@
 
 namespace CommunityToolkit.WinUI.Animations.Expressions;
 
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
+#pragma warning disable CS8603 // Possible null reference return.
 /// <summary>
 /// Class CompositionExtensions.
 /// </summary>
@@ -106,6 +108,7 @@ public static class CompositionExtensions
     /// <returns>SpotLightReferenceNode.</returns>
     public static SpotLightReferenceNode GetReference(this SpotLight compObj)
     {
+
         return new SpotLightReferenceNode(null, compObj);
     }
 
@@ -171,7 +174,7 @@ public static class CompositionExtensions
     /// <param name="normalizedProgressKey">The time the key frame should occur at, expressed as a percentage of the animation Duration. Allowed value is from 0.0 to 1.0.</param>
     /// <param name="expressionNode">The root ExpressionNode that represents the ExpressionAnimation.</param>
     /// <param name="easing">The easing function to use when interpolating between frames.</param>
-    public static void InsertExpressionKeyFrame(this KeyFrameAnimation keyframeAnimation, float normalizedProgressKey, ExpressionNode expressionNode, CompositionEasingFunction easing = null)
+    public static void InsertExpressionKeyFrame(this KeyFrameAnimation keyframeAnimation, float normalizedProgressKey, ExpressionNode expressionNode, CompositionEasingFunction? easing = null)
     {
         expressionNode.ClearReferenceInfo();
 
@@ -260,4 +263,7 @@ public static class CompositionExtensions
 
         return expressionNode.ExpressionAnimation;
     }
+
+#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
+#pragma warning restore CS8603 // Possible null reference return.
 }

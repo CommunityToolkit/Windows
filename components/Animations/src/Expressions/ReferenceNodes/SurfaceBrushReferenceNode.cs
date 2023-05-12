@@ -15,8 +15,8 @@ public sealed class SurfaceBrushReferenceNode : ReferenceNode
     /// </summary>
     /// <param name="paramName">Name of the parameter.</param>
     /// <param name="brush">The brush.</param>
-    internal SurfaceBrushReferenceNode(string paramName, CompositionSurfaceBrush? brush = null)
-        : base(paramName, brush)
+    internal SurfaceBrushReferenceNode(string? paramName, CompositionSurfaceBrush? brush = null)
+        : base(paramName!, brush)
     {
     }
 

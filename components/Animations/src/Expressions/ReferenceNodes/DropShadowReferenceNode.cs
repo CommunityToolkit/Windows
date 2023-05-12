@@ -26,7 +26,7 @@ public sealed class DropShadowReferenceNode : ReferenceNode
     /// <returns>DropShadowReferenceNode.</returns>
     internal static DropShadowReferenceNode CreateTargetReference()
     {
-        var node = new DropShadowReferenceNode(null);
+        var node = new DropShadowReferenceNode(null!);
         node.NodeType = ExpressionNodeType.TargetReference;
 
         return node;

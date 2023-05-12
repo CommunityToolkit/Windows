@@ -26,7 +26,7 @@ public sealed class InteractionTrackerReferenceNode : ReferenceNode
     /// <returns>InteractionTrackerReferenceNode.</returns>
     internal static InteractionTrackerReferenceNode CreateTargetReference()
     {
-        var node = new InteractionTrackerReferenceNode(null);
+        var node = new InteractionTrackerReferenceNode(null!);
         node.NodeType = ExpressionNodeType.TargetReference;
 
         return node;

@@ -4,7 +4,6 @@
 
 using System.Diagnostics.Contracts;
 using System.Runtime.CompilerServices;
-using Windows.UI.Xaml.Hosting;
 
 namespace CommunityToolkit.WinUI.Animations;
 
@@ -301,7 +300,7 @@ public sealed partial class AnimationBuilder
             storyboard?.Stop();
         }
 
-        token.Register(static obj => Stop(obj), (compositionAnimations, storyboard));
+        token.Register(static obj => Stop(obj!), (compositionAnimations, storyboard));
     }
 
     /// <summary>
@@ -444,7 +443,7 @@ public sealed partial class AnimationBuilder
             storyboard?.Stop();
         }
 
-        token.Register(static obj => Stop(obj), (compositionAnimations, storyboard));
+        token.Register(static obj => Stop(obj!), (compositionAnimations, storyboard));
 
         return Task.WhenAll(compositionTask, xamlTask);
     }

@@ -3,8 +3,12 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Diagnostics.Contracts;
-using System.Numerics;
 using Windows.UI;
+#if WINAPPSDK
+using AnimationDirection = Microsoft.UI.Composition.AnimationDirection;
+#else
+using AnimationDirection = Windows.UI.Composition.AnimationDirection;
+#endif
 using static CommunityToolkit.WinUI.Animations.AnimationExtensions;
 
 namespace CommunityToolkit.WinUI.Animations;
