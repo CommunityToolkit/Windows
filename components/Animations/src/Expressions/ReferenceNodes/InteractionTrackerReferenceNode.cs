@@ -2,12 +2,20 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
+#if WINAPPSDK
+using Microsoft.UI.Composition;
+using Microsoft.UI.Composition.Interactions;
+#else
+using Windows.UI.Composition;
+using Windows.UI.Composition.Interactions;
+#endif
+
 namespace CommunityToolkit.WinUI.Animations.Expressions;
 
 /// <summary>
 /// Class InteractionTrackerReferenceNode. This class cannot be inherited.
 /// </summary>
-/// <seealso cref="Microsoft.Toolkit.Uwp.UI.Animations.Expressions.ReferenceNode" />
+/// <seealso cref="CommunityToolkit.WinUI.Animations.Expressions.ReferenceNode" />
 public sealed class InteractionTrackerReferenceNode : ReferenceNode
 {
     /// <summary>

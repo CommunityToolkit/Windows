@@ -11,7 +11,7 @@ namespace CommunityToolkit.WinUI.Animations.Expressions;
 /// <summary>
 /// Class Vector2Node. This class cannot be inherited.
 /// </summary>
-/// <seealso cref="Microsoft.Toolkit.Uwp.UI.Animations.Expressions.ExpressionNode" />
+/// <seealso cref="CommunityToolkit.WinUI.Animations.Expressions.ExpressionNode" />
 public sealed class Vector2Node : ExpressionNode
 {
     /// <summary>

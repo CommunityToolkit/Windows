@@ -4,10 +4,14 @@
 
 using System.Diagnostics.Contracts;
 using Windows.UI;
+using System.Numerics;
+
 #if WINAPPSDK
 using AnimationDirection = Microsoft.UI.Composition.AnimationDirection;
+using Microsoft.UI.Composition;
 #else
 using AnimationDirection = Windows.UI.Composition.AnimationDirection;
+using Windows.UI.Composition;
 #endif
 using static CommunityToolkit.WinUI.Animations.AnimationExtensions;
 

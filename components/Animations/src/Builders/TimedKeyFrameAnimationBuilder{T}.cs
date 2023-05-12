@@ -4,6 +4,11 @@
 
 using System.Runtime.CompilerServices;
 using CommunityToolkit.WinUI.Animations.Builders.Helpers;
+#if WINAPPSDK
+using Microsoft.UI.Composition;
+#else
+using Windows.UI.Composition;
+#endif
 
 namespace CommunityToolkit.WinUI.Animations;
 

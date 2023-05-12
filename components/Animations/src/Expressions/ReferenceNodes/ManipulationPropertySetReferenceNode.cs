@@ -2,12 +2,18 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
+#if WINAPPSDK
+using Microsoft.UI.Composition;
+#else
+using Windows.UI.Composition;
+#endif
+
 namespace CommunityToolkit.WinUI.Animations.Expressions;
 
 /// <summary>
 /// Class ManipulationPropertySetReferenceNode. This class cannot be inherited.
 /// </summary>
-/// <seealso cref="Microsoft.Toolkit.Uwp.UI.Animations.Expressions.PropertySetReferenceNode" />
+/// <seealso cref="CommunityToolkit.WinUI.Animations.Expressions.PropertySetReferenceNode" />
 public sealed class ManipulationPropertySetReferenceNode : PropertySetReferenceNode
 {
     /// <summary>

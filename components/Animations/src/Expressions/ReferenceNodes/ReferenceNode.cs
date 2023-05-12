@@ -2,12 +2,18 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
+#if WINAPPSDK
+using Microsoft.UI.Composition;
+#else
+using Windows.UI.Composition;
+#endif
+
 namespace CommunityToolkit.WinUI.Animations.Expressions;
 
 /// <summary>
 /// Class ReferenceNode.
 /// </summary>
-/// <seealso cref="Microsoft.Toolkit.Uwp.UI.Animations.Expressions.ExpressionNode" />
+/// <seealso cref="CommunityToolkit.WinUI.Animations.Expressions.ExpressionNode" />
 public abstract class ReferenceNode : ExpressionNode
 {
     /// <summary>

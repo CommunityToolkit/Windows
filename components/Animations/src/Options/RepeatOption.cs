@@ -2,6 +2,12 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
+#if WINAPPSDK
+using Microsoft.UI.Composition;
+#else
+using Windows.UI.Composition;
+#endif
+
 using System.Diagnostics.Contracts;
 using Windows.Foundation.Metadata;
 
@@ -12,7 +18,7 @@ namespace CommunityToolkit.WinUI.Animations;
 /// <summary>
 /// A type describing the repeat behavior for a custom animation.
 /// </summary>
-[CreateFromString(MethodName = "Microsoft.Toolkit.Uwp.UI.Animations.RepeatOption.Parse")]
+[CreateFromString(MethodName = "CommunityToolkit.WinUI.Animations.RepeatOption.Parse")]
 public readonly struct RepeatOption
 {
     /// <summary>

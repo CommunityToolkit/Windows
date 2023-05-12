@@ -3,6 +3,11 @@
 // See the LICENSE file in the project root for more information.
 
 using System;
+#if WINAPPSDK
+using Microsoft.UI.Composition;
+#else
+using Windows.UI.Composition;
+#endif
 
 namespace CommunityToolkit.WinUI.Animations;
 
