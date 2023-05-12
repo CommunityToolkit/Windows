@@ -112,6 +112,7 @@ public partial class RadialGauge : RangeBase
         OnColorsChanged();
         OnUnitChanged(this);
         OnEnabledChanged();
+        OnInteractivityChanged(this);
         base.OnApplyTemplate();
     }
 
@@ -248,6 +249,11 @@ public partial class RadialGauge : RangeBase
     }
 
     private static void OnInteractivityChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+        OnInteractivityChanged(d);
+    }
+
+    private static void OnInteractivityChanged(DependencyObject d)
     {
         RadialGauge radialGauge = (RadialGauge)d;
 
