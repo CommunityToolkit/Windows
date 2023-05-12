@@ -47,7 +47,6 @@ public sealed partial class AnimationBuilder
     /// A model representing a generic animation for a target object.
     /// </summary>
     private sealed record AnimationFactory<T>(
-#pragma warning disable CS0518 // Predefined type 'System.Runtime.CompilerServices.IsExternalInit' is not defined or imported
         string Property,
 #pragma warning restore CS0518 // Predefined type 'System.Runtime.CompilerServices.IsExternalInit' is not defined or imported
         T To,
