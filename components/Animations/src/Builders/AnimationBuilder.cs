@@ -2,6 +2,14 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
+#if WINAPPSDK
+using Microsoft.UI.Composition;
+using Microsoft.UI.Xaml.Hosting;
+#else
+using Windows.UI.Composition;
+using Windows.UI.Xaml.Hosting;
+#endif
+
 using System.Diagnostics.Contracts;
 using System.Runtime.CompilerServices;
 

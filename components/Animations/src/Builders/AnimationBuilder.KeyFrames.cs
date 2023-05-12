@@ -4,6 +4,11 @@
 
 using System.Numerics;
 using static CommunityToolkit.WinUI.Animations.AnimationExtensions;
+#if WINAPPSDK
+using Microsoft.UI.Composition;
+#else
+using Windows.UI.Composition;
+#endif
 
 namespace CommunityToolkit.WinUI.Animations;
 

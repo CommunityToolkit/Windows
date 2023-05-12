@@ -4,7 +4,13 @@
 
 using System.Diagnostics.Contracts;
 using System.Runtime.CompilerServices;
+using System.Numerics;
 using Windows.UI;
+#if WINAPPSDK
+using Microsoft.UI.Composition;
+#else
+using Windows.UI.Composition;
+#endif
 
 namespace CommunityToolkit.WinUI.Animations;
 

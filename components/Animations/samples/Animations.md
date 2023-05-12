@@ -28,4 +28,4 @@ TODO: Fill in information about this experiment and how to get started here...
 You can inherit from an existing component as well, like `Panel`, this example shows a control without a
 XAML Style that will be more light-weight to consume by an app developer:
 
-> [!Sample AnimationsCustomSample]
+> [!Sample AnimationsImplicitSample]
