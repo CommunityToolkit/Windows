@@ -12,8 +12,6 @@
  <ItemGroup>
     <ProjectReference Include="$(ToolkitExtensionSourceProject)" />
     <ProjectReference Include="$(ToolkitEffectSourceProject)" />
-    <ProjectReference Include="$(ToolkitHelperSourceProject)" />
-    <ProjectReference Include="$(ToolkitBehaviorSourceProject)" />
   </ItemGroup>
   <!-- Sets this up as a toolkit component's source project -->
   <Import Project="$(ToolingDirectory)\ToolkitComponent.SourceProject.props" />
