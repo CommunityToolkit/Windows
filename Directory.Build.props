@@ -6,6 +6,7 @@
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
     <ToolkitExtensionSourceProject>$(RepositoryDirectory)\components\Extensions\src\CommunityToolkit.WinUI.Extensions.csproj</ToolkitExtensionSourceProject>
     <ToolkitHelperSourceProject>$(RepositoryDirectory)\components\Helpers\src\CommunityToolkit.WinUI.Helpers.csproj</ToolkitHelperSourceProject>
+<ToolkitEffectSourceProject>$(RepositoryDirectory)\components\Effects\src\CommunityToolkit.WinUI.Effects.csproj</ToolkitEffectSourceProject>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">

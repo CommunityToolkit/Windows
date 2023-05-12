@@ -26,7 +26,7 @@ public sealed class DistantLightReferenceNode : ReferenceNode
     /// <returns>DistantLightReferenceNode.</returns>
     internal static DistantLightReferenceNode CreateTargetReference()
     {
-        var node = new DistantLightReferenceNode(null);
+        var node = new DistantLightReferenceNode(null!);
         node.NodeType = ExpressionNodeType.TargetReference;
 
         return node;

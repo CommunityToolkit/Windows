@@ -26,7 +26,7 @@ public sealed class VisualReferenceNode : ReferenceNode
     /// <returns>VisualReferenceNode.</returns>
     internal static VisualReferenceNode CreateTargetReference()
     {
-        var node = new VisualReferenceNode(null);
+        var node = new VisualReferenceNode(null!);
         node.NodeType = ExpressionNodeType.TargetReference;
 
         return node;

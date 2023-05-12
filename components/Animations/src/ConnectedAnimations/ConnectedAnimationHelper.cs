@@ -2,10 +2,17 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
-using Windows.System;
-
 namespace CommunityToolkit.WinUI.Animations;
 
+using Windows.System;
+
+#if WINAPPSDK
+using Microsoft.UI.Xaml.Navigation;
+using DispatcherQueue = Microsoft.UI.Dispatching.DispatcherQueue;
+using DispatcherQueuePriority = Microsoft.UI.Dispatching.DispatcherQueuePriority;
+#else
+using Windows.UI.Xaml.Navigation;
+#endif
 /// <summary>
 /// Connected Animation Helper used with the <see cref="Connected"/> class
 /// Attaches to a <see cref="Frame"/> navigation events to handle connected animations
@@ -15,7 +22,7 @@ internal class ConnectedAnimationHelper
 {
     private readonly Dictionary<string, ConnectedAnimationProperties> _previousPageConnectedAnimationProps = new Dictionary<string, ConnectedAnimationProperties>();
 
-    private object _nextParameter;
+    private object? _nextParameter;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="ConnectedAnimationHelper"/> class.
@@ -37,9 +44,9 @@ internal class ConnectedAnimationHelper
         _nextParameter = parameter;
     }
 
-    private void Frame_Navigating(object sender, Windows.UI.Xaml.Navigation.NavigatingCancelEventArgs e)
+    private void Frame_Navigating(object sender, NavigatingCancelEventArgs e)
     {
-        object parameter;
+        object? parameter;
         if (_nextParameter != null)
         {
             parameter = _nextParameter;
@@ -51,18 +58,18 @@ internal class ConnectedAnimationHelper
 
         var cas = ConnectedAnimationService.GetForCurrentView();
 
-        var page = (sender as Frame).Content as Page;
-        var connectedAnimationsProps = Connected.GetPageConnectedAnimationProperties(page);
+        var page = (sender as Frame)!.Content as Page;
+        var connectedAnimationsProps = Connected.GetPageConnectedAnimationProperties(page!);
 
         foreach (var props in connectedAnimationsProps.Values)
         {
-            ConnectedAnimation animation = null;
+            ConnectedAnimation animation = null!;
 
             if (props.IsListAnimation && parameter != null)
             {
-                foreach (var listAnimProperty in props.ListAnimProperties)
+                foreach (var listAnimProperty in props.ListAnimProperties!)
                 {
-                    if (listAnimProperty.ListViewBase.ItemsSource is IEnumerable<object> items &&
+                    if (listAnimProperty.ListViewBase!.ItemsSource is IEnumerable<object> items &&
                         items.Contains(parameter))
                     {
                         try
@@ -71,7 +78,7 @@ internal class ConnectedAnimationHelper
                         }
                         catch
                         {
-                            animation = null;
+                            animation = null!;
                         }
                     }
                 }
@@ -86,18 +93,18 @@ internal class ConnectedAnimationHelper
             }
 
             if (animation != null &&
-                e.NavigationMode == Windows.UI.Xaml.Navigation.NavigationMode.Back)
+                e.NavigationMode == NavigationMode.Back)
             {
                 UseDirectConnectedAnimationConfiguration(animation);
             }
 
-            _previousPageConnectedAnimationProps[props.Key] = props;
+            _previousPageConnectedAnimationProps[props.Key!] = props;
         }
     }
 
-    private void Frame_Navigated(object sender, Windows.UI.Xaml.Navigation.NavigationEventArgs e)
+    private void Frame_Navigated(object sender, NavigationEventArgs e)
     {
-        var navigatedPage = (sender as Frame).Content as Page;
+        var navigatedPage = (sender as Frame)!.Content as Page;
 
         if (navigatedPage == null)
         {
@@ -106,92 +113,94 @@ internal class ConnectedAnimationHelper
 
         void LoadedHandler(object s, RoutedEventArgs args)
         {
-            var page = s as Page;
-            page.Loaded -= LoadedHandler;
-
-            object parameter;
-            if (_nextParameter != null)
+            if (s is Page page)
             {
-                parameter = _nextParameter;
-            }
-            else if (e.NavigationMode == Windows.UI.Xaml.Navigation.NavigationMode.Back)
-            {
-                var sourcePage = (sender as Frame).ForwardStack.LastOrDefault();
-                parameter = sourcePage?.Parameter;
-            }
-            else
-            {
-                parameter = e.Parameter;
-            }
+                page.Loaded -= LoadedHandler;
 
-            var cas = ConnectedAnimationService.GetForCurrentView();
-
-            var connectedAnimationsProps = Connected.GetPageConnectedAnimationProperties(page);
-            var coordinatedAnimationElements = Connected.GetPageCoordinatedAnimationElements(page);
-
-            foreach (var props in connectedAnimationsProps.Values)
-            {
-                var connectedAnimation = cas.GetAnimation(props.Key);
-                var animationHandled = false;
-                if (connectedAnimation != null)
+                object parameter;
+                if (_nextParameter != null)
                 {
-                    if (props.IsListAnimation && parameter != null)
+                    parameter = _nextParameter;
+                }
+                else if (e.NavigationMode == NavigationMode.Back)
+                {
+                    var sourcePage = (sender as Frame)!.ForwardStack.LastOrDefault();
+                    parameter = sourcePage!.Parameter;
+                }
+                else
+                {
+                    parameter = e.Parameter;
+                }
+
+                var cas = ConnectedAnimationService.GetForCurrentView();
+
+                var connectedAnimationsProps = Connected.GetPageConnectedAnimationProperties(page);
+                var coordinatedAnimationElements = Connected.GetPageCoordinatedAnimationElements(page);
+
+                foreach (var props in connectedAnimationsProps.Values)
+                {
+                    var connectedAnimation = cas.GetAnimation(props.Key);
+                    var animationHandled = false;
+                    if (connectedAnimation != null)
                     {
-                        foreach (var listAnimProperty in props.ListAnimProperties)
+                        if (props.IsListAnimation && parameter != null)
                         {
-                            if (listAnimProperty.ListViewBase.ItemsSource is IEnumerable<object> items && items.Contains(parameter))
+                            foreach (var listAnimProperty in props.ListAnimProperties!)
                             {
-                                listAnimProperty.ListViewBase.ScrollIntoView(parameter);
+                                if (listAnimProperty.ListViewBase!.ItemsSource is IEnumerable<object> items && items.Contains(parameter))
+                                {
+                                    listAnimProperty.ListViewBase.ScrollIntoView(parameter);
 
-                                // give time to the UI thread to scroll the list
-                                var dispatcherQueue = DispatcherQueue.GetForCurrentThread();
-                                var t = dispatcherQueue.EnqueueAsync(
-                                    async () =>
-                                    {
-                                        try
+                                    // give time to the UI thread to scroll the list
+                                    var dispatcherQueue = DispatcherQueue.GetForCurrentThread();
+                                    var t = dispatcherQueue.EnqueueAsync(
+                                        async () =>
                                         {
-                                            var success = await listAnimProperty.ListViewBase.TryStartConnectedAnimationAsync(connectedAnimation, parameter, listAnimProperty.ElementName);
-                                        }
-                                        catch (Exception)
-                                        {
-                                            connectedAnimation.Cancel();
-                                        }
-                                    }, DispatcherQueuePriority.Normal);
+                                            try
+                                            {
+                                                var success = await listAnimProperty.ListViewBase.TryStartConnectedAnimationAsync(connectedAnimation, parameter, listAnimProperty.ElementName);
+                                            }
+                                            catch (Exception)
+                                            {
+                                                connectedAnimation.Cancel();
+                                            }
+                                        }, DispatcherQueuePriority.Normal);
 
-                                animationHandled = true;
+                                    animationHandled = true;
+                                }
                             }
                         }
+                        else if (!props.IsListAnimation)
+                        {
+                            if (coordinatedAnimationElements.TryGetValue(props.Element!, out var coordinatedElements))
+                            {
+                                connectedAnimation.TryStart(props.Element, coordinatedElements);
+                            }
+                            else
+                            {
+                                connectedAnimation.TryStart(props.Element);
+                            }
+
+                            animationHandled = true;
+                        }
                     }
-                    else if (!props.IsListAnimation)
+
+                    if (_previousPageConnectedAnimationProps.ContainsKey(props.Key!) && animationHandled)
                     {
-                        if (coordinatedAnimationElements.TryGetValue(props.Element, out var coordinatedElements))
-                        {
-                            connectedAnimation.TryStart(props.Element, coordinatedElements);
-                        }
-                        else
-                        {
-                            connectedAnimation.TryStart(props.Element);
-                        }
-
-                        animationHandled = true;
+                        _previousPageConnectedAnimationProps.Remove(props.Key!);
                     }
                 }
 
-                if (_previousPageConnectedAnimationProps.ContainsKey(props.Key) && animationHandled)
+                // if there are animations that were prepared on previous page but no elements on this page have the same key - cancel
+                foreach (var previousProps in _previousPageConnectedAnimationProps)
                 {
-                    _previousPageConnectedAnimationProps.Remove(props.Key);
+                    var connectedAnimation = cas.GetAnimation(previousProps.Key);
+                    connectedAnimation?.Cancel();
                 }
-            }
 
-            // if there are animations that were prepared on previous page but no elements on this page have the same key - cancel
-            foreach (var previousProps in _previousPageConnectedAnimationProps)
-            {
-                var connectedAnimation = cas.GetAnimation(previousProps.Key);
-                connectedAnimation?.Cancel();
+                _previousPageConnectedAnimationProps.Clear();
+                _nextParameter = null!;
             }
-
-            _previousPageConnectedAnimationProps.Clear();
-            _nextParameter = null;
         }
 
         navigatedPage.Loaded += LoadedHandler;

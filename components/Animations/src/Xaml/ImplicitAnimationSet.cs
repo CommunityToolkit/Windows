@@ -57,8 +57,8 @@ public sealed class ImplicitAnimationSet : DependencyObjectCollection
         {
             IImplicitTimeline item = (IImplicitTimeline)sender[(int)@event.Index];
 
-            item.AnimationPropertyChanged -= RaiseAnimationsChanged;
-            item.AnimationPropertyChanged += RaiseAnimationsChanged;
+            item.AnimationPropertyChanged -= RaiseAnimationsChanged!;
+            item.AnimationPropertyChanged += RaiseAnimationsChanged!;
         }
 
         AnimationsChanged?.Invoke(this, EventArgs.Empty);

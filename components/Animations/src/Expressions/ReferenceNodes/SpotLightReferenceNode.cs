@@ -26,7 +26,7 @@ public sealed class SpotLightReferenceNode : ReferenceNode
     /// <returns>SpotLightReferenceNode.</returns>
     internal static SpotLightReferenceNode CreateTargetReference()
     {
-        var node = new SpotLightReferenceNode(null);
+        var node = new SpotLightReferenceNode(null!);
         node.NodeType = ExpressionNodeType.TargetReference;
 
         return node;

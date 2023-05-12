@@ -2,6 +2,7 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
+using System.Diagnostics.Contracts;
 using System.Runtime.CompilerServices;
 
 namespace CommunityToolkit.WinUI.Animations;
@@ -205,7 +206,7 @@ public sealed class AnimationSet : DependencyObjectCollection
     /// <param name="element">The target <see cref="UIElement"/> instance to stop the animation for.</param>
     public void Stop(UIElement element)
     {
-        if (this.cancellationTokenMap.TryGetValue(element, out CancellationTokenSource value))
+        if (this.cancellationTokenMap.TryGetValue(element, out CancellationTokenSource? value))
         {
             value.Cancel();
         }

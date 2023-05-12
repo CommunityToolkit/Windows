@@ -4,7 +4,6 @@
 
 using System.Runtime.CompilerServices;
 using CommunityToolkit.WinUI.Animations.Builders.Helpers;
-using Windows.UI.Composition;
 
 namespace CommunityToolkit.WinUI.Animations;
 

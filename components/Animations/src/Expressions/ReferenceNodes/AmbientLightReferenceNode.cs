@@ -26,7 +26,7 @@ public sealed class AmbientLightReferenceNode : ReferenceNode
     /// <returns>AmbientLightReferenceNode.</returns>
     internal static AmbientLightReferenceNode CreateTargetReference()
     {
-        var node = new AmbientLightReferenceNode(null);
+        var node = new AmbientLightReferenceNode(null!);
         node.NodeType = ExpressionNodeType.TargetReference;
 
         return node;

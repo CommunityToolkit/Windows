@@ -57,14 +57,14 @@ namespace CommunityToolkit.WinUI.Animations
             {
                 ThrowArgumentNullException();
             }
-
+            
             await base.InvokeAsync(element, token);
 
             if (TargetObject is not null)
             {
-                Animation.Stop(TargetObject);
+                Animation!.Stop(TargetObject);
             }
-            else if (Animation.ParentReference is null)
+            else if (Animation!.ParentReference is null)
             {
                 Animation.Stop(element);
             }

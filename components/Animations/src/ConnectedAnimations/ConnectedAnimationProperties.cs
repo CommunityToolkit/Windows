@@ -6,11 +6,11 @@ namespace CommunityToolkit.WinUI.Animations;
 
 internal class ConnectedAnimationProperties
 {
-    public string Key { get; set; }
+    public string? Key { get; set; }
 
-    public UIElement Element { get; set; }
+    public UIElement? Element { get; set; }
 
-    public List<ConnectedAnimationListProperty> ListAnimProperties { get; set; }
+    public List<ConnectedAnimationListProperty>? ListAnimProperties { get; set; }
 
     public bool IsListAnimation => ListAnimProperties != null;
 }

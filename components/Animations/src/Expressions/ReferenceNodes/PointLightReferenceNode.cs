@@ -26,7 +26,7 @@ public sealed class PointLightReferenceNode : ReferenceNode
     /// <returns>PointLightReferenceNode.</returns>
     internal static PointLightReferenceNode CreateTargetReference()
     {
-        var node = new PointLightReferenceNode(null);
+        var node = new PointLightReferenceNode(null!);
         node.NodeType = ExpressionNodeType.TargetReference;
 
         return node;

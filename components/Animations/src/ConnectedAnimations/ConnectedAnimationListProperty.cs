@@ -6,7 +6,7 @@ namespace CommunityToolkit.WinUI.Animations;
 
 internal class ConnectedAnimationListProperty
 {
-    public string ElementName { get; set; }
+    public string? ElementName { get; set; }
 
-    public Windows.UI.Xaml.Controls.ListViewBase ListViewBase { get; set; }
+    public ListViewBase? ListViewBase { get; set; }
 }

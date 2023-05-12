@@ -25,7 +25,7 @@ public sealed class PointerPositionPropertySetReferenceNode : PropertySetReferen
     /// Needed for GetSpecializedReference
     /// </summary>
     internal PointerPositionPropertySetReferenceNode()
-        : base(null, null)
+        : base(null!, null)
     {
     }
 

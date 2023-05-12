@@ -26,7 +26,7 @@ public sealed class InsetClipReferenceNode : ReferenceNode
     /// <returns>InsetClipReferenceNode.</returns>
     internal static InsetClipReferenceNode CreateTargetReference()
     {
-        var node = new InsetClipReferenceNode(null);
+        var node = new InsetClipReferenceNode(null!);
         node.NodeType = ExpressionNodeType.TargetReference;
 
         return node;
