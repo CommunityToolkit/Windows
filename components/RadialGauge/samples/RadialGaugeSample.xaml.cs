@@ -12,7 +12,7 @@ namespace RadialGaugeExperiment.Samples;
 [ToolkitSampleBoolOption("Enabled", true, Title = "IsEnabled")]
 [ToolkitSampleNumericOption("Value", 120, 0, 240, 1, false, Title = "Value")]
 [ToolkitSampleNumericOption("StepSize", 30, 5, 30, 1, false, Title = "StepSize")]
-[ToolkitSampleBoolOption("IsInteractive", false, Title = "IsInteractive")]
+[ToolkitSampleBoolOption("IsInteractive", true, Title = "IsInteractive")]
 [ToolkitSampleNumericOption("TickSpacing", 15, 10, 30, 1, false, Title = "TickSpacing")]
 [ToolkitSampleNumericOption("ScaleWidth", 12, 4, 50, 1, false, Title = "ScaleWidth")]
 [ToolkitSampleNumericOption("MinAngle", -150, -150, 360, 1, false, Title = "MinAngle")]
