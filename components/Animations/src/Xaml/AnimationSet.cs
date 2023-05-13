@@ -51,7 +51,7 @@ public sealed class AnimationSet : DependencyObjectCollection
     /// <summary>
     /// Gets or sets the weak reference to the parent that owns the current animation collection.
     /// </summary>
-    internal WeakReference<UIElement>? ParentReference { get; set; }
+    public WeakReference<UIElement>? ParentReference { get; set; }
 
     /// <inheritdoc cref="AnimationBuilder.Start(UIElement)"/>
     /// <exception cref="InvalidOperationException">Thrown when there is no attached <see cref="UIElement"/> instance.</exception>
@@ -66,9 +66,9 @@ public sealed class AnimationSet : DependencyObjectCollection
     }
 
     /// <inheritdoc cref="AnimationBuilder.Start(UIElement)"/>
-    public async void Start(UIElement element)
+    public async void Start(UIElement? element)
     {
-        await StartAsync(element);
+        await StartAsync(element!);
     }
 
     /// <inheritdoc cref="AnimationBuilder.Start(UIElement)"/>
@@ -204,9 +204,9 @@ public sealed class AnimationSet : DependencyObjectCollection
     ///  Cancels the current animation for a target <see cref="UIElement"/> instance.
     /// </summary>
     /// <param name="element">The target <see cref="UIElement"/> instance to stop the animation for.</param>
-    public void Stop(UIElement element)
+    public void Stop(UIElement? element)
     {
-        if (this.cancellationTokenMap.TryGetValue(element, out CancellationTokenSource? value))
+        if (this.cancellationTokenMap.TryGetValue(element!, out CancellationTokenSource? value))
         {
             value.Cancel();
         }
