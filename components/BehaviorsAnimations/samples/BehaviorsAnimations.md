@@ -159,7 +159,9 @@ Here is an example that shows how these new APIs can be used together:
 
 This makes it possible to also not having to name the target UI element, to register the event handler in code behind, and in many cases to even name the `AnimationSet` instance at all, if it doesn't need to be referenced by other animations at all. The resulting code is all in XAML, with no need for code behind at all!
 
-[!InvokeActionsActivitySample]
+> [!SAMPLE InvokeActionsActivitySample]
+
+> [!SAMPLE StartAnimationActivitySample]
 
 ## Effect animations
 
