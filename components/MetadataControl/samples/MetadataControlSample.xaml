@@ -12,18 +12,24 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <controls:MetadataControl x:Name="metadataControl"
                                   AccessibleSeparator="{x:Bind AccessibleSeparator, Mode=OneWay}"
                                   Separator="{x:Bind Separator, Mode=OneWay}" />
 
-        <StackPanel Orientation="Horizontal"
+        <TextBlock x:Name="OutputTxt"
+                   Grid.Row="1"
+                   Margin="0,0,0,24"
+                   FontWeight="SemiBold" />
+        <StackPanel Grid.Row="2"
+                    Orientation="Horizontal"
                     Spacing="8">
             <Button Click="AddLabel_Click"
                     Content="Add label" />
             <Button Click="AddCommand_Click"
-                    Content="Add content" />
+                    Content="Add command" />
             <Button Click="Clear_Click"
                     Content="Clear" />
         </StackPanel>
