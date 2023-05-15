@@ -7,5 +7,5 @@
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
     <Import_RootNamespace>BehaviorsAnimationsExperiment.Tests</Import_RootNamespace>
-  </PropertyGroup>>
+  </PropertyGroup>
 </Project>
