@@ -9,13 +9,14 @@
 
     <Style x:Key="DefaultHeaderedItemsControlStyle"
            TargetType="controls:HeaderedItemsControl">
-        <Setter Property="Padding" Value="2,0,0,0"/>
+        <Setter Property="Padding" Value="2,0,0,0" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="controls:HeaderedItemsControl">
                     <StackPanel Orientation="{TemplateBinding Orientation}">
-                        <ContentPresenter Content="{TemplateBinding Header}" ContentTemplate="{TemplateBinding HeaderTemplate}"/>
-                        <ItemsPresenter Margin="{TemplateBinding Padding}"/>
+                        <ContentPresenter Content="{TemplateBinding Header}"
+                                          ContentTemplate="{TemplateBinding HeaderTemplate}" />
+                        <ItemsPresenter Margin="{TemplateBinding Padding}" />
                     </StackPanel>
                 </ControlTemplate>
             </Setter.Value>
