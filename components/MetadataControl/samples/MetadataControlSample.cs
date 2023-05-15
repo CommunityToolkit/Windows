@@ -11,7 +11,7 @@ namespace MetadataControlExperiment.Samples;
 /// An example sample page of a custom control inheriting from Panel.
 /// </summary>
 [ToolkitSampleTextOption("Separator", " • ", Title = "Separator")]
-[ToolkitSampleTextOption("AccessibleSeparator", " • ", Title = "AccessibleSeparator")]
+[ToolkitSampleTextOption("AccessibleSeparator", ", ", Title = "AccessibleSeparator")]
 
 [ToolkitSample(id: nameof(MetadataControlSample), "MetadataControl", description: $"A sample for showing how to create and use a {nameof(MetadataControl)} control.")]
 public sealed partial class MetadataControlSample : Page
@@ -33,16 +33,9 @@ public sealed partial class MetadataControlSample : Page
 
     private string GetRandomLabel() => Labels[_random!.Next(Labels.Length)];
 
-    private async void OnExecuteCommand(object obj)
+    private void OnExecuteCommand(object obj)
     {
-        var dialog = new ContentDialog
-        {
-            Title = "Command invoked",
-            Content = $"Command parameter: {obj}",
-            CloseButtonText = "OK"
-        };
-
-        await dialog.ShowAsync();
+        OutputTxt.Text = $"Command invoked - parameter: {obj}";
     }
 
     private void AddLabel_Click(object sender, RoutedEventArgs e)
@@ -71,6 +64,7 @@ public sealed partial class MetadataControlSample : Page
     {
         if (_units != null)
         {
+            OutputTxt.Text = "";
             _units.Clear();
         }
     }
