@@ -14,4 +14,8 @@
   <ItemGroup>
     <ProjectReference Include="$(ToolkitExtensionSourceProject)" />
   </ItemGroup>
+
+  <PropertyGroup>
+    <PackageId>$(PackageIdPrefix).$(PackageIdVariant).Controls.$(ToolkitComponentName)</PackageId>
+  </PropertyGroup>
 </Project>
