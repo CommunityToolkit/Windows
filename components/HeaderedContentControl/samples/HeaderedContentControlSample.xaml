@@ -1,14 +1,14 @@
-<!--  Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license. See the LICENSE file in the project root for more information.  -->
+﻿<!--  Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license. See the LICENSE file in the project root for more information.  -->
 <Page x:Class="HeaderedContentControlExperiment.Samples.HeaderedContentControlSample"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:controls="using:CommunityToolkit.WinUI.Controls">
 
-	<controls:HeaderedContentControl Margin="6"
-	                                 HorizontalContentAlignment="Stretch"
-	                                 VerticalContentAlignment="Stretch"
-	                                 Header="Rectangle content">
-		<Rectangle MinHeight="160"
-		           Fill="{ThemeResource AccentFillColorDefaultBrush}" />
-	</controls:HeaderedContentControl>
+    <controls:HeaderedContentControl Margin="6"
+                                     HorizontalContentAlignment="Stretch"
+                                     VerticalContentAlignment="Stretch"
+                                     Header="Rectangle content">
+        <Rectangle MinHeight="160"
+                   Fill="{ThemeResource AccentFillColorDefaultBrush}" />
+    </controls:HeaderedContentControl>
 </Page>
