@@ -5,8 +5,8 @@ description: A collection of animations that can be grouped together.
 keywords: Behaviors, animations, animationset, xaml, visual, composition
 dev_langs:
   - csharp
-category: Xaml
-subcategory: Behaviors
+category: Controls
+subcategory: Layout
 discussion-id: 0
 issue-id: 0
 ---
