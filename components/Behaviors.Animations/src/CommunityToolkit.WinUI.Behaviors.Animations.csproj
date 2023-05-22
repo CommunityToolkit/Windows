@@ -1,11 +1,11 @@
 <Project Sdk="MSBuild.Sdk.Extras/3.0.23">
   <PropertyGroup>
-    <ToolkitComponentName>BehaviorsAnimations</ToolkitComponentName>
-    <Description>This package contains BehaviorsAnimations.</Description>
+    <ToolkitComponentName>Behaviors.Animations</ToolkitComponentName>
+    <Description>This package contains Behaviors.Animations.</Description>
     <Version>8.0.0-beta.1</Version>
 
     <!-- Rns suffix is required for namespaces shared across projects. See https://github.com/CommunityToolkit/Labs-Windows/issues/152 -->
-    <RootNamespace>CommunityToolkit.WinUI.BehaviorsAnimationsRns</RootNamespace>
+    <RootNamespace>CommunityToolkit.WinUI.Behaviors.AnimationsRns</RootNamespace>
   </PropertyGroup>
 
   <!-- Sets this up as a toolkit component's source project -->
