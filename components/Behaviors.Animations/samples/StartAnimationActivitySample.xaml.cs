@@ -4,7 +4,7 @@
 
 using CommunityToolkit.WinUI.Animations;
 
-namespace BehaviorsAnimationsExperiment.Samples;
+namespace Behaviors.AnimationsExperiment.Samples;
 
 [ToolkitSample(id: nameof(StartAnimationActivitySample), "StartAnimationActivity", description: $"A sample for showing how to create and use a {nameof(InvokeActionsActivity)} behavior.")]
 public sealed partial class StartAnimationActivitySample : Page

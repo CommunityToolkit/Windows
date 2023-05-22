@@ -6,6 +6,6 @@
     <SharedGUID>DA850559-344C-4658-A17D-5A0EDF83BBBD</SharedGUID>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
-    <Import_RootNamespace>BehaviorsAnimationsExperiment.Tests</Import_RootNamespace>
+    <Import_RootNamespace>Behaviors.AnimationsExperiment.Tests</Import_RootNamespace>
   </PropertyGroup>
 </Project>
