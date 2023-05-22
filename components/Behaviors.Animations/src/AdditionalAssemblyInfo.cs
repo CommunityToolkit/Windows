@@ -7,7 +7,7 @@ using System.Runtime.CompilerServices;
 // These `InternalsVisibleTo` calls are intended to make it easier for
 // for any internal code to be testable in all the different test projects
 // used with the Labs infrastructure.
-[assembly: InternalsVisibleTo("BehaviorsAnimations.Tests.Uwp")]
-[assembly: InternalsVisibleTo("BehaviorsAnimations.Tests.WinAppSdk")]
+[assembly: InternalsVisibleTo("Behaviors.Animations.Tests.Uwp")]
+[assembly: InternalsVisibleTo("Behaviors.Animations.Tests.WinAppSdk")]
 [assembly: InternalsVisibleTo("CommunityToolkit.Tests.Uwp")]
 [assembly: InternalsVisibleTo("CommunityToolkit.Tests.WinAppSdk")]
