@@ -21,12 +21,12 @@ public class RichSuggestToken : INotifyPropertyChanged
     /// <summary>
     /// Gets the token ID.
     /// </summary>
-    public Guid Id { get; }
+    public Guid? Id { get; }
 
     /// <summary>
     /// Gets the text displayed in the document.
     /// </summary>
-    public string DisplayText { get; }
+    public string? DisplayText { get; }
 
     /// <summary>
     /// Gets or sets the suggested item associated with this token.
@@ -36,12 +36,12 @@ public class RichSuggestToken : INotifyPropertyChanged
     /// <summary>
     /// Gets the start position of the text range.
     /// </summary>
-    public int RangeStart { get; private set; }
+    public int? RangeStart { get; private set; }
 
     /// <summary>
     /// Gets the end position of the text range.
     /// </summary>
-    public int RangeEnd { get; private set; }
+    public int? RangeEnd { get; private set; }
 
     /// <summary>
     /// Gets the start position of the token in number of characters.

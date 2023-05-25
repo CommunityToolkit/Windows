@@ -6,17 +6,20 @@ using CommunityToolkit.WinUI.Controls;
 
 #if WINAPPSDK
 using Microsoft.UI;
+using Microsoft.UI.Dispatching;
 using Microsoft.UI.Text;
 #else
 using Windows.UI;
+using Windows.System;
 using Windows.UI.Text;
 #endif
 
 namespace RichSuggestBoxExperiment.Samples;
 
-[ToolkitSample(id: nameof(RichSuggestBoxPlainTextSample), "RichSuggestBox with plain text sample", description: $"A sample for showing how to create and use a {nameof(RichSuggestBox)} with plain text.")]
+[ToolkitSample(id: nameof(RichSuggestBoxPlainTextSample), "RichSuggestBox with plain text", description: $"A sample for showing how to create and use a {nameof(RichSuggestBox)} with plain text.")]
 public sealed partial class RichSuggestBoxPlainTextSample : Page
 {
+    private DispatcherQueue _dispatcherQueue;
     private readonly List<SampleEmailDataType> _emailSamples = new List<SampleEmailDataType>()
         {
             new SampleEmailDataType() { FirstName = "Marcus", FamilyName = "Perryman" },
@@ -52,64 +55,41 @@ public sealed partial class RichSuggestBoxPlainTextSample : Page
             new SampleEmailDataType() { FirstName = "Tung", FamilyName = "Huynh" },
         };
 
-    private readonly List<SampleDataType> _samples = new List<SampleDataType>()
-        {
-            new SampleDataType() { Text = "Account", Icon = Symbol.Account },
-            new SampleDataType() { Text = "Add Friend", Icon = Symbol.AddFriend },
-            new SampleDataType() { Text = "Attach", Icon = Symbol.Attach },
-            new SampleDataType() { Text = "Attach Camera", Icon = Symbol.AttachCamera },
-            new SampleDataType() { Text = "Audio", Icon = Symbol.Audio },
-            new SampleDataType() { Text = "Block Contact", Icon = Symbol.BlockContact },
-            new SampleDataType() { Text = "Calculator", Icon = Symbol.Calculator },
-            new SampleDataType() { Text = "Calendar", Icon = Symbol.Calendar },
-            new SampleDataType() { Text = "Camera", Icon = Symbol.Camera },
-            new SampleDataType() { Text = "Contact", Icon = Symbol.Contact },
-            new SampleDataType() { Text = "Favorite", Icon = Symbol.Favorite },
-            new SampleDataType() { Text = "Link", Icon = Symbol.Link },
-            new SampleDataType() { Text = "Mail", Icon = Symbol.Mail },
-            new SampleDataType() { Text = "Map", Icon = Symbol.Map },
-            new SampleDataType() { Text = "Phone", Icon = Symbol.Phone },
-            new SampleDataType() { Text = "Pin", Icon = Symbol.Pin },
-            new SampleDataType() { Text = "Rotate", Icon = Symbol.Rotate },
-            new SampleDataType() { Text = "Rotate Camera", Icon = Symbol.RotateCamera },
-            new SampleDataType() { Text = "Send", Icon = Symbol.Send },
-            new SampleDataType() { Text = "Tags", Icon = Symbol.Tag },
-            new SampleDataType() { Text = "UnFavorite", Icon = Symbol.UnFavorite },
-            new SampleDataType() { Text = "UnPin", Icon = Symbol.UnPin },
-            new SampleDataType() { Text = "Zoom", Icon = Symbol.Zoom },
-            new SampleDataType() { Text = "ZoomIn", Icon = Symbol.ZoomIn },
-            new SampleDataType() { Text = "ZoomOut", Icon = Symbol.ZoomOut },
-        };
     public RichSuggestBoxPlainTextSample()
     {
         this.InitializeComponent();
-        TokenListView1.ItemsSource = SuggestingBox.Tokens;
+        _dispatcherQueue = DispatcherQueue.GetForCurrentThread();
+        TokenListView.ItemsSource = SuggestingBox.Tokens;
     }
 
     private void SuggestingBox_SuggestionChosen(RichSuggestBox sender, SuggestionChosenEventArgs args)
     {
-        if (args.Prefix == "#")
-        {
-            args.Format.BackgroundColor = Colors.LightSlateGray;
-            args.Format.ForegroundColor = Colors.White;
-            args.Format.Bold = FormatEffect.On;
-            args.DisplayText = ((SampleDataType)args.SelectedItem).Text;
-        }
-        else
-        {
-            args.DisplayText = ((SampleEmailDataType)args.SelectedItem).DisplayName;
-        }
+            args.DisplayText = ((SampleEmailDataType)args.SelectedItem!).DisplayName;
     }
 
     private void SuggestingBox_SuggestionRequested(RichSuggestBox sender, SuggestionRequestedEventArgs args)
     {
-        if (args.Prefix == "#")
+            sender.ItemsSource = this._emailSamples.Where(x => x.DisplayName.Contains(args.QueryText!, StringComparison.OrdinalIgnoreCase));
+    }
+
+    private void SuggestingBox_TokenPointerOver(RichSuggestBox sender, RichSuggestTokenPointerOverEventArgs args)
+    {
+        var flyout = (Flyout)FlyoutBase.GetAttachedFlyout(sender);
+        var pointerPosition = args.CurrentPoint!.Position;
+
+        if (flyout?.Content is ContentPresenter cp && sender.TextDocument!.Selection.Type != SelectionType.Normal &&
+            (!flyout.IsOpen || cp.Content != args.Token!.Item))
         {
-            sender.ItemsSource = this._samples.Where(x => x.Text.Contains(args.QueryText, StringComparison.OrdinalIgnoreCase));
-        }
-        else
-        {
-            sender.ItemsSource = this._emailSamples.Where(x => x.DisplayName.Contains(args.QueryText, StringComparison.OrdinalIgnoreCase));
+            this._dispatcherQueue.TryEnqueue(() =>
+            {
+                cp.Content = args.Token!.Item;
+                flyout.ShowAt(sender, new FlyoutShowOptions
+                {
+                    Position = pointerPosition,
+                    ExclusionRect = sender.GetRectFromRange(args.Range!),
+                    ShowMode = FlyoutShowMode.TransientWithDismissOnPointerMoveAway,
+                });
+            });
         }
     }
 }

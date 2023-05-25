@@ -9,13 +9,14 @@
     <Import_RootNamespace>RichSuggestBoxExperiment.Tests</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)ExampleRichSuggestBoxTestClass.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ExampleRichSuggestBoxTestPage.xaml.cs">
-      <DependentUpon>ExampleRichSuggestBoxTestPage.xaml</DependentUpon>
+    <Compile Include="$(MSBuildThisFileDirectory)RichSuggestBoxTest.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Test_RichSuggestBox.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)RichSuggestBoxTestPage.xaml.cs">
+      <DependentUpon>RichSuggestBoxTestPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="$(MSBuildThisFileDirectory)ExampleRichSuggestBoxTestPage.xaml">
+    <Page Include="$(MSBuildThisFileDirectory)RichSuggestBoxTestPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

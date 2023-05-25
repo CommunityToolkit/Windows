@@ -26,14 +26,6 @@
             </StackPanel>
         </DataTemplate>
 
-        <DataTemplate x:Key="DataTemplate">
-            <StackPanel Orientation="Horizontal">
-                <SymbolIcon Symbol="{Binding Icon}" />
-                <TextBlock Margin="8,0,0,0"
-                           Text="{Binding Text}" />
-            </StackPanel>
-        </DataTemplate>
-
         <DataTemplate x:Key="TokenTemplate">
             <StackPanel Margin="0,4,0,12"
                         Orientation="Vertical">
@@ -60,18 +52,32 @@
                                           Data="{StaticResource DataTemplate}"
                                           Person="{StaticResource EmailTemplate}" />
 
+        <Flyout x:Key="TokenSelectedFlyout">
+            <ContentPresenter x:Name="FlyoutPresenter"
+                              ContentTemplate="{StaticResource EmailTemplate}" />
+        </Flyout>
+
     </Page.Resources>
     <StackPanel MinWidth="400"
                 HorizontalAlignment="Center"
                 Spacing="24">
+
         <controls:RichSuggestBox x:Name="SuggestingBox"
+                                 MaxHeight="400"
                                  HorizontalAlignment="Stretch"
-                                 Header="RichSuggestBox that supports multiple prefixes (@ and #)"
-                                 ItemTemplateSelector="{StaticResource SuggestionTemplateSelector}"
-                                 Prefixes="@#"
+                                 ClipboardCopyFormat="PlainText"
+                                 ClipboardPasteFormat="PlainText"
+                                 DisabledFormattingAccelerators="All"
+                                 FlyoutBase.AttachedFlyout="{StaticResource TokenSelectedFlyout}"
+                                 Header="Plain text RichSuggestBox with on token pointer over flyout"
+                                 ItemTemplate="{StaticResource EmailTemplate}"
+                                 Prefixes="@"
                                  SuggestionChosen="SuggestingBox_SuggestionChosen"
-                                 SuggestionRequested="SuggestingBox_SuggestionRequested" />
-        <ListView x:Name="TokenListView1"
+                                 SuggestionRequested="SuggestingBox_SuggestionRequested"
+                                 TokenPointerOver="SuggestingBox_TokenPointerOver" />
+
+
+        <ListView x:Name="TokenListView"
                   HorizontalAlignment="Stretch"
                   ItemTemplate="{StaticResource TokenTemplate}" />
     </StackPanel>

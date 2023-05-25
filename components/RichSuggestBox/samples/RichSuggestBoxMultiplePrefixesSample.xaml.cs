@@ -14,7 +14,7 @@ using Windows.UI.Text;
 
 namespace RichSuggestBoxExperiment.Samples;
 
-[ToolkitSample(id: nameof(RichSuggestBoxMultiplePrefixesSample), "RichSuggestBox with multiple prefixes sample", description: $"A sample for showing how to create and use a {nameof(RichSuggestBox)} with multiple prefixes.")]
+[ToolkitSample(id: nameof(RichSuggestBoxMultiplePrefixesSample), "RichSuggestBox with multiple prefixes", description: $"A sample for showing how to create and use a {nameof(RichSuggestBox)} with multiple prefixes.")]
 public sealed partial class RichSuggestBoxMultiplePrefixesSample : Page
 {
     private readonly List<SampleEmailDataType> _emailSamples = new List<SampleEmailDataType>()
@@ -83,21 +83,21 @@ public sealed partial class RichSuggestBoxMultiplePrefixesSample : Page
     public RichSuggestBoxMultiplePrefixesSample()
     {
         this.InitializeComponent();
-        TokenListView1.ItemsSource = SuggestingBox.Tokens;
+        TokenListView.ItemsSource = SuggestingBox.Tokens;
     }
 
     private void SuggestingBox_SuggestionChosen(RichSuggestBox sender, SuggestionChosenEventArgs args)
     {
         if (args.Prefix == "#")
         {
-            args.Format.BackgroundColor = Colors.LightSlateGray;
+            args.Format!.BackgroundColor = Colors.LightSlateGray;
             args.Format.ForegroundColor = Colors.White;
             args.Format.Bold = FormatEffect.On;
-            args.DisplayText = ((SampleDataType)args.SelectedItem).Text;
+            args.DisplayText = ((SampleDataType)args.SelectedItem!).Text;
         }
         else
         {
-            args.DisplayText = ((SampleEmailDataType)args.SelectedItem).DisplayName;
+            args.DisplayText = ((SampleEmailDataType)args.SelectedItem!).DisplayName;
         }
     }
 
@@ -105,11 +105,11 @@ public sealed partial class RichSuggestBoxMultiplePrefixesSample : Page
     {
         if (args.Prefix == "#")
         {
-            sender.ItemsSource = this._samples.Where(x => x.Text.Contains(args.QueryText, StringComparison.OrdinalIgnoreCase));
+            sender.ItemsSource = this._samples.Where(x => x.Text.Contains(args.QueryText!, StringComparison.OrdinalIgnoreCase));
         }
         else
         {
-            sender.ItemsSource = this._emailSamples.Where(x => x.DisplayName.Contains(args.QueryText, StringComparison.OrdinalIgnoreCase));
+            sender.ItemsSource = this._emailSamples.Where(x => x.DisplayName.Contains(args.QueryText!, StringComparison.OrdinalIgnoreCase));
         }
     }
 }
