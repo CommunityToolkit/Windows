@@ -71,7 +71,7 @@
                                  Prefixes="@#"
                                  SuggestionChosen="SuggestingBox_SuggestionChosen"
                                  SuggestionRequested="SuggestingBox_SuggestionRequested" />
-        <ListView x:Name="TokenListView1"
+        <ListView x:Name="TokenListView"
                   HorizontalAlignment="Stretch"
                   ItemTemplate="{StaticResource TokenTemplate}" />
     </StackPanel>

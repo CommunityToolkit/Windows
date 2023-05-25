@@ -121,9 +121,9 @@ public partial class RichSuggestBox
         if (token.Active && token.RangeStart != range.StartPosition && token.RangeEnd != range.EndPosition)
         {
             var guid = Guid.NewGuid();
-            if (TryCommitSuggestionIntoDocument(range, token.DisplayText, guid, CreateTokenFormat(range), false))
+            if (TryCommitSuggestionIntoDocument(range, token.DisplayText!, guid, CreateTokenFormat(range), false))
             {
-                token = new RichSuggestToken(guid, token.DisplayText) { Active = true, Item = token.Item };
+                token = new RichSuggestToken(guid, token.DisplayText!) { Active = true, Item = token.Item };
                 token.UpdateTextRange(range);
                 _tokens.Add(range.Link, token);
             }

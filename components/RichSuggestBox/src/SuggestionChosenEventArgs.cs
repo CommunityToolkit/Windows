@@ -16,27 +16,26 @@ namespace CommunityToolkit.WinUI.Controls;
 /// </summary>
 public class SuggestionChosenEventArgs : DeferredEventArgs
 {
-#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
     /// <summary>
     /// Gets the query used for this token.
     /// </summary>
-    public string QueryText { get; internal set; }
+    public string? QueryText { get; internal set; }
 
     /// <summary>
     /// Gets the prefix character used for this token.
     /// </summary>
-    public string Prefix { get; internal set; }
+    public string? Prefix { get; internal set; }
 
     /// <summary>
     /// Gets or sets the display text.
     /// </summary>
-    public string DisplayText { get; set; }
+    public string? DisplayText { get; set; }
 
     /// <summary>
     /// Gets the suggestion item associated with this token.
     /// </summary>
 
-    public object SelectedItem { get; internal set; }
+    public object? SelectedItem { get; internal set; }
 
     /// <summary>
     /// Gets token ID.
@@ -46,6 +45,5 @@ public class SuggestionChosenEventArgs : DeferredEventArgs
     /// <summary>
     /// Gets or sets the <see cref="ITextCharacterFormat"/> object used to format the display text for this token.
     /// </summary>
-    public ITextCharacterFormat Format { get; set; }
-#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+    public ITextCharacterFormat? Format { get; set; }
 }
