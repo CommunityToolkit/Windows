@@ -38,7 +38,6 @@ public sealed partial class CameraPreviewSample : Page
         Load();
     }
 
-
     private async void Load()
     {
         // Using a semaphore lock for synchronization.
@@ -56,8 +55,8 @@ public sealed partial class CameraPreviewSample : Page
             CameraPreviewControl.CameraHelper.FrameArrived += CameraPreviewControl_FrameArrived!;
         }
 
-            _softwareBitmapSource = new SoftwareBitmapSource();
-            CurrentFrameImage.Source = _softwareBitmapSource;
+        _softwareBitmapSource = new SoftwareBitmapSource();
+        CurrentFrameImage.Source = _softwareBitmapSource;
 
         semaphoreSlim.Release();
     }
