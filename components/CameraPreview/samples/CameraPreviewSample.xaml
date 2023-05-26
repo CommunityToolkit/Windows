@@ -1,0 +1,29 @@
+<!--  Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license. See the LICENSE file in the project root for more information.  -->
+<Page x:Class="CameraPreviewExperiment.Samples.CameraPreviewSample"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:controls="using:CommunityToolkit.WinUI.Controls"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="using:CameraPreviewExperiment.Samples"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+      mc:Ignorable="d">
+
+    <StackPanel HorizontalAlignment="Center"
+                Orientation="Vertical"
+                Spacing="12">
+        <controls:CameraPreview x:Name="CameraPreviewControl"
+                                Height="320"
+                                IsFrameSourceGroupButtonVisible="{x:Bind ShowCamera, Mode=OneWay}" />
+        <muxc:InfoBar x:Name="ErrorBar"
+                      Title="Error"
+                      IsOpen="False"
+                      Severity="Error" />
+        <Image x:Name="CurrentFrameImage"
+               Height="240"
+               HorizontalAlignment="Center" />
+        <Button HorizontalAlignment="Center"
+                Click="CaptureButton_Click"
+                Content="Capture" />
+    </StackPanel>
+</Page>
