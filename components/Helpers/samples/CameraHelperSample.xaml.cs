@@ -16,7 +16,7 @@ using Windows.UI.Xaml.Media.Imaging;
 namespace HelpersExperiment.Samples;
 
 [ToolkitSample(id: nameof(CameraHelperSample), "CameraHelper", description: $"A sample for showing how to use {nameof(CameraHelper)}.")]
-public sealed partial class CameraHelperSample : Page
+public sealed partial class CameraHelperSample : UserControl
 {
     private CameraHelper _cameraHelper;
     private VideoFrame _currentVideoFrame;
@@ -27,35 +27,23 @@ public sealed partial class CameraHelperSample : Page
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
     {
         this.InitializeComponent();
-        Init();
+
+        Loaded += CameraHelperSample_Loaded;
+        Unloaded += CameraHelperSample_Unloaded;
     }
 
-    private async void Init()
+    private async void CameraHelperSample_Loaded(object sender, RoutedEventArgs e)
     {
-        _softwareBitmapSource = new SoftwareBitmapSource();
-        CurrentFrameImage.Source = _softwareBitmapSource;
-#if !WINAPPSDK
-        // Application.Current.Suspending += Application_Suspending;
-        // Application.Current.Resuming += Application_Resuming;
-#endif
+        Loaded -= CameraHelperSample_Loaded;
+
+        Setup();
         await InitializeAsync();
     }
 
-    protected override async void OnNavigatedTo(NavigationEventArgs e)
+    private async void CameraHelperSample_Unloaded(object sender, RoutedEventArgs e)
     {
-        base.OnNavigatedTo(e);
+        Unloaded -= CameraHelperSample_Unloaded;
 
-        _softwareBitmapSource = new SoftwareBitmapSource();
-        CurrentFrameImage.Source = _softwareBitmapSource;
-#if !WINAPPSDK
-        Application.Current.Suspending += Application_Suspending;
-        Application.Current.Resuming += Application_Resuming;
-#endif
-        await InitializeAsync();
-    }
-
-    protected async override void OnNavigatedFrom(NavigationEventArgs e)
-    {
 #if !WINAPPSDK
         Application.Current.Suspending -= Application_Suspending;
         Application.Current.Resuming -= Application_Resuming;
@@ -63,9 +51,19 @@ public sealed partial class CameraHelperSample : Page
         await CleanUpAsync();
     }
 
+    private void Setup()
+    {
+        _softwareBitmapSource = new SoftwareBitmapSource();
+        CurrentFrameImage.Source = _softwareBitmapSource;
+#if !WINAPPSDK
+        // Application.Current.Suspending += Application_Suspending;
+        // Application.Current.Resuming += Application_Resuming;
+#endif
+    }
+
     private async void Application_Suspending(object sender, SuspendingEventArgs e)
     {
-        if (Frame?.CurrentSourcePageType == typeof(CameraHelperSample))
+        if (IsLoaded)
         {
             var deferral = e.SuspendingOperation.GetDeferral();
             await CleanUpAsync();
