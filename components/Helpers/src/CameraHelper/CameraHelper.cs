@@ -13,10 +13,14 @@ namespace CommunityToolkit.WinUI.Helpers;
 /// Helper class for capturing frames from available camera sources.
 /// Make sure you have the capability webcam enabled for your app to access the device's camera.
 /// </summary>
+#pragma warning disable CA1063 // Implement IDisposable Correctly
 public class CameraHelper : IDisposable
+#pragma warning restore CA1063 // Implement IDisposable Correctly
 {
     private static IReadOnlyList<MediaFrameSourceGroup>? _frameSourceGroups;
+#pragma warning disable CA2213 // Disposable fields should be disposed
     private readonly SemaphoreSlim _semaphoreSlim = new SemaphoreSlim(1);
+#pragma warning restore CA2213 // Disposable fields should be disposed
     private MediaCapture? _mediaCapture;
     private MediaFrameReader? _frameReader;
     private MediaFrameSourceGroup? _group;

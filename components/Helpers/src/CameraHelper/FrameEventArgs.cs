@@ -10,7 +10,9 @@ namespace CommunityToolkit.WinUI.Helpers;
 /// <summary>
 /// Provides data for the <see cref="CameraHelper.FrameArrived"/> event.
 /// </summary>
+#pragma warning disable CA1001 // Types that own disposable fields should be disposable
 public class FrameEventArgs : EventArgs
+#pragma warning restore CA1001 // Types that own disposable fields should be disposable
 {
     private readonly SemaphoreSlim _semaphore = new SemaphoreSlim(1);
     private VideoFrame? _videoFrame;
