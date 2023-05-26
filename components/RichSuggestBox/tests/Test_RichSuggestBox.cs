@@ -359,7 +359,7 @@ public class Test_RichSuggestBox : VisualUITestBase
         var selection = rsb.TextDocument!.Selection;
         selection.TypeText(tokenText);
         await Task.Delay(10);   // Wait for SelectionChanged to be invoked
-        //await rsb.CommitSuggestionAsync(tokenText);
+        await rsb.CommitSuggestionAsync(tokenText);
         await Task.Delay(10);   // Wait for TextChanged to be invoked
     }
 }
