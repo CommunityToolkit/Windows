@@ -8,16 +8,8 @@
   <PropertyGroup Label="Configuration">
     <Import_RootNamespace>IncrementalLoadingCollectionExperiment.Tests</Import_RootNamespace>
   </PropertyGroup>
-  <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)ExampleIncrementalLoadingCollectionTestClass.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ExampleIncrementalLoadingCollectionTestPage.xaml.cs">
-      <DependentUpon>ExampleIncrementalLoadingCollectionTestPage.xaml</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Include="$(MSBuildThisFileDirectory)ExampleIncrementalLoadingCollectionTestPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
+ <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Test_IncrementalLoadingCollection.cs" />
+<Compile Include="$(MSBuildThisFileDirectory)DataSource.cs" />
+</ItemGroup>
 </Project>
