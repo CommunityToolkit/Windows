@@ -2,107 +2,297 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
-namespace CommunityToolkit.WinUI.Controls;
-
-/// <summary>
-/// This is an example control based off of the BoxPanel sample here: https://docs.microsoft.com/windows/apps/design/layout/boxpanel-example-custom-panel. If you need this similar sort of layout component for an application, see UniformGrid in the Toolkit.
-/// It is provided as an example of how to inherit from another control like <see cref="Panel"/>.
-/// You can choose to start here or from the <see cref="IncrementalLoadingCollection_ClassicBinding"/> or <see cref="IncrementalLoadingCollection_xBind"/> example components. Remove unused components and rename as appropriate.
-/// </summary>
-public partial class IncrementalLoadingCollection : Panel
+namespace CommunityToolkit.WinUI
 {
     /// <summary>
-    /// Identifies the <see cref="Orientation"/> property.
+    /// This class represents an <see cref="ObservableCollection{IType}"/> whose items can be loaded incrementally.
     /// </summary>
-    public static readonly DependencyProperty OrientationProperty =
-        DependencyProperty.Register(nameof(Orientation), typeof(Orientation), typeof(IncrementalLoadingCollection), new PropertyMetadata(null, OnOrientationChanged));
-
-    /// <summary>
-    /// Gets the preference of the rows/columns when there are a non-square number of children. Defaults to Vertical.
-    /// </summary>
-    public Orientation Orientation
+    /// <typeparam name="TSource">
+    /// The data source that must be loaded incrementally.
+    /// </typeparam>
+    /// <typeparam name="IType">
+    /// The type of collection items.
+    /// </typeparam>
+    /// <seealso cref="IIncrementalSource{TSource}"/>
+    /// <seealso cref="ISupportIncrementalLoading"/>
+    public class IncrementalLoadingCollection<TSource, IType> : ObservableCollection<IType>,
+         ISupportIncrementalLoading
+         where TSource : IIncrementalSource<IType>
     {
-        get { return (Orientation)GetValue(OrientationProperty); }
-        set { SetValue(OrientationProperty, value); }
-    }
+        private readonly SemaphoreSlim _mutex = new SemaphoreSlim(1);
 
-    // Invalidate our layout when the property changes.
-    private static void OnOrientationChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs args)
-    {
-        if (dependencyObject is IncrementalLoadingCollection panel)
+        /// <summary>
+        /// Gets or sets an <see cref="Action"/> that is called when a retrieval operation begins.
+        /// </summary>
+        public Action OnStartLoading { get; set; }
+
+        /// <summary>
+        /// Gets or sets an <see cref="Action"/> that is called when a retrieval operation ends.
+        /// </summary>
+        public Action OnEndLoading { get; set; }
+
+        /// <summary>
+        /// Gets or sets an <see cref="Action"/> that is called if an error occurs during data retrieval. The actual <see cref="Exception"/> is passed as an argument.
+        /// </summary>
+        public Action<Exception> OnError { get; set; }
+
+        /// <summary>
+        /// Gets a value indicating the source of incremental loading.
+        /// </summary>
+        protected TSource Source { get; }
+
+        /// <summary>
+        /// Gets a value indicating how many items that must be retrieved for each incremental call.
+        /// </summary>
+        protected int ItemsPerPage { get; }
+
+        /// <summary>
+        /// Gets or sets a value indicating The zero-based index of the current items page.
+        /// </summary>
+        protected int CurrentPageIndex { get; set; }
+
+        private bool _isLoading;
+        private bool _hasMoreItems;
+        private CancellationToken _cancellationToken;
+        private bool _refreshOnLoad;
+
+        /// <summary>
+        /// Gets a value indicating whether new items are being loaded.
+        /// </summary>
+        public bool IsLoading
         {
-            panel.InvalidateMeasure();
+            get
+            {
+                return _isLoading;
+            }
+
+            private set
+            {
+                if (value != _isLoading)
+                {
+                    _isLoading = value;
+                    OnPropertyChanged(new PropertyChangedEventArgs(nameof(IsLoading)));
+
+                    if (_isLoading)
+                    {
+                        OnStartLoading?.Invoke();
+                    }
+                    else
+                    {
+                        OnEndLoading?.Invoke();
+                    }
+                }
+            }
         }
-    }
 
-    // Store calculations we want to use between the Measure and Arrange methods.
-    int _columnCount;
-    double _cellWidth, _cellHeight;
-
-    protected override Size MeasureOverride(Size availableSize)
-    {
-        // Determine the square that can contain this number of items.
-        var maxrc = (int)Math.Ceiling(Math.Sqrt(Children.Count));
-        // Get an aspect ratio from availableSize, decides whether to trim row or column.
-        var aspectratio = availableSize.Width / availableSize.Height;
-        if (Orientation == Orientation.Vertical) { aspectratio = 1 / aspectratio; }
-
-        int rowcount;
-
-        // Now trim this square down to a rect, many times an entire row or column can be omitted.
-        if (aspectratio > 1)
+        /// <summary>
+        /// Gets a value indicating whether the collection contains more items to retrieve.
+        /// </summary>
+        public bool HasMoreItems
         {
-            rowcount = maxrc;
-            _columnCount = (maxrc > 2 && Children.Count <= maxrc * (maxrc - 1)) ? maxrc - 1 : maxrc;
+            get
+            {
+                if (_cancellationToken.IsCancellationRequested)
+                {
+                    return false;
+                }
+
+                return _hasMoreItems;
+            }
+
+            private set
+            {
+                if (value != _hasMoreItems)
+                {
+                    _hasMoreItems = value;
+                    OnPropertyChanged(new PropertyChangedEventArgs(nameof(HasMoreItems)));
+                }
+            }
         }
-        else
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="IncrementalLoadingCollection{TSource, IType}"/> class optionally specifying how many items to load for each data page.
+        /// </summary>
+        /// <param name="itemsPerPage">
+        /// The number of items to retrieve for each call. Default is 20.
+        /// </param>
+        /// <param name="onStartLoading">
+        /// An <see cref="Action"/> that is called when a retrieval operation begins.
+        /// </param>
+        /// <param name="onEndLoading">
+        /// An <see cref="Action"/> that is called when a retrieval operation ends.
+        /// </param>
+        /// <param name="onError">
+        /// An <see cref="Action"/> that is called if an error occurs during data retrieval.
+        /// </param>
+        /// <seealso cref="IIncrementalSource{TSource}"/>
+        public IncrementalLoadingCollection(int itemsPerPage = 20, Action onStartLoading = null, Action onEndLoading = null, Action<Exception> onError = null)
+            : this(Activator.CreateInstance<TSource>(), itemsPerPage, onStartLoading, onEndLoading, onError)
         {
-            rowcount = (maxrc > 2 && Children.Count <= maxrc * (maxrc - 1)) ? maxrc - 1 : maxrc;
-            _columnCount = maxrc;
         }
 
-        // Now that we have a column count, divide available horizontal, that's our cell width.
-        _cellWidth = (int)Math.Floor(availableSize.Width / _columnCount);
-        // Next get a cell height, same logic of dividing available vertical by rowcount.
-        _cellHeight = Double.IsInfinity(availableSize.Height) ? Double.PositiveInfinity : availableSize.Height / rowcount;
-
-        double maxcellheight = 0;
-
-        foreach (UIElement child in Children)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="IncrementalLoadingCollection{TSource, IType}"/> class using the specified <see cref="IIncrementalSource{TSource}"/> implementation and, optionally, how many items to load for each data page.
+        /// </summary>
+        /// <param name="source">
+        /// An implementation of the <see cref="IIncrementalSource{TSource}"/> interface that contains the logic to actually load data incrementally.
+        /// </param>
+        /// <param name="itemsPerPage">
+        /// The number of items to retrieve for each call. Default is 20.
+        /// </param>
+        /// <param name="onStartLoading">
+        /// An <see cref="Action"/> that is called when a retrieval operation begins.
+        /// </param>
+        /// <param name="onEndLoading">
+        /// An <see cref="Action"/> that is called when a retrieval operation ends.
+        /// </param>
+        /// <param name="onError">
+        /// An <see cref="Action"/> that is called if an error occurs during data retrieval.
+        /// </param>
+        /// <seealso cref="IIncrementalSource{TSource}"/>
+        public IncrementalLoadingCollection(TSource source, int itemsPerPage = 20, Action onStartLoading = null, Action onEndLoading = null, Action<Exception> onError = null)
         {
-            child.Measure(new Size(_cellWidth, _cellHeight));
-            maxcellheight = (child.DesiredSize.Height > maxcellheight) ? child.DesiredSize.Height : maxcellheight;
+            if (source == null)
+            {
+                throw new ArgumentNullException(nameof(source));
+            }
+
+            Source = source;
+
+            OnStartLoading = onStartLoading;
+            OnEndLoading = onEndLoading;
+            OnError = onError;
+
+            ItemsPerPage = itemsPerPage;
+            _hasMoreItems = true;
         }
 
-        return LimitUnboundedSize(availableSize, maxcellheight);
-    }
+        /// <summary>
+        /// Initializes incremental loading from the view.
+        /// </summary>
+        /// <param name="count">
+        /// The number of items to load.
+        /// </param>
+        /// <returns>
+        /// An object of the <see cref="LoadMoreItemsAsync(uint)"/> that specifies how many items have been actually retrieved.
+        /// </returns>
+        public IAsyncOperation<Microsoft.UI.Xaml.Data.LoadMoreItemsResult> LoadMoreItemsAsync(uint count)
+            => LoadMoreItemsAsync(count, new CancellationToken(false)).AsAsyncOperation();
 
-    // This method limits the panel height when no limit is imposed by the panel's parent.
-    // That can happen to height if the panel is close to the root of main app window.
-    // In this case, base the height of a cell on the max height from desired size
-    // and base the height of the panel on that number times the #rows.
-    Size LimitUnboundedSize(Size input, double maxcellheight)
-    { 
-        if (Double.IsInfinity(input.Height))
+        /// <summary>
+        /// Clears the collection and triggers/forces a reload of the first page
+        /// </summary>
+        /// <returns>This method does not return a result</returns>
+        public Task RefreshAsync()
         {
-            input.Height = maxcellheight * _columnCount;
-            _cellHeight = maxcellheight;
-        }
-        return input;
-    }
+            if (IsLoading)
+            {
+                _refreshOnLoad = true;
+            }
+            else
+            {
+                var previousCount = Count;
+                Clear();
+                CurrentPageIndex = 0;
+                HasMoreItems = true;
 
-    protected override Size ArrangeOverride(Size finalSize)
-    {
-        int count = 1;
-        double x, y;
-        foreach (UIElement child in Children)
-        {
-            x = (count - 1) % _columnCount * _cellWidth;
-            y = ((int)(count - 1) / _columnCount) * _cellHeight;
-            Point anchorPoint = new Point(x, y);
-            child.Arrange(new Rect(anchorPoint, child.DesiredSize));
-            count++;
+                if (previousCount == 0)
+                {
+                    // When the list was empty before clearing, the automatic reload isn't fired, so force a reload.
+                    return LoadMoreItemsAsync(0).AsTask();
+                }
+            }
+
+            return Task.CompletedTask;
         }
-        return finalSize;
+
+        /// <summary>
+        /// Actually performs the incremental loading.
+        /// </summary>
+        /// <param name="cancellationToken">
+        /// Used to propagate notification that operation should be canceled.
+        /// </param>
+        /// <returns>
+        /// Returns a collection of <typeparamref name="IType"/>.
+        /// </returns>
+        protected virtual async Task<IEnumerable<IType>> LoadDataAsync(CancellationToken cancellationToken)
+        {
+            var result = await Source.GetPagedItemsAsync(CurrentPageIndex, ItemsPerPage, cancellationToken)
+                .ContinueWith(
+                    t =>
+                    {
+                        if (t.IsFaulted)
+                        {
+                            throw t.Exception;
+                        }
+
+                        if (t.IsCompletedSuccessfully)
+                        {
+                            CurrentPageIndex += 1;
+                        }
+
+                        return t.Result;
+                    }, cancellationToken);
+
+            return result;
+        }
+
+        private async Task<LoadMoreItemsResult> LoadMoreItemsAsync(uint count, CancellationToken cancellationToken)
+        {
+            uint resultCount = 0;
+            _cancellationToken = cancellationToken;
+
+            // TODO (2021.05.05): Make use common AsyncMutex class.
+            // AsyncMutex is located at CommunityToolkit.WinUI.UI.Media/Extensions/System.Threading.Tasks/AsyncMutex.cs at the time of this note.
+            await _mutex.WaitAsync();
+            try
+            {
+                if (!_cancellationToken.IsCancellationRequested)
+                {
+                    IEnumerable<IType> data = null;
+                    try
+                    {
+                        IsLoading = true;
+                        data = await LoadDataAsync(_cancellationToken);
+                    }
+                    catch (OperationCanceledException)
+                    {
+                        // The operation has been canceled using the Cancellation Token.
+                    }
+                    catch (Exception ex) when (OnError != null)
+                    {
+                        OnError.Invoke(ex);
+                    }
+
+                    if (data != null && data.Any() && !_cancellationToken.IsCancellationRequested)
+                    {
+                        resultCount = (uint)data.Count();
+
+                        foreach (var item in data)
+                        {
+                            Add(item);
+                        }
+                    }
+                    else
+                    {
+                        HasMoreItems = false;
+                    }
+                }
+            }
+            finally
+            {
+                IsLoading = false;
+
+                if (_refreshOnLoad)
+                {
+                    _refreshOnLoad = false;
+                    await RefreshAsync();
+                }
+
+                _mutex.Release();
+            }
+
+            return new LoadMoreItemsResult { Count = resultCount };
+        }
     }
 }
