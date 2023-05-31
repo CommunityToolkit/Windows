@@ -5,10 +5,11 @@ description: The StaggeredLayout / StaggeredPanel virtualizes items in a column 
 keywords: StaggeredPanel, StaggeredLayout, Layout
 dev_langs:
   - csharp
-category: Controls
-subcategory: Layout
+category: Layouts
+subcategory: Panel
 discussion-id: 0
 issue-id: 0
+icon: staggeredpanel.png
 ---
 
 # StaggeredLayout

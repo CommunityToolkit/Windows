@@ -9,6 +9,7 @@ category: Xaml
 subcategory: Triggers
 discussion-id: 0
 issue-id: 0
+icon: default.png
 ---
 
 # Triggers

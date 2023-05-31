@@ -5,10 +5,11 @@ description: Presents items in a evenly-spaced set of rows or columns to fill th
 keywords: UniformGrid, grid, layout, responsive
 dev_langs:
   - csharp
-category: Controls
+category: Layouts
 subcategory: Layout
 discussion-id: 0
 issue-id: 0
+icon: uniformgrid.png
 ---
 
 The [`UniformGrid`](/dotnet/api/microsoft.toolkit.uwp.ui.controls.uniformgrid) control is a responsive layout control which arranges items in a evenly-spaced set of rows or columns to fill the total available display space.  Each cell in the grid, by default, will be the same size.

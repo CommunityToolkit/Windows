@@ -5,10 +5,11 @@ description: The WrapPanel Control positions child elements in sequential positi
 keywords: WrapPanel
 dev_langs:
   - csharp
-category: Controls
-subcategory: Layout
+category: Layouts
+subcategory: Panel
 discussion-id: 0
 issue-id: 0
+icon: wrappanel.png
 ---
 
 # WrapPanel

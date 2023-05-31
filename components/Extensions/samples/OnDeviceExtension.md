@@ -9,6 +9,7 @@ category: Extensions
 subcategory: Markup
 discussion-id: 0
 issue-id: 0
+icon: default.png
 ---
 
 # OnDeviceExtension

@@ -5,10 +5,11 @@ description: The ConstrainedBox is a FrameworkElement which can allow a develope
 keywords: viewbox, content decorator, ConstrainedBox
 dev_langs:
   - csharp
-category: Controls
-subcategory: Layout
+category: Layouts
+subcategory: None
 discussion-id: 0
 issue-id: 0
+icon: constrainedbox.png
 ---
 
 # ConstrainedBox

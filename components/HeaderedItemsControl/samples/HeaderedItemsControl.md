@@ -9,6 +9,7 @@ category: Controls
 subcategory: Layout
 discussion-id: 0
 issue-id: 0
+icon: headereditemscontrol.png
 ---
 
 # HeaderedItemsControl
