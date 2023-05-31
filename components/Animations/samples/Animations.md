@@ -1,7 +1,7 @@
 ---
 title: Implicit Animations
 author: Sergio0694
-description: A collection of implicit Composition animations that can be grouped togetherjkhkjhkjh
+description: A collection of implicit Composition animations that can be grouped together
 keywords: Animations, Effects, Layout, Composition, animationset
 dev_langs:
   - csharp
