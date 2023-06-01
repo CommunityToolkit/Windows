@@ -2,14 +2,9 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
-using System;
-using System.Threading.Tasks;
-using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Input;
 using Windows.ApplicationModel.DataTransfer;
 
-namespace CommunityToolkit.WinUI.UI.Controls
+namespace CommunityToolkit.WinUI.Controls
 {
     /// <summary>
     /// Methods related to Selection of items in the <see cref="TokenizingTextBox"/>.

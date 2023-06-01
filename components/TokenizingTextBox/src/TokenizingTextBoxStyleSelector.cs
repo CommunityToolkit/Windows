@@ -2,10 +2,7 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
-using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
-
-namespace CommunityToolkit.WinUI.UI.Controls
+namespace CommunityToolkit.WinUI.Controls
 {
     /// <summary>
     /// <see cref="StyleSelector"/> used by <see cref="TokenizingTextBox"/> to choose the proper <see cref="TokenizingTextBoxItem"/> container style (text entry or token).
