@@ -3,8 +3,8 @@
                     xmlns:controls="using:CommunityToolkit.WinUI.Controls"
                     xmlns:ui="using:CommunityToolkit.WinUI">
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="ms-appx:///CommunityToolkit.WinUI.Controls.TokenizingText/TokenizingTextBox/TokenizingTextBoxItem.Token.xaml" />
-        <ResourceDictionary Source="ms-appx:///CommunityToolkit.WinUI.Controls/TokenizingTextBox/TokenizingTextBoxItem.AutoSuggestBox.xaml" />
+        <ResourceDictionary Source="ms-appx:///CommunityToolkit.WinUI.Controls.TokenizingTextBox/TokenizingTextBoxItem.Token.xaml" />
+        <ResourceDictionary Source="ms-appx:///CommunityToolkit.WinUI.Controls.TokenizingTextBox/TokenizingTextBoxItem.AutoSuggestBox.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
     <!--  Resources for TokenizingTextBox  -->
@@ -53,10 +53,14 @@
         <Setter Property="ItemsPanel">
             <Setter.Value>
                 <ItemsPanelTemplate>
-                    <controls:WrapPanel ui:FrameworkElementExtensions.AncestorType="controls:TokenizingTextBox"
-                                        HorizontalSpacing="{Binding (ui:FrameworkElementExtensions.Ancestor).TokenSpacing, RelativeSource={RelativeSource Self}}"
+                    <StackPanel Orientation="Horizontal" Spacing="{Binding (ui:FrameworkElementExtensions.Ancestor).TokenSpacing, RelativeSource={RelativeSource Self}}"/>
+
+
+                    <!-- TO  DO: add StretchChild="Last". Remove for now as it crashes the app, see: https://github.com/CommunityToolkit/WindowsCommunityToolkit/issues/4772/>-->
+                    <!--<controls:WrapPanel ui:FrameworkElementExtensions.AncestorType="controls:TokenizingTextBox"
                                         StretchChild="Last"
-                                        VerticalSpacing="{Binding (ui:FrameworkElementExtensions.Ancestor).TokenSpacing, RelativeSource={RelativeSource Self}}" />
+                                        HorizontalSpacing="{Binding (ui:FrameworkElementExtensions.Ancestor).TokenSpacing, RelativeSource={RelativeSource Self}}"
+                                        VerticalSpacing="{Binding (ui:FrameworkElementExtensions.Ancestor).TokenSpacing, RelativeSource={RelativeSource Self}}" />-->
                 </ItemsPanelTemplate>
             </Setter.Value>
         </Setter>
