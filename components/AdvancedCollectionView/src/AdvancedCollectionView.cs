@@ -376,7 +376,9 @@ public partial class AdvancedCollectionView : IAdvancedCollectionView, INotifyPr
     /// <param name="x">Object A</param>
     /// <param name="y">Object B</param>
     /// <returns>Comparison value</returns>
+#pragma warning disable CA1033 // Interface methods should be callable by child types
     int IComparer<object>.Compare(object x, object y)
+#pragma warning restore CA1033 // Interface methods should be callable by child types
     {
         if (!_sortProperties.Any())
         {
