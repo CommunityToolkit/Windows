@@ -3,7 +3,12 @@
 // See the LICENSE file in the project root for more information.
 
 using Windows.System;
+
+#if WINAPPSDK
+using Microsoft.UI;
+#else
 using Windows.UI;
+#endif
 
 namespace CommunityToolkit.WinUI.Controls;
 
@@ -133,7 +138,7 @@ public partial class TokenizingTextBoxItem
     {
         Owner.RaiseQuerySubmitted(sender, args);
 
-        object chosenItem = null;
+        object? chosenItem = null;
         if (args.ChosenSuggestion != null)
         {
             chosenItem = args.ChosenSuggestion;
@@ -204,7 +209,11 @@ public partial class TokenizingTextBoxItem
         {
             bool lastDelimited = t[t.Length - 1] == Owner.TokenDelimiter[0];
 
+#if HAS_UNO
+            string[] tokens = t.Split(new[] { Owner.TokenDelimiter }, System.StringSplitOptions.RemoveEmptyEntries);
+#else
             string[] tokens = t.Split(Owner.TokenDelimiter);
+#endif
             int numberToProcess = lastDelimited ? tokens.Length : tokens.Length - 1;
             for (int position = 0; position < numberToProcess; position++)
             {
@@ -226,7 +235,7 @@ public partial class TokenizingTextBoxItem
             }
         }
     }
-    #endregion
+#endregion
 
     #region Visual State Management for Parent
     private void AutoSuggestBox_PointerEntered(object sender, PointerRoutedEventArgs e)
@@ -294,7 +303,7 @@ public partial class TokenizingTextBoxItem
             _autoSuggestTextBox.SelectionChanging -= AutoSuggestTextBox_SelectionChanging;
         }
 
-        _autoSuggestTextBox = _autoSuggestBox.FindDescendant<TextBox>() as TextBox;
+        _autoSuggestTextBox = _autoSuggestBox.FindDescendant<TextBox>()!;
 
         if (_autoSuggestTextBox != null)
         {
@@ -365,24 +374,28 @@ public partial class TokenizingTextBoxItem
 
     private void UpdateTokensCounter(TokenizingTextBoxItem ttbi)
     {
+#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
         var maxTokensCounter = (TextBlock)_autoSuggestBox?.FindDescendant(PART_TokensCounter);
+#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
         if (maxTokensCounter == null)
         {
             return;
         }
 
-        void OnTokenCountChanged(TokenizingTextBox ttb, object value = null)
+        void OnTokenCountChanged(TokenizingTextBox ttb, object? value = null)
         {
-            var itemsSource = ttb.ItemsSource as InterspersedObservableCollection;
-            var currentTokens = itemsSource.ItemsSource.Count;
-            var maxTokens = ttb.MaximumTokens;
+            if (ttb.ItemsSource is InterspersedObservableCollection itemsSource)
+            {
+                var currentTokens = itemsSource.ItemsSource.Count;
+                var maxTokens = ttb.MaximumTokens;
 
-            maxTokensCounter.Text = $"{currentTokens}/{maxTokens}";
-            maxTokensCounter.Visibility = Visibility.Visible;
+                maxTokensCounter.Text = $"{currentTokens}/{maxTokens}";
+                maxTokensCounter.Visibility = Visibility.Visible;
 
-            maxTokensCounter.Foreground = (currentTokens >= maxTokens)
-                ? new SolidColorBrush(Colors.Red)
-                : _autoSuggestBox.Foreground;
+                maxTokensCounter.Foreground = (currentTokens >= maxTokens)
+                    ? new SolidColorBrush(Colors.Red)
+                    : _autoSuggestBox!.Foreground;
+            }
         }
 
         ttbi.Owner.TokenItemAdded -= OnTokenCountChanged;

@@ -103,11 +103,14 @@ public partial class TokenizingTextBox : ListViewBase
     {
         if (d is TokenizingTextBox ttb && ttb._currentTextEdit != null)
         {
-            ttb._currentTextEdit.Text = e.NewValue as string;
+            if (e.NewValue is string newValue)
+            {
+                ttb._currentTextEdit.Text = newValue;
 
-            // Notify inner container of text change, see issue #4749
-            var item = ttb.ContainerFromItem(ttb._currentTextEdit) as TokenizingTextBoxItem;
-            item?.UpdateText(ttb._currentTextEdit.Text);
+                // Notify inner container of text change, see issue #4749
+                var item = ttb.ContainerFromItem(ttb._currentTextEdit) as TokenizingTextBoxItem;
+                item?.UpdateText(ttb._currentTextEdit.Text);
+            }
         }
     }
 
@@ -179,9 +182,12 @@ public partial class TokenizingTextBox : ListViewBase
                 {
                     var token = ttb._innerItemsSource.ItemsSource[i - 1];
 
-                    // Force remove the items. No warning and no option to cancel.
-                    ttb._innerItemsSource.Remove(token);
-                    ttb.TokenItemRemoved?.Invoke(ttb, token);
+                    if (token != null)
+                    {
+                        // Force remove the items. No warning and no option to cancel.
+                        ttb._innerItemsSource.Remove(token!);
+                        ttb.TokenItemRemoved?.Invoke(ttb, token);
+                    }
                 }
             }
         }

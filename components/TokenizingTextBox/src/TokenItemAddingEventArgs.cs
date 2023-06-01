@@ -2,9 +2,9 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
-using CommunityToolkit.WinUI.Deferred;
+using CommunityToolkit.Common.Deferred;
 
-namespace CommunityToolkit.WinUI.UI.Controls;
+namespace CommunityToolkit.WinUI.Controls;
 
 /// <summary>
 /// Event arguments for <see cref="TokenizingTextBox.TokenItemAdding"/> event.
@@ -28,5 +28,5 @@ public class TokenItemAddingEventArgs : DeferredCancelEventArgs
     /// <summary>
     /// Gets or sets the item to be added to the <see cref="TokenizingTextBox"/>. If null, <see cref="TokenText"/> string will be added.
     /// </summary>
-    public object Item { get; set; } = null;
+    public object? Item { get; set; } = null;
 }

@@ -4,111 +4,115 @@
 
 using Windows.System;
 
-namespace CommunityToolkit.WinUI.Controls
+namespace CommunityToolkit.WinUI.Controls;
+
+/// <summary>
+/// A control that manages as the item logic for the <see cref="TokenizingTextBox"/> control.
+/// </summary>
+[TemplatePart(Name = PART_ClearButton, Type = typeof(ButtonBase))] //// Token case
+public partial class TokenizingTextBoxItem : ListViewItem
 {
+    private const string PART_ClearButton = "PART_ClearButton";
+
+    private Button _clearButton;
+
     /// <summary>
-    /// A control that manages as the item logic for the <see cref="TokenizingTextBox"/> control.
+    /// Event raised when the 'Clear' Button is clicked.
     /// </summary>
-    [TemplatePart(Name = PART_ClearButton, Type = typeof(ButtonBase))] //// Token case
-    public partial class TokenizingTextBoxItem : ListViewItem
+    public event TypedEventHandler<TokenizingTextBoxItem, RoutedEventArgs> ClearClicked;
+
+    /// <summary>
+    /// Event raised when the delete key or a backspace is pressed.
+    /// </summary>
+    public event TypedEventHandler<TokenizingTextBoxItem, RoutedEventArgs> ClearAllAction;
+
+    /// <summary>
+    /// Identifies the <see cref="ClearButtonStyle"/> property.
+    /// </summary>
+    public static readonly DependencyProperty ClearButtonStyleProperty = DependencyProperty.Register(
+        nameof(ClearButtonStyle),
+        typeof(Style),
+        typeof(TokenizingTextBoxItem),
+        new PropertyMetadata(Visibility.Collapsed));
+
+    /// <summary>
+    /// Gets or sets the Style for the 'Clear' Button
+    /// </summary>
+    public Style ClearButtonStyle
     {
-        private const string PART_ClearButton = "PART_ClearButton";
+        get => (Style)GetValue(ClearButtonStyleProperty);
+        set => SetValue(ClearButtonStyleProperty, value);
+    }
 
-        private Button _clearButton;
+    internal TokenizingTextBox Owner
+    {
+        get { return (TokenizingTextBox)GetValue(OwnerProperty); }
+        set { SetValue(OwnerProperty, value); }
+    }
 
-        /// <summary>
-        /// Event raised when the 'Clear' Button is clicked.
-        /// </summary>
-        public event TypedEventHandler<TokenizingTextBoxItem, RoutedEventArgs> ClearClicked;
+    // Using a DependencyProperty as the backing store for Owner.  This enables animation, styling, binding, etc...
+    internal static readonly DependencyProperty OwnerProperty =
+        DependencyProperty.Register(nameof(Owner), typeof(TokenizingTextBox), typeof(TokenizingTextBoxItem), new PropertyMetadata(null));
 
-        /// <summary>
-        /// Event raised when the delete key or a backspace is pressed.
-        /// </summary>
-        public event TypedEventHandler<TokenizingTextBoxItem, RoutedEventArgs> ClearAllAction;
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TokenizingTextBoxItem"/> class.
+    /// </summary>
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+    public TokenizingTextBoxItem()
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+    {
+        DefaultStyleKey = typeof(TokenizingTextBoxItem);
 
-        /// <summary>
-        /// Identifies the <see cref="ClearButtonStyle"/> property.
-        /// </summary>
-        public static readonly DependencyProperty ClearButtonStyleProperty = DependencyProperty.Register(
-            nameof(ClearButtonStyle),
-            typeof(Style),
-            typeof(TokenizingTextBoxItem),
-            new PropertyMetadata(Visibility.Collapsed));
+        // TODO: only add these if token?
+        RightTapped += TokenizingTextBoxItem_RightTapped;
+        KeyDown += TokenizingTextBoxItem_KeyDown;
+    }
 
-        /// <summary>
-        /// Gets or sets the Style for the 'Clear' Button
-        /// </summary>
-        public Style ClearButtonStyle
+    /// <inheritdoc/>
+    protected override void OnApplyTemplate()
+    {
+        base.OnApplyTemplate();
+
+        if (GetTemplateChild(PART_AutoSuggestBox) is AutoSuggestBox suggestbox)
         {
-            get => (Style)GetValue(ClearButtonStyleProperty);
-            set => SetValue(ClearButtonStyleProperty, value);
+            OnApplyTemplateAutoSuggestBox(suggestbox);
         }
 
-        internal TokenizingTextBox Owner
+        if (_clearButton != null)
         {
-            get { return (TokenizingTextBox)GetValue(OwnerProperty); }
-            set { SetValue(OwnerProperty, value); }
+            _clearButton.Click -= ClearButton_Click;
         }
 
-        // Using a DependencyProperty as the backing store for Owner.  This enables animation, styling, binding, etc...
-        internal static readonly DependencyProperty OwnerProperty =
-            DependencyProperty.Register(nameof(Owner), typeof(TokenizingTextBox), typeof(TokenizingTextBoxItem), new PropertyMetadata(null));
+        _clearButton = (Button)GetTemplateChild(PART_ClearButton);
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="TokenizingTextBoxItem"/> class.
-        /// </summary>
-        public TokenizingTextBoxItem()
+        if (_clearButton != null)
         {
-            DefaultStyleKey = typeof(TokenizingTextBoxItem);
-
-            // TODO: only add these if token?
-            RightTapped += TokenizingTextBoxItem_RightTapped;
-            KeyDown += TokenizingTextBoxItem_KeyDown;
+            _clearButton.Click += ClearButton_Click;
         }
+    }
 
-        /// <inheritdoc/>
-        protected override void OnApplyTemplate()
+    private void ClearButton_Click(object sender, RoutedEventArgs e)
+    {
+        ClearClicked?.Invoke(this, e);
+    }
+
+    private void TokenizingTextBoxItem_RightTapped(object sender, RightTappedRoutedEventArgs e)
+    {
+        ContextFlyout.ShowAt(this);
+    }
+
+    private void TokenizingTextBoxItem_KeyDown(object sender, KeyRoutedEventArgs e)
+    {
+        if (!(Content is ITokenStringContainer))
         {
-            base.OnApplyTemplate();
-
-            OnApplyTemplateAutoSuggestBox(GetTemplateChild(PART_AutoSuggestBox) as AutoSuggestBox);
-
-            if (_clearButton != null)
+            // We only want to 'remove' our token if we're not a textbox.
+            switch (e.Key)
             {
-                _clearButton.Click -= ClearButton_Click;
-            }
-
-            _clearButton = (Button)GetTemplateChild(PART_ClearButton);
-
-            if (_clearButton != null)
-            {
-                _clearButton.Click += ClearButton_Click;
-            }
-        }
-
-        private void ClearButton_Click(object sender, RoutedEventArgs e)
-        {
-            ClearClicked?.Invoke(this, e);
-        }
-
-        private void TokenizingTextBoxItem_RightTapped(object sender, RightTappedRoutedEventArgs e)
-        {
-            ContextFlyout.ShowAt(this);
-        }
-
-        private void TokenizingTextBoxItem_KeyDown(object sender, KeyRoutedEventArgs e)
-        {
-            if (!(Content is ITokenStringContainer))
-            {
-                // We only want to 'remove' our token if we're not a textbox.
-                switch (e.Key)
+                case VirtualKey.Back:
+                case VirtualKey.Delete:
                 {
-                    case VirtualKey.Back:
-                    case VirtualKey.Delete:
-                    {
-                        ClearAllAction?.Invoke(this, e);
-                        break;
-                    }
+                    ClearAllAction?.Invoke(this, e);
+                    break;
                 }
             }
         }

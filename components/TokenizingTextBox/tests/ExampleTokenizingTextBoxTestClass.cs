@@ -57,7 +57,7 @@ public partial class ExampleTokenizingTextBoxTestClass : VisualUITestBase
     public void SimpleUIExamplePageTest(ExampleTokenizingTextBoxTestPage page)
     {
         // You can use the Toolkit Visual Tree helpers here to find the component by type or name:
-        var component = page.FindDescendant<TokenizingTextBox_ClassicBinding>();
+        var component = page.FindDescendant<TokenizingTextBox>();
 
         Assert.IsNotNull(component);
 
@@ -74,7 +74,7 @@ public partial class ExampleTokenizingTextBoxTestClass : VisualUITestBase
         // Note, this is already done by loading a Page with the [UIThreadTestMethod] helper.
         await CompositionTargetHelper.ExecuteAfterCompositionRenderingAsync(() => { });
 
-        var component = page.FindDescendant<TokenizingTextBox_ClassicBinding>();
+        var component = page.FindDescendant<TokenizingTextBox>();
 
         Assert.IsNotNull(component);
     }
@@ -89,7 +89,7 @@ public partial class ExampleTokenizingTextBoxTestClass : VisualUITestBase
     {
         await EnqueueAsync(() =>
         {
-            var component = new TokenizingTextBox_ClassicBinding();
+            var component = new TokenizingTextBox();
             Assert.IsNotNull(component);
         });
     }
@@ -101,7 +101,7 @@ public partial class ExampleTokenizingTextBoxTestClass : VisualUITestBase
     {
         await EnqueueAsync(async () =>
         {
-            var component = new TokenizingTextBox_ClassicBinding();
+            var component = new TokenizingTextBox();
             Assert.IsNotNull(component);
             Assert.IsFalse(component.IsLoaded);
 
@@ -119,7 +119,7 @@ public partial class ExampleTokenizingTextBoxTestClass : VisualUITestBase
     [UIThreadTestMethod]
     public async Task ComplexAsyncLoadUIExampleWithoutDispatcherTest()
     {
-        var component = new TokenizingTextBox_ClassicBinding();
+        var component = new TokenizingTextBox();
         Assert.IsNotNull(component);
         Assert.IsFalse(component.IsLoaded);
 

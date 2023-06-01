@@ -2,19 +2,21 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Threading.Tasks;
+
+#if WINAPPSDK
 using CommunityToolkit.WinUI.Deferred;
-using CommunityToolkit.WinUI.UI.Automation.Peers;
-using CommunityToolkit.WinUI.UI.Helpers;
+using Microsoft.UI.Dispatching;
 using Microsoft.UI.Input;
-using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Automation.Peers;
-using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Input;
+using VirtualKey = Windows.System.VirtualKey;
+using DispatcherQueuePriority = Microsoft.UI.Dispatching.DispatcherQueuePriority;
+#else
+using DispatcherQueuePriority = Windows.System.DispatcherQueuePriority;
+#endif
 using Windows.System;
 using Windows.UI.Core;
+using Windows.Foundation.Metadata;
+using CommunityToolkit.WinUI.Automation.Peers;
+using CommunityToolkit.WinUI.Helpers;
 
 namespace CommunityToolkit.WinUI.Controls;
 
@@ -36,13 +38,21 @@ public partial class TokenizingTextBox : ListViewBase
     /// <summary>
     /// Gets a value indicating whether the shift key is currently in a pressed state
     /// </summary>
-    internal static bool IsShiftPressed => InputKeyboardSource.GetKeyStateForCurrentThread(VirtualKey.Shift).HasFlag(CoreVirtualKeyStates.Down);
 
-    /// <summary>
-    /// Gets a value indicating whether the control key is currently in a pressed state
-    /// </summary>
-    internal bool IsControlPressed => InputKeyboardSource.GetKeyStateForCurrentThread(VirtualKey.Control).HasFlag(CoreVirtualKeyStates.Down);
+#if WINAPPSDK
+ internal static bool IsShiftPressed => InputKeyboardSource.GetKeyStateForCurrentThread(VirtualKey.Shift).HasFlag(CoreVirtualKeyStates.Down);
+#else
+    internal static bool IsShiftPressed => CoreWindow.GetForCurrentThread()!.GetKeyState(VirtualKey.Shift).HasFlag(CoreVirtualKeyStates.Down);
+#endif
+/// <summary>
+/// Gets a value indicating whether the control key is currently in a pressed state
+/// </summary>
 
+#if WINAPPSDK
+ internal bool IsControlPressed => InputKeyboardSource.GetKeyStateForCurrentThread(VirtualKey.Control).HasFlag(CoreVirtualKeyStates.Down);
+#else
+    internal bool IsControlPressed => CoreWindow.GetForCurrentThread()!.GetKeyState(VirtualKey.Control).HasFlag(CoreVirtualKeyStates.Down);
+#endif
     internal bool PauseTokenClearOnFocus { get; set; }
 
     internal bool IsClearingForClick { get; set; }
@@ -54,7 +64,9 @@ public partial class TokenizingTextBox : ListViewBase
     /// <summary>
     /// Initializes a new instance of the <see cref="TokenizingTextBox"/> class.
     /// </summary>
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
     public TokenizingTextBox()
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
     {
         // Setup our base state of our collection
         _innerItemsSource = new InterspersedObservableCollection(new ObservableCollection<object>()); // TODO: Test this still will let us bind to ItemsSource in XAML?
@@ -90,8 +102,8 @@ public partial class TokenizingTextBox : ListViewBase
                 }
             }
 
-// Add our text box at the end of items and set its default value to our initial text, fix for #4749
-    	_currentTextEdit = _lastTextEdit = new PretokenStringContainer(true) { Text = Text };
+            // Add our text box at the end of items and set its default value to our initial text, fix for #4749
+            _currentTextEdit = _lastTextEdit = new PretokenStringContainer(true) { Text = Text };
             _innerItemsSource.Insert(_innerItemsSource.Count, _currentTextEdit);
             ItemsSource = _innerItemsSource;
         }
@@ -135,7 +147,10 @@ public partial class TokenizingTextBox : ListViewBase
     {
         if (Items?.Count > 0)
         {
-            (ContainerFromIndex(Items.Count - 1) as TokenizingTextBoxItem).Focus(FocusState.Programmatic);
+            if (ContainerFromIndex(Items.Count - 1) is TokenizingTextBoxItem container)
+            {
+                container.Focus(FocusState.Programmatic);
+            }
         }
     }
 
@@ -197,12 +212,13 @@ public partial class TokenizingTextBox : ListViewBase
 
         var selectAllMenuItem = new MenuFlyoutItem
         {
-            Text = "WCT_TokenizingTextBox_MenuFlyout_SelectAll".GetLocalized("CommunityToolkit.WinUI.UI.Controls.Input/Resources")
+            // TO DO: "WCT_TokenizingTextBox_MenuFlyout_SelectAll".GetLocalized("Microsoft.Toolkit.Uwp.UI.Controls.Input/Resources")
+            Text = "Select all"
         };
         selectAllMenuItem.Click += (s, e) => this.SelectAllTokensAndText();
         var menuFlyout = new MenuFlyout();
         menuFlyout.Items.Add(selectAllMenuItem);
-        if (XamlRoot != null)
+        if (IsXamlRootAvailable && XamlRoot != null)
         {
             menuFlyout.XamlRoot = XamlRoot;
         }
@@ -238,23 +254,29 @@ public partial class TokenizingTextBox : ListViewBase
                 await RemoveAllSelectedTokens();
 
                 // Wait for removal of old items
+#if WINAPPSDK
                 _ = DispatcherQueue.EnqueueAsync(
+#else
+                var dispatcherQueue = DispatcherQueue.GetForCurrentThread();
+                _ = dispatcherQueue.EnqueueAsync(
+#endif
                     () =>
                     {
                         // If we're before the last textbox and it's empty, redirect focus to that one instead
                         if (index == _innerItemsSource.Count - 1 && string.IsNullOrWhiteSpace(_lastTextEdit.Text))
                         {
-                            var lastContainer = ContainerFromItem(_lastTextEdit) as TokenizingTextBoxItem;
+                            if (ContainerFromItem(_lastTextEdit) is TokenizingTextBoxItem lastContainer)
+                            {
+                                lastContainer.UseCharacterAsUser = true; // Make sure we trigger a refresh of suggested items.
 
-                            lastContainer.UseCharacterAsUser = true; // Make sure we trigger a refresh of suggested items.
+                                _lastTextEdit.Text = string.Empty + args.Character;
 
-                            _lastTextEdit.Text = string.Empty + args.Character;
+                                UpdateCurrentTextEdit(_lastTextEdit);
 
-                            UpdateCurrentTextEdit(_lastTextEdit);
+                                lastContainer._autoSuggestTextBox.SelectionStart = 1; // Set position to after our new character inserted
 
-                            lastContainer._autoSuggestTextBox.SelectionStart = 1; // Set position to after our new character inserted
-
-                            lastContainer._autoSuggestTextBox.Focus(FocusState.Keyboard);
+                                lastContainer._autoSuggestTextBox.Focus(FocusState.Keyboard);
+                            }
                         }
                         else
                         {
@@ -265,29 +287,34 @@ public partial class TokenizingTextBox : ListViewBase
                             _innerItemsSource.Insert(index, _currentTextEdit);
 
                             // Need to wait for containerization
+#if WINAPPSDK
                             _ = DispatcherQueue.EnqueueAsync(
+#else
+                            _ = dispatcherQueue.EnqueueAsync(
+#endif
                                 () =>
                                 {
-                                    var newContainer = ContainerFromIndex(index) as TokenizingTextBoxItem; // Should be our last text box
-
-                                    newContainer.UseCharacterAsUser = true; // Make sure we trigger a refresh of suggested items.
-
-                                    void WaitForLoad(object s, RoutedEventArgs eargs)
+                                    if (ContainerFromIndex(index) is TokenizingTextBoxItem newContainer) // Should be our last text box
                                     {
-                                        if (newContainer._autoSuggestTextBox != null)
-                                        {
-                                            newContainer._autoSuggestTextBox.SelectionStart = 1; // Set position to after our new character inserted
+                                        newContainer.UseCharacterAsUser = true; // Make sure we trigger a refresh of suggested items.
 
-                                            newContainer._autoSuggestTextBox.Focus(FocusState.Keyboard);
+                                        void WaitForLoad(object s, RoutedEventArgs eargs)
+                                        {
+                                            if (newContainer._autoSuggestTextBox != null)
+                                            {
+                                                newContainer._autoSuggestTextBox.SelectionStart = 1; // Set position to after our new character inserted
+
+                                                newContainer._autoSuggestTextBox.Focus(FocusState.Keyboard);
+                                            }
+
+                                            newContainer.Loaded -= WaitForLoad;
                                         }
 
-                                        newContainer.Loaded -= WaitForLoad;
+                                        newContainer.AutoSuggestTextBoxLoaded += WaitForLoad;
                                     }
-
-                                    newContainer.AutoSuggestTextBoxLoaded += WaitForLoad;
-                                }, Microsoft.UI.Dispatching.DispatcherQueuePriority.Normal);
+                                }, DispatcherQueuePriority.Normal);
                         }
-                    }, Microsoft.UI.Dispatching.DispatcherQueuePriority.Normal);
+                    }, DispatcherQueuePriority.Normal);
             }
             else
             {
@@ -295,16 +322,18 @@ public partial class TokenizingTextBox : ListViewBase
                 // This code is only fires during an edgecase where an item is in the process of being deleted and the user inputs a character before the focus has been redirected to a string container.
                 if (_innerItemsSource[_innerItemsSource.Count - 1] is ITokenStringContainer textToken)
                 {
-                    var last = ContainerFromIndex(Items.Count - 1) as TokenizingTextBoxItem; // Should be our last text box
-                    var text = last._autoSuggestTextBox.Text;
-                    var selectionStart = last._autoSuggestTextBox.SelectionStart;
-                    var position = selectionStart > text.Length ? text.Length : selectionStart;
-                    textToken.Text = text.Substring(0, position) + args.Character +
-                                     text.Substring(position);
+                    if (ContainerFromIndex(Items.Count - 1) is TokenizingTextBoxItem last) // Should be our last text box
+                    {
+                        var text = last._autoSuggestTextBox.Text;
+                        var selectionStart = last._autoSuggestTextBox.SelectionStart;
+                        var position = selectionStart > text.Length ? text.Length : selectionStart;
+                        textToken.Text = text.Substring(0, position) + args.Character +
+                                         text.Substring(position);
 
-                    last._autoSuggestTextBox.SelectionStart = position + 1; // Set position to after our new character inserted
+                        last._autoSuggestTextBox.SelectionStart = position + 1; // Set position to after our new character inserted
 
-                    last._autoSuggestTextBox.Focus(FocusState.Keyboard);
+                        last._autoSuggestTextBox.Focus(FocusState.Keyboard);
+                    }
                 }
             }
         }
@@ -312,13 +341,13 @@ public partial class TokenizingTextBox : ListViewBase
 
     private object GetFocusedElement()
     {
-        if (XamlRoot != null)
+        if (IsXamlRootAvailable && XamlRoot != null)
         {
-            return FocusManager.GetFocusedElement(XamlRoot);
+            return FocusManager.GetFocusedElement(XamlRoot)!;
         }
         else
         {
-            return FocusManager.GetFocusedElement();
+            return FocusManager.GetFocusedElement()!;
         }
     }
 
@@ -338,48 +367,51 @@ public partial class TokenizingTextBox : ListViewBase
     {
         base.PrepareContainerForItemOverride(element, item);
 
-        var tokenitem = element as TokenizingTextBoxItem;
-
-        tokenitem.Owner = this;
-
-        tokenitem.ContentTemplateSelector = TokenItemTemplateSelector;
-        tokenitem.ContentTemplate = TokenItemTemplate;
-
-        tokenitem.ClearClicked -= TokenizingTextBoxItem_ClearClicked;
-        tokenitem.ClearClicked += TokenizingTextBoxItem_ClearClicked;
-
-        tokenitem.ClearAllAction -= TokenizingTextBoxItem_ClearAllAction;
-        tokenitem.ClearAllAction += TokenizingTextBoxItem_ClearAllAction;
-
-        tokenitem.GotFocus -= TokenizingTextBoxItem_GotFocus;
-        tokenitem.GotFocus += TokenizingTextBoxItem_GotFocus;
-
-        tokenitem.LostFocus -= TokenizingTextBoxItem_LostFocus;
-        tokenitem.LostFocus += TokenizingTextBoxItem_LostFocus;
-
-        var menuFlyout = new MenuFlyout();
-
-        var removeMenuItem = new MenuFlyoutItem
+        if (element is TokenizingTextBoxItem tokenitem)
         {
-            Text = "WCT_TokenizingTextBoxItem_MenuFlyout_Remove".GetLocalized("CommunityToolkit.WinUI.UI.Controls.Input/Resources")
-        };
-        removeMenuItem.Click += (s, e) => TokenizingTextBoxItem_ClearClicked(tokenitem, null);
+            tokenitem.Owner = this;
 
-        menuFlyout.Items.Add(removeMenuItem);
-        if (XamlRoot != null)
-        {
-            menuFlyout.XamlRoot = XamlRoot;
+            tokenitem.ContentTemplateSelector = TokenItemTemplateSelector;
+            tokenitem.ContentTemplate = TokenItemTemplate;
+
+            tokenitem.ClearClicked -= TokenizingTextBoxItem_ClearClicked;
+            tokenitem.ClearClicked += TokenizingTextBoxItem_ClearClicked;
+
+            tokenitem.ClearAllAction -= TokenizingTextBoxItem_ClearAllAction;
+            tokenitem.ClearAllAction += TokenizingTextBoxItem_ClearAllAction;
+
+            tokenitem.GotFocus -= TokenizingTextBoxItem_GotFocus;
+            tokenitem.GotFocus += TokenizingTextBoxItem_GotFocus;
+
+            tokenitem.LostFocus -= TokenizingTextBoxItem_LostFocus;
+            tokenitem.LostFocus += TokenizingTextBoxItem_LostFocus;
+
+            var menuFlyout = new MenuFlyout();
+
+            var removeMenuItem = new MenuFlyoutItem
+            {
+                // TO DO: Localize - "WCT_TokenizingTextBoxItem_MenuFlyout_Remove".GetLocalized("Microsoft.Toolkit.Uwp.UI.Controls.Input/Resources")
+                Text = "Remove"
+            };
+            removeMenuItem.Click += (s, e) => TokenizingTextBoxItem_ClearClicked(tokenitem, null);
+
+            menuFlyout.Items.Add(removeMenuItem);
+            if (IsXamlRootAvailable && XamlRoot != null)
+            {
+                menuFlyout.XamlRoot = XamlRoot;
+            }
+
+            var selectAllMenuItem = new MenuFlyoutItem
+            {
+                // TO DO: Localize - "WCT_TokenizingTextBox_MenuFlyout_SelectAll".GetLocalized("Microsoft.Toolkit.Uwp.UI.Controls.Input/Resources")
+                Text = "Select all"
+            };
+            selectAllMenuItem.Click += (s, e) => this.SelectAllTokensAndText();
+
+            menuFlyout.Items.Add(selectAllMenuItem);
+
+            tokenitem.ContextFlyout = menuFlyout;
         }
-
-        var selectAllMenuItem = new MenuFlyoutItem
-        {
-            Text = "WCT_TokenizingTextBox_MenuFlyout_SelectAll".GetLocalized("CommunityToolkit.WinUI.UI.Controls.Input/Resources")
-        };
-        selectAllMenuItem.Click += (s, e) => this.SelectAllTokensAndText();
-
-        menuFlyout.Items.Add(selectAllMenuItem);
-
-        tokenitem.ContextFlyout = menuFlyout;
     }
     #endregion
 
@@ -428,11 +460,13 @@ public partial class TokenizingTextBox : ListViewBase
     {
         while (_innerItemsSource.Count > 1)
         {
-            var container = ContainerFromItem(_innerItemsSource[0]) as TokenizingTextBoxItem;
-            if (!await RemoveTokenAsync(container, _innerItemsSource[0]))
+            if (ContainerFromItem(_innerItemsSource[0]) is TokenizingTextBoxItem container)
             {
-                // if a removal operation fails then stop the clear process
-                break;
+                if (!await RemoveTokenAsync(container, _innerItemsSource[0]))
+                {
+                    // if a removal operation fails then stop the clear process
+                    break;
+                }
             }
         }
 
@@ -521,7 +555,7 @@ public partial class TokenizingTextBox : ListViewBase
     /// the data parameter is passed in optionally to support UX UTs. When running in the UT the Container items are not manifest.
     /// </remarks>
     /// <returns><b>true</b> if the item was removed successfully, <b>false</b> otherwise</returns>
-    private async Task<bool> RemoveTokenAsync(TokenizingTextBoxItem item, object data = null)
+    private async Task<bool> RemoveTokenAsync(TokenizingTextBoxItem item, object? data = null)
     {
         if (data == null)
         {
@@ -572,4 +606,6 @@ public partial class TokenizingTextBox : ListViewBase
             });
         }
     }
+
+    public static bool IsXamlRootAvailable { get; } = ApiInformation.IsPropertyPresent("Windows.UI.Xaml.UIElement", "XamlRoot");
 }

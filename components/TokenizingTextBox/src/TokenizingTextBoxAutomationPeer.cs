@@ -3,7 +3,11 @@
 // See the LICENSE file in the project root for more information.
 
 using CommunityToolkit.WinUI.Controls;
+#if WINAPPSDK
 using Microsoft.UI.Xaml.Automation.Provider;
+#else
+using Windows.UI.Xaml.Automation.Provider;
+#endif
 
 namespace CommunityToolkit.WinUI.Automation.Peers;
 
@@ -35,7 +39,9 @@ public class TokenizingTextBoxAutomationPeer : ListViewBaseAutomationPeer, IValu
     {
         get
         {
+#pragma warning disable CS8603 // Possible null reference return.
             return Owner as TokenizingTextBox;
+#pragma warning restore CS8603 // Possible null reference return.
         }
     }
 
@@ -109,7 +115,7 @@ public class TokenizingTextBoxAutomationPeer : ListViewBaseAutomationPeer, IValu
         ItemCollection items = owner.Items;
         if (items.Count <= 0)
         {
-            return null;
+            return null!;
         }
 
         List<AutomationPeer> peers = new List<AutomationPeer>(items.Count);

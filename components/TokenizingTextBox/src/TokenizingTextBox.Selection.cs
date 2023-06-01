@@ -4,68 +4,79 @@
 
 using Windows.ApplicationModel.DataTransfer;
 
-namespace CommunityToolkit.WinUI.Controls
+#if WINAPPSDK
+using Microsoft.UI.Dispatching;
+#else
+using Windows.System;
+#endif
+
+namespace CommunityToolkit.WinUI.Controls;
+
+/// <summary>
+/// Methods related to Selection of items in the <see cref="TokenizingTextBox"/>.
+/// </summary>
+public partial class TokenizingTextBox
 {
-    /// <summary>
-    /// Methods related to Selection of items in the <see cref="TokenizingTextBox"/>.
-    /// </summary>
-    public partial class TokenizingTextBox
+    private enum MoveDirection
     {
-        private enum MoveDirection
-        {
-            Next,
-            Previous
-        }
+        Next,
+        Previous
+    }
 
-        /// <summary>
-        /// Adjust the selected item and range based on keyboard input.
-        /// This is used to override the listview behaviors for up/down arrow manipulation vs left/right for a horizontal control
-        /// </summary>
-        /// <param name="direction">direction to move the selection</param>
-        /// <returns>True if the focus was moved, false otherwise</returns>
-        private bool MoveFocusAndSelection(MoveDirection direction)
-        {
-            bool retVal = false;
-            var currentContainerItem = GetCurrentContainerItem();
+    /// <summary>
+    /// Adjust the selected item and range based on keyboard input.
+    /// This is used to override the listview behaviors for up/down arrow manipulation vs left/right for a horizontal control
+    /// </summary>
+    /// <param name="direction">direction to move the selection</param>
+    /// <returns>True if the focus was moved, false otherwise</returns>
+    private bool MoveFocusAndSelection(MoveDirection direction)
+    {
+        bool retVal = false;
+        var currentContainerItem = GetCurrentContainerItem();
 
-            if (currentContainerItem != null)
+        if (currentContainerItem != null)
+        {
+            var currentItem = ItemFromContainer(currentContainerItem);
+            var previousIndex = Items.IndexOf(currentItem);
+            var index = previousIndex;
+
+            if (direction == MoveDirection.Previous)
             {
-                var currentItem = ItemFromContainer(currentContainerItem);
-                var previousIndex = Items.IndexOf(currentItem);
-                var index = previousIndex;
-
-                if (direction == MoveDirection.Previous)
+                if (previousIndex > 0)
                 {
-                    if (previousIndex > 0)
-                    {
-                        index -= 1;
-                    }
-                    else
-                    {
-                        if (TabNavigateBackOnArrow)
+                    index -= 1;
+                }
+                else
+                {
+                    if (TabNavigateBackOnArrow)
+
+#if WINAPPSDK
+{
+FocusManager.TryMoveFocus(FocusNavigationDirection.Previous, new FindNextElementOptions
                         {
-                            FocusManager.TryMoveFocus(FocusNavigationDirection.Previous, new FindNextElementOptions
-                            {
-                                SearchRoot = XamlRoot.Content
-                            });
-                        }
-
-                        retVal = true;
+                            SearchRoot = XamlRoot.Content!
+                        });
                     }
-                }
-                else if (direction == MoveDirection.Next)
-                {
-                    if (previousIndex < Items.Count - 1)
-                    {
-                        index += 1;
-                    }
-                }
+#else
+                        FocusManager.TryMoveFocus(FocusNavigationDirection.Previous);
+#endif
 
-                // Only do stuff if the index is actually changing
-                if (index != previousIndex)
+                    retVal = true;
+                }
+            }
+            else if (direction == MoveDirection.Next)
+            {
+                if (previousIndex < Items.Count - 1)
                 {
-                    var newItem = ContainerFromIndex(index) as TokenizingTextBoxItem;
+                    index += 1;
+                }
+            }
 
+            // Only do stuff if the index is actually changing
+            if (index != previousIndex)
+            {
+                if (ContainerFromIndex(index) is TokenizingTextBoxItem newItem)
+                {
                     // Check for the new item being a text control.
                     // this must happen before focus is set to avoid seeing the caret
                     // jump in come cases
@@ -115,64 +126,75 @@ namespace CommunityToolkit.WinUI.Controls
                     retVal = true;
                 }
             }
-
-            return retVal;
         }
 
-        private TokenizingTextBoxItem GetCurrentContainerItem()
-        {
-            if (XamlRoot != null)
-            {
-                return FocusManager.GetFocusedElement(XamlRoot) as TokenizingTextBoxItem;
-            }
-            else
-            {
-                return FocusManager.GetFocusedElement() as TokenizingTextBoxItem;
-            }
-        }
+        return retVal;
+    }
 
-        internal void SelectAllTokensAndText()
+    private TokenizingTextBoxItem? GetCurrentContainerItem()
+    {
+        if (IsXamlRootAvailable && XamlRoot != null)
         {
+            return FocusManager.GetFocusedElement(XamlRoot) as TokenizingTextBoxItem;
+        }
+        else
+        {
+            return FocusManager.GetFocusedElement() as TokenizingTextBoxItem;
+        }
+    }
+
+    internal void SelectAllTokensAndText()
+    {
+#if WINAPPSDK
             _ = DispatcherQueue.EnqueueAsync(
-                () =>
+#else
+            var dispatcherQueue = DispatcherQueue.GetForCurrentThread();	
+            _ = dispatcherQueue.EnqueueAsync(
+#endif
+            () =>
+            {
+                this.SelectAllSafe();
+
+                // need to synchronize the select all and the focus behavior on the text box
+                // because there is no way to identify that the focus has been set from this point
+                // to avoid instantly clearing the selection of tokens
+                PauseTokenClearOnFocus = true;
+
+                foreach (var item in Items)
                 {
-                    this.SelectAllSafe();
-
-                    // need to synchronize the select all and the focus behavior on the text box
-                    // because there is no way to identify that the focus has been set from this point
-                    // to avoid instantly clearing the selection of tokens
-                    PauseTokenClearOnFocus = true;
-
-                    foreach (var item in Items)
+                    if (item is ITokenStringContainer)
                     {
-                        if (item is ITokenStringContainer)
+                        // grab any selected text
+                        if (ContainerFromItem(item) is TokenizingTextBoxItem pretoken)
                         {
-                            // grab any selected text
-                            var pretoken = ContainerFromItem(item) as TokenizingTextBoxItem;
                             pretoken._autoSuggestTextBox.SelectionStart = 0;
                             pretoken._autoSuggestTextBox.SelectionLength = pretoken._autoSuggestTextBox.Text.Length;
                         }
                     }
+                }
 
-                    (ContainerFromIndex(Items.Count - 1) as TokenizingTextBoxItem).Focus(FocusState.Programmatic);
-                }, Microsoft.UI.Dispatching.DispatcherQueuePriority.Normal);
-        }
-
-        internal void DeselectAllTokensAndText(TokenizingTextBoxItem ignoreItem = null)
-        {
-            this.DeselectAll();
-            ClearAllTextSelections(ignoreItem);
-        }
-
-        private void ClearAllTextSelections(TokenizingTextBoxItem ignoreItem)
-        {
-            // Clear any selection in the text box
-            foreach (var item in Items)
-            {
-                if (item is ITokenStringContainer)
+                if (ContainerFromIndex(Items.Count - 1) is TokenizingTextBoxItem container)
                 {
-                    var container = ContainerFromItem(item) as TokenizingTextBoxItem;
+                    container.Focus(FocusState.Programmatic);
+                }
+            }, DispatcherQueuePriority.Normal);
+    }
 
+    internal void DeselectAllTokensAndText(TokenizingTextBoxItem? ignoreItem = null)
+    {
+        this.DeselectAll();
+        ClearAllTextSelections(ignoreItem);
+    }
+
+    private void ClearAllTextSelections(TokenizingTextBoxItem? ignoreItem)
+    {
+        // Clear any selection in the text box
+        foreach (var item in Items)
+        {
+            if (item is ITokenStringContainer)
+            {
+                if (ContainerFromItem(item) is TokenizingTextBoxItem container)
+                {
                     if (container != ignoreItem)
                     {
                         container._autoSuggestTextBox.SelectionLength = 0;
@@ -180,85 +202,91 @@ namespace CommunityToolkit.WinUI.Controls
                 }
             }
         }
+    }
+    /// <summary>
+    /// Select the previous item in the list, if one is available. Called when moving from textbox to token.
+    /// </summary>
+    /// <param name="item">identifies the current item</param>
+    /// <returns>a value indicating whether the previous item was successfully selected</returns>
+    internal bool SelectPreviousItem(TokenizingTextBoxItem item)
+    {
+        return SelectNewItem(item, -1, i => i > 0);
+    }
 
-        /// <summary>
-        /// Select the previous item in the list, if one is available. Called when moving from textbox to token.
-        /// </summary>
-        /// <param name="item">identifies the current item</param>
-        /// <returns>a value indicating whether the previous item was successfully selected</returns>
-        internal bool SelectPreviousItem(TokenizingTextBoxItem item)
+    /// <summary>
+    /// Select the next item in the list, if one is available. Called when moving from textbox to token.
+    /// </summary>
+    /// <param name="item">identifies the current item</param>
+    /// <returns>a value indicating whether the next item was successfully selected, false if nothing was changed</returns>
+    internal bool SelectNextItem(TokenizingTextBoxItem item)
+    {
+        return SelectNewItem(item, 1, i => i < Items.Count - 1);
+    }
+
+    private bool SelectNewItem(TokenizingTextBoxItem item, int increment, Func<int, bool> testFunc)
+    {
+        bool returnVal = false;
+
+        // find the item in the list
+        var currentIndex = IndexFromContainer(item);
+
+        // Select previous token item (if there is one).
+        if (testFunc(currentIndex))
         {
-            return SelectNewItem(item, -1, i => i > 0);
-        }
-
-        /// <summary>
-        /// Select the next item in the list, if one is available. Called when moving from textbox to token.
-        /// </summary>
-        /// <param name="item">identifies the current item</param>
-        /// <returns>a value indicating whether the next item was successfully selected, false if nothing was changed</returns>
-        internal bool SelectNextItem(TokenizingTextBoxItem item)
-        {
-            return SelectNewItem(item, 1, i => i < Items.Count - 1);
-        }
-
-        private bool SelectNewItem(TokenizingTextBoxItem item, int increment, Func<int, bool> testFunc)
-        {
-            bool returnVal = false;
-
-            // find the item in the list
-            var currentIndex = IndexFromContainer(item);
-
-            // Select previous token item (if there is one).
-            if (testFunc(currentIndex))
+            if (ContainerFromItem(Items[currentIndex + increment]) is ListViewItem newItem)
             {
-                var newItem = ContainerFromItem(Items[currentIndex + increment]) as ListViewItem;
                 newItem.Focus(FocusState.Keyboard);
                 SelectedItems.Add(Items[currentIndex + increment]);
                 returnVal = true;
             }
-
-            return returnVal;
         }
 
-        private async void TokenizingTextBoxItem_ClearAllAction(TokenizingTextBoxItem sender, RoutedEventArgs args)
+        return returnVal;
+    }
+
+    private async void TokenizingTextBoxItem_ClearAllAction(TokenizingTextBoxItem sender, RoutedEventArgs args)
+    {
+        // find the first item selected
+        int newSelectedIndex = -1;
+
+        if (SelectedRanges.Count > 0)
         {
-            // find the first item selected
-            int newSelectedIndex = -1;
-
-            if (SelectedRanges.Count > 0)
-            {
-                newSelectedIndex = SelectedRanges[0].FirstIndex - 1;
-            }
-
-            await RemoveAllSelectedTokens();
-
-            SelectedIndex = newSelectedIndex;
-
-            if (newSelectedIndex == -1)
-            {
-                newSelectedIndex = Items.Count - 1;
-            }
-
-            // focus the item prior to the first selected item
-            (ContainerFromIndex(newSelectedIndex) as TokenizingTextBoxItem).Focus(FocusState.Keyboard);
+            newSelectedIndex = SelectedRanges[0].FirstIndex - 1;
         }
 
-        private async void TokenizingTextBoxItem_ClearClicked(TokenizingTextBoxItem sender, RoutedEventArgs args)
+        await RemoveAllSelectedTokens();
+
+        SelectedIndex = newSelectedIndex;
+
+        if (newSelectedIndex == -1)
         {
-            await RemoveTokenAsync(sender);
+            newSelectedIndex = Items.Count - 1;
         }
 
-        /// <summary>
-        /// Remove any tokens that are in the selected list, except for the last text box or the currently selected item
-        /// </summary>
-        /// <returns>async task</returns>
-        internal async Task RemoveAllSelectedTokens()
+        // focus the item prior to the first selected item
+        if (ContainerFromIndex(newSelectedIndex) is TokenizingTextBoxItem container)
         {
-            var currentContainerItem = GetCurrentContainerItem();
+            container.Focus(FocusState.Keyboard);
+        }
+    }
 
-            while (SelectedItems.Count > 0)
+    private async void TokenizingTextBoxItem_ClearClicked(TokenizingTextBoxItem sender, RoutedEventArgs? args)
+    {
+        await RemoveTokenAsync(sender);
+    }
+
+    /// <summary>
+    /// Remove any tokens that are in the selected list, except for the last text box or the currently selected item
+    /// </summary>
+    /// <returns>async task</returns>
+    internal async Task RemoveAllSelectedTokens()
+    {
+        var currentContainerItem = GetCurrentContainerItem();
+
+        while (SelectedItems.Count > 0)
+        {
+            if (ContainerFromItem(SelectedItems[0]) is TokenizingTextBoxItem container)
             {
-                var container = ContainerFromItem(SelectedItems[0]) as TokenizingTextBoxItem;
 
                 if (IndexFromContainer(container) != Items.Count - 1)
                 {
@@ -308,53 +336,55 @@ namespace CommunityToolkit.WinUI.Controls
                 }
             }
         }
+    }
 
-        private void CopySelectedToClipboard()
+    private void CopySelectedToClipboard()
+    {
+        DataPackage dataPackage = new DataPackage();
+        dataPackage.RequestedOperation = DataPackageOperation.Copy;
+
+        var tokenString = PrepareSelectionForClipboard();
+
+        if (!string.IsNullOrEmpty(tokenString))
         {
-            DataPackage dataPackage = new DataPackage();
-            dataPackage.RequestedOperation = DataPackageOperation.Copy;
-
-            var tokenString = PrepareSelectionForClipboard();
-
-            if (!string.IsNullOrEmpty(tokenString))
-            {
-                dataPackage.SetText(tokenString);
-                Clipboard.SetContent(dataPackage);
-            }
+            dataPackage.SetText(tokenString);
+            Clipboard.SetContent(dataPackage);
         }
+    }
 
-        private string PrepareSelectionForClipboard()
+    private string PrepareSelectionForClipboard()
+    {
+        string tokenString = string.Empty;
+        bool addSeparator = false;
+
+        // Copy all items if none selected (and no text selected)
+        foreach (var item in SelectedItems.Count > 0 ? SelectedItems : Items)
         {
-            string tokenString = string.Empty;
-            bool addSeparator = false;
-
-            // Copy all items if none selected (and no text selected)
-            foreach (var item in SelectedItems.Count > 0 ? SelectedItems : Items)
+            if (addSeparator)
             {
-                if (addSeparator)
-                {
-                    tokenString += TokenDelimiter;
-                }
-                else
-                {
-                    addSeparator = true;
-                }
+                tokenString += TokenDelimiter;
+            }
+            else
+            {
+                addSeparator = true;
+            }
 
-                if (item is ITokenStringContainer)
+            if (item is ITokenStringContainer)
+            {
+                // grab any selected text
+                if (ContainerFromItem(item) is TokenizingTextBoxItem pretoken)
                 {
-                    // grab any selected text
-                    var pretoken = ContainerFromItem(item) as TokenizingTextBoxItem;
                     tokenString += pretoken._autoSuggestTextBox.Text.Substring(
                         pretoken._autoSuggestTextBox.SelectionStart,
                         pretoken._autoSuggestTextBox.SelectionLength);
                 }
-                else
-                {
-                    tokenString += item.ToString();
-                }
             }
-
-            return tokenString;
+            else
+            {
+                tokenString += item.ToString();
+            }
         }
+
+        return tokenString;
     }
-}
+}    
