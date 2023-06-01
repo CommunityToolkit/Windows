@@ -11,6 +11,7 @@ using VirtualKey = Windows.System.VirtualKey;
 using DispatcherQueuePriority = Microsoft.UI.Dispatching.DispatcherQueuePriority;
 #else
 using DispatcherQueuePriority = Windows.System.DispatcherQueuePriority;
+using CommunityToolkit.WinUI.Deferred;
 #endif
 using Windows.System;
 using Windows.UI.Core;
