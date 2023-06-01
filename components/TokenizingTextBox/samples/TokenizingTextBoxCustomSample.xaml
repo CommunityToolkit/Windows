@@ -17,7 +17,6 @@
             <Run Text="actions" />
         </TextBlock>
         <controls:TokenizingTextBox x:Name="TokenBox"
-                                    Width="600"
                                     MaxHeight="104"
                                     Margin="0,64,0,150"
                                     HorizontalAlignment="Stretch"
