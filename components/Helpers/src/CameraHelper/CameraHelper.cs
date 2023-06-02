@@ -15,7 +15,6 @@ namespace CommunityToolkit.WinUI.Helpers;
 /// </summary>
 #pragma warning disable CA1063 // Implement IDisposable Correctly
 public class CameraHelper : IDisposable
-#pragma warning restore CA1063 // Implement IDisposable Correctly
 {
     private static IReadOnlyList<MediaFrameSourceGroup>? _frameSourceGroups;
 #pragma warning disable CA2213 // Disposable fields should be disposed
@@ -310,3 +309,4 @@ public class CameraHelper : IDisposable
         }
     }
 }
+#pragma warning restore CA1063 // Implement IDisposable Correctly
