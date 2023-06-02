@@ -13,6 +13,7 @@ namespace CommunityToolkit.WinUI.Controls;
 /// </summary>
 [TemplatePart(Name = Preview_MediaPlayerElementControl, Type = typeof(MediaPlayerElement))]
 [TemplatePart(Name = Preview_FrameSourceGroupButton, Type = typeof(Button))]
+[System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1001:Types that own disposable fields should be disposable", Justification = "Implemented via Stop()")]
 public partial class CameraPreview : Control
 {
     private CameraHelper _cameraHelper;
