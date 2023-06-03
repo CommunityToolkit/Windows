@@ -11,7 +11,6 @@
     <Thickness x:Key="TokenizingTextBoxPadding">4</Thickness>
     <Thickness x:Key="TokenizingTextBoxPresenterMargin">0,0,6,0</Thickness>
     <x:Double x:Key="TokenizingTextBoxTokenSpacing">2</x:Double>
-    <Thickness x:Key="TextControlBorderThemeThicknessFocused">2</Thickness>
 
     <controls:TokenizingTextBoxStyleSelector x:Key="TokenizingTextBoxStyleSelector"
                                              TextStyle="{StaticResource TokenizingTextBoxItemTextStyle}"
@@ -31,6 +30,7 @@
         <Setter Property="IsTabStop" Value="False" />
         <Setter Property="TabNavigation" Value="Once" />
         <Setter Property="IsSwipeEnabled" Value="False" />
+        <Setter Property="CornerRadius" Value="{ThemeResource ControlCornerRadius}" />
         <Setter Property="Padding" Value="{StaticResource TokenizingTextBoxPadding}" />
         <Setter Property="SelectionMode" Value="Extended" />
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
@@ -53,14 +53,10 @@
         <Setter Property="ItemsPanel">
             <Setter.Value>
                 <ItemsPanelTemplate>
-                    <StackPanel Orientation="Horizontal" Spacing="{Binding (ui:FrameworkElementExtensions.Ancestor).TokenSpacing, RelativeSource={RelativeSource Self}}"/>
-
-
-                    <!-- TO  DO: add StretchChild="Last". Remove for now as it crashes the app, see: https://github.com/CommunityToolkit/WindowsCommunityToolkit/issues/4772/>-->
-                    <!--<controls:WrapPanel ui:FrameworkElementExtensions.AncestorType="controls:TokenizingTextBox"
-                                        StretchChild="Last"
+                    <controls:WrapPanel ui:FrameworkElementExtensions.AncestorType="controls:TokenizingTextBox"
                                         HorizontalSpacing="{Binding (ui:FrameworkElementExtensions.Ancestor).TokenSpacing, RelativeSource={RelativeSource Self}}"
-                                        VerticalSpacing="{Binding (ui:FrameworkElementExtensions.Ancestor).TokenSpacing, RelativeSource={RelativeSource Self}}" />-->
+                                        StretchChild="Last"
+                                        VerticalSpacing="{Binding (ui:FrameworkElementExtensions.Ancestor).TokenSpacing, RelativeSource={RelativeSource Self}}" />
                 </ItemsPanelTemplate>
             </Setter.Value>
         </Setter>
@@ -73,7 +69,7 @@
         <Grid Name="RootPanel">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
@@ -114,6 +110,7 @@
                 <VisualStateGroup x:Name="FocusStates">
                     <VisualState x:Name="Focused">
                         <VisualState.Setters>
+                            <Setter Target="BackgroundVisual.BorderBrush" Value="Transparent" />
                             <Setter Target="FocusVisual.BorderThickness" Value="{ThemeResource TextControlBorderThemeThicknessFocused}" />
                             <Setter Target="FocusVisual.Opacity" Value="1" />
                         </VisualState.Setters>
@@ -134,13 +131,15 @@
                     Grid.Row="1"
                     Background="{TemplateBinding Background}"
                     BorderBrush="{TemplateBinding BorderBrush}"
-                    BorderThickness="{TemplateBinding BorderThickness}" />
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    CornerRadius="{TemplateBinding CornerRadius}" />
 
             <Border x:Name="FocusVisual"
                     Grid.Row="1"
-                    Background="{ThemeResource SystemControlBackgroundAltHighBrush}"
+                    Background="{ThemeResource TextControlBackgroundFocused}"
                     BorderBrush="{ThemeResource TextControlBorderBrushFocused}"
                     BorderThickness="{TemplateBinding BorderThickness}"
+                    CornerRadius="{TemplateBinding CornerRadius}"
                     Opacity="0" />
             <!--  Background in WinUI is TextControlBackgroundFocused, but that uses a different resource in WinUI than system  -->
 

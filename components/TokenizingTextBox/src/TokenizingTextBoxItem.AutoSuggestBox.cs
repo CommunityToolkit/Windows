@@ -22,6 +22,7 @@ public partial class TokenizingTextBoxItem
 {
     private const string PART_AutoSuggestBox = "PART_AutoSuggestBox";
     private const string PART_TokensCounter = "PART_TokensCounter";
+    private const string QueryButton = "QueryButton";
 
     private AutoSuggestBox _autoSuggestBox;
 
@@ -271,6 +272,7 @@ public partial class TokenizingTextBoxItem
     #region Inner TextBox
     private void OnASBLoaded(object sender, RoutedEventArgs e)
     {
+        UpdateQueryIconVisibility();
         UpdateTokensCounter(this);
 
         // Local function for Selection changed
@@ -374,44 +376,56 @@ public partial class TokenizingTextBoxItem
 
     private void UpdateTokensCounter(TokenizingTextBoxItem ttbi)
     {
-#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
-        var maxTokensCounter = (TextBlock)_autoSuggestBox?.FindDescendant(PART_TokensCounter);
-#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
-        if (maxTokensCounter == null)
+        if (_autoSuggestBox?.FindDescendant(PART_TokensCounter) is TextBlock maxTokensCounter)
         {
-            return;
-        }
 
-        void OnTokenCountChanged(TokenizingTextBox ttb, object? value = null)
-        {
-            if (ttb.ItemsSource is InterspersedObservableCollection itemsSource)
+
+            void OnTokenCountChanged(TokenizingTextBox ttb, object? value = null)
             {
-                var currentTokens = itemsSource.ItemsSource.Count;
-                var maxTokens = ttb.MaximumTokens;
+                if (ttb.ItemsSource is InterspersedObservableCollection itemsSource)
+                {
+                    var currentTokens = itemsSource.ItemsSource.Count;
+                    var maxTokens = ttb.MaximumTokens;
 
-                maxTokensCounter.Text = $"{currentTokens}/{maxTokens}";
-                maxTokensCounter.Visibility = Visibility.Visible;
+                    maxTokensCounter.Text = $"{currentTokens}/{maxTokens}";
+                    maxTokensCounter.Visibility = Visibility.Visible;
 
-                maxTokensCounter.Foreground = (currentTokens >= maxTokens)
-                    ? new SolidColorBrush(Colors.Red)
-                    : _autoSuggestBox!.Foreground;
+                    maxTokensCounter.Foreground = (currentTokens >= maxTokens)
+                        ? (SolidColorBrush)Application.Current.Resources["SystemFillColorCriticalBrush"]
+                        : (SolidColorBrush)Application.Current.Resources["TextFillColorSecondaryBrush"];
+                }
+            }
+
+            ttbi.Owner.TokenItemAdded -= OnTokenCountChanged;
+            ttbi.Owner.TokenItemRemoved -= OnTokenCountChanged;
+
+            if (Content is ITokenStringContainer str && str.IsLast && ttbi?.Owner != null && ttbi.Owner.ReadLocalValue(TokenizingTextBox.MaximumTokensProperty) != DependencyProperty.UnsetValue)
+            {
+                ttbi.Owner.TokenItemAdded += OnTokenCountChanged;
+                ttbi.Owner.TokenItemRemoved += OnTokenCountChanged;
+                OnTokenCountChanged(ttbi.Owner);
+            }
+            else
+            {
+                maxTokensCounter.Visibility = Visibility.Collapsed;
+                maxTokensCounter.Text = string.Empty;
             }
         }
+    }
 
-        ttbi.Owner.TokenItemAdded -= OnTokenCountChanged;
-        ttbi.Owner.TokenItemRemoved -= OnTokenCountChanged;
-
-        if (Content is ITokenStringContainer str && str.IsLast && ttbi?.Owner != null && ttbi.Owner.ReadLocalValue(TokenizingTextBox.MaximumTokensProperty) != DependencyProperty.UnsetValue)
+        internal void UpdateQueryIconVisibility()
+    {
+        if (_autoSuggestBox?.FindDescendant(QueryButton) is Button queryButton)
         {
-            ttbi.Owner.TokenItemAdded += OnTokenCountChanged;
-            ttbi.Owner.TokenItemRemoved += OnTokenCountChanged;
-            OnTokenCountChanged(ttbi.Owner);
-        }
-        else
-        {
-            maxTokensCounter.Visibility = Visibility.Collapsed;
-            maxTokensCounter.Text = string.Empty;
-        }
+            if (Owner.QueryIcon != null)
+            {
+                queryButton.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                queryButton.Visibility = Visibility.Collapsed;
+            }
+        }       
     }
     #endregion
 }

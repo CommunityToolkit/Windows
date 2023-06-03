@@ -17,13 +17,13 @@
             <Run Text="actions" />
         </TextBlock>
         <controls:TokenizingTextBox x:Name="TokenBox"
-                                    MaxHeight="104"
                                     Margin="0,64,0,150"
                                     HorizontalAlignment="Stretch"
+                                    Header="asd"
                                     ItemsSource="{x:Bind SelectedTokens, Mode=OneWay}"
                                     MaximumTokens="3"
                                     PlaceholderText="Add Actions"
-                                    QueryIcon="{ui:SymbolIconSource Symbol=Setting}"
+                                    QueryIcon="{ui:FontIconSource Glyph=&#xE721;, FontSize=12}"
                                     TextChanged="TextChanged"
                                     TextMemberPath="Text"
                                     TokenDelimiter=","
@@ -49,6 +49,9 @@
                 </DataTemplate>
             </controls:TokenizingTextBox.TokenItemTemplate>
         </controls:TokenizingTextBox>
+        <AutoSuggestBox Height="120"
+                        Header="asd"
+                        PlaceholderText="Add actions" />
         <TextBlock Margin="0,4,0,0">
             <Run>Current Edit:</Run>
             <Run Text="{Binding Text, ElementName=TokenBox}" />

@@ -29,12 +29,14 @@ namespace CommunityToolkit.WinUI.Controls;
 [TemplatePart(Name = PART_PointerOverState, Type = typeof(VisualState))]
 [TemplatePart(Name = PART_FocusedState, Type = typeof(VisualState))]
 [TemplatePart(Name = PART_UnfocusedState, Type = typeof(VisualState))]
+[TemplatePart(Name = PART_MaxReachedState, Type = typeof(VisualState))]
 public partial class TokenizingTextBox : ListViewBase
 {
     internal const string PART_NormalState = "Normal";
     internal const string PART_PointerOverState = "PointerOver";
     internal const string PART_FocusedState = "Focused";
     internal const string PART_UnfocusedState = "Unfocused";
+    internal const string PART_MaxReachedState = "MaxReachedState";
 
     /// <summary>
     /// Gets a value indicating whether the shift key is currently in a pressed state
