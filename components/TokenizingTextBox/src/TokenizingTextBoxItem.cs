@@ -12,7 +12,7 @@ namespace CommunityToolkit.WinUI.Controls;
 [TemplatePart(Name = PART_ClearButton, Type = typeof(ButtonBase))] //// Token case
 public partial class TokenizingTextBoxItem : ListViewItem
 {
-    private const string PART_ClearButton = "PART_ClearButton";
+    private const string PART_ClearButton = "PART_RemoveButton";
 
     private Button _clearButton;
 
