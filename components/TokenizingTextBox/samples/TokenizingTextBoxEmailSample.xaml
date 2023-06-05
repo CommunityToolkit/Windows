@@ -1,5 +1,5 @@
 <!--  Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license. See the LICENSE file in the project root for more information.  -->
-<Page x:Class="TokenizingTextBoxExperiment.Samples.TokenizingTextBoxCustomSample"
+<Page x:Class="TokenizingTextBoxExperiment.Samples.TokenizingTextBoxEmailSample"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:controls="using:CommunityToolkit.WinUI.Controls"
@@ -9,34 +9,39 @@
       xmlns:ui="using:CommunityToolkit.WinUI"
       mc:Ignorable="d">
 
-    <StackPanel>
-        <TextBlock Margin="0,0,0,4"
-                   FontSize="32">
-            <Run Text="Select up to" />
-            <Run Text="{Binding MaximumTokens, ElementName=TokenBox, Mode=OneWay}" />
-            <Run Text="actions" />
-        </TextBlock>
+    <StackPanel Orientation="Vertical"
+                Spacing="8">
         <controls:TokenizingTextBox x:Name="TokenBox"
-                                    Margin="0,64,0,150"
-                                    HorizontalAlignment="Stretch"
-                                    Header="asd"
-                                    ItemsSource="{x:Bind SelectedTokens, Mode=OneWay}"
+                                    MaxWidth="620"
+                                    HorizontalAlignment="Left"
+                                    ItemClick="TokenBox_ItemClick"
+                                    ItemsSource="{x:Bind SelectedTokens, Mode=TwoWay}"
                                     MaximumTokens="5"
                                     PlaceholderText="Add actions"
                                     QueryIcon="{ui:FontIconSource Glyph=&#xE721;,
                                                                   FontSize=12}"
-                           
+                                    SuggestedItemsSource="{x:Bind _samples, Mode=OneWay}"
                                     TextChanged="TextChanged"
                                     TextMemberPath="Text"
                                     TokenDelimiter=","
                                     TokenItemAdded="TokenItemAdded"
                                     TokenItemAdding="TokenItemCreating"
                                     TokenItemRemoving="TokenItemRemoved">
+            <controls:TokenizingTextBox.Header>
+                <TextBlock>
+                    <Run Text="Start typing and select up to" />
+                    <Run FontWeight="SemiBold"
+                         Text="{Binding MaximumTokens, ElementName=TokenBox, Mode=OneWay}" />
+                    <Run Text="actions" />
+                </TextBlock>
+            </controls:TokenizingTextBox.Header>
             <controls:TokenizingTextBox.SuggestedItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
-                        <SymbolIcon Symbol="{Binding Icon}" />
-                        <TextBlock Padding="4,0,0,0"
+                        <Viewbox Width="16">
+                            <SymbolIcon Symbol="{Binding Icon}" />
+                        </Viewbox>
+                        <TextBlock Padding="8,0,0,0"
                                    Text="{Binding Text}" />
                     </StackPanel>
                 </DataTemplate>
@@ -54,13 +59,14 @@
                 </DataTemplate>
             </controls:TokenizingTextBox.TokenItemTemplate>
         </controls:TokenizingTextBox>
-        <AutoSuggestBox Height="120"
-                        Header="asd"
-                        PlaceholderText="Add actions" />
-        <TextBlock Margin="0,4,0,0">
-            <Run>Current Edit:</Run>
-            <Run Text="{Binding Text, ElementName=TokenBox}" />
-        </TextBlock>
+        <TextBlock Margin="0,24,0,0"
+                   FontWeight="SemiBold"
+                   Text="Clicked item:" />
+        <TextBlock x:Name="clickedItem" />
+
+        <TextBlock Margin="0,24,0,0"
+                   FontWeight="SemiBold"
+                   Text="Choosen items:" />
         <ItemsControl ItemsSource="{x:Bind SelectedTokens, Mode=OneWay}" />
     </StackPanel>
 </Page>

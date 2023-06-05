@@ -1,32 +1,70 @@
 ---
 title: TokenizingTextBox
-author: githubaccount
-description: TODO: Your experiment's description here
-keywords: TokenizingTextBox, Control, Layout
+author: michael-hawker
+description: A text input control that auto-suggests and displays token items.
+keywords: TokenizingTextBox, control, tokens
 dev_langs:
   - csharp
 category: Controls
-subcategory: Layout
+subcategory: Input
 discussion-id: 0
 issue-id: 0
 ---
 
-<!-- To know about all the available Markdown syntax, Check out https://docs.microsoft.com/contribute/markdown-reference -->
-<!-- Ensure you remove all comments before submission, to ensure that there are no formatting issues when displaying this page.  -->
-<!-- It is recommended to check how the Documentation will look in the sample app, before Merging a PR -->
-<!-- **Note:** All links to other docs.microsoft.com pages should be relative without locale, i.e. for the one above would be /contribute/markdown-reference -->
-<!-- Included images should be optimized for size and not include any Intellectual Property references. -->
-
-<!-- Be sure to update the discussion/issue numbers above with your Labs discussion/issue id numbers in order for UI links to them from the sample app to work. -->
-
 # TokenizingTextBox
 
-TODO: Fill in information about this experiment and how to get started here...
+The [TokenizingTextBox](/dotnet/api/microsoft.toolkit.uwp.ui.controls.tokenizingtextbox) is an advanced [AutoSuggestBox](/uwp/api/Windows.UI.Xaml.Controls.AutoSuggestBox) which will display selected items as tokens within the textbox. A user can easily see the picked items or remove them easily.
 
-## Custom Control
+> [!Sample TokenizingTextBoxBasicSample]
 
-You can inherit from an existing component as well, like `Panel`, this example shows a control without a
-XAML Style that will be more light-weight to consume by an app developer:
+## Syntax
 
-> [!Sample TokenizingTextBoxCustomSample]
+```xaml
+  <controls:TokenizingTextBox
+    QueryIcon="Tag"
+    PlaceholderText="Add tags"
+    TokenDelimiter=","/>
+```
 
+## Properties
+
+| Property | Type | Description |
+| -- | -- | -- |
+| AutoSuggestBoxStyle | Style | Inner AutoSuggestBox style |
+| AutoSuggestBoxTextBoxStyle | Style | Inner TextBox style of the AutoSuggestBox |
+| PlaceholderText | string | Placeholder text to display when there's no text in the textbox |
+| QueryIcon | IconSource |
+| QueryText | string | Gets or sets the text query of the AutoSuggestBox |
+| SelectedItems | IList&lt;object&gt; | Collection of items selected by the user |
+| SelectedTokenText | string | Complete set of text for any selection in the control |
+| SuggestedItemsSource | object | List of suggested items |
+| SuggestedItemTemplate | DataTemplate | Template for suggested items |
+| SuggestedItemTemplateSelector | DataTemplateSelector | Template selector for suggested items |
+| SuggestedItemContainerStyle | Style for suggested item's container |
+| TabNavigateBackOnArrow | bool | Value indicating whether the control will move focus to the previous control when an arrow key is pressed and selection is at one of the limits in the control. |
+| Text | string | Text of currently focused text box part |
+| TextMemberPath | string | Path of property for item display |
+| TokenDelimiter | string | Character delimiter for recognizing a token |
+| TokenItemTemplate | DataTemplate | Template for a token item |
+| TokenItemTemplateSelector | DataTemplateSelector | Template selector for token items |
+| TokenItemStyle | Style | Style for a token item |
+| TokenSpacing | double | Amount of spacing between tokens |
+
+## Methods
+
+| Methods | Return Type | Description |
+| -- | -- | -- |
+| AddTokenItem(data, bool) | void | Used in special cases where you want to add a token manually to the control |
+| ClearAsync() | Task | Clears everything from the control, tokens and text. |
+| GetUntokenizedText(string) | string | Returns the string representation of each token item, concatenated and delimited. |
+
+## Events
+
+| Events | Description |
+| -- | -- |
+| QuerySubmitted | Event raised when the user submits the text query. |
+| SuggestionChosen | Event raised when a suggested item is chosen by the user. |
+| TextChanged | Event raised when the text input value has changed. |
+| TokenItemAdding | Event raised before a new token item has been added. Can be used to transform user text into an object. |
+| TokenItemRemoving | Event raised before a token item is removed (cancelable). |
+| TokenItemRemoved | Event raised after a token item has been removed. |

@@ -9,15 +9,7 @@
     <Import_RootNamespace>TokenizingTextBoxExperiment.Tests</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)ExampleTokenizingTextBoxTestClass.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ExampleTokenizingTextBoxTestPage.xaml.cs">
-      <DependentUpon>ExampleTokenizingTextBoxTestPage.xaml</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Include="$(MSBuildThisFileDirectory)ExampleTokenizingTextBoxTestPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
+    <Compile Include="$(MSBuildThisFileDirectory)Test_TokenizingTextBox_General.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Test_TokenizingTextBox_AutomationPeer.cs" />
   </ItemGroup>
 </Project>

@@ -188,6 +188,11 @@ public partial class TokenizingTextBoxItem
 
     private void AutoSuggestBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
     {
+        if (sender.Text == null)
+        {
+            return;
+        }
+
         if (!EqualityComparer<string>.Default.Equals(sender.Text, Owner.Text))
         {
             Owner.Text = sender.Text; // Update parent text property, if different

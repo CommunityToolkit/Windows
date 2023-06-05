@@ -131,9 +131,15 @@ public partial class WrapPanel : Panel
         var childAvailableSize = new Size(
             availableSize.Width - Padding.Left - Padding.Right,
             availableSize.Height - Padding.Top - Padding.Bottom);
+
+        if (double.IsInfinity(childAvailableSize.Width) || double.IsInfinity(childAvailableSize.Height))
+        {
+            childAvailableSize.Width = 100;
+            childAvailableSize.Height = 100;
+        }
         foreach (var child in Children)
         {
-            child.Measure(childAvailableSize);
+            child.Measure(availableSize);
         }
 
         var requiredSize = UpdateRows(availableSize);

@@ -6,23 +6,17 @@ using CommunityToolkit.WinUI.Controls;
 
 namespace TokenizingTextBoxExperiment.Samples;
 
-/// <summary>
-/// An example sample page of a custom control inheriting from Panel.
-/// </summary>
-[ToolkitSampleTextOption("TitleText", "This is a title", Title = "Input the text")]
-[ToolkitSampleMultiChoiceOption("LayoutOrientation", "Horizontal", "Vertical", Title = "Orientation")]
-
-[ToolkitSample(id: nameof(TokenizingTextBoxCustomSample), "Custom control", description: $"A sample for showing how to create and use a {nameof(TokenizingTextBox)} custom control.")]
-public sealed partial class TokenizingTextBoxCustomSample : Page
+[ToolkitSample(id: nameof(TokenizingTextBoxBasicSample), "Basic sample", description: $"A sample for showing how to create and use a {nameof(TokenizingTextBox)}.")]
+public sealed partial class TokenizingTextBoxBasicSample : Page
 {
-    private readonly List<SampleDataType> _samples = new List<SampleDataType>()
+    public readonly List<SampleDataType> _samples = new List<SampleDataType>()
         {
             new SampleDataType() { Text = "Account", Icon = Symbol.Account },
-            new SampleDataType() { Text = "Add Friend", Icon = Symbol.AddFriend },
+            new SampleDataType() { Text = "Add friend", Icon = Symbol.AddFriend },
             new SampleDataType() { Text = "Attach", Icon = Symbol.Attach },
-            new SampleDataType() { Text = "Attach Camera", Icon = Symbol.AttachCamera },
+            new SampleDataType() { Text = "Attach camera", Icon = Symbol.AttachCamera },
             new SampleDataType() { Text = "Audio", Icon = Symbol.Audio },
-            new SampleDataType() { Text = "Block Contact", Icon = Symbol.BlockContact },
+            new SampleDataType() { Text = "Block contact", Icon = Symbol.BlockContact },
             new SampleDataType() { Text = "Calculator", Icon = Symbol.Calculator },
             new SampleDataType() { Text = "Calendar", Icon = Symbol.Calendar },
             new SampleDataType() { Text = "Camera", Icon = Symbol.Camera },
@@ -34,7 +28,7 @@ public sealed partial class TokenizingTextBoxCustomSample : Page
             new SampleDataType() { Text = "Phone", Icon = Symbol.Phone },
             new SampleDataType() { Text = "Pin", Icon = Symbol.Pin },
             new SampleDataType() { Text = "Rotate", Icon = Symbol.Rotate },
-            new SampleDataType() { Text = "Rotate Camera", Icon = Symbol.RotateCamera },
+            new SampleDataType() { Text = "Rotate camera", Icon = Symbol.RotateCamera },
             new SampleDataType() { Text = "Send", Icon = Symbol.Send },
             new SampleDataType() { Text = "Tags", Icon = Symbol.Tag },
             new SampleDataType() { Text = "UnFavorite", Icon = Symbol.UnFavorite },
@@ -46,12 +40,12 @@ public sealed partial class TokenizingTextBoxCustomSample : Page
 
     public ObservableCollection<SampleDataType> SelectedTokens { get; set; }
 
-    public TokenizingTextBoxCustomSample()
+    public TokenizingTextBoxBasicSample()
     {
         this.InitializeComponent();
         SelectedTokens = new();
-        TokenBox.SuggestedItemsSource = _samples;
-
+        SelectedTokens.Add(_samples[0]);
+        SelectedTokens.Add(_samples[1]);
     }
     private void TokenItemAdded(TokenizingTextBox sender, object data)
     {
@@ -82,7 +76,7 @@ public sealed partial class TokenizingTextBoxCustomSample : Page
     {
         if (args.CheckCurrent() && args.Reason == AutoSuggestionBoxTextChangeReason.UserInput)
         {
-           // _acv.RefreshFilter();
+           // TO DO: Filter items
         }
     }
 
@@ -102,6 +96,14 @@ public sealed partial class TokenizingTextBoxCustomSample : Page
                 Text = e.TokenText,
                 Icon = Symbol.OutlineStar
             };
+        }
+    }
+
+    private void TokenBox_ItemClick(object sender, ItemClickEventArgs e)
+    {
+        if (e.ClickedItem is SampleDataType selectedItem)
+        {
+            clickedItem.Text = selectedItem.Text!;
         }
     }
 }
