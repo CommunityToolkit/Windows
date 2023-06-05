@@ -8,7 +8,7 @@
     </ResourceDictionary.MergedDictionaries>
 
     <!--  Resources for TokenizingTextBox  -->
-    <Thickness x:Key="TokenizingTextBoxPadding">4</Thickness>
+    <Thickness x:Key="TokenizingTextBoxPadding">3,2,3,2</Thickness>
     <Thickness x:Key="TokenizingTextBoxPresenterMargin">0,0,6,0</Thickness>
     <x:Double x:Key="TokenizingTextBoxTokenSpacing">2</x:Double>
 
