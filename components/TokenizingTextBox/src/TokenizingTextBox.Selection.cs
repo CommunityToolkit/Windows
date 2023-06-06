@@ -372,7 +372,7 @@ FocusManager.TryMoveFocus(FocusNavigationDirection.Previous, new FindNextElement
             if (item is ITokenStringContainer)
             {
                 // grab any selected text
-                if (ContainerFromItem(item) is TokenizingTextBoxItem pretoken)
+                if (ContainerFromItem(item) is TokenizingTextBoxItem pretoken && pretoken._autoSuggestTextBox != null)
                 {
                     tokenString += pretoken._autoSuggestTextBox.Text.Substring(
                         pretoken._autoSuggestTextBox.SelectionStart,

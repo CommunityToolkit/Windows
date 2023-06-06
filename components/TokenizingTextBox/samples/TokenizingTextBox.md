@@ -15,7 +15,7 @@ issue-id: 0
 
 The [TokenizingTextBox](/dotnet/api/microsoft.toolkit.uwp.ui.controls.tokenizingtextbox) is an advanced [AutoSuggestBox](/uwp/api/Windows.UI.Xaml.Controls.AutoSuggestBox) which will display selected items as tokens within the textbox. A user can easily see the picked items or remove them easily.
 
-> [!Sample TokenizingTextBoxBasicSample]
+> [!Sample TokenizingTextBoxSample]
 
 ## Syntax
 

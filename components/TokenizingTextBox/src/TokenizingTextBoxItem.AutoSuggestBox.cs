@@ -124,11 +124,11 @@ public partial class TokenizingTextBoxItem
                         RelativeSource = new RelativeSource() { Mode = RelativeSourceMode.TemplatedParent }
                     };
 
+                    #if !HAS_UNO
                     var iconSourceElement = new IconSourceElement();
-
                     iconSourceElement.SetBinding(IconSourceElement.IconSourceProperty, iconBinding);
-
                     _autoSuggestBox.QueryIcon = iconSourceElement;
+                    #endif
                 }
             }
         }
@@ -325,12 +325,14 @@ public partial class TokenizingTextBoxItem
 
     private void AutoSuggestTextBox_SelectionChanging(TextBox sender, TextBoxSelectionChangingEventArgs args)
     {
+#if !HAS_UNO
         _isSelectedFocusOnFirstCharacter = args.SelectionLength > 0 && args.SelectionStart == 0 && _autoSuggestTextBox.SelectionStart > 0;
         _isSelectedFocusOnLastCharacter =
             //// see if we are NOW on the last character.
             //// test if the new selection includes the last character, and the current selection doesn't
             (args.SelectionStart + args.SelectionLength == _autoSuggestTextBox.Text.Length) &&
             (_autoSuggestTextBox.SelectionStart + _autoSuggestTextBox.SelectionLength != _autoSuggestTextBox.Text.Length);
+#endif
     }
 
     private void AutoSuggestTextBox_PreviewKeyDown(object sender, KeyRoutedEventArgs e)
@@ -383,8 +385,6 @@ public partial class TokenizingTextBoxItem
     {
         if (_autoSuggestBox?.FindDescendant(PART_TokensCounter) is TextBlock maxTokensCounter)
         {
-
-
             void OnTokenCountChanged(TokenizingTextBox ttb, object? value = null)
             {
                 if (ttb.ItemsSource is InterspersedObservableCollection itemsSource)
@@ -432,5 +432,5 @@ public partial class TokenizingTextBoxItem
             }
         }       
     }
-    #endregion
+#endregion
 }
