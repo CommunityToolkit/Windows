@@ -50,30 +50,6 @@ public sealed partial class TokenizingTextBoxSample : Page
         };
     
     }
-    private void TokenItemAdded(TokenizingTextBox sender, object data)
-    {
-        // TODO: Add InApp Notification?
-        if (data is SampleDataType sample)
-        {
-            Debug.WriteLine("Added Token: " + sample.Text);
-        }
-        else
-        {
-            Debug.WriteLine("Added Token: " + data);
-        }
-    }
-
-    private void TokenItemRemoved(TokenizingTextBox sender, TokenItemRemovingEventArgs args)
-    {
-        if (args.Item is SampleDataType sample)
-        {
-            Debug.WriteLine("Removed Token: " + sample.Text);
-        }
-        else
-        {
-            Debug.WriteLine("Removed Token: " + args.Item);
-        }
-    }
 
     private void TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
     {

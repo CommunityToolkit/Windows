@@ -25,9 +25,7 @@
                                     TextChanged="TextChanged"
                                     TextMemberPath="Text"
                                     TokenDelimiter=","
-                                    TokenItemAdded="TokenItemAdded"
-                                    TokenItemAdding="TokenItemCreating"
-                                    TokenItemRemoving="TokenItemRemoved">
+                                    TokenItemAdding="TokenItemCreating">
             <controls:TokenizingTextBox.Header>
                 <TextBlock>
                     <Run Text="Start typing and select up to" />
