@@ -15,6 +15,10 @@
     
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="WrapPanel\" />
+  </ItemGroup>
+
   <!-- Sets this up as a toolkit component's source project -->
   <Import Project="$(ToolingDirectory)\ToolkitComponent.SourceProject.props" />
 </Project>
