@@ -15,6 +15,8 @@ namespace CommunityToolkit.WinUI.Controls;
 /// <summary>
 /// Methods related to Selection of items in the <see cref="TokenizingTextBox"/>.
 /// </summary>
+
+#pragma warning disable CS8602
 public partial class TokenizingTextBox
 {
     private enum MoveDirection
@@ -387,4 +389,5 @@ FocusManager.TryMoveFocus(FocusNavigationDirection.Previous, new FindNextElement
 
         return tokenString;
     }
-}    
+}
+#pragma warning restore CS8602

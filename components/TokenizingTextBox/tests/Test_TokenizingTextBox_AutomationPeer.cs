@@ -61,7 +61,6 @@ public class Test_TokenizingTextBox_AutomationPeer : VisualUITestBase
 
             tokenizingTextBox
                 .SelectAllTokensAndText(); // Will be 3 items due to the `AndText` that will select an empty text item.
-
             var tokenizingTextBoxAutomationPeer =
                 FrameworkElementAutomationPeer.CreatePeerForElement(tokenizingTextBox) as
                     TokenizingTextBoxAutomationPeer;
@@ -100,18 +99,18 @@ public class Test_TokenizingTextBox_AutomationPeer : VisualUITestBase
 
             Assert.ThrowsException<ElementNotEnabledException>(() =>
             {
-                tokenizingTextBoxAutomationPeer.SetValue(expectedValue);
+                tokenizingTextBoxAutomationPeer!.SetValue(expectedValue);
             });
         });
     }
 
     public class TokenizingTextBoxTestItem
     {
-        public string Title { get; set; }
+        public string? Title { get; set; }
 
         public override string ToString()
         {
-            return Title;
+            return Title!;
         }
     }
 }
