@@ -11,12 +11,7 @@
   <ItemGroup>
     <ProjectReference Include="$(ToolkitExtensionSourceProject)" />
     <ProjectReference Include="$(ToolkitHelperSourceProject)" />
-    <ProjectReference Include="$(ToolkitPrimitiveSourceProject)" />
-    
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="WrapPanel\" />
+    <ProjectReference Include="$(ToolkitPrimitiveSourceProject)" />    
   </ItemGroup>
 
   <!-- Sets this up as a toolkit component's source project -->
