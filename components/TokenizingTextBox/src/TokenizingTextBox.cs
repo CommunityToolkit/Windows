@@ -221,11 +221,13 @@ public partial class TokenizingTextBox : ListViewBase
         selectAllMenuItem.Click += (s, e) => this.SelectAllTokensAndText();
         var menuFlyout = new MenuFlyout();
         menuFlyout.Items.Add(selectAllMenuItem);
+
+#if !HAS_UNO
         if (IsXamlRootAvailable && XamlRoot != null)
         {
             menuFlyout.XamlRoot = XamlRoot;
         }
-
+#endif
         ContextFlyout = menuFlyout;
     }
 
@@ -399,11 +401,13 @@ public partial class TokenizingTextBox : ListViewBase
             removeMenuItem.Click += (s, e) => TokenizingTextBoxItem_ClearClicked(tokenitem, null);
 
             menuFlyout.Items.Add(removeMenuItem);
+
+#if !HAS_UNO
             if (IsXamlRootAvailable && XamlRoot != null)
             {
                 menuFlyout.XamlRoot = XamlRoot;
             }
-
+#endif
             var selectAllMenuItem = new MenuFlyoutItem
             {
                 // TO DO: Localize - "WCT_TokenizingTextBox_MenuFlyout_SelectAll".GetLocalized("Microsoft.Toolkit.Uwp.UI.Controls.Input/Resources")
