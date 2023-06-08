@@ -9,6 +9,7 @@ category: Xaml
 subcategory: Layout
 discussion-id: 0
 issue-id: 0
+icon: assets/icon.png
 ---
 
 # AlignmentGrid XAML Control
