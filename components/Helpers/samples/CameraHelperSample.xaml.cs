@@ -16,6 +16,7 @@ using Windows.UI.Xaml.Media.Imaging;
 namespace HelpersExperiment.Samples;
 
 [ToolkitSample(id: nameof(CameraHelperSample), "CameraHelper", description: $"A sample for showing how to use {nameof(CameraHelper)}.")]
+[System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1001:Types that own disposable fields should be disposable", Justification = "Controls dispose resources on unload")]
 public sealed partial class CameraHelperSample : UserControl
 {
     private CameraHelper _cameraHelper;
@@ -157,5 +158,7 @@ public sealed partial class CameraHelperSample : UserControl
             await _cameraHelper.CleanUpAsync();
             _cameraHelper = null!;
         }
+
+        _softwareBitmapSource?.Dispose();
     }
 }

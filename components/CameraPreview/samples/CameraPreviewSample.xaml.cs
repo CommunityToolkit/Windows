@@ -17,6 +17,7 @@ namespace CameraPreviewExperiment.Samples;
 
 [ToolkitSampleBoolOption("ShowCamera", true, Title = "Show camera toggle button")]
 [ToolkitSample(id: nameof(CameraPreviewSample), "CameraPreview", description: $"A sample for showing how to create and use a {nameof(CameraPreview)} control.")]
+[System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1001:Types that own disposable fields should be disposable", Justification = "Controls dispose resources when unloaded")]
 public sealed partial class CameraPreviewSample : Page
 {
     private static SemaphoreSlim? semaphoreSlim;
@@ -28,13 +29,24 @@ public sealed partial class CameraPreviewSample : Page
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
     {
         this.InitializeComponent();
-        this.Loaded += this.CameraPreviewSample_Loaded;
+
+        Loaded += this.CameraPreviewSample_Loaded;
+        Unloaded += this.CameraPreviewSample_Unloaded;
+
         semaphoreSlim = new SemaphoreSlim(1);
-       
+    }
+
+    private void CameraPreviewSample_Unloaded(object sender, RoutedEventArgs e)
+    {
+        Unloaded -= this.CameraPreviewSample_Unloaded;
+
+        _softwareBitmapSource?.Dispose();
     }
 
     private void CameraPreviewSample_Loaded(object sender, RoutedEventArgs e)
     {
+        Loaded -= this.CameraPreviewSample_Loaded;
+
         Load();
     }
 
@@ -130,19 +142,19 @@ public sealed partial class CameraPreviewSample : Page
 
     private void UnsubscribeFromEvents()
     {
-            if (CameraPreviewControl.CameraHelper != null)
-            {
-                CameraPreviewControl.CameraHelper.FrameArrived -= CameraPreviewControl_FrameArrived!;
-            }
+        if (CameraPreviewControl.CameraHelper != null)
+        {
+            CameraPreviewControl.CameraHelper.FrameArrived -= CameraPreviewControl_FrameArrived!;
+        }
 
-            CameraPreviewControl.PreviewFailed -= CameraPreviewControl_PreviewFailed!;
+        CameraPreviewControl.PreviewFailed -= CameraPreviewControl_PreviewFailed!;
     }
 
     private async Task CleanUpAsync()
     {
         UnsubscribeFromEvents();
 
-            CameraPreviewControl.Stop();
-            await CameraPreviewControl.CameraHelper.CleanUpAsync();
+        CameraPreviewControl.Stop();
+        await CameraPreviewControl.CameraHelper.CleanUpAsync();
     }
 }
