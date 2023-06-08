@@ -9,7 +9,7 @@ category: Helpers
 subcategory: System
 discussion-id: 0
 issue-id: 0
-icon: assets/icon.png
+icon: assets/ThemeListener.png
 ---
 
 # Theme Listener
