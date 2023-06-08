@@ -9,7 +9,7 @@ category: Extensions
 subcategory: Media
 discussion-id: 0
 issue-id: 0
-icon: default.png
+icon: assets/icon.png
 ---
 
 # Attached Shadows

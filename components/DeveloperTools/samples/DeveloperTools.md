@@ -5,11 +5,11 @@ description: The FocusTracker and AlignmentGrid help you to get more information
 keywords: DeveloperTools, FocusTracker, AlignmentGrid, dev tools, controls
 dev_langs:
   - csharp
-category: Xaml
-subcategory: Layout
+category: Helpers
+subcategory: Developer
 discussion-id: 0
 issue-id: 0
-icon: assets/icon.png
+icon: assets/DeveloperTools.png
 ---
 
 # AlignmentGrid XAML Control

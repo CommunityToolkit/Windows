@@ -5,11 +5,11 @@ description: The AdvancedCollectionView is a collection view implementation that
 keywords: AdvancedCollectionView, data, sorting, filtering
 dev_langs:
   - csharp
-category: Controls
-subcategory: Layout
+category: Helpers
+subcategory: Data
 discussion-id: 0
 issue-id: 0
-icon: assets/icon.png
+icon: assets/AdvancedCollectionView.png
 ---
 
 # AdvancedCollectionView

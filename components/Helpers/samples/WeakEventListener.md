@@ -6,7 +6,7 @@ keywords: Helpers, WeakEventListener
 dev_langs:
   - csharp
 category: Helpers
-subcategory: Layout
+subcategory: Developer
 discussion-id: 0
 issue-id: 0
 icon: assets/icon.png

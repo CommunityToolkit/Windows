@@ -6,10 +6,10 @@ keywords: Helpers, CameraHelper, Camera, Frame Source, Video Frame, Software Bit
 dev_langs:
   - csharp
 category: Helpers
-subcategory: Layout
+subcategory: System
 discussion-id: 0
 issue-id: 0
-icon: assets/icon.png
+icon: assets/CameraHelper.png
 ---
 
 # CameraHelper

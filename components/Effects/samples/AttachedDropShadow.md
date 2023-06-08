@@ -9,7 +9,7 @@ category: Extensions
 subcategory: Media
 discussion-id: 0
 issue-id: 0
-icon: icon.png
+icon: assets/icon.png
 ---
 
 # Attached Drop Shadow
