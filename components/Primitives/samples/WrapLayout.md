@@ -9,7 +9,7 @@ category: Layouts
 subcategory: Layout
 discussion-id: 0
 issue-id: 0
-icon: wraplayout.png
+icon: assets/wraplayout.png
 ---
 
 # WrapLayout

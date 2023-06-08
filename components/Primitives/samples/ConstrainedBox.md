@@ -9,7 +9,7 @@ category: Layouts
 subcategory: None
 discussion-id: 0
 issue-id: 0
-icon: constrainedbox.png
+icon: assets/constrainedbox.png
 ---
 
 # ConstrainedBox

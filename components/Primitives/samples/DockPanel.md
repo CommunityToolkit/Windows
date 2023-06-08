@@ -9,7 +9,7 @@ category: Layouts
 subcategory: Panel
 discussion-id: 0
 issue-id: 0
-icon: dockpanel.png
+icon: assets/dockpanel.png
 ---
 
 # DockPanel

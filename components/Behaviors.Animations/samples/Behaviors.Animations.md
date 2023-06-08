@@ -9,7 +9,7 @@ category: Xaml
 subcategory: Behaviors
 discussion-id: 0
 issue-id: 0
-icon: default.png
+icon: assets/icon.png
 ---
 
 # AnimationSet

@@ -9,7 +9,7 @@ category: Layouts
 subcategory: Panel
 discussion-id: 0
 issue-id: 0
-icon: staggeredpanel.png
+icon: assets/staggeredpanel.png
 ---
 
 # StaggeredLayout

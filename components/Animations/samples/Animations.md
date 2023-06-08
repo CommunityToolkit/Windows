@@ -9,7 +9,7 @@ category: Animations
 subcategory: Layout
 discussion-id: 0
 issue-id: 0
-icon: animations.png
+icon: assets/icon.png
 ---
 
 # ImplicitAnimationSet

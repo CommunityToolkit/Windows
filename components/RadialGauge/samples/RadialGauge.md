@@ -9,7 +9,7 @@ category: Controls
 subcategory: Input
 discussion-id: 0
 issue-id: 0
-icon: radialgauge.png
+icon: assets/radialgauge.png
 ---
 
 # RadialGauge

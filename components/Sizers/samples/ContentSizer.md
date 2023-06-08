@@ -9,7 +9,7 @@ category: Controls
 subcategory: Layout
 discussion-id: 96
 issue-id: 101
-icon: contentsizer.png
+icon: assets/contentsizer.png
 ---
 
 # ContentSizer

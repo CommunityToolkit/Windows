@@ -9,7 +9,7 @@ category: Layouts
 subcategory: Panel
 discussion-id: 0
 issue-id: 0
-icon: wrappanel.png
+icon: assets/wrappanel.png
 ---
 
 # WrapPanel
