@@ -69,9 +69,9 @@ public partial class LayoutTransformControl : Control
     /// <remarks>
     /// Corresponds to UIElement.RenderTransform.
     /// </remarks>
-#pragma warning disable CS0109 // Member does not hide an inherited member; new keyword is not required
+#pragma warning disable CS0114 // Member does not hide an inherited member; new keyword is not required
     public Transform Transform
-#pragma warning restore CS0109 // Member does not hide an inherited member; new keyword is not required
+#pragma warning restore CS0114 // Member does not hide an inherited member; new keyword is not required
     {
         get { return (Transform)GetValue(TransformProperty); }
         set { SetValue(TransformProperty, value); }
