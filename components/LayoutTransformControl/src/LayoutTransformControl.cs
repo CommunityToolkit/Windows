@@ -52,6 +52,7 @@ public partial class LayoutTransformControl : Control
     /// Initializes a new instance of the <see cref="LayoutTransformControl"/> class.
     /// </summary>
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+#pragma warning disable CS8619 //
     public LayoutTransformControl()
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
     {
@@ -454,4 +455,5 @@ public partial class LayoutTransformControl : Control
 
         return computedSize;
     }
+    #pragma warning restore CS8619
 }
