@@ -2,6 +2,11 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 using System.Diagnostics.CodeAnalysis;
+#if WINAPPSDK
+using Microsoft.UI.Xaml.Media;
+#else
+using Windows.UI.Xaml.Media;
+#endif
 
 namespace CommunityToolkit.WinUI.Controls;
 
@@ -455,5 +460,5 @@ public partial class LayoutTransformControl : Control
 
         return computedSize;
     }
-    #pragma warning restore CS8619
+#pragma warning restore CS8619
 }
