@@ -35,28 +35,5 @@ public partial class ContentSizer
     /// Identifies the <see cref="TargetControl"/> dependency property.
     /// </summary>
     public static readonly DependencyProperty TargetControlProperty =
-        DependencyProperty.Register(nameof(TargetControl), typeof(FrameworkElement), typeof(ContentSizer), new PropertyMetadata(null, OnTargetControlChanged));
-
-    private static void OnTargetControlChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-    {
-        // TODO: Should we do this after the TargetControl is Loaded? (And use ActualWidth?)
-        // Or should we just do it in the manipulation event if Width is null?
-
-        // Check if our width can be manipulated
-        if (d is SizerBase splitterBase && e.NewValue is FrameworkElement element)
-        {
-            // TODO: For Auto ResizeDirection we might want to do detection logic (TBD) here first?
-            if (splitterBase.Orientation != Orientation.Horizontal && double.IsNaN(element.Width))
-            {
-                // We need to set the Width or Height somewhere,
-                // as if it's NaN we won't be able to manipulate it.
-                element.Width = element.DesiredSize.Width;
-            }
-
-            if (splitterBase.Orientation != Orientation.Vertical && double.IsNaN(element.Height))
-            {
-                element.Height = element.DesiredSize.Height;
-            }
-        }
-    }
+        DependencyProperty.Register(nameof(TargetControl), typeof(FrameworkElement), typeof(ContentSizer), new PropertyMetadata(null));
 }
