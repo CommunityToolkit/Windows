@@ -14,6 +14,7 @@ namespace CommunityToolkit.WinUI.Controls;
 /// Control that implements support for transformations as if applied by LayoutTransform.
 /// </summary>
 [ContentProperty(Name = "Child")]
+
 public partial class LayoutTransformControl : Control
 {
     /// <summary>
@@ -29,9 +30,7 @@ public partial class LayoutTransformControl : Control
     /// <summary>
     /// List of property change event sources for events when properties of the Transform tree change
     /// </summary>
-    private readonly Dictionary<Transform, List<PropertyChangeEventSource<double>>>
-        _transformPropertyChangeEventSources = new Dictionary
-            <Transform, List<PropertyChangeEventSource<double>>>();
+    private readonly Dictionary<Transform, List<PropertyChangeEventSource<double>>> _transformPropertyChangeEventSources = new();
 
     /// <summary>
     /// Host panel for Child element.
@@ -58,6 +57,7 @@ public partial class LayoutTransformControl : Control
     /// </summary>
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 #pragma warning disable CS8619 //
+#pragma warning disable CS1061 //
     public LayoutTransformControl()
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
     {
@@ -461,4 +461,5 @@ public partial class LayoutTransformControl : Control
         return computedSize;
     }
 #pragma warning restore CS8619
+#pragma warning restore CS1061
 }
