@@ -58,4 +58,17 @@ public partial class ExampleSizerBaseTestClass : VisualUITestBase
         // Set in XAML Page LINK: PropertySizerTestInitialBinding.xaml#L14
         Assert.AreEqual(200, propertySizer.Binding, "Property Sizer not at expected changed value.");
     }
+
+    [UIThreadTestMethod]
+    public void ContentSizer_TestAutoLayout_NonZeroAndNaN(ContentSizerTestInitialLayout testControl)
+    {
+        var contentSizer = testControl.FindDescendant<ContentSizer>();
+        var textBlock = testControl.FindDescendant<TextBlock>();
+
+        Assert.IsNotNull(contentSizer, "Could not find ContentSizer control.");
+        Assert.IsNotNull(textBlock, "Could not find TextBlock control.");
+
+        Assert.IsTrue(textBlock.DesiredSize.Width > 5, "TextBlock desired size is too small.");
+        Assert.IsTrue(double.IsNaN(textBlock.Width), "TextBlock width should not be constrained and be NaN.");
+    }
 }
