@@ -65,7 +65,6 @@
             <Setter.Value>
                 <ControlTemplate TargetType="controls:SizerBase">
                     <Grid x:Name="RootGrid"
-                          Margin="{TemplateBinding Margin}"
                           Background="{TemplateBinding Background}"
                           BorderBrush="{TemplateBinding BorderBrush}"
                           BorderThickness="{TemplateBinding BorderThickness}"
