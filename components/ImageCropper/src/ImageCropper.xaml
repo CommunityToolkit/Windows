@@ -27,29 +27,29 @@
                                 <Path x:Name="PART_MaskAreaPath"
                                       Fill="{TemplateBinding Mask}" />
                                 <controls:ImageCropperThumb x:Name="PART_TopThumb"
-                                                            ui:FrameworkElementExtensions.Cursor="SizeNorthSouth"
                                                             Style="{TemplateBinding SecondaryThumbStyle}" />
+                                <!--  ui:FrameworkElementExtensions.Cursor="SizeNorthSouth"  -->
                                 <controls:ImageCropperThumb x:Name="PART_BottomThumb"
-                                                            ui:FrameworkElementExtensions.Cursor="SizeNorthSouth"
                                                             Style="{TemplateBinding SecondaryThumbStyle}" />
+                                <!--  ui:FrameworkElementExtensions.Cursor="SizeNorthSouth"  -->
                                 <controls:ImageCropperThumb x:Name="PART_LeftThumb"
-                                                            ui:FrameworkElementExtensions.Cursor="SizeWestEast"
                                                             Style="{TemplateBinding SecondaryThumbStyle}" />
+                                <!--  ui:FrameworkElementExtensions.Cursor="SizeWestEast"  -->
                                 <controls:ImageCropperThumb x:Name="PART_RightThumb"
-                                                            ui:FrameworkElementExtensions.Cursor="SizeWestEast"
                                                             Style="{TemplateBinding SecondaryThumbStyle}" />
+                                <!--  ui:FrameworkElementExtensions.Cursor="SizeWestEast"  -->
                                 <controls:ImageCropperThumb x:Name="PART_UpperLeftThumb"
-                                                            ui:FrameworkElementExtensions.Cursor="SizeNorthwestSoutheast"
                                                             Style="{TemplateBinding PrimaryThumbStyle}" />
+                                <!--  ui:FrameworkElementExtensions.Cursor="SizeNorthwestSoutheast"  -->
                                 <controls:ImageCropperThumb x:Name="PART_UpperRightThumb"
-                                                            ui:FrameworkElementExtensions.Cursor="SizeNortheastSouthwest"
                                                             Style="{TemplateBinding PrimaryThumbStyle}" />
+                                <!--  ui:FrameworkElementExtensions.Cursor="SizeNortheastSouthwest"  -->
                                 <controls:ImageCropperThumb x:Name="PART_LowerLeftThumb"
-                                                            ui:FrameworkElementExtensions.Cursor="SizeNortheastSouthwest"
                                                             Style="{TemplateBinding PrimaryThumbStyle}" />
+                                <!--  ui:FrameworkElementExtensions.Cursor="SizeNortheastSouthwest"  -->
                                 <controls:ImageCropperThumb x:Name="PART_LowerRightThumb"
-                                                            ui:FrameworkElementExtensions.Cursor="SizeNorthwestSoutheast"
                                                             Style="{TemplateBinding PrimaryThumbStyle}" />
+                                <!--  ui:FrameworkElementExtensions.Cursor="SizeNorthwestSoutheast"  -->
                             </Canvas>
                         </Grid>
                     </Border>
