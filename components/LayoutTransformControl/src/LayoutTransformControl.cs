@@ -2,11 +2,6 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 using System.Diagnostics.CodeAnalysis;
-#if WINAPPSDK
-using Microsoft.UI.Xaml.Media;
-#else
-using Windows.UI.Xaml.Media;
-#endif
 
 namespace CommunityToolkit.WinUI.Controls;
 
@@ -57,7 +52,6 @@ public partial class LayoutTransformControl : Control
     /// </summary>
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 #pragma warning disable CS8619 //
-#pragma warning disable CS1061 //
     public LayoutTransformControl()
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
     {
@@ -162,7 +156,11 @@ public partial class LayoutTransformControl : Control
 
             if (transformGroup != null)
             {
+#if HAS_UNO
+                var groupMatrix = Windows.UI.Xaml.Media.Matrix.Identity;
+#else
                 var groupMatrix = Matrix.Identity;
+#endif
 
                 foreach (var child in transformGroup.Children)
                 {
@@ -212,7 +210,11 @@ public partial class LayoutTransformControl : Control
         }
 
         // Fall back to no-op transformation
+#if HAS_UNO
+        return Windows.UI.Xaml.Media.Matrix.Identity;
+#else
         return Matrix.Identity;
+#endif
     }
 
     /// <summary>
@@ -461,5 +463,4 @@ public partial class LayoutTransformControl : Control
         return computedSize;
     }
 #pragma warning restore CS8619
-#pragma warning restore CS1061
 }
