@@ -9,7 +9,7 @@
       mc:Ignorable="d">
     <Grid>
         <controls:ImageCropper x:Name="ImageCropper"
-                               CropShape="{x:Bind local:ImageCropperCustomSample.ConvertStringToCropShape(CropShape), Mode=OneWay}"
-                               ThumbPlacement="{x:Bind local:ImageCropperCustomSample.ConvertStringToThumbPlacement(ThumbPlacement), Mode=OneWay}" />
+                               CropShape="{x:Bind local:ImageCropperCustomSample.ConvertStringToCropShape(CropShapeSetting), Mode=OneWay}"
+                               ThumbPlacement="{x:Bind local:ImageCropperCustomSample.ConvertStringToThumbPlacement(ThumbPlacementSetting), Mode=OneWay}" />
     </Grid>
 </Page>

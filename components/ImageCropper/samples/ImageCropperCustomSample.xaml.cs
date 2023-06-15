@@ -6,8 +6,8 @@ using CommunityToolkit.WinUI.Controls;
 
 namespace ImageCropperExperiment.Samples;
 
-[ToolkitSampleMultiChoiceOption("ThumbPlacement", "All", "Corners", Title = "Thumb Placement")]
-[ToolkitSampleMultiChoiceOption("CropShape", "Rectangular", "Circular", Title = "Crop Shape")]
+[ToolkitSampleMultiChoiceOption("ThumbPlacementSetting", "All", "Corners", Title = "Thumb Placement")]
+[ToolkitSampleMultiChoiceOption("CropShapeSetting", "Rectangular", "Circular", Title = "Crop Shape")]
 
 [ToolkitSample(id: nameof(ImageCropperCustomSample), "ImageCropper", description: $"A sample for showing how to create and use a {nameof(ImageCropper)}.")]
 public sealed partial class ImageCropperCustomSample : Page
@@ -23,6 +23,7 @@ public sealed partial class ImageCropperCustomSample : Page
         "Corners" => ThumbPlacement.Corners,
         _ => throw new System.NotImplementedException(),
     };
+
 
     public static CropShape ConvertStringToCropShape(string cropshape) => cropshape switch
     {
