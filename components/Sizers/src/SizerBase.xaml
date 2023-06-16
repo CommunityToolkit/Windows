@@ -44,7 +44,7 @@
     <x:Double x:Key="SizerBaseThumbHeight">24</x:Double>
     <x:Double x:Key="SizerBaseThumbWidth">4</x:Double>
     <x:Double x:Key="SizerBaseThumbRadius">2</x:Double>
-    <Thickness x:Key="SizerBaseThumbMargin">4</Thickness>
+    <Thickness x:Key="SizerBasePadding">4</Thickness>
 
     <Style TargetType="controls:SizerBase">
         <Setter Property="IsTabStop" Value="True" />
@@ -54,6 +54,7 @@
         <Setter Property="IsFocusEngagementEnabled" Value="True" />
         <Setter Property="MinHeight" Value="8" />
         <Setter Property="MinWidth" Value="8" />
+        <Setter Property="Padding" Value="{ThemeResource SizerBasePadding}" />
         <Setter Property="Foreground" Value="{ThemeResource SizerBaseForeground}" />
         <Setter Property="Background" Value="{ThemeResource SizerBaseBackground}" />
         <Setter Property="HorizontalContentAlignment" Value="Center" />
@@ -66,7 +67,8 @@
                     <Grid x:Name="RootGrid"
                           Background="{TemplateBinding Background}"
                           BorderBrush="{TemplateBinding BorderBrush}"
-                          BorderThickness="{TemplateBinding BorderThickness}">
+                          BorderThickness="{TemplateBinding BorderThickness}"
+                          CornerRadius="{TemplateBinding CornerRadius}">
                         <Grid.BackgroundTransition>
                             <BrushTransition Duration="0:0:0.083" />
                         </Grid.BackgroundTransition>
@@ -112,7 +114,7 @@
                         <Rectangle x:Name="PART_Thumb"
                                    Width="{ThemeResource SizerBaseThumbWidth}"
                                    Height="{ThemeResource SizerBaseThumbHeight}"
-                                   Margin="{ThemeResource SizerBaseThumbMargin}"
+                                   Margin="{TemplateBinding Padding}"
                                    Fill="{TemplateBinding Foreground}"
                                    RadiusX="{ThemeResource SizerBaseThumbRadius}"
                                    RadiusY="{ThemeResource SizerBaseThumbRadius}" />
