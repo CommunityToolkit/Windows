@@ -15,9 +15,9 @@
         <controls:ImageCropper x:Name="imageCropper"
                                Width="520"
                                Height="520"
-                               AspectRatio="{x:Bind local:ImageCropperCustomSample.ConvertStringToAspectRatio(AspectRatioSetting), Mode=OneWay}"
-                               CropShape="{x:Bind local:ImageCropperCustomSample.ConvertStringToCropShape(CropShapeSetting), Mode=OneWay}"
-                               ThumbPlacement="{x:Bind local:ImageCropperCustomSample.ConvertStringToThumbPlacement(ThumbPlacementSetting), Mode=OneWay}" />
+                               AspectRatio="{x:Bind local:ImageCropperSample.ConvertStringToAspectRatio(AspectRatioSetting), Mode=OneWay}"
+                               CropShape="{x:Bind local:ImageCropperSample.ConvertStringToCropShape(CropShapeSetting), Mode=OneWay}"
+                               ThumbPlacement="{x:Bind local:ImageCropperSample.ConvertStringToThumbPlacement(ThumbPlacementSetting), Mode=OneWay}" />
         <StackPanel Grid.Row="1"
                     HorizontalAlignment="Center"
                     Orientation="Horizontal"
