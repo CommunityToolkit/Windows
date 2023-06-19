@@ -12,10 +12,10 @@ namespace ImageCropperExperiment.Samples;
 [ToolkitSampleMultiChoiceOption("CropShapeSetting", "Rectangular", "Circular", Title = "Crop Shape")]
 [ToolkitSampleMultiChoiceOption("AspectRatioSetting", "Custom", "Square", "Landscape(16:9)", "Portrait(9:16)", "4:3", "3:2", Title = "Aspect Ratio")]
 
-[ToolkitSample(id: nameof(ImageCropperCustomSample), "ImageCropper", description: $"A sample for showing how to create and use a {nameof(ImageCropper)}.")]
-public sealed partial class ImageCropperCustomSample : Page
+[ToolkitSample(id: nameof(ImageCropperSample), "ImageCropper", description: $"A sample for showing how to create and use a {nameof(ImageCropper)}.")]
+public sealed partial class ImageCropperSample : Page
 {
-    public ImageCropperCustomSample()
+    public ImageCropperSample()
     {
         this.InitializeComponent();
         Load();

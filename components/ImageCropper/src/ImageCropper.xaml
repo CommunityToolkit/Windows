@@ -8,19 +8,24 @@
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
         <Setter Property="VerticalAlignment" Value="Stretch" />
         <Setter Property="VerticalContentAlignment" Value="Stretch" />
-        <Setter Property="Background" Value="{ThemeResource SystemControlBackgroundAltHighBrush}" />
-        <Setter Property="Mask" Value="{ThemeResource SystemControlBackgroundAltMediumHighBrush}" />
+        <Setter Property="Background" Value="{ThemeResource CardBackgroundFillColorDefaultBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="0" />
+        <Setter Property="BorderBrush" Value="{ThemeResource CardStrokeColorDefaultBrush}" />
+        <Setter Property="Mask" Value="{ThemeResource SmokeFillColorDefaultBrush}" />
         <Setter Property="Padding" Value="80" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="controls:ImageCropper">
                     <Border Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}">
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="{TemplateBinding CornerRadius}">
                         <Grid x:Name="PART_LayoutGrid"
                               Padding="{TemplateBinding Padding}"
                               HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
-                              VerticalAlignment="{TemplateBinding VerticalAlignment}">
+                              VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                              CornerRadius="{TemplateBinding CornerRadius}">
                             <Canvas x:Name="PART_ImageCanvas">
                                 <Image x:Name="PART_SourceImage"
                                        Source="{TemplateBinding Source}" />
