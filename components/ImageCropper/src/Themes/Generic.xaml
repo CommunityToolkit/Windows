@@ -4,6 +4,6 @@
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="ms-appx:///CommunityToolkit.WinUI.Controls.ImageCropper/ImageCropper.xaml" />
-<ResourceDictionary Source="ms-appx:///CommunityToolkit.WinUI.Controls.ImageCropper/ImageCropperThumb.xaml" />
+        <ResourceDictionary Source="ms-appx:///CommunityToolkit.WinUI.Controls.ImageCropper/ImageCropperThumb.xaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>
