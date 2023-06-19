@@ -1,7 +1,7 @@
 ---
 title: IncrementalLoadingCollection
 author: nmetulev
-description: The IncrementalLoadingCollection helpers greatly simplify the definition and usage of collections whose items can be loaded incrementally only when needed by the view
+description: The IncrementalLoadingCollection helpers greatly simplify the definition and usage of collections whose items can be loaded incrementally only when needed by the view (such as a ScrollViewer).
 keywords: IncrementalLoadingCollection, Control, Data, Incremental, Loading
 dev_langs:
   - csharp
@@ -10,10 +10,6 @@ subcategory: Layout
 discussion-id: 0
 issue-id: 0
 ---
-
-# Incremental Loading Collection Helpers
-
-The **IncrementalLoadingCollection** helpers greatly simplify the definition and usage of collections whose items can be loaded incrementally only when needed by the view, i.e., when user scrolls a [ListView](/uwp/api/Windows.UI.Xaml.Controls.ListView) or a [GridView](/uwp/api/Windows.UI.Xaml.Controls.GridView).
 
 > [!Sample IncrementalLoadingCollectionSample]
 

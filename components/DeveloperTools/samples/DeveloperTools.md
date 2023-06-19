@@ -11,7 +11,7 @@ discussion-id: 0
 issue-id: 0
 ---
 
-# AlignmentGrid XAML Control
+## AlignmentGrid XAML Control
 
 The [AlignmentGrid Control](/dotnet/api/microsoft.toolkit.uwp.developertools.alignmentgrid) can be used to display a grid to help with aligning controls.
 
@@ -19,7 +19,7 @@ You can control the grid's steps with `HorizontalStep` and `VerticalStep` proper
 
 > [!Sample AlignmentGridSample]
 
-## Properties
+### Properties
 
 | Property | Type | Description |
 | -- | -- | -- |
@@ -28,7 +28,7 @@ You can control the grid's steps with `HorizontalStep` and `VerticalStep` proper
 | VerticalStep | double | Gets or sets the step to use vertically |
 
 
-# FocusTracker
+## FocusTracker
 
 The [FocusTracker Control](/dotnet/api/microsoft.toolkit.uwp.developertools.focustracker) can be used to display information about the current focused XAML element (if any).
 

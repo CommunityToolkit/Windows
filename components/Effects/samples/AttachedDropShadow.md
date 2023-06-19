@@ -11,10 +11,6 @@ discussion-id: 0
 issue-id: 0
 ---
 
-# Attached Drop Shadow
-
-`AttachedDropShadow` allows many elements to share a common backdrop for casting shadows.
-
 If you are looking to apply shadows to rectangle or card style elements, it is recommended to use `AttachedCardShadow` instead.
 
 AttachedDropShadow is best used when:

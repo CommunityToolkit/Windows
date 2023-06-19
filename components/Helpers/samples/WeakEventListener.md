@@ -11,10 +11,6 @@ discussion-id: 0
 issue-id: 0
 ---
 
-# WeakEventListener
-
-The [WeakEventListener](/dotnet/api/microsoft.toolkit.uwp.helpers.weakeventlistener-3) allows the owner to be garbage collected if its only remaining link is an event handler.
-
 ```csharp
 var inpc = rowGroupInfo.CollectionViewGroup as INotifyPropertyChanged;
 var weakPropertyChangedListener = new WeakEventListener<DataGrid, object, PropertyChangedEventArgs>(this)

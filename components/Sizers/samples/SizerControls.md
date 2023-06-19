@@ -11,8 +11,6 @@ discussion-id: 96
 issue-id: 101
 ---
 
-# Sizer Controls
-
 The Sizer controls consist of the following:
 
 - GridSplitter

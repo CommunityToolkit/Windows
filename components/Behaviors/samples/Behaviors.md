@@ -1,7 +1,7 @@
 ---
 title: Behaviors
 author: Arlodotexe
-description: 
+description: A behavior is a class that attaches to a XAML control and invokes an Action when triggered. 
 keywords: Behaviors
 dev_langs:
   - csharp
@@ -10,10 +10,6 @@ subcategory: Behaviors
 discussion-id: 0
 issue-id: 0
 ---
-
-# Behaviors
-
-A behavior is a class that attaches to a XAML control and invokes an Action when triggered. 
 
 The `Microsoft.Xaml.Behaviors.*` packages contains several useful triggers and actions, and the Windows Community Toolkit provides even more.
 
