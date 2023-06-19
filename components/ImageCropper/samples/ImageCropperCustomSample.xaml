@@ -7,9 +7,30 @@
       xmlns:local="using:ImageCropperExperiment.Samples"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
-    <Grid>
-        <controls:ImageCropper x:Name="ImageCropper"
+    <Grid RowSpacing="24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <controls:ImageCropper x:Name="imageCropper"
+                               Width="520"
+                               Height="520"
+                               AspectRatio="{x:Bind local:ImageCropperCustomSample.ConvertStringToAspectRatio(AspectRatioSetting), Mode=OneWay}"
                                CropShape="{x:Bind local:ImageCropperCustomSample.ConvertStringToCropShape(CropShapeSetting), Mode=OneWay}"
                                ThumbPlacement="{x:Bind local:ImageCropperCustomSample.ConvertStringToThumbPlacement(ThumbPlacementSetting), Mode=OneWay}" />
+        <StackPanel Grid.Row="1"
+                    HorizontalAlignment="Center"
+                    Orientation="Horizontal"
+                    Spacing="8">
+            <Button Click="PickButton_Click"
+                    Content="Pick image"
+                    Style="{StaticResource AccentButtonStyle}" />
+            <Button Click="SaveButton_Click"
+                    Content="Save"
+                    Style="{StaticResource AccentButtonStyle}" />
+            <Button Click="ResetButton_Click"
+                    Content="Reset"
+                    Style="{StaticResource AccentButtonStyle}" />
+        </StackPanel>
     </Grid>
 </Page>
