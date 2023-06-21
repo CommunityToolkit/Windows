@@ -11,10 +11,6 @@ discussion-id: 0
 issue-id: 0
 ---
 
-# AdvancedCollectionView
-
-The [AdvancedCollectionView](/dotnet/api/microsoft.toolkit.uwp.ui.advancedcollectionview) is a collection view implementation that support filtering, sorting and incremental loading. It's meant to be used in a viewmodel.
-
 > [!Sample AdvancedCollectionViewSample]
 
 ## Usage

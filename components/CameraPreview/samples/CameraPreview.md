@@ -11,10 +11,6 @@ discussion-id: 0
 issue-id: 0
 ---
 
-# CameraPreview
-
-The **CameraPreview** control allows to easily preview video in the MediaPlayerElement from available camera frame source groups. You can subscribe and get real time video frames and software bitmaps as they arrive from the selected camera source. It shows only frame sources that support color video preview or video record streams.
-
 > [!IMPORTANT]
 > Make sure you have the [webcam capability](/windows/uwp/packaging/app-capability-declarations#device-capabilities) enabled for your app to access the device's camera.
 

@@ -11,9 +11,7 @@ discussion-id: 0
 issue-id: 0
 ---
 
-# WrapPanel
-
-The [WrapPanel](/dotnet/api/microsoft.toolkit.uwp.ui.controls.wrappanel) control positions child elements in sequential position from left to right, breaking content to the next line at the edge of the containing box. Subsequent ordering happens sequentially from top to bottom or from right to left, depending on the value of the Orientation property.
+Subsequent ordering happens sequentially from top to bottom or from right to left, depending on the value of the Orientation property.
 
 The WrapPanel position child controls based on orientation, horizontal orientation (default) positions controls from left to right and vertical orientation positions controls from top to bottom, and once the max width or height is reached the control automatically create row or column based on the orientation.
 

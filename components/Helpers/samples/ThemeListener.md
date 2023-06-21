@@ -1,7 +1,7 @@
 ---
 title: Theme Listener
 author: williamabradley
-description: The ThemeListener allows you to keep track of changes to the System Theme.
+description: The ThemeListener allows you to keep track of changes to the current Application Them, and when it is changed via System Theme changes.
 keywords: Helpers, Theming, theme listerner, themes
 dev_langs:
   - csharp
@@ -10,10 +10,6 @@ subcategory: Layout
 discussion-id: 0
 issue-id: 0
 ---
-
-# Theme Listener
-
-The [Theme Listener](/dotnet/api/microsoft.toolkit.uwp.ui.helpers.themelistener) class allows you to determine the current Application Theme, and when it is changed via System Theme changes.
 
 KNOWN ISSUE: `ThemeListener` might not work in WinUI3 applications.
 

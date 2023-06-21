@@ -1,7 +1,7 @@
 ---
 title: ConstrainedBox
 author: michael-hawker
-description: The ConstrainedBox is a FrameworkElement which can allow a developer to constrain the scale, multiple of, or aspect ratio of its content.
+description: The ConstrainedBox is a FrameworkElement which can allow a developer to constrain the aspect ration, scale, or multiple boundary alignment of its content.
 keywords: viewbox, content decorator, ConstrainedBox
 dev_langs:
   - csharp
@@ -10,10 +10,6 @@ subcategory: Layout
 discussion-id: 0
 issue-id: 0
 ---
-
-# ConstrainedBox
-
-The [ConstrainedBox](/dotnet/api/microsoft.toolkit.uwp.ui.controls.constrainedbox) is a simple `FrameworkElement` content decorator control which allows the developer to constrain its child content by one or more various properties including aspect ratio, scale, and aligning to a multiple boundary.
 
 > [!NOTE]
 > For technical reasons this control inherits from `ContentPresenter`; however, it should be treated as a `FrameworkElement` and its border and template properties should not be used for compatibility in the future when it can inherit from FrameworkElement directly.
