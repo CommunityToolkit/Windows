@@ -9,7 +9,7 @@ category: Helpers
 subcategory: Data
 discussion-id: 0
 issue-id: 0
-icon: Assets/Icon.png
+icon: Assets/IncrementalLoadingCollection.png
 ---
 
 > [!Sample IncrementalLoadingCollectionSample]
