@@ -6,9 +6,10 @@ keywords: Behaviors
 dev_langs:
   - csharp
 category: Xaml
-subcategory: Behaviors
+subcategory: None
 discussion-id: 0
 issue-id: 0
+icon: Assets/Behaviors.png
 ---
 
 The `Microsoft.Xaml.Behaviors.*` packages contains several useful triggers and actions, and the Windows Community Toolkit provides even more.

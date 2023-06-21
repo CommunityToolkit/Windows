@@ -9,6 +9,7 @@ category: Extensions
 subcategory: Media
 discussion-id: 0
 issue-id: 0
+icon: Assets/AttachedDropShadow.png
 ---
 > **Platform APIs:** [`AttachedCardShadow`](/dotnet/api/microsoft.toolkit.uwp.ui.media.attachedcardshadow), [`AttachedDropShadow`](/dotnet/api/microsoft.toolkit.uwp.ui.attacheddropshadow)
 

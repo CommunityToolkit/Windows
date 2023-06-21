@@ -1,14 +1,15 @@
 ---
 title: Converters
-author: githubaccount
+author: niels9001
 description: Commonly used converters that allow the data to be modified as it passes through the binding engine.
 keywords: Converters, Control, Layout
 dev_langs:
   - csharp
-category: Controls
-subcategory: Layout
+category: Xaml
+subcategory: None
 discussion-id: 0
 issue-id: 0
+icon: Assets/Converters.png
 ---
 
 | Converter | Purpose |

@@ -9,6 +9,7 @@ category: Extensions
 subcategory: None
 discussion-id: 0
 issue-id: 0
+icon: Assets/Extensions.png
 ---
 
 # DispatcherQueueExtensions
