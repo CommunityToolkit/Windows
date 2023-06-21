@@ -9,9 +9,8 @@ category: Controls
 subcategory: Layout
 discussion-id: 0
 issue-id: 0
+icon: Assets/LayoutTransformControl.png
 ---
-
-# LayoutTransformControl
 
 The [LayoutTransformControl](/dotnet/api/microsoft.toolkit.uwp.ui.controls.layouttransformcontrol) is a control that applies Matrix transformations on any `FrameworkElement` of your application.
 
