@@ -6,9 +6,10 @@ keywords: Helpers, NetworkHelper
 dev_langs:
   - csharp
 category: Helpers
-subcategory: Layout
+subcategory: System
 discussion-id: 0
 issue-id: 0
+icon: Assets/NetworkHelper.png
 ---
 
 It exposes network information though a property called ConnectionInformation. The [ConnectionInformation](/dotnet/api/microsoft.toolkit.uwp.connectivity.connectioninformation) holds information about ConnectionType, ConnectivityLevel, ConnectionCost, SignalStrength, Internet Connectivity and more.

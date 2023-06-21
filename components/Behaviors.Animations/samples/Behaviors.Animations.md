@@ -9,6 +9,7 @@ category: Xaml
 subcategory: Behaviors
 discussion-id: 0
 issue-id: 0
+icon: Assets/AnimationSet.png
 ---
 
 The [`AnimationSet`](/dotnet/api/microsoft.toolkit.uwp.ui.animations.AnimationSet) type represents an animation schedule, effectively representing an [AnimationBuilder](/dotnet/api/microsoft.toolkit.uwp.ui.animations.AnimationBuilder) instance via XAML code. It can contain any number of animations or activities, exposes methods to start and stop an animation, and events to be notified when an animation has started or is completed. Like `AnimationBuilder`, `AnimationSet` instances can also be shared (e.g. in a [`ResourceDictionary`](/windows/uwp/design/controls-and-patterns/resourcedictionary-and-xaml-resource-references)) and then be used to start animation schedules on multiple UI elements. It can also be directly attached to a parent UI element, via the [`Explicit.Animations`](/dotnet/api/microsoft.toolkit.uwp.ui.animations.Explicit) attached property.

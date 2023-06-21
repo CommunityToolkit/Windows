@@ -9,6 +9,7 @@ category: Controls
 subcategory: Layout
 discussion-id: 0
 issue-id: 0
+icon: Assets/HeaderedItemsControl.png
 ---
 The `Header` property can be any object and you can use the `HeaderTemplate` to specify a custom look to the header.
 
