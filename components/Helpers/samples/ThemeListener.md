@@ -6,9 +6,10 @@ keywords: Helpers, Theming, theme listerner, themes
 dev_langs:
   - csharp
 category: Helpers
-subcategory: Layout
+subcategory: Developer
 discussion-id: 0
 issue-id: 0
+icon: Assets/Icon.png
 ---
 
 KNOWN ISSUE: `ThemeListener` might not work in WinUI3 applications.

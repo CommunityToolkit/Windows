@@ -9,6 +9,7 @@ category: Controls
 subcategory: Input
 discussion-id: 0
 issue-id: 0
+icon: Assets/RichSuggestBox.png
 ---
 
 The [RichSuggestBox](/dotnet/api/microsoft.toolkit.uwp.ui.controls.richsuggestbox) is a combination of [AutoSuggestBox](/uwp/api/windows.ui.xaml.controls.autosuggestbox) and [RichEditBox](/uwp/api/windows.ui.xaml.controls.richeditbox) that can provide suggestions based on customizable prefixes. Selected suggestions are embedded and tracked in the document as tokens.

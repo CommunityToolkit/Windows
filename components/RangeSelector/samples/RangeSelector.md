@@ -9,6 +9,7 @@ category: Controls
 subcategory: Input
 discussion-id: 0
 issue-id: 0
+icon: Assets/RangeSelector.png
 ---
 
 > **Platform APIs:** [`RangeSelector`](/dotnet/api/microsoft.toolkit.uwp.ui.controls.rangeselector)

@@ -9,6 +9,7 @@ category: Controls
 subcategory: Input
 discussion-id: 0
 issue-id: 0
+icon: Assets/RadialGauge.png
 ---
 
 This control will make data visualizations and dashboards more engaging with rich style and interactivity.

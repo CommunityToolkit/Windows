@@ -5,10 +5,11 @@ description: Presents items in a evenly-spaced set of rows or columns to fill th
 keywords: UniformGrid, grid, layout, responsive
 dev_langs:
   - csharp
-category: Controls
+category: Layouts
 subcategory: Layout
 discussion-id: 0
 issue-id: 0
+icon: Assets/UniformGrid.png
 ---
 
 Each cell in the grid, by default, will be the same size.

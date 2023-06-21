@@ -9,6 +9,7 @@ category: Controls
 subcategory: Layout
 discussion-id: 0
 issue-id: 0
+icon: Assets/MetadataControl.png
 ---
 
 The bullet separator can be customized using the `Separator` property.

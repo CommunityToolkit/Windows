@@ -9,6 +9,7 @@ category: Animations
 subcategory: Layout
 discussion-id: 0
 issue-id: 0
+icon: Assets/ImplicitAnimations.png
 ---
 
 The [`ImplicitAnimationSet`](/dotnet/api/microsoft.toolkit.uwp.ui.animations.ImplicitAnimationSet) type is the equivalent of [`AnimationSet`](/dotnet/api/microsoft.toolkit.uwp.ui.animations.AnimationSet) in the context of implicit [Composition animations](/windows/uwp/composition/composition-animation). It represents a set of implicit animations that can only run on the [Composition layer](/windows/uwp/composition/visual-layer) and that are available in three categories: show, hide, and implicit animations. `ImplicitAnimationSet` restricts the type of contained animations to objects implementing the [`IImplicitTimeline`](/dotnet/api/microsoft.toolkit.uwp.ui.animations.IImplicitTimeline) interface to offer an additional level of build-time safety when constructing animations from XAML. Similar to the other interfaces used for explicit animations this architecture is also extensible in that users can also easily plug in their custom types implementing this interface into an `ImplicitAnimationSet` collection.
