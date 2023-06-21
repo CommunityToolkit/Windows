@@ -11,10 +11,6 @@ discussion-id: 0
 issue-id: 0
 ---
 
-# NetworkHelper
-
-The [NetworkHelper](/dotnet/api/microsoft.toolkit.uwp.connectivity.networkhelper) class provides functionality to monitor changes in network connection and allows users to query for network information without additional lookups.
-
 It exposes network information though a property called ConnectionInformation. The [ConnectionInformation](/dotnet/api/microsoft.toolkit.uwp.connectivity.connectioninformation) holds information about ConnectionType, ConnectivityLevel, ConnectionCost, SignalStrength, Internet Connectivity and more.
 
 **_What is a metered connection?_**

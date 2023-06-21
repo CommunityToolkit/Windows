@@ -11,8 +11,6 @@ discussion-id: 0
 issue-id: 0
 ---
 
-# Array Extensions
-
 > [!WARNING]
 > These extensions have been partially moved to the `Microsoft.Toolkit.HighPerformance` package. Please refer to the .NET API browser for a comprehensive list of available APIs.
 
