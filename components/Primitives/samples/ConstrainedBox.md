@@ -6,9 +6,11 @@ keywords: viewbox, content decorator, ConstrainedBox
 dev_langs:
   - csharp
 category: Controls
-subcategory: Layout
+category: Layouts
+subcategory: None
 discussion-id: 0
 issue-id: 0
+icon: Assets/ConstrainedBox.png
 ---
 
 > [!NOTE]

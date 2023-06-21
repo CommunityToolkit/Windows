@@ -5,10 +5,11 @@ description: The WrapLayout virtualizes child elements in sequential position fr
 keywords: WrapLayout
 dev_langs:
   - csharp
-category: Controls
+category: Layouts
 subcategory: Layout
 discussion-id: 0
 issue-id: 0
+icon: Assets/WrapLayout.png
 ---
 
 Subsequent ordering happens sequentially from top to bottom or from right to left, depending on the value of the Orientation property.

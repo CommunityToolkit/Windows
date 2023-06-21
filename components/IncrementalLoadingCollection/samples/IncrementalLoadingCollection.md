@@ -5,10 +5,11 @@ description: The IncrementalLoadingCollection helpers greatly simplify the defin
 keywords: IncrementalLoadingCollection, Control, Data, Incremental, Loading
 dev_langs:
   - csharp
-category: Controls
-subcategory: Layout
+category: Helpers
+subcategory: Data
 discussion-id: 0
 issue-id: 0
+icon: Assets/Icon.png
 ---
 
 > [!Sample IncrementalLoadingCollectionSample]

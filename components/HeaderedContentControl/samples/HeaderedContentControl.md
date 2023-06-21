@@ -9,6 +9,7 @@ category: Controls
 subcategory: Layout
 discussion-id: 0
 issue-id: 0
+icon: Assets/HeaderedContentControl.png
 ---
 
 The `Header` property can be any object and you can use the `HeaderTemplate` to specify a custom look to the header. Content for the HeaderedContentControl will align to the top left. This is to maintain the same functionality as the ContentControl.
