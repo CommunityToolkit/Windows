@@ -1,7 +1,7 @@
 ---
 title: Converters
 author: githubaccount
-description: 
+description: Commonly used converters that allow the data to be modified as it passes through the binding engine.
 keywords: Converters, Control, Layout
 dev_langs:
   - csharp
@@ -10,10 +10,6 @@ subcategory: Layout
 discussion-id: 0
 issue-id: 0
 ---
-
-# Converters
-
-Commonly used **converters** that allow the data to be modified as it passes through the binding engine.
 
 | Converter | Purpose |
 | --- | --- |

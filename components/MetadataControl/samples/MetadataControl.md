@@ -11,11 +11,6 @@ discussion-id: 0
 issue-id: 0
 ---
 
-# MetadataControl
-
-The [MetadataControl](/dotnet/api/microsoft.toolkit.uwp.ui.controls.metadatacontrol) control displays a list of labels and hyper-links separated by a bullet.
-It also generates an accessible string representing its content.
-
 The bullet separator can be customized using the `Separator` property.
 `AccessibleSeparator` is used as a replacement for `Separator` to generate the accessible string.
 

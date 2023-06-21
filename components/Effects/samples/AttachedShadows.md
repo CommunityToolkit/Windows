@@ -10,11 +10,6 @@ subcategory: Media
 discussion-id: 0
 issue-id: 0
 ---
-
-# Attached Shadows
-
-Attached Shadows allow you to more easily create beautiful shadow effects within your app with little to no modification of the visual tree required, unlike our previous `DropShadowPanel` control.
-
 > **Platform APIs:** [`AttachedCardShadow`](/dotnet/api/microsoft.toolkit.uwp.ui.media.attachedcardshadow), [`AttachedDropShadow`](/dotnet/api/microsoft.toolkit.uwp.ui.attacheddropshadow)
 
 ## Introduction
