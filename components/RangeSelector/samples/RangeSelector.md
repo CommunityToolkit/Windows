@@ -1,7 +1,7 @@
 ---
 title: RangeSelector
 author: nmetulev
-description: The RangeSelector Control is a Double Slider control that allows the user to select a sub-range of values from a larger range of possible values.
+description: The RangeSelector Control is a Double Slider control that allows the user to select a sub-range of values from a larger range of possible values. The user can slide from the left or right of the range.
 keywords: RangeSelector, Control, double slider, slider rangeslider
 dev_langs:
   - csharp
@@ -10,10 +10,6 @@ subcategory: Input
 discussion-id: 0
 issue-id: 0
 ---
-
-# RangeSelector
-
-The [RangeSelector](/dotnet/api/microsoft.toolkit.uwp.ui.controls.rangeselector) control is a Double Slider control that allows the user to select a sub-range of values from a larger range of possible values.  The user can slide from the left or right of the range.
 
 > **Platform APIs:** [`RangeSelector`](/dotnet/api/microsoft.toolkit.uwp.ui.controls.rangeselector)
 

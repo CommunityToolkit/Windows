@@ -10,10 +10,7 @@ subcategory: Layout
 discussion-id: 0
 issue-id: 0
 ---
-
-# HeaderedItemsControl
-
-The [HeaderedItemsControl](/dotnet/api/microsoft.toolkit.uwp.ui.controls.headereditemscontrol) is a UI control that allows content to be displayed with a specified header. The `Header` property can be any object and you can use the `HeaderTemplate` to specify a custom look to the header.
+The `Header` property can be any object and you can use the `HeaderTemplate` to specify a custom look to the header.
 
 > [!NOTE]
 > Setting the `Background`, `BorderBrush` and `BorderThickness` properties will not have any effect on the HeaderedItemsControl. This is to maintain the same functionality as the ItemsControl.

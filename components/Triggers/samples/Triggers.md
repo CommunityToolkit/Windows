@@ -11,10 +11,6 @@ discussion-id: 0
 issue-id: 0
 ---
 
-# Triggers
-
-A collection of custom visual [State Triggers](/uwp/api/windows.ui.xaml.statetrigger).
-
 ## CompareStateTrigger
 
 Enables a state if the value is equal to, greater than, or less than another value.
