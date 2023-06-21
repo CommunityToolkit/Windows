@@ -9,7 +9,7 @@ category: Helpers
 subcategory: Developer
 discussion-id: 0
 issue-id: 0
-icon: Assets/Icon.png
+icon: Assets/ThemeListener.png
 ---
 
 KNOWN ISSUE: `ThemeListener` might not work in WinUI3 applications.
