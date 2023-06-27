@@ -2,8 +2,6 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
-using System;
-
 namespace CommunityToolkit.WinUI;
 
 /// <inheritdoc cref="FrameworkElementExtensions"/>
@@ -39,7 +37,7 @@ public static partial class FrameworkElementExtensions
     /// Gets the Type of Ancestor to look for from this element.
     /// </summary>
     /// <returns>Type of Ancestor to look for from this element</returns>
-    public static Type GetAncestorType(DependencyObject obj)
+    public static Type GetAncestorType(FrameworkElement obj)
     {
         return (Type)obj.GetValue(AncestorTypeProperty);
     }
@@ -47,7 +45,7 @@ public static partial class FrameworkElementExtensions
     /// <summary>
     /// Sets the <see cref="Type"/> to look for from this element and place in the <see cref="AncestorProperty"/>.
     /// </summary>
-    public static void SetAncestorType(DependencyObject obj, Type value)
+    public static void SetAncestorType(FrameworkElement obj, Type value)
     {
         obj.SetValue(AncestorTypeProperty, value);
     }
