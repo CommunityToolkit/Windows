@@ -14,7 +14,7 @@ using CursorShape = Windows.UI.Core.CoreCursorType;
 namespace CommunityToolkit.WinUI;
 
 // TODO: Note: Windows App SDK doesn't support this (need to use Protected Cursor), but we still use this extension for Sizer controls.
-// For now rather than not porting, we'll just exclude on Windows App SDK platforms. Fenced other blocks below and support both equivelent types, but don't have a general way to set cursor on window yet in PointerEntered/Exited. If in end, FrameworkElement gets non-protected Cursor property like WPF, then this extension also isn't needed.
+// For now rather than not porting, we'll just exclude on Windows App SDK platforms. Fenced other blocks below and support both equivalent types, but don't have a general way to set cursor on window yet in PointerEntered/Exited. If in end, FrameworkElement gets non-protected Cursor property like WPF, then this extension also isn't needed.
 // See https://github.com/microsoft/microsoft-ui-xaml/issues/4834
 #if !WINAPPSDK
 

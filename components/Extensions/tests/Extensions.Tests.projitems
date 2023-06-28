@@ -15,10 +15,18 @@
     <Compile Include="$(MSBuildThisFileDirectory)BitmapIconExtensionTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DispatcherQueueExtensionTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DispatcherQueueTimerExtensionTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Element\FrameworkElementExtensionsTests.RelativeAncestor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Element\FrameworkElementRelativeAncestorDataTemplateTestPage.xaml.cs">
+      <DependentUpon>FrameworkElementRelativeAncestorDataTemplateTestPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\ObjectWithNullableBoolProperty.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="$(MSBuildThisFileDirectory)BitmapIconExtensionTestPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Element\FrameworkElementRelativeAncestorDataTemplateTestPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -7,9 +7,9 @@ namespace ExtensionsComponent.Tests;
 /// <summary>
 /// An empty page that can be used on its own or navigated to within a Frame.
 /// </summary>
-public sealed partial class BitmapIconExtensionTestPage : Page
+public sealed partial class FrameworkElementRelativeAncestorDataTemplateTestPage : Page
 {
-    public BitmapIconExtensionTestPage()
+    public FrameworkElementRelativeAncestorDataTemplateTestPage()
     {
         this.InitializeComponent();
     }
