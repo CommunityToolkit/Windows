@@ -8,8 +8,7 @@
       mc:Ignorable="d">
 
     <Grid>
-        <ListView x:Name="ListViewControl"
-                  Tag="Hello">
+        <ListView Tag="Hello">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <TextBlock ui:FrameworkElementExtensions.AncestorType="ListView"
@@ -20,5 +19,7 @@
             <x:String>2</x:String>
             <x:String>3</x:String>
         </ListView>
+        <!--  Another child to test clearing GC  -->
+        <TextBox />
     </Grid>
 </Page>
