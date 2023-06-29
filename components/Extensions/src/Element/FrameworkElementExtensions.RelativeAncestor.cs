@@ -78,6 +78,19 @@ public static partial class FrameworkElementExtensions
         if (sender is FrameworkElement fe)
         {
             SetAncestor(fe, fe.FindAscendant(GetAncestorType(fe))!);
+
+            fe.Unloaded -= FrameworkElement_Unloaded;
+            fe.Unloaded += FrameworkElement_Unloaded;
+        }
+    }
+
+    private static void FrameworkElement_Unloaded(object sender, RoutedEventArgs e)
+    {
+        if (sender is FrameworkElement fe)
+        {
+            fe.Unloaded -= FrameworkElement_Unloaded;
+
+            SetAncestor(fe, null!);
         }
     }
 }
