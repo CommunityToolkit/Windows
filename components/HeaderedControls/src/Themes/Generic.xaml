@@ -4,8 +4,8 @@
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="ms-appx:///CommunityToolkit.WinUI.Controls.HeaderedControls/HeaderedContentControl/HeaderedContentControl.xaml" />
- 	<ResourceDictionary Source="ms-appx:///CommunityToolkit.WinUI.Controls.HeaderedControls/HeaderedItemsControl/HeaderedItemsControl.xaml" />
-<ResourceDictionary Source="ms-appx:///CommunityToolkit.WinUI.Controls.HeaderedControls/HeaderedTreeView/HeaderedTreeView.xaml" />
+        <ResourceDictionary Source="ms-appx:///CommunityToolkit.WinUI.Controls.HeaderedControls/HeaderedItemsControl/HeaderedItemsControl.xaml" />
+        <ResourceDictionary Source="ms-appx:///CommunityToolkit.WinUI.Controls.HeaderedControls/HeaderedTreeView/HeaderedTreeView.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
 </ResourceDictionary>
