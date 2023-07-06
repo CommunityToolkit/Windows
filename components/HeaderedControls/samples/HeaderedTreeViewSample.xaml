@@ -9,36 +9,28 @@
       mc:Ignorable="d">
 
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
-        <controls:HeaderedItemsControl Footer="Footer 1"
-                                       Header="Header 1"
-                                       ItemsSource="{x:Bind Items, Mode=OneWay}" />
-
-        <controls:HeaderedItemsControl Grid.Column="1"
-                                       Footer="Footer 2"
-                                       Header="Header 2"
-                                       ItemsSource="{x:Bind Items, Mode=OneWay}">
-            <controls:HeaderedItemsControl.HeaderTemplate>
+        <controls:HeaderedTreeView Footer="Footer"
+                                   Header="Header"
+                                   ItemsSource="{x:Bind Items, Mode=OneWay}">
+            <controls:HeaderedTreeView.HeaderTemplate>
                 <DataTemplate>
                     <TextBlock FontWeight="SemiBold"
                                Text="{Binding}" />
                 </DataTemplate>
-            </controls:HeaderedItemsControl.HeaderTemplate>
-            <controls:HeaderedItemsControl.FooterTemplate>
+            </controls:HeaderedTreeView.HeaderTemplate>
+            <controls:HeaderedTreeView.FooterTemplate>
                 <DataTemplate>
                     <TextBlock FontWeight="SemiBold"
                                Text="{Binding}" />
                 </DataTemplate>
-            </controls:HeaderedItemsControl.FooterTemplate>
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                               Text="{Binding}" />
+            </controls:HeaderedTreeView.FooterTemplate>
+            <controls:HeaderedTreeView.ItemTemplate>
+                <DataTemplate x:DataType="local:ExplorerItem">
+                    <TreeViewItem Content="{x:Bind Name}"
+                                  IsExpanded="True"
+                                  ItemsSource="{x:Bind Children}" />
                 </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </controls:HeaderedItemsControl>
+            </controls:HeaderedTreeView.ItemTemplate>
+        </controls:HeaderedTreeView>
     </Grid>
 </Page>

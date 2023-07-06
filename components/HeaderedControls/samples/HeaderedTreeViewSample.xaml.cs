@@ -16,13 +16,13 @@ public sealed partial class HeaderedTreeViewSample : Page
     }
     public ObservableCollection<ExplorerItem> Items { get; }
 
-private ObservableCollection<ExplorerItem> GetData()
+    private ObservableCollection<ExplorerItem> GetData()
+    {
+        var list = new ObservableCollection<ExplorerItem>();
+        ExplorerItem folder1 = new ExplorerItem()
         {
-            var list = new ObservableCollection<ExplorerItem>();
-            ExplorerItem folder1 = new ExplorerItem()
-            {
-                Name = "Work Documents",
-                Children =
+            Name = "Work Documents",
+            Children =
                 {
                     new ExplorerItem()
                     {
@@ -48,16 +48,15 @@ private ObservableCollection<ExplorerItem> GetData()
                         Name = "Feature Resources Allocation",
                     }
                 }
-            };
-            ExplorerItem folder2 = new ExplorerItem()
-            {
-                Name = "Personal Folder",
-                Children =
+        };
+        ExplorerItem folder2 = new ExplorerItem()
+        {
+            Name = "Personal Folder",
+            Children =
                         {
                             new ExplorerItem()
                             {
                                 Name = "Home Remodel Folder",
-                                Type = ExplorerItem.ExplorerItemType.Folder,
                                 Children =
                                 {
                                     new ExplorerItem()
@@ -79,31 +78,31 @@ private ObservableCollection<ExplorerItem> GetData()
                                 }
                             }
                         }
-            };
+        };
 
-            list.Add(folder1);
-            list.Add(folder2);
-            return list;
-        }
-
-public class ExplorerItem
-    {
-        public string Name { get; set; }
-        private ObservableCollection<ExplorerItem> m_children;
-        public ObservableCollection<ExplorerItem> Children
-        {
-            get
-            {
-                if (m_children == null)
-                {
-                    m_children = new ObservableCollection<ExplorerItem>();
-                }
-                return m_children;
-            }
-            set
-            {
-                m_children = value;
-            }
-        }
+        list.Add(folder1);
+        list.Add(folder2);
+        return list;
+    }
 }
+    public class ExplorerItem
+    {
+        public string? Name { get; set; }
+    private ObservableCollection<ExplorerItem>? m_children;
+    public ObservableCollection<ExplorerItem> Children
+    {
+        get
+        {
+            if (m_children == null)
+            {
+                m_children = new ObservableCollection<ExplorerItem>();
+            }
+            return m_children;
+        }
+        set
+        {
+            m_children = value;
+        }
+    }
+
 }

@@ -27,6 +27,8 @@
                                        CanReorderItems="{TemplateBinding CanReorderItems}"
                                        Footer="{TemplateBinding Footer}"
                                        Header="{TemplateBinding Header}"
+                                       HeaderTemplate="{TemplateBinding HeaderTemplate}"
+                                       FooterTemplate="{TemplateBinding FooterTemplate}"
                                        ItemContainerStyle="{TemplateBinding ItemContainerStyle}"
                                        ItemContainerStyleSelector="{TemplateBinding ItemContainerStyleSelector}"
                                        ItemContainerTransitions="{TemplateBinding ItemContainerTransitions}"
