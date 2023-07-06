@@ -3,7 +3,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:controls="using:CommunityToolkit.WinUI.Controls">
 
-        <Style TargetType="controls:HeaderedItemsControl">
+    <Style TargetType="controls:HeaderedItemsControl">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="controls:HeaderedItemsControl">
@@ -17,4 +17,5 @@
             </Setter.Value>
         </Setter>
     </Style>
+
 </ResourceDictionary>
