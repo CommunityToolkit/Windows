@@ -26,13 +26,3 @@ The `Header` property can be any object and you can use the `HeaderTemplate` to 
     <!-- Header content or HeaderTemplate content -->
 </controls:HeaderedTreeView>
 ```
-
-
-## Properties
-
-| Property | Type | Gets or sets the data used for the header of each control |
-| -- | -- | -- |
-| Header | object | Gets or sets the data used for the header of each control |
-| HeaderTemplate | DataTemplate | Gets or sets the template used to display the content of the control's footer |
-| Footer | object | Gets or sets the data used for the header of each control |
-| FooterTemplate | DataTemplate | Gets or sets the template used to display the content of the control's footer |

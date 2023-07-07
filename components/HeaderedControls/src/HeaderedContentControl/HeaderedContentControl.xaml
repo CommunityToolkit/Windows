@@ -3,7 +3,10 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:controls="using:CommunityToolkit.WinUI.Controls">
 
-    <Style TargetType="controls:HeaderedContentControl">
+<Style BasedOn="{StaticResource DefaultHeaderedContentControlStyle}"
+           TargetType="controls:HeaderedContentControl" />
+
+    <Style TargetType="controls:HeaderedContentControl" x:Key="DefaultHeaderedContentControlStyle">
         <Setter Property="HorizontalContentAlignment" Value="Left" />
         <Setter Property="VerticalContentAlignment" Value="Top" />
         <Setter Property="Template">

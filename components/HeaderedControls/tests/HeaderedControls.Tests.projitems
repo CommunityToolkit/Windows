@@ -8,4 +8,32 @@
   <PropertyGroup Label="Configuration">
     <Import_RootNamespace>HeaderedControlsExperiment.Tests</Import_RootNamespace>
   </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)HeaderedContentControlTestClass.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)HeaderedContentControlTestPage.xaml.cs">
+      <DependentUpon>HeaderedContentControlTestPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)HeaderedItemsControlTestClass.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)HeaderedItemsControlTestPage.xaml.cs">
+      <DependentUpon>HeaderedItemsControlTestPage.xaml</DependentUpon>
+    </Compile>
+<Compile Include="$(MSBuildThisFileDirectory)HeaderedTreeViewTestClass.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)HeaderedTreeViewTestPage.xaml.cs">
+      <DependentUpon>HeaderedTreeViewTestPage.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="$(MSBuildThisFileDirectory)HeaderedContentControlTestPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+<Page Include="$(MSBuildThisFileDirectory)HeaderedItemsControlTestPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+<Page Include="$(MSBuildThisFileDirectory)HeaderedTreeViewTestPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
 </Project>

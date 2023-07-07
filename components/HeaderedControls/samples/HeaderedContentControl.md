@@ -35,11 +35,3 @@ The `Header` property can be any object and you can use the `HeaderTemplate` to 
     <!-- Header content or HeaderTemplate content -->
 </controls:HeaderedContentControl>
 ```
-
-## Properties
-
-| Property | Type | Gets or sets the data used for the header of each control |
-| -- | -- | -- |
-| Header | object | Gets or sets the data used for the header of each control |
-| HeaderTemplate | DataTemplate | Gets or sets the template used to display the content of the control's header |
-| Orientation | Orientation | Gets or sets the Orientation to use for layout of the header. If set to Vertical the Header will be above the content. If set to Horizontal the Header will be to the left of the content. |
