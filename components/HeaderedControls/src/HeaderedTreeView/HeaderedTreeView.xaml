@@ -3,10 +3,11 @@
                     xmlns:controls="using:CommunityToolkit.WinUI.Controls"
                     xmlns:muxc="using:Microsoft.UI.Xaml.Controls">
 
- <Style BasedOn="{StaticResource DefaultHeaderedTreeViewStyle}"
+    <Style BasedOn="{StaticResource DefaultHeaderedTreeViewStyle}"
            TargetType="controls:HeaderedTreeView" />
 
-    <Style TargetType="controls:HeaderedTreeView" x:Key="DefaultHeaderedTreeViewStyle">
+    <Style x:Key="DefaultHeaderedTreeViewStyle"
+           TargetType="controls:HeaderedTreeView">
         <Setter Property="IsTabStop" Value="False" />
         <Setter Property="CanDragItems" Value="True" />
         <Setter Property="CanReorderItems" Value="True" />
