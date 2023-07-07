@@ -3,10 +3,11 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:controls="using:CommunityToolkit.WinUI.Controls">
 
-<Style BasedOn="{StaticResource DefaultHeaderedItemsControlStyle}"
+    <Style BasedOn="{StaticResource DefaultHeaderedItemsControlStyle}"
            TargetType="controls:HeaderedItemsControl" />
 
-    <Style TargetType="controls:HeaderedItemsControl" x:Key="DefaultHeaderedItemsControlStyle">
+    <Style x:Key="DefaultHeaderedItemsControlStyle"
+           TargetType="controls:HeaderedItemsControl">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="controls:HeaderedItemsControl">
@@ -22,3 +23,4 @@
     </Style>
 
 </ResourceDictionary>
+
