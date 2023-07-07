@@ -6,6 +6,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="using:HeaderedItemsControlExperiment.Samples"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
       mc:Ignorable="d">
 
     <Grid>
@@ -26,9 +27,9 @@
             </controls:HeaderedTreeView.FooterTemplate>
             <controls:HeaderedTreeView.ItemTemplate>
                 <DataTemplate x:DataType="local:ExplorerItem">
-                    <TreeViewItem Content="{x:Bind Name}"
-                                  IsExpanded="True"
-                                  ItemsSource="{x:Bind Children}" />
+                    <muxc:TreeViewItem Content="{x:Bind Name}"
+                                       IsExpanded="True"
+                                       ItemsSource="{x:Bind Children}" />
                 </DataTemplate>
             </controls:HeaderedTreeView.ItemTemplate>
         </controls:HeaderedTreeView>
