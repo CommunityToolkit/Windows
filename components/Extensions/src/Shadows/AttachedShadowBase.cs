@@ -18,7 +18,7 @@ using Windows.UI.Xaml.Hosting;
 namespace CommunityToolkit.WinUI;
 
 /// <summary>
-/// The base class for attached shadows.
+/// The base class for attached shadows. (Not supported in Uno.)
 /// </summary>
 public abstract partial class AttachedShadowBase : DependencyObject, IAttachedShadow
 {
@@ -160,7 +160,7 @@ public abstract partial class AttachedShadowBase : DependencyObject, IAttachedSh
     protected internal virtual void OnElementContextUninitialized(AttachedShadowElementContext context)
     {
         context.ClearAndDisposeResources();
-        ElementCompositionPreview.SetElementChildVisual(context.Element, null);
+        ElementCompositionPreview.SetElementChildVisual(context.Element, null!);
     }
 
     /// <inheritdoc/>
@@ -177,23 +177,29 @@ public abstract partial class AttachedShadowBase : DependencyObject, IAttachedSh
     /// <inheritdoc/>
     public IEnumerable<AttachedShadowElementContext> EnumerateElementContexts()
     {
+#if !NETSTANDARD2_0
         foreach (var kvp in ShadowElementContextTable)
         {
             yield return kvp.Value;
         }
+#else
+        // TODO: If Uno supports composition, we also need a ConditionalWeakTable polyfill...
+        return Enumerable.Empty<AttachedShadowElementContext>();
+#endif
     }
 
     /// <summary>
     /// Sets <see cref="AttachedShadowElementContext.SpriteVisual"/> as a child visual on <see cref="AttachedShadowElementContext.Element"/>
     /// </summary>
-    /// <param name="context">The <see cref="AttachedShadowElementContext"/> this operaiton will be performed on.</param>
+    /// <param name="context">The <see cref="AttachedShadowElementContext"/> this operation will be performed on.</param>
     protected virtual void SetElementChildVisual(AttachedShadowElementContext context)
     {
-        ElementCompositionPreview.SetElementChildVisual(context.Element, context.SpriteVisual);
+        ElementCompositionPreview.SetElementChildVisual(context.Element, context.SpriteVisual!);
     }
 
     private void CallPropertyChangedForEachElement(DependencyProperty property, object oldValue, object newValue)
     {
+#if !NETSTANDARD2_0
         foreach (var context in ShadowElementContextTable)
         {
             if (context.Value.IsInitialized)
@@ -201,6 +207,7 @@ public abstract partial class AttachedShadowBase : DependencyObject, IAttachedSh
                 OnPropertyChanged(context.Value, property, oldValue, newValue);
             }
         }
+#endif
     }
 
     /// <summary>
