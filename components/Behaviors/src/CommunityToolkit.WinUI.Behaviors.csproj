@@ -12,6 +12,7 @@
   <Import Project="$(ToolingDirectory)\ToolkitComponent.SourceProject.props" />
 
   <ItemGroup>
+    <ProjectReference Include="$(ToolkitAnimationSourceProject)" />
     <ProjectReference Include="$(ToolkitExtensionSourceProject)" />
   </ItemGroup>
 </Project>
