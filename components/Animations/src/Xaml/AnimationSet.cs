@@ -92,7 +92,17 @@ public sealed class AnimationSet : DependencyObjectCollection
 
         CancellationTokenSource cancellationTokenSource = new();
 
+#if !NETSTANDARD2_0
         this.cancellationTokenMap.AddOrUpdate(element, cancellationTokenSource);
+#else
+        // If we have a token, remove it first, before adding new one.
+        if (this.cancellationTokenMap.TryGetValue(element, out _))
+        {
+            this.cancellationTokenMap.Remove(element);
+        }
+
+        this.cancellationTokenMap.Add(element, cancellationTokenSource);
+#endif
 
         return StartAsync(element, cancellationTokenSource.Token);
     }
