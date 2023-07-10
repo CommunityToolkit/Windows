@@ -5,10 +5,11 @@ description: The WrapPanel Control positions child elements in sequential positi
 keywords: WrapPanel
 dev_langs:
   - csharp
-category: Controls
-subcategory: Layout
+category: Layouts
+subcategory: Panel
 discussion-id: 0
 issue-id: 0
+icon: Assets/WrapPanel.png
 ---
 
 Subsequent ordering happens sequentially from top to bottom or from right to left, depending on the value of the Orientation property.

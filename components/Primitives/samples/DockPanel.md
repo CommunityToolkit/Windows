@@ -5,10 +5,11 @@ description: Defines an area where you can arrange child elements either horizon
 keywords: DockPanel
 dev_langs:
   - csharp
-category: Controls
-subcategory: Layout
+category: Layouts
+subcategory: Panel
 discussion-id: 0
 issue-id: 0
+icon: Assets/DockPanel.png
 ---
 
 The DockPanel position child controls based on the child Dock property, you have 4 options to Dock, left (Default), right, top, bottom.

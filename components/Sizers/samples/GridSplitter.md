@@ -9,6 +9,7 @@ category: Controls
 subcategory: Layout
 discussion-id: 96
 issue-id: 101
+icon: Assets/GridSplitter.png
 ---
 
 The control automatically detects the targeted columns/rows to resize, while dragging the control it starts to resize the columns/rows and redistributes space between columns/rows,
