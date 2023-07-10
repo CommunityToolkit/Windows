@@ -92,7 +92,11 @@ public sealed partial class AnimationBuilder
         RepeatOption? repeat = null,
         EasingType easingType = DefaultEasingType,
         EasingMode easingMode = DefaultEasingMode,
+#if !HAS_UNO
         FrameworkLayer layer = FrameworkLayer.Composition)
+#else
+        FrameworkLayer layer = FrameworkLayer.Xaml)
+#endif
     {
         if (layer == FrameworkLayer.Composition)
         {
@@ -128,7 +132,11 @@ public sealed partial class AnimationBuilder
         RepeatOption? repeat = null,
         EasingType easingType = DefaultEasingType,
         EasingMode easingMode = DefaultEasingMode,
+#if !HAS_UNO
         FrameworkLayer layer = FrameworkLayer.Composition)
+#else
+        FrameworkLayer layer = FrameworkLayer.Xaml)
+#endif
     {
         if (layer == FrameworkLayer.Composition)
         {
@@ -162,7 +170,11 @@ public sealed partial class AnimationBuilder
         RepeatOption? repeat = null,
         EasingType easingType = DefaultEasingType,
         EasingMode easingMode = DefaultEasingMode,
+#if !HAS_UNO
         FrameworkLayer layer = FrameworkLayer.Composition)
+#else
+        FrameworkLayer layer = FrameworkLayer.Xaml)
+#endif
     {
         if (layer == FrameworkLayer.Composition)
         {
@@ -297,7 +309,11 @@ public sealed partial class AnimationBuilder
         RepeatOption? repeat = null,
         EasingType easingType = DefaultEasingType,
         EasingMode easingMode = DefaultEasingMode,
+#if !HAS_UNO
         FrameworkLayer layer = FrameworkLayer.Composition)
+#else
+        FrameworkLayer layer = FrameworkLayer.Xaml)
+#endif
     {
         if (layer == FrameworkLayer.Composition)
         {
@@ -337,7 +353,11 @@ public sealed partial class AnimationBuilder
         RepeatOption? repeat = null,
         EasingType easingType = DefaultEasingType,
         EasingMode easingMode = DefaultEasingMode,
+#if !HAS_UNO
         FrameworkLayer layer = FrameworkLayer.Composition)
+#else
+        FrameworkLayer layer = FrameworkLayer.Xaml)
+#endif
     {
         if (layer == FrameworkLayer.Composition)
         {
@@ -371,7 +391,11 @@ public sealed partial class AnimationBuilder
         RepeatOption? repeat = null,
         EasingType easingType = DefaultEasingType,
         EasingMode easingMode = DefaultEasingMode,
+#if !HAS_UNO
         FrameworkLayer layer = FrameworkLayer.Composition)
+#else
+        FrameworkLayer layer = FrameworkLayer.Xaml)
+#endif
     {
         if (layer == FrameworkLayer.Composition)
         {
@@ -432,7 +456,11 @@ public sealed partial class AnimationBuilder
         RepeatOption? repeat = null,
         EasingType easingType = DefaultEasingType,
         EasingMode easingMode = DefaultEasingMode,
+#if !HAS_UNO
         FrameworkLayer layer = FrameworkLayer.Composition)
+#else
+        FrameworkLayer layer = FrameworkLayer.Xaml)
+#endif
     {
         if (layer == FrameworkLayer.Composition)
         {
@@ -466,7 +494,11 @@ public sealed partial class AnimationBuilder
         RepeatOption? repeat = null,
         EasingType easingType = DefaultEasingType,
         EasingMode easingMode = DefaultEasingMode,
+#if !HAS_UNO
         FrameworkLayer layer = FrameworkLayer.Composition)
+#else
+        FrameworkLayer layer = FrameworkLayer.Xaml)
+#endif
     {
         if (layer == FrameworkLayer.Composition)
         {
@@ -525,7 +557,11 @@ public sealed partial class AnimationBuilder
         RepeatOption? repeat = null,
         EasingType easingType = DefaultEasingType,
         EasingMode easingMode = DefaultEasingMode,
+#if !HAS_UNO
         FrameworkLayer layer = FrameworkLayer.Composition)
+#else
+        FrameworkLayer layer = FrameworkLayer.Xaml)
+#endif
     {
         if (layer == FrameworkLayer.Composition)
         {
@@ -562,7 +598,11 @@ public sealed partial class AnimationBuilder
         RepeatOption? repeat = null,
         EasingType easingType = DefaultEasingType,
         EasingMode easingMode = DefaultEasingMode,
+#if !HAS_UNO
         FrameworkLayer layer = FrameworkLayer.Composition)
+#else
+        FrameworkLayer layer = FrameworkLayer.Xaml)
+#endif
     {
         if (layer == FrameworkLayer.Composition)
         {
@@ -800,7 +840,11 @@ public sealed partial class AnimationBuilder
         RepeatOption? repeat = null,
         EasingType easingType = DefaultEasingType,
         EasingMode easingMode = DefaultEasingMode,
+#if !HAS_UNO
         FrameworkLayer layer = FrameworkLayer.Composition)
+#else
+        FrameworkLayer layer = FrameworkLayer.Xaml)
+#endif
     {
         if (layer == FrameworkLayer.Composition)
         {
@@ -834,7 +878,11 @@ public sealed partial class AnimationBuilder
         RepeatOption? repeat = null,
         EasingType easingType = DefaultEasingType,
         EasingMode easingMode = DefaultEasingMode,
+#if !HAS_UNO
         FrameworkLayer layer = FrameworkLayer.Composition)
+#else
+        FrameworkLayer layer = FrameworkLayer.Xaml)
+#endif
     {
         if (layer == FrameworkLayer.Composition)
         {
