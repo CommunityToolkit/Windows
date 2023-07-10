@@ -85,24 +85,24 @@ public sealed partial class HeaderedTreeViewSample : Page
         return list;
     }
 }
-    public class ExplorerItem
-    {
-        public string? Name { get; set; }
-    private ObservableCollection<ExplorerItem>? m_children;
+
+public class ExplorerItem
+{
+    public string? Name { get; set; }
+    private ObservableCollection<ExplorerItem>? _children;
     public ObservableCollection<ExplorerItem> Children
     {
         get
         {
-            if (m_children == null)
+            if (_children == null)
             {
-                m_children = new ObservableCollection<ExplorerItem>();
+                _children = new ObservableCollection<ExplorerItem>();
             }
-            return m_children;
+            return _children;
         }
         set
         {
-            m_children = value;
+            _children = value;
         }
     }
-
 }
