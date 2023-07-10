@@ -156,7 +156,9 @@ public partial class LayoutTransformControl : Control
 
             if (transformGroup != null)
             {
-#if HAS_UNO
+#if WINUI3
+                var groupMatrix = Microsoft.UI.Xaml.Media.Matrix.Identity;
+#elif WINUI2
                 var groupMatrix = Windows.UI.Xaml.Media.Matrix.Identity;
 #else
                 var groupMatrix = Matrix.Identity;
