@@ -10,7 +10,7 @@ namespace CommunityToolkit.WinUI.Behaviors;
 /// <summary>
 /// An <see cref="IAction"/> implementation that can trigger a target <see cref="AnimationSet"/> instance.
 /// </summary>
-public sealed class StartAnimationAction : DependencyObject, IAction
+public sealed partial class StartAnimationAction : DependencyObject, IAction
 {
     /// <summary>
     /// Gets or sets the linked <see cref="AnimationSet"/> instance to invoke.
