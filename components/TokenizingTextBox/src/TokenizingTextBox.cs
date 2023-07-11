@@ -9,8 +9,10 @@ using Microsoft.UI.Dispatching;
 using Microsoft.UI.Input;
 using VirtualKey = Windows.System.VirtualKey;
 using DispatcherQueuePriority = Microsoft.UI.Dispatching.DispatcherQueuePriority;
+using DispatcherQueue = Microsoft.UI.Dispatching.DispatcherQueue;
 #else
 using DispatcherQueuePriority = Windows.System.DispatcherQueuePriority;
+using DispatcherQueue = Windows.System.DispatcherQueue;
 using CommunityToolkit.WinUI.Deferred;
 #endif
 using Windows.System;
@@ -43,16 +45,16 @@ public partial class TokenizingTextBox : ListViewBase
     /// </summary>
 
 #if WINAPPSDK
- internal static bool IsShiftPressed => InputKeyboardSource.GetKeyStateForCurrentThread(VirtualKey.Shift).HasFlag(CoreVirtualKeyStates.Down);
+    internal static bool IsShiftPressed => InputKeyboardSource.GetKeyStateForCurrentThread(VirtualKey.Shift).HasFlag(CoreVirtualKeyStates.Down);
 #else
     internal static bool IsShiftPressed => CoreWindow.GetForCurrentThread()!.GetKeyState(VirtualKey.Shift).HasFlag(CoreVirtualKeyStates.Down);
 #endif
-/// <summary>
-/// Gets a value indicating whether the control key is currently in a pressed state
-/// </summary>
+    /// <summary>
+    /// Gets a value indicating whether the control key is currently in a pressed state
+    /// </summary>
 
 #if WINAPPSDK
- internal bool IsControlPressed => InputKeyboardSource.GetKeyStateForCurrentThread(VirtualKey.Control).HasFlag(CoreVirtualKeyStates.Down);
+    internal bool IsControlPressed => InputKeyboardSource.GetKeyStateForCurrentThread(VirtualKey.Control).HasFlag(CoreVirtualKeyStates.Down);
 #else
     internal bool IsControlPressed => CoreWindow.GetForCurrentThread()!.GetKeyState(VirtualKey.Control).HasFlag(CoreVirtualKeyStates.Down);
 #endif
@@ -60,6 +62,7 @@ public partial class TokenizingTextBox : ListViewBase
 
     internal bool IsClearingForClick { get; set; }
 
+    private DispatcherQueue _dispatcherQueue;
     private InterspersedObservableCollection _innerItemsSource;
     private ITokenStringContainer _currentTextEdit; // Don't update this directly outside of initialization, use UpdateCurrentTextEdit Method - in future see https://github.com/dotnet/csharplang/issues/140#issuecomment-625012514
     private ITokenStringContainer _lastTextEdit;
@@ -86,6 +89,12 @@ public partial class TokenizingTextBox : ListViewBase
         PreviewKeyUp += TokenizingTextBox_PreviewKeyUp;
         CharacterReceived += TokenizingTextBox_CharacterReceived;
         ItemClick += TokenizingTextBox_ItemClick;
+
+#if WINAPPSDK
+        _dispatcherQueue = DispatcherQueue;
+#else
+        _dispatcherQueue = DispatcherQueue.GetForCurrentThread();
+#endif
     }
 
     private void ItemsSource_PropertyChanged(DependencyObject sender, DependencyProperty dp)

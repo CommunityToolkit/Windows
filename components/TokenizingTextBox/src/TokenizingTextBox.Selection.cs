@@ -147,39 +147,33 @@ FocusManager.TryMoveFocus(FocusNavigationDirection.Previous, new FindNextElement
 
     internal void SelectAllTokensAndText()
     {
-#if WINAPPSDK
-            _ = DispatcherQueue.EnqueueAsync(
-#else
-            var dispatcherQueue = DispatcherQueue.GetForCurrentThread();	
-            _ = dispatcherQueue.EnqueueAsync(
-#endif
-            () =>
+        _ = _dispatcherQueue.EnqueueAsync(() =>
+        {
+            this.SelectAllSafe();
+
+            // need to synchronize the select all and the focus behavior on the text box
+            // because there is no way to identify that the focus has been set from this point
+            // to avoid instantly clearing the selection of tokens
+            PauseTokenClearOnFocus = true;
+
+            foreach (var item in Items)
             {
-                this.SelectAllSafe();
-
-                // need to synchronize the select all and the focus behavior on the text box
-                // because there is no way to identify that the focus has been set from this point
-                // to avoid instantly clearing the selection of tokens
-                PauseTokenClearOnFocus = true;
-
-                foreach (var item in Items)
+                if (item is ITokenStringContainer)
                 {
-                    if (item is ITokenStringContainer)
+                    // grab any selected text
+                    if (ContainerFromItem(item) is TokenizingTextBoxItem pretoken)
                     {
-                        // grab any selected text
-                        if (ContainerFromItem(item) is TokenizingTextBoxItem pretoken)
-                        {
-                            pretoken._autoSuggestTextBox.SelectionStart = 0;
-                            pretoken._autoSuggestTextBox.SelectionLength = pretoken._autoSuggestTextBox.Text.Length;
-                        }
+                        pretoken._autoSuggestTextBox.SelectionStart = 0;
+                        pretoken._autoSuggestTextBox.SelectionLength = pretoken._autoSuggestTextBox.Text.Length;
                     }
                 }
+            }
 
-                if (ContainerFromIndex(Items.Count - 1) is TokenizingTextBoxItem container)
-                {
-                    container.Focus(FocusState.Programmatic);
-                }
-            }, DispatcherQueuePriority.Normal);
+            if (ContainerFromIndex(Items.Count - 1) is TokenizingTextBoxItem container)
+            {
+                container.Focus(FocusState.Programmatic);
+            }
+        }, DispatcherQueuePriority.Normal);
     }
 
     internal void DeselectAllTokensAndText(TokenizingTextBoxItem? ignoreItem = null)
