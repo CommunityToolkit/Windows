@@ -212,7 +212,9 @@ public partial class LayoutTransformControl : Control
         }
 
         // Fall back to no-op transformation
-#if HAS_UNO
+#if WINUI3
+        return Microsoft.UI.Xaml.Media.Matrix.Identity;
+#elif WINUI2
         return Windows.UI.Xaml.Media.Matrix.Identity;
 #else
         return Matrix.Identity;
