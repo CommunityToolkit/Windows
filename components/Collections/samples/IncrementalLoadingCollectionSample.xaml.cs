@@ -4,7 +4,7 @@
 
 using CommunityToolkit.WinUI;
 
-namespace IncrementalLoadingCollectionExperiment.Samples;
+namespace CollectionsExperiment.Samples;
 
 [ToolkitSample(id: nameof(IncrementalLoadingCollectionSample), "Incremental Loading Collection", description: $"A sample for showing how to create and use a IncrementalLoadingCollection.")]
 public sealed partial class IncrementalLoadingCollectionSample : Page

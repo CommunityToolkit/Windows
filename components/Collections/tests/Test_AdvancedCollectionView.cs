@@ -4,7 +4,7 @@
 
 using System.Runtime.CompilerServices;
 
-namespace AdvancedCollectionViewExperiment.Tests;
+namespace CollectionsExperiment.Tests;
 
 [TestClass]
 public class Test_AdvancedCollectionView
