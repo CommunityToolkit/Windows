@@ -86,11 +86,13 @@ public abstract class Animation<TValue, TKeyFrame> : Animation
     /// <summary>
     /// Gets the explicit target for the animation. This is the primary target property that is animated.
     /// </summary>
-    protected abstract string ExplicitTarget { get; }
+    protected abstract string? ExplicitTarget { get; }
 
     /// <inheritdoc/>
     public override AnimationBuilder AppendToBuilder(AnimationBuilder builder, TimeSpan? delayHint, TimeSpan? durationHint, EasingType? easingTypeHint, EasingMode? easingModeHint)
     {
+        default(ArgumentNullException).ThrowIfNull(ExplicitTarget);
+
         return builder.NormalizedKeyFrames<TKeyFrame, (Animation<TValue, TKeyFrame> This, EasingType? EasingTypeHint, EasingMode? EasingModeHint)>(
             property: ExplicitTarget,
             state: (this, easingTypeHint, easingModeHint),
