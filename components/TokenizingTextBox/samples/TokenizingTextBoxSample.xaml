@@ -1,0 +1,83 @@
+<!--  Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license. See the LICENSE file in the project root for more information.  -->
+<Page x:Class="TokenizingTextBoxExperiment.Samples.TokenizingTextBoxSample"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:controls="using:CommunityToolkit.WinUI.Controls"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="using:TokenizingTextBoxExperiment.Samples"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:ui="using:CommunityToolkit.WinUI"
+      mc:Ignorable="d">
+
+    <StackPanel Orientation="Vertical"
+                Spacing="4">
+        <controls:TokenizingTextBox x:Name="TokenBox"
+                                    MaxWidth="620"
+                                    HorizontalAlignment="Left"
+                                    ItemClick="TokenBox_ItemClick"
+                                    ItemsSource="{x:Bind SelectedTokens, Mode=TwoWay}"
+                                    Loaded="TokenBox_Loaded"
+                                    MaximumTokens="5"
+                                    PlaceholderText="Add actions"
+                                    QueryIcon="{ui:FontIconSource Glyph=&#xE721;,
+                                                                  FontSize=12}"
+                                    SuggestedItemsSource="{x:Bind _samples, Mode=OneWay}"
+                                    TextChanged="TextChanged"
+                                    TextMemberPath="Text"
+                                    TokenDelimiter=","
+                                    TokenItemAdding="TokenItemCreating">
+            <controls:TokenizingTextBox.Header>
+                <TextBlock>
+                    <Run Text="Start typing and select up to" />
+                    <Run FontWeight="SemiBold"
+                         Text="{Binding MaximumTokens, ElementName=TokenBox, Mode=OneWay}" />
+                    <Run Text="actions" />
+                </TextBlock>
+            </controls:TokenizingTextBox.Header>
+            <controls:TokenizingTextBox.SuggestedItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Viewbox Width="16">
+                            <SymbolIcon Symbol="{Binding Icon}" />
+                        </Viewbox>
+                        <TextBlock Padding="8,0,0,0"
+                                   Text="{Binding Text}" />
+                    </StackPanel>
+                </DataTemplate>
+            </controls:TokenizingTextBox.SuggestedItemTemplate>
+            <controls:TokenizingTextBox.TokenItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Viewbox Width="16">
+                            <SymbolIcon Symbol="{Binding Icon}" />
+                        </Viewbox>
+
+                        <TextBlock Padding="8,0,0,0"
+                                   Text="{Binding Text}" />
+                    </StackPanel>
+                </DataTemplate>
+            </controls:TokenizingTextBox.TokenItemTemplate>
+        </controls:TokenizingTextBox>
+
+
+        <TextBlock Margin="0,24,0,0"
+                   FontWeight="SemiBold"
+                   Text="Text:" />
+        <TextBlock x:Name="currentEdit" />
+
+        <TextBlock Margin="0,24,0,0"
+                   FontWeight="SemiBold"
+                   Text="SelectedTokenText:" />
+        <TextBlock x:Name="selectedItemsString" />
+
+        <TextBlock Margin="0,24,0,0"
+                   FontWeight="SemiBold"
+                   Text="Items:" />
+        <ItemsControl ItemsSource="{x:Bind SelectedTokens, Mode=OneWay}" />
+
+        <TextBlock Margin="0,24,0,0"
+                   FontWeight="SemiBold"
+                   Text="Clicked item:" />
+        <TextBlock x:Name="clickedItem" />
+    </StackPanel>
+</Page>
