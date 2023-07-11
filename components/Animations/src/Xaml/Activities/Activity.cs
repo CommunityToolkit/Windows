@@ -7,7 +7,7 @@ namespace CommunityToolkit.WinUI.Animations;
 /// <summary>
 /// Base class to use when creating activities which accept a <see cref="Delay"/>.
 /// </summary>
-public abstract class Activity : DependencyObject, IActivity
+public abstract partial class Activity : DependencyObject, IActivity
 {
     /// <summary>
     /// Gets or sets the <see cref="TimeSpan"/> to wait before running the activity.
