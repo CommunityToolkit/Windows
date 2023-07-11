@@ -1,0 +1,36 @@
+<!--  Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license. See the LICENSE file in the project root for more information.  -->
+<Page x:Class="ImageCropperExperiment.Samples.ImageCropperSample"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:controls="using:CommunityToolkit.WinUI.Controls"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="using:ImageCropperExperiment.Samples"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d">
+    <Grid RowSpacing="24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <controls:ImageCropper x:Name="imageCropper"
+                               Width="520"
+                               Height="520"
+                               AspectRatio="{x:Bind local:ImageCropperSample.ConvertStringToAspectRatio(AspectRatioSetting), Mode=OneWay}"
+                               CropShape="{x:Bind local:ImageCropperSample.ConvertStringToCropShape(CropShapeSetting), Mode=OneWay}"
+                               ThumbPlacement="{x:Bind local:ImageCropperSample.ConvertStringToThumbPlacement(ThumbPlacementSetting), Mode=OneWay}" />
+        <StackPanel Grid.Row="1"
+                    HorizontalAlignment="Center"
+                    Orientation="Horizontal"
+                    Spacing="8">
+            <Button Click="PickButton_Click"
+                    Content="Pick image"
+                    Style="{StaticResource AccentButtonStyle}" />
+            <Button Click="SaveButton_Click"
+                    Content="Save"
+                    Style="{StaticResource AccentButtonStyle}" />
+            <Button Click="ResetButton_Click"
+                    Content="Reset"
+                    Style="{StaticResource AccentButtonStyle}" />
+        </StackPanel>
+    </Grid>
+</Page>
