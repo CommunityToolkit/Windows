@@ -15,7 +15,7 @@ public class Test_AdvancedCollectionView
 
         private int val;
 
-        public int Val
+        public virtual int Val
         {
             get
             {
@@ -42,6 +42,25 @@ public class Test_AdvancedCollectionView
         private void OnPropertyChanged([CallerMemberName] string name = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+    }
+
+    private class DerivedClass : SampleClass
+    {
+        public DerivedClass(int val) : base(val)
+        {
+        }
+
+        public override int Val
+        {
+            get
+            {
+                return 101;
+            }
+
+            set
+            {
+            }
         }
     }
 
@@ -109,5 +128,35 @@ public class Test_AdvancedCollectionView
         {
             Assert.IsTrue(item.GetPropertyChangedEventHandlerSubscriberLength() == 0);
         }
+    }
+
+    [TestCategory("Helpers")]
+    [UITestMethod]
+    public void Test_DerivedTypesInList()
+    {
+        // Create ref list with elements of different types:
+        List<SampleClass> refList = new List<SampleClass>();
+        for (int e = 0; e < 100; e++)
+        {
+            if ((e % 2) == 1)
+            {
+                refList.Add(new SampleClass(e));
+            }
+            else
+            {
+                refList.Add(new DerivedClass(e));
+            }
+        }
+        ObservableCollection<SampleClass> col = new ObservableCollection<SampleClass>();
+
+        // Add all items to collection:
+        foreach (var item in refList)
+        {
+            col.Add(item);
+        }
+
+        // Sort elements using a property that is overriden in the derived class
+        AdvancedCollectionView acv = new AdvancedCollectionView(col, true);
+        acv.SortDescriptions.Add(new SortDescription("Val", SortDirection.Descending));
     }
 }
