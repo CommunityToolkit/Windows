@@ -3,13 +3,14 @@
   <PropertyGroup>
     <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
     <HasSharedItems>true</HasSharedItems>
-    <SharedGUID>D1181822-7162-459C-B40E-591420DC438F</SharedGUID>
+    <SharedGUID>B5DDFE59-3189-4B41-BE43-C90F53367C94</SharedGUID>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
-    <Import_RootNamespace>IncrementalLoadingCollectionExperiment.Tests</Import_RootNamespace>
+    <Import_RootNamespace>CollectionsExperiment.Tests</Import_RootNamespace>
   </PropertyGroup>
- <ItemGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Test_AdvancedCollectionView.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Test_IncrementalLoadingCollection.cs" />
-<Compile Include="$(MSBuildThisFileDirectory)DataSource.cs" />
-</ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)DataSource.cs" />
+  </ItemGroup>
 </Project>

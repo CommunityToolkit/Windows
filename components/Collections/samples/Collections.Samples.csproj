@@ -1,6 +1,6 @@
 <Project Sdk="MSBuild.Sdk.Extras/3.0.23">
   <PropertyGroup>
-    <ToolkitComponentName>IncrementalLoadingCollection</ToolkitComponentName>
+    <ToolkitComponentName>Collections</ToolkitComponentName>
   </PropertyGroup>
 
   <!-- Sets this up as a toolkit component's sample project -->

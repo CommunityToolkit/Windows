@@ -4,7 +4,32 @@
 
 using CommunityToolkit.WinUI;
 
-namespace IncrementalLoadingCollectionExperiment.Samples;
+namespace CollectionsExperiment.Samples;
+
+[ToolkitSample(id: nameof(IncrementalLoadingCollectionSample), "Incremental Loading Collection", description: $"A sample for showing how to create and use a IncrementalLoadingCollection.")]
+public sealed partial class IncrementalLoadingCollectionSample : Page
+{
+    public IncrementalLoadingCollectionSample()
+    {
+        this.InitializeComponent();
+        Load();
+    }
+    private void Load()
+    {
+        // IncrementalLoadingCollection can be bound to a GridView or a ListView. In this case it is a ListView called PeopleListView.
+        var collection = new IncrementalLoadingCollection<PeopleSource, Person>();
+        PeopleListView.ItemsSource = collection;
+
+        // Binds the collection to the page DataContext in order to use its IsLoading and HasMoreItems properties.
+        DataContext = collection;
+    }
+
+    private async void RefreshCollection(object sender, RoutedEventArgs e)
+    {
+        var collection = (IncrementalLoadingCollection<PeopleSource, Person>)PeopleListView.ItemsSource;
+        await collection.RefreshAsync();
+    }
+}
 
 /// <summary>
 /// A sample implementation of the <see cref="Collections.IIncrementalSource{TSource}"/> interface.
@@ -64,4 +89,15 @@ public class PeopleSource : IIncrementalSource<Person>
 
         return result;
     }
+}
+
+/// <summary>
+/// A sample class used to show how to use the <see cref="Collections.IIncrementalSource{TSource}"/> interface.
+/// </summary>
+public class Person
+{
+    /// <summary>
+    /// Gets or sets the name of the person.
+    /// </summary>
+    public string? Name { get; set; }
 }

@@ -4,7 +4,7 @@
 
 using CommunityToolkit.WinUI;
 
-namespace AdvancedCollectionViewExperiment.Samples;
+namespace CollectionsExperiment.Samples;
 
 [ToolkitSample(id: nameof(AdvancedCollectionViewSample), "AdvancedCollectionView", description: $"A sample for showing how to create and use a {nameof(AdvancedCollectionView)}.")]
 public sealed partial class AdvancedCollectionViewSample : Page
