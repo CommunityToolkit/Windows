@@ -41,7 +41,12 @@ public sealed partial class AnimationBuilder
     /// </summary>
     /// <param name="layer">The target framework layer to animate.</param>
     /// <returns>An <see cref="IPropertyAnimationBuilder{T}"/> instance to configure the animation.</returns>
-    public IPropertyAnimationBuilder<double> Opacity(FrameworkLayer layer = FrameworkLayer.Composition)
+    public IPropertyAnimationBuilder<double> Opacity(
+#if !HAS_UNO
+        FrameworkLayer layer = FrameworkLayer.Composition)
+#else
+        FrameworkLayer layer = FrameworkLayer.Xaml)
+#endif
     {
         return new PropertyAnimationBuilder<double>(this, nameof(Visual.Opacity), layer);
     }
@@ -52,7 +57,12 @@ public sealed partial class AnimationBuilder
     /// <param name="axis">The target translation axis to animate.</param>
     /// <param name="layer">The target framework layer to animate.</param>
     /// <returns>An <see cref="IPropertyAnimationBuilder{T}"/> instance to configure the animation.</returns>
-    public IPropertyAnimationBuilder<double> Translation(Axis axis, FrameworkLayer layer = FrameworkLayer.Composition)
+    public IPropertyAnimationBuilder<double> Translation(Axis axis,
+#if !HAS_UNO
+        FrameworkLayer layer = FrameworkLayer.Composition)
+#else
+        FrameworkLayer layer = FrameworkLayer.Xaml)
+#endif
     {
         if (layer == FrameworkLayer.Composition)
         {
@@ -99,7 +109,12 @@ public sealed partial class AnimationBuilder
     /// <param name="axis">The target scale axis to animate.</param>
     /// <param name="layer">The target framework layer to animate.</param>
     /// <returns>An <see cref="IPropertyAnimationBuilder{T}"/> instance to configure the animation.</returns>
-    public IPropertyAnimationBuilder<double> Scale(Axis axis, FrameworkLayer layer = FrameworkLayer.Composition)
+    public IPropertyAnimationBuilder<double> Scale(Axis axis,
+#if !HAS_UNO
+        FrameworkLayer layer = FrameworkLayer.Composition)
+#else
+        FrameworkLayer layer = FrameworkLayer.Xaml)
+#endif
     {
         if (layer == FrameworkLayer.Composition)
         {
@@ -125,7 +140,12 @@ public sealed partial class AnimationBuilder
     /// <param name="axis">The target scale axis to animate.</param>
     /// <param name="layer">The target framework layer to animate.</param>
     /// <returns>An <see cref="IPropertyAnimationBuilder{T}"/> instance to configure the animation.</returns>
-    public IPropertyAnimationBuilder<double> CenterPoint(Axis axis, FrameworkLayer layer = FrameworkLayer.Composition)
+    public IPropertyAnimationBuilder<double> CenterPoint(Axis axis,
+#if !HAS_UNO
+        FrameworkLayer layer = FrameworkLayer.Composition)
+#else
+        FrameworkLayer layer = FrameworkLayer.Xaml)
+#endif
     {
         if (layer == FrameworkLayer.Composition)
         {
@@ -160,7 +180,12 @@ public sealed partial class AnimationBuilder
     /// </summary>
     /// <param name="layer">The target framework layer to animate.</param>
     /// <returns>An <see cref="IPropertyAnimationBuilder{T}"/> instance to configure the animation.</returns>
-    public IPropertyAnimationBuilder<double> RotationInDegrees(FrameworkLayer layer = FrameworkLayer.Composition)
+    public IPropertyAnimationBuilder<double> RotationInDegrees(
+#if !HAS_UNO
+        FrameworkLayer layer = FrameworkLayer.Composition)
+#else
+        FrameworkLayer layer = FrameworkLayer.Xaml)
+#endif
     {
         if (layer == FrameworkLayer.Composition)
         {
@@ -246,7 +271,11 @@ public sealed partial class AnimationBuilder
         TimeSpan? duration = null,
         RepeatOption? repeatOption = null,
         AnimationDelayBehavior? delayBehavior = null,
+#if !HAS_UNO
         FrameworkLayer layer = FrameworkLayer.Composition)
+#else
+        FrameworkLayer layer = FrameworkLayer.Xaml)
+#endif
         where T : unmanaged
     {
         if (layer == FrameworkLayer.Composition)
@@ -300,7 +329,11 @@ public sealed partial class AnimationBuilder
         TimeSpan? duration = null,
         RepeatOption? repeatOption = null,
         AnimationDelayBehavior? delayBehavior = null,
+#if !HAS_UNO
         FrameworkLayer layer = FrameworkLayer.Composition)
+#else
+        FrameworkLayer layer = FrameworkLayer.Xaml)
+#endif
         where T : unmanaged
     {
         if (layer == FrameworkLayer.Composition)
@@ -349,7 +382,11 @@ public sealed partial class AnimationBuilder
         TimeSpan? delay = null,
         RepeatOption? repeat = null,
         AnimationDelayBehavior? delayBehavior = null,
+#if !HAS_UNO
         FrameworkLayer layer = FrameworkLayer.Composition)
+#else
+        FrameworkLayer layer = FrameworkLayer.Xaml)
+#endif
         where T : unmanaged
     {
         if (layer == FrameworkLayer.Composition)
@@ -396,7 +433,11 @@ public sealed partial class AnimationBuilder
         TimeSpan? delay = null,
         RepeatOption? repeatOption = null,
         AnimationDelayBehavior? delayBehavior = null,
+#if !HAS_UNO
         FrameworkLayer layer = FrameworkLayer.Composition)
+#else
+        FrameworkLayer layer = FrameworkLayer.Xaml)
+#endif
         where T : unmanaged
     {
         if (layer == FrameworkLayer.Composition)

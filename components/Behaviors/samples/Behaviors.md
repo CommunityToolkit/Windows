@@ -6,7 +6,7 @@ keywords: Behaviors
 dev_langs:
   - csharp
 category: Xaml
-subcategory: None
+subcategory: Behaviors
 discussion-id: 0
 issue-id: 0
 icon: Assets/Behaviors.png
