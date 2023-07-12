@@ -14,12 +14,12 @@
     <!--  We need to set height here to force scrolling in the sample  -->
     <controls:HeaderedTreeView Height="300"
                                ItemsSource="{x:Bind Items, Mode=OneWay}">
-        <interactivity:Interaction.Behaviors>
-            <behaviors:StickyHeaderBehavior />
-        </interactivity:Interaction.Behaviors>
         <controls:HeaderedTreeView.Header>
             <Grid MinHeight="100"
                   Background="#FF0078D7">
+                <interactivity:Interaction.Behaviors>
+                    <behaviors:StickyHeaderBehavior />
+                </interactivity:Interaction.Behaviors>
                 <TextBlock HorizontalAlignment="Center"
                            VerticalAlignment="Center"
                            Text="Sample Text" />
