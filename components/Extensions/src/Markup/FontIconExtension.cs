@@ -21,10 +21,9 @@ public class FontIconExtension : TextIconExtension
     public FontFamily? FontFamily { get; set; }
 
     /// <inheritdoc/>
-    protected override object? ProvideValue()
+    protected override object ProvideValue()
     {
-        if (Glyph is null || string.IsNullOrWhiteSpace(Glyph))
-            return null;
+        default(ArgumentNullException).ThrowIfNull(Glyph);
 
         var fontIcon = new FontIcon
         {
