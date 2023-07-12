@@ -80,8 +80,11 @@ public abstract class HeaderBehaviorBase : BehaviorBase<FrameworkElement>
     }
 
     /// <summary>
-    /// Uses Composition API to get the UIElement and sets an ExpressionAnimation
+    /// Uses Composition API to get the UIElement and sets an ExpressionAnimation.
     /// </summary>
+    /// <remarks>
+    /// If this method returns true, you should have access to all protected fields with assigned components to use.
+    /// </remarks>
     /// <returns><c>true</c> if the assignment was successful; otherwise, <c>false</c>.</returns>
     protected virtual bool AssignAnimation()
     {
@@ -143,6 +146,7 @@ public abstract class HeaderBehaviorBase : BehaviorBase<FrameworkElement>
             return false;
         }
 
+        // TODO: Not sure if we need to provide an option to turn these events off, as FadeHeaderBehavior didn't use these two, unlike QuickReturn/Sticky did...
         headerElement.SizeChanged -= ScrollHeader_SizeChanged;
         headerElement.SizeChanged += ScrollHeader_SizeChanged;
 

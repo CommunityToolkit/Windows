@@ -58,12 +58,12 @@ public class StickyHeaderBehavior : HeaderBehaviorBase
     /// <inheritdoc/>
     protected override void StopAnimation()
     {
-        _headerVisual?.StopAnimation("Offset.Y");
-
         _animationProperties?.InsertScalar("OffsetY", 0.0f);
 
         if (_headerVisual != null)
         {
+            _headerVisual.StopAnimation("Offset.Y");
+
             var offset = _headerVisual.Offset;
             offset.Y = 0.0f;
             _headerVisual.Offset = offset;
