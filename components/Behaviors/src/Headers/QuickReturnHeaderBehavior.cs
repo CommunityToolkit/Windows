@@ -90,8 +90,7 @@ public class QuickReturnHeaderBehavior : HeaderBehaviorBase
     {
         if (_animationProperties != null && _scrollViewer != null)
         {
-            FrameworkElement header = (FrameworkElement)HeaderElement;
-            var headerHeight = header.ActualHeight;
+            var headerHeight = HeaderElement.ActualHeight;
             if (_headerPosition + headerHeight < _scrollViewer.VerticalOffset)
             {
                 // scrolling down: move header down, so it is just above screen
