@@ -30,9 +30,9 @@ public abstract class HeaderBehaviorBase : BehaviorBase<FrameworkElement>
     /// <remarks>
     /// Set this using the header of a ListView or GridView.
     /// </remarks>
-    public UIElement HeaderElement
+    public FrameworkElement HeaderElement
     {
-        get { return (UIElement)GetValue(HeaderElementProperty); }
+        get { return (FrameworkElement)GetValue(HeaderElementProperty); }
         set { SetValue(HeaderElementProperty, value); }
     }
 
@@ -40,7 +40,7 @@ public abstract class HeaderBehaviorBase : BehaviorBase<FrameworkElement>
     /// Defines the Dependency Property for the <see cref="HeaderElement"/> property.
     /// </summary>
     public static readonly DependencyProperty HeaderElementProperty = DependencyProperty.Register(
-        nameof(HeaderElement), typeof(UIElement), typeof(HeaderBehaviorBase), new PropertyMetadata(null, PropertyChangedCallback));
+        nameof(HeaderElement), typeof(FrameworkElement), typeof(HeaderBehaviorBase), new PropertyMetadata(null, PropertyChangedCallback));
 
     /// <summary>
     /// If any of the properties are changed then the animation is automatically started.
@@ -127,18 +127,17 @@ public abstract class HeaderBehaviorBase : BehaviorBase<FrameworkElement>
         // Implicit operation: Find the Header object of the control if it uses ListViewBase
         if (HeaderElement == null && listView != null)
         {
-            HeaderElement = (listView.Header as UIElement)!;
+            HeaderElement = (listView.Header as FrameworkElement)!;
         }
 
-        var headerElement = HeaderElement as FrameworkElement;
-        if (headerElement == null || headerElement.RenderSize.Height == 0)
+        if (HeaderElement == null || HeaderElement.RenderSize.Height == 0)
         {
             return false;
         }
 
         if (_headerVisual == null)
         {
-            _headerVisual = ElementCompositionPreview.GetElementVisual(headerElement);
+            _headerVisual = ElementCompositionPreview.GetElementVisual(HeaderElement);
         }
 
         if (_headerVisual == null)
@@ -147,8 +146,8 @@ public abstract class HeaderBehaviorBase : BehaviorBase<FrameworkElement>
         }
 
         // TODO: Not sure if we need to provide an option to turn these events off, as FadeHeaderBehavior didn't use these two, unlike QuickReturn/Sticky did...
-        headerElement.SizeChanged -= ScrollHeader_SizeChanged;
-        headerElement.SizeChanged += ScrollHeader_SizeChanged;
+        HeaderElement.SizeChanged -= ScrollHeader_SizeChanged;
+        HeaderElement.SizeChanged += ScrollHeader_SizeChanged;
 
         _scrollViewer.GotFocus -= ScrollViewer_GotFocus;
         _scrollViewer.GotFocus += ScrollViewer_GotFocus;
@@ -178,9 +177,9 @@ public abstract class HeaderBehaviorBase : BehaviorBase<FrameworkElement>
             _scrollViewer.GotFocus -= ScrollViewer_GotFocus;
         }
 
-        if (HeaderElement is FrameworkElement element)
+        if (HeaderElement != null)
         {
-            element.SizeChanged -= ScrollHeader_SizeChanged;
+            HeaderElement.SizeChanged -= ScrollHeader_SizeChanged;
         }
 
         StopAnimation();
@@ -209,13 +208,11 @@ public abstract class HeaderBehaviorBase : BehaviorBase<FrameworkElement>
         // Popups have no parents, whereas a normal Item would have the ListView as a parent.
         if (focusedElement is UIElement element && VisualTreeHelper.GetParent(element) != null)
         {
-            FrameworkElement header = (FrameworkElement)HeaderElement;
-
             var point = element.TransformToVisual(scroller).TransformPoint(new Point(0, 0));
 
-            if (point.Y < header.ActualHeight)
+            if (point.Y < HeaderElement.ActualHeight)
             {
-                scroller.ChangeView(0, scroller.VerticalOffset - (header.ActualHeight - point.Y), 1, false);
+                scroller.ChangeView(0, scroller.VerticalOffset - (HeaderElement.ActualHeight - point.Y), 1, false);
             }
         }
     }
