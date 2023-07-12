@@ -25,37 +25,6 @@ public abstract class HeaderBehaviorBase : BehaviorBase<FrameworkElement>
     protected Visual? _headerVisual;
 
     /// <summary>
-    /// Gets or sets the target element for the Header behavior to be manipulated within the viewport.
-    /// </summary>
-    /// <remarks>
-    /// Set this using the header of a ListView or GridView.
-    /// </remarks>
-    public FrameworkElement HeaderElement
-    {
-        get { return (FrameworkElement)GetValue(HeaderElementProperty); }
-        set { SetValue(HeaderElementProperty, value); }
-    }
-
-    /// <summary>
-    /// Defines the Dependency Property for the <see cref="HeaderElement"/> property.
-    /// </summary>
-    public static readonly DependencyProperty HeaderElementProperty = DependencyProperty.Register(
-        nameof(HeaderElement), typeof(FrameworkElement), typeof(HeaderBehaviorBase), new PropertyMetadata(null, PropertyChangedCallback));
-
-    /// <summary>
-    /// If any of the properties are changed then the animation is automatically started.
-    /// </summary>
-    /// <param name="d">The dependency object.</param>
-    /// <param name="e">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
-    private static void PropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
-    {
-        if (d is HeaderBehaviorBase @base)
-        {
-            @base.AssignAnimation();
-        }
-    }
-
-    /// <summary>
     /// Attaches the behavior to the associated object.
     /// </summary>
     /// <returns>
@@ -95,10 +64,10 @@ public abstract class HeaderBehaviorBase : BehaviorBase<FrameworkElement>
             return false;
         }
 
-        // TODO: What if we attach to the 'header element' and look up for the ScrollViewer?
         if (_scrollViewer == null)
         {
-            _scrollViewer = AssociatedObject as ScrollViewer ?? AssociatedObject.FindDescendant<ScrollViewer>();
+            // TODO: We probably want checks which provide better guidance if we detect we're not attached correctly?
+            _scrollViewer = AssociatedObject.FindAscendant<ScrollViewer>();
         }
 
         if (_scrollViewer == null)
@@ -106,12 +75,12 @@ public abstract class HeaderBehaviorBase : BehaviorBase<FrameworkElement>
             return false;
         }
 
-        var listView = AssociatedObject as ListViewBase ?? AssociatedObject.FindDescendant<ListViewBase>();
+        var itemsControl = AssociatedObject.FindAscendant<ItemsControl>();
 
-        // TODO: Is this required?
-        if (listView != null && listView.ItemsPanelRoot != null)
+        if (itemsControl != null && itemsControl.ItemsPanelRoot != null)
         {
-            Canvas.SetZIndex(listView.ItemsPanelRoot, -1);
+            // This appears to be important to force the items within the ScrollViewer of an ItemsControl behind our header element.
+            Canvas.SetZIndex(itemsControl.ItemsPanelRoot, -1);
         }
 
         if (_scrollProperties == null)
@@ -124,20 +93,15 @@ public abstract class HeaderBehaviorBase : BehaviorBase<FrameworkElement>
             return false;
         }
 
-        // Implicit operation: Find the Header object of the control if it uses ListViewBase
-        if (HeaderElement == null && listView != null)
-        {
-            HeaderElement = (listView.Header as FrameworkElement)!;
-        }
-
-        if (HeaderElement == null || HeaderElement.RenderSize.Height == 0)
+        // Implicit operation: Double-check that we have an element associated with us (we should) and that it has size
+        if (AssociatedObject == null || AssociatedObject.RenderSize.Height == 0)
         {
             return false;
         }
 
         if (_headerVisual == null)
         {
-            _headerVisual = ElementCompositionPreview.GetElementVisual(HeaderElement);
+            _headerVisual = ElementCompositionPreview.GetElementVisual(AssociatedObject);
         }
 
         if (_headerVisual == null)
@@ -146,8 +110,8 @@ public abstract class HeaderBehaviorBase : BehaviorBase<FrameworkElement>
         }
 
         // TODO: Not sure if we need to provide an option to turn these events off, as FadeHeaderBehavior didn't use these two, unlike QuickReturn/Sticky did...
-        HeaderElement.SizeChanged -= ScrollHeader_SizeChanged;
-        HeaderElement.SizeChanged += ScrollHeader_SizeChanged;
+        AssociatedObject.SizeChanged -= ScrollHeader_SizeChanged;
+        AssociatedObject.SizeChanged += ScrollHeader_SizeChanged;
 
         _scrollViewer.GotFocus -= ScrollViewer_GotFocus;
         _scrollViewer.GotFocus += ScrollViewer_GotFocus;
@@ -177,9 +141,9 @@ public abstract class HeaderBehaviorBase : BehaviorBase<FrameworkElement>
             _scrollViewer.GotFocus -= ScrollViewer_GotFocus;
         }
 
-        if (HeaderElement != null)
+        if (AssociatedObject != null)
         {
-            HeaderElement.SizeChanged -= ScrollHeader_SizeChanged;
+            AssociatedObject.SizeChanged -= ScrollHeader_SizeChanged;
         }
 
         StopAnimation();
@@ -210,9 +174,9 @@ public abstract class HeaderBehaviorBase : BehaviorBase<FrameworkElement>
         {
             var point = element.TransformToVisual(scroller).TransformPoint(new Point(0, 0));
 
-            if (point.Y < HeaderElement.ActualHeight)
+            if (point.Y < AssociatedObject.ActualHeight)
             {
-                scroller.ChangeView(0, scroller.VerticalOffset - (HeaderElement.ActualHeight - point.Y), 1, false);
+                scroller.ChangeView(0, scroller.VerticalOffset - (AssociatedObject.ActualHeight - point.Y), 1, false);
             }
         }
     }

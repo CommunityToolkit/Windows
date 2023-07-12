@@ -34,7 +34,7 @@ public class FadeHeaderBehavior : HeaderBehaviorBase
             var scrollPropSet = _scrollProperties!.GetSpecializedReference<ManipulationPropertySetReferenceNode>();
 
             // Use the ScrollViewer's Y offset and the header's height to calculate the opacity percentage. Clamp it between 0% and 100%
-            var headerHeight = (float)HeaderElement.RenderSize.Height;
+            var headerHeight = (float)AssociatedObject.RenderSize.Height;
             var opacityExpression = ExpressionFunctions.Clamp(1 - (-scrollPropSet.Translation.Y / headerHeight), 0, 1);
 
             // Begin animating
