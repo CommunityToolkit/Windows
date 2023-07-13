@@ -18,19 +18,16 @@ Converts a boolean to the inverse value (True to False and vice versa)
 > [!Sample BoolNegationConverterSample]
 
 ## BoolToObjectConverter
-
 Converts a boolean value into an other object. Can be used to convert true/false to e.g. visibility, color, or different images.
 
 > [!Sample BoolToObjectConverterSample]
 
 ## BoolToVisibilityConverter
-
  Converts a boolean value into a `Visibility` enumeration. The `ConverterParameter` can be used to invert the logic.
 
 > [!Sample BoolToVisibilityConverterSample]
 
 ## ColorToDisplayNameConverter
-
 Converts a color to the approximated display name.
 
 > [!Sample ColorToDisplayNameConverterSample]
@@ -82,6 +79,4 @@ Returns an object or another, depending on whether the type of the provided valu
 > [!Sample TypeToObjectConverterSample]
 
 ## VisibilityToBoolConverter
-
 Converts a `Visibility` enumaration to a boolean value.
-

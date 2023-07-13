@@ -22,7 +22,7 @@
 
         <ListView Header="Lalala"
                   ItemsSource="{x:Bind Items, Mode=OneWay}"
-                  Visibility="{Binding Path=Items, Mode=OneWay, Converter={StaticResource CollectionVisibilityConverter}}" />
+                  Visibility="{x:Bind Items, Mode=OneWay, Converter={StaticResource CollectionVisibilityConverter}}" />
 
         <TextBlock Text="No items in this list"
                    Visibility="{x:Bind Items, Mode=OneWay, Converter={StaticResource CollectionVisibilityConverter}}" />
