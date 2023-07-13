@@ -2,18 +2,18 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
-using Microsoft.Xaml.Interactivity;
 using CommunityToolkit.WinUI.Animations;
+using Microsoft.Xaml.Interactivity;
 
 namespace CommunityToolkit.WinUI.Behaviors;
 
 /// <summary>
-/// An <see cref="IAction"/> implementation that can trigger a target <see cref="AnimationSet"/> instance.
+/// An <see cref="IAction"/> implementation that can stop a target <see cref="AnimationSet"/> instance.
 /// </summary>
-public sealed class StartAnimationAction : DependencyObject, IAction
+public sealed partial class StopAnimationAction : DependencyObject, IAction
 {
     /// <summary>
-    /// Gets or sets the linked <see cref="AnimationSet"/> instance to invoke.
+    /// Gets or sets the linked <see cref="AnimationSet"/> instance to stop.
     /// </summary>
     public AnimationSet Animation
     {
@@ -27,11 +27,11 @@ public sealed class StartAnimationAction : DependencyObject, IAction
     public static readonly DependencyProperty AnimationProperty = DependencyProperty.Register(
         nameof(Animation),
         typeof(AnimationSet),
-        typeof(StartAnimationAction),
+        typeof(StopAnimationAction),
         new PropertyMetadata(null));
 
     /// <summary>
-    /// Gets or sets the object to start the specified animation on. If not specified, will use the current object the parent animation is running on.
+    /// Gets or sets the object to stop the specified animation on. If not specified, will use the current object the parent animation is running on.
     /// </summary>
     public UIElement TargetObject
     {
@@ -45,7 +45,7 @@ public sealed class StartAnimationAction : DependencyObject, IAction
     public static readonly DependencyProperty TargetObjectProperty = DependencyProperty.Register(
         nameof(TargetObject),
         typeof(UIElement),
-        typeof(StartAnimationActivity),
+        typeof(StopAnimationAction),
         new PropertyMetadata(null));
 
     /// <inheritdoc/>
@@ -61,15 +61,15 @@ public sealed class StartAnimationAction : DependencyObject, IAction
         {
             if (TargetObject is not null)
             {
-                Animation.Start(TargetObject);
+                Animation.Stop(TargetObject);
             }
-            else if (Animation.ParentReference?.TryGetTarget(out parent) == true) //// TODO: Tidy... apply same pattern to Activities?
+            else if (Animation.ParentReference?.TryGetTarget(out parent) == true) //// TODO: Tidy...
             {
-                Animation.Start(parent!);
+                Animation.Stop(parent);
             }
             else
             {
-                Animation.Start(sender as UIElement);
+                Animation.Stop(sender as UIElement);
             }
         }
         return null!;
