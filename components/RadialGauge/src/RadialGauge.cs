@@ -244,6 +244,7 @@ public partial class RadialGauge : RangeBase
                 {
                     valueText.Text = radialGauge.Value.ToString(radialGauge.ValueStringFormat);
                 }
+                ToolTipService.SetToolTip(radialGauge, radialGauge.Value);
             }
         }
     }
