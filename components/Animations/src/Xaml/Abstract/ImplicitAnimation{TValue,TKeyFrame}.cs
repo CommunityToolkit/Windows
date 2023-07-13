@@ -46,6 +46,8 @@ public abstract class ImplicitAnimation<TValue, TKeyFrame> : Animation<TValue, T
     /// <inheritdoc/>
     public CompositionAnimation GetAnimation(UIElement element, out string? target)
     {
+        default(ArgumentNullException).ThrowIfNull(ExplicitTarget);
+
         NormalizedKeyFrameAnimationBuilder<TKeyFrame>.Composition builder = new(
             ExplicitTarget,
             Delay ?? DefaultDelay,
