@@ -19,6 +19,9 @@ namespace CommunityToolkit.WinUI.Behaviors.Internal;
 /// </summary>
 public abstract class HeaderBehaviorBase : BehaviorBase<FrameworkElement>
 {
+    // From Doc: https://learn.microsoft.com/windows/windows-app-sdk/api/winrt/microsoft.ui.xaml.controls.canvas.zindex
+    private const int CanvasZIndexMax = 1_000_000;
+
     protected ScrollViewer? _scrollViewer;
     protected CompositionPropertySet? _scrollProperties;
     protected CompositionPropertySet? _animationProperties;
@@ -59,7 +62,8 @@ public abstract class HeaderBehaviorBase : BehaviorBase<FrameworkElement>
     {
         StopAnimation();
 
-        if (AssociatedObject == null)
+        // Double-check that we have an element associated with us (we should) and that it has size
+        if (AssociatedObject == null || AssociatedObject.RenderSize.Height == 0)
         {
             return false;
         }
@@ -82,6 +86,12 @@ public abstract class HeaderBehaviorBase : BehaviorBase<FrameworkElement>
             // This appears to be important to force the items within the ScrollViewer of an ItemsControl behind our header element.
             Canvas.SetZIndex(itemsControl.ItemsPanelRoot, -1);
         }
+        else
+        {
+            // If we're not part of a collection panel, then we're probably just in the ScrollViewer,
+            // And we should ensure our 'header' element is on top of any other content within the ScrollViewer.
+            Canvas.SetZIndex(AssociatedObject, CanvasZIndexMax);
+        }
 
         if (_scrollProperties == null)
         {
@@ -89,12 +99,6 @@ public abstract class HeaderBehaviorBase : BehaviorBase<FrameworkElement>
         }
 
         if (_scrollProperties == null)
-        {
-            return false;
-        }
-
-        // Implicit operation: Double-check that we have an element associated with us (we should) and that it has size
-        if (AssociatedObject == null || AssociatedObject.RenderSize.Height == 0)
         {
             return false;
         }

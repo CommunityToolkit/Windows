@@ -12,7 +12,7 @@ issue-id: 0
 icon: Assets/Behaviors.png
 ---
 
-The `FadeHeaderBehavior`, `QuickReturnHeaderBehavior`, and `StickyHeaderBehavior` most commonly apply behaviors to `ListView`, `GridView`, and `HeaderedTreeView` elements in their `Header`. It can also be applied to any element contained at the top of a `ScrollViewer`.
+The `FadeHeaderBehavior`, `QuickReturnHeaderBehavior`, and `StickyHeaderBehavior` most commonly apply behaviors to `ListView`, `GridView`, `HeaderedItemsControl`, and `HeaderedTreeView` elements in their `Header`. It can also be applied to any element contained at the top of a `ScrollViewer`.
 
 They use composition animations to allow the visual of an element of a scrolling viewport to be manipulated for various effects.
 
@@ -34,8 +34,16 @@ The QuickReturnHeaderBehavior causes the element in the scrolling collection to 
 
 > [!Sample QuickReturnHeaderBehaviorSample]
 
+It can also be used to have content quickly re-appear in any `ScrollViewer`:
+
+> [!Sample QuickReturnScrollViewerSample]
+
 ## StickyHeaderBehavior
 
 The StickyHeaderBehavior causes the element in the scrolling collection to stay in view as the user scrolls up and down in the collection.
 
 > [!Sample StickyHeaderBehaviorSample]
+
+Or similarly, it can be used with a `HeaderedItemsControl` to maintain context at the top:
+
+> [!Sample StickyHeaderItemsControlSample]
