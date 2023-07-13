@@ -21,5 +21,6 @@
     </PackageReference>
 
     <InternalsVisibleTo Include="CommunityToolkit.WinUI.Animations" />
+    <InternalsVisibleTo Include="CommunityToolkit.WinUI.Media" />
   </ItemGroup>
 </Project>
