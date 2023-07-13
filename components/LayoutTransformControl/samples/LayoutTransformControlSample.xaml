@@ -1,0 +1,95 @@
+﻿<!--  Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license. See the LICENSE file in the project root for more information.  -->
+<Page x:Class="LayoutTransformControlExperiment.Samples.LayoutTransformControlSample"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:controls="using:CommunityToolkit.WinUI.Controls"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="using:LayoutTransformControlExperiment.Samples"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d">
+
+    <Grid ColumnSpacing="24"
+          RowSpacing="24">
+        <Grid.Resources>
+            <Style x:Key="BorderCardStyle"
+                   TargetType="Border">
+                <Setter Property="Background" Value="{ThemeResource CardBackgroundFillColorDefaultBrush}" />
+                <Setter Property="BorderBrush" Value="{ThemeResource CardStrokeColorDefaultBrush}" />
+                <Setter Property="BorderThickness" Value="1" />
+                <Setter Property="Padding" Value="12" />
+                <Setter Property="CornerRadius" Value="{StaticResource ControlCornerRadius}" />
+            </Style>
+        </Grid.Resources>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <!--  Layout Transform Fixed Size  -->
+        <controls:LayoutTransformControl>
+            <controls:LayoutTransformControl.Transform>
+                <TransformGroup>
+                    <RotateTransform Angle="{x:Bind Angle, Mode=OneWay}" />
+                    <ScaleTransform ScaleX="{x:Bind ScaleX, Mode=OneWay}" ScaleY="{x:Bind ScaleY, Mode=OneWay}" />
+                    <SkewTransform AngleX="{x:Bind SkewX, Mode=OneWay}" AngleY="{x:Bind SkewY, Mode=OneWay}" />
+                </TransformGroup>
+            </controls:LayoutTransformControl.Transform>
+            <Border Width="200"
+                    Height="50"
+                    Style="{StaticResource BorderCardStyle}">
+                <TextBlock Text="Layout Fixed Size." />
+            </Border>
+        </controls:LayoutTransformControl>
+
+        <!--  Layout Transform Full Size  -->
+        <controls:LayoutTransformControl Grid.Column="1">
+            <controls:LayoutTransformControl.Transform>
+                <TransformGroup>
+                    <RotateTransform Angle="{x:Bind Angle, Mode=OneWay}" />
+                    <ScaleTransform ScaleX="{x:Bind ScaleX, Mode=OneWay}" ScaleY="{x:Bind ScaleY, Mode=OneWay}" />
+                    <SkewTransform AngleX="{x:Bind SkewX, Mode=OneWay}" AngleY="{x:Bind SkewY, Mode=OneWay}" />
+                </TransformGroup>
+            </controls:LayoutTransformControl.Transform>
+            <Border Style="{StaticResource BorderCardStyle}">
+                <TextBlock Text="Layout Full Frame." />
+            </Border>
+        </controls:LayoutTransformControl>
+
+        <!--  Render Transform Fixed Size  -->
+        <Border Grid.Row="1"
+                Width="200"
+                Height="50"
+                RenderTransformOrigin="0.5,0.5"
+                Style="{StaticResource BorderCardStyle}">
+            <Border.RenderTransform>
+                <TransformGroup>
+                    <RotateTransform Angle="{x:Bind Angle, Mode=OneWay}" />
+                    <ScaleTransform ScaleX="{x:Bind ScaleX, Mode=OneWay}" ScaleY="{x:Bind ScaleY, Mode=OneWay}" />
+                    <SkewTransform AngleX="{x:Bind SkewX, Mode=OneWay}" AngleY="{x:Bind SkewY, Mode=OneWay}" />
+                </TransformGroup>
+            </Border.RenderTransform>
+
+            <TextBlock Text="Render Fixed Size." />
+        </Border>
+
+        <!--  Render Transform Full Size  -->
+        <Border Grid.Row="1"
+                Grid.Column="1"
+                RenderTransformOrigin="0.5,0.5"
+                Style="{StaticResource BorderCardStyle}">
+            <Border.RenderTransform>
+                <TransformGroup>
+                    <RotateTransform Angle="{x:Bind Angle, Mode=OneWay}" />
+                    <ScaleTransform ScaleX="{x:Bind ScaleX, Mode=OneWay}" ScaleY="{x:Bind ScaleY, Mode=OneWay}" />
+                    <SkewTransform AngleX="{x:Bind SkewX, Mode=OneWay}" AngleY="{x:Bind SkewY, Mode=OneWay}" />
+                </TransformGroup>
+            </Border.RenderTransform>
+
+            <TextBlock Text="Render Full Frame." />
+        </Border>
+    </Grid>
+</Page>

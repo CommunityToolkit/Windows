@@ -23,9 +23,15 @@ public abstract class CustomAnimation<TValue, TKeyFrame> : ImplicitAnimation<TVa
     /// Gets or sets the target framework layer for the animation. This is only supported
     /// for a set of animation types (see the docs for more on this). Furthermore, this is
     /// ignored when the animation is being used as an implicit composition animation.
+#if !HAS_UNO
     /// The default value is <see cref="FrameworkLayer.Composition"/>.
     /// </summary>
     public FrameworkLayer Layer { get; set; }
+#else
+    /// The default value is <see cref="FrameworkLayer.Xaml"/>.
+    /// </summary>
+    public FrameworkLayer Layer { get; set; } = FrameworkLayer.Xaml;
+#endif
 
     /// <inheritdoc/>
     protected override string? ExplicitTarget => Target;

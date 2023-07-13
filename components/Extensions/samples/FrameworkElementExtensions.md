@@ -102,11 +102,9 @@ The `AncestorType` attached property will walk the visual tree from the attached
 
 Here is an example of how this can be used:
 
-```xaml
-<Button
-    ui:FrameworkElementExtensions.AncestorType="Grid"
-    Visibility="{Binding (ui:FrameworkElementExtensions.Ancestor).Visibility,RelativeSource={RelativeSource Self}}"/>
-```
+> [!SAMPLE FrameworkElementAncestorSample]
+
+While this example is trivial, it shows you how to properly setup and bind to the parent element's property, in this case `Spacing`.
 
 ## Cursor
 
