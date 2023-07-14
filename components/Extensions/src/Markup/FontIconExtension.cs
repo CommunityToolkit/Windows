@@ -23,6 +23,8 @@ public class FontIconExtension : TextIconExtension
     /// <inheritdoc/>
     protected override object ProvideValue()
     {
+        default(ArgumentNullException).ThrowIfNull(Glyph);
+
         var fontIcon = new FontIcon
         {
             Glyph = Glyph,

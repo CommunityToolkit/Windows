@@ -34,11 +34,13 @@ public abstract class CustomAnimation<TValue, TKeyFrame> : ImplicitAnimation<TVa
 #endif
 
     /// <inheritdoc/>
-    protected override string ExplicitTarget => Target!;
+    protected override string? ExplicitTarget => Target;
 
     /// <inheritdoc/>
     public override AnimationBuilder AppendToBuilder(AnimationBuilder builder, TimeSpan? delayHint, TimeSpan? durationHint, EasingType? easingTypeHint, EasingMode? easingModeHint)
     {
+        default(ArgumentNullException).ThrowIfNull(ExplicitTarget);
+
         return builder.NormalizedKeyFrames<TKeyFrame, (CustomAnimation<TValue, TKeyFrame> This, EasingType? EasingTypeHint, EasingMode? EasingModeHint)>(
             property: ExplicitTarget,
             state: (this, easingTypeHint, easingModeHint),

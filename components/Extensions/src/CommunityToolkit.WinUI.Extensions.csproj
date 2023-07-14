@@ -6,11 +6,21 @@
 
     <!-- Rns suffix is required for namespaces shared across projects. See https://github.com/CommunityToolkit/Labs-Windows/issues/152 -->
     <RootNamespace>CommunityToolkit.WinUI.ExtensionsRns</RootNamespace>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
   <!-- Sets this up as a toolkit component's source project -->
   <Import Project="$(ToolingDirectory)\ToolkitComponent.SourceProject.props" />
+
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Common" Version="8.1.0" />
+
+    <PackageReference Include="PolySharp" Version="1.13.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+
+    <InternalsVisibleTo Include="CommunityToolkit.WinUI.Animations" />
+    <InternalsVisibleTo Include="CommunityToolkit.WinUI.Media" />
   </ItemGroup>
 </Project>
