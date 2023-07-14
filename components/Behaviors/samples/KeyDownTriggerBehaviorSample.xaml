@@ -5,7 +5,7 @@
       xmlns:core="using:Microsoft.Xaml.Interactions.Core"
       xmlns:interactivity="using:Microsoft.Xaml.Interactivity">
 
-    <StackPanel Padding="12"
+    <StackPanel MaxWidth="480"
                 Spacing="8">
         <TextBox PlaceholderText="Set the focus to this TextBox and press enter">
             <interactivity:Interaction.Behaviors>
@@ -18,7 +18,8 @@
 
         <TextBlock>
             <Run Text="Enter pressed" />
-            <Run Text="{x:Bind Count, Mode=OneWay}" />
+            <Run FontWeight="SemiBold"
+                 Text="{x:Bind Count, Mode=OneWay}" />
             <Run Text="times." />
         </TextBlock>
     </StackPanel>
