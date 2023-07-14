@@ -10,7 +10,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <InternalsVisibleTo Include="CommunityToolkit.WinUI.Behaviors.Animations" />
+    <InternalsVisibleTo Include="CommunityToolkit.WinUI.Media" />
     <InternalsVisibleTo Include="CommunityToolkit.WinUI.Behaviors" />
+    
     <PackageReference Include="PolySharp" Version="1.13.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

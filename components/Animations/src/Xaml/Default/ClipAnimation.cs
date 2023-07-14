@@ -12,9 +12,7 @@ namespace CommunityToolkit.WinUI.Animations;
 public sealed class ClipAnimation : Animation<Thickness?, Thickness>
 {
     /// <inheritdoc/>
-#pragma warning disable CA1065 // Do not raise exceptions in unexpected locations
-    protected override string ExplicitTarget => throw new NotImplementedException();
-#pragma warning restore CA1065 // Do not raise exceptions in unexpected locations
+    protected override string? ExplicitTarget => null;
 
     /// <inheritdoc/>
     public override AnimationBuilder AppendToBuilder(AnimationBuilder builder, TimeSpan? delayHint, TimeSpan? durationHint, EasingType? easingTypeHint, EasingMode? easingModeHint)
