@@ -20,7 +20,6 @@ public sealed partial class StickyHeaderBehaviorSample : Page
         Items = GetData();
     }
 
-
     private ObservableCollection<ExplorerItem> GetData()
     {
         var list = new ObservableCollection<ExplorerItem>();

@@ -1,4 +1,4 @@
-<Page x:Class="BehaviorsExperiment.Samples.StickyHeaderBehaviorSample"
+﻿<Page x:Class="BehaviorsExperiment.Samples.StickyHeaderBehaviorSample"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:behaviors="using:CommunityToolkit.WinUI.Behaviors"
@@ -8,21 +8,22 @@
       xmlns:local="using:BehaviorsExperiment.Samples"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-      Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
       mc:Ignorable="d">
 
     <!--  We need to set height here to force scrolling in the sample  -->
     <controls:HeaderedTreeView Height="300"
+                               VerticalAlignment="Top"
                                ItemsSource="{x:Bind Items, Mode=OneWay}">
         <controls:HeaderedTreeView.Header>
             <Grid MinHeight="100"
-                  Background="#FF0078D7">
+                  Background="{ThemeResource AccentFillColorDefaultBrush}">
                 <interactivity:Interaction.Behaviors>
                     <behaviors:StickyHeaderBehavior />
                 </interactivity:Interaction.Behaviors>
                 <TextBlock HorizontalAlignment="Center"
                            VerticalAlignment="Center"
-                           Text="Sample Text" />
+                           Foreground="{ThemeResource TextOnAccentFillColorPrimaryBrush}"
+                           Text="Header" />
             </Grid>
         </controls:HeaderedTreeView.Header>
         <controls:HeaderedTreeView.ItemTemplate>

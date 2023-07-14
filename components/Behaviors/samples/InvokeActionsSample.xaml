@@ -11,8 +11,8 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
 
-    <Button Width="200"
-            Height="200"
+    <Button Width="140"
+            Height="140"
             HorizontalAlignment="Center"
             VerticalAlignment="Center">
         <ani:Explicit.Animations>
