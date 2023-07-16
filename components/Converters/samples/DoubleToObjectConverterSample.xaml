@@ -11,8 +11,8 @@
     <Page.Resources>
         <converters:DoubleToObjectConverter x:Key="DoubleToObjectConverter"
                                             FalseValue="{ThemeResource SystemFillColorSuccessBrush}"
-                                            GreaterThan="6"
-                                            LessThan="4"
+                                            GreaterThan="7"
+                                            LessThan="3"
                                             TrueValue="{ThemeResource SystemFillColorCriticalBrush}" />
     </Page.Resources>
 

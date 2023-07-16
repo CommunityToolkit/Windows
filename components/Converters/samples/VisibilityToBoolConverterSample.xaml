@@ -1,5 +1,5 @@
 <!--  Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license. See the LICENSE file in the project root for more information.  -->
-<Page x:Class="ConvertersExperiment.Samples.BoolToVisibilityConverterSample"
+<Page x:Class="ConvertersExperiment.Samples.VisibilityToBoolConverterSample"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:converters="using:CommunityToolkit.WinUI.Converters"
@@ -19,22 +19,21 @@
             </Style.Setters>
         </Style>
 
-        <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+        <converters:VisibilityToBoolConverter x:Key="VisibilityToBoolConverter" />
     </Page.Resources>
 
-    <StackPanel Orientation="Horizontal"
-                Spacing="12">
+    <StackPanel Spacing="12">
         <Border Style="{StaticResource PlaceholderCardStyle}">
-            <Image HorizontalAlignment="Left"
+            <Image x:Name="image"
+                   HorizontalAlignment="Left"
                    Source="/Assets/Converters.png"
-                   Visibility="{x:Bind MyBooleanValue, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />
+                   Visibility="{x:Bind MyBooleanValue, Mode=OneWay}" />
         </Border>
-
-        <Border Style="{StaticResource PlaceholderCardStyle}">
-            <Image HorizontalAlignment="Left"
-                   Source="/Assets/Converters.png"
-                   Visibility="{x:Bind MyBooleanValue, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=True}" />
-        </Border>
+        <TextBlock>
+            <Run Text="Image visibility:" />
+            <Run FontWeight="SemiBold"
+                 Text="{Binding ElementName=image, Path=Visibility, Mode=OneWay, Converter={StaticResource VisibilityToBoolConverter}}" />
+        </TextBlock>
     </StackPanel>
 
 </Page>

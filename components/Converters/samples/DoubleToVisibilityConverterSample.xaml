@@ -9,10 +9,8 @@
       mc:Ignorable="d">
 
     <Page.Resources>
-        <converters:DoubleToObjectConverter x:Key="DoubleToVisibilityConverter"
-                                            FalseValue="Collapsed"
-                                            GreaterThan="5"
-                                            TrueValue="Visible" />
+        <converters:DoubleToVisibilityConverter x:Key="DoubleToVisibilityConverter"
+                                                GreaterThan="5" />
     </Page.Resources>
 
     <Grid Width="64"
@@ -23,6 +21,6 @@
           BorderThickness="1">
         <Image HorizontalAlignment="Left"
                Source="/Assets/Converters.png"
-               Visibility="{x:Bind NumericValue, Mode=OneWay, Converter={StaticResource DoubleToVisibilityConverter}}" />
+               Visibility="{x:Bind NumericValue, Mode=OneWay, Converter={StaticResource DoubleToVisibilityConverter}, ConverterParameter=True}" />
     </Grid>
 </Page>

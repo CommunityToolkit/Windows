@@ -12,6 +12,8 @@ issue-id: 0
 icon: Assets/Converters.png
 ---
 
+Converters are an easy way to handle situations where the source and target properties are of a different type. These are often declared in the `.Resources` of your app or page and can be referenced in XAML. In some cases, default converter values can be inverted by setting `ConverterParameter=True`.
+
 ## BoolNegationConverter
 Converts a boolean to the inverse value (True to False and vice versa)
 
@@ -33,17 +35,18 @@ Converts a color to the approximated display name.
 > [!Sample ColorToDisplayNameConverterSample]
 
 ## DoubleToObjectConverter
-Converts a double value into an other object. Can be used to convert doubles to e.g. visibility, colors , or different images. If `GreaterThan` and `LessThan` are both set, the logic looks for a value between the two values. Otherwise the logic looks for the value to be `GreaterThan` or `LessThan` the specified value. The `ConverterParameter` can be used to invert the logic.
+Converts a double value into an other object. Can be used to convert doubles to e.g. visibility, colors , or different images. If `GreaterThan` and `LessThan` are both set, the logic looks for a value between the two values. Otherwise the logic looks for the value to be `GreaterThan` or `LessThan` the specified value.
 
 > [!Sample DoubleToObjectConverterSample]
 
 ## DoubleToVisibilityConverter
-Converts a double value into an other object. Can be used to convert doubles to e.g. visibility, colors , or different images. If `GreaterThan` and `LessThan` are both set, the logic looks for a value between the two values. Otherwise the logic looks for the value to be `GreaterThan` or `LessThan` the specified value. The `ConverterParameter` can be used to invert the logic.
+Converts a double value into an other object. Can be used to convert doubles to e.g. visibility, colors , or different images. If `GreaterThan` and `LessThan` are both set, the logic looks for a value between the two values. Otherwise the logic looks for the value to be `GreaterThan` or `LessThan` the specified value.
 
 > [!Sample DoubleToVisibilityConverterSample]
 
 ## EmptyCollectionToObjectConverter & CollectionVisibilityConverter
 Converts a collection size into an other object. Can be used to convert to bind a visibility, a color or an image to the size of the collection. The `CollectionVisibilityConverter` is derived from it and can be easily used to convert a collection into a `Visibility` enumeration (Collapsed if the given collection is empty or null).
+Note: this converter only checks the initial state of a collection and does not detect any updates. For that scenario, using a `IsNullOrEmptyStateTrigger` is more appropriate. 
 
 > [!Sample CollectionVisibilityConverterSample]
 
@@ -54,7 +57,9 @@ The `EmptyStringToObjectConverter` converts a string value into a an object (if 
 > [!Sample EmptyStringToObjectConverterSample]
 
 ## FileSizeToFriendlyStringConverter
-Converts a file size in bytes to a more human-readable friendly format using ToFileSizeString(Int64).
+Converts a file size in bytes to a more human-readable friendly format using `ToFileSizeString(Int64)`.
+
+> [!Sample FileSizeToFriendlyStringConverterSample]
 
 ## ResourceNameToResourceStringConverter
 Converts a source string from the App resources and returns its value, if found.
@@ -72,7 +77,7 @@ Converts a string value into a Visibility value (if the value is null or empty r
 > [!Sample StringVisibilityConverterSample]
 
 ## TaskResultConverter
-Converter that can be used to safely retrieve results from `Task<TResult>` instances. See MVVM Toolkit Gallery for an example.
+Converter that can be used to safely retrieve results from `Task<TResult>` instances. See the [MVVM Toolkit Gallery](https://www.microsoft.com/store/productId/9NKLCF1LVZ5H) for an example.
 
 ## TypeToObjectConverter
 Returns an object or another, depending on whether the type of the provided value matches another provided Type.
@@ -80,3 +85,5 @@ Returns an object or another, depending on whether the type of the provided valu
 
 ## VisibilityToBoolConverter
 Converts a `Visibility` enumaration to a boolean value.
+
+> [!Sample VisibilityToBoolConverterSample]

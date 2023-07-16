@@ -12,6 +12,6 @@
         <converters:BoolNegationConverter x:Key="BoolNegationConverter" />
     </Page.Resources>
 
-    <ToggleSwitch Header="Converted value"
-                  IsOn="{x:Bind MyBooleanValue, Mode=OneWay, Converter={StaticResource BoolNegationConverter}}" />
+    <Button Content="Inverted value set as IsEnabled"
+            IsEnabled="{x:Bind MyBooleanValue, Mode=OneWay, Converter={StaticResource BoolNegationConverter}}" />
 </Page>

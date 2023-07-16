@@ -9,13 +9,11 @@
       mc:Ignorable="d">
 
     <Page.Resources>
-        <converters:StringVisibilityConverter x:Key="StringVisibilityConverter"
-                                              EmptyValue="Visible"
-                                              NotEmptyValue="Collapsed" />
+        <converters:StringVisibilityConverter x:Key="StringVisibilityConverter" />
     </Page.Resources>
 
     <TextBlock Text="This text is visible when the input TextBox is empty"
-               Visibility="{x:Bind MyTextStringValue, Mode=OneWay, Converter={StaticResource StringVisibilityConverter}}" />
+               Visibility="{x:Bind MyTextStringValue, Mode=OneWay, Converter={StaticResource StringVisibilityConverter}, ConverterParameter=True}" />
 
 
 </Page>
