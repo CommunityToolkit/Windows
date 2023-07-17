@@ -16,6 +16,9 @@ The `FadeHeaderBehavior`, `QuickReturnHeaderBehavior`, and `StickyHeaderBehavior
 
 They use composition animations to allow the visual of an element of a scrolling viewport to be manipulated for various effects.
 
+> [!WARNING]
+> Due to the use of the composition APIs, these behaviors aren't supported on Uno Platform.
+
 To use the behavior, place it on the _element in the header to be manipulated_.
 
 > [!NOTE]
