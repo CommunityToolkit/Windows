@@ -34,7 +34,7 @@
 					Target="{x:Bind ImageCrossFadeEffect}"
 					From="0"
 					To="1"
-					Duration="0:0:1" />
+					Duration="0:0:5" />
 
 				<ani:CrossFadeEffectAnimation
 					EasingMode="EaseIn"
@@ -42,7 +42,7 @@
 					Target="{x:Bind ImageCrossFadeEffect}"
 					From="1"
 					To="0"
-					Duration="0:0:1" />
+					Duration="0:0:5" />
 			</ani:AnimationSet>
 		</ani:Explicit.Animations>
 

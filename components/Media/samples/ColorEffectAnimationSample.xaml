@@ -28,7 +28,7 @@
 					Target="{x:Bind ImageColorEffect}"
 					From="Transparent"
 					To="#803300FF"
-					Duration="0:0:1" />
+					Duration="0:0:2" />
 
 				<ani:ColorEffectAnimation
 					EasingMode="EaseOut"
@@ -36,7 +36,7 @@
 					Target="{x:Bind ImageColorEffect}"
 					From="#803300FF"
 					To="Transparent"
-					Duration="0:0:1" />
+					Duration="0:0:2" />
 			</ani:AnimationSet>
 		</ani:Explicit.Animations>
 

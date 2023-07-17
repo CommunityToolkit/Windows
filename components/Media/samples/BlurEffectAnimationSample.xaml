@@ -28,7 +28,7 @@
 					Target="{x:Bind ImageBlurEffect}"
 					From="0"
 					To="8"
-					Duration="0:0:1" />
+					Duration="0:0:5" />
 
 				<ani:BlurEffectAnimation
 					EasingMode="EaseOut"
@@ -36,7 +36,7 @@
 					Target="{x:Bind ImageBlurEffect}"
 					From="8"
 					To="0"
-					Duration="0:0:1" />
+					Duration="0:0:5" />
 			</ani:AnimationSet>
 		</ani:Explicit.Animations>
 

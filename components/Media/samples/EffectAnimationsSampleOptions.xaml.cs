@@ -11,6 +11,7 @@ namespace MediaExperiment.Samples;
 [ToolkitSampleOptionsPane(nameof(BlurEffectAnimationSample))]
 [ToolkitSampleOptionsPane(nameof(CrossFadeEffectAnimationSample))]
 [ToolkitSampleOptionsPane(nameof(ExposureEffectAnimationSample))]
+[ToolkitSampleOptionsPane(nameof(HueRotationEffectAnimationSample))]
 public sealed partial class EffectAnimationsSampleOptions : Page
 {
     private AnimationSet _animationSet;
@@ -43,6 +44,11 @@ public sealed partial class EffectAnimationsSampleOptions : Page
 
     public EffectAnimationsSampleOptions(ExposureEffectAnimationSample sampleInstance)
         : this(new ExposureEffectAnimationSample.XamlNamedPropertyRelay(sampleInstance).ExposureAnimation)
+    {
+    }
+
+    public EffectAnimationsSampleOptions(HueRotationEffectAnimationSample sampleInstance)
+        : this(new HueRotationEffectAnimationSample.XamlNamedPropertyRelay(sampleInstance).HueRotationAnimation)
     {
     }
 
