@@ -10,32 +10,40 @@ namespace MediaExperiment.Samples;
 [ToolkitSampleOptionsPane(nameof(ColorEffectAnimationSample))]
 [ToolkitSampleOptionsPane(nameof(BlurEffectAnimationSample))]
 [ToolkitSampleOptionsPane(nameof(CrossFadeEffectAnimationSample))]
+[ToolkitSampleOptionsPane(nameof(ExposureEffectAnimationSample))]
 public sealed partial class EffectAnimationsSampleOptions : Page
 {
     private AnimationSet _animationSet;
 
-    public EffectAnimationsSampleOptions(EffectAnimationsSample sampleInstance)
+    public EffectAnimationsSampleOptions(AnimationSet animationSet)
     {
+        _animationSet = animationSet;
         this.InitializeComponent();
-        _animationSet = new EffectAnimationsSample.XamlNamedPropertyRelay(sampleInstance).ClipAnimation;
     }
 
-    public EffectAnimationsSampleOptions(ColorEffectAnimationSample sampleInstance)
+    public EffectAnimationsSampleOptions(EffectAnimationsSample sampleInstance)
+        : this(new EffectAnimationsSample.XamlNamedPropertyRelay(sampleInstance).ClipAnimation)
     {
-        this.InitializeComponent();
-        _animationSet = new ColorEffectAnimationSample.XamlNamedPropertyRelay(sampleInstance).ColorAnimation;
+    }
+
+    public EffectAnimationsSampleOptions(ColorEffectAnimationSample sampleInstance) 
+        : this(new ColorEffectAnimationSample.XamlNamedPropertyRelay(sampleInstance).ColorAnimation)
+    {
     }
 
     public EffectAnimationsSampleOptions(BlurEffectAnimationSample sampleInstance)
+        : this(new BlurEffectAnimationSample.XamlNamedPropertyRelay(sampleInstance).BlurAnimation)
     {
-        this.InitializeComponent();
-        _animationSet = new BlurEffectAnimationSample.XamlNamedPropertyRelay(sampleInstance).BlurAnimation;
     }
 
     public EffectAnimationsSampleOptions(CrossFadeEffectAnimationSample sampleInstance)
+        : this(new CrossFadeEffectAnimationSample.XamlNamedPropertyRelay(sampleInstance).CrossFadeAnimation)
     {
-        this.InitializeComponent();
-        _animationSet = new CrossFadeEffectAnimationSample.XamlNamedPropertyRelay(sampleInstance).CrossFadeAnimation;
+    }
+
+    public EffectAnimationsSampleOptions(ExposureEffectAnimationSample sampleInstance)
+        : this(new ExposureEffectAnimationSample.XamlNamedPropertyRelay(sampleInstance).ExposureAnimation)
+    {
     }
 
     public void OnStartAnimationButton_Clicked(object sender, RoutedEventArgs e)
