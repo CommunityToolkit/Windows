@@ -8,7 +8,7 @@
 	xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
 	xmlns:media="using:CommunityToolkit.WinUI.Media">
 
-	<Border MaxWidth="700" MaxHeight="500">
+	<Border MaxWidth="700" MaxHeight="400">
 		<Image
 			VerticalAlignment="Center"
 			Source="ms-appx:///Assets/SpeedTripleAtristsPoint.jpg"

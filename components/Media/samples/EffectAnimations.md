@@ -26,7 +26,6 @@ icon: Assets/icon.png
 
 > [!SAMPLE CrossFadeEffectAnimationSample]
 
-
 ## ExposureEffectAnimation
 
 > [!SAMPLE ExposureEffectAnimationSample]
