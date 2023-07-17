@@ -6,10 +6,10 @@ using CommunityToolkit.WinUI.Controls;
 
 namespace PrimitivesExperiment.Samples;
 
-[ToolkitSample(id: nameof(ConstrainedBoxSample), "ConstrainedBox", description: $"A sample for showing how to create and use a {nameof(ConstrainedBox)}.")]
-public sealed partial class ConstrainedBoxSample : Page
+[ToolkitSample(id: nameof(ConstrainedBoxMultipleSample), "ConstrainedBox Multiple", description: $"A sample for showing how to use a {nameof(ConstrainedBox)} for a tile pattern.")]
+public sealed partial class ConstrainedBoxMultipleSample : Page
 {
-    public ConstrainedBoxSample()
+    public ConstrainedBoxMultipleSample()
     {
         this.InitializeComponent();
     }
