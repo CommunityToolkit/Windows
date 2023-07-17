@@ -9,6 +9,7 @@ namespace MediaExperiment.Samples;
 [ToolkitSampleOptionsPane(nameof(EffectAnimationsSample))]
 [ToolkitSampleOptionsPane(nameof(ColorEffectAnimationSample))]
 [ToolkitSampleOptionsPane(nameof(BlurEffectAnimationSample))]
+[ToolkitSampleOptionsPane(nameof(CrossFadeEffectAnimationSample))]
 public sealed partial class EffectAnimationsSampleOptions : Page
 {
     private AnimationSet _animationSet;
@@ -29,6 +30,12 @@ public sealed partial class EffectAnimationsSampleOptions : Page
     {
         this.InitializeComponent();
         _animationSet = new BlurEffectAnimationSample.XamlNamedPropertyRelay(sampleInstance).BlurAnimation;
+    }
+
+    public EffectAnimationsSampleOptions(CrossFadeEffectAnimationSample sampleInstance)
+    {
+        this.InitializeComponent();
+        _animationSet = new CrossFadeEffectAnimationSample.XamlNamedPropertyRelay(sampleInstance).CrossFadeAnimation;
     }
 
     public void OnStartAnimationButton_Clicked(object sender, RoutedEventArgs e)

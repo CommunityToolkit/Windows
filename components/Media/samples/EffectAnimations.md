@@ -21,3 +21,7 @@ icon: Assets/icon.png
 ## ColorEffectAnimation
 
 > [!SAMPLE ColorEffectAnimationSample]
+
+## CrossFadeEffectAnimation
+
+> [!SAMPLE CrossFadeEffectAnimationSample]
