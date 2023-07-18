@@ -40,9 +40,20 @@ Animate the exposure with a Win2d ExposureEffect.
 
 > [!SAMPLE ExposureEffectAnimationSample]
 
-
 ## HueRotationEffectAnimation
 
 Animate Hue to a specific angle using a Win2d HueRotationEffect. 
 
 > [!SAMPLE HueRotationEffectAnimationSample]
+
+## OpacityEffectAnimation
+
+> [!SAMPLE OpacityEffectAnimationSample]
+
+## SaturationEffectAnimation
+
+> [!SAMPLE SaturationEffectAnimationSample]
+
+## SepiaEffectAnimation
+
+> [!SAMPLE SepiaEffectAnimationSample]

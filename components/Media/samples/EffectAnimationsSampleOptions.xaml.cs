@@ -12,6 +12,9 @@ namespace MediaExperiment.Samples;
 [ToolkitSampleOptionsPane(nameof(CrossFadeEffectAnimationSample))]
 [ToolkitSampleOptionsPane(nameof(ExposureEffectAnimationSample))]
 [ToolkitSampleOptionsPane(nameof(HueRotationEffectAnimationSample))]
+[ToolkitSampleOptionsPane(nameof(OpacityEffectAnimationSample))]
+[ToolkitSampleOptionsPane(nameof(SaturationEffectAnimationSample))]
+[ToolkitSampleOptionsPane(nameof(SepiaEffectAnimationSample))]
 public sealed partial class EffectAnimationsSampleOptions : Page
 {
     private AnimationSet _animationSet;
@@ -49,6 +52,21 @@ public sealed partial class EffectAnimationsSampleOptions : Page
 
     public EffectAnimationsSampleOptions(HueRotationEffectAnimationSample sampleInstance)
         : this(new HueRotationEffectAnimationSample.XamlNamedPropertyRelay(sampleInstance).HueRotationAnimation)
+    {
+    }
+
+    public EffectAnimationsSampleOptions(OpacityEffectAnimationSample sampleInstance)
+        : this(new OpacityEffectAnimationSample.XamlNamedPropertyRelay(sampleInstance).OpacityAnimation)
+    {
+    }
+
+    public EffectAnimationsSampleOptions(SaturationEffectAnimationSample sampleInstance)
+        : this(new SaturationEffectAnimationSample.XamlNamedPropertyRelay(sampleInstance).SaturationAnimation)
+    {
+    }
+
+    public EffectAnimationsSampleOptions(SepiaEffectAnimationSample sampleInstance)
+        : this(new SepiaEffectAnimationSample.XamlNamedPropertyRelay(sampleInstance).SepiaAnimation)
     {
     }
 
