@@ -21,18 +21,3 @@ var weakPropertyChangedListener = new WeakEventListener<DataGrid, object, Proper
 }
 inpc.PropertyChanged += weakPropertyChangedListener.OnEvent;
 ```
-
-
-## Properties
-
-| Property | Type | Description |
-| -- | -- | -- |
-| OnDetachAction | WeakEventListener<TInstance,TSource,TEventArgs>> | Gets or sets the method to call when detaching from the event |
-| OnEventAction | Action<TInstance,TSource,TEventArgs> | Gets or sets the method to call when the event fires |
-
-## Methods
-
-| Methods | Return Type | Description |
-| -- | -- | -- |
-| Detach() | void | Detaches from the subscribed event |
-| OnEvent(TSource, TEventArgs) | void | Handler for the subscribed event calls OnEventAction to handle it |

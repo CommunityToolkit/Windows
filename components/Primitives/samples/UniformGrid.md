@@ -133,18 +133,3 @@ In addition to `FlowDirection` to layout items from Right-to-Left.  The UWP Unif
 
 > [!NOTE]
 > Changing the `FlowDirection` or `Orientation` properties effect how `FirstColumn` is interpreted.  `FlowDirection` will effectively mirror the layout on the vertical axis.  `Orientation` instead acts more like a transpose and will push items in the first column down.
-
-## Properties
-
-| Property | Type | Description |
-| -- | -- | -- |
-| Columns | int | Specifies a fixed number of columns to use for layout.  Defaults to `0` which will automatically calculate a value based on the number of items. |
-| FirstColumn | int | Specifies the first column from the top-left (during normal layout) to display the first item.  Defaults to `0`.
-| Orientation | Windows.UI.Xaml.Controls.Orientation | Determines if layout proceeds horizontally from left-to-right or vertically from top-to-bottom.  The default is `Horizontal`. |
-| Rows | int | Specifies a fixed number of rows to use for layout.  Defaults to `0` which will automatically calculate a value based on the number of items. |
-
-## Attached Properties
-
-| Property | Type | Description |
-| -- | -- | -- |
-| AutoLayout | bool? | **DO NOT USE** - Internal property used to keep track of items that are fixed in position or need to automatically adjusted during layout. *Only set to `False` for the top-left edge case scenario described above for fixed child locations.* |

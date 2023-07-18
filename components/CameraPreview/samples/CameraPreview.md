@@ -43,35 +43,9 @@ private void CameraPreviewControl_PreviewFailed(object sender, PreviewFailedEven
 }
 ```
 
-
 > [!IMPORTANT]
 > As a developer, you will need to make sure the CameraHelper resources used by the control are cleaned up when appropriate. See [CameraHelper documentation](../helpers/CameraHelper.md) for more details
 
-## Properties
-
-| Property | Type | Description |
-| -- | -- | -- |
-| CameraHelper| [CameraHelper](../helpers/CameraHelper.md) | Gets the CameraHelper associated with the control. |
-| IsFrameSourceGroupButtonVisible | bool| Set this property to hide or show Frame Source Group Button. Note: This button is conditionally visible based on more than one source being available. |
-
-```xaml
-<controls:CameraPreview x:Name="CameraPreviewControl" IsFrameSourceGroupButtonVisible="false"
-</controls:CameraPreview>
-```
-
-## Methods
-
-| Methods | Return Type | Description |
-| -- | -- | -- |
-| StartAsync() | Task | Initializes camera preview control with a default Camera Helper instance and starts preview and frame capture. |
-| StartAsync(CameraHelper cameraHelper) | Task | Initializes camera preview control with provided Camera Helper instance. |
-| Stop() | void | Stops camera preview and disposes MediaPlayer. |
-
-## Events
-
-| Events | Description |
-| -- | -- |
-| PreviewFailed | Fires when camera preview fails. You can get the error reason from the PreviewFailedEventArgs.|
 
 ## Examples
 
