@@ -45,10 +45,3 @@ The transformations that can be applied are one of the following:
     </Border>
 </controls:LayoutTransformControl>
 ```
-
-## Properties
-
-| Property | Type | Description |
-| -- | -- | -- |
-| Child | FrameworkElement | The content of the control that will receive matrix transformations |
-| Transform | Transform | The transformations to apply on the `Content`. It can be a single transformation like `RotateTransform`, `ScaleTransform` or `SkewTransform` or it can be a combo of multiple transformations using `TransformGroup` |
