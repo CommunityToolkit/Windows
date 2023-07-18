@@ -15,8 +15,19 @@
                                           Type="x:String" />
     </Page.Resources>
 
-    <TextBlock Foreground="{x:Bind MyTextStringValue, Mode=OneWay, Converter={StaticResource TypeToObjectConverter}}"
-               Text="This text is visible when the input TextBox is empty" />
+    <StackPanel Spacing="8">
+        <ComboBox x:Name="Selection"
+                  SelectedIndex="0">
+            <ComboBoxItem>
+                <x:Int32>64</x:Int32>
+            </ComboBoxItem>
+            <ComboBoxItem>
+                <x:Double>44.44</x:Double>
+            </ComboBoxItem>
+            <ComboBoxItem>I'm a String!</ComboBoxItem>
+        </ComboBox>
 
-
+        <TextBlock Foreground="{x:Bind ((ComboBoxItem)Selection.SelectedItem).Content, Mode=OneWay, Converter={StaticResource TypeToObjectConverter}}"
+                   Text="This text is Green when a string is selected" />
+    </StackPanel>
 </Page>

@@ -4,8 +4,6 @@
 
 namespace ConvertersExperiment.Samples;
 
-[ToolkitSampleTextOption("MyTextStringValue", "", Title = "Enter text to hide the TextBlock")]
-
 [ToolkitSample(id: nameof(TypeToObjectConverterSample), "TypeToObjectConverter", description: $"A sample for showing how to use the TypeToObjectConverter.")]
 public sealed partial class TypeToObjectConverterSample : Page
 {
