@@ -77,7 +77,7 @@ Converts a string value into a Visibility value (if the value is null or empty r
 > [!Sample StringVisibilityConverterSample]
 
 ## TaskResultConverter
-Converter that can be used to safely retrieve results from `Task<TResult>` instances. See the [MVVM Toolkit Gallery](https://www.microsoft.com/store/productId/9NKLCF1LVZ5H) for an example.
+Converter that can be used to safely retrieve results from `Task<TResult>` instances. See the [MVVM Toolkit Gallery](https://aka.ms/mvvmtoolkit/app) for an example.
 
 ## TypeToObjectConverter
 Returns an object or another, depending on whether the type of the provided value matches another provided Type.
