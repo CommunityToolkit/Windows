@@ -17,7 +17,7 @@ on:
   merge_group:
 
 env:
-  DOTNET_VERSION: ${{ '6.0.x' }}
+  DOTNET_VERSION: ${{ '7.0.x' }}
   ENABLE_DIAGNOSTICS: false
   #COREHOST_TRACE: 1
   COREHOST_TRACEFILE: corehosttrace.log
