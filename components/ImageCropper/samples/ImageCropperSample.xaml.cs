@@ -18,10 +18,10 @@ public sealed partial class ImageCropperSample : Page
     public ImageCropperSample()
     {
         this.InitializeComponent();
-        Load();
+        _ = Load();
     }
 
-    private async void Load()
+    private async Task Load()
     {
         var file = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/Owl.jpg"));
         await imageCropper.LoadImageFromFile(file);
