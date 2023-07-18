@@ -22,13 +22,6 @@ When the Orientation is Vertical, HorizontalSpacing adds uniform spacing between
 
 > [!SAMPLE WrapLayoutSample]
 
-## Properties
-
-| Property | Type | Description |
-| -- | -- | -- |
-| Orientation | Orientation | Gets or sets the orientation of the WrapLayout, Horizontal or vertical means that child controls will be added horizontally until the width of the panel can't fit more control, then a new row is added to fit new horizontal added child controls, vertical means that child will be added vertically until the height of the panel is received then a new column is added |
-| VerticalSpacing | double  | Gets or sets the vertical distance between items |
-| HorizontalSpacing | double  | Gets or sets the horizontal distance between items |
 
 ## Examples
 
