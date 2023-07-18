@@ -59,28 +59,6 @@ Likewise, make sure to handle app [suspending](/windows/uwp/launch-resume/suspen
 
 Call `CameraHelper.CleanupAsync()` to clean up all internal resources. See the [CameraHelper sample page in the sample app](https://github.com/windows-toolkit/WindowsCommunityToolkit/tree/rel/7.1.0/Microsoft.Toolkit.Uwp.SampleApp/SamplePages/CameraHelper) for full example.
 
-## Properties
-
-| Property | Type | Description |
-| -- | -- | -- |
-| FrameSourceGroup | MediaFrameSourceGroup | Gets the currently selected MediaFrameSourceGroup for video preview. User can set this property to preview video from a specific source. If no MediaFrameSourceGroup is provided, Camera Helper selects the first available camera source to  use for media capture. |
-| PreviewFrameSource | MediaFrameSource | Gets the currently selected MediaFrameSource for video preview. |
-
-## Methods
-
-| Methods | Return Type | Description |
-| -- | -- | -- |
-| GetFrameSourceGroupsAsync() | Task<IReadOnlyList\<MediaFrameSourceGroup>> | Gets a read only list of MediaFrameSourceGroups that support color video record or video preview streams. |
-| InitializeAndStartCaptureAsync() | Task\<CameraHelperResult> | Initializes Media Capture and Frame Reader for video preview and capture frames in real time. |
-| CleanUpAsync() | Task | Use this asynchronous method to dispose Camera Helper resources |
-| Dispose() | void | Use this method to dispose Camera Helper resources |
-
-## Events
-
-| Events | Description |
-| -- | -- |
-| FrameArrived| Fires when a new frame arrives.|
-
 ## Examples
 
 Demonstrates using Camera Helper to get video frames from a specific media frame source group.
