@@ -20,15 +20,6 @@ You can control the grid's steps with `HorizontalStep` and `VerticalStep` proper
 
 > [!Sample AlignmentGridSample]
 
-### Properties
-
-| Property | Type | Description |
-| -- | -- | -- |
-| HorizontalStep | double | Gets or sets the step to use horizontally |
-| LineBrush | Brush | Gets or sets line Brush |
-| VerticalStep | double | Gets or sets the step to use vertically |
-
-
 ## FocusTracker
 
 The [FocusTracker Control](/dotnet/api/microsoft.toolkit.uwp.developertools.focustracker) can be used to display information about the current focused XAML element (if any).

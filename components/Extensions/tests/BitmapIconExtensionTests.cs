@@ -4,8 +4,6 @@
 
 using CommunityToolkit.Tests;
 using CommunityToolkit.Tooling.TestGen;
-using CommunityToolkit.WinUI;
-using ExtensionsExperiment.Tests;
 
 namespace ExtensionsComponent.Tests;
 

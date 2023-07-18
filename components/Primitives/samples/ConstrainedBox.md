@@ -17,8 +17,6 @@ icon: Assets/ConstrainedBox.png
 
 > **Platform APIs:** [`ConstrainedBox`](/dotnet/api/microsoft.toolkit.uwp.ui.controls.constrainedbox), [`AspectRatio`](/dotnet/api/microsoft.toolkit.uwp.ui.controls.aspectratio)
 
-> [!SAMPLE ConstrainedBoxSample]
-
 The three constraints provided by the `ConstrainedBox` control can be used individually & independently or combined to provide a wide-variety of responsive layout options. When used in combination, for the properties used, they are always applied in the following order:
 
 1. `ScaleX`/`ScaleY`: Scaling is applied first to restrict the overall available size in each axis from the parent container based on a percentage value from 0.0-1.0. The default value is 1.0 to use all available size.
@@ -31,14 +29,22 @@ If a `ConstrainedBox` is placed in a container which doesn't restrict its size i
 
 The Min/Max and Alignment properties of the `ConstrainedBox` itself and its child can also be set to provide other constraints on how layout is performed with the control, as with any regular XAML layout.
 
-## Example
+## Aspect Ratios
 
-The following example shows how to align a 16:9 view of an image with the top of its container (like a page) and center on the image's content:
+The most common use-case for the `ConstrainedBox` is to maintain the aspect ratio of an image. For instance the following example maintains a 16:3 aspect ratio of the image at the top of its container (like a page) and center on the image's content:
 
-```xaml
-  <controls:ConstrainedBox AspectRatio="16:9" VerticalAlignment="Top">
-    <Image Source="/Assets/Photos/WestSeattleView.jpg"
-           Stretch="UniformToFill"
-           VerticalAlignment="Center"/> <!-- Center viewport on image -->
-  </controls:ConstrainedBox>
-```
+> [!SAMPLE ConstrainedBoxAspectSample]
+
+## Scaling
+
+Another scenario may be for keeping a 'safe' margin around the content on your page. You may want this to not be a fixed margin but be proportional to a viewport.
+
+This sample demonstrates that using `ScaleX`/`ScaleY`:
+
+> [!SAMPLE ConstrainedBoxScaleSample]
+
+## Multiples
+
+The next sample shows how you can use the `MultipleX` property to snap the size of a component to the pattern of an image:
+
+> [!SAMPLE ConstrainedBoxMultipleSample]

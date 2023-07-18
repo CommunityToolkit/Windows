@@ -46,10 +46,3 @@ metadataControl.Items = new[]
 ## MetadataItem
 
 A `MetadataItem` contains the information about one entry which will be displayed in the `MetadataControl`
-
-| Property | Type | Description |
-| -- | -- | -- |
-| Label | String | Gets or sets the label of the item |
-| AccessibleLabel | String | Gets or sets the automation name that will be set on the item. If not set, `Label` will be used. |
-| Command | ICommand | Gets or sets the command associated to the item. If null, the item will be displayed as a text field. If set, the item will be displayed as an hyperlink. |
-| CommandParameter | Object | Gets or sets the parameter that will be provided to the `Command`|

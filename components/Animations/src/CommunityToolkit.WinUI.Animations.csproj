@@ -2,7 +2,7 @@
   <PropertyGroup>
     <ToolkitComponentName>Animations</ToolkitComponentName>
     <Description>This package contains Animations.</Description>
-    <Version>8.0.0-beta.1</Version>
+    <Version>8.0.0-beta.2</Version>
 
     <!-- Rns suffix is required for namespaces shared across projects. See https://github.com/CommunityToolkit/Labs-Windows/issues/152 -->
     <RootNamespace>CommunityToolkit.WinUI.AnimationsRns</RootNamespace>
@@ -11,6 +11,9 @@
 
   <ItemGroup>
     <InternalsVisibleTo Include="CommunityToolkit.WinUI.Behaviors.Animations" />
+    <InternalsVisibleTo Include="CommunityToolkit.WinUI.Media" />
+    <InternalsVisibleTo Include="CommunityToolkit.WinUI.Behaviors" />
+    
     <PackageReference Include="PolySharp" Version="1.13.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -19,7 +22,6 @@
 
   <ItemGroup>
     <ProjectReference Include="$(ToolkitExtensionSourceProject)" />
-    <ProjectReference Include="$(ToolkitEffectSourceProject)" />
   </ItemGroup>
 
   <!-- Sets this up as a toolkit component's source project -->

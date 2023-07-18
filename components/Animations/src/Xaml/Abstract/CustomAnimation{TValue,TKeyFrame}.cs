@@ -23,16 +23,24 @@ public abstract class CustomAnimation<TValue, TKeyFrame> : ImplicitAnimation<TVa
     /// Gets or sets the target framework layer for the animation. This is only supported
     /// for a set of animation types (see the docs for more on this). Furthermore, this is
     /// ignored when the animation is being used as an implicit composition animation.
+#if !HAS_UNO
     /// The default value is <see cref="FrameworkLayer.Composition"/>.
     /// </summary>
     public FrameworkLayer Layer { get; set; }
+#else
+    /// The default value is <see cref="FrameworkLayer.Xaml"/>.
+    /// </summary>
+    public FrameworkLayer Layer { get; set; } = FrameworkLayer.Xaml;
+#endif
 
     /// <inheritdoc/>
-    protected override string ExplicitTarget => Target!;
+    protected override string? ExplicitTarget => Target;
 
     /// <inheritdoc/>
     public override AnimationBuilder AppendToBuilder(AnimationBuilder builder, TimeSpan? delayHint, TimeSpan? durationHint, EasingType? easingTypeHint, EasingMode? easingModeHint)
     {
+        default(ArgumentNullException).ThrowIfNull(ExplicitTarget);
+
         return builder.NormalizedKeyFrames<TKeyFrame, (CustomAnimation<TValue, TKeyFrame> This, EasingType? EasingTypeHint, EasingMode? EasingModeHint)>(
             property: ExplicitTarget,
             state: (this, easingTypeHint, easingModeHint),

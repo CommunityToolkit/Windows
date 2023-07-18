@@ -1,58 +1,57 @@
-﻿<Page x:Class="BehaviorsExperiment.Samples.ViewportBehaviorSample"
+<Page x:Class="BehaviorsExperiment.Samples.ViewportBehaviorSample"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:behaviors="using:CommunityToolkit.WinUI.Behaviors"
       xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
       x:Name="RootElement">
 
-    <Grid Padding="12">
+    <Grid RowSpacing="12">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
 
-        <Grid MaxWidth="500"
-              MaxHeight="500"
-              BorderBrush="#55000000"
-              BorderThickness="2">
+        <TextBlock HorizontalAlignment="Center"
+                   IsHitTestVisible="False"
+                   Style="{StaticResource CaptionTextBlockStyle}"
+                   Text="Scroll to see the effect" />
 
-            <TextBlock Padding="8"
-                       HorizontalAlignment="Center"
-                       Foreground="OrangeRed"
-                       IsHitTestVisible="False"
-                       Text="Scroll to see the effect" />
+        <ScrollViewer Grid.Row="1"
+                      MaxWidth="480"
+                      MaxHeight="480"
+                      BorderBrush="{ThemeResource ControlStrongStrokeColorDefaultBrush}"
+                      BorderThickness="1">
+            <Grid Height="2000">
+                <Border Width="200"
+                        Height="200"
+                        Background="{ThemeResource AccentFillColorTertiaryBrush}">
 
-            <ScrollViewer>
-                <Grid Height="3000">
-                    <Border Width="200"
-                            Height="200"
-                            Background="Gray">
+                    <interactivity:Interaction.Behaviors>
+                        <behaviors:ViewportBehavior x:Name="ViewportBehavior"
+                                                    IsAlwaysOn="{x:Bind IsAlwaysOn, Mode=OneWay}" />
+                    </interactivity:Interaction.Behaviors>
 
-                        <interactivity:Interaction.Behaviors>
-                            <behaviors:ViewportBehavior x:Name="ViewportBehavior"
-                                                        IsAlwaysOn="{x:Bind IsAlwaysOn, Mode=OneWay}" />
-                        </interactivity:Interaction.Behaviors>
+                    <Rectangle Width="100"
+                               Height="100"
+                               Fill="{ThemeResource AccentFillColorDefaultBrush}" />
+                </Border>
+            </Grid>
+        </ScrollViewer>
 
-                        <Rectangle Width="100"
-                                   Height="100"
-                                   Fill="Red" />
-                    </Border>
-                </Grid>
-            </ScrollViewer>
+        <StackPanel Grid.Row="2"
+                    HorizontalAlignment="Center">
+            <TextBlock>
+                <Run Text="IsFullyInViewport:" />
+                <Run FontWeight="SemiBold"
+                     Text="{x:Bind ViewportBehavior.IsFullyInViewport, Mode=OneWay}" />
+            </TextBlock>
 
-            <StackPanel Padding="12"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Bottom"
-                        Background="#55000000">
-                <TextBlock>
-                    <Run Foreground="#75FFFFFF"
-                         Text="IsFullyInViewport:" />
-                    <Run Text="{x:Bind ViewportBehavior.IsFullyInViewport, Mode=OneWay}" />
-                </TextBlock>
-
-                <TextBlock>
-                    <Run Foreground="#75FFFFFF"
-                         Text="IsInViewport:" />
-                    <Run Text="{x:Bind ViewportBehavior.IsInViewport, Mode=OneWay}" />
-                </TextBlock>
-            </StackPanel>
-        </Grid>
-
+            <TextBlock>
+                <Run Text="IsInViewport:" />
+                <Run FontWeight="SemiBold"
+                     Text="{x:Bind ViewportBehavior.IsInViewport, Mode=OneWay}" />
+            </TextBlock>
+        </StackPanel>
     </Grid>
 </Page>

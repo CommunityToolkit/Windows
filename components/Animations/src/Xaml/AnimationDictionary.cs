@@ -9,7 +9,7 @@ namespace CommunityToolkit.WinUI.Animations;
 /// <summary>
 /// A collection of animations that can be defined from XAML.
 /// </summary>
-public sealed class AnimationDictionary : DependencyObject, IList<AnimationSet>
+public sealed partial class AnimationDictionary : DependencyObject, IList<AnimationSet>
 {
     /// <summary>
     /// The underlying list of animations.
