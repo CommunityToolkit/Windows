@@ -1,0 +1,88 @@
+<Page x:Class="BehaviorsExperiment.Samples.QuickReturnHeaderBehaviorSample"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:behaviors="using:CommunityToolkit.WinUI.Behaviors"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d">
+
+    <!--  We need to set height here to force scrolling in the sample  -->
+    <GridView Height="300"
+              VerticalAlignment="Top">
+        <GridView.Header>
+            <Grid MinHeight="100"
+                  Background="{ThemeResource AccentFillColorDefaultBrush}">
+                <interactivity:Interaction.Behaviors>
+                    <behaviors:QuickReturnHeaderBehavior />
+                </interactivity:Interaction.Behaviors>
+                <TextBlock HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Foreground="{ThemeResource TextOnAccentFillColorPrimaryBrush}"
+                           Text="Header" />
+            </Grid>
+        </GridView.Header>
+        <GridView.ItemTemplate>
+            <DataTemplate x:DataType="x:String">
+                <Border Width="200"
+                        Height="200">
+                    <TextBlock HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               Text="{Binding}" />
+                </Border>
+            </DataTemplate>
+        </GridView.ItemTemplate>
+        <GridView.Items>
+            <x:String>One</x:String>
+            <x:String>Two</x:String>
+            <x:String>Three</x:String>
+            <x:String>Four</x:String>
+            <x:String>Five</x:String>
+            <x:String>Six</x:String>
+            <x:String>Seven</x:String>
+            <x:String>Eight</x:String>
+            <x:String>Nine</x:String>
+            <x:String>Ten</x:String>
+            <x:String>Eleven</x:String>
+            <x:String>Twelve</x:String>
+            <x:String>Thirteen</x:String>
+            <x:String>Fourteen</x:String>
+            <x:String>Fifteen</x:String>
+            <x:String>Sixteen</x:String>
+            <x:String>Seventeen</x:String>
+            <x:String>Eighteen</x:String>
+            <x:String>Nineteen</x:String>
+            <x:String>Twenty</x:String>
+            <x:String>Twenty-One</x:String>
+            <x:String>Twenty-Two</x:String>
+            <x:String>Twenty-Three</x:String>
+            <x:String>Twenty-Four</x:String>
+            <x:String>Twenty-Five</x:String>
+            <x:String>Twenty-Six</x:String>
+            <x:String>Twenty-Seven</x:String>
+            <x:String>Twenty-Eight</x:String>
+            <x:String>Twenty-Nine</x:String>
+            <x:String>Thirty</x:String>
+            <x:String>Thirty-One</x:String>
+            <x:String>Thirty-Two</x:String>
+            <x:String>Thirty-Three</x:String>
+            <x:String>Thirty-Four</x:String>
+            <x:String>Thirty-Five</x:String>
+            <x:String>Thirty-Six</x:String>
+            <x:String>Thirty-Seven</x:String>
+            <x:String>Thirty-Eight</x:String>
+            <x:String>Thirty-Nine</x:String>
+            <x:String>Forty</x:String>
+            <x:String>Forty-One</x:String>
+            <x:String>Forty-Two</x:String>
+            <x:String>Forty-Three</x:String>
+            <x:String>Forty-Four</x:String>
+            <x:String>Forty-Five</x:String>
+            <x:String>Forty-Six</x:String>
+            <x:String>Forty-Seven</x:String>
+            <x:String>Forty-Eight</x:String>
+            <x:String>Forty-Nine</x:String>
+            <x:String>Fifty</x:String>
+        </GridView.Items>
+    </GridView>
+</Page>
