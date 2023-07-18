@@ -5,4 +5,17 @@
 
   <!-- Sets this up as a toolkit component's sample project -->
   <Import Project="$(ToolingDirectory)\ToolkitComponent.SampleProject.props" />
+
+  <ItemGroup>
+    <ProjectReference Include="$(MSBuildThisFileDirectory)..\..\HeaderedControls\src\CommunityToolkit.WinUI.Controls.HeaderedControls.csproj" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <None Remove="Assets\ToolkitIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\ToolkitIcon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 </Project>

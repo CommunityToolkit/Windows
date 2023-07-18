@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Extensions\src\CommunityToolkit.WinUI.Extensions.csproj"></ProjectReference>
+    <ProjectReference Include="..\..\Sizers\src\CommunityToolkit.WinUI.Controls.Sizers.csproj"></ProjectReference>
   </ItemGroup>
   
   <ItemGroup>

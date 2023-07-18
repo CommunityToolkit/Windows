@@ -1,0 +1,64 @@
+<!--  Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license. See the LICENSE file in the project root for more information.  -->
+<Page x:Class="BehaviorsExperiment.Samples.InvokeActionsActivitySample"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:ani="using:CommunityToolkit.WinUI.Animations"
+      xmlns:behaviors="using:CommunityToolkit.WinUI.Behaviors"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:interactions="using:Microsoft.Xaml.Interactions.Core"
+      xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+      xmlns:local="using:BehaviorsExperiment.Samples"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d">
+
+    <Button Width="140"
+            Height="140"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center">
+        <ani:Explicit.Animations>
+            <ani:AnimationSet x:Name="MoveAnimation"
+                              IsSequential="True">
+                <ani:StartAnimationActivity Animation="{Binding ElementName=FadeOutAnimation}" />
+                <ani:InvokeActionsActivity>
+                    <interactions:ChangePropertyAction PropertyName="Foreground"
+                                                       TargetObject="{Binding ElementName=MyText}"
+                                                       Value="Purple" />
+                    <!--<mediaactions:PlaySoundAction Source="Assets/Llama.mp3"/>-->
+                </ani:InvokeActionsActivity>
+                <ani:StartAnimationActivity Animation="{Binding ElementName=FadeInAnimation}"
+                                            Delay="0:0:2" />
+            </ani:AnimationSet>
+        </ani:Explicit.Animations>
+
+        <TextBlock x:Name="MyText"
+                   Text="🦙 Text">
+            <ani:Explicit.Animations>
+                <ani:AnimationSet x:Name="FadeOutAnimation">
+                    <ani:OpacityAnimation Delay="0"
+                                          EasingMode="EaseOut"
+                                          EasingType="Linear"
+                                          From="1"
+                                          To="0"
+                                          Duration="0:0:1" />
+                </ani:AnimationSet>
+                <ani:AnimationSet x:Name="FadeInAnimation">
+                    <ani:OpacityAnimation Delay="0"
+                                          EasingMode="EaseOut"
+                                          EasingType="Linear"
+                                          From="0"
+                                          To="1"
+                                          Duration="0:0:1" />
+                </ani:AnimationSet>
+            </ani:Explicit.Animations>
+        </TextBlock>
+
+        <interactivity:Interaction.Behaviors>
+            <interactions:EventTriggerBehavior EventName="Click">
+                <interactions:ChangePropertyAction PropertyName="Foreground"
+                                                   TargetObject="{Binding ElementName=MyText}"
+                                                   Value="White" />
+                <behaviors:StartAnimationAction Animation="{Binding ElementName=MoveAnimation}" />
+            </interactions:EventTriggerBehavior>
+        </interactivity:Interaction.Behaviors>
+    </Button>
+</Page>
