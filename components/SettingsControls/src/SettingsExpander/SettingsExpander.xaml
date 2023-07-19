@@ -1,4 +1,4 @@
-<!--  Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license. See the LICENSE file in the project root for more information.  -->
+﻿<!--  Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license. See the LICENSE file in the project root for more information.  -->
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:animatedvisuals="using:Microsoft.UI.Xaml.Controls.AnimatedVisuals"
@@ -40,8 +40,8 @@
     </Style>
 
     <local:SettingsExpanderItemStyleSelector x:Key="SettingsExpanderItemStyleSelector"
-                                            ClickableStyle="{StaticResource ClickableSettingsExpanderItemStyle}"
-                                            DefaultStyle="{StaticResource DefaultSettingsExpanderItemStyle}" />
+                                             ClickableStyle="{StaticResource ClickableSettingsExpanderItemStyle}"
+                                             DefaultStyle="{StaticResource DefaultSettingsExpanderItemStyle}" />
 
     <!--  Implicitly applied default style  -->
     <Style BasedOn="{StaticResource DefaultSettingsExpanderStyle}"
@@ -82,14 +82,14 @@
                                        Style="{StaticResource SettingsExpanderExpanderStyle}">
                             <muxc:Expander.Header>
                                 <local:SettingsCard Padding="{StaticResource SettingsExpanderHeaderPadding}"
-                                                   VerticalAlignment="Center"
-                                                   Background="Transparent"
-                                                   BorderThickness="0"
-                                                   Content="{TemplateBinding Content}"
-                                                   Description="{TemplateBinding Description}"
-                                                   Header="{TemplateBinding Header}"
-                                                   HeaderIcon="{TemplateBinding HeaderIcon}"
-                                                   IsClickEnabled="False" />
+                                                    VerticalAlignment="Center"
+                                                    Background="Transparent"
+                                                    BorderThickness="0"
+                                                    Content="{TemplateBinding Content}"
+                                                    Description="{TemplateBinding Description}"
+                                                    Header="{TemplateBinding Header}"
+                                                    HeaderIcon="{TemplateBinding HeaderIcon}"
+                                                    IsClickEnabled="False" />
                             </muxc:Expander.Header>
                             <muxc:Expander.Content>
                                 <Grid>
