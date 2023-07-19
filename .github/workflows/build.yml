@@ -21,6 +21,8 @@ env:
   ENABLE_DIAGNOSTICS: false
   #COREHOST_TRACE: 1
   COREHOST_TRACEFILE: corehosttrace.log
+  MULTI_TARGET_DIRECTORY: tooling/MultiTarget
+  HEADS_DIRECTORY: tooling/ProjectHeads
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -60,7 +62,6 @@ jobs:
         platform: [WinUI2, WinUI3]
 
     env:
-      MULTI_TARGET_DIRECTORY: tooling/MultiTarget
       # faux-ternary expression to select which platforms to build for each platform vs. duplicating step below.
       TARGET_PLATFORMS: ${{ matrix.platform != 'WinUI3' && 'all' || 'all-uwp' }}
       TEST_PLATFORM: ${{ matrix.platform != 'WinUI3' && 'UWP' || 'WinAppSdk' }}
@@ -153,8 +154,6 @@ jobs:
 
   wasm-linux:
     runs-on: ubuntu-latest
-    env:
-      HEADS_DIRECTORY: tooling/ProjectHeads
 
     steps:
       - name: Install .NET SDK v${{ env.DOTNET_VERSION }}
@@ -175,6 +174,11 @@ jobs:
       # Restore Tools from Manifest list in the Repository
       - name: Restore dotnet tools
         run: dotnet tool restore
+
+      - name: Enable WASM TargetFrameworks
+        shell: pwsh
+        working-directory: ./${{ env.MULTI_TARGET_DIRECTORY }}
+        run: ./UseTargetFrameworks.ps1 wasm
 
       - name: Generate solution
         shell: pwsh
