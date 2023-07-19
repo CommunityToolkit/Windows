@@ -9,13 +9,21 @@
     <Import_RootNamespace>SettingsControlsExperiment.Tests</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)ExampleSettingsControlsTestClass.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ExampleSettingsControlsTestPage.xaml.cs">
-      <DependentUpon>ExampleSettingsControlsTestPage.xaml</DependentUpon>
+    <Compile Include="$(MSBuildThisFileDirectory)Test_SettingsCard.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Test_SettingsExpander.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SettingsCardTestPage.xaml.cs">
+      <DependentUpon>SettingsCardTestPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)SettingsExpanderTestPage.xaml.cs">
+      <DependentUpon>SettingsExpanderTestPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="$(MSBuildThisFileDirectory)ExampleSettingsControlsTestPage.xaml">
+    <Page Include="$(MSBuildThisFileDirectory)SettingsCardTestPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+<Page Include="$(MSBuildThisFileDirectory)SettingsExpanderTestPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
