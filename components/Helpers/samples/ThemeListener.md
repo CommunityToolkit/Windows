@@ -15,18 +15,3 @@ icon: Assets/ThemeListener.png
 KNOWN ISSUE: `ThemeListener` might not work in WinUI3 applications.
 
 > [!Sample ThemeListenerSample]
-
-## Properties
-
-| Property | Type | Description |
-| -- | -- | -- |
-| CurrentTheme | [ApplicationTheme](/uwp/api/Windows.UI.Xaml.ApplicationTheme) | Gets or sets the Current Theme. |
-| CurrentThemeName | string | Gets the Name of the Current Theme. |
-| IsHighContrast | bool | Gets or sets a value indicating whether the current theme is high contrast. |
-
-
-## Events
-
-| Events | Description |
-| -- | -- |
-| ThemeChanged | An event that fires if the Theme changes. |
