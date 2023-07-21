@@ -319,124 +319,121 @@ public partial class ImageCropper
             storyboard = new Storyboard();
         }
 
-        if (storyboard != null)
+        if (_topThumb != null)
         {
-            if (_topThumb != null)
-            {
-                if (animate)
-                {
-                    storyboard.Children.Add(CreateDoubleAnimation(center.X, _animationDuration, _topThumb, nameof(ImageCropperThumb.X), true));
-                    storyboard.Children.Add(CreateDoubleAnimation(_startY, _animationDuration, _topThumb, nameof(ImageCropperThumb.Y), true));
-                }
-                else
-                {
-                    _topThumb.X = center.X;
-                    _topThumb.Y = _startY;
-                }
-            }
-
-            if (_bottomThumb != null)
-            {
-                if (animate)
-                {
-                    storyboard.Children.Add(CreateDoubleAnimation(center.X, _animationDuration, _bottomThumb, nameof(ImageCropperThumb.X), true));
-                    storyboard.Children.Add(CreateDoubleAnimation(_endY, _animationDuration, _bottomThumb, nameof(ImageCropperThumb.Y), true));
-                }
-                else
-                {
-                    _bottomThumb.X = center.X;
-                    _bottomThumb.Y = _endY;
-                }
-            }
-
-            if (_leftThumb != null)
-            {
-                if (animate)
-                {
-                    storyboard.Children.Add(CreateDoubleAnimation(_startX, _animationDuration, _leftThumb, nameof(ImageCropperThumb.X), true));
-                    storyboard.Children.Add(CreateDoubleAnimation(center.Y, _animationDuration, _leftThumb, nameof(ImageCropperThumb.Y), true));
-                }
-                else
-                {
-                    _leftThumb.X = _startX;
-                    _leftThumb.Y = center.Y;
-                }
-            }
-
-            if (_rightThumb != null)
-            {
-                if (animate)
-                {
-                    storyboard.Children.Add(CreateDoubleAnimation(_endX, _animationDuration, _rightThumb, nameof(ImageCropperThumb.X), true));
-                    storyboard.Children.Add(CreateDoubleAnimation(center.Y, _animationDuration, _rightThumb, nameof(ImageCropperThumb.Y), true));
-                }
-                else
-                {
-                    _rightThumb.X = _endX;
-                    _rightThumb.Y = center.Y;
-                }
-            }
-
-            if (_upperLeftThumb != null)
-            {
-                if (animate)
-                {
-                    storyboard.Children.Add(CreateDoubleAnimation(_startX, _animationDuration, _upperLeftThumb, nameof(ImageCropperThumb.X), true));
-                    storyboard.Children.Add(CreateDoubleAnimation(_startY, _animationDuration, _upperLeftThumb, nameof(ImageCropperThumb.Y), true));
-                }
-                else
-                {
-                    _upperLeftThumb.X = _startX;
-                    _upperLeftThumb.Y = _startY;
-                }
-            }
-
-            if (_upperRightThumb != null)
-            {
-                if (animate)
-                {
-                    storyboard.Children.Add(CreateDoubleAnimation(_endX, _animationDuration, _upperRightThumb, nameof(ImageCropperThumb.X), true));
-                    storyboard.Children.Add(CreateDoubleAnimation(_startY, _animationDuration, _upperRightThumb, nameof(ImageCropperThumb.Y), true));
-                }
-                else
-                {
-                    _upperRightThumb.X = _endX;
-                    _upperRightThumb.Y = _startY;
-                }
-            }
-
-            if (_lowerLeftThumb != null)
-            {
-                if (animate)
-                {
-                    storyboard.Children.Add(CreateDoubleAnimation(_startX, _animationDuration, _lowerLeftThumb, nameof(ImageCropperThumb.X), true));
-                    storyboard.Children.Add(CreateDoubleAnimation(_endY, _animationDuration, _lowerLeftThumb, nameof(ImageCropperThumb.Y), true));
-                }
-                else
-                {
-                    _lowerLeftThumb.X = _startX;
-                    _lowerLeftThumb.Y = _endY;
-                }
-            }
-
-            if (_lowerRigthThumb != null)
-            {
-                if (animate)
-                {
-                    storyboard.Children.Add(CreateDoubleAnimation(_endX, _animationDuration, _lowerRigthThumb, nameof(ImageCropperThumb.X), true));
-                    storyboard.Children.Add(CreateDoubleAnimation(_endY, _animationDuration, _lowerRigthThumb, nameof(ImageCropperThumb.Y), true));
-                }
-                else
-                {
-                    _lowerRigthThumb.X = _endX;
-                    _lowerRigthThumb.Y = _endY;
-                }
-            }
-
             if (animate)
             {
-                storyboard.Begin();
+                storyboard?.Children.Add(CreateDoubleAnimation(center.X, _animationDuration, _topThumb, nameof(ImageCropperThumb.X), true));
+                storyboard?.Children.Add(CreateDoubleAnimation(_startY, _animationDuration, _topThumb, nameof(ImageCropperThumb.Y), true));
             }
+            else
+            {
+                _topThumb.X = center.X;
+                _topThumb.Y = _startY;
+            }
+        }
+
+        if (_bottomThumb != null)
+        {
+            if (animate)
+            {
+                storyboard?.Children.Add(CreateDoubleAnimation(center.X, _animationDuration, _bottomThumb, nameof(ImageCropperThumb.X), true));
+                storyboard?.Children.Add(CreateDoubleAnimation(_endY, _animationDuration, _bottomThumb, nameof(ImageCropperThumb.Y), true));
+            }
+            else
+            {
+                _bottomThumb.X = center.X;
+                _bottomThumb.Y = _endY;
+            }
+        }
+
+        if (_leftThumb != null)
+        {
+            if (animate)
+            {
+                storyboard?.Children.Add(CreateDoubleAnimation(_startX, _animationDuration, _leftThumb, nameof(ImageCropperThumb.X), true));
+                storyboard?.Children.Add(CreateDoubleAnimation(center.Y, _animationDuration, _leftThumb, nameof(ImageCropperThumb.Y), true));
+            }
+            else
+            {
+                _leftThumb.X = _startX;
+                _leftThumb.Y = center.Y;
+            }
+        }
+
+        if (_rightThumb != null)
+        {
+            if (animate)
+            {
+                storyboard?.Children.Add(CreateDoubleAnimation(_endX, _animationDuration, _rightThumb, nameof(ImageCropperThumb.X), true));
+                storyboard?.Children.Add(CreateDoubleAnimation(center.Y, _animationDuration, _rightThumb, nameof(ImageCropperThumb.Y), true));
+            }
+            else
+            {
+                _rightThumb.X = _endX;
+                _rightThumb.Y = center.Y;
+            }
+        }
+
+        if (_upperLeftThumb != null)
+        {
+            if (animate)
+            {
+                storyboard?.Children.Add(CreateDoubleAnimation(_startX, _animationDuration, _upperLeftThumb, nameof(ImageCropperThumb.X), true));
+                storyboard?.Children.Add(CreateDoubleAnimation(_startY, _animationDuration, _upperLeftThumb, nameof(ImageCropperThumb.Y), true));
+            }
+            else
+            {
+                _upperLeftThumb.X = _startX;
+                _upperLeftThumb.Y = _startY;
+            }
+        }
+
+        if (_upperRightThumb != null)
+        {
+            if (animate)
+            {
+                storyboard?.Children.Add(CreateDoubleAnimation(_endX, _animationDuration, _upperRightThumb, nameof(ImageCropperThumb.X), true));
+                storyboard?.Children.Add(CreateDoubleAnimation(_startY, _animationDuration, _upperRightThumb, nameof(ImageCropperThumb.Y), true));
+            }
+            else
+            {
+                _upperRightThumb.X = _endX;
+                _upperRightThumb.Y = _startY;
+            }
+        }
+
+        if (_lowerLeftThumb != null)
+        {
+            if (animate)
+            {
+                storyboard?.Children.Add(CreateDoubleAnimation(_startX, _animationDuration, _lowerLeftThumb, nameof(ImageCropperThumb.X), true));
+                storyboard?.Children.Add(CreateDoubleAnimation(_endY, _animationDuration, _lowerLeftThumb, nameof(ImageCropperThumb.Y), true));
+            }
+            else
+            {
+                _lowerLeftThumb.X = _startX;
+                _lowerLeftThumb.Y = _endY;
+            }
+        }
+
+        if (_lowerRigthThumb != null)
+        {
+            if (animate)
+            {
+                storyboard?.Children.Add(CreateDoubleAnimation(_endX, _animationDuration, _lowerRigthThumb, nameof(ImageCropperThumb.X), true));
+                storyboard?.Children.Add(CreateDoubleAnimation(_endY, _animationDuration, _lowerRigthThumb, nameof(ImageCropperThumb.Y), true));
+            }
+            else
+            {
+                _lowerRigthThumb.X = _endX;
+                _lowerRigthThumb.Y = _endY;
+            }
+        }
+
+        if (animate)
+        {
+            storyboard?.Begin();
         }
     }
 
