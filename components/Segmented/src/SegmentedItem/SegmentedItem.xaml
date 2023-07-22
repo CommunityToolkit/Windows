@@ -366,9 +366,9 @@
            TargetType="local:SegmentedItem" />
 
     <local:SegmentedMarginConverter x:Name="MarginConverter"
-                                   LeftItemMargin="{StaticResource LeftItemHoverMargin}"
-                                   MiddleItemMargin="{StaticResource MiddleItemHoverMargin}"
-                                   RightItemMargin="{StaticResource RightItemHoverMargin}" />
+                                    LeftItemMargin="{StaticResource LeftItemHoverMargin}"
+                                    MiddleItemMargin="{StaticResource MiddleItemHoverMargin}"
+                                    RightItemMargin="{StaticResource RightItemHoverMargin}" />
 
     <Thickness x:Key="LeftItemHoverMargin">3, 3, 1, 3</Thickness>
     <Thickness x:Key="MiddleItemHoverMargin">1, 3, 1, 3</Thickness>

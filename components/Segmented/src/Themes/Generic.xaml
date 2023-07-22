@@ -3,7 +3,7 @@
                     xmlns:controls="using:CommunityToolkit.WinUI.Controls">
 
     <ResourceDictionary.MergedDictionaries>
-       <ResourceDictionary Source="ms-appx:///CommunityToolkit.WinUI.Controls.Segmented/Segmented/Segmented.xaml" />
+        <ResourceDictionary Source="ms-appx:///CommunityToolkit.WinUI.Controls.Segmented/Segmented/Segmented.xaml" />
         <ResourceDictionary Source="ms-appx:///CommunityToolkit.WinUI.Controls.Segmented/SegmentedItem/SegmentedItem.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
