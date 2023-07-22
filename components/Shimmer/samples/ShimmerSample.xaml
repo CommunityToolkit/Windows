@@ -23,7 +23,7 @@
                 <Border x:Name="Picture"
                         Visibility="{x:Bind HasLoaded, Mode=OneWay}">
                     <Border.Background>
-                        <ImageBrush ImageSource="ms-appx:///Assets/Owl.jpg" />
+                        <ImageBrush ImageSource="ms-appx:///Assets/SnowOwl.jpg" />
                     </Border.Background>
                 </Border>
                 <controls:Shimmer Visibility="{x:Bind local:ShimmerSample.ReverseVisibility(Picture.Visibility), Mode=OneWay}" />

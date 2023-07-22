@@ -6,10 +6,10 @@
   <!-- Sets this up as a toolkit component's sample project -->
   <Import Project="$(ToolingDirectory)\ToolkitComponent.SampleProject.props" />
  <ItemGroup>
-    <None Remove="Assets\Owl.jpg" />
+    <None Remove="Assets\SnowOwl.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\Owl.jpg">
+    <Content Include="Assets\SnowOwl.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
