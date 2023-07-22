@@ -1,0 +1,17 @@
+<Project Sdk="MSBuild.Sdk.Extras/3.0.23">
+  <PropertyGroup>
+    <ToolkitComponentName>Segmented</ToolkitComponentName>
+    <Description>This package contains Segmented.</Description>
+    <Version>8.0.0-beta.1</Version>
+
+    <!-- Rns suffix is required for namespaces shared across projects. See https://github.com/CommunityToolkit/Labs-Windows/issues/152 -->
+    <RootNamespace>CommunityToolkit.WinUI.Controls.SegmentedRns</RootNamespace>
+  </PropertyGroup>
+
+<ItemGroup>
+    <ProjectReference Include="..\..\Helpers\src\CommunityToolkit.WinUI.Helpers.csproj"></ProjectReference>
+  </ItemGroup>
+
+  <!-- Sets this up as a toolkit component's source project -->
+  <Import Project="$(ToolingDirectory)\ToolkitComponent.SourceProject.props" />
+</Project>

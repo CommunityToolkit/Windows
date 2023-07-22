@@ -1,0 +1,63 @@
+<!--  Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license. See the LICENSE file in the project root for more information.  -->
+<Page x:Class="SegmentedExperiment.Samples.SegmentedBasicSample"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:controls="using:CommunityToolkit.WinUI.Controls"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="using:SegmentedExperiment.Samples"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d">
+
+    <StackPanel x:Name="Panel" Width="480"
+                Spacing="8">
+        <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}"
+                   Text="Icon + content" />
+        <controls:Segmented HorizontalAlignment="{x:Bind local:SegmentedBasicSample.ConvertStringToHorizontalAlignment(Alignment), Mode=OneWay}"
+                            SelectedIndex="0"
+                            SelectionMode="{x:Bind local:SegmentedBasicSample.ConvertStringToSelectionMode(SelectionMode), Mode=OneWay}">
+            <controls:SegmentedItem Content="Item 1">
+                <controls:SegmentedItem.Icon>
+                    <FontIcon Glyph="&#xEA3A;" />
+                </controls:SegmentedItem.Icon>
+            </controls:SegmentedItem>
+            <controls:SegmentedItem Content="Item 2">
+                <controls:SegmentedItem.Icon>
+                    <FontIcon Glyph="&#xEA3A;" />
+                </controls:SegmentedItem.Icon>
+            </controls:SegmentedItem>
+            <controls:SegmentedItem Content="Item 3 with a long label">
+                <controls:SegmentedItem.Icon>
+                    <FontIcon Glyph="&#xEA3A;" />
+                </controls:SegmentedItem.Icon>
+            </controls:SegmentedItem>
+            <controls:SegmentedItem Content="Item 4">
+                <controls:SegmentedItem.Icon>
+                    <FontIcon Glyph="&#xEA3A;" />
+                </controls:SegmentedItem.Icon>
+            </controls:SegmentedItem>
+        </controls:Segmented>
+
+        <TextBlock Margin="0,24,0,0"
+                   Style="{StaticResource BodyStrongTextBlockStyle}"
+                   Text="Icon only" />
+        <controls:Segmented HorizontalAlignment="{x:Bind local:SegmentedBasicSample.ConvertStringToHorizontalAlignment(Alignment), Mode=OneWay}"
+                            SelectedIndex="2"
+                            SelectionMode="{x:Bind local:SegmentedBasicSample.ConvertStringToSelectionMode(SelectionMode), Mode=OneWay}">
+            <controls:SegmentedItem ToolTipService.ToolTip="Day view">
+                <controls:SegmentedItem.Icon>
+                    <FontIcon Glyph="&#xE8BF;" />
+                </controls:SegmentedItem.Icon>
+            </controls:SegmentedItem>
+            <controls:SegmentedItem ToolTipService.ToolTip="Week view">
+                <controls:SegmentedItem.Icon>
+                    <FontIcon Glyph="&#xE8C0;" />
+                </controls:SegmentedItem.Icon>
+            </controls:SegmentedItem>
+            <controls:SegmentedItem ToolTipService.ToolTip="Month view">
+                <controls:SegmentedItem.Icon>
+                    <FontIcon Glyph="&#xE787;" />
+                </controls:SegmentedItem.Icon>
+            </controls:SegmentedItem>
+        </controls:Segmented>
+    </StackPanel>
+</Page>
