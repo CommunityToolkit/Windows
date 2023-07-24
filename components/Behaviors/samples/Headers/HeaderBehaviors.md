@@ -9,7 +9,7 @@ category: Xaml
 subcategory: Behaviors
 discussion-id: 0
 issue-id: 0
-icon: Assets/Behaviors.png
+icon: Assets/HeaderBehaviors.png
 ---
 
 The `FadeHeaderBehavior`, `QuickReturnHeaderBehavior`, and `StickyHeaderBehavior` most commonly apply behaviors to `ListView`, `GridView`, `HeaderedItemsControl`, and `HeaderedTreeView` elements in their `Header`. It can also be applied to any element contained at the top of a `ScrollViewer`.
