@@ -20,8 +20,7 @@ icon: Assets/CameraPreview.png
 ## Syntax
 
 ```xaml
-<controls:CameraPreview x:Name="CameraPreviewControl">
-</controls:CameraPreview>
+<controls:CameraPreview x:Name="CameraPreviewControl"/>
 ```
 
 ```csharp
