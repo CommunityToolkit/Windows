@@ -7,7 +7,6 @@
     "csharp.suppressDotnetInstallWarning": true,
     "csharp.suppressDotnetRestoreNotification": true,
     "csharp.semanticHighlighting.enabled": true,
-    "omnisharp.enableMsBuildLoadProjectsOnDemand": true,
-    "dotnet.completion.showCompletionItemsFromUnimportedNamespaces": true,
-    "dotnet.defaultSolution": "tooling/CommunityToolkit.Tooling.sln"
+    "omnisharp.enableImportCompletion": true,
+    "omnisharp.enableMsBuildLoadProjectsOnDemand": true
 }
