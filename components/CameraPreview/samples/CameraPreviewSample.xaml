@@ -12,6 +12,9 @@
     <StackPanel HorizontalAlignment="Center"
                 Orientation="Vertical"
                 Spacing="12">
+  <Button HorizontalAlignment="Center"
+                Click="CaptureButton_Click"
+                Content="Capture" />
         <controls:CameraPreview x:Name="CameraPreviewControl"
                                 Height="320"
                                 IsFrameSourceGroupButtonVisible="{x:Bind ShowCamera, Mode=OneWay}" />
@@ -20,10 +23,8 @@
                       IsOpen="False"
                       Severity="Error" />
         <Image x:Name="CurrentFrameImage"
-               Height="240"
+               Height="120"
                HorizontalAlignment="Center" />
-        <Button HorizontalAlignment="Center"
-                Click="CaptureButton_Click"
-                Content="Capture" />
+      
     </StackPanel>
 </Page>

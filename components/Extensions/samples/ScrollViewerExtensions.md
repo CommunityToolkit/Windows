@@ -12,8 +12,6 @@ issue-id: 0
 icon: Assets/Extensions.png
 ---
 
-# ScrollViewerExtensions
-
 The [`ScrollViewerExtensions`](/dotnet/api/microsoft.toolkit.uwp.ui.scrollviewerextensions) type provides extension methods to improve your [`ScrollViewer`](/uwp/api/windows.ui.xaml.controls.scrollviewer) implementation.
 
 > **Platform APIs:** [`ScrollViewerExtensions`](/dotnet/api/microsoft.toolkit.uwp.ui.scrollviewerextensions)
@@ -41,7 +39,7 @@ And here it is in action in a more complex example, where the margin is also bou
 ```xaml
 <ListView
     Name="listView"
-    xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
+    xmlns:ui="using:CommunityToolkit.WinUI"
     ui:ScrollViewerExtensions.VerticalScrollBarMargin="{Binding MinHeight, ElementName=MyHeaderGrid, Converter={StaticResource DoubleTopThicknessConverter}}">
     <ListView.Header>
         <controls:ScrollHeader Mode="Sticky">
@@ -94,22 +92,18 @@ Here is how this property can be used in XAML:
 ```xaml
 <!-- Setting MiddleClickScrolling directely for ScrollViewer -->
 <ScrollViewer
-    xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
+    xmlns:ui="using:CommunityToolkit.WinUI"
     ui:ScrollViewerExtensions.EnableMiddleClickScrolling="True">
     <!-- ScrollViewer items -->
 </ScrollViewer>
 
 <!-- Setting MiddleClickScrolling fot the ancestor of ScrollViewer -->
 <ListView
-    xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
+    xmlns:ui="using:CommunityToolkit.WinUI"
     ui:ScrollViewerExtensions.EnableMiddleClickScrolling="True">
     <!-- ListView items -->
 </ListView>
 ```
-
-This code results in the following UI:
-
-![Middle click scrolling UI](../resources/images/Extensions/MiddleClickScrolling.gif)
 
 ### Changing Cursor Type
 

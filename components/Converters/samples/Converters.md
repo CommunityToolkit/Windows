@@ -37,7 +37,7 @@ You can use it to switch Visibility by declaring it :
 
 ```xaml
 <Page ...
-     xmlns:converters="using:Microsoft.Toolkit.Uwp.UI.Converters"/>
+     xmlns:converters="using:CommunityToolkit.WinUI.Converters"/>
 
 <Page.Resources>
     <converters:BoolToObjectConverter x:Key="BoolToVisibilityConverter" TrueValue="Visible" FalseValue="Collapsed"/>

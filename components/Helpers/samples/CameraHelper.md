@@ -23,7 +23,7 @@ The helper currently shows camera frame sources that support color video preview
 
 ```csharp
 // Creates a Camera Helper and gets video frames from an available frame source.
-using Microsoft.Toolkit.Uwp.Helpers.CameraHelper;
+using CommunityToolkit.WinUI.Helpers.CameraHelper;
 
 CameraHelper _cameraHelper = new CameraHelper();
 var result = await _cameraHelper.InitializeAndStartCaptureAsync();

@@ -12,16 +12,12 @@ issue-id: 0
 icon: Assets/Extensions.png
 ---
 
-# String Extensions
-
 The [`StringExtensions`](/dotnet/api/microsoft.toolkit.StringExtensions) type contains helpers and extensions for `string` objects, including validation methods for common scenarios.
-
-> **Platform APIs:** [`StringExtensions`](/dotnet/api/microsoft.toolkit.StringExtensions)
 
 ## Syntax
 
 ```csharp
-using Microsoft.Toolkit;
+using CommunityToolkit.WinUI;
 
 string str = "test@test.com";
 bool isvalid = str.IsEmail();    //Returns true

@@ -12,11 +12,8 @@ issue-id: 0
 icon: Assets/Extensions.png
 ---
 
-# HyperlinkExtensions
-
 The [HyperlinkExtensions](/dotnet/api/microsoft.toolkit.uwp.ui.hyperlinkextensions) class allows for a [`Hyperlink`](/uwp/api/Windows.UI.Xaml.Documents.Hyperlink) element to invoke the execute method on a bound [`ICommand`](/uwp/api/Windows.UI.Xaml.Input.ICommand) instance when clicked.
 
-> **Platform APIs:** [HyperlinkExtensions](/dotnet/api/microsoft.toolkit.uwp.ui.hyperlinkextensions)
 
 ## How it works
 
@@ -25,7 +22,7 @@ Using the `HyperlinkExtensions` attached properties simply requires you to assig
 ```xaml
 <!-- Use Hyperlink in a wrapped TextBlock with text either side and ensure it executes a
      command when clicked, passing the current data context as the command parameter -->
-<TextBlock xmlns:ui="using:Microsoft.Toolkit.Uwp.UI">
+<TextBlock xmlns:ui="using:CommunityToolkit.WinUI">
     <Run>Some leading text with a</Run>
         <Hyperlink
             ui:HyperlinkExtensions.Command="{Binding HyperlinkClicked}"
