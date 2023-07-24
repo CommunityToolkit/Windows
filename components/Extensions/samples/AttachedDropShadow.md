@@ -9,7 +9,7 @@ category: Extensions
 subcategory: Media
 discussion-id: 0
 issue-id: 0
-icon: Assets/AttachedDropShadow.png
+icon: Assets/Shadow.png
 ---
 
 If you are looking to apply shadows to rectangle or card style elements, it is recommended to use `AttachedCardShadow` instead.

@@ -2,14 +2,14 @@
 title: Attached Shadows
 author: michael-hawker
 description: Attached Shadows allow you to easily create shadow effects on elements.
-keywords: windows 10, windows 11, uwp, winui, winappsdk, windows community toolkit, shadow, shadows, dropshadow, dropshadowpanel, attachedshadow, attacheddropshadow, attachedcardshadow
+keywords: shadow, shadows, dropshadow, dropshadowpanel, attachedshadow, attacheddropshadow, attachedcardshadow
 dev_langs:
   - csharp
 category: Extensions
 subcategory: Media
 discussion-id: 0
 issue-id: 0
-icon: Assets/AttachedDropShadow.png
+icon: Assets/Shadow.png
 ---
 > **Platform APIs:** [`AttachedCardShadow`](/dotnet/api/microsoft.toolkit.uwp.ui.media.attachedcardshadow), [`AttachedDropShadow`](/dotnet/api/microsoft.toolkit.uwp.ui.attacheddropshadow)
 
