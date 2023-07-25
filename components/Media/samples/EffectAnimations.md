@@ -46,10 +46,6 @@ Animate Hue to a specific angle using a Win2d HueRotationEffect.
 
 > [!SAMPLE HueRotationEffectAnimationSample]
 
-## OpacityEffectAnimation
-
-> [!SAMPLE OpacityEffectAnimationSample]
-
 ## SaturationEffectAnimation
 
 > [!SAMPLE SaturationEffectAnimationSample]

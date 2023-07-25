@@ -4,7 +4,8 @@
 
 namespace MediaExperiment.Samples;
 
-[ToolkitSample(nameof(OpacityEffectAnimationSample), "OpacityAnimationEffect", "Animate an Opacity effect")]
+// Disabled until we're supplied with more information on how OpacityEffectAnimation is designed to be used.  
+// [ToolkitSample(nameof(OpacityEffectAnimationSample), "OpacityAnimationEffect", "Animate an Opacity effect")]
 public sealed partial class OpacityEffectAnimationSample : Page
 {
     public OpacityEffectAnimationSample()
