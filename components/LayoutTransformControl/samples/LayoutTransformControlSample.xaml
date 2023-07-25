@@ -34,7 +34,7 @@
             <controls:LayoutTransformControl.Transform>
                 <TransformGroup>
                     <RotateTransform Angle="{x:Bind Angle, Mode=OneWay}" />
-                    <ScaleTransform ScaleX="{x:Bind ScaleX, Mode=OneWay}" ScaleY="{x:Bind ScaleY, Mode=OneWay}" />
+                    <ScaleTransform ScaleX="{x:Bind CustomScaleX, Mode=OneWay}" ScaleY="{x:Bind CustomScaleY, Mode=OneWay}" />
                     <SkewTransform AngleX="{x:Bind SkewX, Mode=OneWay}" AngleY="{x:Bind SkewY, Mode=OneWay}" />
                 </TransformGroup>
             </controls:LayoutTransformControl.Transform>
@@ -50,7 +50,7 @@
             <controls:LayoutTransformControl.Transform>
                 <TransformGroup>
                     <RotateTransform Angle="{x:Bind Angle, Mode=OneWay}" />
-                    <ScaleTransform ScaleX="{x:Bind ScaleX, Mode=OneWay}" ScaleY="{x:Bind ScaleY, Mode=OneWay}" />
+                    <ScaleTransform ScaleX="{x:Bind CustomScaleX, Mode=OneWay}" ScaleY="{x:Bind CustomScaleY, Mode=OneWay}" />
                     <SkewTransform AngleX="{x:Bind SkewX, Mode=OneWay}" AngleY="{x:Bind SkewY, Mode=OneWay}" />
                 </TransformGroup>
             </controls:LayoutTransformControl.Transform>
@@ -68,7 +68,7 @@
             <Border.RenderTransform>
                 <TransformGroup>
                     <RotateTransform Angle="{x:Bind Angle, Mode=OneWay}" />
-                    <ScaleTransform ScaleX="{x:Bind ScaleX, Mode=OneWay}" ScaleY="{x:Bind ScaleY, Mode=OneWay}" />
+                    <ScaleTransform ScaleX="{x:Bind CustomScaleX, Mode=OneWay}" ScaleY="{x:Bind CustomScaleY, Mode=OneWay}" />
                     <SkewTransform AngleX="{x:Bind SkewX, Mode=OneWay}" AngleY="{x:Bind SkewY, Mode=OneWay}" />
                 </TransformGroup>
             </Border.RenderTransform>
@@ -84,7 +84,7 @@
             <Border.RenderTransform>
                 <TransformGroup>
                     <RotateTransform Angle="{x:Bind Angle, Mode=OneWay}" />
-                    <ScaleTransform ScaleX="{x:Bind ScaleX, Mode=OneWay}" ScaleY="{x:Bind ScaleY, Mode=OneWay}" />
+                    <ScaleTransform ScaleX="{x:Bind CustomScaleX, Mode=OneWay}" ScaleY="{x:Bind CustomScaleY, Mode=OneWay}" />
                     <SkewTransform AngleX="{x:Bind SkewX, Mode=OneWay}" AngleY="{x:Bind SkewY, Mode=OneWay}" />
                 </TransformGroup>
             </Border.RenderTransform>
