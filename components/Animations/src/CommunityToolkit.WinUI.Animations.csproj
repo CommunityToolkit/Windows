@@ -9,7 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <InternalsVisibleTo Include="CommunityToolkit.WinUI.Behaviors.Animations" />
     <InternalsVisibleTo Include="CommunityToolkit.WinUI.Media" />
     <InternalsVisibleTo Include="CommunityToolkit.WinUI.Behaviors" />
     
