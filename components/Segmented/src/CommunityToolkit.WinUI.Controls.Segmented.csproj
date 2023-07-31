@@ -8,8 +8,8 @@
     <RootNamespace>CommunityToolkit.WinUI.Controls.SegmentedRns</RootNamespace>
   </PropertyGroup>
 
-<ItemGroup>
-    <ProjectReference Include="..\..\Helpers\src\CommunityToolkit.WinUI.Helpers.csproj"></ProjectReference>
+  <ItemGroup>
+    <ProjectReference Include="$(ToolkitExtensionSourceProject)"/>
   </ItemGroup>
 
   <!-- Sets this up as a toolkit component's source project -->
