@@ -1,5 +1,9 @@
 <Project>
   <PropertyGroup>
+    <MajorVersion>8</MajorVersion>
+    <MinorVersion>0</MinorVersion>
+    <PreviewVersion>preview</PreviewVersion>
+
     <PackageIdPrefix>CommunityToolkit</PackageIdPrefix>
     <RepositoryDirectory>$(MSBuildThisFileDirectory)</RepositoryDirectory>
     <ToolingDirectory>$(RepositoryDirectory)\tooling</ToolingDirectory>
