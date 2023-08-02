@@ -11,8 +11,6 @@
         "build",
         "/r",
         "/bl",
-        "/p:UnoSourceGeneratorUseGenerationHost=true",
-        "/p:UnoSourceGeneratorUseGenerationController=false",
         "/p:UnoRemoteControlPort=443",
         "--project=${workspaceFolder}/tooling/ProjectHeads/AllComponents/Wasm/CommunityToolkit.App.Wasm.csproj"
       ],
