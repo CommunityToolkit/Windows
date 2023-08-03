@@ -21,6 +21,8 @@ env:
   ENABLE_DIAGNOSTICS: false
   #COREHOST_TRACE: 1
   COREHOST_TRACEFILE: corehosttrace.log
+  MULTI_TARGET_DIRECTORY: tooling/MultiTarget
+  HEADS_DIRECTORY: tooling/ProjectHeads
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -60,7 +62,6 @@ jobs:
         platform: [WinUI2, WinUI3]
 
     env:
-      MULTI_TARGET_DIRECTORY: tooling/MultiTarget
       # faux-ternary expression to select which platforms to build for each platform vs. duplicating step below.
       TARGET_PLATFORMS: ${{ matrix.platform != 'WinUI3' && 'all' || 'all-uwp' }}
       TEST_PLATFORM: ${{ matrix.platform != 'WinUI3' && 'UWP' || 'WinAppSdk' }}
@@ -153,8 +154,6 @@ jobs:
 
   wasm-linux:
     runs-on: ubuntu-latest
-    env:
-      HEADS_DIRECTORY: tooling/ProjectHeads
 
     steps:
       - name: Install .NET SDK v${{ env.DOTNET_VERSION }}
@@ -176,6 +175,11 @@ jobs:
       - name: Restore dotnet tools
         run: dotnet tool restore
 
+      - name: Enable WASM TargetFrameworks
+        shell: pwsh
+        working-directory: ./${{ env.MULTI_TARGET_DIRECTORY }}
+        run: ./UseTargetFrameworks.ps1 wasm
+
       - name: Generate solution
         shell: pwsh
         working-directory: ./
@@ -188,7 +192,7 @@ jobs:
       # See launch.json configuration file for analogous command we're emulating here to build LINK: ../../.vscode/launch.json:CommunityToolkit.App.Wasm.csproj
       - name: dotnet build
         working-directory: ./${{ env.HEADS_DIRECTORY }}/AllComponents/Wasm/
-        run: dotnet build /r /bl /p:UnoSourceGeneratorUseGenerationHost=true /p:UnoSourceGeneratorUseGenerationController=false
+        run: dotnet build /r /bl
   
       # TODO: Do we want to run tests here? Can we do that on linux easily?
 
