@@ -6,7 +6,15 @@
   <!-- Sets this up as a toolkit component's sample project -->
   <Import Project="$(ToolingDirectory)\ToolkitComponent.SampleProject.props" />
   <ItemGroup>
+    <None Remove="Assets\Converters.png" />
+  </ItemGroup>
+  <ItemGroup>
     <UpToDateCheckInput Remove="StringFormatConverterSample.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\Converters.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Update="StringFormatConverterSample.xaml.cs">
