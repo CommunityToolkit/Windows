@@ -1,0 +1,23 @@
+﻿<!--  Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license. See the LICENSE file in the project root for more information.  -->
+<Page x:Class="ConvertersExperiment.Samples.EmptyStringToObjectConverterSample"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:converters="using:CommunityToolkit.WinUI.Converters"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="using:ConvertersExperiment.Samples"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d">
+
+    <Page.Resources>
+        <converters:EmptyStringToObjectConverter x:Key="EmptyStringToObjectConverter"
+                                                 EmptyValue="False"
+                                                 NotEmptyValue="True" />
+    </Page.Resources>
+
+    <StackPanel>
+        <Button Content="Submit"
+                IsEnabled="{x:Bind MyTextStringValue, Mode=OneWay, Converter={StaticResource EmptyStringToObjectConverter}}"
+                Style="{StaticResource AccentButtonStyle}" />
+    </StackPanel>
+
+</Page>

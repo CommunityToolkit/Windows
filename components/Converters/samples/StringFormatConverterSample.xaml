@@ -13,11 +13,8 @@
     </Page.Resources>
 
     <StackPanel Spacing="16">
-        <!--  TODO: We should show a regular binding way here too  -->
-        <TextBlock Text="{x:Bind MyBooleanValue, Mode=OneWay, Converter={StaticResource StringFormatConverter}, ConverterParameter='Is Checked: {0}'}" />
+        <TextBlock Text="{x:Bind MyBooleanValue, Mode=OneWay, Converter={StaticResource StringFormatConverter}, ConverterParameter='The page is loading: {0}'}" />
 
-        <TextBlock Text="{x:Bind MyDoubleValue, Mode=OneWay, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}{0:0.##}'}" />
-
-        <!--  TODO: We should show using an x:Bind function/helper instead as well though note https://github.com/microsoft/microsoft-ui-xaml/issues/2654  -->
+        <TextBlock Text="{x:Bind MyDoubleValue, Mode=OneWay, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}There are {0:0.##} pixels'}" />
     </StackPanel>
 </Page>

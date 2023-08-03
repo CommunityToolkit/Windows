@@ -2,8 +2,7 @@
   <PropertyGroup>
     <ToolkitComponentName>MetadataControl</ToolkitComponentName>
     <Description>This package contains MetadataControl.</Description>
-    <Version>8.0.0-beta.1</Version>
-
+    
     <!-- Rns suffix is required for namespaces shared across projects. See https://github.com/CommunityToolkit/Labs-Windows/issues/152 -->
     <RootNamespace>CommunityToolkit.WinUI.Controls.MetadataControlRns</RootNamespace>
   </PropertyGroup>
