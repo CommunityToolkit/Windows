@@ -7,6 +7,7 @@ using Windows.Graphics.Imaging;
 using Windows.Media;
 using Windows.Media.Capture.Frames;
 using Windows.ApplicationModel;
+
 #if WINAPPSDK
 using Microsoft.UI.Xaml.Media.Imaging;
 #else
@@ -62,7 +63,7 @@ public sealed partial class CameraHelperSample : UserControl
 #endif
     }
 
-    private async void Application_Suspending(object sender, SuspendingEventArgs e)
+    private async void Application_Suspending(object? sender, SuspendingEventArgs e)
     {
         if (IsLoaded)
         {
@@ -72,7 +73,7 @@ public sealed partial class CameraHelperSample : UserControl
         }
     }
 
-    private async void Application_Resuming(object sender, object e)
+    private async void Application_Resuming(object? sender, object e)
     {
         await InitializeAsync();
     }
