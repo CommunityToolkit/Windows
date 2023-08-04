@@ -12,7 +12,6 @@ namespace MediaExperiment.Samples;
 [ToolkitSampleOptionsPane(nameof(CrossFadeEffectAnimationSample))]
 [ToolkitSampleOptionsPane(nameof(ExposureEffectAnimationSample))]
 [ToolkitSampleOptionsPane(nameof(HueRotationEffectAnimationSample))]
-[ToolkitSampleOptionsPane(nameof(OpacityEffectAnimationSample))]
 [ToolkitSampleOptionsPane(nameof(SaturationEffectAnimationSample))]
 [ToolkitSampleOptionsPane(nameof(SepiaEffectAnimationSample))]
 public sealed partial class EffectAnimationsSampleOptions : Page
