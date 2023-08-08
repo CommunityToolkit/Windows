@@ -5,17 +5,17 @@
     <PreviewVersion>preview</PreviewVersion>
 
     <PackageIdPrefix>CommunityToolkit</PackageIdPrefix>
-    <RepositoryDirectory>$(MSBuildThisFileDirectory)</RepositoryDirectory>
-    <ToolingDirectory>$(RepositoryDirectory)\tooling</ToolingDirectory>
+    <RepositoryDirectory>$([MSBuild]::EnsureTrailingSlash('$(MSBuildThisFileDirectory)'))</RepositoryDirectory>
+    <ToolingDirectory>$(RepositoryDirectory)tooling</ToolingDirectory>
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
-    <ToolkitExtensionSourceProject>$(RepositoryDirectory)\components\Extensions\src\CommunityToolkit.WinUI.Extensions.csproj</ToolkitExtensionSourceProject>
-    <ToolkitConvertersSourceProject>$(RepositoryDirectory)\components\Converters\src\CommunityToolkit.WinUI.Converters.csproj</ToolkitConvertersSourceProject>
+    <ToolkitExtensionSourceProject>$(RepositoryDirectory)components\Extensions\src\CommunityToolkit.WinUI.Extensions.csproj</ToolkitExtensionSourceProject>
+    <ToolkitConvertersSourceProject>$(RepositoryDirectory)components\Converters\src\CommunityToolkit.WinUI.Converters.csproj</ToolkitConvertersSourceProject>
 
     <!-- TODO: See https://github.com/CommunityToolkit/Windows/issues/117 these should be removed unless needed by sample app or tests -->
-    <ToolkitHelperSourceProject>$(RepositoryDirectory)\components\Helpers\src\CommunityToolkit.WinUI.Helpers.csproj</ToolkitHelperSourceProject>
-    <ToolkitBehaviorSourceProject>$(RepositoryDirectory)\components\Behaviors\src\CommunityToolkit.WinUI.Behaviors.csproj</ToolkitBehaviorSourceProject>
-    <ToolkitAnimationSourceProject>$(RepositoryDirectory)\components\Animations\src\CommunityToolkit.WinUI.Animations.csproj</ToolkitAnimationSourceProject>
-    <ToolkitPrimitiveSourceProject>$(RepositoryDirectory)\components\Primitives\src\CommunityToolkit.WinUI.Controls.Primitives.csproj</ToolkitPrimitiveSourceProject>
+    <ToolkitHelperSourceProject>$(RepositoryDirectory)components\Helpers\src\CommunityToolkit.WinUI.Helpers.csproj</ToolkitHelperSourceProject>
+    <ToolkitBehaviorSourceProject>$(RepositoryDirectory)components\Behaviors\src\CommunityToolkit.WinUI.Behaviors.csproj</ToolkitBehaviorSourceProject>
+    <ToolkitAnimationSourceProject>$(RepositoryDirectory)components\Animations\src\CommunityToolkit.WinUI.Animations.csproj</ToolkitAnimationSourceProject>
+    <ToolkitPrimitiveSourceProject>$(RepositoryDirectory)components\Primitives\src\CommunityToolkit.WinUI.Controls.Primitives.csproj</ToolkitPrimitiveSourceProject>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
