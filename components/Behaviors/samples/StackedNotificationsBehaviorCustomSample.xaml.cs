@@ -30,16 +30,13 @@ public sealed partial class StackedNotificationsBehaviorCustomSample : Page
         NotificationQueue.Show(notification);
     }
 
-    private static string GetRandomText()
-    {
-        var random = new Random();
-        var result = random.Next(1, 4);
+    private static int _current = 0;
 
-        switch (result)
-        {
-            case 1: return "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sollicitudin bibendum enim at tincidunt. Praesent egestas ipsum ligula, nec tincidunt lacus semper non.";
-            case 2: return "Pellentesque in risus eget leo rhoncus ultricies nec id ante.";
-            case 3: default: return "Sed quis nisi quis nunc condimentum varius id consectetur metus. Duis mauris sapien, commodo eget erat ac, efficitur iaculis magna. Morbi eu velit nec massa pharetra cursus. Fusce non quam egestas leo finibus interdum eu ac massa. Quisque nec justo leo. Aenean scelerisque placerat ultrices. Sed accumsan lorem at arcu commodo tristique.";
-        }
-    }
+    private static string GetRandomText() => (_current++ % 4) switch
+    {
+        1 => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sollicitudin bibendum enim at tincidunt. Praesent egestas ipsum ligula, nec tincidunt lacus semper non.",
+        2 => "Pellentesque in risus eget leo rhoncus ultricies nec id ante.",
+        3 => "Sed quis nisi quis nunc condimentum varius id consectetur metus. Duis mauris sapien, commodo eget erat ac, efficitur iaculis magna. Morbi eu velit nec massa pharetra cursus.",
+        _ => "Fusce non quam egestas leo finibus interdum eu ac massa. Quisque nec justo leo. Aenean scelerisque placerat ultrices. Sed accumsan lorem at arcu commodo tristique.",
+    };
 }
