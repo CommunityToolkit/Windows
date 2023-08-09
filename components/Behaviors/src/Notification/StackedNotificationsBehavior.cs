@@ -51,7 +51,12 @@ public class StackedNotificationsBehavior : BehaviorBase<MUXC.InfoBar>
     /// <returns>The constructed <see cref="Notification"/> added to the queue.</returns>
     public Notification Show(string message, int duration = 0, string? title = null)
     {
-        Notification notification = new() { Title = title, Message = message, Duration = duration <= 0 ? null : new TimeSpan(0, 0, 0, 0, duration) };
+        Notification notification = new()
+        {
+            Title = title,
+            Message = message,
+            Duration = duration <= 0 ? null : TimeSpan.FromMilliseconds(duration)
+        };
 
         return Show(notification);
     }
@@ -68,7 +73,13 @@ public class StackedNotificationsBehavior : BehaviorBase<MUXC.InfoBar>
     /// <returns>The constructed <see cref="Notification"/> added to the queue.</returns>
     public Notification Show(object content, int duration = 0, string? title = null, string? message = null)
     {
-        Notification notification = new() { Title = title, Message = message, Content = content, Duration = duration <= 0 ? null : new TimeSpan(0, 0, 0, 0, duration) };
+        Notification notification = new()
+        {
+            Title = title,
+            Message = message,
+            Content = content,
+            Duration = duration <= 0 ? null : TimeSpan.FromMilliseconds(duration)
+        };
 
         return Show(notification);
     }
