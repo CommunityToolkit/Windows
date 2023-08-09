@@ -20,6 +20,8 @@ public class StackedNotificationsBehavior : BehaviorBase<MUXC.InfoBar>
     private readonly LinkedList<Notification> _stackedNotifications;
     private readonly DispatcherQueueTimer _dismissTimer;
     private Notification? _currentNotification;
+    private string? _initialTitle;
+    private MUXC.InfoBarSeverity? _initialSeverity;
     private bool _initialIconVisible;
     private MUXC.IconSource? _initialIconSource;
     private object? _initialContent;
@@ -167,9 +169,19 @@ public class StackedNotificationsBehavior : BehaviorBase<MUXC.InfoBar>
 
     private void SetNotification(Notification notification)
     {
-        AssociatedObject.Title = notification.Title ?? string.Empty;
+        if (notification.Title != null)
+        {
+            _initialTitle = AssociatedObject.Title;
+            AssociatedObject.Title = notification.Title;
+        }
+        
         AssociatedObject.Message = notification.Message ?? string.Empty;
-        AssociatedObject.Severity = notification.Severity;
+
+        if (notification.Overrides.HasFlag(NotificationOverrides.Severity))
+        {
+            _initialSeverity = AssociatedObject.Severity;
+            AssociatedObject.Severity = notification.Severity!.Value;
+        }
 
         if (notification.Overrides.HasFlag(NotificationOverrides.IconVisible))
         {
@@ -207,6 +219,16 @@ public class StackedNotificationsBehavior : BehaviorBase<MUXC.InfoBar>
         if (_currentNotification is null)
         {
             return;
+        }
+
+        if (_currentNotification.Title != null)
+        {
+            AssociatedObject.Title = _initialTitle;
+        }
+
+        if (_currentNotification.Overrides.HasFlag(NotificationOverrides.Severity))
+        {
+            AssociatedObject.Severity = _initialSeverity!.Value;
         }
 
         if (_currentNotification.Overrides.HasFlag(NotificationOverrides.IconVisible))

@@ -6,14 +6,15 @@ namespace CommunityToolkit.WinUI.Behaviors;
 
 /// <summary>
 /// The content of a notification to display in <see cref="StackedNotificationsBehavior"/>.
-/// The <see cref="Title"/>, <see cref="Message"/>, <see cref="Duration"/> and <see cref="Severity"/> values will
-/// always be applied to the targeted <see cref="InfoBar"/>.
-/// The <see cref="IsIconVisible"/>, <see cref="Content"/>, <see cref="ContentTemplate"/> and <see cref="ActionButton"/> values
-/// will be applied only if set.
+/// The <see cref="Message"/> and <see cref="Duration"/> values will
+/// always be applied to the targeted <see cref="MUXC.InfoBar"/>.
+/// The <see cref="Title"/>, <see cref="Severity"/>, <see cref="IsIconVisible"/>, <see cref="IconSource"/>, <see cref="Content"/>, <see cref="ContentTemplate"/> and <see cref="ActionButton"/> values
+/// will be applied only if set, otherwise the parent <see cref="MUXC.InfoBar"/> values will be used, if available.
 /// </summary>
 public class Notification
 {
     private NotificationOverrides _overrides;
+    private MUXC.InfoBarSeverity? _severity;
     private bool _isIconVisible = true; // Default for InfoBar
     private MUXC.IconSource? _iconSource;
     private object? _content;
@@ -37,10 +38,19 @@ public class Notification
     public TimeSpan? Duration { get; set; }
 
     /// <summary>
-    /// Gets or sets the type of the <see cref="InfoBar"/> to apply consistent status color, icon,
+    /// Gets or sets the type of the <see cref="MUXC.InfoBar.Severity"/> to apply consistent status color, icon,
     /// and assistive technology settings dependent on the criticality of the notification.
+    /// By default the parent <see cref="MUXC.InfoBar.Severity"/> property's value will be used.
     /// </summary>
-    public MUXC.InfoBarSeverity Severity { get; set; }
+    public MUXC.InfoBarSeverity? Severity
+    {
+        get => _severity;
+        set
+        {
+            _severity = value;
+            _overrides |= NotificationOverrides.Severity;
+        }
+    }
 
     /// <summary>
     /// Gets or sets a value indicating whether the icon is visible or not.
@@ -119,6 +129,7 @@ public class Notification
 internal enum NotificationOverrides
 {
     None,
+    Severity,
     IconVisible,
     IconSource,
     Content,
