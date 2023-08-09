@@ -21,6 +21,7 @@ public class StackedNotificationsBehavior : BehaviorBase<MUXC.InfoBar>
     private readonly DispatcherQueueTimer _dismissTimer;
     private Notification? _currentNotification;
     private bool _initialIconVisible;
+    private MUXC.IconSource? _initialIconSource;
     private object? _initialContent;
     private DataTemplate? _initialContentTemplate;
     private ButtonBase? _initialActionButton;
@@ -176,6 +177,12 @@ public class StackedNotificationsBehavior : BehaviorBase<MUXC.InfoBar>
             AssociatedObject.IsIconVisible = notification.IsIconVisible;
         }
 
+        if (notification.Overrides.HasFlag(NotificationOverrides.IconSource))
+        {
+            _initialIconSource = AssociatedObject.IconSource;
+            AssociatedObject.IconSource = notification.IconSource;
+        }
+
         if (notification.Overrides.HasFlag(NotificationOverrides.Content))
         {
             _initialContent = AssociatedObject.Content;
@@ -205,6 +212,11 @@ public class StackedNotificationsBehavior : BehaviorBase<MUXC.InfoBar>
         if (_currentNotification.Overrides.HasFlag(NotificationOverrides.IconVisible))
         {
             AssociatedObject.IsIconVisible = _initialIconVisible;
+        }
+
+        if (_currentNotification.Overrides.HasFlag(NotificationOverrides.IconSource))
+        {
+            AssociatedObject.IconSource = _initialIconSource;
         }
 
         if (_currentNotification.Overrides.HasFlag(NotificationOverrides.Content))

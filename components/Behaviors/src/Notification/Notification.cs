@@ -15,6 +15,7 @@ public class Notification
 {
     private NotificationOverrides _overrides;
     private bool _isIconVisible = true; // Default for InfoBar
+    private MUXC.IconSource? _iconSource;
     private object? _content;
     private DataTemplate? _contentTemplate;
     private ButtonBase? _actionButton;
@@ -31,7 +32,7 @@ public class Notification
 
     /// <summary>
     /// Gets or sets the duration of the notification.
-    /// Set to null for persistent notification.
+    /// Set to null for persistent notification (default).
     /// </summary>
     public TimeSpan? Duration { get; set; }
 
@@ -52,6 +53,19 @@ public class Notification
         {
             _isIconVisible = value;
             _overrides |= NotificationOverrides.IconVisible;
+        }
+    }
+
+    /// <summary>
+    /// Gets or sets a value for an <see cref="MUXC.IconSource"/> to use as the <see cref="MUXC.InfoBar.IconSource"/> of the <see cref="MUXC.InfoBar"/> for this notification.
+    /// </summary>
+    public MUXC.IconSource? IconSource
+    {
+        get => _iconSource;
+        set
+        {
+            _iconSource = value;
+            _overrides |= NotificationOverrides.IconSource;
         }
     }
 
@@ -106,6 +120,7 @@ internal enum NotificationOverrides
 {
     None,
     IconVisible,
+    IconSource,
     Content,
     ContentTemplate,
     ActionButton,

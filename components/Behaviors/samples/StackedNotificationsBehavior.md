@@ -12,9 +12,10 @@ issue-id: 0
 icon: Assets/StackedNotificationsBehavior.png
 ---
 
-The `StackedNotificationsBehavior` allows you to provide notifications within your app using an `InfoBar` control.
+The `StackedNotificationsBehavior` allows you to provide notifications within your app using an `InfoBar` control. This is a replacement for the prior `InAppNotification` control in the Toolkit.
 
-This is a replacement for the prior `InAppNotification` control in the Toolkit.
+With the default settings, a notification will be displayed until it is dismissed by the user. Any subsequent notifications will be displayed,
+in order of being sent afterwards one-by-one.
 
 ## Example
 
@@ -24,7 +25,7 @@ Clicking on the button multiple times will queue up multiple messages to be disp
 
 ## Notification Options
 
-By default the properties provided on the attached `InfoBar` will be used, like `ContentTemplate` or `IsIconVisible`.
+By default, the properties provided on the attached `InfoBar` will be used, like `ContentTemplate` or `IsIconVisible`.
 
 However, there are a number of options available on the `Notification` class to override these. When set, these will override any defaults
 or modified properties set on the parent `InfoBar` itself. They will be restored to the previously set value on the `InfoBar` after the message has been displayed.
@@ -34,6 +35,9 @@ or modified properties set on the parent `InfoBar` itself. They will be restored
 > be broken by that change when it is overridden or restored by the notification. Therefore, it is best to only provide constants on the
 > parent `InfoBar` itself that will be consistent for all messages and set any dynamic options in the `Notification` options.
 
+When a `Duration` is provided, if the user has their pointer over the message, it will not be dismissed. It will instead reset the time before
+being dismissed once the pointer has left the active notification.
+
 ## Migrating from InAppNotification
 
 If you previously used the `InAppNotification` component from the Windows Community Toolkit, like so:
@@ -42,7 +46,7 @@ If you previously used the `InAppNotification` component from the Windows Commun
 <controls:InAppNotification x:Name="ExampleInAppNotification"/>
 ```
 
-You can simply replace it with an `InfoBar` control and the attached behavior:
+You can simply replace it with an `InfoBar` control and add the attached behavior:
 
 ```xml
 <muxc:InfoBar>
