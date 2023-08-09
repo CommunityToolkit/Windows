@@ -126,6 +126,16 @@ public class StackedNotificationsBehavior : BehaviorBase<MUXC.InfoBar>
         _stackedNotifications.Remove(notification);
     }
 
+    /// <summary>
+    /// Clears all notifications and closes any open notification.
+    /// </summary>
+    public void Clear()
+    {
+        _stackedNotifications.Clear();
+
+        AssociatedObject.IsOpen = false;
+    }
+
     /// <inheritdoc/>
     protected override bool Initialize()
     {

@@ -149,4 +149,41 @@ public partial class StackedNotificationsBehaviorTestClass : VisualUITestBase
 
         Assert.IsFalse(infobar.IsOpen, "InfoBar didn't close after all messages displayed.");
     }
+
+
+    [UIThreadTestMethod]
+    public async Task NotificationBehaviorCancelCloseTest(StackedNotificationsBehaviorsTestPage page)
+    {
+        var infobar = page.FindDescendant<MUXC.InfoBar>();
+        var queue = Interaction.GetBehaviors(infobar)[0] as StackedNotificationsBehavior;
+
+        Assert.IsNotNull(infobar, "Could not find infobar control.");
+        Assert.IsNotNull(queue, "Could not find notification behavior.");
+
+        bool attemptedClose = false;
+        infobar.Closing += (sender, args) =>
+        {
+            attemptedClose = true;
+            args.Cancel = true;
+        };
+
+        Notification notification = new()
+        {
+            Message = "Test Message",
+            Duration = TimeSpan.FromMilliseconds(500),
+        };
+
+        queue.Show(notification);
+
+        // Wait for UI update;
+        await EnqueueAsync(() => { });
+
+        Assert.IsTrue(infobar.IsOpen, "InfoBar didn't open.");
+        Assert.AreEqual("Test Message", infobar.Message, "Message not equal to expected value");
+
+        await Task.Delay(600);
+
+        Assert.IsTrue(attemptedClose, "InfoBar never attempted to close.");
+        Assert.IsTrue(infobar.IsOpen, "InfoBar didn't remain open.");
+    }
 }

@@ -14,8 +14,8 @@ icon: Assets/StackedNotificationsBehavior.png
 
 The `StackedNotificationsBehavior` allows you to provide notifications within your app using an `InfoBar` control. This is a replacement for the prior `InAppNotification` control in the Toolkit.
 
-With the default settings, a notification will be displayed until it is dismissed by the user. Any subsequent notifications will be displayed,
-in order of being sent afterwards one-by-one.
+With the default settings, a notification will be displayed until it is dismissed by the user. Any subsequent notifications will be displayed
+in the order of being sent afterwards one-by-one.
 
 ## Example
 
@@ -59,6 +59,16 @@ You can simply replace it with an `InfoBar` control and add the attached behavio
 There are some changes to the `Show` method, however a simple text based one has been provided for backwards compatibility,
 otherwise it's best to construct your own `Notification` object for greater flexibility or set common properties on the
 parent `InfoBar` itself.
+
+> [!NOTE]
+> There is no `StackMode` property to control the behavior of the queue. Providing a stable queue of messages one after another
+> provides the best user experience as it reduces the risk when interacting with a notification for a new one to suddenly appear
+> and replace the one being displayed.
+
+The `ShowDismissButton` property should be mapped to the `InfoBar.IsClosable` property instead. Similar to any adjustments to position
+should be handled by the layout of the `InfoBar` control itself within the XAML layout.
+
+The `Closing` and `Closed` events can be mapped to those on the `InfoBar` as well.
 
 ### Complete Example
 
