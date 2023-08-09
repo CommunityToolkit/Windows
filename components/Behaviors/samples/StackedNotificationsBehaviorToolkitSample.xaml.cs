@@ -6,24 +6,18 @@ using CommunityToolkit.WinUI.Behaviors;
 
 namespace BehaviorsExperiment.Samples;
 
-[ToolkitSample(id: nameof(StackedNotificationsBehaviorCustomSample), "Stacked Notifications", description: $"A sample for showing how to create and use a {nameof(StackedNotificationsBehavior)} custom behavior.")]
-public sealed partial class StackedNotificationsBehaviorCustomSample : Page
+[ToolkitSample(id: nameof(StackedNotificationsBehaviorToolkitSample), "Stacked Notification Migration", description: $"A sample for showing how to create and use a {nameof(StackedNotificationsBehavior)} custom behavior upgrading from InAppNotification.")]
+public sealed partial class StackedNotificationsBehaviorToolkitSample : Page
 {
-    public StackedNotificationsBehaviorCustomSample()
+    public StackedNotificationsBehaviorToolkitSample()
     {
         this.InitializeComponent();
     }
 
     private void Button_Click(object sender, RoutedEventArgs e)
     {
-        var notification = new Notification
-        {
-            Title = $"Notification {DateTimeOffset.Now}",
-            Message = GetRandomText(),
-            Severity = MUXC.InfoBarSeverity.Informational,
-        };
-
-        NotificationQueue.Show(notification);
+        // Show our notification for 2 seconds
+        NotificationQueue.Show(GetRandomText(), 2000);
     }
 
     private static int _current = 0;

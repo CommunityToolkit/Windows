@@ -14,7 +14,7 @@ namespace CommunityToolkit.WinUI.Behaviors;
 public class Notification
 {
     private NotificationOverrides _overrides;
-    private bool _isIconVisible;
+    private bool _isIconVisible = true; // Default for InfoBar
     private object? _content;
     private DataTemplate? _contentTemplate;
     private ButtonBase? _actionButton;
@@ -51,7 +51,7 @@ public class Notification
         set
         {
             _isIconVisible = value;
-            _overrides |= NotificationOverrides.Icon;
+            _overrides |= NotificationOverrides.IconVisible;
         }
     }
 
@@ -105,7 +105,7 @@ public class Notification
 internal enum NotificationOverrides
 {
     None,
-    Icon,
+    IconVisible,
     Content,
     ContentTemplate,
     ActionButton,

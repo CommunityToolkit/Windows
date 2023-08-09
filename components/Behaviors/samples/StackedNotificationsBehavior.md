@@ -12,8 +12,52 @@ issue-id: 0
 icon: Assets/StackedNotificationsBehavior.png
 ---
 
-This initial example shows how to attach the behavior to an `InfoBar` and send it a message.
+The `StackedNotificationsBehavior` allows you to provide notifications within your app using an `InfoBar` control.
+
+This is a replacement for the prior `InAppNotification` control in the Toolkit.
+
+## Example
 
 Clicking on the button multiple times will queue up multiple messages to be displayed one after another.
 
 > [!Sample StackedNotificationsBehaviorCustomSample]
+
+## Notification Options
+
+By default the properties provided on the attached `InfoBar` will be used, like `ContentTemplate` or `IsIconVisible`.
+
+However, there are a number of options available on the `Notification` class to override these. When set, these will override any defaults
+or modified properties set on the parent `InfoBar` itself. They will be restored to the previously set value on the `InfoBar` after the message has been displayed.
+
+> [!WARNING]
+> Properties set on the `InfoBar` will be modified directly by the behavior with notification overrides, this means any bindings will
+> be broken by that change when it is overridden or restored by the notification. Therefore, it is best to only provide constants on the
+> parent `InfoBar` itself that will be consistent for all messages and set any dynamic options in the `Notification` options.
+
+## Migrating from InAppNotification
+
+If you previously used the `InAppNotification` component from the Windows Community Toolkit, like so:
+
+```xml
+<controls:InAppNotification x:Name="ExampleInAppNotification"/>
+```
+
+You can simply replace it with an `InfoBar` control and the attached behavior:
+
+```xml
+<muxc:InfoBar>
+  <interactivity:Interaction.Behaviors>
+    <behaviors:StackedNotificationsBehavior x:Name="ExampleInAppNotification" />
+  </interactivity:Interaction.Behaviors>
+</muxc:InfoBar>
+```
+
+There are some changes to the `Show` method, however a simple text based one has been provided for backwards compatibility,
+otherwise it's best to construct your own `Notification` object for greater flexibility or set common properties on the
+parent `InfoBar` itself.
+
+### Complete Example
+
+This example shows sending simple text based notifications that will appear only for 2 seconds:
+
+> [!Sample StackedNotificationsBehaviorToolkitSample]

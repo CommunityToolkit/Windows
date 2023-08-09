@@ -38,11 +38,44 @@ public class StackedNotificationsBehavior : BehaviorBase<MUXC.InfoBar>
         _dismissTimer.Tick += OnTimerTick;
     }
 
+    //// Provided as a simple helper to migrate from older InAppNotification control.
+    /// <summary>
+    /// Show notification using text as the <see cref="MUXC.InfoBar.Message"/> of the notification.
+    /// </summary>
+    /// <param name="message"><see cref="MUXC.InfoBar.Message"/> string to display as the notification.</param>
+    /// <param name="duration">Optional, displayed duration of the notification in ms (less or equal 0 means infinite duration).</param>
+    /// <param name="title">Optional, <see cref="MUXC.InfoBar.Title"/> for the notification.</param>
+    /// <returns>The constructed <see cref="Notification"/> added to the queue.</returns>
+    public Notification Show(string message, int duration = 0, string? title = null)
+    {
+        Notification notification = new() { Title = title, Message = message, Duration = duration <= 0 ? null : new TimeSpan(0, 0, 0, 0, duration) };
+
+        return Show(notification);
+    }
+
+    //// Provided as a simple helper to migrate from older InAppNotification control.
+    /// <summary>
+    /// Show notification using object or UIElement as the <see cref="MUXC.InfoBar.Content"/> of the notification. Note, it is
+    /// generally best to also specific a message and/or title.
+    /// </summary>
+    /// <param name="content">Content to display as the notification.</param>
+    /// <param name="duration">Optional, displayed duration of the notification in ms (less or equal 0 means infinite duration).</param>
+    /// <param name="title">Optional, <see cref="MUXC.InfoBar.Title"/> for the notification.</param>
+    /// <param name="message">Optional, <see cref="MUXC.InfoBar.Message"/> string to display as the notification.</param>
+    /// <returns>The constructed <see cref="Notification"/> added to the queue.</returns>
+    public Notification Show(object content, int duration = 0, string? title = null, string? message = null)
+    {
+        Notification notification = new() { Title = title, Message = message, Content = content, Duration = duration <= 0 ? null : new TimeSpan(0, 0, 0, 0, duration) };
+
+        return Show(notification);
+    }
+
     /// <summary>
     /// Show <paramref name="notification"/>.
     /// </summary>
     /// <param name="notification">The notification to display.</param>
-    public void Show(Notification notification)
+    /// <returns>The <see cref="Notification"/> added to the queue.</returns>
+    public Notification Show(Notification notification)
     {
         if (notification is null)
         {
@@ -51,6 +84,8 @@ public class StackedNotificationsBehavior : BehaviorBase<MUXC.InfoBar>
 
         _stackedNotifications.AddLast(notification);
         ShowNext();
+
+        return notification;
     }
 
     /// <summary>
@@ -135,7 +170,7 @@ public class StackedNotificationsBehavior : BehaviorBase<MUXC.InfoBar>
         AssociatedObject.Message = notification.Message ?? string.Empty;
         AssociatedObject.Severity = notification.Severity;
 
-        if (notification.Overrides.HasFlag(NotificationOverrides.Icon))
+        if (notification.Overrides.HasFlag(NotificationOverrides.IconVisible))
         {
             _initialIconVisible = AssociatedObject.IsIconVisible;
             AssociatedObject.IsIconVisible = notification.IsIconVisible;
@@ -167,7 +202,7 @@ public class StackedNotificationsBehavior : BehaviorBase<MUXC.InfoBar>
             return;
         }
 
-        if (_currentNotification.Overrides.HasFlag(NotificationOverrides.Icon))
+        if (_currentNotification.Overrides.HasFlag(NotificationOverrides.IconVisible))
         {
             AssociatedObject.IsIconVisible = _initialIconVisible;
         }
