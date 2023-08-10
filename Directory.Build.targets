@@ -11,12 +11,11 @@
     <PackageTags Condition="'$(PackageTags)' == ''">$(CommonTags)</PackageTags>
   </PropertyGroup>
 
-  <!-- TODO: Include these in the shared space -->
-  <!--<ItemGroup Condition="$(IsPackable)">
-    <None Include="$(RepositoryDirectory)nuget.png" Pack="true" PackagePath="\Icon.png" />
+  <ItemGroup Condition="$(IsPackable)">
+    <None Include="$(RepositoryDirectory)Icon.png" Pack="true" PackagePath="\" />
     <None Include="$(RepositoryDirectory)License.md" Pack="true" PackagePath="\" />
-    <None Include="$(RepositoryDirectory)ThirdPartyNotices.txt" Pack="true" PackagePath="\" />
-  </ItemGroup>-->
+    <!--<None Include="$(RepositoryDirectory)ThirdPartyNotices.txt" Pack="true" PackagePath="\" />-->
+  </ItemGroup>
 
   <ItemGroup>
     <SlnGenSolutionItem Include="$(MSBuildThisFileDirectory).editorconfig" />

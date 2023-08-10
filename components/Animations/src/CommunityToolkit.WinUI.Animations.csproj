@@ -2,15 +2,13 @@
   <PropertyGroup>
     <ToolkitComponentName>Animations</ToolkitComponentName>
     <Description>This package contains Animations.</Description>
-    <Version>8.0.0-beta.2</Version>
-
+    
     <!-- Rns suffix is required for namespaces shared across projects. See https://github.com/CommunityToolkit/Labs-Windows/issues/152 -->
     <RootNamespace>CommunityToolkit.WinUI.AnimationsRns</RootNamespace>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
   <ItemGroup>
-    <InternalsVisibleTo Include="CommunityToolkit.WinUI.Behaviors.Animations" />
     <InternalsVisibleTo Include="CommunityToolkit.WinUI.Media" />
     <InternalsVisibleTo Include="CommunityToolkit.WinUI.Behaviors" />
     

@@ -10,8 +10,8 @@ namespace LayoutTransformControlExperiment.Samples;
 /// An example sample page of a custom control inheriting from Panel.
 /// </summary>
 [ToolkitSampleNumericOption("Angle", 0, -180.0, 180.0, 1, false, Title = "Angle")]
-[ToolkitSampleNumericOption("ScaleX", 1, 0.0, 5.0, 1, false, Title = "ScaleX")]
-[ToolkitSampleNumericOption("ScaleY", 1, 0.0, 5.0, 1, false, Title = "ScaleY")]
+[ToolkitSampleNumericOption("CustomScaleX", 1, 0.0, 5.0, 1, false, Title = "ScaleX")]
+[ToolkitSampleNumericOption("CustomScaleY", 1, 0.0, 5.0, 1, false, Title = "ScaleY")]
 [ToolkitSampleNumericOption("SkewX", 0, -180.0, 180.0, 1, false, Title = "SkewX")]
 [ToolkitSampleNumericOption("SkewY", 0, -180.0, 180.0, 1, false, Title = "SkewY")]
 
