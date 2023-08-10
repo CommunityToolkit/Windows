@@ -23,7 +23,7 @@ Clicking on the button multiple times will queue up multiple messages to be disp
 
 > [!Sample StackedNotificationsBehaviorCustomSample]
 
-## Notification Options
+## Notification options
 
 By default, the properties provided on the attached `InfoBar` will be used, like `ContentTemplate` or `IsIconVisible`.
 
@@ -70,7 +70,7 @@ should be handled by the layout of the `InfoBar` control itself within the XAML 
 
 The `Closing` and `Closed` events can be mapped to those on the `InfoBar` as well.
 
-### Complete Example
+### Complete example
 
 This example shows sending simple text based notifications that will appear only for 2 seconds:
 

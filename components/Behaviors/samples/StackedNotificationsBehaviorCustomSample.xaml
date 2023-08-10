@@ -9,14 +9,14 @@
       xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
       mc:Ignorable="d">
 
-    <Grid>
+    <Grid MinHeight="186">
         <Button HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 Click="Button_Click"
-                Content="Send" />
+                Content="Send notification" />
 
         <muxc:InfoBar MaxWidth="480"
-                      Margin="64"
+                      Margin="24"
                       HorizontalAlignment="Right"
                       VerticalAlignment="Bottom">
             <interactivity:Interaction.Behaviors>
