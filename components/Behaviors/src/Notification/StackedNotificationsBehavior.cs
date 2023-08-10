@@ -148,6 +148,8 @@ public class StackedNotificationsBehavior : BehaviorBase<MUXC.InfoBar>
     /// <inheritdoc/>
     protected override bool Uninitialize()
     {
+        StopTimer();
+
         AssociatedObject.Closed -= OnInfoBarClosed;
         AssociatedObject.PointerEntered -= OnPointerEntered;
         AssociatedObject.PointerExited -= OnPointedExited;
