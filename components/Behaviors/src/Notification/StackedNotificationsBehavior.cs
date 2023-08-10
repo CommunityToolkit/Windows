@@ -213,7 +213,7 @@ public class StackedNotificationsBehavior : BehaviorBase<MUXC.InfoBar>
         if (notification.Overrides.HasFlag(NotificationOverrides.IconSource))
         {
             _initialIconSource = AssociatedObject.IconSource;
-            AssociatedObject.IconSource = notification.IconSource;
+            AssociatedObject.IconSource = notification.IconSource!;
         }
 
         if (notification.Overrides.HasFlag(NotificationOverrides.Content))
@@ -244,7 +244,7 @@ public class StackedNotificationsBehavior : BehaviorBase<MUXC.InfoBar>
 
         if (_currentNotification.Title != null)
         {
-            AssociatedObject.Title = _initialTitle;
+            AssociatedObject.Title = _initialTitle ?? string.Empty;
         }
 
         if (_currentNotification.Overrides.HasFlag(NotificationOverrides.Severity))
@@ -259,7 +259,7 @@ public class StackedNotificationsBehavior : BehaviorBase<MUXC.InfoBar>
 
         if (_currentNotification.Overrides.HasFlag(NotificationOverrides.IconSource))
         {
-            AssociatedObject.IconSource = _initialIconSource;
+            AssociatedObject.IconSource = _initialIconSource!;
         }
 
         if (_currentNotification.Overrides.HasFlag(NotificationOverrides.Content))
