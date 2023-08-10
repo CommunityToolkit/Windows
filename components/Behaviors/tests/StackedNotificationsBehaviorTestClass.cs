@@ -51,7 +51,7 @@ public partial class StackedNotificationsBehaviorTestClass : VisualUITestBase
 
         infobar.Title = "Prior Title";
         infobar.Content = "Prior Content";
-        infobar.Severity = InfoBarSeverity.Error;
+        infobar.Severity = MUXC.InfoBarSeverity.Error;
 
         Notification notification = new()
         {
