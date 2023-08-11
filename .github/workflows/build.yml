@@ -180,12 +180,28 @@ jobs:
           name: ilc-repro
           path: ./*.zip
 
+      # https://github.com/dorny/paths-filter#custom-processing-of-changed-files
+      - name: Detect If any Dump Files
+        uses: dorny/paths-filter@v2.11.1
+        id: filter
+        with:
+          list-files: shell
+          filters: |
+            dump:
+              - added: '${{ github.workspace }}/CrashDumps/*.dmp'
+
       - name: Artifact - WER crash dumps
         uses: actions/upload-artifact@v3
-        if: ${{ (env.ENABLE_DIAGNOSTICS == 'true' || env.COREHOST_TRACE != '') && always() }}
+        if: ${{ steps.filter.outputs.dump == 'true' && (env.ENABLE_DIAGNOSTICS == 'true' || env.COREHOST_TRACE != '') && always() }}
         with:
           name: CrashDumps-${{ matrix.platform }}
           path: '${{ github.workspace }}/CrashDumps'
+
+      - name: Analyze Dump
+        if: ${{ steps.filter.outputs.dump == 'true' && (env.ENABLE_DIAGNOSTICS == 'true' || env.COREHOST_TRACE != '') && always() }}
+        run: |
+          dotnet tool install --global dotnet-dump
+          dotnet-dump analyze ${{ steps.filter.outputs.dump_files }} -c "clrstack" -c "pe -lines" -c "exit"
 
   wasm-linux:
     runs-on: ubuntu-latest
