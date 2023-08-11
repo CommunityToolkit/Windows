@@ -104,7 +104,7 @@ jobs:
         run: dotnet tool restore
 
       - name: Run Uno Check to Install Dependencies
-        run: dotnet tool run uno-check --ci --fix --non-interactive --skip wsl --skip androidemulator --verbose
+        run: dotnet tool run uno-check --ci --fix --non-interactive --skip wsl --skip androidemulator --skip vswinworkloads --verbose
 
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v1.3.1
