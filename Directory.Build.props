@@ -2,7 +2,7 @@
   <PropertyGroup>
     <MajorVersion>8</MajorVersion>
     <MinorVersion>0</MinorVersion>
-    <PreviewVersion>preview</PreviewVersion>
+    <PreviewVersion Condition="'$(PreviewVersion)' == ''">preview</PreviewVersion>
 
     <PackageIdPrefix>CommunityToolkit</PackageIdPrefix>
     <RepositoryDirectory>$([MSBuild]::EnsureTrailingSlash('$(MSBuildThisFileDirectory)'))</RepositoryDirectory>
