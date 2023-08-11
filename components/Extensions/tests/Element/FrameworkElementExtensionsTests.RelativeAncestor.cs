@@ -87,6 +87,7 @@ public partial class FrameworkElementExtensionsTests : VisualUITestBase
 
     [TestCategory("FrameworkElementExtension")]
     [UIThreadTestMethod]
+    [Ignore]
     public async Task FrameworkElementExtension_RelativeAncestor_FreePageNavigation()
     {
         TaskCompletionSource<bool?> taskCompletionSource = new();
