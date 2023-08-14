@@ -17,7 +17,7 @@ on:
   merge_group:
 
 env:
-  DOTNET_VERSION: ${{ '7.0.x' }}
+  DOTNET_VERSION: ${{ '7.0.100' }}
   ENABLE_DIAGNOSTICS: true
   MSBUILD_VERBOSITY: normal
   #COREHOST_TRACE: 1
