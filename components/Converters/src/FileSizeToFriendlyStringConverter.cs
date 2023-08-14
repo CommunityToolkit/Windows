@@ -5,7 +5,7 @@
 namespace CommunityToolkit.WinUI.Converters;
 
 /// <summary>
-/// Converts a file size in bytes to a more human-readable friendly format using <see cref="Toolkit.Converters.ToFileSizeString(long)"/>
+/// Converts a file size in bytes to a more human-readable friendly format using <see cref="Converters.ToFileSizeString(long)"/>
 /// </summary>
 public class FileSizeToFriendlyStringConverter : IValueConverter
 {
