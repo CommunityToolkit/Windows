@@ -159,7 +159,7 @@ jobs:
 
       - name: Run experiment tests against ${{ env.TEST_PLATFORM }}
         id: test-platform
-        run:  vstest.console.exe ./tooling/**/CommunityToolkit.Tests.${{ env.TEST_PLATFORM }}.build.appxrecipe /Framework:FrameworkUap10 /logger:"trx;LogFileName=${{ env.TEST_PLATFORM }}.trx"
+        run:  vstest.console.exe ./tooling/**/CommunityToolkit.Tests.${{ env.TEST_PLATFORM }}.build.appxrecipe /Framework:FrameworkUap10 /logger:"trx;LogFileName=${{ env.TEST_PLATFORM }}.trx" /Blame
 
       - name: Create test reports
         run: |
@@ -182,26 +182,24 @@ jobs:
 
       # https://github.com/dorny/paths-filter#custom-processing-of-changed-files
       - name: Detect If any Dump Files
-        uses: dorny/paths-filter@v2.11.1
-        id: filter
-        with:
-          list-files: shell
-          filters: |
-            dump:
-              - added: '${{ github.workspace }}/CrashDumps/*.dmp'
+        id: detect-dump
+        if: always()
+        working-directory: ${{ github.workspace }}
+        run: |
+          echo "DUMP_FILE=$(Get-ChildItem .\CrashDumps\*.dmp -ErrorAction SilentlyContinue)" >> $env:GITHUB_OUTPUT
 
       - name: Artifact - WER crash dumps
         uses: actions/upload-artifact@v3
-        if: ${{ steps.filter.outputs.dump == 'true' && (env.ENABLE_DIAGNOSTICS == 'true' || env.COREHOST_TRACE != '') && always() }}
+        if: ${{ (env.ENABLE_DIAGNOSTICS == 'true' || env.COREHOST_TRACE != '') && always() }}
         with:
           name: CrashDumps-${{ matrix.platform }}
           path: '${{ github.workspace }}/CrashDumps'
 
       - name: Analyze Dump
-        if: ${{ steps.filter.outputs.dump == 'true' && (env.ENABLE_DIAGNOSTICS == 'true' || env.COREHOST_TRACE != '') && always() }}
+        if: ${{ steps.detect-dump.outputs.DUMP_FILE != '' && (env.ENABLE_DIAGNOSTICS == 'true' || env.COREHOST_TRACE != '') && always() }}
         run: |
           dotnet tool install --global dotnet-dump
-          dotnet-dump analyze ${{ steps.filter.outputs.dump_files }} -c "clrstack" -c "pe -lines" -c "exit"
+          dotnet-dump analyze ${{ steps.detect-dump.outputs.DUMP_FILE }} -c "clrstack" -c "pe -lines" -c "exit"
 
   wasm-linux:
     runs-on: ubuntu-latest
