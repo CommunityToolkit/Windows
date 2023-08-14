@@ -435,3 +435,6 @@ dotnet_diagnostic.IDE0073.severity = warning
 
 # Uno platform exposes IDisposable on Storyboard publicly when it should be internal. Ignore this.
 dotnet_code_quality.CA1001.excluded_type_names_with_derived_types = T:Windows.UI.Xaml.Media.Animation.Storyboard
+
+# XML comment has cref attribute that could not be resolved (temp, remove XML generated docs get used)
+dotnet_diagnostic.CS1574.severity = none
