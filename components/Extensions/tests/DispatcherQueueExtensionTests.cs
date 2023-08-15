@@ -336,8 +336,9 @@ public partial class DispatcherQueueExtensionTests : VisualUITestBase
         Assert.IsNull(taskSource.Task.Exception);
     }
 
+    [Ignore]
     [TestCategory("DispatcherQueueExtensions")]
-    [UIThreadTestMethod]
+    ////[UIThreadTestMethod] - TODO: https://github.com/CommunityToolkit/Tooling-Windows-Submodule/issues/121
     public async Task DispatcherQueueHelper_FuncOfTaskOfT_Exception()
     {
         var task = DispatcherQueue.GetForCurrentThread().EnqueueAsync(new Func<Task<int>>(() =>
