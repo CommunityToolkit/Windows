@@ -59,8 +59,9 @@ public partial class FrameworkElementExtensionsTests : VisualUITestBase
         Assert.IsFalse(textRef.IsAlive, "TextBox is still alive...");
     }
 
+    [Ignore]
     [TestCategory("FrameworkElementExtension")]
-    [UIThreadTestMethod]
+    ////[UIThreadTestMethod] - TODO: https://github.com/CommunityToolkit/Tooling-Windows-Submodule/issues/121
     public async Task FrameworkElementExtension_RelativeAncestor_FreeParent(FrameworkElementRelativeAncestorDataTemplateTestPage page)
     {
         var list = page.FindDescendant<ListView>();
@@ -85,9 +86,9 @@ public partial class FrameworkElementExtensionsTests : VisualUITestBase
         Assert.IsFalse(listRef.IsAlive, "ListView is still alive...");
     }
 
-    [TestCategory("FrameworkElementExtension")]
-    [UIThreadTestMethod]
     [Ignore]
+    [TestCategory("FrameworkElementExtension")]
+    ////[UIThreadTestMethod] - TODO: https://github.com/CommunityToolkit/Tooling-Windows-Submodule/issues/121
     public async Task FrameworkElementExtension_RelativeAncestor_FreePageNavigation()
     {
         TaskCompletionSource<bool?> taskCompletionSource = new();
