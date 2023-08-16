@@ -49,7 +49,7 @@ public partial class SettingsCard : ButtonBase
         nameof(ActionIconToolTip),
         typeof(string),
         typeof(SettingsCard),
-        new PropertyMetadata(defaultValue: "More"));
+        new PropertyMetadata(defaultValue: null));
 
     /// <summary>
     /// The backing <see cref="DependencyProperty"/> for the <see cref="IsClickEnabled"/> property.
