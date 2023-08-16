@@ -9,7 +9,8 @@
     <Copyright>(c) .NET Foundation and Contributors.  All rights reserved.</Copyright>
     <PackageProjectUrl>https://github.com/CommunityToolkit/Windows</PackageProjectUrl>
     <PackageReleaseNotes>https://github.com/CommunityToolkit/Windows/releases</PackageReleaseNotes>
-    <PackageIcon>Icon.png</PackageIcon>
+    <PackageIcon>icon.png</PackageIcon>
+    <PackageIconUrl>https://github.com/CommunityToolkit/Windows/blob/main/icon.png</PackageIconUrl>
     <!-- TODO: Remove when closing https://github.com/CommunityToolkit/Labs-Windows/issues/256 -->
     <NoWarn>$(NoWarn);NU1505;NU1504</NoWarn>
   </PropertyGroup>

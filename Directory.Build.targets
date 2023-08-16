@@ -12,7 +12,7 @@
   </PropertyGroup>
 
   <ItemGroup Condition="$(IsPackable)">
-    <None Include="$(RepositoryDirectory)Icon.png" Pack="true" PackagePath="\" />
+    <None Include="$(RepositoryDirectory)icon.png" Pack="true" PackagePath="\" />
     <None Include="$(RepositoryDirectory)License.md" Pack="true" PackagePath="\" />
     <!--<None Include="$(RepositoryDirectory)ThirdPartyNotices.txt" Pack="true" PackagePath="\" />-->
   </ItemGroup>
