@@ -5,11 +5,17 @@
 using System.Diagnostics.Contracts;
 using System.Runtime.CompilerServices;
 
+#if WINUI2
+using Windows.UI.Xaml.Media.Animation;
+#else
+using Microsoft.UI.Xaml.Media.Animation;
+#endif
+
 namespace CommunityToolkit.WinUI.Animations;
 
 /// <summary>
 /// A collection of animations that can be grouped together. This type represents a composite animation
-/// (such as <see cref="Windows.UI.Xaml.Media.Animation.Storyboard"/>) that can be executed on a given element.
+/// (such as <see cref="Storyboard"/>) that can be executed on a given element.
 /// </summary>
 public sealed class AnimationSet : DependencyObjectCollection
 {

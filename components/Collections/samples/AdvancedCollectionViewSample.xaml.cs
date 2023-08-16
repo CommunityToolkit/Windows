@@ -61,7 +61,7 @@ public sealed partial class AdvancedCollectionViewSample : Page
     }
 
     /// <summary>
-    /// A sample class used to show how to use the <see cref="Collections.IIncrementalSource{TSource}"/> interface.
+    /// A sample class used to show how to use the <see cref="IIncrementalSource{TSource}"/> interface.
     /// </summary>
     public class Person
     {
