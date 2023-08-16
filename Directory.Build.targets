@@ -6,7 +6,7 @@
   </ItemGroup>
 
   <PropertyGroup>
-    <CommonTags>$(CommonTags);UWP;WinUI;Uno;Labs;Experimental</CommonTags>
+    <CommonTags>$(CommonTags);UWP;WinUI;Uno;Platform;WindowsAppSDK;WASDK;WinAppSDK;Universal</CommonTags>
     <PackageTags Condition="'$(PackageTags)' != ''">$(CommonTags);$(PackageTags)</PackageTags>
     <PackageTags Condition="'$(PackageTags)' == ''">$(CommonTags)</PackageTags>
   </PropertyGroup>
