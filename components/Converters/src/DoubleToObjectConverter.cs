@@ -115,10 +115,12 @@ public partial class DoubleToObjectConverter : DependencyObject, IValueConverter
 
         var boolValue = false;
 
-        if (!double.IsNaN(GreaterThan) && !double.IsNaN(LessThan) &&
-            vd > GreaterThan && vd < LessThan)
+        if (!double.IsNaN(GreaterThan) && !double.IsNaN(LessThan))
         {
-            boolValue = true;
+            if (vd > GreaterThan && vd < LessThan)
+            {
+                boolValue = true;
+            }
         }
         else if (!double.IsNaN(GreaterThan) && vd > GreaterThan)
         {
