@@ -18,7 +18,7 @@ on:
 
 env:
   DOTNET_VERSION: ${{ '7.0.x' }}
-  ENABLE_DIAGNOSTICS: false
+  ENABLE_DIAGNOSTICS: true
   #COREHOST_TRACE: 1
   COREHOST_TRACEFILE: corehosttrace.log
   MULTI_TARGET_DIRECTORY: tooling/MultiTarget
@@ -68,6 +68,22 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+      - name: Configure Pagefile
+        uses: al-cheb/configure-pagefile-action@v1.3
+        with:
+          minimum-size: 32GB
+          maximum-size: 32GB
+          disk-root: "C:"
+
+      - name: Enable User-Mode Dumps collecting
+        if: ${{ env.ENABLE_DIAGNOSTICS == 'true' || env.COREHOST_TRACE != '' }}
+        shell: powershell
+        run: |
+          New-Item '${{ github.workspace }}\CrashDumps' -Type Directory
+          Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\Windows Error Reporting\LocalDumps' -Name 'DumpFolder' -Type ExpandString -Value '${{ github.workspace }}\CrashDumps'
+          Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\Windows Error Reporting\LocalDumps' -Name 'DumpCount' -Type DWord -Value '10'
+          Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\Windows Error Reporting\LocalDumps' -Name 'DumpType' -Type DWord -Value '2'
+
       - name: Install .NET SDK v${{ env.DOTNET_VERSION }}
         uses: actions/setup-dotnet@v3
         with:
@@ -106,8 +122,13 @@ jobs:
         run: powershell -version 5.1 -command "./UseUnoWinUI.ps1 3" -ErrorAction Stop
         if: ${{ matrix.platform == 'WinUI3' }}
 
+      - name: MSBuild (With diagnostics)
+        if: ${{ env.ENABLE_DIAGNOSTICS == 'true' }}
+        run: msbuild.exe CommunityToolkit.AllComponents.sln /restore /nowarn:MSB4011 -p:Configuration=Release -m /bl -v:diag
+
       - name: MSBuild
-        run: msbuild.exe CommunityToolkit.AllComponents.sln /restore /nowarn:MSB4011 -p:Configuration=Release -m -p:UseDotNetNativeToolchain=false
+        if: ${{ env.ENABLE_DIAGNOSTICS == 'false' }}
+        run: msbuild.exe CommunityToolkit.AllComponents.sln /restore /nowarn:MSB4011 -p:Configuration=Release -m
 
       # Build All Packages
       - name: pack experiments
@@ -125,7 +146,7 @@ jobs:
 
       # Run tests
       - name: Setup VSTest Path
-        uses: darenm/Setup-VSTest@v1
+        uses: darenm/Setup-VSTest@v1.2
 
       - name: Install Testspace Module
         uses: testspace-com/setup-testspace@v1
@@ -138,7 +159,7 @@ jobs:
 
       - name: Run experiment tests against ${{ env.TEST_PLATFORM }}
         id: test-platform
-        run:  vstest.console.exe ./tooling/**/CommunityToolkit.Tests.${{ env.TEST_PLATFORM }}.build.appxrecipe /Framework:FrameworkUap10 /logger:"trx;LogFileName=${{ env.TEST_PLATFORM }}.trx"
+        run:  vstest.console.exe ./tooling/**/CommunityToolkit.Tests.${{ env.TEST_PLATFORM }}.build.appxrecipe /Framework:FrameworkUap10 /logger:"trx;LogFileName=${{ env.TEST_PLATFORM }}.trx" /Blame
 
       - name: Create test reports
         run: |
@@ -151,6 +172,34 @@ jobs:
         with:
           name: build-logs
           path: ./**/*.*log
+
+      - name: Artifact - ILC Repro
+        uses: actions/upload-artifact@v3
+        if: ${{ (env.ENABLE_DIAGNOSTICS == 'true' || env.COREHOST_TRACE != '') && always() }}
+        with:
+          name: ilc-repro
+          path: ./*.zip
+
+      # https://github.com/dorny/paths-filter#custom-processing-of-changed-files
+      - name: Detect If any Dump Files
+        id: detect-dump
+        if: always()
+        working-directory: ${{ github.workspace }}
+        run: |
+          echo "DUMP_FILE=$(Get-ChildItem .\CrashDumps\*.dmp -ErrorAction SilentlyContinue)" >> $env:GITHUB_OUTPUT
+
+      - name: Artifact - WER crash dumps
+        uses: actions/upload-artifact@v3
+        if: ${{ (env.ENABLE_DIAGNOSTICS == 'true' || env.COREHOST_TRACE != '') && always() }}
+        with:
+          name: CrashDumps-${{ matrix.platform }}
+          path: '${{ github.workspace }}/CrashDumps'
+
+      - name: Analyze Dump
+        if: ${{ steps.detect-dump.outputs.DUMP_FILE != '' && (env.ENABLE_DIAGNOSTICS == 'true' || env.COREHOST_TRACE != '') && always() }}
+        run: |
+          dotnet tool install --global dotnet-dump
+          dotnet-dump analyze ${{ steps.detect-dump.outputs.DUMP_FILE }} -c "clrstack" -c "pe -lines" -c "exit"
 
   wasm-linux:
     runs-on: ubuntu-latest

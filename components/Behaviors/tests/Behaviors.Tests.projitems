@@ -13,9 +13,17 @@
     <Compile Include="$(MSBuildThisFileDirectory)ExampleBehaviorsTestPage.xaml.cs">
       <DependentUpon>ExampleBehaviorsTestPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)StackedNotificationsBehaviorsTestPage.xaml.cs">
+      <DependentUpon>StackedNotificationsBehaviorsTestPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)StackedNotificationsBehaviorTestClass.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="$(MSBuildThisFileDirectory)ExampleBehaviorsTestPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)StackedNotificationsBehaviorsTestPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
