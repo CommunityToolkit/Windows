@@ -24,6 +24,9 @@ env:
   COREHOST_TRACEFILE: corehosttrace.log
   MULTI_TARGET_DIRECTORY: tooling/MultiTarget
   HEADS_DIRECTORY: tooling/ProjectHeads
+  IS_MAIN: ${{ github.ref == 'refs/heads/main' }}
+  IS_PR: ${{ startsWith(github.ref, 'refs/pull/') }}
+  IS_RELEASE: ${{ startsWith(github.ref, 'refs/heads/rel/') }}
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -120,9 +123,9 @@ jobs:
         run: powershell -version 5.1 -command "./tooling/GenerateAllSolution.ps1 -IncludeHeads ${{ env.TEST_PLATFORM }}${{ env.ENABLE_DIAGNOSTICS == 'true' && ' -UseDiagnostics' || '' }}" -ErrorAction Stop
 
       - name: Enable Uno.WinUI (in WinUI3 matrix only)
+        if: ${{ matrix.platform == 'WinUI3' }}
         working-directory: ./${{ env.MULTI_TARGET_DIRECTORY }}
         run: powershell -version 5.1 -command "./UseUnoWinUI.ps1 3" -ErrorAction Stop
-        if: ${{ matrix.platform == 'WinUI3' }}
 
       - name: MSBuild
         run: msbuild.exe CommunityToolkit.AllComponents.sln /restore /nowarn:MSB4011 -p:Configuration=Release -m ${{ env.VERSION_PROPERTY }} ${{ env.ENABLE_DIAGNOSTICS == 'true' && '/bl' || '' }} -v:${{ env.MSBUILD_VERBOSITY }}
@@ -132,17 +135,12 @@ jobs:
         working-directory: ./tooling/Scripts/
         run: ./PackEachExperiment.ps1 -extraBuildProperties "${{ env.VERSION_PROPERTY }}"
 
-      # Push Packages to our DevOps Artifacts Feed (see nuget.config)
-      - name: Add source (main)
-        if: ${{ github.ref == 'refs/heads/main' }}
-        run: dotnet nuget update source MainLatest --username dummy --password ${{ secrets.DEVOPS_PACKAGE_PUSH_TOKEN }}
-
-      - name: Add source (pull requests)
-        if: ${{ github.ref != 'refs/heads/main' }}
-        run: dotnet nuget add source https://pkgs.dev.azure.com/dotnet/CommunityToolkit/_packaging/CommunityToolkit-PullRequests/nuget/v3/index.json --name PullRequests --username dummy --password ${{ secrets.DEVOPS_PACKAGE_PUSH_TOKEN }}
-
-      - name: Push packages
-        run: dotnet nuget push "**/*.nupkg" --api-key dummy --source ${{ github.ref == 'refs/heads/main' && 'MainLatest' || 'PullRequests' }} --skip-duplicate
+      # Push Pull Request Packages to our DevOps Artifacts Feed (see nuget.config)
+      - name: Push Pull Request Packages
+        if: ${{ env.IS_PR }}
+        run: |
+          dotnet nuget add source https://pkgs.dev.azure.com/dotnet/CommunityToolkit/_packaging/CommunityToolkit-PullRequests/nuget/v3/index.json --name PullRequests --username dummy --password ${{ secrets.DEVOPS_PACKAGE_PUSH_TOKEN }}
+          dotnet nuget push "**/*.nupkg" --api-key dummy --source PullRequests --skip-duplicate
 
       # Run tests
       - name: Setup VSTest Path
@@ -200,6 +198,69 @@ jobs:
         run: |
           dotnet tool install --global dotnet-dump
           dotnet-dump analyze ${{ steps.detect-dump.outputs.DUMP_FILE }} -c "clrstack" -c "pe -lines" -c "exit"
+
+      # if we're not doing a PR build then we upload our packages so we can sign as a separate job.
+      - name: Upload Packages as Artifacts
+        uses: actions/upload-artifact@v3
+        # TODO: if: ${{ env.IS_PR == false }}
+        with:
+          name: nuget-packages-${{ matrix.platform }}
+          if-no-files-found: error
+          path: |
+            **/*.nupkg
+
+  sign:
+    needs: [build]
+    # TODO: if: ${{ env.IS_MAIN }}
+    runs-on: windows-latest
+
+    strategy:
+      fail-fast: false # prevent one matrix pipeline from being cancelled if one fails, we want them both to run to completion.
+      matrix:
+        platform: [WinUI2, WinUI3]
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Install .NET SDK v${{ env.DOTNET_VERSION }}
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Download built packages for ${{ matrix.platform }}
+        uses: actions/download-artifact@v3
+        with:
+          name: nuget-packages-${{ matrix.platform }}
+          path: ./packages
+
+      - name: Install Signing Tool
+        run: dotnet tool install --tool-path ./tools sign --version 0.9.1-beta.23356.1
+
+      - name: Sign Packages
+        run: ./tools/sign code azure-key-vault "**/*.nupkg" \
+          --timestamp-url "http://timestamp.digicert.com" \
+          --base-directory "${{ github.workspace }}/packages" \
+          --file-list "${{ github.workspace }}/.github/workflows/SignClientFileList.txt" \
+          --publisher-name ".NET Foundation" \
+          --description "Windows Community Toolkit" \
+          --description-url "https://github.com/CommunityToolkit/Windows" \
+          --azure-key-vault-certificate "${{ secrets.SIGN_CERTIFICATE }}" \
+          --azure-key-vault-client-id "${{ secrets.SIGN_CLIENT_ID }}" \
+          --azure-key-vault-client-secret "${{ secrets.SIGN_CLIENT_SECRET }}" \
+          --azure-key-vault-tenant-id "${{ secrets.SIGN_TENANT_ID }}" \
+          --azure-key-vault-url "${{ secrets.SIGN_KEY_VAULT_URL }}"
+
+      #- name: Add source (main)
+      #  run: dotnet nuget update source MainLatest --username dummy --password ${{ secrets.DEVOPS_PACKAGE_PUSH_TOKEN }}
+
+      # TODO: For now push to PR feed so we can validate if any of this works...
+      - name: Push Signed Packages
+        run: |
+          dotnet nuget add source https://pkgs.dev.azure.com/dotnet/CommunityToolkit/_packaging/CommunityToolkit-PullRequests/nuget/v3/index.json --name PullRequests --username dummy --password ${{ secrets.DEVOPS_PACKAGE_PUSH_TOKEN }}
+          dotnet nuget push "**/*.nupkg" --api-key dummy --source PullRequests --skip-duplicate
+
+      # TODO: If release we should push to NuGet
 
   wasm-linux:
     runs-on: ubuntu-latest
