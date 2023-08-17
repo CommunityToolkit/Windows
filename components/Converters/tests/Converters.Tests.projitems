@@ -10,6 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Test_BoolToObjectConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Test_DoubleToObjectConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Test_EmptyCollectionToObjectConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Test_EmptyStringToObjectConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Test_StringFormatConverter.cs" />
