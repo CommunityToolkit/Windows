@@ -13,7 +13,7 @@ using DQ = Microsoft.UI.Dispatching.DispatcherQueue;
 namespace CommunityToolkit.WinUI.Behaviors;
 
 /// <summary>
-/// A behavior to add the stacked notification support to <see cref="InfoBar"/>.
+/// A behavior to add the stacked notification support to <see cref="MUXC.InfoBar"/>.
 /// </summary>
 public class StackedNotificationsBehavior : BehaviorBase<MUXC.InfoBar>
 {
