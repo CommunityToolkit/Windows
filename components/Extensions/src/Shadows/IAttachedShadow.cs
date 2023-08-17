@@ -22,7 +22,7 @@ public interface IAttachedShadow
     double Opacity { get; set; }
 
     /// <summary>
-    /// Gets or sets the offset of the shadow as a string representation of a <see cref="Vector3"/>.
+    /// Gets or sets the offset of the shadow as a string representation of a <see cref="System.Numerics.Vector3"/>.
     /// </summary>
     string Offset { get; set; }
 

@@ -11,7 +11,7 @@ namespace CommunityToolkit.WinUI;
 public class SymbolIconExtension : TextIconExtension
 {
     /// <summary>
-    /// Gets or sets the <see cref="Microsoft.UI.Xaml.Controls.Symbol"/> value representing the icon to display.
+    /// Gets or sets the <see cref="Symbol"/> value representing the icon to display.
     /// </summary>
     public Symbol Symbol { get; set; }
 

@@ -19,6 +19,9 @@ public abstract class CustomAnimation<TValue, TKeyFrame> : ImplicitAnimation<TVa
     /// </summary>
     public string? Target { get; set; }
 
+
+// Suppression required for net7-android. The #if compilation conditionals are preventing the compiler from interpreting it correctly.
+#pragma warning disable CS1587 // XML comment is not placed on a valid language element
     /// <summary>
     /// Gets or sets the target framework layer for the animation. This is only supported
     /// for a set of animation types (see the docs for more on this). Furthermore, this is
@@ -31,6 +34,7 @@ public abstract class CustomAnimation<TValue, TKeyFrame> : ImplicitAnimation<TVa
     /// The default value is <see cref="FrameworkLayer.Xaml"/>.
     /// </summary>
     public FrameworkLayer Layer { get; set; } = FrameworkLayer.Xaml;
+#pragma warning restore CS1587 // XML comment is not placed on a valid language element
 #endif
 
     /// <inheritdoc/>

@@ -27,7 +27,7 @@ public abstract partial class AttachedShadowBase : DependencyObject, IAttachedSh
     /// <summary>
     /// Gets a value indicating whether or not Composition's VisualSurface is supported.
     /// </summary>
-    protected static readonly bool SupportsCompositionVisualSurface = ApiInformation.IsTypePresent(typeof(CompositionVisualSurface).FullName);
+    protected static readonly bool SupportsCompositionVisualSurface = typeof(CompositionVisualSurface).FullName is string str && ApiInformation.IsTypePresent(str);
 #endif
 
     /// <summary>

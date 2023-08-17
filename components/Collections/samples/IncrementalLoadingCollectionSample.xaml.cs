@@ -32,9 +32,9 @@ public sealed partial class IncrementalLoadingCollectionSample : Page
 }
 
 /// <summary>
-/// A sample implementation of the <see cref="Collections.IIncrementalSource{TSource}"/> interface.
+/// A sample implementation of the <see cref="IIncrementalSource{TSource}"/> interface.
 /// </summary>
-/// <seealso cref="Collections.IIncrementalSource{TSource}"/>
+/// <seealso cref="IIncrementalSource{TSource}"/>
 public class PeopleSource : IIncrementalSource<Person>
 {
     private readonly List<Person> _people;
@@ -92,7 +92,7 @@ public class PeopleSource : IIncrementalSource<Person>
 }
 
 /// <summary>
-/// A sample class used to show how to use the <see cref="Collections.IIncrementalSource{TSource}"/> interface.
+/// A sample class used to show how to use the <see cref="IIncrementalSource{TSource}"/> interface.
 /// </summary>
 public class Person
 {
