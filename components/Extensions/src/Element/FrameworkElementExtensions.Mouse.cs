@@ -32,14 +32,14 @@ public static partial class FrameworkElementExtensions
         new() { { CursorShape.Arrow, _defaultCursor } };
 
     /// <summary>
-    /// Dependency property for specifying the target <see cref="InputSystemCursorShape"/> to be shown
+    /// Dependency property for specifying the target <see cref="CursorShape"/> to be shown
     /// over the target <see cref="FrameworkElement"/>.
     /// </summary>
     public static readonly DependencyProperty CursorProperty =
         DependencyProperty.RegisterAttached("Cursor", typeof(CursorShape), typeof(FrameworkElementExtensions), new PropertyMetadata(CursorShape.Arrow, CursorChanged));
 
     /// <summary>
-    /// Set the target <see cref="InputSystemCursorShape"/>.
+    /// Set the target <see cref="CursorShape"/>.
     /// </summary>
     /// <param name="element">Object where the selector cursor type should be shown.</param>
     /// <param name="value">Target cursor type value.</param>
@@ -49,7 +49,7 @@ public static partial class FrameworkElementExtensions
     }
 
     /// <summary>
-    /// Get the current <see cref="InputSystemCursorShape"/>.
+    /// Get the current <see cref="CursorShape"/>.
     /// </summary>
     /// <param name="element">Object where the selector cursor type should be shown.</param>
     /// <returns>Cursor type set on target element.</returns>

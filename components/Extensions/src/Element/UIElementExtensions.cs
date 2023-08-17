@@ -13,7 +13,7 @@ using Windows.UI.Xaml.Hosting;
 namespace CommunityToolkit.WinUI;
 
 /// <summary>
-/// Provides attached dependency properties for the <see cref="Microsoft.UI.Xaml.UIElement"/>
+/// Provides attached dependency properties for the <see cref="UIElement"/>
 /// </summary>
 public static class UIElementExtensions
 {
