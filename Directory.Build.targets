@@ -1,18 +1,18 @@
 <Project>
 
   <ItemGroup Condition="'$(Configuration)' == 'Release'">
-    <PackageReference Include="NuGet.Build.Tasks.Pack" Version="5.2.0" PrivateAssets="all" Pack="false" />
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
+    <PackageReference Include="NuGet.Build.Tasks.Pack" Version="6.7.0" PrivateAssets="all" Pack="false" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
   </ItemGroup>
 
   <PropertyGroup>
-    <CommonTags>$(CommonTags);UWP;WinUI;Uno;Labs;Experimental</CommonTags>
+    <CommonTags>$(CommonTags);UWP;WinUI;Uno;Platform;WindowsAppSDK;WASDK;WinAppSDK;Universal</CommonTags>
     <PackageTags Condition="'$(PackageTags)' != ''">$(CommonTags);$(PackageTags)</PackageTags>
     <PackageTags Condition="'$(PackageTags)' == ''">$(CommonTags)</PackageTags>
   </PropertyGroup>
 
   <ItemGroup Condition="$(IsPackable)">
-    <None Include="$(RepositoryDirectory)Icon.png" Pack="true" PackagePath="\" />
+    <None Include="$(RepositoryDirectory)icon.png" Pack="true" PackagePath="\" />
     <None Include="$(RepositoryDirectory)License.md" Pack="true" PackagePath="\" />
     <!--<None Include="$(RepositoryDirectory)ThirdPartyNotices.txt" Pack="true" PackagePath="\" />-->
   </ItemGroup>
