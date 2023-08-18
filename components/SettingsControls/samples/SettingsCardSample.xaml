@@ -5,15 +5,14 @@
       xmlns:controls="using:CommunityToolkit.WinUI.Controls"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:ui="using:CommunityToolkit.WinUI"
       mc:Ignorable="d">
     <StackPanel Spacing="4">
         <controls:SettingsCard x:Name="settingsCard"
                                Description="This is a default card, with the Header, HeaderIcon, Description and Content set."
                                Header="This is the Header"
+                               HeaderIcon="{ui:FontIcon Glyph=&#xE799;}"
                                IsEnabled="{x:Bind IsCardEnabled, Mode=OneWay}">
-            <controls:SettingsCard.HeaderIcon>
-                <FontIcon Glyph="&#xE799;" />
-            </controls:SettingsCard.HeaderIcon>
             <ComboBox SelectedIndex="0">
                 <ComboBoxItem>Option 1</ComboBoxItem>
                 <ComboBoxItem>Option 2</ComboBoxItem>
@@ -23,11 +22,8 @@
 
         <controls:SettingsCard Description="You can use a FontIcon, SymbolIcon or BitmapIcon to set the cards HeaderIcon."
                                Header="Icon options"
+                               HeaderIcon="{ui:BitmapIcon Source=ms-appx:///Assets/AppTitleBar.scale-200.png}"
                                IsEnabled="{x:Bind IsCardEnabled, Mode=OneWay}">
-            <controls:SettingsCard.HeaderIcon>
-                <BitmapIcon ShowAsMonochrome="False"
-                            UriSource="ms-appx:///Assets/SettingsCard.png" />
-            </controls:SettingsCard.HeaderIcon>
             <ToggleSwitch />
         </controls:SettingsCard>
 
@@ -42,10 +38,8 @@
 
         <controls:SettingsCard Description="When resizing a SettingsCard, the Content will wrap vertically. You can override this breakpoint by setting the SettingsCardWrapThreshold resource. For edge cases, you can also hide the icon by setting SettingsCardWrapNoIconThreshold."
                                Header="Adaptive layouts"
+                               HeaderIcon="{ui:FontIcon Glyph=&#xE745;}"
                                IsEnabled="{x:Bind IsCardEnabled, Mode=OneWay}">
-            <controls:SettingsCard.HeaderIcon>
-                <FontIcon Glyph="&#xE745;" />
-            </controls:SettingsCard.HeaderIcon>
             <controls:SettingsCard.Resources>
                 <x:Double x:Key="SettingsCardWrapThreshold">800</x:Double>
                 <x:Double x:Key="SettingsCardWrapNoIconThreshold">600</x:Double>

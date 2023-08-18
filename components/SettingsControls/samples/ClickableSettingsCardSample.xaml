@@ -5,37 +5,28 @@
       xmlns:controls="using:CommunityToolkit.WinUI.Controls"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:ui="using:CommunityToolkit.WinUI"
       mc:Ignorable="d">
     <StackPanel Spacing="4">
         <controls:SettingsCard x:Name="settingsCard"
                                Description="A SettingsCard can be made clickable and you can leverage the Command property or Click event."
                                Header="A clickable SettingsCard"
+                               HeaderIcon="{ui:FontIcon Glyph=&#xE799;}"
                                IsClickEnabled="True"
-                               IsEnabled="{x:Bind IsCardEnabled, Mode=OneWay}">
-            <controls:SettingsCard.HeaderIcon>
-                <FontIcon Glyph="&#xE799;" />
-            </controls:SettingsCard.HeaderIcon>
-        </controls:SettingsCard>
+                               IsEnabled="{x:Bind IsCardEnabled, Mode=OneWay}" />
 
-        <controls:SettingsCard ActionIconToolTip="Open in new window"
+        <controls:SettingsCard ActionIcon="{ui:FontIcon Glyph=&#xE8A7;}"
+                               ActionIconToolTip="Open in new window"
                                Description="You can customize the ActionIcon and ActionIconToolTip."
                                Header="Customizing the ActionIcon"
+                               HeaderIcon="{ui:FontIcon Glyph=&#xE774;}"
                                IsClickEnabled="True"
-                               IsEnabled="{x:Bind IsCardEnabled, Mode=OneWay}">
-            <controls:SettingsCard.HeaderIcon>
-                <FontIcon Glyph="&#xE774;" />
-            </controls:SettingsCard.HeaderIcon>
-            <controls:SettingsCard.ActionIcon>
-                <FontIcon Glyph="&#xE8A7;" />
-            </controls:SettingsCard.ActionIcon>
-        </controls:SettingsCard>
+                               IsEnabled="{x:Bind IsCardEnabled, Mode=OneWay}" />
+
         <controls:SettingsCard Header="Hiding the ActionIcon"
+                               HeaderIcon="{ui:FontIcon Glyph=&#xE72E;}"
                                IsActionIconVisible="False"
                                IsClickEnabled="True"
-                               IsEnabled="{x:Bind IsCardEnabled, Mode=OneWay}">
-            <controls:SettingsCard.HeaderIcon>
-                <FontIcon Glyph="&#xE72E;" />
-            </controls:SettingsCard.HeaderIcon>
-        </controls:SettingsCard>
+                               IsEnabled="{x:Bind IsCardEnabled, Mode=OneWay}" />
     </StackPanel>
 </Page>

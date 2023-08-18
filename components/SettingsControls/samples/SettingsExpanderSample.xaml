@@ -5,17 +5,16 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="using:CommunityToolkit.WinUI.Controls"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:ui="using:CommunityToolkit.WinUI"
       mc:Ignorable="d">
 
     <local:SettingsExpander x:Name="settingsCard"
                             Description="The SettingsExpander has the same properties as a Card, and you can set SettingsCard as part of the Items collection."
                             Header="SettingsExpander"
+                            HeaderIcon="{ui:FontIcon Glyph=&#xE91B;}"
                             IsEnabled="{x:Bind IsCardEnabled, Mode=OneWay}"
                             IsExpanded="{x:Bind IsCardExpanded, Mode=OneWay}">
         <!--  TODO: This should be TwoWay bound but throws compile error in Uno.  -->
-        <local:SettingsExpander.HeaderIcon>
-            <FontIcon Glyph="&#xE91B;" />
-        </local:SettingsExpander.HeaderIcon>
         <ComboBox SelectedIndex="0">
             <ComboBoxItem>Option 1</ComboBoxItem>
             <ComboBoxItem>Option 2</ComboBoxItem>

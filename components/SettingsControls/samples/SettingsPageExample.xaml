@@ -5,6 +5,7 @@
       xmlns:controls="using:CommunityToolkit.WinUI.Controls"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:ui="using:CommunityToolkit.WinUI"
       xmlns:win="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       mc:Ignorable="d">
     <Page.Resources>
@@ -34,18 +35,14 @@
                 <TextBlock Style="{StaticResource SettingsSectionHeaderTextBlockStyle}"
                            Text="Section 1" />
                 <controls:SettingsCard Description="This is a default card, with the Header, HeaderIcon, Description and Content set"
-                                       Header="This is the Header">
-                    <controls:SettingsCard.HeaderIcon>
-                        <FontIcon Glyph="&#xE716;" />
-                    </controls:SettingsCard.HeaderIcon>
+                                       Header="This is the Header"
+                                       HeaderIcon="{ui:FontIcon Glyph=&#xE716;}">
                     <ToggleSwitch IsOn="True" />
                 </controls:SettingsCard>
 
                 <controls:SettingsExpander Description="The SettingsExpander has the same properties as a SettingsCard"
-                                           Header="SettingsExpander">
-                    <controls:SettingsExpander.HeaderIcon>
-                        <FontIcon Glyph="&#xE91B;" />
-                    </controls:SettingsExpander.HeaderIcon>
+                                           Header="SettingsExpander"
+                                           HeaderIcon="{ui:FontIcon Glyph=&#xE91B;}">
                     <Button Content="Content"
                             Style="{StaticResource AccentButtonStyle}" />
 
@@ -66,10 +63,8 @@
                 <TextBlock Style="{StaticResource SettingsSectionHeaderTextBlockStyle}"
                            Text="Section 2" />
                 <controls:SettingsCard Description="Another card to show grouping of cards"
-                                       Header="Another SettingsCard">
-                    <controls:SettingsCard.HeaderIcon>
-                        <FontIcon Glyph="&#xE799;" />
-                    </controls:SettingsCard.HeaderIcon>
+                                       Header="Another SettingsCard"
+                                       HeaderIcon="{ui:FontIcon Glyph=&#xE799;}">
                     <ComboBox SelectedIndex="0">
                         <ComboBoxItem>Option 1</ComboBoxItem>
                         <ComboBoxItem>Option 2</ComboBoxItem>
@@ -78,10 +73,8 @@
                 </controls:SettingsCard>
 
                 <controls:SettingsCard Description="Another card to show grouping of cards"
-                                       Header="Yet another SettingsCard">
-                    <controls:SettingsCard.HeaderIcon>
-                        <FontIcon Glyph="&#xE768;" />
-                    </controls:SettingsCard.HeaderIcon>
+                                       Header="Yet another SettingsCard"
+                                       HeaderIcon="{ui:FontIcon Glyph=&#xE768;}">
                     <Button Content="Content" />
                 </controls:SettingsCard>
 
@@ -90,15 +83,11 @@
                            Text="About" />
 
                 <controls:SettingsExpander Description="© 2023. All rights reserved."
-                                           Header="Community Toolkit Gallery">
-                    <controls:SettingsExpander.HeaderIcon>
-                        <BitmapIcon ShowAsMonochrome="False"
-                                    UriSource="ms-appx:///Assets/AppTitleBar.scale-200.png" />
-                    </controls:SettingsExpander.HeaderIcon>
+                                           Header="Community Toolkit Gallery"
+                                           HeaderIcon="{ui:BitmapIcon Source=ms-appx:///Assets/AppTitleBar.scale-200.png}">
                     <TextBlock win:IsTextSelectionEnabled="True"
                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                               Style="{StaticResource CaptionTextBlockStyle}"
-                               Text="Version 1.0.0.0" />
+                               Text="Version 8.0.0" />
                     <controls:SettingsExpander.Items>
                         <controls:SettingsCard HorizontalContentAlignment="Left"
                                                ContentAlignment="Left">

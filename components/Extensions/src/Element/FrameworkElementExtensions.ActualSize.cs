@@ -5,12 +5,12 @@
 namespace CommunityToolkit.WinUI;
 
 /// <summary>
-/// Provides attached dependency properties for the <see cref="Microsoft.UI.Xaml.FrameworkElement"/> type.
+/// Provides attached dependency properties for the <see cref="FrameworkElement"/> type.
 /// </summary>
 public static partial class FrameworkElementExtensions
 {
     /// <summary>
-    /// Attached <see cref="DependencyProperty"/> for enabling actual size binding on any  <see cref="Microsoft.UI.Xaml.FrameworkElement"/>.
+    /// Attached <see cref="DependencyProperty"/> for enabling actual size binding on any  <see cref="FrameworkElement"/>.
     /// </summary>
     public static readonly DependencyProperty EnableActualSizeBindingProperty = DependencyProperty.RegisterAttached("EnableActualSizeBinding", typeof(bool), typeof(FrameworkElementExtensions), new PropertyMetadata(false, OnEnableActualSizeBindingPropertyChanged));
 

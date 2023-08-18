@@ -53,7 +53,7 @@ public static class Connected
     /// <summary>
     /// Gets the connected animation key associated with the ListViewBase item being animated
     /// </summary>
-    /// <param name="obj">The <see cref="Windows.UI.Xaml.Controls.ListViewBase"/></param>
+    /// <param name="obj">The <see cref="ListViewBase"/></param>
     /// <returns>The connected animation key</returns>
     public static string GetListItemKey(DependencyObject obj)
     {
@@ -61,9 +61,9 @@ public static class Connected
     }
 
     /// <summary>
-    /// Sets the connected animation key for the <see cref="Windows.UI.Xaml.Controls.ListViewBase"/> item being animated
+    /// Sets the connected animation key for the <see cref="ListViewBase"/> item being animated
     /// </summary>
-    /// <param name="obj">The <see cref="Windows.UI.Xaml.Controls.ListViewBase"/></param>
+    /// <param name="obj">The <see cref="ListViewBase"/></param>
     /// <param name="value">The connected animation key</param>
     public static void SetListItemKey(DependencyObject obj, string value)
     {
@@ -73,7 +73,7 @@ public static class Connected
     /// <summary>
     /// Gets the name of the element in the <see cref="DataTemplate"/> that is animated
     /// </summary>
-    /// <param name="obj">The <see cref="Windows.UI.Xaml.Controls.ListViewBase"/></param>
+    /// <param name="obj">The <see cref="ListViewBase"/></param>
     /// <returns>The name of the element being animated</returns>
     public static string GetListItemElementName(DependencyObject obj)
     {
@@ -83,7 +83,7 @@ public static class Connected
     /// <summary>
     /// Sets the name of the element in the <see cref="DataTemplate"/> that is animated
     /// </summary>
-    /// <param name="obj">The <see cref="Windows.UI.Xaml.Controls.ListViewBase"/></param>
+    /// <param name="obj">The <see cref="ListViewBase"/></param>
     /// <param name="value">The name of the element to animate</param>
     public static void SetListItemElementName(DependencyObject obj, string value)
     {
