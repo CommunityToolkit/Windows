@@ -7,6 +7,7 @@
       xmlns:local="using:SettingsControlsExperiment.Samples"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+      xmlns:ui="using:CommunityToolkit.WinUI"
       mc:Ignorable="d">
     <Page.Resources>
         <ResourceDictionary>
@@ -18,10 +19,8 @@
     <StackPanel Spacing="4">
         <controls:SettingsExpander Description="The SettingsExpander can use ItemsSource to define its Items."
                                    Header="Settings Expander with ItemsSource"
+                                   HeaderIcon="{ui:FontIcon Glyph=&#xEA37;}"
                                    ItemsSource="{x:Bind MyDataSet}">
-            <controls:SettingsExpander.HeaderIcon>
-                <FontIcon Glyph="&#xEA37;" />
-            </controls:SettingsExpander.HeaderIcon>
             <controls:SettingsExpander.ItemTemplate>
                 <DataTemplate x:DataType="local:MyDataModel">
                     <controls:SettingsCard Description="{x:Bind Info}"
@@ -53,10 +52,8 @@
 
         <controls:SettingsExpander Description="SettingsExpander can use a DataTemplate, DataTemplateSelector, or IElementFactory for its ItemTemplate."
                                    Header="Settings Expander with a custom ItemTemplate"
+                                   HeaderIcon="{ui:FontIcon Glyph=&#xE8FD;}"
                                    ItemsSource="{x:Bind MyDataSet}">
-            <controls:SettingsExpander.HeaderIcon>
-                <FontIcon Glyph="&#xEA37;" />
-            </controls:SettingsExpander.HeaderIcon>
             <controls:SettingsExpander.ItemTemplate>
                 <local:MyDataModelTemplateSelector>
                     <local:MyDataModelTemplateSelector.ButtonTemplate>

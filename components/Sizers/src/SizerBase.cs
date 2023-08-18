@@ -7,7 +7,7 @@ using CommunityToolkit.WinUI.Controls.Automation.Peers;
 namespace CommunityToolkit.WinUI.Controls;
 
 /// <summary>
-/// Base class for splitting/resizing type controls like <see cref="GridSplitter"/> and <see cref="ContentSizer"/>. Acts similar to an enlarged <see cref="Windows.UI.Xaml.Controls.Primitives.Thumb"/> type control, but with keyboard support. Subclasses should override the various abstract methods here to implement their behavior.
+/// Base class for splitting/resizing type controls like <see cref="GridSplitter"/> and <see cref="ContentSizer"/>. Acts similar to an enlarged <see cref="Thumb"/> type control, but with keyboard support. Subclasses should override the various abstract methods here to implement their behavior.
 /// </summary>
 
 [TemplateVisualState(Name = NormalState, GroupName = CommonStates)]

@@ -4,6 +4,12 @@
 
 namespace CommunityToolkit.WinUI.Animations;
 
+#if WINUI2
+using Windows.UI.Composition;
+#else
+using Microsoft.UI.Composition;
+#endif
+
 /// <summary>
 /// Indicates a property of a <see cref="Visual"/> object.
 /// </summary>
