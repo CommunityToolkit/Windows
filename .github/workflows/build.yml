@@ -201,6 +201,15 @@ jobs:
           dotnet tool install --global dotnet-dump
           dotnet-dump analyze ${{ steps.detect-dump.outputs.DUMP_FILE }} -c "clrstack" -c "pe -lines" -c "exit"
 
+      - name: Upload Package List
+        uses: actions/upload-artifact@v3
+        # TODO: if: ${{ env.IS_PR == false }}
+        with:
+          name: nuget-list
+          if-no-files-found: error
+          path: |
+            ${{ github.workspace }}/.github/workflows/SignClientFileList.txt
+
       # if we're not doing a PR build then we upload our packages so we can sign as a separate job.
       - name: Upload Packages as Artifacts
         uses: actions/upload-artifact@v3
@@ -224,15 +233,17 @@ jobs:
         platform: [WinUI2, WinUI3]
 
     steps:
-      # TODO: Just upload/download file list file to build artifact as in example?
-      - name: Checkout Repository
-        uses: actions/checkout@v3
-
       - name: Install .NET SDK v${{ env.DOTNET_VERSION }}
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
+      - name: Download Package List
+        uses: actions/download-artifact@v3
+        with:
+          name: nuget-list
+          path: ./
+  
       - name: Download built packages for ${{ matrix.platform }}
         uses: actions/download-artifact@v3
         with:
@@ -247,7 +258,7 @@ jobs:
           ./tools/sign code azure-key-vault
           **/*.nupkg
           --base-directory "${{ github.workspace }}/packages"
-          --file-list "${{ github.workspace }}/.github/workflows/SignClientFileList.txt"
+          --file-list "${{ github.workspace }}/SignClientFileList.txt"
           --timestamp-url "http://timestamp.digicert.com"
           --publisher-name ".NET Foundation"
           --description "Windows Community Toolkit"
