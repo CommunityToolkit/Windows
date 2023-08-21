@@ -1,0 +1,82 @@
+﻿<Page x:Class="MediaExperiment.Samples.EffectAnimationsSample"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:animations="using:CommunityToolkit.WinUI.Animations"
+      xmlns:behaviors="using:CommunityToolkit.WinUI.Behaviors"
+      xmlns:interactions="using:Microsoft.Xaml.Interactions.Core"
+      xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+      xmlns:media="using:CommunityToolkit.WinUI.Media">
+
+    <Grid>
+        <Border Height="320">
+            <Image VerticalAlignment="Center"
+                   Source="ms-appx:///Assets/Bloom.jpg" />
+        </Border>
+
+        <TextBlock HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   FontSize="36"
+                   FontWeight="SemiBold"
+                   Foreground="White"
+                   Text="This is sample text"
+                   TextWrapping="Wrap" />
+
+        <media:UIElementExtensions.VisualFactory>
+            <media:PipelineVisualFactory>
+                <media:LuminanceToAlphaEffect />
+
+                <media:OpacityEffect Value="0.4" />
+
+                <media:BlendEffect Mode="Multiply"
+                                   Source="{media:BackdropSource}" />
+
+                <media:BlurEffect x:Name="ImageBlurEffect"
+                                  Amount="32"
+                                  IsAnimatable="True" />
+
+                <media:SaturationEffect x:Name="ImageSaturationEffect"
+                                        IsAnimatable="True"
+                                        Value="0" />
+
+                <media:ExposureEffect x:Name="ImageExposureEffect"
+                                      Amount="1"
+                                      IsAnimatable="True" />
+            </media:PipelineVisualFactory>
+        </media:UIElementExtensions.VisualFactory>
+
+        <animations:Explicit.Animations>
+            <animations:AnimationSet x:Name="ClipAnimation">
+                <animations:AnimationScope EasingMode="EaseOut"
+                                           Duration="0:0:3">
+
+                    <animations:ClipAnimation From="0,0,1280,0"
+                                              To="0" />
+
+                    <animations:TranslationAnimation From="32,0,0"
+                                                     To="0" />
+
+                    <animations:ScaleAnimation From="1.1"
+                                               To="1" />
+
+                    <animations:BlurEffectAnimation Target="{x:Bind ImageBlurEffect}"
+                                                    From="32"
+                                                    To="0" />
+
+                    <animations:SaturationEffectAnimation Target="{x:Bind ImageSaturationEffect}"
+                                                          From="0"
+                                                          To="1.2" />
+
+                    <animations:ExposureEffectAnimation Target="{x:Bind ImageExposureEffect}"
+                                                        From="1"
+                                                        To="0" />
+                </animations:AnimationScope>
+            </animations:AnimationSet>
+        </animations:Explicit.Animations>
+
+        <interactivity:Interaction.Behaviors>
+            <interactions:EventTriggerBehavior EventName="Loaded">
+                <behaviors:StartAnimationAction Animation="{x:Bind ClipAnimation}" />
+            </interactions:EventTriggerBehavior>
+        </interactivity:Interaction.Behaviors>
+    </Grid>
+</Page>

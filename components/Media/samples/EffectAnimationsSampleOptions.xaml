@@ -1,0 +1,49 @@
+﻿<Page x:Class="MediaExperiment.Samples.EffectAnimationsSampleOptions"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <StackPanel x:Name="RootOptionsPanel"
+                Spacing="8">
+
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="OrientationStates">
+                <VisualState x:Name="DefaultLayout">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="{StaticResource Breakpoint1008Plus}" />
+                    </VisualState.StateTriggers>
+                </VisualState>
+
+                <VisualState x:Name="VerticalLayout">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="{StaticResource Breakpoint641Plus}" />
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="RootOptionsPanel.Orientation" Value="Horizontal" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <Button Click="OnStartAnimationButton_Clicked">
+            <Button.Content>
+                <StackPanel Orientation="Horizontal"
+                            Spacing="8">
+                    <FontIcon FontSize="16"
+                              Glyph="&#xE768;" />
+                    <TextBlock Text="Play animation" />
+                </StackPanel>
+            </Button.Content>
+        </Button>
+
+        <Button Click="OnStopAnimationButton_Clicked">
+            <Button.Content>
+                <StackPanel Orientation="Horizontal"
+                            Spacing="8">
+                    <FontIcon FontSize="16"
+                              Glyph="&#xE71A;" />
+                    <TextBlock Text="Stop animation" />
+                </StackPanel>
+            </Button.Content>
+        </Button>
+    </StackPanel>
+</Page>
