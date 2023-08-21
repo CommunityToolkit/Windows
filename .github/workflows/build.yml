@@ -69,7 +69,7 @@ jobs:
       # faux-ternary expression to select which platforms to build for each platform vs. duplicating step below.
       TARGET_PLATFORMS: ${{ matrix.platform != 'WinUI3' && 'all' || 'all-uwp' }}
       TEST_PLATFORM: ${{ matrix.platform != 'WinUI3' && 'UWP' || 'WinAppSdk' }}
-      VERSION_PROPERTY: ${{ github.ref == 'refs/heads/main' && format('-p:PreviewVersion=build.{0}', github.run_number) || format('-p:PreviewVersion=pull-{0}.{1}', github.event.number, github.run_number) }}
+      VERSION_PROPERTY: ${{ github.ref == 'refs/heads/main' && format('PreviewVersion=build.{0}', github.run_number) || format('PreviewVersion=pull-{0}.{1}', github.event.number, github.run_number) }}
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -127,19 +127,18 @@ jobs:
         working-directory: ./${{ env.MULTI_TARGET_DIRECTORY }}
         run: powershell -version 5.1 -command "./UseUnoWinUI.ps1 3" -ErrorAction Stop
 
-      # TODO: On Release we should get date from rel/ branch name
       - name: Format Date/Time of Commit for Package Version
-        id: version-date
+        if: ${{ env.IS_RELEASE == 'false' }}
         run: |
-          echo "VERSION_DATE=$(git log -1 --format=%cd --date=format:%y%m%d)" >> $env:GITHUB_OUTPUT
+          echo "VERSION_DATE=$(git log -1 --format=%cd --date=format:%y%m%d)" >> $env:GITHUB_ENV
 
       - name: MSBuild
-        run: msbuild.exe CommunityToolkit.AllComponents.sln /restore /nowarn:MSB4011 -p:Configuration=Release -m -p:DateForVersion=${{ steps.version-date.outputs.VERSION_DATE }} ${{ env.VERSION_PROPERTY }} ${{ env.ENABLE_DIAGNOSTICS == 'true' && '/bl' || '' }} -v:${{ env.MSBUILD_VERBOSITY }}
+        run: msbuild.exe CommunityToolkit.AllComponents.sln /restore /nowarn:MSB4011 -p:Configuration=Release -m -p:DateForVersion=${{ env.VERSION_DATE }};${{ env.VERSION_PROPERTY }}; ${{ env.ENABLE_DIAGNOSTICS == 'true' && '/bl' || '' }} -v:${{ env.MSBUILD_VERBOSITY }}
 
       # Build All Packages
       - name: pack experiments
         working-directory: ./tooling/Scripts/
-        run: ./PackEachExperiment.ps1 -extraBuildProperties "-p:DateForVersion=${{ steps.version-date.outputs.VERSION_DATE }} ${{ env.VERSION_PROPERTY }}"
+        run: ./PackEachExperiment.ps1 -extraBuildProperties "-p:DateForVersion=${{ env.VERSION_DATE }};${{ env.VERSION_PROPERTY }};"
 
       # Push Pull Request Packages to our DevOps Artifacts Feed (see nuget.config)
       - name: Push Pull Request Packages
