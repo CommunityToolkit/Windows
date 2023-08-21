@@ -24,7 +24,6 @@ env:
   COREHOST_TRACEFILE: corehosttrace.log
   MULTI_TARGET_DIRECTORY: tooling/MultiTarget
   HEADS_DIRECTORY: tooling/ProjectHeads
-  COMMIT_DATE: ${{ github.event.repository.updated_at }}
   IS_MAIN: ${{ github.ref == 'refs/heads/main' }}
   IS_PR: ${{ startsWith(github.ref, 'refs/pull/') }}
   IS_RELEASE: ${{ startsWith(github.ref, 'refs/heads/rel/') }}
@@ -132,7 +131,7 @@ jobs:
       - name: Format Date/Time of Commit for Package Version
         id: version-date
         run: |
-          echo "VERSION_DATE=$(Get-Date $env:COMMIT_DATE -Format 'yyMMdd')" >> $env:GITHUB_OUTPUT
+          echo "VERSION_DATE=$(git log -1 --format=%cd --date=format:%y%m%d)" >> $env:GITHUB_OUTPUT
 
       - name: MSBuild
         run: msbuild.exe CommunityToolkit.AllComponents.sln /restore /nowarn:MSB4011 -p:Configuration=Release -m -p:DateForVersion=${{ steps.version-date.outputs.VERSION_DATE }} ${{ env.VERSION_PROPERTY }} ${{ env.ENABLE_DIAGNOSTICS == 'true' && '/bl' || '' }} -v:${{ env.MSBUILD_VERBOSITY }}
