@@ -9,7 +9,7 @@
 
     <Border Height="280">
         <Image VerticalAlignment="Center"
-               Source="ms-appx:///Assets/Wallpaper.png" />
+               Source="ms-appx:///Assets/Bloom.jpg" />
 
         <media:UIElementExtensions.VisualFactory>
             <media:PipelineVisualFactory>

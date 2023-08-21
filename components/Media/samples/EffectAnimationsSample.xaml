@@ -10,7 +10,7 @@
     <Grid>
         <Border Height="320">
             <Image VerticalAlignment="Center"
-                   Source="ms-appx:///Assets/Wallpaper.png" />
+                   Source="ms-appx:///Assets/Bloom.jpg" />
         </Border>
 
         <TextBlock HorizontalAlignment="Center"
