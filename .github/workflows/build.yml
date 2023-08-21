@@ -69,7 +69,7 @@ jobs:
       # faux-ternary expression to select which platforms to build for each platform vs. duplicating step below.
       TARGET_PLATFORMS: ${{ matrix.platform != 'WinUI3' && 'all' || 'all-uwp' }}
       TEST_PLATFORM: ${{ matrix.platform != 'WinUI3' && 'UWP' || 'WinAppSdk' }}
-      VERSION_PROPERTY: ${{ github.ref == 'refs/heads/main' && format('PreviewVersion=build.{0}', github.run_number) || format('PreviewVersion=pull-{0}.{1}', github.event.number, github.run_number) }}
+      VERSION_PROPERTY: ${{ github.ref == 'refs/heads/main' && format('build.{0}', github.run_number) || format('pull-{0}.{1}', github.event.number, github.run_number) }}
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -133,12 +133,20 @@ jobs:
           echo "VERSION_DATE=$(git log -1 --format=%cd --date=format:%y%m%d)" >> $env:GITHUB_ENV
 
       - name: MSBuild
-        run: msbuild.exe CommunityToolkit.AllComponents.sln /restore /nowarn:MSB4011 -p:Configuration=Release -m -p:DateForVersion=${{ env.VERSION_DATE }};${{ env.VERSION_PROPERTY }}; ${{ env.ENABLE_DIAGNOSTICS == 'true' && '/bl' || '' }} -v:${{ env.MSBUILD_VERBOSITY }}
+        run: >
+          msbuild.exe /restore /nowarn:MSB4011
+          /p:Configuration=Release
+          /m
+          /p:DateForVersion=${{ env.VERSION_DATE }}
+          /p:PreviewVersion=${{ env.VERSION_PROPERTY }}
+          ${{ env.ENABLE_DIAGNOSTICS == 'true' && '/bl' || '' }}
+          /v:${{ env.MSBUILD_VERBOSITY }}
+          CommunityToolkit.AllComponents.sln
 
       # Build All Packages
       - name: pack experiments
         working-directory: ./tooling/Scripts/
-        run: ./PackEachExperiment.ps1 -extraBuildProperties "-p:DateForVersion=${{ env.VERSION_DATE }};${{ env.VERSION_PROPERTY }};"
+        run: ./PackEachExperiment.ps1 -date ${{ env.VERSION_DATE }} -postfix ${{ env.VERSION_PROPERTY }}
 
       # Push Pull Request Packages to our DevOps Artifacts Feed (see nuget.config)
       - name: Push Pull Request Packages
