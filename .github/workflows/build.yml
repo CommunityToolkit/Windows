@@ -67,7 +67,7 @@ jobs:
 
     env:
       # faux-ternary expression to select which platforms to build for each platform vs. duplicating step below.
-      TARGET_PLATFORMS: ${{ matrix.platform != 'WinUI3' && 'all' || 'all-uwp' }}
+      TARGET_PLATFORMS: all
       TEST_PLATFORM: ${{ matrix.platform != 'WinUI3' && 'UWP' || 'WinAppSdk' }}
       VERSION_PROPERTY: ${{ github.ref == 'refs/heads/main' && format('build.{0}', github.run_number) || format('pull-{0}.{1}', github.event.number, github.run_number) }}
 
@@ -132,6 +132,15 @@ jobs:
         run: |
           echo "VERSION_DATE=$(git log -1 --format=%cd --date=format:%y%m%d)" >> $env:GITHUB_ENV
 
+      # Semver regex: https://regex101.com/r/Ly7O1x/3/
+      - name: Format Date/Time of Release Package Version
+        if: ${{ env.IS_RELEASE == 'true' }}
+        run: |
+          $ref = "${{ github.ref }}"
+          $ref -match "^refs/heads/rel/(?<major>0|[1-9]\d*)\.(?<minor>0|[1-9]\d*)\.(?<patch>0|[1-9]\d*)(?:-(?<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+(?<buildmetadata>[0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$"
+          echo "VERSION_DATE=$($matches['patch'])" >> $env:GITHUB_ENV
+          echo "VERSION_PROPERTY=$($matches['prerelease'])" >> $env:GITHUB_ENV
+
       - name: MSBuild
         run: >
           msbuild.exe /restore /nowarn:MSB4011
@@ -150,7 +159,7 @@ jobs:
 
       # Push Pull Request Packages to our DevOps Artifacts Feed (see nuget.config)
       - name: Push Pull Request Packages
-        if: ${{ env.IS_PR }}
+        if: ${{ env.IS_PR == 'true' }}
         run: |
           dotnet nuget add source https://pkgs.dev.azure.com/dotnet/CommunityToolkit/_packaging/CommunityToolkit-PullRequests/nuget/v3/index.json `
             --name PullRequests `
@@ -216,7 +225,7 @@ jobs:
 
       - name: Upload Package List
         uses: actions/upload-artifact@v3
-        # TODO: if: ${{ env.IS_PR == false }}
+        if: ${{ env.IS_PR == 'false' }}
         with:
           name: nuget-list
           if-no-files-found: error
@@ -226,7 +235,7 @@ jobs:
       # if we're not doing a PR build then we upload our packages so we can sign as a separate job.
       - name: Upload Packages as Artifacts
         uses: actions/upload-artifact@v3
-        # TODO: if: ${{ env.IS_PR == false }}
+        if: ${{ env.IS_PR == 'false' }}
         with:
           name: nuget-packages-${{ matrix.platform }}
           if-no-files-found: error
@@ -235,7 +244,7 @@ jobs:
 
   sign:
     needs: [build]
-    # TODO: if: ${{ github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/heads/rel/') }}
+    if: ${{ github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/heads/rel/') }}
     runs-on: windows-latest
     permissions:
       id-token: write # Required for requesting the JWT
@@ -283,17 +292,16 @@ jobs:
           --azure-key-vault-certificate "${{ secrets.SIGN_CERTIFICATE }}"
           --verbosity Information
 
-      # TODO: For now push to PR feed so we can validate if any of this works... change to MainLatest after
       - name: Push Signed Packages
         run: |
-          dotnet nuget add source https://pkgs.dev.azure.com/dotnet/CommunityToolkit/_packaging/CommunityToolkit-PullRequests/nuget/v3/index.json `
-            --name PullRequests `
+          dotnet nuget add source https://pkgs.dev.azure.com/dotnet/CommunityToolkit/_packaging/CommunityToolkit-MainLatest/nuget/v3/index.json `
+            --name MainLatest `
             --username dummy --password ${{ secrets.DEVOPS_PACKAGE_PUSH_TOKEN }}
-          dotnet nuget push "**/*.nupkg" --api-key dummy --source PullRequests --skip-duplicate
+          dotnet nuget push "**/*.nupkg" --api-key dummy --source MainLatest --skip-duplicate
 
       - name: Upload Signed Packages as Artifacts (for release)
         uses: actions/upload-artifact@v3
-        # TODO: if: ${{ env.IS_RELEASE }}
+        if: ${{ env.IS_RELEASE == 'true' }}
         with:
           name: signed-nuget-packages-${{ matrix.platform }}
           if-no-files-found: error
