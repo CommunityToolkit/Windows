@@ -1,0 +1,43 @@
+﻿<Page x:Class="MediaExperiment.Samples.OpacityEffectAnimationSample"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:ani="using:CommunityToolkit.WinUI.Animations"
+      xmlns:behaviors="using:CommunityToolkit.WinUI.Behaviors"
+      xmlns:interactions="using:Microsoft.Xaml.Interactions.Core"
+      xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+      xmlns:media="using:CommunityToolkit.WinUI.Media">
+
+    <Border Height="280">
+        <Image VerticalAlignment="Center"
+               Source="ms-appx:///Assets/Bloom.jpg" />
+
+        <media:UIElementExtensions.VisualFactory>
+            <media:PipelineVisualFactory>
+                <media:OpacityEffect x:Name="ImageOpacityEffect"
+                                     IsAnimatable="True"
+                                     Value="0.4" />
+            </media:PipelineVisualFactory>
+        </media:UIElementExtensions.VisualFactory>
+
+        <ani:Explicit.Animations>
+            <ani:AnimationSet x:Name="OpacityAnimation"
+                              IsSequential="True">
+                <ani:OpacityEffectAnimation Target="{x:Bind ImageOpacityEffect}"
+                                            From="1"
+                                            To="0"
+                                            Duration="0:0:2" />
+
+                <ani:OpacityEffectAnimation Target="{x:Bind ImageOpacityEffect}"
+                                            From="0"
+                                            To="1"
+                                            Duration="0:0:2" />
+            </ani:AnimationSet>
+        </ani:Explicit.Animations>
+
+        <interactivity:Interaction.Behaviors>
+            <interactions:EventTriggerBehavior EventName="Loaded">
+                <behaviors:StartAnimationAction Animation="{x:Bind OpacityAnimation}" />
+            </interactions:EventTriggerBehavior>
+        </interactivity:Interaction.Behaviors>
+    </Border>
+</Page>
