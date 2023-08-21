@@ -8,17 +8,17 @@
       xmlns:media="using:CommunityToolkit.WinUI.Media">
 
     <Grid>
-        <Border MaxHeight="500">
+        <Border Height="320">
             <Image VerticalAlignment="Center"
-                   Source="ms-appx:///Assets/SpeedTripleAtristsPoint.jpg"
-                   Stretch="UniformToFill" />
+                   Source="ms-appx:///Assets/Wallpaper.png" />
         </Border>
 
         <TextBlock HorizontalAlignment="Center"
                    VerticalAlignment="Center"
-                   FontSize="52"
-                   FontWeight="Bold"
-                   Text="THIS IS SAMPLE TEXT"
+                   FontSize="36"
+                   FontWeight="SemiBold"
+                   Foreground="White"
+                   Text="This is sample text"
                    TextWrapping="Wrap" />
 
         <media:UIElementExtensions.VisualFactory>

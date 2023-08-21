@@ -7,11 +7,9 @@
       xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
       xmlns:media="using:CommunityToolkit.WinUI.Media">
 
-    <Border MaxWidth="700"
-            MaxHeight="400">
+    <Border Height="280">
         <Image VerticalAlignment="Center"
-               Source="ms-appx:///Assets/SpeedTripleAtristsPoint.jpg"
-               Stretch="UniformToFill" />
+               Source="ms-appx:///Assets/Wallpaper.png" />
 
         <media:UIElementExtensions.VisualFactory>
             <media:PipelineVisualFactory>
@@ -29,14 +27,14 @@
                                                 Target="{x:Bind ImageHueRotationEffect}"
                                                 From="0"
                                                 To="6"
-                                                Duration="0:0:5" />
+                                                Duration="0:0:3" />
 
                 <ani:HueRotationEffectAnimation EasingMode="EaseOut"
                                                 EasingType="Linear"
                                                 Target="{x:Bind ImageHueRotationEffect}"
                                                 From="6"
                                                 To="0"
-                                                Duration="0:0:5" />
+                                                Duration="0:0:3" />
             </ani:AnimationSet>
         </ani:Explicit.Animations>
 

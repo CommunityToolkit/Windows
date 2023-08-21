@@ -7,11 +7,9 @@
       xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
       xmlns:media="using:CommunityToolkit.WinUI.Media">
 
-    <Border MaxWidth="700"
-            MaxHeight="400">
+    <Border Height="280">
         <Image VerticalAlignment="Center"
-               Source="ms-appx:///Assets/SpeedTripleAtristsPoint.jpg"
-               Stretch="UniformToFill" />
+               Source="ms-appx:///Assets/Wallpaper.png" />
 
         <media:UIElementExtensions.VisualFactory>
             <media:PipelineVisualFactory>
@@ -28,14 +26,14 @@
                                          Target="{x:Bind ImageBlurEffect}"
                                          From="0"
                                          To="8"
-                                         Duration="0:0:5" />
+                                         Duration="0:0:3" />
 
                 <ani:BlurEffectAnimation EasingMode="EaseOut"
                                          EasingType="Linear"
                                          Target="{x:Bind ImageBlurEffect}"
                                          From="8"
                                          To="0"
-                                         Duration="0:0:5" />
+                                         Duration="0:0:3" />
             </ani:AnimationSet>
         </ani:Explicit.Animations>
 

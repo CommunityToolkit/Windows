@@ -7,11 +7,9 @@
       xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
       xmlns:media="using:CommunityToolkit.WinUI.Media">
 
-    <Border MaxWidth="700"
-            MaxHeight="400">
+    <Border Height="280">
         <Image VerticalAlignment="Center"
-               Source="ms-appx:///Assets/SpeedTripleAtristsPoint.jpg"
-               Stretch="UniformToFill" />
+               Source="ms-appx:///Assets/Wallpaper.png" />
 
         <media:UIElementExtensions.VisualFactory>
             <media:PipelineVisualFactory>

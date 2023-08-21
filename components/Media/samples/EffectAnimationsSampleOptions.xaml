@@ -24,10 +24,26 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-        <Button Click="OnStartAnimationButton_Clicked"
-                Content="Start animation" />
+        <Button Click="OnStartAnimationButton_Clicked">
+            <Button.Content>
+                <StackPanel Orientation="Horizontal"
+                            Spacing="8">
+                    <FontIcon FontSize="16"
+                              Glyph="&#xE768;" />
+                    <TextBlock Text="Play animation" />
+                </StackPanel>
+            </Button.Content>
+        </Button>
 
-        <Button Click="OnStopAnimationButton_Clicked"
-                Content="Stop animation" />
+        <Button Click="OnStopAnimationButton_Clicked">
+            <Button.Content>
+                <StackPanel Orientation="Horizontal"
+                            Spacing="8">
+                    <FontIcon FontSize="16"
+                              Glyph="&#xE71A;" />
+                    <TextBlock Text="Stop animation" />
+                </StackPanel>
+            </Button.Content>
+        </Button>
     </StackPanel>
 </Page>

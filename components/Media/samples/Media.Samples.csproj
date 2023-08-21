@@ -7,8 +7,8 @@
   <Import Project="$(ToolingDirectory)\ToolkitComponent.SampleProject.props" />
   
   <ItemGroup>
-    <None Remove="Assets\SpeedTripleAtristsPoint.jpg" />
-    <Content Include="Assets\SpeedTripleAtristsPoint.jpg">
+    <None Remove="Assets\Wallpaper.png" />
+    <Content Include="Assets\Wallpaper.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
