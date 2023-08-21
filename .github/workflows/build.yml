@@ -24,6 +24,7 @@ env:
   COREHOST_TRACEFILE: corehosttrace.log
   MULTI_TARGET_DIRECTORY: tooling/MultiTarget
   HEADS_DIRECTORY: tooling/ProjectHeads
+  COMMIT_DATE: ${{ github.event.repository.updated_at }}
   IS_MAIN: ${{ github.ref == 'refs/heads/main' }}
   IS_PR: ${{ startsWith(github.ref, 'refs/pull/') }}
   IS_RELEASE: ${{ startsWith(github.ref, 'refs/heads/rel/') }}
@@ -127,13 +128,19 @@ jobs:
         working-directory: ./${{ env.MULTI_TARGET_DIRECTORY }}
         run: powershell -version 5.1 -command "./UseUnoWinUI.ps1 3" -ErrorAction Stop
 
+      # TODO: On Release we should get date from rel/ branch name
+      - name: Format Date/Time of Commit for Package Version
+        id: version-date
+        run: |
+          echo "VERSION_DATE=$(Get-Date $env:COMMIT_DATE -Format 'yyMMdd')" >> $env:GITHUB_OUTPUT
+
       - name: MSBuild
-        run: msbuild.exe CommunityToolkit.AllComponents.sln /restore /nowarn:MSB4011 -p:Configuration=Release -m ${{ env.VERSION_PROPERTY }} ${{ env.ENABLE_DIAGNOSTICS == 'true' && '/bl' || '' }} -v:${{ env.MSBUILD_VERBOSITY }}
+        run: msbuild.exe CommunityToolkit.AllComponents.sln /restore /nowarn:MSB4011 -p:Configuration=Release -m -p:DateForVersion=${{ steps.version-date.outputs.VERSION_DATE }} ${{ env.VERSION_PROPERTY }} ${{ env.ENABLE_DIAGNOSTICS == 'true' && '/bl' || '' }} -v:${{ env.MSBUILD_VERBOSITY }}
 
       # Build All Packages
       - name: pack experiments
         working-directory: ./tooling/Scripts/
-        run: ./PackEachExperiment.ps1 -extraBuildProperties "${{ env.VERSION_PROPERTY }}"
+        run: ./PackEachExperiment.ps1 -extraBuildProperties "-p:DateForVersion=${{ steps.version-date.outputs.VERSION_DATE }} ${{ env.VERSION_PROPERTY }}"
 
       # Push Pull Request Packages to our DevOps Artifacts Feed (see nuget.config)
       - name: Push Pull Request Packages
