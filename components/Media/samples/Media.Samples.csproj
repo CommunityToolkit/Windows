@@ -5,4 +5,11 @@
 
   <!-- Sets this up as a toolkit component's sample project -->
   <Import Project="$(ToolingDirectory)\ToolkitComponent.SampleProject.props" />
+  
+  <ItemGroup>
+    <None Remove="Assets\Bloom.jpg" />
+    <Content Include="Assets\Bloom.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 </Project>

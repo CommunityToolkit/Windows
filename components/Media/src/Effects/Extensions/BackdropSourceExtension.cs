@@ -2,7 +2,6 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
-#if WINDOWS_UWP
 
 using CommunityToolkit.WinUI.Media.Pipelines;
 
@@ -14,20 +13,24 @@ namespace CommunityToolkit.WinUI.Media;
 [MarkupExtensionReturnType(ReturnType = typeof(PipelineBuilder))]
 public sealed class BackdropSourceExtension : MarkupExtension
 {
-    /// <summary>
+    #if WINUI2
     /// Gets or sets the background source mode for the effect (the default is <see cref="AcrylicBackgroundSource.Backdrop"/>).
     /// </summary>
     public AcrylicBackgroundSource BackgroundSource { get; set; } = AcrylicBackgroundSource.Backdrop;
+    #endif
 
     /// <inheritdoc/>
     protected override object ProvideValue()
     {
+#if WINUI3
+        return PipelineBuilder.FromBackdrop();
+#elif WINUI2
         return BackgroundSource switch
         {
             AcrylicBackgroundSource.Backdrop => PipelineBuilder.FromBackdrop(),
             AcrylicBackgroundSource.HostBackdrop => PipelineBuilder.FromHostBackdrop(),
             _ => throw new ArgumentException($"Invalid source for backdrop effect: {BackgroundSource}")
         };
+#endif
     }
 }
-#endif
