@@ -1,0 +1,32 @@
+<Project Sdk="MSBuild.Sdk.Extras/3.0.23">
+  <PropertyGroup>
+    <ToolkitComponentName>Controls</ToolkitComponentName>
+    <Description>This package is a meta-package which contains all the Controls that are part of the Windows Community Toolkit. For better optimization of app package size, it is recommended before release to remove this package and include only the packages of the controls used directly, see https://aka.ms/wct/optimize.</Description>
+
+    <!-- Rns suffix is required for namespaces shared across projects. See https://github.com/CommunityToolkit/Labs-Windows/issues/152 -->
+    <RootNamespace>CommunityToolkit.WinUI.Controls.ControlsRns</RootNamespace>
+  </PropertyGroup>
+
+  <!-- Sets this up as a toolkit component's source project -->
+  <Import Project="$(ToolingDirectory)\ToolkitComponent.SourceProject.props" />
+
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)ReadMe.txt" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\CameraPreview\src\CommunityToolkit.WinUI.Controls.CameraPreview.csproj" />
+    <ProjectReference Include="..\..\HeaderedControls\src\CommunityToolkit.WinUI.Controls.HeaderedControls.csproj" />
+    <ProjectReference Include="..\..\ImageCropper\src\CommunityToolkit.WinUI.Controls.ImageCropper.csproj" />
+    <ProjectReference Include="..\..\LayoutTransformControl\src\CommunityToolkit.WinUI.Controls.LayoutTransformControl.csproj" />
+    <ProjectReference Include="..\..\MetadataControl\src\CommunityToolkit.WinUI.Controls.MetadataControl.csproj" />
+    <ProjectReference Include="..\..\Primitives\src\CommunityToolkit.WinUI.Controls.Primitives.csproj" />
+    <ProjectReference Include="..\..\RadialGauge\src\CommunityToolkit.WinUI.Controls.RadialGauge.csproj" />
+    <ProjectReference Include="..\..\RangeSelector\src\CommunityToolkit.WinUI.Controls.RangeSelector.csproj" />
+    <ProjectReference Include="..\..\RichSuggestBox\src\CommunityToolkit.WinUI.Controls.RichSuggestBox.csproj" />
+    <ProjectReference Include="..\..\Segmented\src\CommunityToolkit.WinUI.Controls.Segmented.csproj" />
+    <ProjectReference Include="..\..\SettingsControls\src\CommunityToolkit.WinUI.Controls.SettingsControls.csproj" />
+    <ProjectReference Include="..\..\Sizers\src\CommunityToolkit.WinUI.Controls.Sizers.csproj" />
+    <ProjectReference Include="..\..\TokenizingTextBox\src\CommunityToolkit.WinUI.Controls.TokenizingTextBox.csproj" />
+  </ItemGroup>
+</Project>
