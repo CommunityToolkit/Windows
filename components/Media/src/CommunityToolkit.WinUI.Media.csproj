@@ -12,5 +12,6 @@
 
   <ItemGroup>
     <ProjectReference Include="$(ToolkitAnimationSourceProject)" />
+    <ProjectReference Include="$(ToolkitExtensionsSourceProject)" />
   </ItemGroup>
 </Project>
