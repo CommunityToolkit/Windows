@@ -6,21 +6,20 @@ namespace AnimationsExperiment.Samples.ConnectedAnimations;
 
 public sealed partial class ThirdPage : Page
 {
-    private PhotoDataItem item;
+    private PhotoDataItem item = new();
 
-#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
     public ThirdPage()
-#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
     {
         this.InitializeComponent();
     }
 
     protected override void OnNavigatedTo(NavigationEventArgs e)
     {
+        if (e.Parameter is PhotoDataItem photoItem)
+        {
+            item = photoItem;
+        }
 
-#pragma warning disable CS8601 // Possible null reference assignment.
-            item = e.Parameter as PhotoDataItem;
-#pragma warning restore CS8601 // Possible null reference assignment.
         base.OnNavigatedTo(e);
     }
 }

@@ -8,10 +8,9 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:ui="CommunityToolkit.WinUI"
       mc:Ignorable="d">
-    <Grid>
+    <Grid Height="480">
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"
-                           MinHeight="420" />
+            <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Canvas>

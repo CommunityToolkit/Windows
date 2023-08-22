@@ -19,7 +19,7 @@ icon: Assets/ConnectedAnimations.png
 
 The Connected Animations XAML Attached Properties enable connected animations to be defined directly in your XAML code by simply adding a Key to the element that should animate. There are also attached properties to enable coordinated animations and animations in lists and grids.
 
-> [!Sample AnimationsImplicitSample]
+> [!Sample ConnectedAnimationsSample]
 
 ## Syntax
 
