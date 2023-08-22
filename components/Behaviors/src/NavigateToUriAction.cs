@@ -7,7 +7,7 @@ using Microsoft.Xaml.Interactivity;
 namespace CommunityToolkit.WinUI.Behaviors;
 
 /// <summary>
-/// NavigateToUriAction represents an action that allows navigate to a specified URL defined in XAML, similiar to a <seealso cref="Hyperlink"/> and <seealso cref="HyperlinkButton"/>. Not action will be invoked if the Uri cannot be navigated to.
+/// NavigateToUriAction represents an action that allows navigate to a specified URL defined in XAML, similiar to a Hyperlink and HyperlinkButton. No action will be invoked if the Uri cannot be navigated to.
 /// </summary>
 public sealed partial class NavigateToUriAction : DependencyObject, IAction
 {
