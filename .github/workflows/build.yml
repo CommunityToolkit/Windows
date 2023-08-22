@@ -24,6 +24,9 @@ env:
   COREHOST_TRACEFILE: corehosttrace.log
   MULTI_TARGET_DIRECTORY: tooling/MultiTarget
   HEADS_DIRECTORY: tooling/ProjectHeads
+  IS_MAIN: ${{ github.ref == 'refs/heads/main' }}
+  IS_PR: ${{ startsWith(github.ref, 'refs/pull/') }}
+  IS_RELEASE: ${{ startsWith(github.ref, 'refs/heads/rel/') }}
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -54,7 +57,7 @@ jobs:
   # Build both Uno.UI/WinUI2/UWP and Uno.WinUI/WinUI3/WindowsAppSDK versions of our packages using a matrix
   build:
     needs: [Xaml-Style-Check]
-    runs-on: windows-latest
+    runs-on: windows-latest-large
 
     # See https://docs.github.com/actions/using-jobs/using-a-matrix-for-your-jobs
     strategy:
@@ -64,9 +67,9 @@ jobs:
 
     env:
       # faux-ternary expression to select which platforms to build for each platform vs. duplicating step below.
-      TARGET_PLATFORMS: ${{ matrix.platform != 'WinUI3' && 'all' || 'all-uwp' }}
+      TARGET_PLATFORMS: all
       TEST_PLATFORM: ${{ matrix.platform != 'WinUI3' && 'UWP' || 'WinAppSdk' }}
-      VERSION_PROPERTY: ${{ github.ref == 'refs/heads/main' && format('-p:PreviewVersion=build.{0}', github.run_number) || format('-p:PreviewVersion=pull-{0}.{1}', github.event.number, github.run_number) }}
+      VERSION_PROPERTY: ${{ github.ref == 'refs/heads/main' && format('build.{0}', github.run_number) || format('pull-{0}.{1}', github.event.number, github.run_number) }}
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -120,29 +123,48 @@ jobs:
         run: powershell -version 5.1 -command "./tooling/GenerateAllSolution.ps1 -IncludeHeads ${{ env.TEST_PLATFORM }}${{ env.ENABLE_DIAGNOSTICS == 'true' && ' -UseDiagnostics' || '' }}" -ErrorAction Stop
 
       - name: Enable Uno.WinUI (in WinUI3 matrix only)
+        if: ${{ matrix.platform == 'WinUI3' }}
         working-directory: ./${{ env.MULTI_TARGET_DIRECTORY }}
         run: powershell -version 5.1 -command "./UseUnoWinUI.ps1 3" -ErrorAction Stop
-        if: ${{ matrix.platform == 'WinUI3' }}
+
+      - name: Format Date/Time of Commit for Package Version
+        if: ${{ env.IS_RELEASE == 'false' }}
+        run: |
+          echo "VERSION_DATE=$(git log -1 --format=%cd --date=format:%y%m%d)" >> $env:GITHUB_ENV
+
+      # Semver regex: https://regex101.com/r/Ly7O1x/3/
+      - name: Format Date/Time of Release Package Version
+        if: ${{ env.IS_RELEASE == 'true' }}
+        run: |
+          $ref = "${{ github.ref }}"
+          $ref -match "^refs/heads/rel/(?<major>0|[1-9]\d*)\.(?<minor>0|[1-9]\d*)\.(?<patch>0|[1-9]\d*)(?:-(?<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+(?<buildmetadata>[0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$"
+          echo "VERSION_DATE=$($matches['patch'])" >> $env:GITHUB_ENV
+          echo "VERSION_PROPERTY=$($matches['prerelease'])" >> $env:GITHUB_ENV
 
       - name: MSBuild
-        run: msbuild.exe CommunityToolkit.AllComponents.sln /restore /nowarn:MSB4011 -p:Configuration=Release -m ${{ env.VERSION_PROPERTY }} ${{ env.ENABLE_DIAGNOSTICS == 'true' && '/bl' || '' }} -v:${{ env.MSBUILD_VERBOSITY }}
+        run: >
+          msbuild.exe /restore /nowarn:MSB4011
+          /p:Configuration=Release
+          /m
+          /p:DateForVersion=${{ env.VERSION_DATE }}
+          /p:PreviewVersion=${{ env.VERSION_PROPERTY }}
+          ${{ env.ENABLE_DIAGNOSTICS == 'true' && '/bl' || '' }}
+          /v:${{ env.MSBUILD_VERBOSITY }}
+          CommunityToolkit.AllComponents.sln
 
       # Build All Packages
       - name: pack experiments
         working-directory: ./tooling/Scripts/
-        run: ./PackEachExperiment.ps1 -extraBuildProperties "${{ env.VERSION_PROPERTY }}"
+        run: ./PackEachExperiment.ps1 -date ${{ env.VERSION_DATE }} -postfix ${{ env.VERSION_PROPERTY }}
 
-      # Push Packages to our DevOps Artifacts Feed (see nuget.config)
-      - name: Add source (main)
-        if: ${{ github.ref == 'refs/heads/main' }}
-        run: dotnet nuget update source MainLatest --username dummy --password ${{ secrets.DEVOPS_PACKAGE_PUSH_TOKEN }}
-
-      - name: Add source (pull requests)
-        if: ${{ github.ref != 'refs/heads/main' }}
-        run: dotnet nuget add source https://pkgs.dev.azure.com/dotnet/CommunityToolkit/_packaging/CommunityToolkit-PullRequests/nuget/v3/index.json --name PullRequests --username dummy --password ${{ secrets.DEVOPS_PACKAGE_PUSH_TOKEN }}
-
-      - name: Push packages
-        run: dotnet nuget push "**/*.nupkg" --api-key dummy --source ${{ github.ref == 'refs/heads/main' && 'MainLatest' || 'PullRequests' }} --skip-duplicate
+      # Push Pull Request Packages to our DevOps Artifacts Feed (see nuget.config)
+      - name: Push Pull Request Packages (if not fork)
+        if: ${{ env.IS_PR == 'true' && github.event.pull_request.head.repo.full_name == github.repository && github.actor != 'dependabot[bot]' }}
+        run: |
+          dotnet nuget add source https://pkgs.dev.azure.com/dotnet/CommunityToolkit/_packaging/CommunityToolkit-PullRequests/nuget/v3/index.json `
+            --name PullRequests `
+            --username dummy --password ${{ secrets.DEVOPS_PACKAGE_PUSH_TOKEN }}
+          dotnet nuget push "**/*.nupkg" --api-key dummy --source PullRequests --skip-duplicate
 
       # Run tests
       - name: Setup VSTest Path
@@ -200,6 +222,122 @@ jobs:
         run: |
           dotnet tool install --global dotnet-dump
           dotnet-dump analyze ${{ steps.detect-dump.outputs.DUMP_FILE }} -c "clrstack" -c "pe -lines" -c "exit"
+
+      - name: Upload Package List
+        uses: actions/upload-artifact@v3
+        if: ${{ env.IS_PR == 'false' }}
+        with:
+          name: nuget-list
+          if-no-files-found: error
+          path: |
+            ${{ github.workspace }}/.github/workflows/SignClientFileList.txt
+
+      # if we're not doing a PR build (or it's a PR from a fork) then we upload our packages so we can sign as a separate job or have available to test.
+      - name: Upload Packages as Artifacts
+        uses: actions/upload-artifact@v3
+        if: ${{ env.IS_PR == 'false' || github.event.pull_request.head.repo.full_name != github.repository }}
+        with:
+          name: nuget-packages-${{ matrix.platform }}
+          if-no-files-found: error
+          path: |
+            **/*.nupkg
+
+  sign:
+    needs: [build]
+    if: ${{ github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/heads/rel/') }}
+    runs-on: windows-latest
+    permissions:
+      id-token: write # Required for requesting the JWT
+
+    strategy:
+      fail-fast: false # prevent one matrix pipeline from being cancelled if one fails, we want them both to run to completion.
+      matrix:
+        platform: [WinUI2, WinUI3]
+
+    steps:
+      - name: Install .NET SDK v${{ env.DOTNET_VERSION }}
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Download Package List
+        uses: actions/download-artifact@v3
+        with:
+          name: nuget-list
+          path: ./
+  
+      - name: Download built packages for ${{ matrix.platform }}
+        uses: actions/download-artifact@v3
+        with:
+          name: nuget-packages-${{ matrix.platform }}
+          path: ./packages
+
+      - name: Install Signing Tool
+        run: dotnet tool install --tool-path ./tools sign --version 0.9.1-beta.23356.1
+
+      - name: Sign Packages
+        run: >
+          ./tools/sign code azure-key-vault
+          **/*.nupkg
+          --base-directory "${{ github.workspace }}/packages"
+          --file-list "${{ github.workspace }}/SignClientFileList.txt"
+          --timestamp-url "http://timestamp.digicert.com"
+          --publisher-name ".NET Foundation"
+          --description "Windows Community Toolkit"
+          --description-url "https://github.com/CommunityToolkit/Windows"
+          --azure-key-vault-url "${{ secrets.SIGN_KEY_VAULT_URL }}"
+          --azure-key-vault-client-id ${{ secrets.SIGN_CLIENT_ID }}
+          --azure-key-vault-client-secret "${{ secrets.SIGN_CLIENT_SECRET }}"
+          --azure-key-vault-tenant-id ${{ secrets.SIGN_TENANT_ID }}
+          --azure-key-vault-certificate "${{ secrets.SIGN_CERTIFICATE }}"
+          --verbosity Information
+
+      - name: Push Signed Packages
+        run: |
+          dotnet nuget add source https://pkgs.dev.azure.com/dotnet/CommunityToolkit/_packaging/CommunityToolkit-MainLatest/nuget/v3/index.json `
+            --name MainLatest `
+            --username dummy --password ${{ secrets.DEVOPS_PACKAGE_PUSH_TOKEN }}
+          dotnet nuget push "**/*.nupkg" --api-key dummy --source MainLatest --skip-duplicate
+
+      - name: Upload Signed Packages as Artifacts (for release)
+        uses: actions/upload-artifact@v3
+        if: ${{ env.IS_RELEASE == 'true' }}
+        with:
+          name: signed-nuget-packages-${{ matrix.platform }}
+          if-no-files-found: error
+          path: |
+            ${{ github.workspace }}/packages/**/*.nupkg
+
+  release:
+    if: ${{ startsWith(github.ref, 'refs/heads/rel/') }}
+    needs: [sign]
+    environment: nuget-release-gate # This gates this job until manually approved
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false # prevent one matrix pipeline from being cancelled if one fails, we want them both to run to completion.
+      matrix:
+        platform: [WinUI2, WinUI3]
+
+    steps:
+      - name: Install .NET SDK v${{ env.DOTNET_VERSION }}
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Download signed packages for ${{ matrix.platform }}
+        uses: actions/download-artifact@v3
+        with:
+          name: signed-nuget-packages-${{ matrix.platform }}
+          path: ./packages
+
+      - name: Push to NuGet.org
+        run: >
+          dotnet nuget push
+          **/*.nupkg
+          --source https://api.nuget.org/v3/index.json
+          --api-key ${{ secrets.NUGET_PACKAGE_PUSH_TOKEN }}
+          --skip-duplicate
 
   wasm-linux:
     runs-on: ubuntu-latest
