@@ -6,10 +6,10 @@ using CommunityToolkit.WinUI.Behaviors;
 
 namespace BehaviorsExperiment.Samples;
 
-[ToolkitSample(id: nameof(NavigateToUriBehaviorSample), nameof(NavigateToUriBehavior), description: $"A sample demonstrating how to use {nameof(NavigateToUriBehavior)}.")]
-public sealed partial class NavigateToUriBehaviorSample : Page
+[ToolkitSample(id: nameof(NavigateToUriActionSample), nameof(NavigateToUriAction), description: $"A sample demonstrating how to use {nameof(NavigateToUriAction)}.")]
+public sealed partial class NavigateToUriActionSample : Page
 {
-    public NavigateToUriBehaviorSample()
+    public NavigateToUriActionSample()
     {
         this.InitializeComponent();
     }

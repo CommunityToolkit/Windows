@@ -43,7 +43,7 @@ A control only receives focus if it is enabled and loaded into the visual tree:
 Empty lists do not receive focus:
 > [!Sample FocusBehaviorListSample]
 
-## NavigateToUriBehavior
-This behavior allows you to define a Uri in XAML, similiar to a `HyperlinkButton`.
+## NavigateToUriAction
+This behavior allows you to define a Uri in XAML, similiar to a `Hyperlink` or `HyperlinkButton`. This allows you to use a `Button` and still define the Uri in XAML without wiring up the `Click` event in code-behind, or restyling a `HyperlinkButton`.
 
-> [!Sample NavigateToUriBehaviorSample]
+> [!Sample NavigateToUriActionSample]

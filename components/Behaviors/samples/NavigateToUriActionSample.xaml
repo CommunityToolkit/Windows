@@ -1,4 +1,4 @@
-﻿<Page x:Class="BehaviorsExperiment.Samples.NavigateToUriBehaviorSample"
+<Page x:Class="BehaviorsExperiment.Samples.NavigateToUriActionSample"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:behaviors="using:CommunityToolkit.WinUI.Behaviors"
@@ -8,7 +8,7 @@
     <Button Content="Click to navigate">
         <interactivity:Interaction.Behaviors>
             <core:EventTriggerBehavior EventName="Click">
-                <behaviors:NavigateToUriBehavior NavigateUri="https://aka.ms/toolkit/windows" />
+                <behaviors:NavigateToUriAction NavigateUri="https://aka.ms/toolkit/windows" />
             </core:EventTriggerBehavior>
         </interactivity:Interaction.Behaviors>
     </Button>
