@@ -1,7 +1,7 @@
 
-# 🧪 Windows Community Toolkit 🧰
+# Windows Community Toolkit 🧰
 
-![Windows Community Toolkit Labs Social Image](ToolkitHeader.png)
+![Windows Community Toolkit Labs Social Image](CommunityToolkit-Header.png)
 
 Welcome to the home of Windows Community Toolkit. Our components are built on top of [WinUI 2](https://aka.ms/winuigithub), [WinUI 3](https://aka.ms/winui3), and [Uno Platform](https://platform.uno)!
 
