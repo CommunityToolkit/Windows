@@ -14,16 +14,11 @@
                                Offset="4" />
 
         <!--  Because we have to specify the shadow target, this style can at most be at the Page level  -->
-        <Style BasedOn="{StaticResource DefaultButtonStyle}"
+        <Style BasedOn="{StaticResource AccentButtonStyle}"
                TargetType="Button">
             <!--  We must use an existing resource (defined above) as a style value here  -->
             <Setter Property="ui:Effects.Shadow" Value="{StaticResource CommonShadow}" />
             <Setter Property="HorizontalAlignment" Value="Center" />
-            <!--
-                We set a solid color for the background button otherwise the shadow bleeds through as
-                the new style is transparent. See AttachedCardShadow for proper element clipping.
-            -->
-            <Setter Property="Background" Value="Red" />
         </Style>
     </Page.Resources>
 
@@ -36,8 +31,8 @@
                 All buttons on this page have the shadow from the common style!
                 The Shadow definition is Shared!
             -->
-            <Button Content="I Have a Shadow!" />
-            <Button Content="I Also have a Shadow!" />
+            <Button Content="I have a Shadow!" />
+            <Button Content="I also have a Shadow!" />
         </StackPanel>
     </Grid>
 </Page>

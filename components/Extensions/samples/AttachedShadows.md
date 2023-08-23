@@ -2,14 +2,14 @@
 title: Attached Shadows
 author: michael-hawker
 description: Attached Shadows allow you to easily create shadow effects on elements.
-keywords: windows 10, windows 11, uwp, winui, winappsdk, windows community toolkit, shadow, shadows, dropshadow, dropshadowpanel, attachedshadow, attacheddropshadow, attachedcardshadow
+keywords: shadow, shadows, dropshadow, dropshadowpanel, attachedshadow, attacheddropshadow, attachedcardshadow
 dev_langs:
   - csharp
 category: Extensions
 subcategory: Media
 discussion-id: 0
 issue-id: 0
-icon: Assets/AttachedDropShadow.png
+icon: Assets/Shadow.png
 ---
 > **Platform APIs:** [`AttachedCardShadow`](/dotnet/api/microsoft.toolkit.uwp.ui.media.attachedcardshadow), [`AttachedDropShadow`](/dotnet/api/microsoft.toolkit.uwp.ui.attacheddropshadow)
 
@@ -45,8 +45,8 @@ The great benefit to the `AttachedCardShadow` is that no extra surface or elemen
 The example shows how easy it is to not only apply an `AttachedCardShadow` to an element, but use it in a style to apply to multiple elements as well:
 
 ```xaml
-    xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
-    xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"/>
+    xmlns:ui="using:CommunityToolkit.WinUI"
+    xmlns:media="using:CommunityToolkit.WinUI.Media"/>
 
     <Page.Resources>
         <media:AttachedCardShadow x:Key="CommonShadow" Offset="4"/>
@@ -111,12 +111,12 @@ Either type of Attached Shadow can be easily animated using the Toolkit's [`Anim
 The following example uses a combination of behaviors and animations apis to create an animated shadow effect when hovering over an image with an [`OffsetDropShadowAnimation`](/dotnet/api/microsoft.toolkit.uwp.ui.animations.offsetdropshadowanimation):
 
 ```xaml
-    xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
-    xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
+    xmlns:ui="using:CommunityToolkit.WinUI"
+    xmlns:media="using:CommunityToolkit.WinUI.Media"
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:interactions="using:Microsoft.Xaml.Interactions.Core"
-    xmlns:ani="using:Microsoft.Toolkit.Uwp.UI.Animations"
-    xmlns:behaviors="using:Microsoft.Toolkit.Uwp.UI.Behaviors"/>
+    xmlns:ani="using:CommunityToolkit.WinUI.Animations"
+    xmlns:behaviors="using:CommunityToolkit.WinUI.Behaviors"/>
 
     <Image Height="100" Width="100"
            Source="ms-appx:///Assets/Photos/Owl.jpg">

@@ -2,7 +2,7 @@
 title: TextBoxExtensions
 author: Sergio0694
 description: The TextBoxExtensions class provides extensions and additional functionality for the TextBox control.
-keywords: windows 10, uwp, windows community toolkit, uwp community toolkit, uwp toolkit, TextBoxMask, XAML
+keywords: TextBoxMask, XAML
 dev_langs:
   - csharp
 category: Extensions
@@ -12,11 +12,7 @@ issue-id: 0
 icon: Assets/Extensions.png
 ---
 
-# TextBoxExtensions
-
 The [`TextBoxExtensions`](/dotnet/api/microsoft.toolkit.uwp.ui.TextBoxExtensions) type provides additional features for the [`TextBox`](/uwp/api/windows.ui.xaml.controls.textbox) control through extension methods and attached properties.
-
-> **Platform APIs:** [`TextBoxExtensions`](/dotnet/api/microsoft.toolkit.uwp.ui.TextBoxExtensions), [`TextBoxExtensions.ValidationMode`](/dotnet/api/microsoft.toolkit.uwp.ui.TextBoxExtensions.ValidationMode), [`TextBoxExtensions.ValidationType`](/dotnet/api/microsoft.toolkit.uwp.ui.TextBoxExtensions.ValidationType), [`SurfaceDialOptions`](/dotnet/api/microsoft.toolkit.uwp.ui.SurfaceDialOptions)
 
 ## Text mask
 

@@ -6,7 +6,7 @@ keywords: Helpers, Theming, theme listerner, themes
 dev_langs:
   - csharp
 category: Helpers
-subcategory: Developer
+subcategory: System
 discussion-id: 0
 issue-id: 0
 icon: Assets/ThemeListener.png

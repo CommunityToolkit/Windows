@@ -2,7 +2,7 @@
 title: DispatcherQueueExtensions
 author: Sergio0694
 description: Helpers for executing code on a specific UI thread through a DispatcherQueue instance.
-keywords: windows 10, uwp, windows community toolkit, uwp community toolkit, uwp toolkit, extensions, winui3, xaml islands, dispatcher, dispatcherqueue, DispatcherHelper, DispatcherQueueExtensions
+keywords: dispatcher, dispatcherqueue, DispatcherHelper, DispatcherQueueExtensions
 dev_langs:
   - csharp
 category: Extensions
@@ -12,11 +12,7 @@ issue-id: 0
 icon: Assets/Extensions.png
 ---
 
-# DispatcherQueueExtensions
-
 The [`DispatcherQueueExtensions`](/dotnet/api/microsoft.toolkit.uwp.DispatcherQueueExtensions) type provides a collection of extensions methods for [`DispatcherQueue`](/uwp/api/windows.system.dispatcherqueue) objects that makes it easier to execute code on a specific UI thread. A `DispatcherQueue` instance can be retrieved and cached for later use, and then used through any of the available helper methods to dispatch a delegate invocation on it.
-
-> **Platform APIs:** [`DispatcherQueueExtensions`](/dotnet/api/microsoft.toolkit.uwp.DispatcherQueueExtensions)
 
 ## Syntax
 

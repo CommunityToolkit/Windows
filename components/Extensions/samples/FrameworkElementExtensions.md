@@ -2,7 +2,7 @@
 title: FrameworkElement Extensions
 author: Sergio0694
 description: Provides attached dependency properties and extensions for the FrameworkElement type.
-keywords: windows 10, uwp, windows community toolkit, uwp community toolkit, uwp toolkit, FrameworkElement, extensions
+keywords: FrameworkElement, extensions
 dev_langs:
   - csharp
   - vb
@@ -13,11 +13,7 @@ issue-id: 0
 icon: Assets/Extensions.png
 ---
 
-# FrameworkElement Extensions
-
 [`FrameworkElementExtensions`](/dotnet/api/microsoft.toolkit.uwp.ui.frameworkelementextensions) provides a collection of attached dependency properties, helpers and extension methods to work with [`FrameworkElement`](/uwp/api/windows.ui.xaml.frameworkelement) objects. In particular, it also includes a series of extension methods to explore the logical tree from a given UI element and find child or parent objects.
-
-> **Platform APIs:** [`FrameworkElementExtensions`](/dotnet/api/microsoft.toolkit.uwp.ui.frameworkelementextensions), [`DependencyObjectExtensions`](/dotnet/api/microsoft.toolkit.uwp.ui.DependencyObjectExtensions)
 
 ## Logical tree extensions
 
@@ -29,7 +25,7 @@ Here are some examples of how these extensions can be used:
 
 ```csharp
 // Include the namespace to access the extensions
-using Microsoft.Toolkit.Uwp.UI;
+using CommunityToolkit.WinUI;
 
 // Find a logical child control using its name
 var control = uiElement.FindChild("MyTextBox");
@@ -54,32 +50,6 @@ control = uiElement.FindParent<Grid>();
 
 // Retrieves the Content for the specified control from whatever its "Content" property may be
 var content = uiElement.GetContentControl();
-```
-
-```vb
-' Include the namespace to access the extensions
-Imports Microsoft.Toolkit.Uwp.UI
-
-' Find a logical child control using its name
-Dim control = uiElement.FindChild("MyTextBox")
-
-' Find the first logical child control of a specified type
-control = uiElement.FindChild(Of ListView)()
-
-' Find all the child nodes of a specified type. Like in the C# example,
-' here we are also using a LINQ extension to filter the returned items.
-For Each child In uiElement.FindChildren().OfType(Of ListViewItem)()
-    ' ...
-Next
-
-' Find the first logical parent using its name
-control = uiElement.FindParent("MyGrid")
-
-' Find the first logical parent control of a specified type
-control = uiElement.FindParent(Of Grid)()
-
-' Retrieves the Content for the specified control from whatever its "Content" property may be
-Dim content = uiElement.GetContentControl()
 ```
 
 ## EnableActualSizeBinding
@@ -117,7 +87,7 @@ Here is how you can easily set a custom cursor type for a target `FrameworkEleme
     x:Class="Microsoft.Toolkit.Uwp.SampleApp.SamplePages.MouseCursorPage"
     xmlns="https://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="https://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:ui="using:Microsoft.Toolkit.Uwp.UI">
+    xmlns:ui="using:CommunityToolkit.WinUI">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Border
