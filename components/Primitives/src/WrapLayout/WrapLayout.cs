@@ -2,11 +2,8 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
-using System;
 using Microsoft.UI.Xaml.Controls;
 using System.Collections.Specialized;
-using Windows.Foundation;
-using Microsoft.UI.Xaml;
 
 namespace CommunityToolkit.WinUI.Controls;
 
