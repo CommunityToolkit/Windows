@@ -8,12 +8,12 @@ namespace CommunityToolkit.WinUI.Controls;
 
 internal class WrapLayoutState
 {
-    private List<WrapItem> _items = new List<WrapItem>();
-    private VirtualizingLayoutContext _context;
+    private readonly List<WrapItem> _items = new();
+    private readonly VirtualizingLayoutContext _context;
 
     public WrapLayoutState(VirtualizingLayoutContext context)
     {
-        this._context = context;
+        _context = context;
     }
 
     public Orientation Orientation { get; private set; }
@@ -35,7 +35,7 @@ internal class WrapLayoutState
         }
         else
         {
-            WrapItem item = new WrapItem(index);
+            var item = new WrapItem(index);
             _items.Add(item);
             return item;
         }
@@ -54,7 +54,7 @@ internal class WrapLayoutState
             return;
         }
 
-        int numToRemove = _items.Count - index;
+        var numToRemove = _items.Count - index;
         _items.RemoveRange(index, numToRemove);
     }
 
@@ -62,10 +62,8 @@ internal class WrapLayoutState
     {
         foreach (var item in _items.Where(i => i.Measure.HasValue))
         {
-            UvMeasure measure = item.Measure!.Value;
-            double v = measure.V;
-            measure.V = measure.U;
-            measure.U = v;
+            var measure = item.Measure!.Value;
+            (measure.V, measure.U) = (measure.U, measure.V);
             item.Measure = measure;
             item.Position = null;
         }
@@ -84,58 +82,39 @@ internal class WrapLayoutState
 
     internal double GetHeight()
     {
-        if (_items.Count == 0)
+        if (_items.Count is 0)
         {
             return 0;
-        }
-
-        bool calculateAverage = true;
-        if ((_items.Count == _context.ItemCount) && _items[_items.Count - 1].Position.HasValue)
-        {
-            calculateAverage = false;
         }
 
         UvMeasure? lastPosition = null;
         double maxV = 0;
 
-        int itemCount = _items.Count;
-        for (int i = _items.Count - 1; i >= 0; i--)
+        for (var i = _items.Count - 1; i >= 0; --i)
         {
             var item = _items[i];
 
-            if (item.Position == null)
+            if (item.Position is null || item.Measure is null)
             {
-                itemCount--;
                 continue;
             }
 
-            if (lastPosition != null)
+            if (lastPosition is not null && lastPosition.Value.V > item.Position.Value.V)
             {
-                if (lastPosition.Value.V > item.Position.Value.V)
-                {
-                    // This is a row above the last item. Exit and calculate the average
-                    break;
-                }
+                // This is a row above the last item.
+                break;
             }
 
             lastPosition = item.Position;
-            maxV = Math.Max(maxV, item.Measure!.Value.V);
+            maxV = Math.Max(maxV, item.Measure.Value.V);
         }
 
-        double totalHeight = lastPosition!.Value.V + maxV;
-        if (calculateAverage)
-        {
-            return (totalHeight / itemCount) * _context.ItemCount;
-        }
-        else
-        {
-            return totalHeight;
-        }
+        return lastPosition?.V + maxV ?? 0;
     }
 
     internal void RecycleElementAt(int index)
     {
-        UIElement element = _context.GetOrCreateElementAt(index);
+        var element = _context.GetOrCreateElementAt(index);
         _context.RecycleElement(element);
     }
 }

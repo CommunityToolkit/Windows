@@ -8,7 +8,7 @@ internal struct UvBounds
 {
     public UvBounds(Orientation orientation, Rect rect)
     {
-        if (orientation == Orientation.Horizontal)
+        if (orientation is Orientation.Horizontal)
         {
             UMin = rect.Left;
             UMax = rect.Right;

@@ -7,34 +7,52 @@ namespace CommunityToolkit.WinUI.Controls;
 [DebuggerDisplay("U = {U} V = {V}")]
 internal struct UvMeasure
 {
-    internal static readonly UvMeasure Zero = default(UvMeasure);
-
     internal double U { get; set; }
 
     internal double V { get; set; }
 
-    public UvMeasure(Orientation orientation, double width, double height)
+    public UvMeasure(Orientation orientation, Size size)
     {
-        if (orientation == Orientation.Horizontal)
+        if (orientation is Orientation.Horizontal)
         {
-            U = width;
-            V = height;
+            U = size.Width;
+            V = size.Height;
         }
         else
         {
-            U = height;
-            V = width;
+            U = size.Height;
+            V = size.Width;
         }
+    }
+
+    public Point GetPoint(Orientation orientation)
+    {
+        return orientation is Orientation.Horizontal ? new Point(U, V) : new Point(V, U);
+    }
+
+    public Size GetSize(Orientation orientation)
+    {
+        return orientation is Orientation.Horizontal ? new Size(U, V) : new Size(V, U);
+    }
+
+    public static bool operator ==(UvMeasure measure1, UvMeasure measure2)
+    {
+        return measure1.U == measure2.U && measure1.V == measure2.V;
+    }
+
+    public static bool operator !=(UvMeasure measure1, UvMeasure measure2)
+    {
+        return !(measure1 == measure2);
     }
 
     public override bool Equals(object? obj)
     {
-        if (obj is UvMeasure measure)
-        {
-            return (measure.U == U) && (measure.V == V);
-        }
+        return obj is UvMeasure measure && this == measure;
+    }
 
-        return false;
+    public bool Equals(UvMeasure value)
+    {
+        return this == value;
     }
 
     public override int GetHashCode()

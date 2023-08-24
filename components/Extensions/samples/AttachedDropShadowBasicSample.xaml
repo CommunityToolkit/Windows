@@ -16,7 +16,7 @@
         <Border x:Name="ShadowTarget" />
         <Border Width="100"
                 Height="100"
-                BorderBrush="White"
+                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                 BorderThickness="1"
                 CornerRadius="32">
             <Border.Background>

@@ -2,7 +2,7 @@
 title: EnumValuesExtensions
 author: Sergio0694
 description: A markup extension that returns a collection of values of a specific enum type.
-keywords: windows 10, uwp, uwp community toolkit, uwp toolkit, markup extension, XAML, markup, enum
+keywords: XAML, markup, enum
 dev_langs:
   - csharp
 category: Extensions
@@ -11,8 +11,6 @@ discussion-id: 0
 issue-id: 0
 icon: Assets/Extensions.png
 ---
-
-# EnumValuesExtensions
 
 The [`EnumValuesExtensions`](/dotnet/api/microsoft.toolkit.uwp.ui.EnumValuesExtensions) type implements a markup extension that returns a collection of values of a specific enum type. It can be useful to easily bind a collection of all possible values from a given enum type to a UI element such as a [`ComboBox`](/windows/uwp/design/controls-and-patterns/combo-box) or some other items container or selector control.
 
@@ -24,7 +22,7 @@ Assuming we had an `Animal` enum type and we wanted the user to pick one of the 
 
 ```xaml
 <ComboBox
-    xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
+    xmlns:ui="using:CommunityToolkit.WinUI"
     xmlns:enums="using:MyApplication.Enums"
     ItemsSource="{ui:EnumValues Type=enums:Animal}"
     SelectedIndex="0"/>

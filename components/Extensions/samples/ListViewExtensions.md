@@ -2,7 +2,7 @@
 title: ListViewExtensions
 author: nmetulev
 description: ListViewExtensions extensions provide a lightweight way to extend every control that inherits the ListViewBase class with attached properties.
-keywords: windows 10, uwp, windows community toolkit, uwp community toolkit, uwp toolkit, ListViewBase, extensions
+keywords: ListViewBase, extensions
 dev_langs:
   - csharp
 category: Extensions
@@ -12,14 +12,7 @@ issue-id: 0
 icon: Assets/Extensions.png
 ---
 
-# ListViewExtensions
-
 The [`ListViewExtensions`](/dotnet/api/microsoft.toolkit.uwp.ui.listviewextensions) class provide a lightweight way to extend every control that inherits the [`ListViewBase`](/uwp/api/Windows.UI.Xaml.Controls.ListViewBase) class with attached properties. This means that all the extensions in this class can apply to both [`ListView`](/uwp/api/windows.ui.xaml.controls.listview), [`GridView`](/uwp/api/windows.ui.xaml.controls.gridview) and other controls.
-
-> **Platform APIs:** [`ListViewExtensions`](/dotnet/api/microsoft.toolkit.uwp.ui.listviewextensions), [`ItemContainerStretchDirection`](/dotnet/api/microsoft.toolkit.uwp.ui.ItemContainerStretchDirection)
-
-> [!div class="nextstepaction"]
-> [Try it in the sample app](uwpct://Extensions?sample=ListViewExtensions)
 
 ## ListViewBase Extensions
 
@@ -40,7 +33,7 @@ Here is how this property can be used in XAML:
 
 ```xaml
 <Page ...
-     xmlns:ui="using:Microsoft.Toolkit.Uwp.UI">
+     xmlns:ui="using:CommunityToolkit.WinUI">
 
 <ListView
     ui:ListViewExtensions.AlternateColor="Silver"
@@ -58,7 +51,7 @@ Here is how this property can be used in XAML:
 
 ```xaml
 <Page ...
-     xmlns:ui="using:Microsoft.Toolkit.Uwp.UI">
+     xmlns:ui="using:CommunityToolkit.WinUI">
 
 <Page.Resources>
     <DataTemplate x:Name="NormalTemplate">
@@ -87,7 +80,7 @@ Here is how this property can be used in XAML:
 
 ```xaml
 <Page ...
-     xmlns:ui="using:Microsoft.Toolkit.Uwp.UI">
+     xmlns:ui="using:CommunityToolkit.WinUI">
      
 <ListView
     ui:ListViewExtensions.Command="{x:Bind MainViewModel.ItemSelectedCommand, Mode=OneWay}"
@@ -107,7 +100,7 @@ Here is how this property can be used from XAML:
 
 ```xaml
 <Page ...
-     xmlns:ui="using:Microsoft.Toolkit.Uwp.UI">
+     xmlns:ui="using:CommunityToolkit.WinUI">
 
 <ListView
     ui:ListViewExtensions.StretchItemContainerDirection="Horizontal"
@@ -127,18 +120,6 @@ await MyGridView.SmoothScrollIntoViewWithIndexAsync(index: int, itemPlacement: I
 // Scrolling with item
 await MyGridView.SmoothScrollIntoViewWithItemAsync(item: object, itemPlacement: ItemPlacement, disableAnimation: bool, scrollIfVisibile: bool, additionalHorizontalOffset: int, additionalVerticalOffset: int);
 ```
-
-```vb
-' Scrolling with index
-Await MyGridView.SmoothScrollIntoViewWithItemAsync(index:=Integer, itemPlacement:=ItemPlacement.Bottom, disableAnimation:=Boolean, scrollIfVisibile:=Boolean, additionalHorizontalOffset:=Integer, additionalVerticalOffset:=Integer)
-
-' Scrolling with item
-Await MyGridView.SmoothScrollIntoViewWithItemAsync(item:=Object, itemPlacement:=ItemPlacement.Bottom, disableAnimation:=Boolean, scrollIfVisibile:=Boolean, additionalHorizontalOffset:=Integer, additionalVerticalOffset:=Integer)
-```
-
-### Sample Output
-
-![SmoothScrollIntoView Helper](../resources/images/Extensions/SmoothScrollIntoView.gif)
 
 ### Methods
 
@@ -198,25 +179,3 @@ Await MyGridView.SmoothScrollIntoViewWithItemAsync(item:=Object, itemPlacement:=
         await listView.SmoothScrollIntoViewWithIndexAsync(listView.SelectedIndex, ScrollItemPlacement.Center, false, true);
     }
     ```
-
-    ```vb
-    Private Async Sub ListView_SelectionChanged(ByVal sender As Object, ByVal e As SelectionChangedEventArgs)
-        Dim listView = (TryCast(sender, ListView))
-        Await listView.SmoothScrollIntoViewWithIndexAsync(listView.SelectedIndex, ScrollItemPlacement.Center, False, True)
-    End Sub
-    ```
-
-    **Sample Output**
-
-    ![Use Case 1 Output](../resources/images/Extensions/SmoothScrollIntoView-CenterSelected.gif)
-
-## Requirements
-
-| Device family | Universal, 10.0.16299.0 or higher |
-| --- | --- |
-| Namespace | Microsoft.Toolkit.Uwp.UI.Extensions |
-| NuGet package | [Microsoft.Toolkit.Uwp.UI](https://www.nuget.org/packages/Microsoft.Toolkit.Uwp.UI/) |
-
-## API
-
-- [ListViewExtensions source code](https://github.com/windows-toolkit/WindowsCommunityToolkit/tree/rel/7.1.0/Microsoft.Toolkit.Uwp.UI/Extensions/ListViewBase)

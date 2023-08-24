@@ -2,7 +2,7 @@
 title: Icon markup extensions
 author: sergio0694
 description: The FontIcon, FontIconSource and BitmapIcon markup extensions allow developers to easily declare these types of icons directly from XAML in a compact manner.
-keywords: windows 10, uwp, uwp community toolkit, uwp toolkit, nullable bool, dependency property, markup extension, XAML, markup, fonticon, fonticonsource, bitmapicon
+keywords: markup extension, XAML, markup, fonticon, fonticonsource, bitmapicon
 dev_langs:
   - csharp
 category: Extensions
@@ -12,18 +12,14 @@ issue-id: 0
 icon: Assets/Extensions.png
 ---
 
-# IconMarkupExtensions
-
 The icon extensions are a group of markup extensions meant to simplify the creation of various icon types (specifically [`BitmapIcon`](/uwp/api/Windows.UI.Xaml.Controls.BitmapIcon), [`BitmapIconSource`](/uwp/api/Windows.UI.Xaml.Controls.BitmapIconSource), [`FontIcon`](/uwp/api/Windows.UI.Xaml.Controls.FontIcon), [`FontIconSource`](/uwp/api/Windows.UI.Xaml.Controls.FontIconSource), [`SymbolIcon`](/uwp/api/Windows.UI.Xaml.Controls.SymbolIcon), and [`SymbolIconSource`](/uwp/api/Windows.UI.Xaml.Controls.SymbolIconSource)) used across a variety of XAML controls. Using these extensions doesn't enable new capabilities per se, but it greatly simplifies the XAML syntax needed to create instances of these icon types.
-
-> **Platform APIs:** [`BitmapIconExtension`](/dotnet/api/microsoft.toolkit.uwp.ui.bitmapiconextension), [`BitmapIconSourceExtension`](/dotnet/api/microsoft.toolkit.uwp.ui.bitmapiconsourceextension), [`FontIconExtension`](/dotnet/api/microsoft.toolkit.uwp.ui.fonticonextension), [`FontIconSourceExtension`](/dotnet/api/microsoft.toolkit.uwp.ui.fonticonsourceextension), [`SymbolIconExtension`](/dotnet/api/microsoft.toolkit.uwp.ui.symboliconextension) and [`SymbolIconSourceExtension`](/dotnet/api/microsoft.toolkit.uwp.ui.symboliconsourceextension)
 
 ## BitmapIconExtension
 
 The `BitmapIconExtension` markup extension is similar in structure to the two previous extensions, but it produces `BitmapIcon` instances instead of font-based icons. Here is how it can be used:
 
 ```xaml
-<MenuFlyout xmlns:ui="using:Microsoft.Toolkit.Uwp.UI">
+<MenuFlyout xmlns:ui="using:CommunityToolkit.WinUI">
 
     <!--Before-->
     <MenuFlyoutItem Text="Click me!">
@@ -45,7 +41,7 @@ The `BitmapIconSourceExtension` class mirrors the `BitmapIconExtension` type, wi
 
 ```xaml
 <SwipeItems
-    xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
+    xmlns:ui="using:CommunityToolkit.WinUI"
     Mode="Reveal">
     <SwipeItem Text="Send" IconSource="{ui:BitmapIconSource Source=/Assets/myicon.png}"/>
 </SwipeItems>
@@ -56,7 +52,7 @@ The `BitmapIconSourceExtension` class mirrors the `BitmapIconExtension` type, wi
 The `FontIconExtension` type provides the ability to create `FontIcon` instances from XAML with a more compact representation than by explicitly creating a new `FontIcon` object to assign to the target property. The property also maps all the available `FontIcon` properties, so the two APIs expose the same set of customization options, just through a different XAML syntax:
 
 ```xaml
-<CommandBar xmlns:ui="using:Microsoft.Toolkit.Uwp.UI">
+<CommandBar xmlns:ui="using:CommunityToolkit.WinUI">
 
     <!--Before-->
     <AppBarButton>
@@ -76,7 +72,7 @@ The `FontIconSourceExtension` class mirrors the `FontIconExtension` type, but pr
 
 ```xaml
 <SwipeItems
-    xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
+    xmlns:ui="using:CommunityToolkit.WinUI"
     Mode="Reveal">
 
     <!--Before-->
@@ -96,7 +92,7 @@ The `FontIconSourceExtension` class mirrors the `FontIconExtension` type, but pr
 The `SymbolIconExtension` type mirrors the `FontIcon` markup extension, with the main difference being that it uses a [`Symbol`](/uwp/api/windows.ui.xaml.controls.symbol) value to specify the icon. All the other properties from `FontIconExtension` are available, with the exception of the font family, which is always set to "Segoe MDL2 Assets". Here is how it can be used:
 
 ```xaml
-<CommandBar xmlns:ui="using:Microsoft.Toolkit.Uwp.UI">
+<CommandBar xmlns:ui="using:CommunityToolkit.WinUI">
 
     <!--Before-->
     <AppBarButton>
@@ -119,7 +115,7 @@ The `SymbolIconSourceExtension` type is an alternative for `FontIconSourceExtens
 
 ```xaml
 <SwipeItems
-    xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
+    xmlns:ui="using:CommunityToolkit.WinUI"
     Mode="Reveal">
     <SwipeItem Text="Play" IconSource="{ui:SymbolIconSource Symbol=Play}"/>
 </SwipeItems>

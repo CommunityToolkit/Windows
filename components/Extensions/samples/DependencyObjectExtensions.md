@@ -13,11 +13,7 @@ issue-id: 0
 icon: Assets/Extensions.png
 ---
 
-# DependencyObjectExtensions
-
 The [`DependencyObjectExtensions`](/dotnet/api/microsoft.toolkit.uwp.ui.DependencyObjectExtensions) type provides a collection of extensions methods for [`DependencyObject`](/uwp/api/windows.ui.xaml.dependencyobject) objects. This class exposes several APIs to aid in using the [`VisualTreeHelper`](/uwp/api/Windows.UI.Xaml.Media.VisualTreeHelper) class. There are a number of reasons why walking the visual tree might be useful, which are mentioned [in the docs](/uwp/api/windows.ui.xaml.media.visualtreehelper?#traversing-a-visual-tree).
-
-> **Platform APIs:** [`DependencyObjectExtensions`](/dotnet/api/microsoft.toolkit.uwp.ui.DependencyObjectExtensions)
 
 ## Syntax
 
@@ -45,28 +41,6 @@ control = uiElement.FindAscendant("MyScrollViewer");
 
 // Find the first visual ascendant control of a specified type
 control = uiElement.FindAscendant<ScrollViewer>();
-```
-
-```vb
-' Include the namespace to access extensions
-Imports Microsoft.Toolkit.Uwp.UI.Extensions
-
-' Find a visual descendant control using its name
-Dim control = uiElement.FindDescendant("MyTextBox")
-
-' Find the first visual descendant control of a specified type
-control = uiElement.FindDescendant(Of ListView)()
-
-' Find all visual descendant controls of the specified type
-For Each child In uiElement.FindDescendants().OfType(Of ListViewItem)()
-    ' ...
-Next
-
-' Find the first visual ascendant control using its name
-control = uiElement.FindAscendant("MyScrollViewer")
-
-' Find the first visual ascendant control of a specified type
-control = uiElement.FindAscendant(Of ScrollViewer)()
 ```
 
 ## Examples

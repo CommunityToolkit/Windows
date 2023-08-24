@@ -8,7 +8,7 @@ internal class WrapItem
 {
     public WrapItem(int index)
     {
-        this.Index = index;
+        Index = index;
     }
 
     public int Index { get; }

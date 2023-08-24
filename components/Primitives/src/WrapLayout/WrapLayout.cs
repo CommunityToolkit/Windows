@@ -20,8 +20,8 @@ public class WrapLayout : VirtualizingLayout
     /// </summary>
     public double HorizontalSpacing
     {
-        get { return (double)GetValue(HorizontalSpacingProperty); }
-        set { SetValue(HorizontalSpacingProperty, value); }
+        get => (double)GetValue(HorizontalSpacingProperty);
+        set => SetValue(HorizontalSpacingProperty, value);
     }
 
     /// <summary>
@@ -40,8 +40,8 @@ public class WrapLayout : VirtualizingLayout
     /// </summary>
     public double VerticalSpacing
     {
-        get { return (double)GetValue(VerticalSpacingProperty); }
-        set { SetValue(VerticalSpacingProperty, value); }
+        get => (double)GetValue(VerticalSpacingProperty);
+        set => SetValue(VerticalSpacingProperty, value);
     }
 
     /// <summary>
@@ -61,8 +61,8 @@ public class WrapLayout : VirtualizingLayout
     /// </summary>
     public Orientation Orientation
     {
-        get { return (Orientation)GetValue(OrientationProperty); }
-        set { SetValue(OrientationProperty, value); }
+        get => (Orientation)GetValue(OrientationProperty);
+        set => SetValue(OrientationProperty, value);
     }
 
     /// <summary>
@@ -87,8 +87,7 @@ public class WrapLayout : VirtualizingLayout
     /// <inheritdoc />
     protected override void InitializeForContextCore(VirtualizingLayoutContext context)
     {
-        var state = new WrapLayoutState(context);
-        context.LayoutState = state;
+        context.LayoutState = new WrapLayoutState(context);
         base.InitializeForContextCore(context);
     }
 
@@ -110,7 +109,7 @@ public class WrapLayout : VirtualizingLayout
                 state.RemoveFromIndex(args.NewStartingIndex);
                 break;
             case NotifyCollectionChangedAction.Move:
-                int minIndex = Math.Min(args.NewStartingIndex, args.OldStartingIndex);
+                var minIndex = Math.Min(args.NewStartingIndex, args.OldStartingIndex);
                 state.RemoveFromIndex(minIndex);
 
                 state.RecycleElementAt(args.OldStartingIndex);
@@ -134,11 +133,8 @@ public class WrapLayout : VirtualizingLayout
     /// <inheritdoc />
     protected override Size MeasureOverride(VirtualizingLayoutContext context, Size availableSize)
     {
-        var totalMeasure = UvMeasure.Zero;
-        var parentMeasure = new UvMeasure(Orientation, availableSize.Width, availableSize.Height);
-        var spacingMeasure = new UvMeasure(Orientation, HorizontalSpacing, VerticalSpacing);
-        var realizationBounds = new UvBounds(Orientation, context.RealizationRect);
-        var position = UvMeasure.Zero;
+        var parentMeasure = new UvMeasure(Orientation, availableSize);
+        var spacingMeasure = new UvMeasure(Orientation, new Size(HorizontalSpacing, VerticalSpacing));
 
         var state = (WrapLayoutState)context.LayoutState;
         if (state.Orientation != Orientation)
@@ -146,38 +142,31 @@ public class WrapLayout : VirtualizingLayout
             state.SetOrientation(Orientation);
         }
 
-        if (spacingMeasure.Equals(state.Spacing) == false)
+        if (spacingMeasure != state.Spacing || state.AvailableU != parentMeasure.U)
         {
             state.ClearPositions();
             state.Spacing = spacingMeasure;
-        }
-
-        if (state.AvailableU != parentMeasure.U)
-        {
-            state.ClearPositions();
             state.AvailableU = parentMeasure.U;
         }
 
         double currentV = 0;
-        for (int i = 0; i < context.ItemCount; i++)
+        var realizationBounds = new UvBounds(Orientation, context.RealizationRect);
+        var position = new UvMeasure();
+        for (var i = 0; i < context.ItemCount; ++i)
         {
-            bool measured = false;
-            WrapItem item = state.GetItemAt(i);
-            if (item.Measure == null)
+            var measured = false;
+            var item = state.GetItemAt(i);
+            if (item.Measure is null)
             {
                 item.Element = context.GetOrCreateElementAt(i);
                 item.Element.Measure(availableSize);
-                item.Measure = new UvMeasure(Orientation, item.Element.DesiredSize.Width, item.Element.DesiredSize.Height);
+                item.Measure = new UvMeasure(Orientation, item.Element.DesiredSize);
                 measured = true;
             }
 
-            UvMeasure currentMeasure = item.Measure.Value;
-            if (currentMeasure.U == 0)
-            {
-                continue; // ignore collapsed items
-            }
+            var currentMeasure = item.Measure.Value;
 
-            if (item.Position == null)
+            if (item.Position is null)
             {
                 if (parentMeasure.U < position.U + currentMeasure.U)
                 {
@@ -192,20 +181,22 @@ public class WrapLayout : VirtualizingLayout
 
             position = item.Position.Value;
 
-            double vEnd = position.V + currentMeasure.V;
+            var vEnd = position.V + currentMeasure.V;
             if (vEnd < realizationBounds.VMin)
             {
                 // Item is "above" the bounds
-                if (item.Element != null)
+                if (item.Element is not null)
                 {
                     context.RecycleElement(item.Element);
                     item.Element = null;
                 }
+
+                continue;
             }
             else if (position.V > realizationBounds.VMax)
             {
                 // Item is "below" the bounds.
-                if (item.Element != null)
+                if (item.Element is not null)
                 {
                     context.RecycleElement(item.Element);
                     item.Element = null;
@@ -214,14 +205,14 @@ public class WrapLayout : VirtualizingLayout
                 // We don't need to measure anything below the bounds
                 break;
             }
-            else if (measured == false)
+            else if (!measured)
             {
                 // Always measure elements that are within the bounds
                 item.Element = context.GetOrCreateElementAt(i);
                 item.Element.Measure(availableSize);
 
-                currentMeasure = new UvMeasure(Orientation, item.Element.DesiredSize.Width, item.Element.DesiredSize.Height);
-                if (currentMeasure.Equals(item.Measure) == false)
+                currentMeasure = new UvMeasure(Orientation, item.Element.DesiredSize);
+                if (currentMeasure != item.Measure)
                 {
                     // this item changed size; we need to recalculate layout for everything after this
                     state.RemoveFromIndex(i + 1);
@@ -249,20 +240,17 @@ public class WrapLayout : VirtualizingLayout
         // if the last loop is (parentMeasure.U > currentMeasure.U) the currentMeasure isn't added to the total so add it here
         // for the last condition it is zeros so adding it will make no difference
         // this way is faster than an if condition in every loop for checking the last item
-        totalMeasure.U = parentMeasure.U;
-
         // Propagating an infinite size causes a crash. This can happen if the parent is scrollable and infinite in the opposite
         // axis to the panel. Clearing to zero prevents the crash.
-        // This is likely an incorrect use of the control by the developer, however we need stability here so setting a default that wont crash.
-        if (double.IsInfinity(totalMeasure.U))
+        // This is likely an incorrect use of the control by the developer, however we need stability here so setting a default that won't crash.
+
+        var totalMeasure = new UvMeasure
         {
-            totalMeasure.U = 0.0;
-        }
+            U = double.IsInfinity(parentMeasure.U) ? 0 : Math.Ceiling(parentMeasure.U),
+            V = state.GetHeight()
+        };
 
-        totalMeasure.V = state.GetHeight();
-
-        totalMeasure.U = Math.Ceiling(totalMeasure.U);
-        return Orientation == Orientation.Horizontal ? new Size((float)totalMeasure.U, (float)totalMeasure.V) : new Size((float)totalMeasure.V, (float)totalMeasure.U);
+        return totalMeasure.GetSize(Orientation);
     }
 
     /// <inheritdoc />
@@ -270,49 +258,25 @@ public class WrapLayout : VirtualizingLayout
     {
         if (context.ItemCount > 0)
         {
-            var parentMeasure = new UvMeasure(Orientation, finalSize.Width, finalSize.Height);
-            var spacingMeasure = new UvMeasure(Orientation, HorizontalSpacing, VerticalSpacing);
             var realizationBounds = new UvBounds(Orientation, context.RealizationRect);
 
             var state = (WrapLayoutState)context.LayoutState;
-            bool Arrange(WrapItem item, bool isLast = false)
+            bool ArrangeItem(WrapItem item)
             {
-                if (item.Measure.HasValue == false)
-                {
-                    return false;
-                }
-
-                if (item.Position == null)
+                if (item is { Measure: null } or { Position: null })
                 {
                     return false;
                 }
 
                 var desiredMeasure = item.Measure.Value;
-                if (desiredMeasure.U == 0)
-                {
-                    return true; // if an item is collapsed, avoid adding the spacing
-                }
 
-                UvMeasure position = item.Position.Value;
+                var position = item.Position.Value;
 
-                // Stretch the last item to fill the available space
-                if (isLast)
-                {
-                    desiredMeasure.U = parentMeasure.U - position.U;
-                }
-
-                if (((position.V + desiredMeasure.V) >= realizationBounds.VMin) && (position.V <= realizationBounds.VMax))
+                if (realizationBounds.VMin <= position.V + desiredMeasure.V && position.V <= realizationBounds.VMax)
                 {
                     // place the item
-                    UIElement child = context.GetOrCreateElementAt(item.Index);
-                    if (Orientation == Orientation.Horizontal)
-                    {
-                        child.Arrange(new Rect((float)position.U, (float)position.V, (float)desiredMeasure.U, (float)desiredMeasure.V));
-                    }
-                    else
-                    {
-                        child.Arrange(new Rect((float)position.V, (float)position.U, (float)desiredMeasure.V, (float)desiredMeasure.U));
-                    }
+                    var child = context.GetOrCreateElementAt(item.Index);
+                    child.Arrange(new Rect(position.GetPoint(Orientation), desiredMeasure.GetSize(Orientation)));
                 }
                 else if (position.V > realizationBounds.VMax)
                 {
@@ -322,10 +286,9 @@ public class WrapLayout : VirtualizingLayout
                 return true;
             }
 
-            for (var i = 0; i < context.ItemCount; i++)
+            for (var i = 0; i < context.ItemCount; ++i)
             {
-                bool continueArranging = Arrange(state.GetItemAt(i));
-                if (continueArranging == false)
+                if (!ArrangeItem(state.GetItemAt(i)))
                 {
                     break;
                 }

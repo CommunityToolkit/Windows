@@ -16,8 +16,6 @@ The [RichSuggestBox](/dotnet/api/microsoft.toolkit.uwp.ui.controls.richsuggestbo
 
 RichSuggestBox resembles text controls commonly found in social applications where you type "@" to mention people.
 
-> **Platform APIs:** [`RichSuggestBox`](/dotnet/api/microsoft.toolkit.uwp.ui.controls.richsuggestbox)
-
 > [!Sample RichSuggestBoxMultiplePrefixesSample]
 
 ## Syntax
