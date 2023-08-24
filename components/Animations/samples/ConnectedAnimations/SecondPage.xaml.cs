@@ -29,12 +29,12 @@ public sealed partial class SecondPage : Page
                 new PhotoDataItem
                 {
                     Title = "Big Four Summer Heat",
-                    Thumbnail = "ms-appx:///Assets/BigFourSummerHeat.jpg",
+                    Thumbnail = "ms-appx:///Assets/BigFourSummerHeat2.jpg",
                 },
                 new PhotoDataItem
                 {
                     Title = "Bison Badlands Chillin",
-                    Thumbnail = "ms-appx:///Assets/BisonBadlandsChillin.jpg",
+                    Thumbnail = "ms-appx:///Assets/BisonBadlandsChillin2.jpg",
                 },
                 new PhotoDataItem
                 {
