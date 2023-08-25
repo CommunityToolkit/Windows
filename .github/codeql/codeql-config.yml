@@ -1,0 +1,13 @@
+name: "Security and Quality"
+
+queries:
+  - name: Queries from security-extended, plus maintainability and reliability queries
+    uses: security-and-quality
+  - name: Queries from the default suite, plus lower severity and precision queries
+    uses: security-extended
+
+paths:
+  - '**/src/**/*.cs'
+paths-ignore:
+  - '**/*.g.cs'
+  - '**/*.g.i.cs'
