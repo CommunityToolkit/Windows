@@ -1,0 +1,105 @@
+
+name: "CodeQL Scan"
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    # The branches below must be a subset of the branches above
+    branches: [ "main" ]
+    paths-ignore:
+      - '**/*.md'
+      - '**/*.txt'
+      - '**/samples/**/*'
+      - '**/tests/**/*'
+  schedule:
+    - cron: '28 19 * * 0'
+
+env:
+  DOTNET_VERSION: ${{ '7.0.100' }}
+  MULTI_TARGET_DIRECTORY: tooling/MultiTarget
+
+jobs:
+  analyze:
+    name: Analyze
+    # Runner size impacts CodeQL analysis time. To learn more, please see:
+    #   - https://gh.io/recommended-hardware-resources-for-running-codeql
+    #   - https://gh.io/supported-runners-and-hardware-resources
+    #   - https://gh.io/using-larger-runners
+    # Consider using larger runners for possible analysis time improvements.
+    runs-on: windows-latest-large
+    timeout-minutes: 360
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [ 'csharp' ]
+        # CodeQL supports [ 'cpp', 'csharp', 'go', 'java', 'javascript', 'python', 'ruby', 'swift' ]
+        # Use only 'java' to analyze code written in Java, Kotlin or both
+        # Use only 'javascript' to analyze code written in JavaScript, TypeScript or both
+        # Learn more about CodeQL language support at https://aka.ms/codeql-docs/language-support
+
+    steps:
+    - name: Install .NET SDK v${{ env.DOTNET_VERSION }}
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+
+    - name: .NET Info (if diagnostics)
+      run: dotnet --info
+
+    - name: Checkout repository
+      uses: actions/checkout@v3
+      with:
+        submodules: recursive
+
+    # Restore Tools from Manifest list in the Repository
+    - name: Restore dotnet tools
+      run: dotnet tool restore
+
+    - name: Run Uno Check to Install Dependencies
+      run: dotnet tool run uno-check --ci --fix --non-interactive --skip wsl --skip androidemulator --skip vswinworkloads --verbose
+
+    - name: Add msbuild to PATH
+      uses: microsoft/setup-msbuild@v1.3.1
+
+    - name: Enable all TargetFrameworks
+      working-directory: ./${{ env.MULTI_TARGET_DIRECTORY }}
+      run: ./UseTargetFrameworks.ps1 all -ErrorAction Stop
+
+    - name: Generate solution w/ All Tests
+      working-directory: ./
+      run: powershell -version 5.1 -command "./tooling/GenerateAllSolution.ps1 -IncludeHeads WinAppSdk -UseDiagnostics" -ErrorAction Stop
+
+    - name: Enable Uno.WinUI
+      working-directory: ./${{ env.MULTI_TARGET_DIRECTORY }}
+      run: ./UseUnoWinUI.ps1 3 -ErrorAction Stop
+
+    # Initializes the CodeQL tools for scanning.
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v2
+      with:
+        languages: ${{ matrix.language }}
+        config-file: ./.github/codeql/codeql-config.yml
+        # If you wish to specify custom queries, you can do so here or in a config file.
+        # By default, queries listed here will override any specified in a config file.
+        # Prefix the list here with "+" to use these queries and those in the config file.
+
+        # For more details on CodeQL's query packs, refer to: https://docs.github.com/en/code-security/code-scanning/automatically-scanning-your-code-for-vulnerabilities-and-errors/configuring-code-scanning#using-queries-in-ql-packs
+        # queries: +security-extended,security-and-quality
+
+    - name: MSBuild
+      run: >
+        msbuild.exe /restore /nowarn:MSB4011
+        /p:Configuration=Release
+        /m
+        CommunityToolkit.AllComponents.sln
+
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v2
+      with:
+        category: "/language:${{matrix.language}}"
