@@ -108,8 +108,18 @@ jobs:
       - name: Restore dotnet tools
         run: dotnet tool restore
 
+      # Pinning Manifest for 1.13 version of Uno.Check at the moment to unblock build, see https://github.com/CommunityToolkit/Windows/pull/201
       - name: Run Uno Check to Install Dependencies
-        run: dotnet tool run uno-check --ci --fix --non-interactive --skip wsl --skip androidemulator --skip vswinworkloads --verbose
+        run: >
+          dotnet tool run uno-check 
+          --ci
+          --fix
+          --non-interactive
+          --skip wsl
+          --skip androidemulator
+          --skip vswinworkloads
+          --verbose
+          --manifest https://raw.githubusercontent.com/unoplatform/uno.check/c3b289d7bb16a2a2df7f7f7f848d76fe1e74036d/manifests/uno.ui.manifest.json
 
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v1.3.1
