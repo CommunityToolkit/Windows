@@ -28,6 +28,7 @@ public partial class Segmented : ListViewBase
     protected override void OnApplyTemplate()
     {
         base.OnApplyTemplate();
+        RegisterAutomation();
         if (!_hasLoaded)
         {
             SelectedIndex = _internalSelectedIndex;
@@ -37,11 +38,17 @@ public partial class Segmented : ListViewBase
         PreviewKeyDown += Segmented_PreviewKeyDown;
     }
 
+    private void RegisterAutomation()
+    {
+        AutomationProperties.GetName(this);
+    }
+
     protected override void PrepareContainerForItemOverride(DependencyObject element, object item)
     {
         base.PrepareContainerForItemOverride(element, item);
         if (element is SegmentedItem segmentedItem)
         {
+            segmentedItem.ParentSegmented = this;
             segmentedItem.Loaded += SegmentedItem_Loaded;
         }
     }
@@ -142,4 +149,22 @@ public partial class Segmented : ListViewBase
             _internalSelectedIndex = SelectedIndex;
         }
     }
+
+    /// <summary>
+    /// Creates AutomationPeer
+    /// </summary>
+    /// <returns>An automation peer for <see cref="SegmentedItem"/>.</returns>
+    protected override AutomationPeer OnCreateAutomationPeer()
+    {
+        return new SegmentedAutomationPeer(this);
+    }
+
+    internal void SetSelectedItem(SegmentedItem owner)
+    {
+        var item = ItemFromContainer(owner);
+        SelectedItem = item;
+    }
+
+
+
 }

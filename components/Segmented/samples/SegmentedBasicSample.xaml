@@ -20,7 +20,8 @@
                     <FontIcon Glyph="&#xEA3A;" />
                 </controls:SegmentedItem.Icon>
             </controls:SegmentedItem>
-            <controls:SegmentedItem Content="Item 2">
+            <controls:SegmentedItem AutomationProperties.Name="Woohoo item 2 yo"
+                                    Content="Item 2">
                 <controls:SegmentedItem.Icon>
                     <FontIcon Glyph="&#xEA3A;" />
                 </controls:SegmentedItem.Icon>
