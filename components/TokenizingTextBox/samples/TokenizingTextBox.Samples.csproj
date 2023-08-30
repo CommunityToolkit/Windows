@@ -5,4 +5,12 @@
 
   <!-- Sets this up as a toolkit component's sample project -->
   <Import Project="$(ToolingDirectory)\ToolkitComponent.SampleProject.props" />
+  <ItemGroup>
+    <None Remove="Assets\TokenizingTextBox.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\TokenizingTextBox.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 </Project>

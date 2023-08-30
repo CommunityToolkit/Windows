@@ -5,6 +5,16 @@
 
   <!-- Sets this up as a toolkit component's sample project -->
   <Import Project="$(ToolingDirectory)\ToolkitComponent.SampleProject.props" />
+  
+  <ItemGroup>
+    <None Remove="Assets\Triggers.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\Triggers.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  
   <ItemGroup>
     <Compile Update="CompareStateTriggerSample.xaml.cs">
       <DependentUpon>CompareStateTriggerSample.xaml</DependentUpon>
