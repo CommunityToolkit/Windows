@@ -9,4 +9,16 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Extensions\src\CommunityToolkit.WinUI.Extensions.csproj"></ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Remove="Assets\SettingsCard.png" />
+    <None Remove="Assets\SettingsExpander.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\SettingsCard.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\SettingsExpander.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 </Project>

@@ -12,9 +12,25 @@
   
   <ItemGroup>
     <None Remove="Assets\ToolkitIcon.png" />
+    <None Remove="Assets\AnimationSet.png" />
+    <None Remove="Assets\Behaviors.png" />
+    <None Remove="Assets\HeaderBehaviors.png" />
+    <None Remove="Assets\StackedNotificationsBehavior.png" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\ToolkitIcon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\AnimationSet.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Behaviors.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\HeaderBehaviors.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\StackedNotificationsBehavior.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

@@ -5,4 +5,32 @@
 
   <!-- Sets this up as a toolkit component's sample project -->
   <Import Project="$(ToolingDirectory)\ToolkitComponent.SampleProject.props" />
+  <ItemGroup>
+    <None Remove="Assets\CameraHelper.png" />
+    <None Remove="Assets\ColorHelper.png" />
+    <None Remove="Assets\NetworkHelper.png" />
+    <None Remove="Assets\ScreenUnitHelper.png" />
+    <None Remove="Assets\ThemeListener.png" />
+    <None Remove="Assets\WeakEventListener.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\CameraHelper.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\ColorHelper.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\NetworkHelper.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\ScreenUnitHelper.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\ThemeListener.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\WeakEventListener.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 </Project>
