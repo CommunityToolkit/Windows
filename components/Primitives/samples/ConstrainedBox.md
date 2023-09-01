@@ -1,7 +1,7 @@
 ---
 title: ConstrainedBox
 author: michael-hawker
-description: The ConstrainedBox is a FrameworkElement which can allow a developer to constrain the aspect ration, scale, or multiple boundary alignment of its content.
+description: The ConstrainedBox is a FrameworkElement which can allow a developer to constrain the aspect ratio, scale, or multiple boundary alignment of its content.
 keywords: viewbox, content decorator, ConstrainedBox
 dev_langs:
   - csharp

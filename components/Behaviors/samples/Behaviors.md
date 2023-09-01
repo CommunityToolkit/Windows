@@ -44,6 +44,6 @@ Empty lists do not receive focus:
 > [!Sample FocusBehaviorListSample]
 
 ## NavigateToUriAction
-This behavior allows you to define a Uri in XAML, similiar to a `Hyperlink` or `HyperlinkButton`. This allows you to use a `Button` and still define the Uri in XAML without wiring up the `Click` event in code-behind, or restyling a `HyperlinkButton`.
+This behavior allows you to define a Uri in XAML, similar to a `Hyperlink` or `HyperlinkButton`. This allows you to use a `Button` and still define the Uri in XAML without wiring up the `Click` event in code-behind, or restyling a `HyperlinkButton`.
 
 > [!Sample NavigateToUriActionSample]
