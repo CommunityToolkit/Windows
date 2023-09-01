@@ -4,7 +4,7 @@
 
 using CommunityToolkit.WinUI.Controls;
 
-namespace HeaderedItemsControlExperiment.Samples;
+namespace HeaderedControlsExperiment.Samples;
 
 [ToolkitSample(id: nameof(HeaderedTreeViewSample), "HeaderedTreeView", description: $"A sample for showing how to create and use a {nameof(HeaderedTreeView)} control.")]
 public sealed partial class HeaderedTreeViewSample : Page
