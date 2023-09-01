@@ -12,9 +12,6 @@ issue-id: 0
 icon: Assets/ConnectedAnimations.png
 ---
 
-
-# Connected Animations XAML Attached Properties
-
 [Connected animations](/windows/uwp/style/connected-animation) let you create a dynamic and compelling navigation experience by animating the transition of an element between two different views.
 
 The Connected Animations XAML Attached Properties enable connected animations to be defined directly in your XAML code by simply adding a Key to the element that should animate. There are also attached properties to enable coordinated animations and animations in lists and grids.
@@ -27,7 +24,7 @@ The Connected Animations XAML Attached Properties enable connected animations to
 <Page ...
     xmlns:animations="using:CommunityToolkit.WinUI.Animations">
 
-<Border x:Name="Element" animations:Connected.Key="item"></Border>
+<Border x:Name="Element" animations:Connected.Key="item"/>
 
 <TextBlock animations:Connected.AnchorElement="{x:Bind Element}" Text="Hello World"/>
 
@@ -35,7 +32,7 @@ The Connected Animations XAML Attached Properties enable connected animations to
           animations:Connected.ListItemKey="listItem">
     <GridView.ItemTemplate>
         <DataTemplate>
-            <Image x:Name="ItemThumbnail" Height="200" Width="200"></Image>
+            <Image x:Name="ItemThumbnail" Height="200" Width="200"/>
         </DataTemplate>
     </GridView.ItemTemplate>
 </GridView>
@@ -100,22 +97,11 @@ In those cases, you can use the **SetListDataItemForNextConnectedAnnimation** ex
     Frame.Navigate(typeof(DetailsPage), dataItemToAnimate.Id);
 ```
 
-```vb
-    ' dataItemToAnimate is an object in the ListViewBase.ItemsSource collection
-    Frame.SetListDataItemForNextConnectedAnnimation(dataItemToAnimate)
-    Frame.Navigate(GetType(DetailsPage), dataItemToAnimate.Id)
-```
-
 This method is also helpful when navigating back to an item different from the item it was navigated from.
 
 ```csharp
     Frame.SetListDataItemForNextConnectedAnnimation(dataItemToAnimate);
     Frame.GoBack();
-```
-
-```vb
-    Frame.SetListDataItemForNextConnectedAnnimation(dataItemToAnimate)
-    Frame.GoBack()
 ```
 
 ## Examples
@@ -128,8 +114,7 @@ We need a set a key for the element to be connected with another element in a di
 
 ```xaml
 <Grid>
-    <Border Height="100" Width="100" Background="Purple"
-        VerticalAlignment="Center" HorizontalAlignment="Center"
+    <Border Height="100" Width="100" Background="Purple" VerticalAlignment="Center" HorizontalAlignment="Center"
         animations:Connected.Key="item" />
 </Grid>
 ```
@@ -140,14 +125,13 @@ We need to set the same key for the element to be connected with. Also, You can 
 
 ```xaml
 <StackPanel Orientation="Horizontal">
-    <Border x:Name="HeroElement" Height="300"  Width="300" Background="Purple"
+    <Border x:Name="HeroElement" Height="300" Width="300" Background="Purple"
     animations:Connected.Key="item"/>
 
-    <StackPanel x:Name="HeroDetailsElement" Margin="20,0"
-        VerticalAlignment="Bottom" MaxWidth="500"
+    <StackPanel x:Name="HeroDetailsElement" Margin="20,0" VerticalAlignment="Bottom" MaxWidth="500"
         animations:Connected.AnchorElement="{x:Bind HeroElement}">
-        <TextBlock Text="Header" FontSize="50">Header</TextBlock>
-        <TextBlock TextWrapping="WrapWholeWords">Lorem ipsum ...</TextBlock>
+        <TextBlock Text="Header" FontSize="50" Text="Header"/>
+        <TextBlock TextWrapping="WrapWholeWords" Text="Lorem ipsum ..."/>
     </StackPanel>
 </StackPanel>
 ```
@@ -162,8 +146,8 @@ animations:Connected.ListItemKey="listItem">
     <GridView.ItemTemplate>
         <DataTemplate x:DataType="data:Item">
             <StackPanel>
-                <Border x:Name="ItemThumbnail" Background="Purple" Height="200" Width="200"></Border>
-                <TextBlock Text="{x:Bind Title}"></TextBlock>
+                <Border x:Name="ItemThumbnail" Background="Purple" Height="200" Width="200"/>
+                <TextBlock Text="{x:Bind Title}"/>
             </StackPanel>
         </DataTemplate>
     </GridView.ItemTemplate>
@@ -179,16 +163,15 @@ In this page, you just need to give the same key.
     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
         <StackPanel x:Name="HeroDetailsElement" Margin="20,0" VerticalAlignment="Bottom" MaxWidth="500"
         animations:Connected.AnchorElement="{x:Bind ItemHeroElement}">
-            <TextBlock Text="{x:Bind item.Title}"
-            FontSize="50"/>
-            <TextBlock TextWrapping="WrapWholeWords">Lorem ipsum ...</TextBlock>
+            <TextBlock Text="{x:Bind item.Title}" FontSize="50"/>
+            <TextBlock TextWrapping="WrapWholeWords" Text="Lorem ipsum..."/>
         </StackPanel>
 
         <Border x:Name="ItemHeroElement" Height="300" Width="300" Background="Purple"
         animations:Connected.Key="listItem"/>
     </StackPanel>
 
-    <TextBlock Margin="0,40" TextWrapping="WrapWholeWords">Lorem Ipsum ...</TextBlock>
+    <TextBlock Margin="0,40" TextWrapping="WrapWholeWords" Text="Lorem ipsum..."/>
 </StackPanel>
 ```
 
