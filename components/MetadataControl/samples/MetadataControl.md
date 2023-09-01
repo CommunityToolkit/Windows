@@ -6,7 +6,7 @@ keywords: MetadataControl, Control, metadata
 dev_langs:
   - csharp
 category: Controls
-subcategory: Layout
+subcategory: StatusAndInfo
 discussion-id: 0
 issue-id: 0
 icon: Assets/MetadataControl.png

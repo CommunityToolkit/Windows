@@ -6,7 +6,7 @@ keywords: Animations, Effects, Layout, Composition, animationset, animation, coo
 dev_langs:
   - csharp
 category: Animations
-subcategory: Layout
+subcategory: Effects
 discussion-id: 0
 issue-id: 0
 icon: Assets/ConnectedAnimations.png

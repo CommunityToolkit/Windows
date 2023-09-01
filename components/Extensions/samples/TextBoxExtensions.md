@@ -6,7 +6,7 @@ keywords: TextBoxMask, XAML
 dev_langs:
   - csharp
 category: Extensions
-subcategory: Input
+subcategory: Controls
 discussion-id: 0
 issue-id: 0
 icon: Assets/Extensions.png
@@ -43,7 +43,7 @@ In case you want to add a custom variable character you can use the `CustomMask`
 
 ```xaml
 <Page ...
-     xmlns:ui="using:Microsoft.Toolkit.Uwp.UI">
+     xmlns:ui="using:CommunityToolkit.WinUI">
     <StackPanel>
 
         <!-- Mask = "9a9a-a9a*" (9 means [0-9], a means [a-Z], * allows both)-->
@@ -92,21 +92,21 @@ The validation has 3 modes ([`TextBoxExtensions.ValidationMode`](/dotnet/api/mic
 
 ```xaml
 <TextBox
-    xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
+    xmlns:ui="using:CommunityToolkit.WinUI"
     ui:TextBoxExtensions.Regex="^\s*\+?\s*([0-9][\s-]*){9,}$" />
 
 <TextBox
-    xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
+    xmlns:ui="using:CommunityToolkit.WinUI"
     ui:TextBoxExtensions.ValidationMode="Forced"
     ui:TextBoxExtensions.ValidationType="PhoneNumber"
     Text="+61616161611" />
 
 <TextBox
-    xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
+    xmlns:ui="using:CommunityToolkit.WinUI"
     ui:TextBoxExtensions.ValidationType="Email"   />
 
 <TextBox
-    xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
+    xmlns:ui="using:CommunityToolkit.WinUI"
     ui:TextBoxExtensions.ValidationMode="Forced"
     ui:TextBoxExtensions.ValidationType="Decimal" />
 ```
@@ -125,7 +125,7 @@ The `SurfaceDialOptions` property adds features from the Surface Dial control to
 
 ```xaml
 <Page ...
-    xmlns:ui="using:Microsoft.Toolkit.Uwp.UI">
+    xmlns:ui="using:CommunityToolkit.WinUI">
 
     <TextBox
         Text="0"

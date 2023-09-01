@@ -6,7 +6,7 @@ keywords: Helpers, Theming, theme listerner, themes, screenunithelper, colorhelp
 dev_langs:
   - csharp
 category: Helpers
-subcategory: Developer
+subcategory: Converters
 discussion-id: 0
 issue-id: 0
 icon: Assets/ColorHelper.png

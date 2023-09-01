@@ -2,11 +2,11 @@
 title: Attached Drop Shadow
 author: michael-hawker
 description: Allows many elements to share a common backdrop for casting shadows.
-keywords: Effects, Control, Layout
+keywords: shadow, shadows, dropshadow, dropshadowpanel, attachedshadow, attacheddropshadow, attachedcardshadow
 dev_langs:
   - csharp
 category: Extensions
-subcategory: Media
+subcategory: Shadows
 discussion-id: 0
 issue-id: 0
 icon: Assets/Shadow.png

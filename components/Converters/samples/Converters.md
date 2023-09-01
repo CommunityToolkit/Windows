@@ -6,7 +6,7 @@ keywords: Converters, Control, Layout
 dev_langs:
   - csharp
 category: Xaml
-subcategory: None
+subcategory: Miscellaneous
 discussion-id: 0
 issue-id: 0
 icon: Assets/Converters.png

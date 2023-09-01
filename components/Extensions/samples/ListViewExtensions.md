@@ -6,7 +6,7 @@ keywords: ListViewBase, extensions
 dev_langs:
   - csharp
 category: Extensions
-subcategory: Layout
+subcategory: Controls
 discussion-id: 0
 issue-id: 0
 icon: Assets/Extensions.png
@@ -124,7 +124,7 @@ await MyGridView.SmoothScrollIntoViewWithItemAsync(item: object, itemPlacement: 
 ### Methods
 
 | Methods | Return Type | Description |
-| -- | -- | -- |
+|---------|-------------|-------------|
 | SmoothScrollIntoViewWithIndexAsync(int, ScrollItemPlacement, bool, bool, int, int) | Task | Smooth scroll item into view With index number |
 | SmoothScrollIntoViewWithItemAsync(object, ScrollItemPlacement, bool, bool, int, int) | Task | Smooth scroll item into view With item object |
 
