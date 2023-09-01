@@ -57,7 +57,7 @@ The `FontIconExtension` type provides the ability to create `FontIcon` instances
     <!--Before-->
     <AppBarButton>
         <AppBarButton.Icon>
-            <FontIcon Glyph="&#xE102;" FontFamily="Segoe MDL2 Assets"/>
+            <FontIcon Glyph="&#xE102;" FontFamily="{ThemeResource SymbolThemeFontFamily}"/>
         </AppBarButton.Icon>
     </AppBarButton>
 
