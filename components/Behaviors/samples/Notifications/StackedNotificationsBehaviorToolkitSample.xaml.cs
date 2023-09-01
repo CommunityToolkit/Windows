@@ -4,7 +4,7 @@
 
 using CommunityToolkit.WinUI.Behaviors;
 
-namespace BehaviorsExperiment.Samples;
+namespace BehaviorsExperiment.Samples.Notifications;
 
 [ToolkitSample(id: nameof(StackedNotificationsBehaviorToolkitSample), "Stacked Notification Migration", description: $"A sample for showing how to create and use a {nameof(StackedNotificationsBehavior)} custom behavior upgrading from InAppNotification.")]
 public sealed partial class StackedNotificationsBehaviorToolkitSample : Page
