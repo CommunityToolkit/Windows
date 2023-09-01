@@ -36,7 +36,7 @@ Binding to an enum property can be accomplished like so:
 
 ```xaml
 <ComboBox
-    xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
+    xmlns:ui="using:CommunityToolkit.WinUI"
     xmlns:enums="using:MyApplication.Enums"
     ItemsSource="{ui:EnumValues Type=enums:Animal}"
     SelectedItem="{x:Bind SelectedAnimal, Mode=OneWay}" />

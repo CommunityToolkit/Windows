@@ -5,7 +5,7 @@ description: A collection of animations that can be grouped together.
 keywords: Behaviors, animations, animationset, xaml, visual, composition
 dev_langs:
   - csharp
-category: Xaml
+category: Animations
 subcategory: Behaviors
 discussion-id: 0
 issue-id: 0
@@ -125,7 +125,7 @@ Here's an example of how all these various explicit animations can be combined t
 
 ## Behaviors
 
-If you are also referencing the `Microsoft.Toolkit.Uwp.UI.Behaviors` package, it will be possible to also use behaviors and actions to better support the new APIs, such as by automatically triggering an animation when a given event is raised, entirely from XAML. There are four main types being introduced in this package that interoperate with the Animation APIs:
+If you are also referencing the `Behaviors` package, it will be possible to also use behaviors and actions to better support the new APIs, such as by automatically triggering an animation when a given event is raised, entirely from XAML. There are four main types being introduced in this package that interoperate with the Animation APIs:
 
 - [`AnimationStartedTriggerBehavior`](/dotnet/api/microsoft.toolkit.uwp.ui.behaviors.AnimationStartedTriggerBehavior) and [`AnimationCompletedTriggerBehavior`](/dotnet/api/microsoft.toolkit.uwp.ui.behaviors.AnimationCompletedTriggerBehavior): these are custom triggers that can be used to execute `IAction`-s when an `AnimationSet` starts or completes. All the built-in `IAction` objects can be used from the Behaviors package, as well as custom ones as well.
 - [`StartAnimationAction`](/dotnet/api/microsoft.toolkit.uwp.ui.behaviors.StartAnimationAction): an `IAction` object that can be used within behaviors to easily start a target animation, either with an attached UI element or with an explicit target to animate.
@@ -164,7 +164,7 @@ This makes it possible to also not having to name the target UI element, to regi
 
 ## Effect animations
 
-Lastly, the `AnimationSet` class can also directly animate Composition/Win2D effects. To gain access to this feature, you will need to also reference the `Microsoft.Toolkit.Uwp.UI.Media`. This package includes some special animation types that can be plugged in into an `AnimationSet` instance and used to animate individual effects within a custom effects graph. This can then be used either from a [PipelineBrush](/dotnet/api/microsoft.toolkit.uwp.ui.media.pipelinebrush) or from an inline graph attached to a UI element through the [`PipelineVisualFactory`](/dotnet/api/microsoft.toolkit.uwp.ui.media.PipelineVisualFactory) type. All these effect animations are powered by the same `AnimationBuilder` type behind the scenes, and can facilitate creating complex animations on specific effects within a graph.
+Lastly, the `AnimationSet` class can also directly animate Composition/Win2D effects. To gain access to this feature, you will need to also reference the `CommunityToolkit.WinUI.Media`. This package includes some special animation types that can be plugged in into an `AnimationSet` instance and used to animate individual effects within a custom effects graph. This can then be used either from a [PipelineBrush](/dotnet/api/microsoft.toolkit.uwp.ui.media.pipelinebrush) or from an inline graph attached to a UI element through the [`PipelineVisualFactory`](/dotnet/api/microsoft.toolkit.uwp.ui.media.PipelineVisualFactory) type. All these effect animations are powered by the same `AnimationBuilder` type behind the scenes, and can facilitate creating complex animations on specific effects within a graph.
 
 Here is an example of how the new `PipelineVisualFactory` type can be combined with these effect animations:
 

@@ -1,5 +1,5 @@
 ---
-title: Icon markup extensions
+title: Icon extensions
 author: sergio0694
 description: The FontIcon, FontIconSource and BitmapIcon markup extensions allow developers to easily declare these types of icons directly from XAML in a compact manner.
 keywords: markup extension, XAML, markup, fonticon, fonticonsource, bitmapicon

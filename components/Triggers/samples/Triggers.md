@@ -6,7 +6,7 @@ keywords: CompareStateTrigger, ControlSizeTrigger, FullScreenModeStateTrigger, I
 dev_langs:
   - csharp
 category: Xaml
-subcategory: None
+subcategory: Miscellaneous
 discussion-id: 0
 issue-id: 0
 icon: Assets/Triggers.png

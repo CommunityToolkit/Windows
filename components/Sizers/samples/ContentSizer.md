@@ -6,7 +6,7 @@ keywords: ContentSizer, SizerBase, Control, Layout, Expander, Splitter
 dev_langs:
   - csharp
 category: Controls
-subcategory: Layout
+subcategory: Sizers
 discussion-id: 96
 issue-id: 101
 icon: Assets/ContentSizer.png

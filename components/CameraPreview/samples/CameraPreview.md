@@ -6,7 +6,7 @@ keywords: CameraPreview, Control, skommireddi
 dev_langs:
   - csharp
 category: Controls
-subcategory: Layout
+subcategory: Media
 discussion-id: 0
 issue-id: 0
 icon: Assets/CameraPreview.png

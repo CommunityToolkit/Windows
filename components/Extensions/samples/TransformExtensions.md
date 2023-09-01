@@ -6,7 +6,7 @@ keywords: Extensions, matrix, transform, rotate, skew, scale, RotateTransform, V
 dev_langs:
   - csharp
 category: Extensions
-subcategory: Media
+subcategory: Miscellaneous
 discussion-id: 0
 issue-id: 0
 icon: Assets/Extensions.png

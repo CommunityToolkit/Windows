@@ -6,7 +6,7 @@ keywords: PropertySizer, SizerBase, Control, Layout, NavigationView, Splitter
 dev_langs:
   - csharp
 category: Controls
-subcategory: Layout
+subcategory: Sizers
 discussion-id: 96
 issue-id: 101
 icon: Assets/PropertySizer.png

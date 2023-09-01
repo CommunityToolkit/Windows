@@ -6,7 +6,7 @@ keywords: viewbox, content decorator, ConstrainedBox
 dev_langs:
   - csharp
 category: Layouts
-subcategory: None
+subcategory: Media
 discussion-id: 0
 issue-id: 0
 icon: Assets/ConstrainedBox.png

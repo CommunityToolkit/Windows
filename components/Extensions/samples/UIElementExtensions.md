@@ -6,7 +6,7 @@ keywords: windows 10, uwp, windows community toolkit, uwp community toolkit, uwp
 dev_langs:
   - csharp
 category: Extensions
-subcategory: Layout
+subcategory: Controls
 discussion-id: 0
 issue-id: 0
 icon: Assets/Extensions.png

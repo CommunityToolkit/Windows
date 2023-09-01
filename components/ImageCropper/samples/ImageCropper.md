@@ -6,7 +6,7 @@ keywords: ImageCropper, Control, Layout
 dev_langs:
   - csharp
 category: Controls
-subcategory: Input
+subcategory: Media
 discussion-id: 0
 issue-id: 0
 icon: Assets/ImageCropper.png

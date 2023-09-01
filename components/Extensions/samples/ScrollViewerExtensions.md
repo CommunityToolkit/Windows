@@ -6,7 +6,7 @@ keywords: windows 10, uwp, windows community toolkit, uwp community toolkit, uwp
 dev_langs:
   - csharp
 category: Extensions
-subcategory: Layout
+subcategory: Controls
 discussion-id: 0
 issue-id: 0
 icon: Assets/Extensions.png
@@ -23,7 +23,7 @@ The `ScrollBarMargin` property provides a way to assign a [`Thickness`](/dotnet/
 Here is how this property can be used in XAML:
 
 ```xaml
-<Page xmlns:ui="using:Microsoft.Toolkit.Uwp.UI">
+<Page xmlns:ui="using:CommunityToolkit.WinUI">
     <ListView ui:ScrollViewerExtensions.HorizontalScrollBarMargin="2, 2, 2, 2">
         <!-- ListView Item -->
     </ListView>

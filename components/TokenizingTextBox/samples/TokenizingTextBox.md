@@ -6,7 +6,7 @@ keywords: TokenizingTextBox, control, tokens
 dev_langs:
   - csharp
 category: Controls
-subcategory: Input
+subcategory: Text
 discussion-id: 0
 issue-id: 0
 icon: Assets/TokenizingTextBox.png

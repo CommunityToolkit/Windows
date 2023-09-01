@@ -27,7 +27,7 @@ In your viewmodel instead of having a public [IEnumerable](/dotnet/core/api/syst
 ## Example
 
 ```csharp
-using Microsoft.Toolkit.Uwp.UI;
+using CommunityToolkit.WinUI;
 
 // Grab a sample type
 public class Person
