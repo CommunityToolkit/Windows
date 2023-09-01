@@ -6,7 +6,7 @@ keywords: Behaviors, animations, animationset, xaml, visual, composition
 dev_langs:
   - csharp
 category: Animations
-subcategory: Behaviors
+subcategory: Miscellaneous
 discussion-id: 0
 issue-id: 0
 icon: Assets/AnimationSet.png
