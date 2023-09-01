@@ -12,7 +12,7 @@ issue-id: 0
 icon: Assets/ColorHelper.png
 ---
 
-The [DesignTimeHelpers](/dotnet/api/microsoft.toolkit.uwp.ui.designtimehelpers) helps to detect if your code is running in execution or designtime mode.
+The [DesignTimeHelpers](https://learn.microsoft.com/dotnet/api/microsoft.toolkit.uwp.ui.designtimehelpers) helps to detect if your code is running in execution or designtime mode.
 
 ```csharp
 if (DesignTimeHelpers.IsRunningInLegacyDesignerMode || DesignTimeHelpers.IsRunningInEnhancedDesignerMode)

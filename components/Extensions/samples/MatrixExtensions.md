@@ -12,5 +12,5 @@ issue-id: 0
 icon: Assets/Extensions.png
 ---
 
-The [`MatrixExtensions`](/dotnet/api/microsoft.toolkit.uwp.ui.matrixextensions) type provides methods to transform a [`Matrix`](/uwp/api/Windows.UI.Xaml.Media.Matrix) (Rotate, Scale, Translate, etc...). These are a similar subset of methods originally provided in the [System.Windows.Media.Matrix](/dotnet/api/system.windows.media.matrix) class.
+The [`MatrixExtensions`](https://learn.microsoft.com/dotnet/api/microsoft.toolkit.uwp.ui.matrixextensions) type provides methods to transform a [`Matrix`](https://learn.microsoft.com/uwp/api/Windows.UI.Xaml.Media.Matrix) (Rotate, Scale, Translate, etc...). These are a similar subset of methods originally provided in the [System.Windows.Media.Matrix](https://learn.microsoft.com/dotnet/api/system.windows.media.matrix) class.
 

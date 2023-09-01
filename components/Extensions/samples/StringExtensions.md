@@ -12,7 +12,7 @@ issue-id: 0
 icon: Assets/Extensions.png
 ---
 
-The [`StringExtensions`](/dotnet/api/microsoft.toolkit.StringExtensions) type contains helpers and extensions for `string` objects, including validation methods for common scenarios.
+The [`StringExtensions`](https://learn.microsoft.com/dotnet/api/microsoft.toolkit.StringExtensions) type contains helpers and extensions for `string` objects, including validation methods for common scenarios.
 
 ## Syntax
 

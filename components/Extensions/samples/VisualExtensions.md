@@ -12,7 +12,7 @@ issue-id: 0
 icon: Assets/Extensions.png
 ---
 
-The [`VisualExtensions`](/dotnet/api/microsoft.toolkit.uwp.ui.VisualExtensions) type allows developers to modify common properties of the [`Visual`](/uwp/api/Windows.UI.Composition.Visual) object of an element directly in XAML.
+The [`VisualExtensions`](https://learn.microsoft.com/dotnet/api/microsoft.toolkit.uwp.ui.VisualExtensions) type allows developers to modify common properties of the [`Visual`](https://learn.microsoft.com/uwp/api/Windows.UI.Composition.Visual) object of an element directly in XAML.
 
 ## Syntax
 
@@ -34,7 +34,7 @@ Here is an example of how the `VisualExtensions` type can be used to directly se
 ```
 
 > [!NOTE]
-> The `NormalizedCenterPoint` will also use a [Composition Expression animation](/uwp/api/windows.ui.composition.expressionanimation) behind the scenes to ensure the center point value being set is kept in sync with the size of the associated `Visual` object. As with all composition animations, this animation runs on the compositor thread and doesn't add any load to the UI thread of the application.
+> The `NormalizedCenterPoint` will also use a [Composition Expression animation](https://learn.microsoft.com/uwp/api/windows.ui.composition.expressionanimation) behind the scenes to ensure the center point value being set is kept in sync with the size of the associated `Visual` object. As with all composition animations, this animation runs on the compositor thread and doesn't add any load to the UI thread of the application.
 
 ## Examples
 

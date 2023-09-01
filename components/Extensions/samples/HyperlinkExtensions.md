@@ -12,7 +12,7 @@ issue-id: 0
 icon: Assets/Extensions.png
 ---
 
-The [HyperlinkExtensions](/dotnet/api/microsoft.toolkit.uwp.ui.hyperlinkextensions) class allows for a [`Hyperlink`](/uwp/api/Windows.UI.Xaml.Documents.Hyperlink) element to invoke the execute method on a bound [`ICommand`](/uwp/api/Windows.UI.Xaml.Input.ICommand) instance when clicked.
+The [HyperlinkExtensions](https://learn.microsoft.com/dotnet/api/microsoft.toolkit.uwp.ui.hyperlinkextensions) class allows for a [`Hyperlink`](https://learn.microsoft.com/uwp/api/Windows.UI.Xaml.Documents.Hyperlink) element to invoke the execute method on a bound [`ICommand`](https://learn.microsoft.com/uwp/api/Windows.UI.Xaml.Input.ICommand) instance when clicked.
 
 
 ## How it works
