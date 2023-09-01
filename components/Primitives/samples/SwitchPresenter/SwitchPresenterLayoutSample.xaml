@@ -1,0 +1,54 @@
+<Page x:Class="PrimitivesExperiment.Samples.SwitchPresenter.SwitchPresenterLayoutSample"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:controls="using:CommunityToolkit.WinUI.Controls"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:ui="using:CommunityToolkit.WinUI"
+      mc:Ignorable="d">
+
+    <StackPanel>
+        <ComboBox x:Name="Lookup"
+                  Margin="0,0,0,8"
+                  Header="Look up reservation"
+                  SelectedIndex="0">
+            <x:String>Select an option</x:String>
+            <x:String>Confirmation Code</x:String>
+            <x:String>E-ticket number</x:String>
+            <x:String>Mileage Plan number</x:String>
+        </ComboBox>
+        <!--  SwitchPresenter binds to a value  -->
+        <controls:SwitchPresenter Value="{Binding SelectedItem, ElementName=Lookup}">
+            <!--  And then only dynamically displays the Case with the matching Value  -->
+            <controls:Case Value="Confirmation Code">
+                <StackPanel>
+                    <TextBox Name="ConfirmationCodeValidator"
+                             ui:TextBoxExtensions.Regex="^[a-zA-Z]{6}$"
+                             Header="Confirmation code"
+                             PlaceholderText="6 letters" />
+                    <TextBlock Text="Thanks for entering a valid code!"
+                               Visibility="{Binding (ui:TextBoxExtensions.IsValid), ElementName=ConfirmationCodeValidator}" />
+                </StackPanel>
+            </controls:Case>
+            <controls:Case Value="E-ticket number">
+                <StackPanel>
+                    <TextBox Name="TicketValidator"
+                             ui:TextBoxExtensions.Regex="(^\d{10}$)|(^\d{13}$)"
+                             Header="E-ticket number"
+                             PlaceholderText="10 or 13 numbers" />
+                    <TextBlock Text="Thanks for entering a valid code!"
+                               Visibility="{Binding (ui:TextBoxExtensions.IsValid), ElementName=TicketValidator}" />
+                </StackPanel>
+            </controls:Case>
+            <controls:Case Value="Mileage Plan number">
+                <TextBox Name="PlanValidator"
+                         Header="Mileage Plan #"
+                         PlaceholderText="Mileage Plan #" />
+            </controls:Case>
+            <!--  You can also provide a default case if no match is found  -->
+            <controls:Case IsDefault="True">
+                <TextBlock Text="Please select a way to lookup your reservation above..." />
+            </controls:Case>
+        </controls:SwitchPresenter>
+    </StackPanel>
+</Page>

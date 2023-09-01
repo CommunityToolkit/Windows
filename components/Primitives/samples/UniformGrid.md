@@ -6,7 +6,7 @@ keywords: UniformGrid, grid, layout, responsive
 dev_langs:
   - csharp
 category: Layouts
-subcategory: Layout
+subcategory: Miscellaneous
 discussion-id: 0
 issue-id: 0
 icon: Assets/UniformGrid.png

@@ -17,6 +17,7 @@
     <None Remove="Assets\ConstrainedBox.png" />
     <None Remove="Assets\DockPanel.png" />
     <None Remove="Assets\StaggeredPanel.png" />
+    <None Remove="Assets\SwitchPresenter.png" />
     <None Remove="Assets\UniformGrid.png" />
     <None Remove="Assets\WestSeattleView.jpg" />
     <None Remove="Assets\WrapLayout.png" />
@@ -37,6 +38,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\StaggeredPanel.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\SwitchPresenter.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\UniformGrid.png">
