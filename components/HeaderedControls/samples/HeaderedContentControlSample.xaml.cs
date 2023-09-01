@@ -4,7 +4,7 @@
 
 using CommunityToolkit.WinUI.Controls;
 
-namespace HeaderedContentControlExperiment.Samples;
+namespace HeaderedControlsExperiment.Samples;
 
 [ToolkitSample(id: nameof(HeaderedContentControlSample), "HeaderedContentControl", description: $"A sample for showing how to create and use a {nameof(HeaderedContentControl)} control.")]
 public sealed partial class HeaderedContentControlSample : Page

@@ -5,7 +5,7 @@
 using CommunityToolkit.WinUI.Behaviors;
 using CommunityToolkit.WinUI.Controls;
 
-namespace BehaviorsExperiment.Samples;
+namespace BehaviorsExperiment.Samples.Headers;
 
 /// <summary>
 /// An empty page that can be used on its own or navigated to within a Frame.
