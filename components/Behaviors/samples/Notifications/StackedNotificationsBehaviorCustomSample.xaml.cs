@@ -4,7 +4,7 @@
 
 using CommunityToolkit.WinUI.Behaviors;
 
-namespace BehaviorsExperiment.Samples;
+namespace BehaviorsExperiment.Samples.Notifications;
 
 [ToolkitSample(id: nameof(StackedNotificationsBehaviorCustomSample), "Stacked Notifications", description: $"A sample for showing how to create and use a {nameof(StackedNotificationsBehavior)} custom behavior.")]
 public sealed partial class StackedNotificationsBehaviorCustomSample : Page
