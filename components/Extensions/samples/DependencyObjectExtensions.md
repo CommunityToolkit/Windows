@@ -13,7 +13,7 @@ issue-id: 0
 icon: Assets/Extensions.png
 ---
 
-The [`DependencyObjectExtensions`](/dotnet/api/microsoft.toolkit.uwp.ui.DependencyObjectExtensions) type provides a collection of extensions methods for [`DependencyObject`](/uwp/api/windows.ui.xaml.dependencyobject) objects. This class exposes several APIs to aid in using the [`VisualTreeHelper`](/uwp/api/Windows.UI.Xaml.Media.VisualTreeHelper) class. There are a number of reasons why walking the visual tree might be useful, which are mentioned [in the docs](/uwp/api/windows.ui.xaml.media.visualtreehelper?#traversing-a-visual-tree).
+The [`DependencyObjectExtensions`](https://learn.microsoft.com/dotnet/api/microsoft.toolkit.uwp.ui.DependencyObjectExtensions) type provides a collection of extensions methods for [`DependencyObject`](https://learn.microsoft.com/uwp/api/windows.ui.xaml.dependencyobject) objects. This class exposes several APIs to aid in using the [`VisualTreeHelper`](https://learn.microsoft.com/uwp/api/Windows.UI.Xaml.Media.VisualTreeHelper) class. There are a number of reasons why walking the visual tree might be useful, which are mentioned [in the docs](https://learn.microsoft.com/uwp/api/windows.ui.xaml.media.visualtreehelper?#traversing-a-visual-tree).
 
 ## Syntax
 

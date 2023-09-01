@@ -15,7 +15,7 @@ icon: Assets/ConstrainedBox.png
 > [!NOTE]
 > For technical reasons this control inherits from `ContentPresenter`; however, it should be treated as a `FrameworkElement` and its border and template properties should not be used for compatibility in the future when it can inherit from FrameworkElement directly.
 
-> **Platform APIs:** [`ConstrainedBox`](/dotnet/api/microsoft.toolkit.uwp.ui.controls.constrainedbox), [`AspectRatio`](/dotnet/api/microsoft.toolkit.uwp.ui.controls.aspectratio)
+> **Platform APIs:** [`ConstrainedBox`](https://learn.microsoft.com/dotnet/api/microsoft.toolkit.uwp.ui.controls.constrainedbox), [`AspectRatio`](https://learn.microsoft.com/dotnet/api/microsoft.toolkit.uwp.ui.controls.aspectratio)
 
 The three constraints provided by the `ConstrainedBox` control can be used individually & independently or combined to provide a wide-variety of responsive layout options. When used in combination, for the properties used, they are always applied in the following order:
 

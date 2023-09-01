@@ -14,7 +14,7 @@ icon: Assets/ImageCropper.png
 
 # ImageCropper
 
-The [ImageCropper Control](/dotnet/api/microsoft.toolkit.uwp.ui.controls.imagecropper) allows user to freely crop an image.
+The [ImageCropper Control](https://learn.microsoft.com/dotnet/api/microsoft.toolkit.uwp.ui.controls.imagecropper) allows user to freely crop an image.
 
 > [!Sample ImageCropperSample]
 

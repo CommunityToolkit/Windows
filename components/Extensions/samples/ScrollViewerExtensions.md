@@ -12,13 +12,13 @@ issue-id: 0
 icon: Assets/Extensions.png
 ---
 
-The [`ScrollViewerExtensions`](/dotnet/api/microsoft.toolkit.uwp.ui.scrollviewerextensions) type provides extension methods to improve your [`ScrollViewer`](/uwp/api/windows.ui.xaml.controls.scrollviewer) implementation.
+The [`ScrollViewerExtensions`](https://learn.microsoft.com/dotnet/api/microsoft.toolkit.uwp.ui.scrollviewerextensions) type provides extension methods to improve your [`ScrollViewer`](https://learn.microsoft.com/uwp/api/windows.ui.xaml.controls.scrollviewer) implementation.
 
-> **Platform APIs:** [`ScrollViewerExtensions`](/dotnet/api/microsoft.toolkit.uwp.ui.scrollviewerextensions)
+> **Platform APIs:** [`ScrollViewerExtensions`](https://learn.microsoft.com/dotnet/api/microsoft.toolkit.uwp.ui.scrollviewerextensions)
 
 ## ScrollBarMargin
 
-The `ScrollBarMargin` property provides a way to assign a [`Thickness`](/dotnet/api/system.windows.thickness) to the vertical/horizontal [`ScrollBar`](/uwp/api/windows.ui.xaml.controls.primitives.scrollbar) of your container.
+The `ScrollBarMargin` property provides a way to assign a [`Thickness`](https://learn.microsoft.com/dotnet/api/system.windows.thickness) to the vertical/horizontal [`ScrollBar`](https://learn.microsoft.com/uwp/api/windows.ui.xaml.controls.primitives.scrollbar) of your container.
 
 Here is how this property can be used in XAML:
 

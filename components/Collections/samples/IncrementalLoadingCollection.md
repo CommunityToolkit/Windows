@@ -14,9 +14,9 @@ icon: Assets/IncrementalLoadingCollection.png
 
 > [!Sample IncrementalLoadingCollectionSample]
 
-[IIncrementalSource](/dotnet/api/microsoft.toolkit.collections.iincrementalsource-1) - An interface that represents a data source whose items can be loaded incrementally.
+[IIncrementalSource](https://learn.microsoft.com/dotnet/api/microsoft.toolkit.collections.iincrementalsource-1) - An interface that represents a data source whose items can be loaded incrementally.
 
-[IncrementalLoadingCollection](/dotnet/api/microsoft.toolkit.uwp.incrementalloadingcollection-2) - An extension of [ObservableCollection](/dotnet/api/system.collections.objectmodel.observablecollection-1) such that its items are loaded only when needed.
+[IncrementalLoadingCollection](https://learn.microsoft.com/dotnet/api/microsoft.toolkit.uwp.incrementalloadingcollection-2) - An extension of [ObservableCollection](https://learn.microsoft.com/dotnet/api/system.collections.objectmodel.observablecollection-1) such that its items are loaded only when needed.
 
 ## Example
 
@@ -63,7 +63,7 @@ public class PeopleSource : IIncrementalSource<Person>
 
 The *GetPagedItemsAsync* method is invoked every time the view need to show more items.
 
-`IncrementalLoadingCollection` can then be bound to a [ListView](/uwp/api/Windows.UI.Xaml.Controls.ListView) or a [GridView-like](/uwp/api/Windows.UI.Xaml.Controls.GridView) control:
+`IncrementalLoadingCollection` can then be bound to a [ListView](https://learn.microsoft.com/uwp/api/Windows.UI.Xaml.Controls.ListView) or a [GridView-like](https://learn.microsoft.com/uwp/api/Windows.UI.Xaml.Controls.GridView) control:
 
 ```csharp
 var collection = new IncrementalLoadingCollection<PeopleSource, Person>();

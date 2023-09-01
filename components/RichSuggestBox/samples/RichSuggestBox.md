@@ -12,7 +12,7 @@ issue-id: 0
 icon: Assets/RichSuggestBox.png
 ---
 
-The [RichSuggestBox](/dotnet/api/microsoft.toolkit.uwp.ui.controls.richsuggestbox) is a combination of [AutoSuggestBox](/uwp/api/windows.ui.xaml.controls.autosuggestbox) and [RichEditBox](/uwp/api/windows.ui.xaml.controls.richeditbox) that can provide suggestions based on customizable prefixes. Selected suggestions are embedded and tracked in the document as tokens.
+The [RichSuggestBox](https://learn.microsoft.com/dotnet/api/microsoft.toolkit.uwp.ui.controls.richsuggestbox) is a combination of [AutoSuggestBox](https://learn.microsoft.com/uwp/api/windows.ui.xaml.controls.autosuggestbox) and [RichEditBox](https://learn.microsoft.com/uwp/api/windows.ui.xaml.controls.richeditbox) that can provide suggestions based on customizable prefixes. Selected suggestions are embedded and tracked in the document as tokens.
 
 RichSuggestBox resembles text controls commonly found in social applications where you type "@" to mention people.
 
@@ -29,7 +29,7 @@ RichSuggestBox resembles text controls commonly found in social applications whe
 
 ## Remarks
 
-When a suggestion is selected, `RichSuggestBox` assigns the selected item a unique [Guid](/dotnet/api/system.guid) and a display text (provided by the developer) to make up a token. The display text is then padded with [Zero Width Space](https://unicode-table.com/200B/)s (ZWSP) and inserted into the document as a hyperlink using the identifier as the link address. These hyperlinks are tracked and validated on every text change.
+When a suggestion is selected, `RichSuggestBox` assigns the selected item a unique [Guid](https://learn.microsoft.com/dotnet/api/system.guid) and a display text (provided by the developer) to make up a token. The display text is then padded with [Zero Width Space](https://unicode-table.com/200B/)s (ZWSP) and inserted into the document as a hyperlink using the identifier as the link address. These hyperlinks are tracked and validated on every text change.
 
 The token text inserted into the document has the following layout: ZWSP - Prefix character - Display text - ZWSP.
 
