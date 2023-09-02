@@ -111,8 +111,6 @@ Here is how this property can be used from XAML:
 
 Use SmoothScrollIntoView helps to scroll the item into the view with animation. Specify the ItemPosition property to align the item.
 
-### Syntax
-
 ```csharp
 // Scrolling with index
 await MyGridView.SmoothScrollIntoViewWithIndexAsync(index: int, itemPlacement: ItemPlacement, disableAnimation: bool, scrollIfVisibile: bool, additionalHorizontalOffset: int, additionalVerticalOffset: int);
@@ -121,61 +119,6 @@ await MyGridView.SmoothScrollIntoViewWithIndexAsync(index: int, itemPlacement: I
 await MyGridView.SmoothScrollIntoViewWithItemAsync(item: object, itemPlacement: ItemPlacement, disableAnimation: bool, scrollIfVisibile: bool, additionalHorizontalOffset: int, additionalVerticalOffset: int);
 ```
 
-### Methods
+We can use this extension to make the selected item always centered:
 
-| Methods | Return Type | Description |
-|---------|-------------|-------------|
-| SmoothScrollIntoViewWithIndexAsync(int, ScrollItemPlacement, bool, bool, int, int) | Task | Smooth scroll item into view With index number |
-| SmoothScrollIntoViewWithItemAsync(object, ScrollItemPlacement, bool, bool, int, int) | Task | Smooth scroll item into view With item object |
-
-### Method params
-
-| Properties | Type | Description |
-|------------|------|-------------|
-| intex      | int  | Intex of the item to be scrolled. Index can be negative |
-| item      | int  | Intex of the item to be scrolled |
-| itemPosition | ScrollItemPlacement | Specify the position of the Item after scrolling |
-| disableAnimation | bool | To disable the scrolling animation |
-| scrollIfVisibile | bool | Set `true` to scroll even if the scroll to item is visible so that the item will be aligned depend upon `itemPosition` |
-| additionalHorizontalOffset | bool | Give addition horizontal offset |
-| additionalVerticalOffset | bool | Give addition vertical offset |
-
-### ItemPosition
-
-| ScrollItemPlacement | Description |
-|--------------|-------------|
-| Default | If visible then it will not scroll, if not then item will be aligned to the nearest edge |
-| Left | Aligned left |
-| Top | Aligned top |
-| Center | Aligned center |
-| Right | Aligned right |
-| Bottom | Aligned bottom |
-
-### Examples
-
-- We can use this extension to make the selected item always centered.
-
-    **Sample Code**
-
-    ```xaml
-    <ListView ItemsSource="{x:Bind itemSources}" SelectionChanged="ListView_SelectionChanged">
-        <ListView.ItemTemplate>
-            <DataTemplate>
-                <!-- Your Template -->
-            </DataTemplate>
-        </ListView.ItemTemplate>
-        <ListView.ItemsPanel>
-            <ItemsPanelTemplate>
-                <StackPanel Orientation="Horizontal"/>
-            </ItemsPanelTemplate>
-        </ListView.ItemsPanel>
-    </ListView>
-    ```
-
-    ```csharp
-    private async void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-        var listView = (sender as ListView);
-        await listView.SmoothScrollIntoViewWithIndexAsync(listView.SelectedIndex, ScrollItemPlacement.Center, false, true);
-    }
-    ```
+> [!SAMPLE SmoothScrollIntoViewSample]
