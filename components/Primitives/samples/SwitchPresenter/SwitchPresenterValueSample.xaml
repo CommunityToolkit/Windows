@@ -8,6 +8,13 @@
       xmlns:ui="using:CommunityToolkit.WinUI"
       mc:Ignorable="d">
 
+    <Page.Resources>
+        <!--
+            If you reference an enum directly in UWP, you need to use it somewhere for the XamlTypeInfo reference to be generated...
+        -->
+        <local:Animal x:Key="MyAnimal">Cat</local:Animal>
+    </Page.Resources>
+
     <StackPanel>
         <ComboBox x:Name="AnimalPicker"
                   Header="Pick an Animal"
