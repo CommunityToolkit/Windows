@@ -15,11 +15,11 @@ icon: Assets/Shadow.png
 
 There are two types of attached shadows available today, the `AttachedCardShadow` and the `AttachedDropShadow`. It is recommended to use the `AttachedCardShadow` where possible, if you don't mind the dependency on Win2D. The `AttachedCardShadow` provides an easier to use experience that is more performant and easier to apply across an entire set of elements, assuming those elements are rounded-rectangular in shape. The `AttachedDropShadow` provides masking support and can be leveraged in any UWP app without adding an extra dependency.
 
-### Capability Comparison
+## Capability Comparison
 
 The following table outlines the various capabilities of each shadow type in addition to comparing to the previous `DropShadowPanel` implementation:
 
-| Capability                    | AttachedCardShadow                                                 | AttachedDropShadow                                              | DropShadowPanel (deprecated)                                                              |
+| Capability                    | AttachedCardShadow                                                 | AttachedDropShadow                                              | DropShadowPanel (deprecated/removed)                                                       |
 |-------------------------------|--------------------------------------------------------------------|-----------------------------------------------------------------|-----------------------------------------------------------------------------------------|
 | Dependency/NuGet Package      | 🟡 Win2D via<br>`CommunityToolkit.WinUI.Media`                       | ✅ Framework Only (Composition Effect)<br>`CommunityToolkit.WinUI.Effects`  | ✅ Framework Only (Composition Effect)<br>`Microsoft.Toolkit.Uwp.UI.Controls` (legacy)                              |
 | Layer                         | Inline Composition +<br>Win2D Clip Geometry                           | Composition via<br>Target Element Backdrop                         | Composition via<br>`ContentControl` Container                                                |
@@ -40,7 +40,7 @@ The great benefit to the `AttachedCardShadow` is that no extra surface or elemen
 
 ## AttachedDropShadow (Composition)
 
-The `AttachedDropShadow` provides masking support to a wide variety of elements including transparent images, shapes, and text. Masking to a custom shape that's not rectangular or rounded-rectangular is the main scenario where an `AttachedDropShadow` will be useful. Unlike it's predecessor, the [`DropShadowPanel`](../Controls/DropShadowPanel.md), the `AttachedDropShadow` doesn't need to wrap the element being shadowed; however, it does require another element to cast the shadow on to.
+The `AttachedDropShadow` provides masking support to a wide variety of elements including transparent images, shapes, and text. Masking to a custom shape that's not rectangular or rounded-rectangular is the main scenario where an `AttachedDropShadow` will be useful. Unlike it's predecessor, the `DropShadowPanel`, the `AttachedDropShadow` doesn't need to wrap the element being shadowed; however, it does require another element to cast the shadow on to.
 
 This makes it a bit more complex to use than the `AttachedCardShadow` and the `DropShadowPanel`, but since multiple `AttachedDropShadow` elements can share the same surface, this makes it much more performant than its predecessor.
 
