@@ -14,13 +14,13 @@ icon: Assets/StaggeredPanel.png
 
 # StaggeredLayout
 
-The [StaggeredLayout](https://learn.microsoft.com/dotnet/api/microsoft.toolkit.uwp.ui.controls.staggeredlayout) allows for layout of items in a column approach where an item will be added to whichever column has used the least amount of space.
+The `StaggeredLayout` allows for layout of items in a column approach where an item will be added to whichever column has used the least amount of space.
 
 > [!SAMPLE StaggeredLayoutSample]
 
 # StaggeredPanel
 
-The [StaggeredPanel](https://learn.microsoft.com/dotnet/api/microsoft.toolkit.uwp.ui.controls.staggeredpanel) allows for layout of items in a column approach where an item will be added to whichever column has used the least amount of space.
+The `StaggeredPanel` allows for layout of items in a column approach where an item will be added to whichever column has used the least amount of space.
 
 ```xaml
 <ItemsControl>

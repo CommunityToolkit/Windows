@@ -14,9 +14,9 @@ icon: Assets/IncrementalLoadingCollection.png
 
 > [!Sample IncrementalLoadingCollectionSample]
 
-[IIncrementalSource](https://learn.microsoft.com/dotnet/api/microsoft.toolkit.collections.iincrementalsource-1) - An interface that represents a data source whose items can be loaded incrementally.
+`IIncrementalSource` - An interface that represents a data source whose items can be loaded incrementally.
 
-[IncrementalLoadingCollection](https://learn.microsoft.com/dotnet/api/microsoft.toolkit.uwp.incrementalloadingcollection-2) - An extension of [ObservableCollection](https://learn.microsoft.com/dotnet/api/system.collections.objectmodel.observablecollection-1) such that its items are loaded only when needed.
+`IncrementalLoadingCollection` - An extension of [ObservableCollection](https://learn.microsoft.com/dotnet/api/system.collections.objectmodel.observablecollection-1) such that its items are loaded only when needed.
 
 ## Example
 

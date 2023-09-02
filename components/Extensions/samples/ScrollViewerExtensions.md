@@ -12,9 +12,9 @@ issue-id: 0
 icon: Assets/Extensions.png
 ---
 
-The [`ScrollViewerExtensions`](https://learn.microsoft.com/dotnet/api/microsoft.toolkit.uwp.ui.scrollviewerextensions) type provides extension methods to improve your [`ScrollViewer`](https://learn.microsoft.com/uwp/api/windows.ui.xaml.controls.scrollviewer) implementation.
+The `ScrollViewerExtensions` type provides extension methods to improve your [`ScrollViewer`](https://learn.microsoft.com/uwp/api/windows.ui.xaml.controls.scrollviewer) implementation.
 
-> **Platform APIs:** [`ScrollViewerExtensions`](https://learn.microsoft.com/dotnet/api/microsoft.toolkit.uwp.ui.scrollviewerextensions)
+> **Platform APIs:** `ScrollViewerExtensions`
 
 ## ScrollBarMargin
 

@@ -12,7 +12,7 @@ issue-id: 0
 icon: Assets/ScreenUnitHelper.png
 ---
 
-The [ScreenUnitHelper](https://learn.microsoft.com/dotnet/api/microsoft.toolkit.uwp.helpers.screenunithelper) helps to convert a screen unit to another screen unit (ex: 1cm => 39.7953px).
+The `ScreenUnitHelper` helps to convert a screen unit to another screen unit (ex: 1cm => 39.7953px).
 
 ```csharp
 float result = ScreenUnitHelper.Convert(ScreenUnit.Inch, ScreenUnit.Pixel, 1); // 96

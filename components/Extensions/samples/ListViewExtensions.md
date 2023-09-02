@@ -12,7 +12,7 @@ issue-id: 0
 icon: Assets/Extensions.png
 ---
 
-The [`ListViewExtensions`](https://learn.microsoft.com/dotnet/api/microsoft.toolkit.uwp.ui.listviewextensions) class provide a lightweight way to extend every control that inherits the [`ListViewBase`](https://learn.microsoft.com/uwp/api/Windows.UI.Xaml.Controls.ListViewBase) class with attached properties. This means that all the extensions in this class can apply to both [`ListView`](https://learn.microsoft.com/uwp/api/windows.ui.xaml.controls.listview), [`GridView`](https://learn.microsoft.com/uwp/api/windows.ui.xaml.controls.gridview) and other controls.
+The `ListViewExtensions` class provide a lightweight way to extend every control that inherits the [`ListViewBase`](https://learn.microsoft.com/uwp/api/Windows.UI.Xaml.Controls.ListViewBase) class with attached properties. This means that all the extensions in this class can apply to both [`ListView`](https://learn.microsoft.com/uwp/api/windows.ui.xaml.controls.listview), [`GridView`](https://learn.microsoft.com/uwp/api/windows.ui.xaml.controls.gridview) and other controls.
 
 ## ListViewBase Extensions
 
