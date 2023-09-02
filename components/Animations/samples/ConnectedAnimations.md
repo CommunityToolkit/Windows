@@ -89,18 +89,18 @@ Unregisters an element (part of a DataTemplate in a list control) from the Conne
 
 The helper uses the page navigation parameter to decide which list item will be animated during the page navigation. However, in some cases the parameter passed during page navigation is not part of the list. For example, you might be only passing the id of an item as a navigation parameter and not the item itself.
 
-In those cases, you can use the **SetListDataItemForNextConnectedAnnimation** extension method before page navigation to specify which item should be animated.
+In those cases, you can use the **SetListDataItemForNextConnectedAnimation** extension method before page navigation to specify which item should be animated.
 
 ```csharp
     // dataItemToAnimate is an object in the ListViewBase.ItemsSource collection
-    Frame.SetListDataItemForNextConnectedAnnimation(dataItemToAnimate);
+    Frame.SetListDataItemForNextConnectedAnimation(dataItemToAnimate);
     Frame.Navigate(typeof(DetailsPage), dataItemToAnimate.Id);
 ```
 
 This method is also helpful when navigating back to an item different from the item it was navigated from.
 
 ```csharp
-    Frame.SetListDataItemForNextConnectedAnnimation(dataItemToAnimate);
+    Frame.SetListDataItemForNextConnectedAnimation(dataItemToAnimate);
     Frame.GoBack();
 ```
 
@@ -174,4 +174,3 @@ In this page, you just need to give the same key.
     <TextBlock Margin="0,40" TextWrapping="WrapWholeWords" Text="Lorem ipsum..."/>
 </StackPanel>
 ```
-

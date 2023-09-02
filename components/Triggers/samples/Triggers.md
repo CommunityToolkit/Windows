@@ -19,6 +19,7 @@ Enables a state if the value is equal to, greater than, or less than another val
 > [!Sample CompareStateTriggerSample]
 
 ## ControlStateTrigger
+
 Enables a state if the target control meets the specified size
 
 > [!Sample ControlSizeTriggerSample]

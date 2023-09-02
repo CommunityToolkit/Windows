@@ -45,7 +45,6 @@ private void CameraPreviewControl_PreviewFailed(object sender, PreviewFailedEven
 > [!IMPORTANT]
 > As a developer, you will need to make sure the CameraHelper resources used by the control are cleaned up when appropriate. See [CameraHelper documentation](../helpers/CameraHelper.md) for more details
 
-
 ## Examples
 
 Demonstrates using the camera control and camera helper to preview video from a specific media frame source group.

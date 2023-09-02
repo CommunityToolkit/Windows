@@ -2,7 +2,7 @@
 title: Theme Listener
 author: williamabradley
 description: The ThemeListener allows you to keep track of changes to the current Application Them, and when it is changed via System Theme changes.
-keywords: Helpers, Theming, theme listerner, themes
+keywords: Helpers, Theming, theme listener, themes
 dev_langs:
   - csharp
 category: Helpers

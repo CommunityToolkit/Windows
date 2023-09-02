@@ -13,4 +13,3 @@ icon: Assets/Extensions.png
 ---
 
 The `MatrixExtensions` type provides methods to transform a [`Matrix`](https://learn.microsoft.com/uwp/api/Windows.UI.Xaml.Media.Matrix) (Rotate, Scale, Translate, etc...). These are a similar subset of methods originally provided in the [System.Windows.Media.Matrix](https://learn.microsoft.com/dotnet/api/system.windows.media.matrix) class.
-

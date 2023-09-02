@@ -24,7 +24,7 @@ Apply and animate a Win2D BlurEffect
 
 ## ColorEffectAnimation
 
-Animate an overlayed color with a Win2D ColorEffect.
+Animate an overlaid color with a Win2D ColorEffect.
 
 > [!SAMPLE ColorEffectAnimationSample]
 
@@ -42,7 +42,7 @@ Animate the exposure with a Win2D ExposureEffect.
 
 ## HueRotationEffectAnimation
 
-Animate Hue to a specific angle using a Win2D HueRotationEffect. 
+Animate Hue to a specific angle using a Win2D HueRotationEffect.
 
 > [!SAMPLE HueRotationEffectAnimationSample]
 

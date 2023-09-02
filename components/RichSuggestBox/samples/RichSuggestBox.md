@@ -95,5 +95,3 @@ The example below creates a `RichSuggestBox` that only allows users to enter pla
 ```
 
 > [!Sample RichSuggestBoxPlainTextSample]
-
-

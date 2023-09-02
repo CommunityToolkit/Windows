@@ -1,7 +1,7 @@
 ---
 title: StaggeredLayout / StaggeredPanel
 author: skendrot
-description: The StaggeredLayout / StaggeredPanel virtualizes items in a column approach where an item will be added to whichever column has used the least amount of space.
+description: The StaggeredLayout and StaggeredPanel display items in a column approach where an item will be added to whichever column has used the least amount of space.
 keywords: StaggeredPanel, StaggeredLayout, Layout
 dev_langs:
   - csharp
@@ -12,13 +12,15 @@ issue-id: 0
 icon: Assets/StaggeredPanel.png
 ---
 
-# StaggeredLayout
+## StaggeredLayout
 
 The `StaggeredLayout` allows for layout of items in a column approach where an item will be added to whichever column has used the least amount of space.
 
+It is a Layout for `ItemsRepeater` which will provide better virtualization compared to the `StaggeredPanel` below.
+
 > [!SAMPLE StaggeredLayoutSample]
 
-# StaggeredPanel
+## StaggeredPanel
 
 The `StaggeredPanel` allows for layout of items in a column approach where an item will be added to whichever column has used the least amount of space.
 

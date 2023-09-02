@@ -22,7 +22,6 @@ When the Orientation is Vertical, HorizontalSpacing adds uniform spacing between
 
 > [!SAMPLE WrapPanelSample]
 
-
 ## Examples
 
 The following example of adding WrapPanel Control.

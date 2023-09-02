@@ -1,6 +1,6 @@
 ---
 title: Sizer overview
-author: mhawker
+author: michael-hawker
 description: The Sizer controls allow users to resize various parts of your UI easily in a consistent fashion.
 keywords: GridSplitter, ContentSizer, PropertySizer, SizerBase, Control, Layout, Expander, Grid, Splitter
 dev_langs:
