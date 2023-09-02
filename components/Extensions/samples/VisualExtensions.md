@@ -12,7 +12,7 @@ issue-id: 0
 icon: Assets/Extensions.png
 ---
 
-The [`VisualExtensions`](https://learn.microsoft.com/dotnet/api/microsoft.toolkit.uwp.ui.VisualExtensions) type allows developers to modify common properties of the [`Visual`](https://learn.microsoft.com/uwp/api/Windows.UI.Composition.Visual) object of an element directly in XAML.
+The `VisualExtensions` type allows developers to modify common properties of the [`Visual`](https://learn.microsoft.com/uwp/api/Windows.UI.Composition.Visual) object of an element directly in XAML.
 
 ## Syntax
 

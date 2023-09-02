@@ -11,7 +11,7 @@ discussion-id: 0
 issue-id: 0
 icon: Assets/Shadow.png
 ---
-> **Platform APIs:** [`AttachedCardShadow`](https://learn.microsoft.com/dotnet/api/microsoft.toolkit.uwp.ui.media.attachedcardshadow), [`AttachedDropShadow`](https://learn.microsoft.com/dotnet/api/microsoft.toolkit.uwp.ui.attacheddropshadow)
+> **Platform APIs:** `AttachedCardShadow`, `AttachedDropShadow`
 
 There are two types of attached shadows available today, the `AttachedCardShadow` and the `AttachedDropShadow`. It is recommended to use the `AttachedCardShadow` where possible, if you don't mind the dependency on Win2D. The `AttachedCardShadow` provides an easier to use experience that is more performant and easier to apply across an entire set of elements, assuming those elements are rounded-rectangular in shape. The `AttachedDropShadow` provides masking support and can be leveraged in any UWP app without adding an extra dependency.
 

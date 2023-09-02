@@ -14,7 +14,7 @@ icon: Assets/DeveloperTools.png
 
 ## AlignmentGrid XAML Control
 
-The [AlignmentGrid Control](https://learn.microsoft.com/dotnet/api/microsoft.toolkit.uwp.developertools.alignmentgrid) can be used to display a grid to help with aligning controls.
+The `AlignmentGrid Control` can be used to display a grid to help with aligning controls.
 
 You can control the grid's steps with `HorizontalStep` and `VerticalStep` properties. Line color can be defined with `LineBrush` property.
 
@@ -22,7 +22,7 @@ You can control the grid's steps with `HorizontalStep` and `VerticalStep` proper
 
 ## FocusTracker
 
-The [FocusTracker Control](https://learn.microsoft.com/dotnet/api/microsoft.toolkit.uwp.developertools.focustracker) can be used to display information about the current focused XAML element (if any).
+The `FocusTracker Control` can be used to display information about the current focused XAML element (if any).
 
 FocusTracker will display the following information (when available) about the current focused XAML element:
 

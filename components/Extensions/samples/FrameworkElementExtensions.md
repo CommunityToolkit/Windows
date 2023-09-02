@@ -13,13 +13,13 @@ issue-id: 0
 icon: Assets/Extensions.png
 ---
 
-[`FrameworkElementExtensions`](https://learn.microsoft.com/dotnet/api/microsoft.toolkit.uwp.ui.frameworkelementextensions) provides a collection of attached dependency properties, helpers and extension methods to work with [`FrameworkElement`](https://learn.microsoft.com/uwp/api/windows.ui.xaml.frameworkelement) objects. In particular, it also includes a series of extension methods to explore the logical tree from a given UI element and find child or parent objects.
+`FrameworkElementExtensions` provides a collection of attached dependency properties, helpers and extension methods to work with [`FrameworkElement`](https://learn.microsoft.com/uwp/api/windows.ui.xaml.frameworkelement) objects. In particular, it also includes a series of extension methods to explore the logical tree from a given UI element and find child or parent objects.
 
 ## Logical tree extensions
 
 The `FindChild` and `FindParent` methods (and their overloads) provide an easy way to explore the logical tree starting from a given `FrameworkElement` instance and find other controls connected to it.
 
-These APIs differ from the *visual tree* extensions (in the [`DependencyObjectExtensions`](https://learn.microsoft.com/dotnet/api/microsoft.toolkit.uwp.ui.DependencyObjectExtensions) class) where extra containers and styles can wrap other elements. The logical tree instead defines how controls are directly connected through construction. These methods can also be used on controls that aren't yet connected or rendered in the visual tree.
+These APIs differ from the *visual tree* extensions (in the `DependencyObjectExtensions` class) where extra containers and styles can wrap other elements. The logical tree instead defines how controls are directly connected through construction. These methods can also be used on controls that aren't yet connected or rendered in the visual tree.
 
 Here are some examples of how these extensions can be used:
 

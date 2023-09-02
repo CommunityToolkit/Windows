@@ -12,9 +12,9 @@ issue-id: 0
 icon: Assets/Extensions.png
 ---
 
-The [`EnumValuesExtensions`](https://learn.microsoft.com/dotnet/api/microsoft.toolkit.uwp.ui.EnumValuesExtensions) type implements a markup extension that returns a collection of values of a specific enum type. It can be useful to easily bind a collection of all possible values from a given enum type to a UI element such as a [`ComboBox`](https://learn.microsoft.com/windows/uwp/design/controls-and-patterns/combo-box) or some other items container or selector control.
+The `EnumValuesExtensions` type implements a markup extension that returns a collection of values of a specific enum type. It can be useful to easily bind a collection of all possible values from a given enum type to a UI element such as a [`ComboBox`](https://learn.microsoft.com/windows/uwp/design/controls-and-patterns/combo-box) or some other items container or selector control.
 
-> **Platform APIs:** [`EnumValuesExtensions`](https://learn.microsoft.com/dotnet/api/microsoft.toolkit.uwp.ui.EnumValuesExtensions)
+> **Platform APIs:** `EnumValuesExtensions`
 
 ## Syntax
 

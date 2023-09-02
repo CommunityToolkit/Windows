@@ -12,7 +12,7 @@ issue-id: 0
 icon: Assets/Extensions.png
 ---
 
-The [`DispatcherQueueExtensions`](https://learn.microsoft.com/dotnet/api/microsoft.toolkit.uwp.DispatcherQueueExtensions) type provides a collection of extensions methods for [`DispatcherQueue`](https://learn.microsoft.com/uwp/api/windows.system.dispatcherqueue) objects that makes it easier to execute code on a specific UI thread. A `DispatcherQueue` instance can be retrieved and cached for later use, and then used through any of the available helper methods to dispatch a delegate invocation on it.
+The `DispatcherQueueExtensions` type provides a collection of extensions methods for [`DispatcherQueue`](https://learn.microsoft.com/uwp/api/windows.system.dispatcherqueue) objects that makes it easier to execute code on a specific UI thread. A `DispatcherQueue` instance can be retrieved and cached for later use, and then used through any of the available helper methods to dispatch a delegate invocation on it.
 
 ## Syntax
 

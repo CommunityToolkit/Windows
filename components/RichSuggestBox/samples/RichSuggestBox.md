@@ -12,7 +12,7 @@ issue-id: 0
 icon: Assets/RichSuggestBox.png
 ---
 
-The [RichSuggestBox](https://learn.microsoft.com/dotnet/api/microsoft.toolkit.uwp.ui.controls.richsuggestbox) is a combination of [AutoSuggestBox](https://learn.microsoft.com/uwp/api/windows.ui.xaml.controls.autosuggestbox) and [RichEditBox](https://learn.microsoft.com/uwp/api/windows.ui.xaml.controls.richeditbox) that can provide suggestions based on customizable prefixes. Selected suggestions are embedded and tracked in the document as tokens.
+The `RichSuggestBox` is a combination of [AutoSuggestBox](https://learn.microsoft.com/uwp/api/windows.ui.xaml.controls.autosuggestbox) and [RichEditBox](https://learn.microsoft.com/uwp/api/windows.ui.xaml.controls.richeditbox) that can provide suggestions based on customizable prefixes. Selected suggestions are embedded and tracked in the document as tokens.
 
 RichSuggestBox resembles text controls commonly found in social applications where you type "@" to mention people.
 
