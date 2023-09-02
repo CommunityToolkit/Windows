@@ -18,23 +18,12 @@ The great benefit to the `AttachedCardShadow` is that no extra surface or elemen
 
 The example shows how easy it is to not only apply an `AttachedCardShadow` to an element, but use it in a style to apply to multiple elements as well:
 
-```xaml
-    xmlns:ui="using:CommunityToolkit.WinUI"
-    xmlns:media="using:CommunityToolkit.WinUI.Media"/>
+> [!SAMPLE AttachedCardShadowBasicSample]
 
-    <Page.Resources>
-        <media:AttachedCardShadow x:Key="CommonShadow" Offset="4"/>
+You can see the `AttachedCardShadow` defined as a resource so it can be shared across multiple components. It also supports binding/animations to update at runtime.
 
-        <Style TargetType="Button" BasedOn="{StaticResource DefaultButtonStyle}">
-            <Setter Property="ui:Effects.Shadow" Value="{StaticResource CommonShadow}"/>
-            <Setter Property="HorizontalAlignment" Value="Center"/>
-        </Style>
-    </Page.Resources>
+## Layer Ordering
 
-    <StackPanel Spacing="32" VerticalAlignment="Center">
-        <Button Content="I Have a Shadow!"/>
-        <Image ui:Effects.Shadow="{StaticResource CommonShadow}"
-               Height="100" Width="100"
-               Source="ms-appx:///Assets/Photos/Owl.jpg"/>
-    </StackPanel>
-```
+There can be cases, especially direct usage on untemplated elements, where the AttachedCardShadow may require a parent element to create the desired effect, as seen in this example:
+
+> [!SAMPLE AttachedCardShadowUntemplatedSample]

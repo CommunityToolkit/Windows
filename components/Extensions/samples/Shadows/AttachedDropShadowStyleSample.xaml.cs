@@ -2,7 +2,7 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
-namespace ExtensionsExperiment.Samples;
+namespace ExtensionsExperiment.Samples.Shadows;
 
 [ToolkitSample(id: nameof(AttachedDropShadowStyleSample), "Attached Drop Shadow as Style", description: "A sample for showing how to create an AttachedDropShadow when used in a Style.")]
 public sealed partial class AttachedDropShadowStyleSample : Page
