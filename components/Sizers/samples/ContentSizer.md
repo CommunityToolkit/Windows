@@ -1,6 +1,6 @@
 ---
 title: ContentSizer
-author: mhawker
+author: michael-hawker
 description: The ContentSizer is a control which can be used to resize any element, usually its parent.
 keywords: ContentSizer, SizerBase, Control, Layout, Expander, Splitter
 dev_langs:

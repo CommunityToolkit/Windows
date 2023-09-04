@@ -50,7 +50,6 @@ private void CameraHelper_FrameArrived(object sender, FrameEventArgs e)
 }
 ```
 
-
 ## Cleaning up resources
 
 As a developer, you will need to make sure the CameraHelper resources are cleaned up when appropriate. For example, if the CameraHelper is only used on one page, make sure to clean up the CameraHelper when navigating away from the page.

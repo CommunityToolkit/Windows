@@ -113,10 +113,10 @@ Use SmoothScrollIntoView helps to scroll the item into the view with animation. 
 
 ```csharp
 // Scrolling with index
-await MyGridView.SmoothScrollIntoViewWithIndexAsync(index: int, itemPlacement: ItemPlacement, disableAnimation: bool, scrollIfVisibile: bool, additionalHorizontalOffset: int, additionalVerticalOffset: int);
+await MyGridView.SmoothScrollIntoViewWithIndexAsync(index: int, itemPlacement: ItemPlacement, disableAnimation: bool, scrollIfVisible: bool, additionalHorizontalOffset: int, additionalVerticalOffset: int);
 
 // Scrolling with item
-await MyGridView.SmoothScrollIntoViewWithItemAsync(item: object, itemPlacement: ItemPlacement, disableAnimation: bool, scrollIfVisibile: bool, additionalHorizontalOffset: int, additionalVerticalOffset: int);
+await MyGridView.SmoothScrollIntoViewWithItemAsync(item: object, itemPlacement: ItemPlacement, disableAnimation: bool, scrollIfVisible: bool, additionalHorizontalOffset: int, additionalVerticalOffset: int);
 ```
 
 We can use this extension to make the selected item always centered:

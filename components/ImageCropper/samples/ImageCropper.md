@@ -47,7 +47,6 @@ using (var fileStream = await someFile.OpenAsync(FileAccessMode.ReadWrite, Stora
 }
 ```
 
-
 ### Use Circular ImageCropper
 
 You can set `CropShape` property to use the circular ImageCropper.
@@ -56,7 +55,6 @@ You can set `CropShape` property to use the circular ImageCropper.
 ImageCropper.CropShape = CropShape.Circular;
 ```
 
-
 ### Change Aspect Ratio
 
 You can set `AspectRatio` property to change the aspect ratio of the cropped image.
@@ -64,7 +62,6 @@ You can set `AspectRatio` property to change the aspect ratio of the cropped ima
 ```csharp
 ImageCropper.AspectRatio = 16d / 9d;
 ```
-
 
 Or you can crop image without aspect ratio.
 

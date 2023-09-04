@@ -12,7 +12,7 @@ issue-id: 0
 icon: Assets/SettingsExpander.png
 ---
 
-The `SettingsExpander` can be used to group multiple `SettingsCard`s into a single collapsable group.
+The `SettingsExpander` can be used to group multiple `SettingsCard`s into a single collapsible group.
 
 A `SettingsExpander` can have it's own content to display a setting on the right, just like a `SettingsCard`, but in addition can have any number of extra `Items` to include as additional settings. These items are `SettingsCard`s themselves, which means you can easily move a setting into or out of Expanders just by cutting and pasting their XAML!
 

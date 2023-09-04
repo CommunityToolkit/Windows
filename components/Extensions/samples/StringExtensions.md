@@ -20,10 +20,10 @@ The `StringExtensions` type contains helpers and extensions for `string` objects
 using CommunityToolkit.WinUI;
 
 string str = "test@test.com";
-bool isvalid = str.IsEmail();    //Returns true
+bool isValid = str.IsEmail();    //Returns true
 
 string str = "123+888";
-bool isvalid = str.IsDecimal();  //Returns false
+bool isValid = str.IsDecimal();  //Returns false
 ```
 
 ### Formats Supported for **IsPhoneNumber** Extension

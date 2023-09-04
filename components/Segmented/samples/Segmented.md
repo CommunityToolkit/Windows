@@ -19,7 +19,8 @@ The `Segmented` control is best used with 2-5 items and does not support overflo
 > [!Sample SegmentedBasicSample]
 
 ## Selection
-`Segmented` supports single and multi-selection. When `SelectionMode` is set to `Single` the first item will be selected by default. This can be overriden by settings `AutoSelection` to `false`. 
+
+`Segmented` supports single and multi-selection. When `SelectionMode` is set to `Single` the first item will be selected by default. This can be overridden by setting `AutoSelection` to `false`.
 
 ## Other styles
 

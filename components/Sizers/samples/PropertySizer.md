@@ -1,6 +1,6 @@
 ---
 title: PropertySizer
-author: mhawker
+author: michael-hawker
 description: The PropertySizer is a control which can be used to manipulate the value of another double based property.
 keywords: PropertySizer, SizerBase, Control, Layout, NavigationView, Splitter
 dev_langs:
@@ -14,7 +14,7 @@ icon: Assets/PropertySizer.png
 
 For instance, manipulating the `OpenPaneLength` of a `NavigationView` control. If you are using a `Grid`, use `GridSplitter` instead.
 
-## Examples 
+## Examples
 
 The main use-case is for `PropertySizer` to allow you to manipulate the `OpenPaneLength` property of a `NavigationView` control to create a user customizable size shelf. This is handy when using `NavigationView` with a tree of items that represents some project or folder structure for your application.
 
