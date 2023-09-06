@@ -73,6 +73,8 @@ body:
        - label: Windows 10 2004 (Build 19041)
        - label: Windows 10 20H2 (Build 19042)
        - label: Windows 10 21H1 (Build 19043)
+       - label: Windows 10 21H2 (Build 19044)
+       - label: Windows 10 22H2 (Build 19045)
        - label: Windows 11 21H2 (Build 22000)
        - label: Other (specify)
 - type: input
@@ -90,6 +92,8 @@ body:
        - label: Windows 10, version 1903 (Build 18362)
        - label: Windows 10, version 1909 (Build 18363)
        - label: Windows 10, version 2004 (Build 19041)
+       - label: Windows 10, version 2104 (Build 20348)
+       - label: Windows 11, version 22H2 (Build 22000)
        - label: Other (specify)
 - type: input
   id: environment-app-min-target-other-build-number
