@@ -4,7 +4,7 @@ contact_links:
     url: https://github.com/CommunityToolkit/Labs-Windows/discussions?discussions_q=category%3AExperiments+category%3AIdeas
     about: Labs is where we propose and experiment with new ideas. Search ongoing experiments or contribute your own!
   - name: Questions about the Toolkit?
-    url: https://github.com/CommunityToolkit/Windows/discussions/categories/questions-help
+    url: https://github.com/CommunityToolkit/Windows/discussions/categories/q-a
     about: I have a question about how to use something in the toolkit.
   - name: Win32 Controls
     url: https://github.com/CommunityToolkit/Microsoft.Toolkit.Win32/issues/new
