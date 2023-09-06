@@ -1,7 +1,7 @@
 blank_issues_enabled: false
 contact_links:
   - name: New Idea?
-    url: https://github.com/CommunityToolkit/Labs-Windows/discussions?discussions_q=category%3AExperiments+category%3AIdeas
+    url: https://github.com/CommunityToolkit/Labs-Windows/discussions?discussions_q=category%3AExperiments+category%3AIdeas+category%3AProposals
     about: Labs is where we propose and experiment with new ideas. Search ongoing experiments or contribute your own!
   - name: Questions about the Toolkit?
     url: https://github.com/CommunityToolkit/Windows/discussions/categories/q-a
