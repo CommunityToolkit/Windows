@@ -10,6 +10,8 @@
 
 <!-- Add the relevant issue number after the word "Fixes" mentioned above (for ex: `## Fixes #0000`) which will automatically close the issue once the PR is merged. -->
 
+<!-- PRs without assigned issues will be closed unless minor changes to documentation/typos. -->
+
 <!-- Add a brief overview here of the feature/bug & fix. -->
 
 ## PR Type
@@ -17,9 +19,9 @@
 What kind of change does this PR introduce?
 
 <!-- Please uncomment one or more options below that apply to this PR. -->
+<!-- New features should come from Windows Community Toolkit Labs. If you're migrating a component from Labs, link to the approval comment here. -->
 
 <!-- - Bugfix -->
-<!-- - Feature -->
 <!-- - Code style update (formatting) -->
 <!-- - Refactoring (no functional changes, no api changes) -->
 <!-- - Build or CI related changes -->
