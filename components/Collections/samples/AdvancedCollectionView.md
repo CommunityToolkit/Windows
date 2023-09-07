@@ -2,7 +2,7 @@
 title: AdvancedCollectionView
 author: nmetulev
 description: The AdvancedCollectionView is a collection view implementation that support filtering, sorting and incremental loading. It's meant to be used in a viewmodel.
-keywords: AdvancedCollectionView, data, sorting, filtering
+keywords: AdvancedCollectionView, data, sorting, filtering, Collections
 dev_langs:
   - csharp
 category: Helpers
@@ -27,7 +27,7 @@ In your viewmodel instead of having a public [IEnumerable](https://learn.microso
 ## Example
 
 ```csharp
-using CommunityToolkit.WinUI;
+using CommunityToolkit.WinUI.Collections;
 
 // Grab a sample type
 public class Person
