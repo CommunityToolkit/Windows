@@ -27,8 +27,10 @@ body:
      render: text
      description: Provide steps to reproduce the issue, or let us know why it can't be reproduced (e.g. more complex setup, environment, dependencies, etc...)
      placeholder: |
-        A repro from the sample app expedites the process of discovering, resolving, and validating bug fixes. 
-        Provide code-snippets or XAML snippets as appropriate.
+        The easier we can reproduce the issue, the easier it is to understand and fix the problem. 
+        Provide repro steps, code-snippets, or a standalone project to help us understand the issue you're facing.
+        
+        If the problem can be reproduced in our [Sample Gallery](https://aka.ms/windowstoolkitapp), you can speed up creation of a functional repro by forking the toolkit and adding or modifying a test or sample. Link to the forked repo and branch.
 
         Example repro steps:
         1. Given the following environment (Sample App w/ XAML, Project with Isolated setup, etc...)
