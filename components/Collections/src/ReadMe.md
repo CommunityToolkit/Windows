@@ -5,7 +5,7 @@ This package is part of the [Windows Community Toolkit](https://aka.ms/toolkit/w
 
 ## Package Contents
 
-This package contains the following in the `CommunityToolkit.WinUI` namespace:
+This package contains the following in the `CommunityToolkit.WinUI.Collections` namespace:
 
 - AdvancedCollectionView
 - IncrementalLoadingCollection
