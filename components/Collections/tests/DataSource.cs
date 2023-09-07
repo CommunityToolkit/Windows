@@ -3,7 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 namespace CollectionsExperiment.Tests;
-
+using CommunityToolkit.WinUI.Collections;
 public class DataSource<T> : IIncrementalSource<T>
 {
     private readonly IEnumerable<T> items;

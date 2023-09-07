@@ -2,7 +2,7 @@
 title: IncrementalLoadingCollection
 author: nmetulev
 description: The IncrementalLoadingCollection helpers greatly simplify the definition and usage of collections whose items can be loaded incrementally only when needed by the view (such as a ScrollViewer).
-keywords: IncrementalLoadingCollection, Control, Data, Incremental, Loading
+keywords: IncrementalLoadingCollection, Control, Data, Incremental, Loading, Collections
 dev_langs:
   - csharp
 category: Helpers
@@ -24,7 +24,7 @@ icon: Assets/IncrementalLoadingCollection.png
 
 ```csharp
 // Be sure to include the using at the top of the file:
-//using CommunityToolkit.WinUI;
+//using CommunityToolkit.WinUI.Collections;
 
 public class Person
 {
