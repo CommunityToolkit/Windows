@@ -7,38 +7,36 @@ This package is part of the [Windows Community Toolkit](https://aka.ms/toolkit/w
 
 This package contains the following in the `CommunityToolkit.WinUI` namespace:
 
-- DispatcherQueueExtensions
-- DispatcherQueueTimerExtensions
-- FrameworkElementExtensions
-- UIElementExtensions
-- TypedEventHandlerExtensions
-- PointExtensions
-- RectExtensions
-- SizeExtensions
-- ListViewExtensions
+- AttachedDropShadow
+- AttachedShadowBase
 - BitmapIconExtension
 - BitmapIconSourceExtension
+- DependencyObjectExtensions
+- DispatcherQueueExtensions
+- DispatcherQueueTimerExtensions
 - EnumValuesExtension
 - FontIconExtension
 - FontIconSourceExtension
+- FrameworkElementExtensions
+- HyperlinkExtensions
+- ListViewExtensions
+- MatrixExtensions
 - NullableBoolExtension
 - OnDeviceExtension
-- SymbolIconExtension
-- SymbolIconSourceExtension
-- MatrixExtensions
+- PointExtensions
+- RectExtensions
 - RotateTransformExtensions
 - ScaleTransformExtensions
-- SkewTransformExtensions
-- TranslateTransformExtensions
-- VisualExtensions
 - ScrollViewerExtensions
-- AttachedDropShadow
-- AttachedShadowBase
-- HyperlinkExtensions
+- SizeExtensions
+- SkewTransformExtensions
 - StringExtensions
 - SurfaceDialOptions
 - TextBoxExtensions
-- DependencyObjectExtensions
+- TranslateTransformExtensions
+- TypedEventHandlerExtensions
+- UIElementExtensions
+- VisualExtensions
 
 ## Which Package is for me?
 

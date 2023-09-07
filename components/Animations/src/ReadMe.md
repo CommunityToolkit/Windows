@@ -8,11 +8,11 @@ This package is part of the [Windows Community Toolkit](https://aka.ms/toolkit/w
 This package contains the following in the `CommunityToolkit.WinUI.Animations` namespace:
 
 - AnimationBuilder
-- Connected Animations Helpers
-- ScrollViewerExtensions
 - AnimationSet
+- Connected Animations Helpers
 - Expressions
 - Implicit Animations
+- ScrollViewerExtensions
 
 ## Which Package is for me?
 

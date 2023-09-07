@@ -7,20 +7,20 @@ This package is part of the [Windows Community Toolkit](https://aka.ms/toolkit/w
 
 This package contains the following in the `CommunityToolkit.WinUI.Behaviors` namespace:
 
-- KeyDownTriggerBehavior
-- AutoSelectBehavior
-- ViewportBehavior
-- FocusBehavior
-- NavigateToUriAction
-- StackedNotificationBehavior
 - AnimationCompletedTriggerBehavior
 - AnimationStartedTriggerBehavior
-- InvokeActionsActivity
-- StartAnimationAction
-- StopAnimationAction
+- AutoSelectBehavior
 - FadeHeaderBehavior
+- FocusBehavior
+- InvokeActionsActivity
+- KeyDownTriggerBehavior
+- NavigateToUriAction
 - QuickReturnHeaderBehavior
+- StartAnimationAction
+- StackedNotificationBehavior
+- StopAnimationAction
 - StickyHeaderBehavior
+- ViewportBehavior
 
 ## Which Package is for me?
 
