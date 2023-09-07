@@ -8,7 +8,7 @@ This package is part of the [Windows Community Toolkit](https://aka.ms/toolkit/w
 This package contains the following controls in the `CommunityToolkit.WinUI.Controls` namespace:
 
 - ImageCropper
-- 
+
 ## Which Package is for me?
 
 If you're developing with _UWP/WinUI 2 or Uno.UI_ you should be using the `CommunityToolkit.Uwp.Controls.ImageCropper` package.

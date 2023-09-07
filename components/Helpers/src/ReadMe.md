@@ -11,6 +11,7 @@ This package contains the following controls in the `CommunityToolkit.WinUI.Help
 - ColorHelper
 - CompositionTargetHelper
 - NetworkHelper
+- ScreenUnitHelper
 - WeakEventListener
 
 ## Which Package is for me?

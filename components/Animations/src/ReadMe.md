@@ -5,12 +5,12 @@ This package is part of the [Windows Community Toolkit](https://aka.ms/toolkit/w
 
 ## Package Contents
 
-This package contains the following controls in the `CommunityToolkit.WinUI.Animations` namespace:
+This package contains the following in the `CommunityToolkit.WinUI.Animations` namespace:
 
-- AnimationSet
-- Builders
+- AnimationBuilder
 - Connected Animations Helpers
-- Explicit Animations
+- ScrollViewerExtensions
+- AnimationSet
 - Expressions
 - Implicit Animations
 

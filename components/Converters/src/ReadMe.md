@@ -5,26 +5,26 @@ This package is part of the [Windows Community Toolkit](https://aka.ms/toolkit/w
 
 ## Package Contents
 
-This package contains the following controls in the `CommunityToolkit.WinUI.Converters` namespace:
+This package contains the following converters in the `CommunityToolkit.WinUI.Converters` namespace:
 
-- BoolNegation
-- BoolToObject
-- BoolToVisibility
-- CollectionVisibility
-- ColorToDisplayName
-- DoubleToObject
-- DoubleToVisibility
-- EmptyCollectionToObject
-- EmptyObjectToObject
-- EmptyStringToObject
-- FileSizeToFriendlyString
-- IFormattableToString
-- ResourceNameToResourceString
-- StringFormat
-- StringVisibility
-- TaskResult
-- TypeToObject
-- VisibilityToBool
+- BoolNegationConverter
+- BoolToObjectConverter
+- BoolToVisibilityConverter
+- CollectionVisibilityConverter
+- ColorToDisplayNameConverter
+- DoubleToObjectConverter
+- DoubleToVisibilityConverter
+- EmptyCollectionToObjectConverter
+- EmptyObjectToObjectConverter
+- EmptyStringToObjectConverter
+- FileSizeToFriendlyStringConverter
+- IFormattableToStringConverter
+- ResourceNameToResourceStringConverter
+- StringFormatConverter
+- StringVisibilityConverter
+- TaskResultConverter
+- TypeToObjectConverter
+- VisibilityToBoolConverter
 
 ## Which Package is for me?
 

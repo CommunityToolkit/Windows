@@ -5,13 +5,45 @@ This package is part of the [Windows Community Toolkit](https://aka.ms/toolkit/w
 
 ## Package Contents
 
-This package contains the following controls in the `CommunityToolkit.WinUI.Media` namespace:
+This package contains the following in the `CommunityToolkit.WinUI.Media` namespace:
 
-- Animations
-- AttachedDropShadow
-- Brushes
-- Effects
-- Pipelines
+- BlurEffectAnimation
+- ColorEffectAnimation
+- CrossFadeEffectAnimation
+- ExposureEffectAnimation
+- HueRotationEffectAnimation
+- OpacityEffectAnimation
+- SaturationEffectAnimation
+- SepiaEffectAnimation
+- AcrylicBrush
+- BackdropBlurBrush
+- BackdropGammaTransferBrush
+- BackdropInvertBrush
+- BackdropSaturationBrush
+- BackdropSepiaBrush
+- CanvasBlurBrush
+- ImageBlendBrush
+- PipelineBrush
+- TilesBrush
+- XamlCompositionBrush
+- BlendEffect
+- BlurEffect
+- CrossFadeEffect
+- ExposureEffect
+- GrayscaleEffect
+- HueRotationEffect
+- InvertEffect
+- LuminanceToAlphaEffect
+- OpacityEffect
+- SaturationEffect
+- SepiaEffect
+- ShadeEffect
+- TemperatureAndTintEffect
+- TintEffect
+- SurfaceLoader
+- PipelineBuilder
+- AttachedCardShadow
+- PipelineVisualFactory
 
 ## Which Package is for me?
 

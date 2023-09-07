@@ -5,14 +5,22 @@ This package is part of the [Windows Community Toolkit](https://aka.ms/toolkit/w
 
 ## Package Contents
 
-This package contains the following controls in the `CommunityToolkit.WinUI.Behaviors` namespace:
+This package contains the following in the `CommunityToolkit.WinUI.Behaviors` namespace:
 
-- Animation Helpers
-- Focus
-- Headers (Fade, QuickReturn, Sticky)
-- Keyboard
-- StackedNotifications
-- Viewport
+- KeyDownTriggerBehavior
+- AutoSelectBehavior
+- ViewportBehavior
+- FocusBehavior
+- NavigateToUriAction
+- StackedNotificationBehavior
+- AnimationCompletedTriggerBehavior
+- AnimationStartedTriggerBehavior
+- InvokeActionsActivity
+- StartAnimationAction
+- StopAnimationAction
+- FadeHeaderBehavior
+- QuickReturnHeaderBehavior
+- StickyHeaderBehavior
 
 ## Which Package is for me?
 
