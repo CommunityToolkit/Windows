@@ -26,7 +26,11 @@ public sealed partial class MetadataControlSample : Page
     {
         this.InitializeComponent();
         _random = new Random();
-        _units = new ObservableCollection<MetadataItem>();
+        _units = new ObservableCollection<MetadataItem>
+        {
+            new MetadataItem { Label = GetRandomLabel() },
+            new MetadataItem { Label = GetRandomLabel() }
+        };
         _command = new DelegateCommand<object>(OnExecuteCommand);
         metadataControl.Items = _units;
     }
