@@ -7,6 +7,8 @@
   <Import Project="$(ToolingDirectory)\ToolkitComponent.SampleProject.props" />
   <ItemGroup>
     <ProjectReference Include="..\..\Extensions\src\CommunityToolkit.WinUI.Extensions.csproj"/>
+    <ProjectReference Include="..\..\Primitives\src\CommunityToolkit.WinUI.Controls.Primitives.csproj"/>
+    <ProjectReference Include="..\..\Animations\src\CommunityToolkit.WinUI.Animations.csproj"/>
   </ItemGroup>
   <ItemGroup>
     <None Remove="Assets\Segmented.png" />
