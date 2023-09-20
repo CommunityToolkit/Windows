@@ -9,6 +9,14 @@ namespace ColorPickerExperiment.Samples;
 /// <summary>
 /// An example sample page of a custom control inheriting from Panel.
 /// </summary>
+[ToolkitSampleBoolOption("AccentColors", true, Title = "ShowAccentColors")]
+[ToolkitSampleBoolOption("ColorPalette", true, Title = "IsColorPaletteVisible")]
+[ToolkitSampleBoolOption("AlphaSlider", true, Title = "IsAlphaSliderVisible")]
+[ToolkitSampleBoolOption("ColorChannel", true, Title = "IsColorChannelTextInputVisible")]
+[ToolkitSampleBoolOption("ColorSlider", true, Title = "IsColorSliderVisible")]
+[ToolkitSampleBoolOption("ColorSpectrum", true, Title = "IsColorSpectrumVisible")]
+
+
 [ToolkitSampleTextOption("TitleText", "This is a title", Title = "Input the text")]
 [ToolkitSampleMultiChoiceOption("LayoutOrientation", "Horizontal", "Vertical", Title = "Orientation")]
 

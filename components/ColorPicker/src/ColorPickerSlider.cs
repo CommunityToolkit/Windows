@@ -175,7 +175,6 @@ public partial class ColorPickerSlider : Slider
         }
 
         var converter = new ContrastBrushConverter();
-        this.Foreground = converter.Convert(selectedRgbColor, typeof(Brush), this.DefaultForeground, null) as Brush;
 
         return;
     }

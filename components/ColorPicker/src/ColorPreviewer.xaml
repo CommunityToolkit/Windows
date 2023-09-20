@@ -3,29 +3,30 @@
                     xmlns:controls="using:CommunityToolkit.WinUI.Controls"
                     xmlns:converters="using:CommunityToolkit.WinUI.Converters"
                     xmlns:primitives="using:CommunityToolkit.WinUI.Controls.Primitives"
-                    xmlns:ui="using:Microsoft.Toolkit.Uwp.UI">
+                    xmlns:ui="using:CommunityToolkit.WinUI">
 
     <Style TargetType="primitives:ColorPreviewer">
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="BorderBrush" Value="{ThemeResource ControlStrokeColorDefaultBrush}" />
+        <Setter Property="CornerRadius" Value="{StaticResource ControlCornerRadius}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="primitives:ColorPreviewer">
-                    <Grid x:Name="RootGrid">
+                    <Grid x:Name="RootGrid"
+                          Height="{TemplateBinding Height}"
+                          BorderBrush="{TemplateBinding BorderBrush}"
+                          BorderThickness="{TemplateBinding BorderThickness}"
+                          CornerRadius="{TemplateBinding CornerRadius}">
                         <Grid.Resources>
                             <controls:AccentColorConverter x:Key="AccentColor" />
                             <converters:BoolToVisibilityConverter x:Key="BoolToVisibility" />
-                            <!--<ui:AttachedDropShadow x:Key="DropShadow"
-                                                   CastTo="{Binding RelativeSource={RelativeSource TemplatedParent}, ElementName=ShadowTargetBorder}"
-                                                   Offset="4" />-->
                         </Grid.Resources>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <Grid Grid.Column="0"
-                              Width="90"
-                              Height="40"
-                              VerticalAlignment="Center"
                               Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ShowAccentColors, Converter={StaticResource BoolToVisibility}}">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
@@ -60,9 +61,6 @@
                             </Border>
                         </Grid>
                         <Grid Grid.Column="2"
-                              Width="90"
-                              Height="40"
-                              VerticalAlignment="Center"
                               Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ShowAccentColors, Converter={StaticResource BoolToVisibility}}">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
@@ -89,28 +87,18 @@
                                 </Border.Background>
                             </Border>
                         </Grid>
-                        <Border x:Name="ShadowTargetBorder"
-                                Grid.Row="0"
-                                Grid.Column="0"
-                                Grid.ColumnSpan="3"
-                                HorizontalAlignment="Stretch"
-                                VerticalAlignment="Stretch" />
                         <!--  Must be last for drop shadow Z-index  -->
                         <Grid Grid.Column="1">
                             <Border HorizontalAlignment="Stretch"
                                     VerticalAlignment="Stretch"
-                                    Background="{ThemeResource FlyoutPresenterBackground}"
-                                    CornerRadius="4" />
+                                    Background="{ThemeResource FlyoutPresenterBackground}" />
                             <Border x:Name="RightCheckeredBackgroundBorder"
                                     HorizontalAlignment="Stretch"
-                                    VerticalAlignment="Stretch"
-                                    CornerRadius="4" />
-                            <Border x:Name="PreviewBorder"
-                                    CornerRadius="4">
+                                    VerticalAlignment="Stretch" />
+                            <Border x:Name="PreviewBorder">
                                 <Border.Background>
                                     <SolidColorBrush Color="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=HsvColor, Converter={StaticResource AccentColor}, ConverterParameter='0'}" />
                                 </Border.Background>
-                                <!--  ui:Effects.Shadow="{StaticResource DropShadow}"  -->
                             </Border>
                         </Grid>
                     </Grid>

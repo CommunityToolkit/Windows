@@ -41,13 +41,15 @@ namespace CommunityToolkit.WinUI.Controls;
 [TemplatePart(Name = nameof(ColorPicker.CheckeredBackground8Border),  Type = typeof(Border))]
 [TemplatePart(Name = nameof(ColorPicker.CheckeredBackground9Border),  Type = typeof(Border))]
 [TemplatePart(Name = nameof(ColorPicker.CheckeredBackground10Border), Type = typeof(Border))]
-[TemplatePart(Name = nameof(ColorPicker.ColorPanelSelector),          Type = typeof(ListBox))]
+[TemplatePart(Name = nameof(ColorPicker.ColorPanelSelector),          Type = typeof(Segmented))]
 [TemplatePart(Name = nameof(ColorPicker.ColorSpectrumControl),        Type = typeof(ColorSpectrum))]
 [TemplatePart(Name = nameof(ColorPicker.ColorSpectrumAlphaSlider),    Type = typeof(ColorPickerSlider))]
 [TemplatePart(Name = nameof(ColorPicker.ColorSpectrumThirdDimensionSlider), Type = typeof(ColorPickerSlider))]
 [TemplatePart(Name = nameof(ColorPicker.HexInputTextBox),             Type = typeof(TextBox))]
-[TemplatePart(Name = nameof(ColorPicker.HsvToggleButton),             Type = typeof(ToggleButton))]
-[TemplatePart(Name = nameof(ColorPicker.RgbToggleButton),             Type = typeof(ToggleButton))]
+[TemplatePart(Name = nameof(ColorPicker.ColorModeComboBox), Type = typeof(ComboBox))]
+
+
+
 [System.Diagnostics.CodeAnalysis.SuppressMessage("StyleCop.CSharp.LayoutRules", "SA1501:Statement should not be on a single line", Justification = "Inline brackets are used to improve code readability with repeated null checks.")]
 [System.Diagnostics.CodeAnalysis.SuppressMessage("StyleCop.CSharp.SpacingRules", "SA1025:Code should not contain multiple whitespace in a row", Justification = "Whitespace is used to align code in columns for readability.")]
 [System.Diagnostics.CodeAnalysis.SuppressMessage("StyleCop.CSharp.NamingRules", "SA1306:Field names should begin with lower-case letter", Justification = "Only template parts start with a capital letter. This differentiates them from other fields.")]
@@ -74,13 +76,12 @@ public partial class ColorPicker : Microsoft.UI.Xaml.Controls.ColorPicker
     private Color?               updatedRgbColor            = null;
     private DispatcherQueueTimer? dispatcherQueueTimer       = null;
 
-    private ListBox           ColorPanelSelector;
+    private Segmented           ColorPanelSelector;
     private ColorSpectrum     ColorSpectrumControl;
     private ColorPickerSlider ColorSpectrumAlphaSlider;
     private ColorPickerSlider ColorSpectrumThirdDimensionSlider;
     private TextBox           HexInputTextBox;
-    private ToggleButton?      HsvToggleButton;
-    private ToggleButton?      RgbToggleButton;
+    private ComboBox          ColorModeComboBox;
 
     private NumberBox         Channel1NumberBox;
     private NumberBox         Channel2NumberBox;
@@ -173,15 +174,14 @@ public partial class ColorPicker : Microsoft.UI.Xaml.Controls.ColorPicker
         // We need to disconnect old events first
         this.ConnectEvents(false);
 
-        this.ColorPanelSelector = (ListBox)GetTemplateChild(nameof(ColorPanelSelector));
+        this.ColorPanelSelector = (Segmented)GetTemplateChild(nameof(ColorPanelSelector));
 
         this.ColorSpectrumControl              = (ColorSpectrum)GetTemplateChild(nameof(ColorSpectrumControl));
         this.ColorSpectrumAlphaSlider          = (ColorPickerSlider)this.GetTemplateChild(nameof(ColorSpectrumAlphaSlider));
         this.ColorSpectrumThirdDimensionSlider = (ColorPickerSlider)this.GetTemplateChild(nameof(ColorSpectrumThirdDimensionSlider));
 
         this.HexInputTextBox = (TextBox)this.GetTemplateChild(nameof(HexInputTextBox));
-        this.HsvToggleButton = (ToggleButton)this.GetTemplateChild(nameof(HsvToggleButton));
-        this.RgbToggleButton = (ToggleButton)this.GetTemplateChild(nameof(RgbToggleButton));
+        this.ColorModeComboBox = (ComboBox)this.GetTemplateChild(nameof(ColorModeComboBox));
 
         this.Channel1NumberBox     = (NumberBox)this.GetTemplateChild(nameof(Channel1NumberBox));
         this.Channel2NumberBox     = (NumberBox)this.GetTemplateChild(nameof(Channel2NumberBox));
@@ -284,10 +284,7 @@ public partial class ColorPicker : Microsoft.UI.Xaml.Controls.ColorPicker
             if (this.ColorSpectrumControl != null) { this.ColorSpectrumControl.GotFocus     += ColorSpectrum_GotFocus; }
             if (this.HexInputTextBox      != null) { this.HexInputTextBox.KeyDown           += HexInputTextBox_KeyDown; }
             if (this.HexInputTextBox      != null) { this.HexInputTextBox.LostFocus         += HexInputTextBox_LostFocus; }
-            if (this.HsvToggleButton      != null) { this.HsvToggleButton.Checked           += ColorRepToggleButton_CheckedUnchecked; }
-            if (this.HsvToggleButton      != null) { this.HsvToggleButton.Unchecked         += ColorRepToggleButton_CheckedUnchecked; }
-            if (this.RgbToggleButton      != null) { this.RgbToggleButton.Checked           += ColorRepToggleButton_CheckedUnchecked; }
-            if (this.RgbToggleButton      != null) { this.RgbToggleButton.Unchecked         += ColorRepToggleButton_CheckedUnchecked; }
+            if (this.ColorModeComboBox    != null) { this.ColorModeComboBox.SelectionChanged += ColorModeComboBox_SelectionChanged; }
 
             if (this.Channel1NumberBox     != null) { this.Channel1NumberBox.ValueChanged     += ChannelNumberBox_ValueChanged; }
             if (this.Channel2NumberBox     != null) { this.Channel2NumberBox.ValueChanged     += ChannelNumberBox_ValueChanged; }
@@ -331,10 +328,7 @@ public partial class ColorPicker : Microsoft.UI.Xaml.Controls.ColorPicker
             if (this.ColorSpectrumControl != null) { this.ColorSpectrumControl.GotFocus     -= ColorSpectrum_GotFocus; }
             if (this.HexInputTextBox      != null) { this.HexInputTextBox.KeyDown           -= HexInputTextBox_KeyDown; }
             if (this.HexInputTextBox      != null) { this.HexInputTextBox.LostFocus         -= HexInputTextBox_LostFocus; }
-            if (this.HsvToggleButton      != null) { this.HsvToggleButton.Checked           -= ColorRepToggleButton_CheckedUnchecked; }
-            if (this.HsvToggleButton      != null) { this.HsvToggleButton.Unchecked         -= ColorRepToggleButton_CheckedUnchecked; }
-            if (this.RgbToggleButton      != null) { this.RgbToggleButton.Checked           -= ColorRepToggleButton_CheckedUnchecked; }
-            if (this.RgbToggleButton      != null) { this.RgbToggleButton.Unchecked         -= ColorRepToggleButton_CheckedUnchecked; }
+            if (this.ColorModeComboBox != null) { this.ColorModeComboBox.SelectionChanged -= ColorModeComboBox_SelectionChanged; }
 
             if (this.Channel1NumberBox     != null) { this.Channel1NumberBox.ValueChanged     -= ChannelNumberBox_ValueChanged; }
             if (this.Channel2NumberBox     != null) { this.Channel2NumberBox.ValueChanged     -= ChannelNumberBox_ValueChanged; }
@@ -374,6 +368,7 @@ public partial class ColorPicker : Microsoft.UI.Xaml.Controls.ColorPicker
         return;
     }
 
+
     /// <summary>
     /// Updates all visual states based on current control properties.
     /// </summary>
@@ -394,8 +389,9 @@ public partial class ColorPicker : Microsoft.UI.Xaml.Controls.ColorPicker
     {
         // If the HSV representation control is missing for whatever reason,
         // the default will be RGB
-        if (this.HsvToggleButton != null &&
-            this.HsvToggleButton.IsChecked == true)
+
+        if (this.ColorModeComboBox != null &&
+            this.ColorModeComboBox.SelectedIndex == 1)
         {
             return ColorRepresentation.Hsva;
         }
@@ -429,31 +425,11 @@ public partial class ColorPicker : Microsoft.UI.Xaml.Controls.ColorPicker
         // The default is always RGBA
         if (colorRepresentation == ColorRepresentation.Hsva)
         {
-            if (this.RgbToggleButton != null &&
-                (bool)this.RgbToggleButton.IsChecked!)
-            {
-                this.RgbToggleButton.IsChecked = false;
-            }
-
-            if (this.HsvToggleButton != null &&
-                (bool)this.HsvToggleButton.IsChecked! == false)
-            {
-                this.HsvToggleButton.IsChecked = true;
-            }
+            this.ColorModeComboBox.SelectedIndex = 1;
         }
         else
         {
-            if (this.RgbToggleButton != null &&
-                (bool)this.RgbToggleButton.IsChecked! == false)
-            {
-                this.RgbToggleButton.IsChecked = true;
-            }
-
-            if (this.HsvToggleButton != null &&
-                (bool)this.HsvToggleButton.IsChecked!)
-            {
-                this.HsvToggleButton.IsChecked = false;
-            }
+            this.ColorModeComboBox.SelectedIndex = 0;
         }
 
         this.UpdateVisualState(false);
@@ -1343,9 +1319,9 @@ public partial class ColorPicker : Microsoft.UI.Xaml.Controls.ColorPicker
     /// Event handler for when the selected color representation changes.
     /// This will convert between RGB and HSV.
     /// </summary>
-    private void ColorRepToggleButton_CheckedUnchecked(object sender, RoutedEventArgs e)
+    private void ColorModeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        if (object.ReferenceEquals(sender, this.HsvToggleButton))
+        if (this.ColorModeComboBox.SelectedIndex == 1)
         {
             this.SetActiveColorRepresentation(ColorRepresentation.Hsva);
         }
