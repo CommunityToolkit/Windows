@@ -66,24 +66,24 @@ public partial class ColorPreviewer : Control
     /// <param name="childName">The name of the element to find.</param>
     /// <param name="isRequired">Whether the element is required and will throw an exception if missing.</param>
     /// <returns>The template child matching the given name and type.</returns>
-    private T GetTemplateChild<T>(string childName, bool isRequired = false)
-        where T : DependencyObject
-    {
-#pragma warning disable CS0413
-#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
-        T child = this.GetTemplateChild(childName) as T;
-#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
-#pragma warning restore CS0413
+//    private T GetTemplateChild<T>(string childName, bool isRequired = false)
+//        where T : DependencyObject
+//    {
+//#pragma warning disable CS0413
+//#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
+//        T child = this.GetTemplateChild(childName) as T;
+//#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
+//#pragma warning restore CS0413
 
-        if ((child == null) && isRequired)
-        {
-            ThrowArgumentNullException();
-        }
+//        if ((child == null) && isRequired)
+//        {
+//            ThrowArgumentNullException();
+//        }
 
-        return child!;
+//        return child!;
 
-        static void ThrowArgumentNullException() => throw new ArgumentNullException(nameof(childName));
-    }
+//        static void ThrowArgumentNullException() => throw new ArgumentNullException(nameof(childName));
+//    }
 
     /// <summary>
     /// Connects or disconnects all control event handlers.
@@ -135,14 +135,14 @@ public partial class ColorPreviewer : Control
         // Remove any existing events present if the control was previously loaded then unloaded
         this.ConnectEvents(false);
 
-        this.CenterCheckeredBackgroundBorder = this.GetTemplateChild<Border>(nameof(CenterCheckeredBackgroundBorder));
-        this.LeftCheckeredBackgroundBorder = this.GetTemplateChild<Border>(nameof(LeftCheckeredBackgroundBorder));
-        this.RightCheckeredBackgroundBorder = this.GetTemplateChild<Border>(nameof(RightCheckeredBackgroundBorder));
+        this.CenterCheckeredBackgroundBorder = (Border)this.GetTemplateChild(nameof(CenterCheckeredBackgroundBorder));
+        this.LeftCheckeredBackgroundBorder = (Border)this.GetTemplateChild(nameof(LeftCheckeredBackgroundBorder));
+        this.RightCheckeredBackgroundBorder = (Border)this.GetTemplateChild(nameof(RightCheckeredBackgroundBorder));
 
-        this.N1PreviewBorder = this.GetTemplateChild<Border>(nameof(N1PreviewBorder));
-        this.N2PreviewBorder = this.GetTemplateChild<Border>(nameof(N2PreviewBorder));
-        this.P1PreviewBorder = this.GetTemplateChild<Border>(nameof(P1PreviewBorder));
-        this.P2PreviewBorder = this.GetTemplateChild<Border>(nameof(P2PreviewBorder));
+        this.N1PreviewBorder = (Border)this.GetTemplateChild(nameof(N1PreviewBorder));
+        this.N2PreviewBorder = (Border)this.GetTemplateChild(nameof(N2PreviewBorder));
+        this.P1PreviewBorder = (Border)this.GetTemplateChild(nameof(P1PreviewBorder));
+        this.P2PreviewBorder = (Border)this.GetTemplateChild(nameof(P2PreviewBorder));
 
         // Must connect after controls are resolved
         this.ConnectEvents(true);

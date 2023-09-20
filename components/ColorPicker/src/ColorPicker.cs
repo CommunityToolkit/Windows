@@ -173,38 +173,38 @@ public partial class ColorPicker : Microsoft.UI.Xaml.Controls.ColorPicker
         // We need to disconnect old events first
         this.ConnectEvents(false);
 
-        this.ColorPanelSelector = this.GetTemplateChild<ListBox>(nameof(ColorPanelSelector));
+        this.ColorPanelSelector = (ListBox)GetTemplateChild(nameof(ColorPanelSelector));
 
-        this.ColorSpectrumControl              = this.GetTemplateChild<ColorSpectrum>(nameof(ColorSpectrumControl));
-        this.ColorSpectrumAlphaSlider          = this.GetTemplateChild<ColorPickerSlider>(nameof(ColorSpectrumAlphaSlider));
-        this.ColorSpectrumThirdDimensionSlider = this.GetTemplateChild<ColorPickerSlider>(nameof(ColorSpectrumThirdDimensionSlider));
+        this.ColorSpectrumControl              = (ColorSpectrum)GetTemplateChild(nameof(ColorSpectrumControl));
+        this.ColorSpectrumAlphaSlider          = (ColorPickerSlider)this.GetTemplateChild(nameof(ColorSpectrumAlphaSlider));
+        this.ColorSpectrumThirdDimensionSlider = (ColorPickerSlider)this.GetTemplateChild(nameof(ColorSpectrumThirdDimensionSlider));
 
-        this.HexInputTextBox = this.GetTemplateChild<TextBox>(nameof(HexInputTextBox));
-        this.HsvToggleButton = this.GetTemplateChild<ToggleButton>(nameof(HsvToggleButton));
-        this.RgbToggleButton = this.GetTemplateChild<ToggleButton>(nameof(RgbToggleButton));
+        this.HexInputTextBox = (TextBox)this.GetTemplateChild(nameof(HexInputTextBox));
+        this.HsvToggleButton = (ToggleButton)this.GetTemplateChild(nameof(HsvToggleButton));
+        this.RgbToggleButton = (ToggleButton)this.GetTemplateChild(nameof(RgbToggleButton));
 
-        this.Channel1NumberBox     = this.GetTemplateChild<NumberBox>(nameof(Channel1NumberBox));
-        this.Channel2NumberBox     = this.GetTemplateChild<NumberBox>(nameof(Channel2NumberBox));
-        this.Channel3NumberBox     = this.GetTemplateChild<NumberBox>(nameof(Channel3NumberBox));
-        this.AlphaChannelNumberBox = this.GetTemplateChild<NumberBox>(nameof(AlphaChannelNumberBox));
+        this.Channel1NumberBox     = (NumberBox)this.GetTemplateChild(nameof(Channel1NumberBox));
+        this.Channel2NumberBox     = (NumberBox)this.GetTemplateChild(nameof(Channel2NumberBox));
+        this.Channel3NumberBox     = (NumberBox)this.GetTemplateChild(nameof(Channel3NumberBox));
+        this.AlphaChannelNumberBox = (NumberBox)this.GetTemplateChild(nameof(AlphaChannelNumberBox));
 
-        this.Channel1Slider     = this.GetTemplateChild<ColorPickerSlider>(nameof(Channel1Slider));
-        this.Channel2Slider     = this.GetTemplateChild<ColorPickerSlider>(nameof(Channel2Slider));
-        this.Channel3Slider     = this.GetTemplateChild<ColorPickerSlider>(nameof(Channel3Slider));
-        this.AlphaChannelSlider = this.GetTemplateChild<ColorPickerSlider>(nameof(AlphaChannelSlider));
+        this.Channel1Slider     = (ColorPickerSlider)this.GetTemplateChild(nameof(Channel1Slider));
+        this.Channel2Slider     = (ColorPickerSlider)this.GetTemplateChild(nameof(Channel2Slider));
+        this.Channel3Slider     = (ColorPickerSlider)this.GetTemplateChild(nameof(Channel3Slider));
+        this.AlphaChannelSlider = (ColorPickerSlider)this.GetTemplateChild(nameof(AlphaChannelSlider));
 
-        this.ColorPreviewer = this.GetTemplateChild<ColorPreviewer>(nameof(ColorPreviewer));
+        this.ColorPreviewer = (ColorPreviewer)this.GetTemplateChild(nameof(ColorPreviewer));
 
-        this.CheckeredBackground1Border  = this.GetTemplateChild<Border>(nameof(CheckeredBackground1Border));
-        this.CheckeredBackground2Border  = this.GetTemplateChild<Border>(nameof(CheckeredBackground2Border));
-        this.CheckeredBackground3Border  = this.GetTemplateChild<Border>(nameof(CheckeredBackground3Border));
-        this.CheckeredBackground4Border  = this.GetTemplateChild<Border>(nameof(CheckeredBackground4Border));
-        this.CheckeredBackground5Border  = this.GetTemplateChild<Border>(nameof(CheckeredBackground5Border));
-        this.CheckeredBackground6Border  = this.GetTemplateChild<Border>(nameof(CheckeredBackground6Border));
-        this.CheckeredBackground7Border  = this.GetTemplateChild<Border>(nameof(CheckeredBackground7Border));
-        this.CheckeredBackground8Border  = this.GetTemplateChild<Border>(nameof(CheckeredBackground8Border));
-        this.CheckeredBackground9Border  = this.GetTemplateChild<Border>(nameof(CheckeredBackground9Border));
-        this.CheckeredBackground10Border = this.GetTemplateChild<Border>(nameof(CheckeredBackground10Border));
+        this.CheckeredBackground1Border  = (Border)this.GetTemplateChild(nameof(CheckeredBackground1Border));
+        this.CheckeredBackground2Border  = (Border)this.GetTemplateChild(nameof(CheckeredBackground2Border));
+        this.CheckeredBackground3Border  = (Border)this.GetTemplateChild(nameof(CheckeredBackground3Border));
+        this.CheckeredBackground4Border  = (Border)this.GetTemplateChild(nameof(CheckeredBackground4Border));
+        this.CheckeredBackground5Border  = (Border)this.GetTemplateChild(nameof(CheckeredBackground5Border));
+        this.CheckeredBackground6Border  = (Border)this.GetTemplateChild(nameof(CheckeredBackground6Border));
+        this.CheckeredBackground7Border  = (Border)this.GetTemplateChild(nameof(CheckeredBackground7Border));
+        this.CheckeredBackground8Border  = (Border)this.GetTemplateChild(nameof(CheckeredBackground8Border));
+        this.CheckeredBackground9Border  = (Border)this.GetTemplateChild(nameof(CheckeredBackground9Border));
+        this.CheckeredBackground10Border = (Border)this.GetTemplateChild(nameof(CheckeredBackground10Border));
 
         // Must connect after controls are resolved
         this.ConnectEvents(true);
@@ -223,26 +223,26 @@ public partial class ColorPicker : Microsoft.UI.Xaml.Controls.ColorPicker
     /// <param name="childName">The name of the element to find.</param>
     /// <param name="isRequired">Whether the element is required and will throw an exception if missing.</param>
     /// <returns>The template child matching the given name and type.</returns>
-    private T GetTemplateChild<T>(string childName, bool isRequired = false)
-        where T : DependencyObject
-    {
-#pragma warning disable CS0413
-#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
-        T child = this.GetTemplateChild(childName) as T;
-#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
-#pragma warning restore CS0413
+//    private T GetTemplateChild<T>(string childName, bool isRequired = false)
+//        where T : DependencyObject
+//    {
+//#pragma warning disable CS0413
+//#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
+//        T child = this.GetTemplateChild(childName) as T;
+//#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
+//#pragma warning restore CS0413
 
-        if ((child == null) && isRequired)
-        {
-            ThrowArgumentNullException();
-        }
+//        if ((child == null) && isRequired)
+//        {
+//            ThrowArgumentNullException();
+//        }
 
-#pragma warning disable CS8603 // Possible null reference return.
-        return child;
-#pragma warning restore CS8603 // Possible null reference return.
+//#pragma warning disable CS8603 // Possible null reference return.
+//        return child;
+//#pragma warning restore CS8603 // Possible null reference return.
 
-        static void ThrowArgumentNullException() => throw new ArgumentNullException(nameof(childName));
-    }
+//        static void ThrowArgumentNullException() => throw new ArgumentNullException(nameof(childName));
+//    }
 
     /// <summary>
     /// Connects or disconnects all dependency property callbacks.
