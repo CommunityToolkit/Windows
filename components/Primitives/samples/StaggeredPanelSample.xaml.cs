@@ -11,16 +11,15 @@ namespace PrimitivesExperiment.Samples;
 [ToolkitSampleNumericOption("ColumnSpacing", initial: 5, min: 0, max: 50, step: 1, Title = "ColumnSpacing")]
 [ToolkitSampleNumericOption("RowSpacing", initial: 5, min: 0, max: 50, step: 1, Title = "RowSpacing")]
 
-[ToolkitSample(id: nameof(StaggeredLayoutSample), "StaggeredPanel", description: $"A sample for showing how to create and use a {nameof(StaggeredLayout)}.")]
-public sealed partial class StaggeredLayoutSample : Page
+[ToolkitSample(id: nameof(StaggeredPanelSample), "WrapPanel", description: $"A sample for showing how to create and use a {nameof(StaggeredPanel)}.")]
+public sealed partial class StaggeredPanelSample : Page
 {
     public ObservableCollection<ColorItem> ColorsCollection = new();
     public Random random;
 
-    public StaggeredLayoutSample()
+    public StaggeredPanelSample()
     {
         this.InitializeComponent();
-
         random = new Random(DateTime.Now.Millisecond);
         for (int i = 0; i < random.Next(100, 200); i++)
         {
@@ -28,15 +27,4 @@ public sealed partial class StaggeredLayoutSample : Page
             ColorsCollection.Add(item);
         }
     }
-}
-
-public class ColorItem
-{
-    public int Index { get; internal set; }
-
-    public int Width { get; internal set; }
-
-    public int Height { get; internal set; }
-
-    public Color Color { get; internal set; }
 }
