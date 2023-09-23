@@ -3,6 +3,15 @@
     <ToolkitComponentName>ColorPicker</ToolkitComponentName>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Assets\ColorPicker.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\ColorPicker.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
   <!-- Sets this up as a toolkit component's sample project -->
   <Import Project="$(ToolingDirectory)\ToolkitComponent.SampleProject.props" />
 </Project>
