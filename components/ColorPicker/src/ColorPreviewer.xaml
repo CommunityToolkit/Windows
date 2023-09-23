@@ -17,90 +17,96 @@
                           BorderBrush="{TemplateBinding BorderBrush}"
                           BorderThickness="{TemplateBinding BorderThickness}"
                           CornerRadius="{TemplateBinding CornerRadius}">
+
                         <Grid.Resources>
                             <controls:AccentColorConverter x:Key="AccentColor" />
                             <converters:BoolToVisibilityConverter x:Key="BoolToVisibility" />
                         </Grid.Resources>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition x:Name="N1PreviewColumn"
+                                              Width="1*" />
+                            <ColumnDefinition x:Name="N2PreviewColumn"
+                                              Width="1*" />
+                            <ColumnDefinition Width="3*" />
+                            <ColumnDefinition x:Name="P1PreviewColumn"
+                                              Width="1*" />
+                            <ColumnDefinition x:Name="P2PreviewColumn"
+                                              Width="1*" />
                         </Grid.ColumnDefinitions>
-                        <Grid Grid.Column="0"
-                              Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ShowAccentColors, Converter={StaticResource BoolToVisibility}}">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <Border x:Name="LeftCheckeredBackgroundBorder"
-                                    Grid.Column="0"
-                                    Grid.ColumnSpan="2"
-                                    HorizontalAlignment="Stretch"
-                                    VerticalAlignment="Stretch" />
-                            <Border x:Name="N2PreviewBorder"
-                                    Grid.Column="0"
-                                    CornerRadius="4,0,0,4"
-                                    Tag="-2">
-                                <Border.Background>
-                                    <SolidColorBrush Color="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=HsvColor, Converter={StaticResource AccentColor}, ConverterParameter='-2'}" />
-                                </Border.Background>
-                            </Border>
-                            <!--
-                                The -1 and +1 accent preview originally had a drop shadow as well.
-                                However, due to Z-order issues with the checkered background,
-                                shadow and preview border, it would have required it's own
-                                checkered background. This was judged not worth the performance
-                                trade-off so shadows were removed.
-                            -->
-                            <Border x:Name="N1PreviewBorder"
-                                    Grid.Column="1"
-                                    Tag="-1">
-                                <Border.Background>
-                                    <SolidColorBrush Color="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=HsvColor, Converter={StaticResource AccentColor}, ConverterParameter='-1'}" />
-                                </Border.Background>
-                            </Border>
-                        </Grid>
-                        <Grid Grid.Column="2"
-                              Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ShowAccentColors, Converter={StaticResource BoolToVisibility}}">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <Border x:Name="CenterCheckeredBackgroundBorder"
-                                    Grid.Column="0"
-                                    Grid.ColumnSpan="2"
-                                    HorizontalAlignment="Stretch"
-                                    VerticalAlignment="Stretch" />
-                            <Border x:Name="P1PreviewBorder"
-                                    Grid.Column="0"
-                                    Tag="1">
-                                <Border.Background>
-                                    <SolidColorBrush Color="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=HsvColor, Converter={StaticResource AccentColor}, ConverterParameter='1'}" />
-                                </Border.Background>
-                            </Border>
-                            <Border x:Name="P2PreviewBorder"
-                                    Grid.Column="1"
-                                    CornerRadius="0,4,4,0"
-                                    Tag="2">
-                                <Border.Background>
-                                    <SolidColorBrush Color="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=HsvColor, Converter={StaticResource AccentColor}, ConverterParameter='2'}" />
-                                </Border.Background>
-                            </Border>
-                        </Grid>
-                        <!--  Must be last for drop shadow Z-index  -->
-                        <Grid Grid.Column="1">
-                            <Border HorizontalAlignment="Stretch"
-                                    VerticalAlignment="Stretch"
-                                    Background="{ThemeResource FlyoutPresenterBackground}" />
-                            <Border x:Name="RightCheckeredBackgroundBorder"
-                                    HorizontalAlignment="Stretch"
-                                    VerticalAlignment="Stretch" />
-                            <Border x:Name="PreviewBorder">
-                                <Border.Background>
-                                    <SolidColorBrush Color="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=HsvColor, Converter={StaticResource AccentColor}, ConverterParameter='0'}" />
-                                </Border.Background>
-                            </Border>
-                        </Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="AccentColorStates">
+                                <VisualState x:Name="AccentColorsVisible" />
+                                <VisualState x:Name="AccentColorsCollapsed">
+                                    <VisualState.Setters>
+                                        <Setter Target="N2PreviewBorder.Visibility" Value="Collapsed" />
+                                        <Setter Target="N1PreviewBorder.Visibility" Value="Collapsed" />
+                                        <Setter Target="P1PreviewBorder.Visibility" Value="Collapsed" />
+                                        <Setter Target="P2PreviewBorder.Visibility" Value="Collapsed" />
+
+                                        <Setter Target="PreviewBorder.CornerRadius" Value="4" />
+                                        <Setter Target="N1PreviewColumn.Width" Value="Auto" />
+                                        <Setter Target="N2PreviewColumn.Width" Value="Auto" />
+                                        <Setter Target="P1PreviewColumn.Width" Value="Auto" />
+                                        <Setter Target="P2PreviewColumn.Width" Value="Auto" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Border x:Name="CheckeredBackgroundBorder"
+                                Grid.ColumnSpan="3"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch" />
+                        <Border x:Name="N2PreviewBorder"
+                                CornerRadius="4,0,0,4"
+                                Tag="-2">
+                            <Border.Background>
+                                <SolidColorBrush Color="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=HsvColor, Converter={StaticResource AccentColor}, ConverterParameter='-2'}" />
+                            </Border.Background>
+                            <Border.BackgroundTransition>
+                                <BrushTransition Duration="0:0:0.083" />
+                            </Border.BackgroundTransition>
+                        </Border>
+
+                        <Border x:Name="N1PreviewBorder"
+                                Grid.Column="1"
+                                Tag="-1">
+                            <Border.Background>
+                                <SolidColorBrush Color="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=HsvColor, Converter={StaticResource AccentColor}, ConverterParameter='-1'}" />
+                            </Border.Background>
+                        </Border>
+                        <Border x:Name="PreviewBorder"
+                                Grid.Column="2">
+                            <Border.Background>
+                                <SolidColorBrush Color="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=HsvColor, Converter={StaticResource AccentColor}, ConverterParameter='0'}" />
+                            </Border.Background>
+                            <Border.BackgroundTransition>
+                                <BrushTransition Duration="0:0:0.083" />
+                            </Border.BackgroundTransition>
+                        </Border>
+
+
+                        <Border x:Name="P1PreviewBorder"
+                                Grid.Column="3"
+                                Tag="1">
+                            <Border.Background>
+                                <SolidColorBrush Color="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=HsvColor, Converter={StaticResource AccentColor}, ConverterParameter='1'}" />
+                            </Border.Background>
+                            <Border.BackgroundTransition>
+                                <BrushTransition Duration="0:0:0.083" />
+                            </Border.BackgroundTransition>
+                        </Border>
+                        <Border x:Name="P2PreviewBorder"
+                                Grid.Column="4"
+                                CornerRadius="0,4,4,0"
+                                Tag="2">
+                            <Border.Background>
+                                <SolidColorBrush Color="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=HsvColor, Converter={StaticResource AccentColor}, ConverterParameter='2'}" />
+                            </Border.Background>
+                            <Border.BackgroundTransition>
+                                <BrushTransition Duration="0:0:0.083" />
+                            </Border.BackgroundTransition>
+                        </Border>
+
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>

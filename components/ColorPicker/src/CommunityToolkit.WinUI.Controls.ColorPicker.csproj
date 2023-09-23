@@ -8,11 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Converters\src\CommunityToolkit.WinUI.Converters.csproj"/>
-    <ProjectReference Include="..\..\Extensions\src\CommunityToolkit.WinUI.Extensions.csproj"/>
-    <ProjectReference Include="..\..\Helpers\src\CommunityToolkit.WinUI.Helpers.csproj"/>
-    <ProjectReference Include="..\..\Primitives\src\CommunityToolkit.WinUI.Controls.Primitives.csproj"/>
-    <ProjectReference Include="..\..\Segmented\src\CommunityToolkit.WinUI.Controls.Segmented.csproj"/>
+    <ProjectReference Include="..\..\Converters\src\CommunityToolkit.WinUI.Converters.csproj" />
+    <ProjectReference Include="..\..\Extensions\src\CommunityToolkit.WinUI.Extensions.csproj" />
+    <ProjectReference Include="..\..\Helpers\src\CommunityToolkit.WinUI.Helpers.csproj" />
+    <ProjectReference Include="..\..\Primitives\src\CommunityToolkit.WinUI.Controls.Primitives.csproj" />
+    <ProjectReference Include="..\..\Segmented\src\CommunityToolkit.WinUI.Controls.Segmented.csproj" />
+    <ProjectReference Include="..\..\Animations\src\CommunityToolkit.WinUI.Animations.csproj" />
   </ItemGroup>
 
   <!-- Sets this up as a toolkit component's source project -->

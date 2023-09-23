@@ -1,12 +1,12 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:controls="using:CommunityToolkit.WinUI.Controls">
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="ms-appx:///CommunityToolkit.WinUI.Controls.ColorPicker/ColorPicker.xaml" />
-  <ResourceDictionary Source="ms-appx:///CommunityToolkit.WinUI.Controls.ColorPicker/ColorPickerButton.xaml" />
-  <ResourceDictionary Source="ms-appx:///CommunityToolkit.WinUI.Controls.ColorPicker/ColorPickerSlider.xaml" />
-  <ResourceDictionary Source="ms-appx:///CommunityToolkit.WinUI.Controls.ColorPicker/ColorPreviewer.xaml" />
+        <ResourceDictionary Source="ms-appx:///CommunityToolkit.WinUI.Controls.ColorPicker/ColorPickerButton.xaml" />
+        <ResourceDictionary Source="ms-appx:///CommunityToolkit.WinUI.Controls.ColorPicker/ColorPickerSlider.xaml" />
+        <ResourceDictionary Source="ms-appx:///CommunityToolkit.WinUI.Controls.ColorPicker/ColorPreviewer.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
 </ResourceDictionary>
