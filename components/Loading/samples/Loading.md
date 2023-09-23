@@ -1,7 +1,7 @@
 ---
 title: Loading
 author: nmetulev
-description: LoadingControl helps to show content with animation to the user while the app is doing some calculation..
+description: The Loading control helps to show content with animation to the user while the app is doing some calculation..
 keywords: Loading, Control, loader, progress
 dev_langs:
   - csharp
