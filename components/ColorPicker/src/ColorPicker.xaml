@@ -47,13 +47,16 @@
     <Style x:Key="DefaultColorPickerStyle"
            TargetType="controls:ColorPicker">
         <Style.Setters>
-            <Setter Property="MaxWidth" Value="344" />
+            <Setter Property="Width" Value="344" />
             <Setter Property="IsTabStop" Value="False" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
             <Setter Property="CornerRadius" Value="{ThemeResource ControlCornerRadius}" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="controls:ColorPicker">
                         <Grid Margin="{TemplateBinding Padding}"
+                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                               Background="{TemplateBinding Background}"
                               BorderBrush="{TemplateBinding BorderBrush}"
                               BorderThickness="{TemplateBinding BorderThickness}"
@@ -231,7 +234,8 @@
                                                       Grid.Row="2"
                                                       Value="{Binding ElementName=ColorPanelSelector, Path=SelectedItem.Name}">
                                 <controls:Case Value="SpectrumItem">
-                                    <Grid animations:Implicit.HideAnimations="{StaticResource HideTransitions}"
+                                    <Grid HorizontalAlignment="Stretch"
+                                          animations:Implicit.HideAnimations="{StaticResource HideTransitions}"
                                           animations:Implicit.ShowAnimations="{StaticResource ShowTransitions}"
                                           ColumnSpacing="12">
                                         <Grid.ColumnDefinitions>
@@ -271,7 +275,7 @@
                                     </Grid>
                                 </controls:Case>
                                 <controls:Case Value="PaletteItem">
-                                    <Grid>
+                                    <Grid HorizontalAlignment="Stretch">
                                         <GridView Margin="-1,0,-1,0"
                                                   Padding="0"
                                                   animations:Implicit.HideAnimations="{StaticResource HideTransitions}"
@@ -311,7 +315,8 @@
                                     </Grid>
                                 </controls:Case>
                                 <controls:Case Value="ChannelsItem">
-                                    <Grid animations:Implicit.HideAnimations="{StaticResource HideTransitions}"
+                                    <Grid HorizontalAlignment="Stretch"
+                                          animations:Implicit.HideAnimations="{StaticResource HideTransitions}"
                                           animations:Implicit.ShowAnimations="{StaticResource ShowTransitions}"
                                           ColumnSpacing="24"
                                           RowSpacing="12">
