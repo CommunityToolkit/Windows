@@ -120,6 +120,8 @@ public partial class ColorPicker : Microsoft.UI.Xaml.Controls.ColorPicker
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
     {
         this.DefaultStyleKey = typeof(ColorPicker);
+
+        // Workaround for https://github.com/microsoft/microsoft-ui-xaml/issues/3502
         this.DefaultStyleResourceUri = new Uri("ms-appx:///CommunityToolkit.WinUI.Controls.ColorPicker/Themes/Generic.xaml");
 
         // Setup collections
@@ -135,6 +137,8 @@ public partial class ColorPicker : Microsoft.UI.Xaml.Controls.ColorPicker
         this.ConnectCallbacks(true);
         this.SetDefaultPalette();
         this.StartDispatcherQueueTimer();
+        this.RegisterPropertyChangedCallback(IsColorChannelTextInputVisibleProperty, OnPanelVisibilityChanged);
+        this.RegisterPropertyChangedCallback(IsColorSpectrumVisibleProperty, OnPanelVisibilityChanged);
     }
 
     /// <summary>
@@ -213,6 +217,7 @@ public partial class ColorPicker : Microsoft.UI.Xaml.Controls.ColorPicker
         this.UpdateVisualState(false);
         this.ValidateSelectedPanel();
         this.isInitialized = true;
+
         this.SetActiveColorRepresentation(ColorRepresentation.Rgba);
         this.UpdateColorControlValues(); // TODO: This will also connect events after, can we optimize vs. doing it twice with the ConnectEvents above?
     }
@@ -373,13 +378,19 @@ public partial class ColorPicker : Microsoft.UI.Xaml.Controls.ColorPicker
     /// Updates all visual states based on current control properties.
     /// </summary>
     /// <param name="useTransitions">Whether transitions should occur when changing states.</param>
-    private void UpdateVisualState(bool useTransitions)
+    private void UpdateVisualState(bool useTransitions = true)
     {
         VisualStateManager.GoToState(this, this.IsEnabled ? "Normal" : "Disabled", useTransitions);
         VisualStateManager.GoToState(this, this.GetActiveColorRepresentation() == ColorRepresentation.Hsva ? "HsvSelected" : "RgbSelected", useTransitions);
         VisualStateManager.GoToState(this, this.IsColorPaletteVisible ? "ColorPaletteVisible" : "ColorPaletteCollapsed", useTransitions);
 
-        return;
+        // Check if only a single vie is selected and hide the Segmented control
+        VisualStateManager.GoToState(this, (Truth(IsColorPaletteVisible, IsColorSpectrumVisible, IsColorChannelTextInputVisible) <= 1) ? "ColorPanelSelectorCollapsed" : "ColorPanelSelectorVisible", useTransitions);
+    }
+
+    public static int Truth(params bool[] booleans)
+    {
+        return booleans.Count(b => b);
     }
 
     /// <summary>
@@ -1030,8 +1041,13 @@ public partial class ColorPicker : Microsoft.UI.Xaml.Controls.ColorPicker
 
         return;
     }
+    private void OnPanelVisibilityChanged(DependencyObject sender, DependencyProperty dp)
+    {
+        this.UpdateVisualState(false);
+        this.ValidateSelectedPanel();
+    }
 
-    private void OnDependencyPropertyChanged(object sender, DependencyPropertyChangedEventArgs args)
+    private void OnDependencyPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
     {
         if (sender is DependencyObject senderControl)
         {

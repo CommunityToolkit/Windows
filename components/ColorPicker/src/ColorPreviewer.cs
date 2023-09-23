@@ -9,9 +9,7 @@ namespace CommunityToolkit.WinUI.Controls.Primitives;
 /// <summary>
 /// Presents a <see cref="ColorPicker"/>'s preview color with optional accent colors.
 /// </summary>
-[TemplatePart(Name = nameof(ColorPreviewer.CenterCheckeredBackgroundBorder), Type = typeof(Border))]
-[TemplatePart(Name = nameof(ColorPreviewer.LeftCheckeredBackgroundBorder), Type = typeof(Border))]
-[TemplatePart(Name = nameof(ColorPreviewer.RightCheckeredBackgroundBorder), Type = typeof(Border))]
+[TemplatePart(Name = nameof(ColorPreviewer.CheckeredBackgroundBorder), Type = typeof(Border))]
 [TemplatePart(Name = nameof(ColorPreviewer.P1PreviewBorder), Type = typeof(Border))]
 [TemplatePart(Name = nameof(ColorPreviewer.P2PreviewBorder), Type = typeof(Border))]
 [TemplatePart(Name = nameof(ColorPreviewer.N1PreviewBorder), Type = typeof(Border))]
@@ -28,9 +26,7 @@ public partial class ColorPreviewer : Control
 
     private bool eventsConnected = false;
 
-    private Border CenterCheckeredBackgroundBorder;
-    private Border LeftCheckeredBackgroundBorder;
-    private Border RightCheckeredBackgroundBorder;
+    private Border CheckeredBackgroundBorder;
 
     private Border N1PreviewBorder;
     private Border N2PreviewBorder;
@@ -94,9 +90,7 @@ public partial class ColorPreviewer : Control
         if (connected == true && this.eventsConnected == false)
         {
             // Add all events
-            if (this.CenterCheckeredBackgroundBorder != null) { this.CenterCheckeredBackgroundBorder.Loaded += CheckeredBackgroundBorder_Loaded; }
-            if (this.LeftCheckeredBackgroundBorder != null) { this.LeftCheckeredBackgroundBorder.Loaded += CheckeredBackgroundBorder_Loaded; }
-            if (this.RightCheckeredBackgroundBorder != null) { this.RightCheckeredBackgroundBorder.Loaded += CheckeredBackgroundBorder_Loaded; }
+            if (this.CheckeredBackgroundBorder != null) { this.CheckeredBackgroundBorder.Loaded += CheckeredBackgroundBorder_Loaded; }
 
             if (this.N1PreviewBorder != null) { this.N1PreviewBorder.PointerPressed += PreviewBorder_PointerPressed; }
             if (this.N2PreviewBorder != null) { this.N2PreviewBorder.PointerPressed += PreviewBorder_PointerPressed; }
@@ -108,9 +102,7 @@ public partial class ColorPreviewer : Control
         else if (connected == false && this.eventsConnected == true)
         {
             // Remove all events
-            if (this.CenterCheckeredBackgroundBorder != null) { this.CenterCheckeredBackgroundBorder.Loaded -= CheckeredBackgroundBorder_Loaded; }
-            if (this.LeftCheckeredBackgroundBorder != null) { this.LeftCheckeredBackgroundBorder.Loaded -= CheckeredBackgroundBorder_Loaded; }
-            if (this.RightCheckeredBackgroundBorder != null) { this.RightCheckeredBackgroundBorder.Loaded -= CheckeredBackgroundBorder_Loaded; }
+            if (this.CheckeredBackgroundBorder != null) { this.CheckeredBackgroundBorder.Loaded -= CheckeredBackgroundBorder_Loaded; }
 
             if (this.N1PreviewBorder != null) { this.N1PreviewBorder.PointerPressed -= PreviewBorder_PointerPressed; }
             if (this.N2PreviewBorder != null) { this.N2PreviewBorder.PointerPressed -= PreviewBorder_PointerPressed; }
@@ -135,9 +127,7 @@ public partial class ColorPreviewer : Control
         // Remove any existing events present if the control was previously loaded then unloaded
         this.ConnectEvents(false);
 
-        this.CenterCheckeredBackgroundBorder = (Border)this.GetTemplateChild(nameof(CenterCheckeredBackgroundBorder));
-        this.LeftCheckeredBackgroundBorder = (Border)this.GetTemplateChild(nameof(LeftCheckeredBackgroundBorder));
-        this.RightCheckeredBackgroundBorder = (Border)this.GetTemplateChild(nameof(RightCheckeredBackgroundBorder));
+        this.CheckeredBackgroundBorder = (Border)this.GetTemplateChild(nameof(CheckeredBackgroundBorder));
 
         this.N1PreviewBorder = (Border)this.GetTemplateChild(nameof(N1PreviewBorder));
         this.N2PreviewBorder = (Border)this.GetTemplateChild(nameof(N2PreviewBorder));
@@ -158,6 +148,7 @@ public partial class ColorPreviewer : Control
     /// <param name="args">The event arguments.</param>
     protected virtual void OnDependencyPropertyChanged(object sender, DependencyPropertyChangedEventArgs args)
     {
+            VisualStateManager.GoToState(this, ShowAccentColors ? "AccentColorsVisible" : "AccentColorsCollapsed", true);
         return;
     }
 

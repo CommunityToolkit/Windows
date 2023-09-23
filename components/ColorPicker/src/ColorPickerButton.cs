@@ -36,7 +36,7 @@ public partial class ColorPickerButton : DropDownButton
     /// <summary>
     /// Identifies the <see cref="ColorPickerStyle"/> dependency property.
     /// </summary>
-    public static readonly DependencyProperty ColorPickerStyleProperty = DependencyProperty.Register("ColorPickerStyle", typeof(Style), typeof(ColorPickerButton), new PropertyMetadata(default(Style)));
+    public static readonly DependencyProperty ColorPickerStyleProperty = DependencyProperty.Register(nameof(ColorPickerStyle), typeof(Style), typeof(ColorPickerButton), new PropertyMetadata(default(Style)));
 
     /// <summary>
     /// Gets or sets the <see cref="Style"/> for the <see cref="FlyoutPresenter"/> used within the <see cref="Flyout"/> of the <see cref="DropDownButton"/>.
@@ -57,7 +57,7 @@ public partial class ColorPickerButton : DropDownButton
     /// <summary>
     /// Identifies the <see cref="FlyoutPresenterStyle"/> dependency property.
     /// </summary>
-    public static readonly DependencyProperty FlyoutPresenterStyleProperty = DependencyProperty.Register("FlyoutPresenterStyle", typeof(Style), typeof(ColorPickerButton), new PropertyMetadata(default(Style)));
+    public static readonly DependencyProperty FlyoutPresenterStyleProperty = DependencyProperty.Register(nameof(FlyoutPresenterStyle), typeof(Style), typeof(ColorPickerButton), new PropertyMetadata(default(Style)));
 
 #pragma warning disable CS0419 // Ambiguous reference in cref attribute
     /// <summary>
@@ -89,6 +89,9 @@ public partial class ColorPickerButton : DropDownButton
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
     {
         this.DefaultStyleKey = typeof(ColorPickerButton);
+
+        // Workaround for https://github.com/microsoft/microsoft-ui-xaml/issues/3502
+        this.DefaultStyleResourceUri = new Uri("ms-appx:///CommunityToolkit.WinUI.Controls.ColorPicker/Themes/Generic.xaml");
     }
 
     /// <inheritdoc/>
