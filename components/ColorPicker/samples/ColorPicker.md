@@ -9,7 +9,7 @@ category: Controls
 subcategory: Input
 discussion-id: 0
 issue-id: 0
-icon: assets/icon.png
+icon: Assets/ColorPicker.png
 ---
 
 The [ColorPicker](/dotnet/api/microsoft.toolkit.uwp.ui.controls.colorpicker) control lets a user pick a color using a color spectrum, palette, sliders, or text input.
