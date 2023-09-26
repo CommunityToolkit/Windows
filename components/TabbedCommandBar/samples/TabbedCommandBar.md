@@ -1,32 +1,30 @@
 ---
 title: TabbedCommandBar
-author: githubaccount
-description: TODO: Your experiment's description here
-keywords: TabbedCommandBar, Control, Layout
+author: yoshiask
+description: A control for displaying multiple CommandBars in the same space, like Microsoft Office's ribbon.
+keywords: TabbedCommandBar, Control, Layout, commandbar, ribbon
 dev_langs:
   - csharp
 category: Controls
 subcategory: Layout
 discussion-id: 0
 issue-id: 0
-icon: assets/icon.png
+icon: Assets/TabbedCommandBar.png
 ---
 
-<!-- To know about all the available Markdown syntax, Check out https://docs.microsoft.com/contribute/markdown-reference -->
-<!-- Ensure you remove all comments before submission, to ensure that there are no formatting issues when displaying this page.  -->
-<!-- It is recommended to check how the Documentation will look in the sample app, before Merging a PR -->
-<!-- **Note:** All links to other docs.microsoft.com pages should be relative without locale, i.e. for the one above would be /contribute/markdown-reference -->
-<!-- Included images should be optimized for size and not include any Intellectual Property references. -->
+The [TabbedCommandBar](/dotnet/api/microsoft.toolkit.uwp.ui.controls.tabbedcommandbar) displays a set of [TabbedCommandBarItem](/dotnet/api/microsoft.toolkit.uwp.ui.controls.tabbedcommandbaritem) in a shared container found in many productivity type apps. It is based off of [NavigationView](/windows/uwp/design/controls-and-patterns/navigationview).
 
-<!-- Be sure to update the discussion/issue numbers above with your Labs discussion/issue id numbers in order for UI links to them from the sample app to work. -->
+`TabbedCommandBarItem` can be used to display certain items, and its `IsContextual` property can be set to change the default style into an item that is known from the Office apps to highlight to a user that certain context options are available. 
+> [!Sample TabbedCommandBarSample]
 
-# TabbedCommandBar
+## Remarks
 
-TODO: Fill in information about this experiment and how to get started here...
+The TabbedCommandBar automatically applies styles to known common controls inside an `AppBarElementContainer`. The following elements have styles:
 
-## Custom Control
+- ComboBox
+- SplitButton
 
-You can inherit from an existing component as well, like `Panel`, this example shows a control without a
-XAML Style that will be more light-weight to consume by an app developer:
+> [!NOTE]
+> The ComboBox does not allow changing its selection while it is in the overflow flyout.
 
-> [!Sample TabbedCommandBarCustomSample]
+The `TabbedCommandBar` does not add any of its own properties. See [NavigationView](/uwp/api/windows.ui.xaml.controls.navigationview#properties) for a list of accessible properties.
