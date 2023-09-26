@@ -3,6 +3,19 @@
     <ToolkitComponentName>TabbedCommandBar</ToolkitComponentName>
   </PropertyGroup>
 
+   <ItemGroup>
+    <ProjectReference Include="..\..\Extensions\src\CommunityToolkit.WinUI.Extensions.csproj"></ProjectReference>
+  </ItemGroup>
+
+<ItemGroup>
+    <None Remove="Assets\TabbedCommandBar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\TabbedCommandBar.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
   <!-- Sets this up as a toolkit component's sample project -->
   <Import Project="$(ToolingDirectory)\ToolkitComponent.SampleProject.props" />
 </Project>
