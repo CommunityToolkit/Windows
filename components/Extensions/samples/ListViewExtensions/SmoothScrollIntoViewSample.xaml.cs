@@ -12,7 +12,7 @@ using ListView = Windows.UI.Xaml.Controls.ListView;
 
 namespace ExtensionsExperiment.Samples.ListViewExtensions;
 
-[ToolkitSample(id: nameof(SmoothScrollIntoViewSample), "SmoothScrollIntoView Extension", description: "A sample for showing how to the SmoothScrollIntoViewWithIndexAsync API.")]
+[ToolkitSample(id: nameof(SmoothScrollIntoViewSample), "SmoothScrollIntoView Extension", description: "A sample for showing how to use the SmoothScrollIntoViewWithIndexAsync API.")]
 public sealed partial class SmoothScrollIntoViewSample : Page
 {
     public ObservableCollection<string> Items { get; set; } = new();

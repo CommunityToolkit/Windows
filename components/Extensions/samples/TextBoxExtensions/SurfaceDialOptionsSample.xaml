@@ -1,0 +1,26 @@
+﻿<Page x:Class="ExtensionsExperiment.Samples.TextBoxExtensions.SurfaceDialOptionsSample"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:ui="using:CommunityToolkit.WinUI"
+      xmlns:win="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      mc:Ignorable="d">
+
+
+    <win:TextBox HorizontalAlignment="Left"
+                 VerticalAlignment="Top"
+                 Header="For this sample, you need a Surface Dial"
+                 Text="0">
+        <ui:TextBoxExtensions.SurfaceDialOptions>
+            <ui:SurfaceDialOptions EnableHapticFeedback="True"
+                                   EnableMinMaxValue="True"
+                                   EnableTapToNextControl="False"
+                                   Icon="Ruler"
+                                   MaxValue="100"
+                                   MinValue="0"
+                                   RotationResolutionInDegrees="12"
+                                   StepValue="1" />
+        </ui:TextBoxExtensions.SurfaceDialOptions>
+    </win:TextBox>
+</Page>
