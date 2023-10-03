@@ -40,18 +40,18 @@ public partial class SegmentedItem : ListViewItem
         OnIconChanged();
         ContentChanged();
         RegisterAutomation();
-        RegisterPropertyChangedCallback(ListViewItem.IsSelectedProperty, OnIsSelectedChanged);
+        RegisterPropertyChangedCallback(SelectorItem.IsSelectedProperty, OnIsSelectedChanged);
     }
 
     private void RegisterAutomation()
     {
-        if (Content is string headerString && headerString != string.Empty)
-        {
-            if (!string.IsNullOrEmpty(headerString) && string.IsNullOrEmpty(AutomationProperties.GetName(this)))
-            {
-                AutomationProperties.SetName(this, headerString);
-            }
-        }
+        //if (Content is string headerString && headerString != string.Empty)
+        //{
+        //    if (!string.IsNullOrEmpty(headerString) && string.IsNullOrEmpty(AutomationProperties.GetName(this)))
+        //    {
+        //        AutomationProperties.SetName(this, headerString);
+        //    }
+        //}
     }
 
     protected override void OnContentChanged(object oldContent, object newContent)

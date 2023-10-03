@@ -150,10 +150,11 @@ public partial class Segmented : ListViewBase
         }
     }
 
+   
     /// <summary>
-    /// Creates AutomationPeer
+    /// Creates AutomationPeer (<see cref="UIElement.OnCreateAutomationPeer"/>)
     /// </summary>
-    /// <returns>An automation peer for <see cref="SegmentedItem"/>.</returns>
+    /// <returns>An automation peer for this <see cref="Carousel"/>.</returns>
     protected override AutomationPeer OnCreateAutomationPeer()
     {
         return new SegmentedAutomationPeer(this);

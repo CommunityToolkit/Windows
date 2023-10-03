@@ -63,9 +63,9 @@ public class SegmentedItemAutomationPeer : FrameworkElementAutomationPeer, ISele
     /// <summary>Adds the current element to the collection of selected items.</summary>
     public void AddToSelection()
     {
-        //SegmentedItem owner = this.OwnerSegmentedItem;
-        //Segmented parent = owner.ParentSegmented;
-        //parent?.SetSelectedItem(owner);
+        SegmentedItem owner = this.OwnerSegmentedItem;
+        Segmented parent = owner.ParentSegmented;
+        parent?.SetSelectedItem(owner);
     }
 
     /// <summary>Removes the current element from the collection of selected items.</summary>
@@ -77,9 +77,9 @@ public class SegmentedItemAutomationPeer : FrameworkElementAutomationPeer, ISele
     /// <summary>Clears any existing selection and then selects the current element.</summary>
     public void Select()
     {
-        //SegmentedItem owner = this.OwnerSegmentedItem;
-        //Segmented parent = owner.ParentSegmented;
-        //parent?.SetSelectedItem(owner);
+        SegmentedItem owner = this.OwnerSegmentedItem;
+        Segmented parent = owner.ParentSegmented;
+        parent?.SetSelectedItem(owner);
     }
 
     /// <summary>
@@ -88,7 +88,7 @@ public class SegmentedItemAutomationPeer : FrameworkElementAutomationPeer, ISele
     /// <returns>The control type.</returns>
     protected override AutomationControlType GetAutomationControlTypeCore()
     {
-        return AutomationControlType.TabItem;
+        return AutomationControlType.ListItem;
     }
 
     /// <summary>
@@ -124,11 +124,11 @@ public class SegmentedItemAutomationPeer : FrameworkElementAutomationPeer, ISele
             return name;
         }
 
-        var textBlock = this.OwnerSegmentedItem.FindDescendant<TextBlock>();
-        if (textBlock != null)
-        {
-            return textBlock.Text;
-        }
+        //var textBlock = this.OwnerSegmentedItem.FindDescendant<TextBlock>();
+        //if (textBlock != null)
+        //{
+        //    return textBlock.Text;
+        //}
 
         return base.GetNameCore();
     }
