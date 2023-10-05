@@ -85,9 +85,7 @@ public partial class SettingsExpander
     /// <summary>
     /// Gets or sets the Description.
     /// </summary>
-#pragma warning disable CS0109 // Member does not hide an inherited member; new keyword is not required
-    public new object Description
-#pragma warning restore CS0109 // Member does not hide an inherited member; new keyword is not required
+    public object Description
     {
         get => (object)GetValue(DescriptionProperty);
         set => SetValue(DescriptionProperty, value);

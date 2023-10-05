@@ -12,9 +12,7 @@ public partial class ConstrainedBox
     /// <summary>
     /// Gets or sets the scale for the width of the panel. Should be a value between 0-1.0. Default is 1.0.
     /// </summary>
-#pragma warning disable CS0109 // Member does not hide an inherited member; new keyword is not required
-    public new double ScaleX
-#pragma warning restore CS0109 // Member does not hide an inherited member; new keyword is not required
+    public double ScaleX
     {
         get { return (double)GetValue(ScaleXProperty); }
         set { SetValue(ScaleXProperty, value); }
@@ -29,9 +27,7 @@ public partial class ConstrainedBox
     /// <summary>
     /// Gets or sets the scale for the height of the panel. Should be a value between 0-1.0. Default is 1.0.
     /// </summary>
-#pragma warning disable CS0109 // Member does not hide an inherited member; new keyword is not required
-    public new double ScaleY
-#pragma warning restore CS0109 // Member does not hide an inherited member; new keyword is not required
+    public double ScaleY
     {
         get { return (double)GetValue(ScaleYProperty); }
         set { SetValue(ScaleYProperty, value); }
