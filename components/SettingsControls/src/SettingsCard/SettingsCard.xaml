@@ -106,7 +106,7 @@
     <Thickness x:Key="SettingsCardHeaderIconMargin">2,0,20,0</Thickness>
     <Thickness x:Key="SettingsCardActionIconMargin">14,0,0,0</Thickness>
     <x:Double x:Key="SettingsCardActionIconMaxSize">13</x:Double>
-    <Thickness x:Key="SettingsCardVerticalHeaderContentSpacing">0,24,0,0</Thickness>
+    <x:Double x:Key="SettingsCardVerticalHeaderContentSpacing">36</x:Double>
     <x:Double x:Key="SettingsCardWrapThreshold">476</x:Double>
     <x:Double x:Key="SettingsCardWrapNoIconThreshold">286</x:Double>
 
@@ -294,8 +294,7 @@
                                     </VisualState>
                                 </VisualStateGroup>
 
-                                <VisualStateGroup x:Name="ContentAlignmentStates"
-                                                  CurrentStateChanged="ContentAlignmentStates_Changed">
+                                <VisualStateGroup x:Name="ContentAlignmentStates">
                                     <!--  Default  -->
                                     <VisualState x:Name="Right" />
 
@@ -311,7 +310,6 @@
                                             <Setter Target="PART_ContentPresenter.(Grid.Column)" Value="1" />
                                             <Setter Target="PART_ContentPresenter.HorizontalAlignment" Value="Stretch" />
                                             <Setter Target="PART_ContentPresenter.HorizontalContentAlignment" Value="Left" />
-                                            <Setter Target="PART_ContentPresenter.Margin" Value="{ThemeResource SettingsCardVerticalHeaderContentSpacing}" />
                                             <Setter Target="HeaderPanel.Margin" Value="0" />
                                         </VisualState.Setters>
                                     </VisualState>
@@ -328,7 +326,6 @@
                                             <Setter Target="PART_ContentPresenter.(Grid.Column)" Value="1" />
                                             <Setter Target="PART_ContentPresenter.HorizontalAlignment" Value="Stretch" />
                                             <Setter Target="PART_ContentPresenter.HorizontalContentAlignment" Value="Left" />
-                                            <Setter Target="PART_ContentPresenter.Margin" Value="{ThemeResource SettingsCardVerticalHeaderContentSpacing}" />
                                             <Setter Target="HeaderPanel.Margin" Value="0" />
                                         </VisualState.Setters>
                                     </VisualState>
@@ -360,7 +357,6 @@
                                             <Setter Target="PART_ContentPresenter.(Grid.Column)" Value="1" />
                                             <Setter Target="PART_ContentPresenter.HorizontalAlignment" Value="Stretch" />
                                             <Setter Target="PART_ContentPresenter.HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource TemplatedParent}}" />
-                                            <Setter Target="PART_ContentPresenter.Margin" Value="{ThemeResource SettingsCardVerticalHeaderContentSpacing}" />
                                         </VisualState.Setters>
                                     </VisualState>
                                 </VisualStateGroup>
@@ -379,10 +375,10 @@
                                 </VisualStateGroup>
 
                                 <VisualStateGroup x:Name="ContentSpacingStates">
-                                    <VisualState x:Name="ContentSpacingNotActive" />
-                                    <VisualState x:Name="ContentSpacingActive">
+                                    <VisualState x:Name="NoContentSpacing"/>
+                                    <VisualState x:Name="ContentSpacing">
                                         <VisualState.Setters>
-                                            <Setter Target="PART_ContentPresenter.Margin" Value="{ThemeResource SettingsCardVerticalHeaderContentSpacing}" />
+                                            <Setter Target="PART_RootGrid.RowSpacing" Value="{ThemeResource SettingsCardVerticalHeaderContentSpacing}" />
                                         </VisualState.Setters>
                                     </VisualState>
                                 </VisualStateGroup>
