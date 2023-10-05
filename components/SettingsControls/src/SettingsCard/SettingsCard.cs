@@ -44,9 +44,11 @@ public partial class SettingsCard : ButtonBase
         OnIsClickEnabledChanged();
         VisualStateManager.GoToState(this, IsEnabled ? NormalState : DisabledState, true);
         RegisterAutomation();
+        RegisterPropertyChangedCallback(ContentProperty, OnContentChanged);
         IsEnabledChanged += OnIsEnabledChanged;
     }
 
+  
     private void RegisterAutomation()
     {
         if (Header is string headerString && headerString != string.Empty)
@@ -207,6 +209,7 @@ public partial class SettingsCard : ButtonBase
                 ? Visibility.Visible
                 : Visibility.Collapsed;
         }
+    
     }
 
     private void OnHeaderChanged()
@@ -217,7 +220,44 @@ public partial class SettingsCard : ButtonBase
                 ? Visibility.Visible
                 : Visibility.Collapsed;
         }
+       
     }
+
+    private void OnContentChanged(DependencyObject sender, DependencyProperty dp)
+    {
+     
+    }
+
+    private void ContentAlignmentStates_Changed(object sender, VisualStateChangedEventArgs e)
+    {
+        if (e.NewState.Name == "RightWrapped" || e.NewState.Name == "RightWrappedNoIcon" || e.NewState.Name == "Vertical")
+        {
+            // Content is wrapped, check if the Header/Description is used and if the Content is empty. Only then add spacing
+
+            if (Content != null)
+            {
+                if (Header != null || Description != null)
+                {
+                    // Set spacing
+                    VisualStateManager.GoToState(this, "ContentSpacingActive", true);
+                }
+                else
+                {
+                    VisualStateManager.GoToState(this, "ContentSpacingNotActive", true);
+                }
+            }
+            else
+            {
+                VisualStateManager.GoToState(this, "ContentSpacingNotActive", true);
+            }
+        }
+        else
+        {
+            VisualStateManager.GoToState(this, "ContentSpacingNotActive", true);
+        }
+    }
+
+  
 
     private FrameworkElement? GetFocusedElement()
     {
