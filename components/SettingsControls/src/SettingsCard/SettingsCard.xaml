@@ -375,7 +375,7 @@
                                 </VisualStateGroup>
 
                                 <VisualStateGroup x:Name="ContentSpacingStates">
-                                    <VisualState x:Name="NoContentSpacing"/>
+                                    <VisualState x:Name="NoContentSpacing" />
                                     <VisualState x:Name="ContentSpacing">
                                         <VisualState.Setters>
                                             <Setter Target="PART_RootGrid.RowSpacing" Value="{ThemeResource SettingsCardVerticalHeaderContentSpacing}" />
