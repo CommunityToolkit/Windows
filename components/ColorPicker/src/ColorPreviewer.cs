@@ -57,31 +57,6 @@ public partial class ColorPreviewer : Control
      ***************************************************************************************/
 
     /// <summary>
-    /// Retrieves the named element in the instantiated ControlTemplate visual tree.
-    /// </summary>
-    /// <param name="childName">The name of the element to find.</param>
-    /// <param name="isRequired">Whether the element is required and will throw an exception if missing.</param>
-    /// <returns>The template child matching the given name and type.</returns>
-//    private T GetTemplateChild<T>(string childName, bool isRequired = false)
-//        where T : DependencyObject
-//    {
-//#pragma warning disable CS0413
-//#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
-//        T child = this.GetTemplateChild(childName) as T;
-//#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
-//#pragma warning restore CS0413
-
-//        if ((child == null) && isRequired)
-//        {
-//            ThrowArgumentNullException();
-//        }
-
-//        return child!;
-
-//        static void ThrowArgumentNullException() => throw new ArgumentNullException(nameof(childName));
-//    }
-
-    /// <summary>
     /// Connects or disconnects all control event handlers.
     /// </summary>
     /// <param name="connected">True to connect event handlers, otherwise false.</param>

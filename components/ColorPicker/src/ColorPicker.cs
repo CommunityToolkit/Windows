@@ -48,8 +48,6 @@ namespace CommunityToolkit.WinUI.Controls;
 [TemplatePart(Name = nameof(ColorPicker.HexInputTextBox),             Type = typeof(TextBox))]
 [TemplatePart(Name = nameof(ColorPicker.ColorModeComboBox), Type = typeof(ComboBox))]
 
-
-
 [System.Diagnostics.CodeAnalysis.SuppressMessage("StyleCop.CSharp.LayoutRules", "SA1501:Statement should not be on a single line", Justification = "Inline brackets are used to improve code readability with repeated null checks.")]
 [System.Diagnostics.CodeAnalysis.SuppressMessage("StyleCop.CSharp.SpacingRules", "SA1025:Code should not contain multiple whitespace in a row", Justification = "Whitespace is used to align code in columns for readability.")]
 [System.Diagnostics.CodeAnalysis.SuppressMessage("StyleCop.CSharp.NamingRules", "SA1306:Field names should begin with lower-case letter", Justification = "Only template parts start with a capital letter. This differentiates them from other fields.")]
@@ -223,36 +221,8 @@ public partial class ColorPicker : Microsoft.UI.Xaml.Controls.ColorPicker
     }
 
     /// <summary>
-    /// Retrieves the named element in the instantiated ControlTemplate visual tree.
-    /// </summary>
-    /// <param name="childName">The name of the element to find.</param>
-    /// <param name="isRequired">Whether the element is required and will throw an exception if missing.</param>
-    /// <returns>The template child matching the given name and type.</returns>
-//    private T GetTemplateChild<T>(string childName, bool isRequired = false)
-//        where T : DependencyObject
-//    {
-//#pragma warning disable CS0413
-//#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
-//        T child = this.GetTemplateChild(childName) as T;
-//#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
-//#pragma warning restore CS0413
-
-//        if ((child == null) && isRequired)
-//        {
-//            ThrowArgumentNullException();
-//        }
-
-//#pragma warning disable CS8603 // Possible null reference return.
-//        return child;
-//#pragma warning restore CS8603 // Possible null reference return.
-
-//        static void ThrowArgumentNullException() => throw new ArgumentNullException(nameof(childName));
-//    }
-
-    /// <summary>
     /// Connects or disconnects all dependency property callbacks.
     /// </summary>
-    /// <param name="connected">True to connect callbacks, otherwise false.</param>
     private void ConnectCallbacks(bool connected)
     {
         if (connected == true &&
