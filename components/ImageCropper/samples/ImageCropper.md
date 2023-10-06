@@ -12,8 +12,6 @@ issue-id: 0
 icon: Assets/ImageCropper.png
 ---
 
-# ImageCropper
-
 The `ImageCropper Control` allows user to freely crop an image.
 
 > [!Sample ImageCropperSample]
