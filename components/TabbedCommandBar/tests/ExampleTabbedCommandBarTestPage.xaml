@@ -9,6 +9,6 @@
       mc:Ignorable="d">
 
     <Grid>
-        <controls:TabbedCommandBar_ClassicBinding x:Name="TabbedCommandBarControl" />
+        <controls:TabbedCommandBar x:Name="TabbedCommandBarControl" />
     </Grid>
 </Page>

@@ -57,7 +57,7 @@ public partial class ExampleTabbedCommandBarTestClass : VisualUITestBase
     public void SimpleUIExamplePageTest(ExampleTabbedCommandBarTestPage page)
     {
         // You can use the Toolkit Visual Tree helpers here to find the component by type or name:
-        var component = page.FindDescendant<TabbedCommandBar_ClassicBinding>();
+        var component = page.FindDescendant<TabbedCommandBarBinding>();
 
         Assert.IsNotNull(component);
 
