@@ -9,7 +9,7 @@ namespace CommunityToolkit.WinUI.Controls;
 /// </summary>
 [TemplatePart(Name = "PrimaryItemsControl", Type = typeof(ItemsControl))]
 [TemplatePart(Name = "MoreButton", Type = typeof(Button))]
-public class TabbedCommandBarItem : CommandBar
+public partial class TabbedCommandBarItem : CommandBar
 {
     private ItemsControl? _primaryItemsControl;
     private Button? _moreButton;

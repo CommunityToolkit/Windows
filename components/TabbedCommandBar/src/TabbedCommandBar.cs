@@ -14,7 +14,7 @@ namespace CommunityToolkit.WinUI.Controls;
 [TemplatePart(Name = "PART_TabbedCommandBarContent", Type = typeof(ContentControl))]
 [TemplatePart(Name = "PART_TabbedCommandBarContentBorder", Type = typeof(Border))]
 [TemplatePart(Name = "PART_TabChangedStoryboard", Type = typeof(Storyboard))]
-public class TabbedCommandBar : NavigationView
+public partial class TabbedCommandBar : NavigationView
 {
     private ContentControl? _tabbedCommandBarContent = null;
     private Border? _tabbedCommandBarContentBorder = null;
