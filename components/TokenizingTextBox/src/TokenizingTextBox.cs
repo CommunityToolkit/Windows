@@ -477,6 +477,9 @@ public partial class TokenizingTextBox : ListViewBase
 
             GuardAgainstPlaceholderTextLayoutIssue();
         }
+
+        // also unfocus all tokens
+        DeselectAllTokensAndText();
     }
 
     /// <summary>
