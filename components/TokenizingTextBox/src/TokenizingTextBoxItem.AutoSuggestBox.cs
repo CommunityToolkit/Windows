@@ -213,7 +213,7 @@ public partial class TokenizingTextBoxItem
         // Look for Token Delimiters to create new tokens when text changes.
         if (!string.IsNullOrEmpty(Owner.TokenDelimiter) && t.Contains(Owner.TokenDelimiter))
         {
-            bool lastDelimited = t[t.Length - 1] == Owner.TokenDelimiter[0];
+            bool lastDelimited = t.EndsWith(Owner.TokenDelimiter);
 
 #if HAS_UNO
             string[] tokens = t.Split(new[] { Owner.TokenDelimiter }, System.StringSplitOptions.RemoveEmptyEntries);
