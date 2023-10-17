@@ -182,6 +182,14 @@ public partial class TokenizingTextBox : ListViewBase
         }
     }
 
+    /// <summary>
+    /// Get a value if focus is on the AutoSuggestBox in the collection
+    /// </summary>
+    public bool GetIsAutoSuggestTextBoxFocused()
+    {
+        return !(GetFocusedElement() is TokenizingTextBoxItem);
+    }
+
     private async void TokenizingTextBox_PreviewKeyDown(object sender, KeyRoutedEventArgs e)
     {
         e.Handled = await TokenizingTextBox_PreviewKeyDown(e.Key);
