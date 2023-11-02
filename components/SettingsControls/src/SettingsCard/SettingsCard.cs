@@ -258,11 +258,6 @@ public partial class SettingsCard : ButtonBase
        
     }
 
-    private void OnContentChanged(DependencyObject sender, DependencyProperty dp)
-    {
-     
-    }
-
     private void ContentAlignmentStates_Changed(object sender, VisualStateChangedEventArgs e)
     {
         // On state change, checking if the Content should be wrapped (e.g. when the card is made smaller or the ContentAlignment is set to Vertical). If the Content and the Header or Description are not null, we add spacing between the Content and the Header/Description.
@@ -275,8 +270,6 @@ public partial class SettingsCard : ButtonBase
             VisualStateManager.GoToState(this, NoContentSpacingState, true);
         }
     }
-
-
 
     private FrameworkElement? GetFocusedElement()
     {
