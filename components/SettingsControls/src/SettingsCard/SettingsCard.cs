@@ -74,8 +74,8 @@ public partial class SettingsCard : ButtonBase
         OnDescriptionChanged();
         OnIsClickEnabledChanged();
         CheckInitialVisualState();
+        SetAccessibleContentName();
 
-        RegisterAutomation();
         RegisterPropertyChangedCallback(ContentProperty, OnContentChanged);
         IsEnabledChanged += OnIsEnabledChanged;     
     }
@@ -91,11 +91,12 @@ public partial class SettingsCard : ButtonBase
             contentAlignmentStatesGroup.CurrentStateChanged += this.ContentAlignmentStates_Changed;
         }
     }
-    private void RegisterAutomation()
+
+    // We automatically set the AutomationProperties.Name of the Content if not configured.
+    private void SetAccessibleContentName()
     {
         if (Header is string headerString && headerString != string.Empty)
         {
-            AutomationProperties.SetName(this, headerString);
             // We don't want to override an AutomationProperties.Name that is manually set, or if the Content basetype is of type ButtonBase (the ButtonBase.Content will be used then)
             if (Content is UIElement element && string.IsNullOrEmpty(AutomationProperties.GetName(element)) && element.GetType().BaseType != typeof(ButtonBase) && element.GetType() != typeof(TextBlock))
             {
