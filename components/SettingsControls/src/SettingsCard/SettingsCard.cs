@@ -73,17 +73,24 @@ public partial class SettingsCard : ButtonBase
         OnHeaderIconChanged();
         OnDescriptionChanged();
         OnIsClickEnabledChanged();
-        VisualStateManager.GoToState(this, IsEnabled ? NormalState : DisabledState, true);
+        CheckInitialVisualState();
+
         RegisterAutomation();
         RegisterPropertyChangedCallback(ContentProperty, OnContentChanged);
-
-        if (GetTemplateChild("ContentAlignmentStates") is VisualStateGroup actionIconPresenter)
-        {
-            actionIconPresenter.CurrentStateChanged += this.ContentAlignmentStates_Changed;
-        }
-        IsEnabledChanged += OnIsEnabledChanged;
+        IsEnabledChanged += OnIsEnabledChanged;     
     }
 
+    private void CheckInitialVisualState()
+    {
+        VisualStateManager.GoToState(this, IsEnabled ? NormalState : DisabledState, true);
+
+        if (GetTemplateChild("ContentAlignmentStates") is VisualStateGroup contentAlignmentStatesGroup)
+        {
+            contentAlignmentStatesGroup.CurrentStateChanged -= this.ContentAlignmentStates_Changed;
+            CheckVerticalSpacingState(contentAlignmentStatesGroup.CurrentState);
+            contentAlignmentStatesGroup.CurrentStateChanged += this.ContentAlignmentStates_Changed;
+        }
+    }
     private void RegisterAutomation()
     {
         if (Header is string headerString && headerString != string.Empty)
@@ -260,8 +267,14 @@ public partial class SettingsCard : ButtonBase
 
     private void ContentAlignmentStates_Changed(object sender, VisualStateChangedEventArgs e)
     {
+        CheckVerticalSpacingState(e.NewState);
+    }
+
+    private void CheckVerticalSpacingState(VisualState s)
+    {
         // On state change, checking if the Content should be wrapped (e.g. when the card is made smaller or the ContentAlignment is set to Vertical). If the Content and the Header or Description are not null, we add spacing between the Content and the Header/Description.
-        if (e.NewState != null && (e.NewState.Name == RightWrappedState || e.NewState.Name == RightWrappedNoIconState || e.NewState.Name == VerticalState) && (Content != null) && (Header != null || Description != null))
+
+        if (s != null && (s.Name == RightWrappedState || s.Name == RightWrappedNoIconState || s.Name == VerticalState) && (Content != null) && (Header != null || Description != null))
         {
             VisualStateManager.GoToState(this, ContentSpacingState, true);
         }

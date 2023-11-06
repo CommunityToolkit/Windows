@@ -106,7 +106,7 @@
     <Thickness x:Key="SettingsCardHeaderIconMargin">2,0,20,0</Thickness>
     <Thickness x:Key="SettingsCardActionIconMargin">14,0,0,0</Thickness>
     <x:Double x:Key="SettingsCardActionIconMaxSize">13</x:Double>
-    <x:Double x:Key="SettingsCardVerticalHeaderContentSpacing">36</x:Double>
+    <x:Double x:Key="SettingsCardVerticalHeaderContentSpacing">8</x:Double>
     <x:Double x:Key="SettingsCardWrapThreshold">476</x:Double>
     <x:Double x:Key="SettingsCardWrapNoIconThreshold">286</x:Double>
 
