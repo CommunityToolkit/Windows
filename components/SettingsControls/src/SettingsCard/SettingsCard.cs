@@ -2,6 +2,8 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
+using System.ComponentModel.Design;
+
 namespace CommunityToolkit.WinUI.Controls;
 
 /// <summary>
@@ -13,17 +15,46 @@ namespace CommunityToolkit.WinUI.Controls;
 [TemplatePart(Name = HeaderPresenter, Type = typeof(ContentPresenter))]
 [TemplatePart(Name = DescriptionPresenter, Type = typeof(ContentPresenter))]
 [TemplatePart(Name = HeaderIconPresenterHolder, Type = typeof(Viewbox))]
+
+[TemplateVisualState(Name = NormalState, GroupName = CommonStates)]
+[TemplateVisualState(Name = PointerOverState, GroupName = CommonStates)]
+[TemplateVisualState(Name = PressedState, GroupName = CommonStates)]
+[TemplateVisualState(Name = DisabledState, GroupName = CommonStates)]
+
+[TemplateVisualState(Name = RightState, GroupName = ContentAlignmentStates)]
+[TemplateVisualState(Name = RightWrappedState, GroupName = ContentAlignmentStates)]
+[TemplateVisualState(Name = RightWrappedNoIconState, GroupName = ContentAlignmentStates)]
+[TemplateVisualState(Name = LeftState, GroupName = ContentAlignmentStates)]
+[TemplateVisualState(Name = VerticalState, GroupName = ContentAlignmentStates)]
+
+[TemplateVisualState(Name = NoContentSpacingState, GroupName = ContentSpacingStates)]
+[TemplateVisualState(Name = ContentSpacingState, GroupName = ContentSpacingStates)]
+
 public partial class SettingsCard : ButtonBase
 {
+    internal const string CommonStates = "CommonStates";
     internal const string NormalState = "Normal";
     internal const string PointerOverState = "PointerOver";
     internal const string PressedState = "Pressed";
     internal const string DisabledState = "Disabled";
 
+    internal const string ContentAlignmentStates = "ContentAlignmentStates";
+    internal const string RightState = "Right";
+    internal const string RightWrappedState = "RightWrapped";
+    internal const string RightWrappedNoIconState = "RightWrappedNoIcon";
+    internal const string LeftState = "Left";
+    internal const string VerticalState = "Vertical";
+
+    internal const string ContentSpacingStates = "ContentSpacingStates";
+    internal const string NoContentSpacingState = "NoContentSpacing";
+    internal const string ContentSpacingState = "ContentSpacing";
+
     internal const string ActionIconPresenterHolder = "PART_ActionIconPresenterHolder";
     internal const string HeaderPresenter = "PART_HeaderPresenter";
     internal const string DescriptionPresenter = "PART_DescriptionPresenter";
     internal const string HeaderIconPresenterHolder = "PART_HeaderIconPresenterHolder";
+
+
     /// <summary>
     /// Creates a new instance of the <see cref="SettingsCard"/> class.
     /// </summary>
@@ -42,11 +73,24 @@ public partial class SettingsCard : ButtonBase
         OnHeaderIconChanged();
         OnDescriptionChanged();
         OnIsClickEnabledChanged();
-        VisualStateManager.GoToState(this, IsEnabled ? NormalState : DisabledState, true);
+        CheckInitialVisualState();
+
         RegisterAutomation();
-        IsEnabledChanged += OnIsEnabledChanged;
+        RegisterPropertyChangedCallback(ContentProperty, OnContentChanged);
+        IsEnabledChanged += OnIsEnabledChanged;     
     }
 
+    private void CheckInitialVisualState()
+    {
+        VisualStateManager.GoToState(this, IsEnabled ? NormalState : DisabledState, true);
+
+        if (GetTemplateChild("ContentAlignmentStates") is VisualStateGroup contentAlignmentStatesGroup)
+        {
+            contentAlignmentStatesGroup.CurrentStateChanged -= this.ContentAlignmentStates_Changed;
+            CheckVerticalSpacingState(contentAlignmentStatesGroup.CurrentState);
+            contentAlignmentStatesGroup.CurrentStateChanged += this.ContentAlignmentStates_Changed;
+        }
+    }
     private void RegisterAutomation()
     {
         if (Header is string headerString && headerString != string.Empty)
@@ -207,6 +251,7 @@ public partial class SettingsCard : ButtonBase
                 ? Visibility.Visible
                 : Visibility.Collapsed;
         }
+    
     }
 
     private void OnHeaderChanged()
@@ -216,6 +261,26 @@ public partial class SettingsCard : ButtonBase
             headerPresenter.Visibility = Header != null
                 ? Visibility.Visible
                 : Visibility.Collapsed;
+        }
+       
+    }
+
+    private void ContentAlignmentStates_Changed(object sender, VisualStateChangedEventArgs e)
+    {
+        CheckVerticalSpacingState(e.NewState);
+    }
+
+    private void CheckVerticalSpacingState(VisualState s)
+    {
+        // On state change, checking if the Content should be wrapped (e.g. when the card is made smaller or the ContentAlignment is set to Vertical). If the Content and the Header or Description are not null, we add spacing between the Content and the Header/Description.
+
+        if (s != null && (s.Name == RightWrappedState || s.Name == RightWrappedNoIconState || s.Name == VerticalState) && (Content != null) && (Header != null || Description != null))
+        {
+            VisualStateManager.GoToState(this, ContentSpacingState, true);
+        }
+        else
+        {
+            VisualStateManager.GoToState(this, NoContentSpacingState, true);
         }
     }
 
