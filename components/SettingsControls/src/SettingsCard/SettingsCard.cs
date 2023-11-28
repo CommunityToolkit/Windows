@@ -75,7 +75,6 @@ public partial class SettingsCard : ButtonBase
         OnIsClickEnabledChanged();
         CheckInitialVisualState();
         SetAccessibleContentName();
-
         RegisterPropertyChangedCallback(ContentProperty, OnContentChanged);
         IsEnabledChanged += OnIsEnabledChanged;     
     }
