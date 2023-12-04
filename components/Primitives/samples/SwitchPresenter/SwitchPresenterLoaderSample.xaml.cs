@@ -5,7 +5,7 @@
 namespace PrimitivesExperiment.Samples.SwitchPresenter;
 
 [ToolkitSampleBoolOption("LoadingState", true, Title = "IsLoading")]
-[ToolkitSample(id: nameof(SwitchPresenterLoaderSample), "SwitchPresenter Loader", description: $"A sample for showing how to use a {nameof(SwitchPresenter)} for state changes from an enum.")]
+[ToolkitSample(id: nameof(SwitchPresenterLoaderSample), "SwitchPresenter Loader", description: $"A sample for showing how to use a {nameof(SwitchPresenter)} to show a loading UI when data is loading.")]
 public sealed partial class SwitchPresenterLoaderSample : Page
 {
     public SwitchPresenterLoaderSample()
