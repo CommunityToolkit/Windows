@@ -36,21 +36,38 @@
                 Duration="0:0:0.1" />
         </animations:ImplicitAnimationSet>
     </Page.Resources>
-    <Grid>
+    <Grid Padding="16">
         <controls:SwitchPresenter
-            Padding="16"
+            HorizontalAlignment="Center"
             TargetType="x:Boolean"
             Value="{x:Bind LoadingState, Mode=OneWay}">
             <controls:Case Value="True">
-                <StackPanel Orientation="Vertical" Spacing="8">
+                <StackPanel
+                    HorizontalAlignment="Center"
+                    animations:Implicit.HideAnimations="{StaticResource HideTransitions}"
+                    animations:Implicit.ShowAnimations="{StaticResource ShowTransitions}"
+                    Orientation="Vertical"
+                    Spacing="8">
                     <muxc:ProgressRing IsActive="{x:Bind LoadingState, Mode=OneWay}" />
                     <TextBlock
+                        HorizontalAlignment="Center"
                         Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                         Style="{StaticResource CaptionTextBlockStyle}"
                         Text="Fetching data.." />
                 </StackPanel>
             </controls:Case>
-            <controls:Case Value="False" />
+            <controls:Case Value="False">
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    animations:Implicit.HideAnimations="{StaticResource HideTransitions}"
+                    animations:Implicit.ShowAnimations="{StaticResource ShowTransitions}"
+                    TextAlignment="Center"
+                    TextWrapping="WrapWholeWords">
+                    <Run FontWeight="SemiBold" Text="Content has loaded" />
+                    <LineBreak />
+                    <Run Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." />
+                </TextBlock>
+            </controls:Case>
         </controls:SwitchPresenter>
     </Grid>
 </Page>
