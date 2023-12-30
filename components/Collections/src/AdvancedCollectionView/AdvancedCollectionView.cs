@@ -698,7 +698,7 @@ public partial class AdvancedCollectionView : IAdvancedCollectionView, INotifyPr
             }
             else if (newStartingIndex == _source.Count - 1)
             {
-                newViewIndex = _view.Count - 1;
+                newViewIndex = _view.Count;
             }
             else if (viewIndex.HasValue)
             {
