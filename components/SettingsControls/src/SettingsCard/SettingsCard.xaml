@@ -80,7 +80,7 @@
             <StaticResource x:Key="SettingsCardForegroundPointerOver"
                             ResourceKey="SystemColorHighlightColorBrush" />
             <StaticResource x:Key="SettingsCardForegroundPressed"
-                            ResourceKey="SystemColorHighlightTextColorBrush" />
+                            ResourceKey="SystemColorHighlightColorBrush" />
             <StaticResource x:Key="SettingsCardForegroundDisabled"
                             ResourceKey="SystemControlDisabledBaseMediumLowBrush" />
 
