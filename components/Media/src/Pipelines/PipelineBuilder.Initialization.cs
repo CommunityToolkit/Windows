@@ -46,7 +46,12 @@ public sealed partial class PipelineBuilder
     {
         ValueTask<CompositionBrush> Factory()
         {
-            var brush = BackdropBrushCache.GetValue(Window.Current.Compositor, c => c.CreateBackdropBrush());
+#if WINUI2
+            var compositor = Window.Current.Compositor;
+#elif WINUI3
+            var compositor = CompositionTarget.GetCompositorForCurrentThread();
+#endif
+            var brush = BackdropBrushCache.GetValue(compositor, c => c.CreateBackdropBrush());
 
             return new ValueTask<CompositionBrush>(brush);
         }

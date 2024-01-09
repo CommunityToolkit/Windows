@@ -247,20 +247,20 @@ public partial class SettingsCard : ButtonBase
     {
         if (GetTemplateChild(DescriptionPresenter) is FrameworkElement descriptionPresenter)
         {
-            descriptionPresenter.Visibility = Description != null
-                ? Visibility.Visible
-                : Visibility.Collapsed;
+            descriptionPresenter.Visibility = IsNullOrEmptyString(Description)
+                ? Visibility.Collapsed
+                : Visibility.Visible;
         }
-    
+
     }
 
     private void OnHeaderChanged()
     {
         if (GetTemplateChild(HeaderPresenter) is FrameworkElement headerPresenter)
         {
-            headerPresenter.Visibility = Header != null
-                ? Visibility.Visible
-                : Visibility.Collapsed;
+            headerPresenter.Visibility = IsNullOrEmptyString(Header)
+                ? Visibility.Collapsed
+                : Visibility.Visible;
         }
        
     }
@@ -274,7 +274,7 @@ public partial class SettingsCard : ButtonBase
     {
         // On state change, checking if the Content should be wrapped (e.g. when the card is made smaller or the ContentAlignment is set to Vertical). If the Content and the Header or Description are not null, we add spacing between the Content and the Header/Description.
 
-        if (s != null && (s.Name == RightWrappedState || s.Name == RightWrappedNoIconState || s.Name == VerticalState) && (Content != null) && (Header != null || Description != null))
+        if (s != null && (s.Name == RightWrappedState || s.Name == RightWrappedNoIconState || s.Name == VerticalState) && (Content != null) && (!IsNullOrEmptyString(Header) || !IsNullOrEmptyString(Description)))
         {
             VisualStateManager.GoToState(this, ContentSpacingState, true);
         }
@@ -294,5 +294,20 @@ public partial class SettingsCard : ButtonBase
         {
             return FocusManager.GetFocusedElement() as FrameworkElement;
         }
+    }
+
+    private static bool IsNullOrEmptyString(object obj)
+    {
+        if (obj == null)
+        {
+            return true;
+        }
+
+        if (obj is string objString && objString == string.Empty)
+        {
+            return true;
+        }
+
+        return false;
     }
 }
