@@ -44,7 +44,11 @@ public sealed partial class SurfaceLoader
     /// <returns>A <see cref="Task{T}"/> that returns the loaded <see cref="CompositionBrush"/> instance</returns>
     public static async Task<CompositionBrush?> LoadImageAsync(Uri uri, DpiMode dpiMode, CacheMode cacheMode = CacheMode.Default)
     {
+#if WINUI2
         var compositor = Window.Current.Compositor;
+#elif WINUI3
+        var compositor = CompositionTarget.GetCompositorForCurrentThread();
+#endif
 
         // Lock and check the cache first
         using (await Win2DMutex.LockAsync())
