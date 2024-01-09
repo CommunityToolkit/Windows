@@ -126,6 +126,12 @@ public class ImageBlendBrush : XamlCompositionBrushBase
     /// <inheritdoc/>
     protected override void OnConnected()
     {
+#if WINUI2
+        var compositor = Window.Current.Compositor;
+#elif WINUI3
+        var compositor = CompositionTarget.GetCompositorForCurrentThread();
+#endif
+
         // Delay creating composition resources until they're required.
         if (CompositionBrush == null && Source != null && Source is BitmapImage bitmap)
         {
@@ -133,8 +139,9 @@ public class ImageBlendBrush : XamlCompositionBrushBase
             // If UriSource is invalid, StartLoadFromUri will return a blank texture.
             _surface = LoadedImageSurface.StartLoadFromUri(bitmap.UriSource);
 
+
             // Load Surface onto SurfaceBrush
-            _surfaceBrush = Window.Current.Compositor.CreateSurfaceBrush(_surface);
+            _surfaceBrush = compositor.CreateSurfaceBrush(_surface);
             _surfaceBrush.Stretch = CompositionStretchFromStretch(Stretch);
 
 #if WINUI2
@@ -150,7 +157,7 @@ public class ImageBlendBrush : XamlCompositionBrushBase
                 return;
             }
 
-            var backdrop = Window.Current.Compositor.CreateBackdropBrush();
+            var backdrop = compositor.CreateBackdropBrush();
 
             // Use a Win2D invert affect applied to a CompositionBackdropBrush.
             var graphicsEffect = new CanvasBlendEffect
@@ -161,7 +168,7 @@ public class ImageBlendBrush : XamlCompositionBrushBase
                 Foreground = new CompositionEffectSourceParameter("image")
             };
 
-            var effectFactory = Window.Current.Compositor.CreateEffectFactory(graphicsEffect);
+            var effectFactory = compositor.CreateEffectFactory(graphicsEffect);
             var effectBrush = effectFactory.CreateBrush();
 
             effectBrush.SetSourceParameter("backdrop", backdrop);

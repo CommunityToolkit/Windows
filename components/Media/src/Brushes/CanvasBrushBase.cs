@@ -66,7 +66,13 @@ public abstract class CanvasBrushBase : XamlCompositionBrushBase
             _graphics.RenderingDeviceReplaced -= CanvasDevice_RenderingDeviceReplaced;
         }
 
-        _graphics = CanvasComposition.CreateCompositionGraphicsDevice(Window.Current.Compositor, _device);
+#if WINUI2
+        var compositor = Window.Current.Compositor;
+#elif WINUI3
+        var compositor = CompositionTarget.GetCompositorForCurrentThread();
+#endif
+
+        _graphics = CanvasComposition.CreateCompositionGraphicsDevice(compositor, _device);
         _graphics.RenderingDeviceReplaced += CanvasDevice_RenderingDeviceReplaced;
 
         // Delay creating composition resources until they're required.
@@ -95,7 +101,7 @@ public abstract class CanvasBrushBase : XamlCompositionBrushBase
                 }
             }
 
-            _surfaceBrush = Window.Current.Compositor.CreateSurfaceBrush(surface);
+            _surfaceBrush = compositor.CreateSurfaceBrush(surface);
             _surfaceBrush.Stretch = CompositionStretch.Fill;
 
             CompositionBrush = _surfaceBrush;
