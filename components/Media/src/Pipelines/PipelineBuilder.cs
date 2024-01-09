@@ -160,6 +160,12 @@ public sealed partial class PipelineBuilder
     [Pure]
     public async Task<CompositionBrush> BuildAsync()
     {
+#if WINUI2
+        var compositor = Window.Current.Compositor;
+#elif WINUI3
+        var compositor = CompositionTarget.GetCompositorForCurrentThread();
+#endif
+
         var effect = await this.sourceProducer() as IGraphicsEffect;
 
         // Validate the pipeline
@@ -170,8 +176,8 @@ public sealed partial class PipelineBuilder
 
         // Build the effects factory
         var factory = this.animationProperties.Count > 0
-            ? Window.Current.Compositor.CreateEffectFactory(effect, this.animationProperties)
-            : Window.Current.Compositor.CreateEffectFactory(effect);
+            ? compositor.CreateEffectFactory(effect, this.animationProperties)
+            : compositor.CreateEffectFactory(effect);
 
         // Create the effect factory and apply the final effect
         var effectBrush = factory.CreateBrush();
@@ -191,7 +197,13 @@ public sealed partial class PipelineBuilder
     /// <returns>A <see cref="Task{T}"/> that returns the final <see cref="SpriteVisual"/> instance to use</returns>
     public async Task<SpriteVisual> AttachAsync(UIElement target, UIElement? reference = null)
     {
-        SpriteVisual visual = Window.Current.Compositor.CreateSpriteVisual();
+#if WINUI2
+        var compositor = Window.Current.Compositor;
+#elif WINUI3
+        var compositor = CompositionTarget.GetCompositorForCurrentThread();
+#endif
+
+        SpriteVisual visual = compositor.CreateSpriteVisual();
 
         visual.Brush = await BuildAsync();
 

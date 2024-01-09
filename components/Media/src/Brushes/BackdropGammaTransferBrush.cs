@@ -345,7 +345,14 @@ public class BackdropGammaTransferBrush : XamlCompositionBrushBase
                 return;
             }
 
-            var backdrop = Window.Current.Compositor.CreateBackdropBrush();
+            
+#if WINUI2
+            var compositor = Window.Current.Compositor;
+#elif WINUI3
+            var compositor = CompositionTarget.GetCompositorForCurrentThread();
+#endif
+
+            var backdrop = compositor.CreateBackdropBrush();
 
             // Use a Win2D blur affect applied to a CompositionBackdropBrush.
             var graphicsEffect = new GammaTransferEffect
@@ -370,7 +377,7 @@ public class BackdropGammaTransferBrush : XamlCompositionBrushBase
                 Source = new CompositionEffectSourceParameter("backdrop")
             };
 
-            var effectFactory = Window.Current.Compositor.CreateEffectFactory(graphicsEffect, new[]
+            var effectFactory = compositor.CreateEffectFactory(graphicsEffect, new[]
             {
                 "GammaTransfer.AlphaAmplitude",
                 "GammaTransfer.AlphaExponent",

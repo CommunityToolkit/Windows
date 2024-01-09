@@ -11,6 +11,20 @@ namespace SettingsControlsExperiment.Tests;
 [TestClass]
 public partial class SettingsCardTestClass : VisualUITestBase
 {
+    [UIThreadTestMethod]
+    public void EmptyNameTest(SettingsCard card)
+    {
+        // See https://github.com/CommunityToolkit/Windows/issues/310#issue-2066181868
+        card.Name = string.Empty;
+    }
+
+    [UIThreadTestMethod]
+    public void EmptyDescriptionTest(SettingsCard card)
+    {
+        // See https://github.com/CommunityToolkit/Windows/issues/310#issue-2066181868
+        card.Description = string.Empty;
+    }
+
     // If you don't need access to UI objects directly or async code, use this pattern.
     [TestMethod]
     public void SimpleSynchronousExampleTest()
