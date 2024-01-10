@@ -10,5 +10,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Test_AnimationBuilderStart.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Test_ExpressionFunctions.cs" />
   </ItemGroup>
 </Project>
