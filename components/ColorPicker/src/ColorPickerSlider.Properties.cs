@@ -10,6 +10,7 @@ using Colors = Microsoft.UI.Colors;
 #else
 using Colors = Windows.UI.Colors;
 #endif
+
 namespace CommunityToolkit.WinUI.Controls.Primitives;
 
 /// <inheritdoc/>
