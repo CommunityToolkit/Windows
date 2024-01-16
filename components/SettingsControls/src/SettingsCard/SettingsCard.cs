@@ -74,8 +74,7 @@ public partial class SettingsCard : ButtonBase
         OnDescriptionChanged();
         OnIsClickEnabledChanged();
         CheckInitialVisualState();
-
-        RegisterAutomation();
+        SetAccessibleContentName();
         RegisterPropertyChangedCallback(ContentProperty, OnContentChanged);
         IsEnabledChanged += OnIsEnabledChanged;     
     }
@@ -91,11 +90,12 @@ public partial class SettingsCard : ButtonBase
             contentAlignmentStatesGroup.CurrentStateChanged += this.ContentAlignmentStates_Changed;
         }
     }
-    private void RegisterAutomation()
+
+    // We automatically set the AutomationProperties.Name of the Content if not configured.
+    private void SetAccessibleContentName()
     {
         if (Header is string headerString && headerString != string.Empty)
         {
-            AutomationProperties.SetName(this, headerString);
             // We don't want to override an AutomationProperties.Name that is manually set, or if the Content basetype is of type ButtonBase (the ButtonBase.Content will be used then)
             if (Content is UIElement element && string.IsNullOrEmpty(AutomationProperties.GetName(element)) && element.GetType().BaseType != typeof(ButtonBase) && element.GetType() != typeof(TextBlock))
             {
@@ -247,20 +247,20 @@ public partial class SettingsCard : ButtonBase
     {
         if (GetTemplateChild(DescriptionPresenter) is FrameworkElement descriptionPresenter)
         {
-            descriptionPresenter.Visibility = Description != null
-                ? Visibility.Visible
-                : Visibility.Collapsed;
+            descriptionPresenter.Visibility = IsNullOrEmptyString(Description)
+                ? Visibility.Collapsed
+                : Visibility.Visible;
         }
-    
+
     }
 
     private void OnHeaderChanged()
     {
         if (GetTemplateChild(HeaderPresenter) is FrameworkElement headerPresenter)
         {
-            headerPresenter.Visibility = Header != null
-                ? Visibility.Visible
-                : Visibility.Collapsed;
+            headerPresenter.Visibility = IsNullOrEmptyString(Header)
+                ? Visibility.Collapsed
+                : Visibility.Visible;
         }
        
     }
@@ -274,7 +274,7 @@ public partial class SettingsCard : ButtonBase
     {
         // On state change, checking if the Content should be wrapped (e.g. when the card is made smaller or the ContentAlignment is set to Vertical). If the Content and the Header or Description are not null, we add spacing between the Content and the Header/Description.
 
-        if (s != null && (s.Name == RightWrappedState || s.Name == RightWrappedNoIconState || s.Name == VerticalState) && (Content != null) && (Header != null || Description != null))
+        if (s != null && (s.Name == RightWrappedState || s.Name == RightWrappedNoIconState || s.Name == VerticalState) && (Content != null) && (!IsNullOrEmptyString(Header) || !IsNullOrEmptyString(Description)))
         {
             VisualStateManager.GoToState(this, ContentSpacingState, true);
         }
@@ -294,5 +294,20 @@ public partial class SettingsCard : ButtonBase
         {
             return FocusManager.GetFocusedElement() as FrameworkElement;
         }
+    }
+
+    private static bool IsNullOrEmptyString(object obj)
+    {
+        if (obj == null)
+        {
+            return true;
+        }
+
+        if (obj is string objString && objString == string.Empty)
+        {
+            return true;
+        }
+
+        return false;
     }
 }
