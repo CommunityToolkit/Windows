@@ -25,7 +25,7 @@ public partial class SettingsExpander : Control
     protected override void OnApplyTemplate()
     {
         base.OnApplyTemplate();
-        RegisterAutomation();
+        SetAccessibleName();
 
         if (_itemsRepeater != null)
         {
@@ -43,11 +43,11 @@ public partial class SettingsExpander : Control
         }
     }
 
-    private void RegisterAutomation()
+    private void SetAccessibleName()
     {
-        if (Header is string headerString && headerString != string.Empty)
+        if (string.IsNullOrEmpty(AutomationProperties.GetName(this)))
         {
-            if (!string.IsNullOrEmpty(headerString) && string.IsNullOrEmpty(AutomationProperties.GetName(this)))
+            if (Header is string headerString && !string.IsNullOrEmpty(headerString))
             {
                 AutomationProperties.SetName(this, headerString);
             }

@@ -39,11 +39,28 @@ public class SettingsExpanderAutomationPeer : FrameworkElementAutomationPeer
     /// <returns>The string that contains the name.</returns>
     protected override string GetClassNameCore()
     {
-        string classNameCore = Owner.GetType().Name;
-#if DEBUG_AUTOMATION
-            System.Diagnostics.Debug.WriteLine("SettingsCardAutomationPeer.GetClassNameCore returns " + classNameCore);
-#endif
-        return classNameCore;
+        return Owner.GetType().Name;
+    }
+
+    protected override string GetNameCore()
+    {
+        string name = base.GetNameCore();
+
+        if (Owner is SettingsExpander owner)
+        {
+            if (!string.IsNullOrEmpty(AutomationProperties.GetName(owner)))
+            {
+                name = AutomationProperties.GetName(owner);
+            }
+            else
+            {
+                if (owner.Header is string headerString && !string.IsNullOrEmpty(headerString))
+                {
+                    name = headerString;
+                }
+            }
+        }
+        return name;
     }
 
     /// <summary>
