@@ -10,6 +10,7 @@
     <ToolkitConvertersSourceProject>$(RepositoryDirectory)components\Converters\src\CommunityToolkit.WinUI.Converters.csproj</ToolkitConvertersSourceProject>
     <ToolkitExtensionSourceProject>$(RepositoryDirectory)components\Extensions\src\CommunityToolkit.WinUI.Extensions.csproj</ToolkitExtensionSourceProject>
     <ToolkitTriggersSourceProject>$(RepositoryDirectory)components\Triggers\src\CommunityToolkit.WinUI.Triggers.csproj</ToolkitTriggersSourceProject>
+    <ToolkitSegmentedSourceProject>$(RepositoryDirectory)components\Segmented\src\CommunityToolkit.WinUI.Controls.Segmented.csproj</ToolkitSegmentedSourceProject>
     <ToolkitSettingsControlsSourceProject>$(RepositoryDirectory)components\SettingsControls\src\CommunityToolkit.WinUI.Controls.SettingsControls.csproj</ToolkitSettingsControlsSourceProject>
 
     <!-- TODO: See https://github.com/CommunityToolkit/Windows/issues/117 these should be removed unless needed by sample app or tests -->
