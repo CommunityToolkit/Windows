@@ -9,8 +9,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Helpers\src\CommunityToolkit.WinUI.Helpers.csproj" />
-    <ProjectReference Include="..\..\Extensions\src\CommunityToolkit.WinUI.Extensions.csproj" />
+    <ProjectReference Include="$(ToolkitHelperSourceProject)" />
+    <ProjectReference Include="$(ToolkitExtensionSourceProject)" />
   </ItemGroup>
 
   <!-- Sets this up as a toolkit component's source project -->
