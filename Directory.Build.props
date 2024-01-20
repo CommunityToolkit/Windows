@@ -15,7 +15,7 @@
     <!-- TODO: See https://github.com/CommunityToolkit/Windows/issues/117 these should be removed unless needed by sample app or tests -->
     <ToolkitHelpersSourceProject>$(RepositoryDirectory)components\Helpers\src\CommunityToolkit.WinUI.Helpers.csproj</ToolkitHelpersSourceProject>
     <ToolkitBehaviorsSourceProject>$(RepositoryDirectory)components\Behaviors\src\CommunityToolkit.WinUI.Behaviors.csproj</ToolkitBehaviorsSourceProject>
-    <ToolkitAnimationSourceProject>$(RepositoryDirectory)components\Animations\src\CommunityToolkit.WinUI.Animations.csproj</ToolkitAnimationSourceProject>
+    <ToolkitAnimationsSourceProject>$(RepositoryDirectory)components\Animations\src\CommunityToolkit.WinUI.Animations.csproj</ToolkitAnimationsSourceProject>
     <ToolkitPrimitivesSourceProject>$(RepositoryDirectory)components\Primitives\src\CommunityToolkit.WinUI.Controls.Primitives.csproj</ToolkitPrimitivesSourceProject>
     <ToolkitSizersSourceProject>$(RepositoryDirectory)components\Sizers\src\CommunityToolkit.WinUI.Controls.Sizers.csproj</ToolkitSizersSourceProject>
   </PropertyGroup>
