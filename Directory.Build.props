@@ -16,7 +16,7 @@
     <ToolkitHelperSourceProject>$(RepositoryDirectory)components\Helpers\src\CommunityToolkit.WinUI.Helpers.csproj</ToolkitHelperSourceProject>
     <ToolkitBehaviorSourceProject>$(RepositoryDirectory)components\Behaviors\src\CommunityToolkit.WinUI.Behaviors.csproj</ToolkitBehaviorSourceProject>
     <ToolkitAnimationSourceProject>$(RepositoryDirectory)components\Animations\src\CommunityToolkit.WinUI.Animations.csproj</ToolkitAnimationSourceProject>
-    <ToolkitPrimitiveSourceProject>$(RepositoryDirectory)components\Primitives\src\CommunityToolkit.WinUI.Controls.Primitives.csproj</ToolkitPrimitiveSourceProject>
+    <ToolkitPrimitivesSourceProject>$(RepositoryDirectory)components\Primitives\src\CommunityToolkit.WinUI.Controls.Primitives.csproj</ToolkitPrimitivesSourceProject>
     <ToolkitSizersSourceProject>$(RepositoryDirectory)components\Sizers\src\CommunityToolkit.WinUI.Controls.Sizers.csproj</ToolkitSizersSourceProject>
   </PropertyGroup>
 

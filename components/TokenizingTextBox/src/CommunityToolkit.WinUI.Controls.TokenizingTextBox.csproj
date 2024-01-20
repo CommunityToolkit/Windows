@@ -11,7 +11,7 @@
   <ItemGroup>
     <ProjectReference Include="$(ToolkitExtensionsSourceProject)" />
     <ProjectReference Include="$(ToolkitHelperSourceProject)" />
-    <ProjectReference Include="$(ToolkitPrimitiveSourceProject)" />    
+    <ProjectReference Include="$(ToolkitPrimitivesSourceProject)" />    
   </ItemGroup>
 
   <!-- Sets this up as a toolkit component's source project -->
