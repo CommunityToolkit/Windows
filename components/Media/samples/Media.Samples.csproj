@@ -7,7 +7,7 @@
   <Import Project="$(ToolingDirectory)\ToolkitComponent.SampleProject.props" />
 
   <ItemGroup>
-    <ProjectReference Include="$(ToolkitBehaviorSourceProject)" />
+    <ProjectReference Include="$(ToolkitBehaviorsSourceProject)" />
   </ItemGroup>
   
   <ItemGroup>
