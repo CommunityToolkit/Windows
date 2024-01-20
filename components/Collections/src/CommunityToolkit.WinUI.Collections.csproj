@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="$(ToolkitHelperSourceProject)"/>
+    <ProjectReference Include="$(ToolkitHelpersSourceProject)"/>
   </ItemGroup>
 
   <ItemGroup>

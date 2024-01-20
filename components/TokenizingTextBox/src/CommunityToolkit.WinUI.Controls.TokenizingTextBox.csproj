@@ -10,7 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="$(ToolkitExtensionsSourceProject)" />
-    <ProjectReference Include="$(ToolkitHelperSourceProject)" />
+    <ProjectReference Include="$(ToolkitHelpersSourceProject)" />
     <ProjectReference Include="$(ToolkitPrimitivesSourceProject)" />    
   </ItemGroup>
 
