@@ -20,6 +20,6 @@
 
   <ItemGroup>
     <ProjectReference Include="$(ToolkitAnimationSourceProject)" />
-    <ProjectReference Include="$(ToolkitExtensionSourceProject)" />
+    <ProjectReference Include="$(ToolkitExtensionsSourceProject)" />
   </ItemGroup>
 </Project>

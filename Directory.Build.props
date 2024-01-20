@@ -8,7 +8,7 @@
     <ToolingDirectory>$(RepositoryDirectory)tooling</ToolingDirectory>
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
     <ToolkitConvertersSourceProject>$(RepositoryDirectory)components\Converters\src\CommunityToolkit.WinUI.Converters.csproj</ToolkitConvertersSourceProject>
-    <ToolkitExtensionSourceProject>$(RepositoryDirectory)components\Extensions\src\CommunityToolkit.WinUI.Extensions.csproj</ToolkitExtensionSourceProject>
+    <ToolkitExtensionsSourceProject>$(RepositoryDirectory)components\Extensions\src\CommunityToolkit.WinUI.Extensions.csproj</ToolkitExtensionsSourceProject>
     <ToolkitTriggersSourceProject>$(RepositoryDirectory)components\Triggers\src\CommunityToolkit.WinUI.Triggers.csproj</ToolkitTriggersSourceProject>
     <ToolkitSettingsControlsSourceProject>$(RepositoryDirectory)components\SettingsControls\src\CommunityToolkit.WinUI.Controls.SettingsControls.csproj</ToolkitSettingsControlsSourceProject>
 
