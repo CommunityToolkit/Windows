@@ -97,7 +97,7 @@
                     <AppBarButton Icon="{ui:FontIcon Glyph=&#xE7AD;}"
                                   Label="Rotate" />
                     <AppBarElementContainer>
-                        <SplitButton>
+                        <muxc:SplitButton>
                             <StackPanel Orientation="Horizontal"
                                         Spacing="12">
                                 <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}"
@@ -106,7 +106,7 @@
                                 <TextBlock FontSize="12"
                                            Text="Crop" />
                             </StackPanel>
-                            <SplitButton.Flyout>
+                            <muxc:SplitButton.Flyout>
                                 <MenuFlyout>
                                     <MenuFlyoutItem Icon="{ui:FontIcon Glyph=&#xE7A8;}"
                                                     Text="Crop" />
@@ -117,8 +117,8 @@
                                     <MenuFlyoutItem Text="Fill" />
                                     <MenuFlyoutItem Text="Fit" />
                                 </MenuFlyout>
-                            </SplitButton.Flyout>
-                        </SplitButton>
+                            </muxc:SplitButton.Flyout>
+                        </muxc:SplitButton>
                     </AppBarElementContainer>
                 </controls:TabbedCommandBarItem>
             </controls:TabbedCommandBar.MenuItems>
