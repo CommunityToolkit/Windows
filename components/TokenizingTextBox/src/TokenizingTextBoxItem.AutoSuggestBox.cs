@@ -53,6 +53,21 @@ public partial class TokenizingTextBoxItem
     private bool IsAllSelected => _autoSuggestTextBox?.SelectedText == _autoSuggestTextBox?.Text && !string.IsNullOrEmpty(_autoSuggestTextBox?.Text);
 
     /// <summary>
+    /// Give the TokenizingTextBox access to the AutoSuggestBox IsSuggestionListOpen property
+    /// </summary>
+    internal bool IsSuggestionListOpen
+    {
+        get => (_autoSuggestBox != null) ? _autoSuggestBox.IsSuggestionListOpen : false;
+        set
+        {
+            if (_autoSuggestBox != null)
+            {
+                _autoSuggestBox.IsSuggestionListOpen = value;
+            }
+        }
+    }
+
+    /// <summary>
     /// Used to track if we're on the first character of the textbox while there is selected text
     /// </summary>
     private bool _isSelectedFocusOnFirstCharacter = false;
@@ -213,7 +228,7 @@ public partial class TokenizingTextBoxItem
         // Look for Token Delimiters to create new tokens when text changes.
         if (!string.IsNullOrEmpty(Owner.TokenDelimiter) && t.Contains(Owner.TokenDelimiter))
         {
-            bool lastDelimited = t[t.Length - 1] == Owner.TokenDelimiter[0];
+            bool lastDelimited = t.EndsWith(Owner.TokenDelimiter);
 
 #if HAS_UNO
             string[] tokens = t.Split(new[] { Owner.TokenDelimiter }, System.StringSplitOptions.RemoveEmptyEntries);

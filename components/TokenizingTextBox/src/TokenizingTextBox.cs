@@ -41,6 +41,22 @@ public partial class TokenizingTextBox : ListViewBase
     internal const string PART_MaxReachedState = "MaxReachedState";
 
     /// <summary>
+    /// Access to the AutoSuggestBox IsSuggestionListOpen property
+    /// </summary>
+    /// 
+    public bool IsSuggestionListOpen
+    {
+        get => (ContainerFromItem(_lastTextEdit) is TokenizingTextBoxItem lastContainer) ? lastContainer.IsSuggestionListOpen : false;
+        set
+        {
+            if (ContainerFromItem(_lastTextEdit) is TokenizingTextBoxItem lastContainer)
+            {
+                lastContainer.IsSuggestionListOpen = value;
+            }
+        }
+    }
+
+    /// <summary>
     /// Gets a value indicating whether the shift key is currently in a pressed state
     /// </summary>
 
@@ -164,6 +180,14 @@ public partial class TokenizingTextBox : ListViewBase
                 container.Focus(FocusState.Programmatic);
             }
         }
+    }
+
+    /// <summary>
+    /// Get a value if focus is on the AutoSuggestBox in the collection
+    /// </summary>
+    public bool GetIsAutoSuggestTextBoxFocused()
+    {
+        return !(GetFocusedElement() is TokenizingTextBoxItem);
     }
 
     private async void TokenizingTextBox_PreviewKeyDown(object sender, KeyRoutedEventArgs e)
@@ -453,6 +477,9 @@ public partial class TokenizingTextBox : ListViewBase
 
             GuardAgainstPlaceholderTextLayoutIssue();
         }
+
+        // also unfocus all tokens
+        DeselectAllTokensAndText();
     }
 
     /// <summary>
