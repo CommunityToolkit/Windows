@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Triggers\src\CommunityToolkit.WinUI.Triggers.csproj"></ProjectReference>
+    <ProjectReference Include="$(ToolkitTriggersSourceProject)"></ProjectReference>
   </ItemGroup>
 
   <PropertyGroup>
