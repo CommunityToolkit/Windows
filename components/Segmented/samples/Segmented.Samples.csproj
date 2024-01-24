@@ -6,7 +6,7 @@
   <!-- Sets this up as a toolkit component's sample project -->
   <Import Project="$(ToolingDirectory)\ToolkitComponent.SampleProject.props" />
   <ItemGroup>
-    <ProjectReference Include="..\..\Extensions\src\CommunityToolkit.WinUI.Extensions.csproj"/>
+    <ProjectReference Include="$(ToolkitExtensionsSourceProject)"/>
   </ItemGroup>
   <ItemGroup>
     <None Remove="Assets\Segmented.png" />
