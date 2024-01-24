@@ -7,8 +7,8 @@
   <Import Project="$(ToolingDirectory)\ToolkitComponent.SampleProject.props" />
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Extensions\src\CommunityToolkit.WinUI.Extensions.csproj"></ProjectReference>
-    <ProjectReference Include="..\..\Sizers\src\CommunityToolkit.WinUI.Controls.Sizers.csproj"></ProjectReference>
+    <ProjectReference Include="$(ToolkitExtensionsSourceProject)"></ProjectReference>
+    <ProjectReference Include="$(ToolkitSizersSourceProject)"></ProjectReference>
   </ItemGroup>
   
   <ItemGroup>
