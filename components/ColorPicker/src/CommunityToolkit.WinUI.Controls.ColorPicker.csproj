@@ -9,11 +9,11 @@
 
   <ItemGroup>
     <ProjectReference Include="$(ToolkitConvertersSourceProject)" />
-    <ProjectReference Include="$(ToolkitExtensionSourceProject)" />
-    <ProjectReference Include="$(ToolkitHelperSourceProject)" />
-    <ProjectReference Include="$(ToolkitPrimitiveSourceProject)" />
+    <ProjectReference Include="$(ToolkitExtensionsSourceProject)" />
+    <ProjectReference Include="$(ToolkitHelpersSourceProject)" />
+    <ProjectReference Include="$(ToolkitPrimitivesSourceProject)" />
     <ProjectReference Include="$(ToolkitSegmentedSourceProject)" />
-    <ProjectReference Include="$(ToolkitAnimationSourceProject)" />
+    <ProjectReference Include="$(ToolkitAnimationsSourceProject)" />
   </ItemGroup>
 
   <!-- Sets this up as a toolkit component's source project -->
