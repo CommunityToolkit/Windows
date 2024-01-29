@@ -131,6 +131,7 @@ public static class Implicit
     {
         // See https://github.com/CommunityToolkit/Windows/issues/319
         #if HAS_UNO
+        #pragma warning disable CS0162
             return;
         #endif
 
@@ -165,6 +166,10 @@ public static class Implicit
                 ElementCompositionPreview.SetImplicitShowAnimation(element, null);
             }
         }
+
+        #if HAS_UNO
+        #pragma warning restore CS0162
+        #endif
     }
 
     /// <summary>
@@ -176,6 +181,7 @@ public static class Implicit
     {
         // See https://github.com/CommunityToolkit/Windows/issues/319
         #if HAS_UNO
+        #pragma warning disable CS0162
             return;
         #endif
 
@@ -210,6 +216,10 @@ public static class Implicit
                 ElementCompositionPreview.SetImplicitHideAnimation(element, null);
             }
         }
+
+        #if HAS_UNO
+        #pragma warning restore CS0162
+        #endif
     }
 
     /// <summary>
@@ -221,6 +231,7 @@ public static class Implicit
     {
         // See https://github.com/CommunityToolkit/Windows/issues/319
         #if HAS_UNO
+        #pragma warning disable CS0162
             return;
         #endif
 
@@ -255,5 +266,9 @@ public static class Implicit
                 ElementCompositionPreview.GetElementVisual(element).ImplicitAnimations = null;
             }
         }
+
+        #if HAS_UNO
+        #pragma warning restore CS0162
+        #endif
     }
 }
