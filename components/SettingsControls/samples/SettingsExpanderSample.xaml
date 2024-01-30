@@ -10,7 +10,6 @@
 
     <local:SettingsExpander x:Name="settingsCard"
                             VerticalAlignment="Top"
-                            CornerRadius="48"
                             Description="The SettingsExpander has the same properties as a Card, and you can set SettingsCard as part of the Items collection."
                             Header="SettingsExpander"
                             HeaderIcon="{ui:FontIcon Glyph=&#xE91B;}"
