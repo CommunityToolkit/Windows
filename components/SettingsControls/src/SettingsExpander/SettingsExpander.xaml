@@ -99,7 +99,7 @@
                                     IsClickEnabled="False" />
                             </muxc:Expander.Header>
                             <muxc:Expander.Content>
-                                <Grid>
+                                <Grid CornerRadius="{Binding CornerRadius, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource CornerRadiusConverter}}">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto" />
                                         <RowDefinition Height="*" />
