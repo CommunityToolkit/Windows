@@ -43,7 +43,12 @@ public sealed partial class SurfaceLoader : IDisposable
     /// <returns>A <see cref="SurfaceLoader"/> instance to use in the current window</returns>
     public static SurfaceLoader GetInstance()
     {
-        return GetInstance(Window.Current.Compositor);
+#if WINUI2
+        var compositor = Window.Current.Compositor;
+#elif WINUI3
+        var compositor = CompositionTarget.GetCompositorForCurrentThread();
+#endif
+        return GetInstance(compositor);
     }
 
     /// <summary>

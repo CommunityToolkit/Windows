@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="$(ToolkitExtensionSourceProject)"/>
+    <ProjectReference Include="$(ToolkitExtensionsSourceProject)"/>
   </ItemGroup>
 
   <!-- Sets this up as a toolkit component's source project -->
