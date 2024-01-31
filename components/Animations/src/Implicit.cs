@@ -129,6 +129,12 @@ public static class Implicit
     /// <param name="e">The <see cref="DependencyPropertyChangedEventArgs"/> instance for the current event.</param>
     private static void OnShowAnimationsPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
+        // See https://github.com/CommunityToolkit/Windows/issues/319
+        #if HAS_UNO
+        #pragma warning disable CS0162
+            return;
+        #endif
+
         static void OnAnimationsChanged(object sender, EventArgs e)
         {
             var collection = (ImplicitAnimationSet)sender;
@@ -160,6 +166,10 @@ public static class Implicit
                 ElementCompositionPreview.SetImplicitShowAnimation(element, null);
             }
         }
+
+        #if HAS_UNO
+        #pragma warning restore CS0162
+        #endif
     }
 
     /// <summary>
@@ -169,6 +179,12 @@ public static class Implicit
     /// <param name="e">The <see cref="DependencyPropertyChangedEventArgs"/> instance for the current event.</param>
     private static void OnHideAnimationsPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
+        // See https://github.com/CommunityToolkit/Windows/issues/319
+        #if HAS_UNO
+        #pragma warning disable CS0162
+            return;
+        #endif
+
         static void OnAnimationsChanged(object sender, EventArgs e)
         {
             var collection = (ImplicitAnimationSet)sender;
@@ -200,6 +216,10 @@ public static class Implicit
                 ElementCompositionPreview.SetImplicitHideAnimation(element, null);
             }
         }
+
+        #if HAS_UNO
+        #pragma warning restore CS0162
+        #endif
     }
 
     /// <summary>
@@ -209,6 +229,12 @@ public static class Implicit
     /// <param name="e">The <see cref="DependencyPropertyChangedEventArgs"/> instance for the current event.</param>
     private static void OnAnimationsPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
+        // See https://github.com/CommunityToolkit/Windows/issues/319
+        #if HAS_UNO
+        #pragma warning disable CS0162
+            return;
+        #endif
+
         static void OnAnimationsChanged(object sender, EventArgs e)
         {
             var collection = (ImplicitAnimationSet)sender;
@@ -240,5 +266,9 @@ public static class Implicit
                 ElementCompositionPreview.GetElementVisual(element).ImplicitAnimations = null;
             }
         }
+
+        #if HAS_UNO
+        #pragma warning restore CS0162
+        #endif
     }
 }
