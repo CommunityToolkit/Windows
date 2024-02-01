@@ -1,9 +1,10 @@
-<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:controls="using:CommunityToolkit.WinUI.Controls"
-                    xmlns:converters="using:CommunityToolkit.WinUI.Converters"
-                    xmlns:primitives="using:CommunityToolkit.WinUI.Controls.Primitives"
-                    xmlns:ui="using:CommunityToolkit.WinUI">
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:CommunityToolkit.WinUI.Controls"
+    xmlns:converters="using:CommunityToolkit.WinUI.Converters"
+    xmlns:primitives="using:CommunityToolkit.WinUI.Controls.Primitives"
+    xmlns:ui="using:CommunityToolkit.WinUI">
 
     <Style TargetType="primitives:ColorPreviewer">
         <Setter Property="BorderThickness" Value="1" />
@@ -12,27 +13,80 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="primitives:ColorPreviewer">
-                    <Grid x:Name="RootGrid"
-                          Height="{TemplateBinding Height}"
-                          BorderBrush="{TemplateBinding BorderBrush}"
-                          BorderThickness="{TemplateBinding BorderThickness}"
-                          CornerRadius="{TemplateBinding CornerRadius}">
-
+                    <Grid
+                        x:Name="RootGrid"
+                        Height="{TemplateBinding Height}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="{TemplateBinding CornerRadius}">
                         <Grid.Resources>
                             <controls:AccentColorConverter x:Key="AccentColor" />
                             <converters:BoolToVisibilityConverter x:Key="BoolToVisibility" />
                         </Grid.Resources>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition x:Name="N1PreviewColumn"
-                                              Width="1*" />
-                            <ColumnDefinition x:Name="N2PreviewColumn"
-                                              Width="1*" />
+                            <ColumnDefinition x:Name="N1PreviewColumn" Width="1*" />
+                            <ColumnDefinition x:Name="N2PreviewColumn" Width="1*" />
                             <ColumnDefinition Width="3*" />
-                            <ColumnDefinition x:Name="P1PreviewColumn"
-                                              Width="1*" />
-                            <ColumnDefinition x:Name="P2PreviewColumn"
-                                              Width="1*" />
+                            <ColumnDefinition x:Name="P1PreviewColumn" Width="1*" />
+                            <ColumnDefinition x:Name="P2PreviewColumn" Width="1*" />
                         </Grid.ColumnDefinitions>
+                        <Border
+                            x:Name="CheckeredBackgroundBorder"
+                            Grid.ColumnSpan="5"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch" />
+                        <Border
+                            x:Name="N2PreviewBorder"
+                            CornerRadius="4,0,0,4"
+                            Tag="-2">
+                            <Border.Background>
+                                <SolidColorBrush Color="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=HsvColor, Converter={StaticResource AccentColor}, ConverterParameter='-2'}" />
+                            </Border.Background>
+                            <Border.BackgroundTransition>
+                                <BrushTransition Duration="0:0:0.083" />
+                            </Border.BackgroundTransition>
+                        </Border>
+
+                        <Border
+                            x:Name="N1PreviewBorder"
+                            Grid.Column="1"
+                            Tag="-1">
+                            <Border.Background>
+                                <SolidColorBrush Color="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=HsvColor, Converter={StaticResource AccentColor}, ConverterParameter='-1'}" />
+                            </Border.Background>
+                        </Border>
+                        <Border x:Name="PreviewBorder" Grid.Column="2">
+                            <Border.Background>
+                                <SolidColorBrush Color="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=HsvColor, Converter={StaticResource AccentColor}, ConverterParameter='0'}" />
+                            </Border.Background>
+                            <Border.BackgroundTransition>
+                                <BrushTransition Duration="0:0:0.083" />
+                            </Border.BackgroundTransition>
+                        </Border>
+
+                        <Border
+                            x:Name="P1PreviewBorder"
+                            Grid.Column="3"
+                            Tag="1">
+                            <Border.Background>
+                                <SolidColorBrush Color="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=HsvColor, Converter={StaticResource AccentColor}, ConverterParameter='1'}" />
+                            </Border.Background>
+                            <Border.BackgroundTransition>
+                                <BrushTransition Duration="0:0:0.083" />
+                            </Border.BackgroundTransition>
+                        </Border>
+                        <Border
+                            x:Name="P2PreviewBorder"
+                            Grid.Column="4"
+                            CornerRadius="0,4,4,0"
+                            Tag="2">
+                            <Border.Background>
+                                <SolidColorBrush Color="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=HsvColor, Converter={StaticResource AccentColor}, ConverterParameter='2'}" />
+                            </Border.Background>
+                            <Border.BackgroundTransition>
+                                <BrushTransition Duration="0:0:0.083" />
+                            </Border.BackgroundTransition>
+                        </Border>
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="AccentColorStates">
                                 <VisualState x:Name="AccentColorsVisible" />
@@ -52,59 +106,6 @@
                                 </VisualState>
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
-                        <Border x:Name="CheckeredBackgroundBorder"
-                                Grid.ColumnSpan="5"
-                                HorizontalAlignment="Stretch"
-                                VerticalAlignment="Stretch" />
-                        <Border x:Name="N2PreviewBorder"
-                                CornerRadius="4,0,0,4"
-                                Tag="-2">
-                            <Border.Background>
-                                <SolidColorBrush Color="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=HsvColor, Converter={StaticResource AccentColor}, ConverterParameter='-2'}" />
-                            </Border.Background>
-                            <Border.BackgroundTransition>
-                                <BrushTransition Duration="0:0:0.083" />
-                            </Border.BackgroundTransition>
-                        </Border>
-
-                        <Border x:Name="N1PreviewBorder"
-                                Grid.Column="1"
-                                Tag="-1">
-                            <Border.Background>
-                                <SolidColorBrush Color="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=HsvColor, Converter={StaticResource AccentColor}, ConverterParameter='-1'}" />
-                            </Border.Background>
-                        </Border>
-                        <Border x:Name="PreviewBorder"
-                                Grid.Column="2">
-                            <Border.Background>
-                                <SolidColorBrush Color="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=HsvColor, Converter={StaticResource AccentColor}, ConverterParameter='0'}" />
-                            </Border.Background>
-                            <Border.BackgroundTransition>
-                                <BrushTransition Duration="0:0:0.083" />
-                            </Border.BackgroundTransition>
-                        </Border>
-
-                        <Border x:Name="P1PreviewBorder"
-                                Grid.Column="3"
-                                Tag="1">
-                            <Border.Background>
-                                <SolidColorBrush Color="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=HsvColor, Converter={StaticResource AccentColor}, ConverterParameter='1'}" />
-                            </Border.Background>
-                            <Border.BackgroundTransition>
-                                <BrushTransition Duration="0:0:0.083" />
-                            </Border.BackgroundTransition>
-                        </Border>
-                        <Border x:Name="P2PreviewBorder"
-                                Grid.Column="4"
-                                CornerRadius="0,4,4,0"
-                                Tag="2">
-                            <Border.Background>
-                                <SolidColorBrush Color="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=HsvColor, Converter={StaticResource AccentColor}, ConverterParameter='2'}" />
-                            </Border.Background>
-                            <Border.BackgroundTransition>
-                                <BrushTransition Duration="0:0:0.083" />
-                            </Border.BackgroundTransition>
-                        </Border>
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
