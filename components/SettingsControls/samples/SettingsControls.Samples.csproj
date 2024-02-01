@@ -7,7 +7,7 @@
   <Import Project="$(ToolingDirectory)\ToolkitComponent.SampleProject.props" />
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Extensions\src\CommunityToolkit.WinUI.Extensions.csproj"></ProjectReference>
+    <ProjectReference Include="$(ToolkitExtensionsSourceProject)"></ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Remove="Assets\SettingsCard.png" />
