@@ -1,0 +1,101 @@
+<!--  Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license. See the LICENSE file in the project root for more information.  -->
+<Page x:Class="SegmentedExperiment.Samples.SegmentedSwitchPresenterSample"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:animations="using:CommunityToolkit.WinUI.Animations"
+      xmlns:controls="using:CommunityToolkit.WinUI.Controls"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="using:SegmentedExperiment.Samples"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:ui="using:CommunityToolkit.WinUI"
+      mc:Ignorable="d">
+    <Page.Resources>
+        <Style x:Key="PanelStyle"
+               TargetType="StackPanel">
+            <Setter Property="CornerRadius" Value="8" />
+            <Setter Property="Padding" Value="16" />
+            <Setter Property="Background" Value="{ThemeResource CardBackgroundFillColorDefaultBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="BorderBrush" Value="{ThemeResource CardStrokeColorDefaultBrush}" />
+            <Setter Property="Orientation" Value="Horizontal" />
+            <Setter Property="Spacing" Value="8" />
+            <Setter Property="animations:Implicit.HideAnimations" Value="{StaticResource ShowTransitions}" />
+        </Style>
+
+        <animations:ImplicitAnimationSet x:Name="ShowTransitions">
+            <animations:OffsetAnimation EasingMode="EaseOut"
+                                        From="0,24,0"
+                                        To="0"
+                                        Duration="0:0:0.4" />
+            <animations:OpacityAnimation EasingMode="EaseOut"
+                                         From="0"
+                                         To="1"
+                                         Duration="0:0:0.2" />
+        </animations:ImplicitAnimationSet>
+        <animations:ImplicitAnimationSet x:Name="HideTransitions">
+            <animations:OffsetAnimation EasingMode="EaseOut"
+                                        From="0"
+                                        To="0,24,0"
+                                        Duration="0:0:0.2" />
+            <animations:OpacityAnimation EasingMode="EaseOut"
+                                         From="1"
+                                         To="0"
+                                         Duration="0:0:0.1" />
+        </animations:ImplicitAnimationSet>
+    </Page.Resources>
+    <StackPanel Width="360"
+                VerticalAlignment="Top"
+                Orientation="Vertical"
+                Spacing="8">
+        <controls:Segmented x:Name="segmentedControl"
+                            HorizontalAlignment="Stretch"
+                            SelectedIndex="0">
+            <controls:SegmentedItem Content="Square"
+                                    Icon="{ui:FontIcon Glyph=&#xE739;}"
+                                    Tag="square" />
+            <controls:SegmentedItem Content="Circle"
+                                    Icon="{ui:FontIcon Glyph=&#xEA3A;}"
+                                    Tag="circle" />
+            <controls:SegmentedItem Content="Rectangle"
+                                    Icon="{ui:FontIcon Glyph=&#xE7FB;}"
+                                    Tag="rect" />
+        </controls:Segmented>
+        <controls:SwitchPresenter Value="{Binding SelectedItem.Tag, ElementName=segmentedControl}">
+            <controls:Case Value="square">
+                <StackPanel animations:Implicit.HideAnimations="{StaticResource HideTransitions}"
+                            animations:Implicit.ShowAnimations="{StaticResource ShowTransitions}"
+                            Style="{StaticResource PanelStyle}">
+
+                    <Border Width="24"
+                            Height="24"
+                            Background="{ThemeResource AccentFillColorDefaultBrush}" />
+                    <TextBlock VerticalAlignment="Center"
+                               Text="This is the Square panel" />
+                </StackPanel>
+            </controls:Case>
+            <controls:Case Value="circle">
+                <StackPanel animations:Implicit.HideAnimations="{StaticResource HideTransitions}"
+                            animations:Implicit.ShowAnimations="{StaticResource ShowTransitions}"
+                            Style="{StaticResource PanelStyle}">
+
+                    <Ellipse Width="24"
+                             Height="24"
+                             Fill="{ThemeResource AccentFillColorDefaultBrush}" />
+                    <TextBlock VerticalAlignment="Center"
+                               Text="This is the Circle panel" />
+                </StackPanel>
+            </controls:Case>
+            <controls:Case Value="rect">
+                <StackPanel animations:Implicit.HideAnimations="{StaticResource HideTransitions}"
+                            animations:Implicit.ShowAnimations="{StaticResource ShowTransitions}"
+                            Style="{StaticResource PanelStyle}">
+                    <Rectangle Width="48"
+                               Height="24"
+                               Fill="{ThemeResource AccentFillColorDefaultBrush}" />
+                    <TextBlock VerticalAlignment="Center"
+                               Text="This is the Rectangle panel" />
+                </StackPanel>
+            </controls:Case>
+        </controls:SwitchPresenter>
+    </StackPanel>
+</Page>
