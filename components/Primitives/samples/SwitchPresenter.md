@@ -26,6 +26,6 @@ Or it can simply be used to clearly display different outcomes based on some sta
 
 > [!SAMPLE SwitchPresenterValueSample]
 
-`SwitchPresenter` can also be used as a replacement for the deprecated `Loading` control:
+`SwitchPresenter` can also be used as a replacement for the deprecated `Loading` control. This provides more fine-grained control over animations and content within each state:
 
 > [!SAMPLE SwitchPresenterLoaderSample]
