@@ -1,4 +1,6 @@
-<Project Sdk="MSBuild.Sdk.Extras/3.0.23">
+<Project>
+  <Import Project="$([MSBuild]::GetPathOfFileAbove(directory.build.props))" Condition="Exists('$([MSBuild]::GetPathOfFileAbove(directory.build.props))')" />
+  
   <PropertyGroup>
     <ToolkitComponentName>LayoutTransformControl</ToolkitComponentName>
   </PropertyGroup>
