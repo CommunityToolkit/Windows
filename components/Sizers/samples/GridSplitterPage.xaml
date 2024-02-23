@@ -32,16 +32,20 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition MinWidth="100" MaxWidth="300" />
             <ColumnDefinition />
-            <ColumnDefinition />
+            <ColumnDefinition Width="200" MinWidth="100" />
+            <ColumnDefinition Width="200" MinWidth="100" />
         </Grid.ColumnDefinitions>
 
         <Border Grid.Row="0" Grid.Column="0">
-            <TextBlock Text="This text to simulate the resizing feature of the Grid Splitter Control, try to move the splitter to see the effect RowDefinition MinHeight='100'" />
+            <TextBlock Text="This is a Column with a Min 100 / Max 300 width - This text to simulate the resizing feature of the Grid Splitter Control, try to move the splitter to see the effect RowDefinition MinHeight='100'" />
         </Border>
         <Border Grid.Row="0" Grid.Column="1">
             <TextBlock Text="This text to simulate the resizing feature of the Grid Splitter Control, try to move the splitter to see the effect" />
         </Border>
         <Border Grid.Row="0" Grid.Column="2">
+            <TextBlock Text="This text to simulate the resizing feature of the Grid Splitter Control, try to move the splitter to see the effect" />
+        </Border>
+        <Border Grid.Row="0" Grid.Column="3">
             <TextBlock Text="This text to simulate the resizing feature of the Grid Splitter Control, try to move the splitter to see the effect" />
         </Border>
 
@@ -52,7 +56,10 @@
             <TextBlock Text="This text to simulate the resizing feature of the Grid Splitter Control, try to move the splitter to see the effect" />
         </Border>
         <Border Grid.Row="1" Grid.Column="2">
-            <TextBlock Text="This text to simulate the resizing feature of the Grid Splitter Control, try to move the splitter to see the effect" />
+            <TextBlock Text="This is a fixed width column - This text to simulate the resizing feature of the Grid Splitter Control, try to move the splitter to see the effect" />
+        </Border>
+        <Border Grid.Row="1" Grid.Column="3">
+            <TextBlock Text="This is a fixed width column - This text to simulate the resizing feature of the Grid Splitter Control, try to move the splitter to see the effect" />
         </Border>
 
         <!--  Column Grid Splitter  -->
@@ -70,11 +77,25 @@
         <!--  Row Grid Splitter  -->
         <controls:GridSplitter
             Grid.Row="1"
-            Grid.ColumnSpan="3"
+            Grid.ColumnSpan="4"
             Height="16"
             VerticalAlignment="Top">
             <controls:GridSplitter.RenderTransform>
                 <TranslateTransform Y="-7" />
+            </controls:GridSplitter.RenderTransform>
+        </controls:GridSplitter>
+
+        <!--  Last 2 columns splitter  -->
+        <controls:GridSplitter
+            Grid.Row="0"
+            Grid.RowSpan="2"
+            Grid.Column="3"
+            Width="16"
+            HorizontalAlignment="Left"
+            ResizeBehavior="BasedOnAlignment"
+            ResizeDirection="Auto">
+            <controls:GridSplitter.RenderTransform>
+                <TranslateTransform X="-7" />
             </controls:GridSplitter.RenderTransform>
         </controls:GridSplitter>
 
