@@ -122,7 +122,9 @@ jobs:
           --manifest https://raw.githubusercontent.com/unoplatform/uno.check/1660eba219684491362704c75153b40ce6ef7a35/manifests/uno.ui.manifest.json
 
       - name: Add msbuild to PATH
-        uses: microsoft/setup-msbuild@v1.3.1
+        uses: microsoft/setup-msbuild@v2
+        with:
+          vs-version: '[17.9,)'
 
       - name: Enable ${{ env.TARGET_PLATFORMS }} TargetFrameworks
         working-directory: ./${{ env.MULTI_TARGET_DIRECTORY }}
