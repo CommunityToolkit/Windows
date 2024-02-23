@@ -50,11 +50,22 @@ public partial class GridSplitter
         var currentChange = _currentSize + verticalChange;
         var siblingChange = _siblingSize + (verticalChange * -1); // sibling moves opposite
 
+        // NOTE: If the column contains another row with Star sizing, it's not enough to just change current.
+        // The change will flow to the Star sized item and not to the sibling if the sibling is fixed-size.
+        // So, we need to explicitly apply the change to the sibling.
+
         // if current row has fixed height then resize it
         if (!IsStarRow(CurrentRow))
         {
             // No need to check for the row Min height because it is automatically respected
-            return SetRowHeight(CurrentRow, currentChange, GridUnitType.Pixel);
+            var changed = SetRowHeight(CurrentRow, currentChange, GridUnitType.Pixel);
+
+            if (!IsStarRow(SiblingRow))
+            {
+                changed = SetRowHeight(SiblingRow, siblingChange, GridUnitType.Pixel);
+            }
+
+            return changed;
         }
 
         // if sibling row has fixed width then resize it
@@ -114,11 +125,22 @@ public partial class GridSplitter
         var currentChange = _currentSize + horizontalChange;
         var siblingChange = _siblingSize + (horizontalChange * -1); // sibling moves opposite
 
+        // NOTE: If the row contains another column with Star sizing, it's not enough to just change current.
+        // The change will flow to the Star sized item and not to the sibling if the sibling is fixed-size.
+        // So, we need to explicitly apply the change to the sibling.
+
         // if current column has fixed width then resize it
         if (!IsStarColumn(CurrentColumn))
         {
             // No need to check for the Column Min width because it is automatically respected
-            return SetColumnWidth(CurrentColumn, currentChange, GridUnitType.Pixel);
+            var changed = SetColumnWidth(CurrentColumn, currentChange, GridUnitType.Pixel);
+
+            if (!IsStarColumn(SiblingColumn))
+            {
+                changed = SetColumnWidth(SiblingColumn, siblingChange, GridUnitType.Pixel);
+            }
+
+            return changed;
         }
 
         // if sibling column has fixed width then resize it
