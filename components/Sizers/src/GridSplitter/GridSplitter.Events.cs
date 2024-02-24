@@ -50,6 +50,12 @@ public partial class GridSplitter
         var currentChange = _currentSize + verticalChange;
         var siblingChange = _siblingSize + (verticalChange * -1); // sibling moves opposite
 
+        // Would changing the columnn sizes violate the constraints?
+        if (!IsValidRowHeight(CurrentRow, currentChange) || !IsValidRowHeight(SiblingRow, siblingChange))
+        {
+            return false;
+        }
+
         // NOTE: If the column contains another row with Star sizing, it's not enough to just change current.
         // The change will flow to the Star sized item and not to the sibling if the sibling is fixed-size.
         // So, we need to explicitly apply the change to the sibling.
@@ -71,12 +77,6 @@ public partial class GridSplitter
         // if sibling row has fixed width then resize it
         else if (!IsStarRow(SiblingRow))
         {
-            // Would adding to this column make the current column violate the MinWidth?
-            if (IsValidRowHeight(CurrentRow, currentChange) == false)
-            {
-                return false;
-            }
-
             return SetRowHeight(SiblingRow, siblingChange, GridUnitType.Pixel);
         }
 
@@ -125,6 +125,12 @@ public partial class GridSplitter
         var currentChange = _currentSize + horizontalChange;
         var siblingChange = _siblingSize + (horizontalChange * -1); // sibling moves opposite
 
+        // Would changing the columnn sizes violate the constraints?
+        if (!IsValidColumnWidth(CurrentColumn, currentChange) || !IsValidColumnWidth(SiblingColumn, siblingChange))
+        {
+            return false;
+        }
+
         // NOTE: If the row contains another column with Star sizing, it's not enough to just change current.
         // The change will flow to the Star sized item and not to the sibling if the sibling is fixed-size.
         // So, we need to explicitly apply the change to the sibling.
@@ -146,12 +152,6 @@ public partial class GridSplitter
         // if sibling column has fixed width then resize it
         else if (!IsStarColumn(SiblingColumn))
         {
-            // Would adding to this column make the current column violate the MinWidth?
-            if (IsValidColumnWidth(CurrentColumn, currentChange) == false)
-            {
-                return false;
-            }
-
             return SetColumnWidth(SiblingColumn, siblingChange, GridUnitType.Pixel);
         }
 
