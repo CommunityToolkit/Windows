@@ -1,10 +1,17 @@
-<Project Sdk="MSBuild.Sdk.Extras/3.0.23">
+<Project>
+  <Import Project="$([MSBuild]::GetPathOfFileAbove(Directory.Build.props))" Condition="Exists('$([MSBuild]::GetPathOfFileAbove(Directory.Build.props))')" />
+  
   <PropertyGroup>
     <ToolkitComponentName>Segmented</ToolkitComponentName>
   </PropertyGroup>
 
   <!-- Sets this up as a toolkit component's sample project -->
   <Import Project="$(ToolingDirectory)\ToolkitComponent.SampleProject.props" />
+  <ItemGroup>
+    <ProjectReference Include="$(ToolkitExtensionsSourceProject)"/>
+    <ProjectReference Include="$(ToolkitPrimitivesSourceProject)"/>
+    <ProjectReference Include="$(ToolkitAnimationsSourceProject)"/>
+  </ItemGroup>
   <ItemGroup>
     <None Remove="Assets\Segmented.png" />
   </ItemGroup>

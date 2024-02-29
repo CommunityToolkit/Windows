@@ -4,6 +4,7 @@
 
 namespace CollectionsExperiment.Tests;
 
+using CommunityToolkit.WinUI.Collections;
 public class DataSource<T> : IIncrementalSource<T>
 {
     private readonly IEnumerable<T> items;

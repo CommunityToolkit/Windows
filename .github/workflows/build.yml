@@ -17,7 +17,7 @@ on:
   merge_group:
 
 env:
-  DOTNET_VERSION: ${{ '7.0.100' }}
+  DOTNET_VERSION: ${{ '8.0.201' }}
   ENABLE_DIAGNOSTICS: true
   MSBUILD_VERBOSITY: normal
   #COREHOST_TRACE: 1
@@ -67,7 +67,7 @@ jobs:
 
     env:
       # faux-ternary expression to select which platforms to build for each platform vs. duplicating step below.
-      TARGET_PLATFORMS: all
+      TARGET_PLATFORMS: ${{ matrix.platform != 'WinUI3' && 'all-wasdk' || 'all-uwp' }}
       TEST_PLATFORM: ${{ matrix.platform != 'WinUI3' && 'UWP' || 'WinAppSdk' }}
       VERSION_PROPERTY: ${{ github.ref == 'refs/heads/main' && format('build.{0}', github.run_number) || format('pull-{0}.{1}', github.event.number, github.run_number) }}
 
@@ -108,7 +108,6 @@ jobs:
       - name: Restore dotnet tools
         run: dotnet tool restore
 
-      # Pinning Manifest for 1.13 version of Uno.Check at the moment to unblock build, see https://github.com/CommunityToolkit/Windows/pull/201
       - name: Run Uno Check to Install Dependencies
         run: >
           dotnet tool run uno-check 
@@ -119,10 +118,11 @@ jobs:
           --skip androidemulator
           --skip vswinworkloads
           --verbose
-          --manifest https://raw.githubusercontent.com/unoplatform/uno.check/c3b289d7bb16a2a2df7f7f7f848d76fe1e74036d/manifests/uno.ui.manifest.json
 
       - name: Add msbuild to PATH
-        uses: microsoft/setup-msbuild@v1.3.1
+        uses: microsoft/setup-msbuild@v2
+        with:
+          vs-version: '[17.9,)'
 
       - name: Enable ${{ env.TARGET_PLATFORMS }} TargetFrameworks
         working-directory: ./${{ env.MULTI_TARGET_DIRECTORY }}
@@ -175,7 +175,7 @@ jobs:
       # Build All Packages
       - name: pack experiments
         working-directory: ./tooling/Scripts/
-        run: ./PackEachExperiment.ps1 -date ${{ env.VERSION_DATE }} -postfix ${{ env.VERSION_PROPERTY }}
+        run: ./PackEachExperiment.ps1 -date ${{ env.VERSION_DATE }}${{ env.VERSION_PROPERTY != '' && format(' -postfix {0}', env.VERSION_PROPERTY) || '' }}
 
       # Push Pull Request Packages to our DevOps Artifacts Feed (see nuget.config)
       - name: Push Pull Request Packages (if not fork)

@@ -8,7 +8,7 @@ using System.Collections.Specialized;
 using System.Runtime.CompilerServices;
 using NotifyCollectionChangedAction = global::System.Collections.Specialized.NotifyCollectionChangedAction;
 
-namespace CommunityToolkit.WinUI;
+namespace CommunityToolkit.WinUI.Collections;
 
 /// <summary>
 /// A collection view implementation that supports filtering, sorting and incremental loading

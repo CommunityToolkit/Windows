@@ -6,7 +6,7 @@ keywords: CompareStateTrigger, ControlSizeTrigger, FullScreenModeStateTrigger, I
 dev_langs:
   - csharp
 category: Xaml
-subcategory: None
+subcategory: Miscellaneous
 discussion-id: 0
 issue-id: 0
 icon: Assets/Triggers.png
@@ -19,6 +19,7 @@ Enables a state if the value is equal to, greater than, or less than another val
 > [!Sample CompareStateTriggerSample]
 
 ## ControlStateTrigger
+
 Enables a state if the target control meets the specified size
 
 > [!Sample ControlSizeTriggerSample]

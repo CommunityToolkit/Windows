@@ -12,15 +12,15 @@ issue-id: 0
 icon: Assets/LayoutTransformControl.png
 ---
 
-The [LayoutTransformControl](/dotnet/api/microsoft.toolkit.uwp.ui.controls.layouttransformcontrol) is a control that applies Matrix transformations on any `FrameworkElement` of your application.
+The `LayoutTransformControl` is a control that applies Matrix transformations on any `FrameworkElement` of your application.
 
 The transformations that can be applied are one of the following:
 
-* [RotateTransform](/uwp/api/windows.ui.xaml.media.rotatetransform)
-* [ScaleTransform](/uwp/api/windows.ui.xaml.media.scaletransform)
-* [SkewTransform](/uwp/api/windows.ui.xaml.media.skewtransform)
-* [MatrixTransform](/uwp/api/windows.ui.xaml.media.matrixtransform)
-* [TransformGroup](/uwp/api/windows.ui.xaml.media.transformgroup)
+* [RotateTransform](https://learn.microsoft.com/uwp/api/windows.ui.xaml.media.rotatetransform)
+* [ScaleTransform](https://learn.microsoft.com/uwp/api/windows.ui.xaml.media.scaletransform)
+* [SkewTransform](https://learn.microsoft.com/uwp/api/windows.ui.xaml.media.skewtransform)
+* [MatrixTransform](https://learn.microsoft.com/uwp/api/windows.ui.xaml.media.matrixtransform)
+* [TransformGroup](https://learn.microsoft.com/uwp/api/windows.ui.xaml.media.transformgroup)
 
 > [!Sample LayoutTransformControlSample]
 

@@ -5,16 +5,16 @@ description: A collection of animations that can be grouped together.
 keywords: Behaviors, animations, animationset, xaml, visual, composition
 dev_langs:
   - csharp
-category: Xaml
-subcategory: Behaviors
+category: Animations
+subcategory: Miscellaneous
 discussion-id: 0
 issue-id: 0
 icon: Assets/AnimationSet.png
 ---
 
-The [`AnimationSet`](/dotnet/api/microsoft.toolkit.uwp.ui.animations.AnimationSet) type represents an animation schedule, effectively representing an [AnimationBuilder](/dotnet/api/microsoft.toolkit.uwp.ui.animations.AnimationBuilder) instance via XAML code. It can contain any number of animations or activities, exposes methods to start and stop an animation, and events to be notified when an animation has started or is completed. Like `AnimationBuilder`, `AnimationSet` instances can also be shared (e.g. in a [`ResourceDictionary`](/windows/uwp/design/controls-and-patterns/resourcedictionary-and-xaml-resource-references)) and then be used to start animation schedules on multiple UI elements. It can also be directly attached to a parent UI element, via the [`Explicit.Animations`](/dotnet/api/microsoft.toolkit.uwp.ui.animations.Explicit) attached property.
+The `AnimationSet` type represents an animation schedule, effectively representing an `AnimationBuilder` instance via XAML code. It can contain any number of animations or activities, exposes methods to start and stop an animation, and events to be notified when an animation has started or is completed. Like `AnimationBuilder`, `AnimationSet` instances can also be shared (e.g. in a [`ResourceDictionary`](https://learn.microsoft.com/windows/uwp/design/controls-and-patterns/resourcedictionary-and-xaml-resource-references)) and then be used to start animation schedules on multiple UI elements. It can also be directly attached to a parent UI element, via the `Explicit.Animations` attached property.
 
-> **Platform APIs:** [`AnimationSet`](/dotnet/api/microsoft.toolkit.uwp.ui.animations.AnimationSet), [AnimationBuilder](/dotnet/api/microsoft.toolkit.uwp.ui.animations.AnimationBuilder), [`Explicit`](/dotnet/api/microsoft.toolkit.uwp.ui.animations.Explicit), [`ITimeline`](/dotnet/api/microsoft.toolkit.uwp.ui.animations.ITimeline), [`IActivity`](/dotnet/api/microsoft.toolkit.uwp.ui.animations.IActivity), [`AnimationScope`](/dotnet/api/microsoft.toolkit.uwp.ui.animations.AnimationScope), [`AnimationStartedTriggerBehavior`](/dotnet/api/microsoft.toolkit.uwp.ui.behaviors.AnimationStartedTriggerBehavior), [`AnimationCompletedTriggerBehavior`](/dotnet/api/microsoft.toolkit.uwp.ui.behaviors.AnimationCompletedTriggerBehavior), [`StartAnimationAction`](/dotnet/api/microsoft.toolkit.uwp.ui.behaviors.StartAnimationAction), [`StopAnimationAction`](/dotnet/api/microsoft.toolkit.uwp.ui.behaviors.StopAnimationAction)
+> **Platform APIs:** `AnimationSet`, `AnimationBuilder`, `Explicit`, `ITimeline`, `IActivity`, `AnimationScope`, `AnimationStartedTriggerBehavior`, `AnimationCompletedTriggerBehavior`, `StartAnimationAction`, `StopAnimationAction`
 
 ## How it works
 
@@ -23,9 +23,9 @@ Each set can contain any number of animation scopes and individual nodes, which 
 - **Animation types** are a mapping in XAML for the various APIs exposed by the `AnimationBuilder` class. They are available as both "default" animations that are ready to use and "custom" animations that can be fully configured. Each animation type also supports using keyframes in addition to just defining the starting and final values.
 - **Activities** on the other hand are a way to interleave an animation schedule with all sorts of custom logic, such as triggering other animations or running arbitrary code (eg. to update a visual state while an animation is running).
 
-These two types of animation nodes implement several interfaces (such as [`ITimeline`](/dotnet/api/microsoft.toolkit.uwp.ui.animations.ITimeline) and [`IActivity`](/dotnet/api/microsoft.toolkit.uwp.ui.animations.IActivity)) which make this system extremely customizable and extensible for users as well for their own scenarios.
+These two types of animation nodes implement several interfaces (such as `ITimeline` and `IActivity`) which make this system extremely customizable and extensible for users as well for their own scenarios.
 
-Here is how a simple animation can be declared in XAML. In this case we are using `x:Name` so that we can reference it in code behind to start it when the button is clicked. The animation is also directly attached to the [`Button`](/windows/uwp/design/controls-and-patterns/buttons), so we can start it directly by calling the `Start()` method, without the need to specify the target element to animate.
+Here is how a simple animation can be declared in XAML. In this case we are using `x:Name` so that we can reference it in code behind to start it when the button is clicked. The animation is also directly attached to the [`Button`](https://learn.microsoft.com/windows/uwp/design/controls-and-patterns/buttons), so we can start it directly by calling the `Start()` method, without the need to specify the target element to animate.
 
 ```xaml
 <!--A simple animation using default animation types-->
@@ -39,7 +39,7 @@ Here is how a simple animation can be declared in XAML. In this case we are usin
 </Button>
 ```
 
-By default, animations target the [Composition layer](/windows/uwp/composition/visual-layer) as it provides the best performance possible. It is also possible to explicitly target the XAML layer too though, which can enable things such as animating the color of a brush used to display some text in a `Button`. Here is an example where we use this functionality, together with explicit keyframes to have more fine-grained control over the animation to run:
+By default, animations target the [Composition layer](https://learn.microsoft.com/windows/uwp/composition/visual-layer) as it provides the best performance possible. It is also possible to explicitly target the XAML layer too though, which can enable things such as animating the color of a brush used to display some text in a `Button`. Here is an example where we use this functionality, together with explicit keyframes to have more fine-grained control over the animation to run:
 
 ```xaml
 <!--An animation set using a scope and explicit keyframes-->
@@ -60,7 +60,7 @@ By default, animations target the [Composition layer](/windows/uwp/composition/v
 </Button>
 ```
 
-Keyframes (both when declared in C# and in XAML) can also use an [expression animation](/uwp/api/windows.ui.composition.expressionanimation) when they are being used in an animation targeting the Composition layer. This provides additional control over the animation values and allows consumers to create dynamic animations that can adapt to the current state of the target element. Here is an example:
+Keyframes (both when declared in C# and in XAML) can also use an [expression animation](https://learn.microsoft.com/uwp/api/windows.ui.composition.expressionanimation) when they are being used in an animation targeting the Composition layer. This provides additional control over the animation values and allows consumers to create dynamic animations that can adapt to the current state of the target element. Here is an example:
 
 ```xaml
 <!--Keyframes can use expressions as well (on the Composition layer)-->
@@ -80,7 +80,7 @@ Keyframes (both when declared in C# and in XAML) can also use an [expression ani
 
 Another feature of the `AnimationSet` type is the `IsSequential` property which configures the way top-level elements (animations, activities, and scopes) within the animation are handled.
 
-When this property is set to `true` each top-level node will be executed sequentially and only move to the following one when the previous completes (and the animation has not been cancelled). This can be used in conjunction with the various `IActivity` objects to create custom animation schedules that combine multiple animations running on different UI elements, with all the synchronization still done entirely from XAML. It is also helpful when combined with an [`AnimationScope`](/dotnet/api/microsoft.toolkit.uwp.ui.animations.AnimationScope) in order to more easily parse the timeline of events within an animation when creating and modifying them.
+When this property is set to `true` each top-level node will be executed sequentially and only move to the following one when the previous completes (and the animation has not been cancelled). This can be used in conjunction with the various `IActivity` objects to create custom animation schedules that combine multiple animations running on different UI elements, with all the synchronization still done entirely from XAML. It is also helpful when combined with an `AnimationScope` in order to more easily parse the timeline of events within an animation when creating and modifying them.
 
 Here is an example that showcases both the sequential mode for animations as well as the ability to combine animations and activities in the same schedule, and how different animations (even on different UI elements) can be combined and interleaved by using the available APIs:
 
@@ -125,11 +125,11 @@ Here's an example of how all these various explicit animations can be combined t
 
 ## Behaviors
 
-If you are also referencing the `Microsoft.Toolkit.Uwp.UI.Behaviors` package, it will be possible to also use behaviors and actions to better support the new APIs, such as by automatically triggering an animation when a given event is raised, entirely from XAML. There are four main types being introduced in this package that interoperate with the Animation APIs:
+If you are also referencing the `Behaviors` package, it will be possible to also use behaviors and actions to better support the new APIs, such as by automatically triggering an animation when a given event is raised, entirely from XAML. There are four main types being introduced in this package that interoperate with the Animation APIs:
 
-- [`AnimationStartedTriggerBehavior`](/dotnet/api/microsoft.toolkit.uwp.ui.behaviors.AnimationStartedTriggerBehavior) and [`AnimationCompletedTriggerBehavior`](/dotnet/api/microsoft.toolkit.uwp.ui.behaviors.AnimationCompletedTriggerBehavior): these are custom triggers that can be used to execute `IAction`-s when an `AnimationSet` starts or completes. All the built-in `IAction` objects can be used from the Behaviors package, as well as custom ones as well.
-- [`StartAnimationAction`](/dotnet/api/microsoft.toolkit.uwp.ui.behaviors.StartAnimationAction): an `IAction` object that can be used within behaviors to easily start a target animation, either with an attached UI element or with an explicit target to animate.
-- [`StopAnimationAction`](/dotnet/api/microsoft.toolkit.uwp.ui.behaviors.StopAnimationAction): an `IAction` object that can be used within behaviors to easily stop a target animation, either with an attached UI element or with an explicit target to animate.
+- `AnimationStartedTriggerBehavior` and `AnimationCompletedTriggerBehavior`: these are custom triggers that can be used to execute `IAction`-s when an `AnimationSet` starts or completes. All the built-in `IAction` objects can be used from the Behaviors package, as well as custom ones as well.
+- `StartAnimationAction`: an `IAction` object that can be used within behaviors to easily start a target animation, either with an attached UI element or with an explicit target to animate.
+- `StopAnimationAction`: an `IAction` object that can be used within behaviors to easily stop a target animation, either with an attached UI element or with an explicit target to animate.
 
 Here is an example that shows how these new APIs can be used together:
 
@@ -164,7 +164,7 @@ This makes it possible to also not having to name the target UI element, to regi
 
 ## Effect animations
 
-Lastly, the `AnimationSet` class can also directly animate Composition/Win2D effects. To gain access to this feature, you will need to also reference the `Microsoft.Toolkit.Uwp.UI.Media`. This package includes some special animation types that can be plugged in into an `AnimationSet` instance and used to animate individual effects within a custom effects graph. This can then be used either from a [PipelineBrush](/dotnet/api/microsoft.toolkit.uwp.ui.media.pipelinebrush) or from an inline graph attached to a UI element through the [`PipelineVisualFactory`](/dotnet/api/microsoft.toolkit.uwp.ui.media.PipelineVisualFactory) type. All these effect animations are powered by the same `AnimationBuilder` type behind the scenes, and can facilitate creating complex animations on specific effects within a graph.
+Lastly, the `AnimationSet` class can also directly animate Composition/Win2D effects. To gain access to this feature, you will need to also reference the `CommunityToolkit.WinUI.Media`. This package includes some special animation types that can be plugged in into an `AnimationSet` instance and used to animate individual effects within a custom effects graph. This can then be used either from a `PipelineBrush` or from an inline graph attached to a UI element through the `PipelineVisualFactory` type. All these effect animations are powered by the same `AnimationBuilder` type behind the scenes, and can facilitate creating complex animations on specific effects within a graph.
 
 Here is an example of how the new `PipelineVisualFactory` type can be combined with these effect animations:
 

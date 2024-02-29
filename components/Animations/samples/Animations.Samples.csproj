@@ -1,10 +1,17 @@
-<Project Sdk="MSBuild.Sdk.Extras/3.0.23">
+<Project>
+  <Import Project="$([MSBuild]::GetPathOfFileAbove(Directory.Build.props))" Condition="Exists('$([MSBuild]::GetPathOfFileAbove(Directory.Build.props))')" />
+  
   <PropertyGroup>
     <ToolkitComponentName>Animations</ToolkitComponentName>
   </PropertyGroup>
 
   <!-- Sets this up as a toolkit component's sample project -->
   <Import Project="$(ToolingDirectory)\ToolkitComponent.SampleProject.props" />
+
+  <ItemGroup>
+    <ProjectReference Include="$(ToolkitExtensionsSourceProject)"/>
+  </ItemGroup>
+
   <ItemGroup>
     <None Remove="Assets\BigFourSummerHeat2.jpg" />
     <None Remove="Assets\BisonBadlandsChillin2.jpg" />

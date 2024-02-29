@@ -12,7 +12,7 @@ issue-id: 0
 icon: Assets/SettingsExpander.png
 ---
 
-The `SettingsExpander` can be used to group multiple `SettingsCard`s into a single collapsable group.
+The `SettingsExpander` can be used to group multiple `SettingsCard`s into a single collapsible group.
 
 A `SettingsExpander` can have it's own content to display a setting on the right, just like a `SettingsCard`, but in addition can have any number of extra `Items` to include as additional settings. These items are `SettingsCard`s themselves, which means you can easily move a setting into or out of Expanders just by cutting and pasting their XAML!
 
@@ -25,3 +25,9 @@ You can easily override certain properties to create custom experiences. For ins
 > [!SAMPLE SettingsExpanderItemsSourceSample]
 
 NOTE: Due to [a bug](https://github.com/microsoft/microsoft-ui-xaml/issues/3842) related to the `ItemsRepeater` used in `SettingsExpander`, there might be visual glitches whenever the `SettingsExpander` expands and a `MaxWidth` is set on a parent `StackPanel`. As a workaround, the `StackPanel` (that has the `MaxWidth` set) can be wrapped in a `Grid` to overcome this issue. See the `SettingsPageExample` for snippet.
+
+### Settings page example
+
+The following sample provides a typical design page, following the correct Windows 11 design specifications for things like spacing, section headers and animations.
+
+> [!SAMPLE SettingsPageExample]

@@ -6,15 +6,15 @@ keywords: nullable bool, dependency property, markup extension, XAML, markup
 dev_langs:
   - csharp
 category: Extensions
-subcategory: Media
+subcategory: Miscellaneous
 discussion-id: 0
 issue-id: 0
 icon: Assets/Extensions.png
 ---
 
-The [`NullableBoolExtension`](/dotnet/api/microsoft.toolkit.uwp.ui.nullableboolextension) type provides the ability to set nullable `bool` dependency properties in XAML markup. These types of properties can normally be bound to, but can't be explicitly set to a specific value. This extension provides that capability.
+The `NullableBoolExtension` type provides the ability to set nullable `bool` dependency properties in XAML markup. These types of properties can normally be bound to, but can't be explicitly set to a specific value. This extension provides that capability.
 
-> **Platform APIs:** [`NullableBoolExtension`](/dotnet/api/microsoft.toolkit.uwp.ui.nullableboolextension)
+> **Platform APIs:** `NullableBoolExtension`
 
 Here is an example of how this extension could be used when binding to a `DependencyProperty`:
 

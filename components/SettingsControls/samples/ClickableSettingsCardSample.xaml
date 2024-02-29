@@ -9,21 +9,27 @@
       mc:Ignorable="d">
     <StackPanel Spacing="4">
         <controls:SettingsCard x:Name="settingsCard"
+                               Click="OnCardClicked"
                                Description="A SettingsCard can be made clickable and you can leverage the Command property or Click event."
                                Header="A clickable SettingsCard"
                                HeaderIcon="{ui:FontIcon Glyph=&#xE799;}"
                                IsClickEnabled="True"
-                               IsEnabled="{x:Bind IsCardEnabled, Mode=OneWay}" />
+                               IsEnabled="{x:Bind IsCardEnabled, Mode=OneWay}">
+            <TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                       Text="This is content" />
+        </controls:SettingsCard>
 
         <controls:SettingsCard ActionIcon="{ui:FontIcon Glyph=&#xE8A7;}"
                                ActionIconToolTip="Open in new window"
+                               Click="OnCardClicked"
                                Description="You can customize the ActionIcon and ActionIconToolTip."
                                Header="Customizing the ActionIcon"
                                HeaderIcon="{ui:FontIcon Glyph=&#xE774;}"
                                IsClickEnabled="True"
                                IsEnabled="{x:Bind IsCardEnabled, Mode=OneWay}" />
 
-        <controls:SettingsCard Header="Hiding the ActionIcon"
+        <controls:SettingsCard Click="OnCardClicked"
+                               Header="Hiding the ActionIcon"
                                HeaderIcon="{ui:FontIcon Glyph=&#xE72E;}"
                                IsActionIconVisible="False"
                                IsClickEnabled="True"

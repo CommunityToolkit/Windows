@@ -19,10 +19,17 @@ The `Segmented` control is best used with 2-5 items and does not support overflo
 > [!Sample SegmentedBasicSample]
 
 ## Selection
-`Segmented` supports single and multi-selection. When `SelectionMode` is set to `Single` the first item will be selected by default. This can be overriden by settings `AutoSelection` to `false`. 
+
+`Segmented` supports single and multi-selection. When `SelectionMode` is set to `Single` the first item will be selected by default. This can be overridden by setting `AutoSelection` to `false`.
 
 ## Other styles
 
-The `Segmented` control contains various additional styles, to match the look and feel of your application. The `PivotSegmentedStyle` matches a modern `Pivot` style while the `ButtonSegmentedStyle` represents buttons.
+The `Segmented` control contains various additional styles, to match the look and feel of your application. The `PivotSegmentedStyle` matches a modern `Pivot` style while the `ButtonSegmentedStyle` represents buttons. To load these styles, make sure to add the `ResourceDictionary` as a resource (see `Page.Resources` sample below).
 
 > [!SAMPLE SegmentedStylesSample]
+
+## Segmented + SwitchPresenter
+
+The `Segmented` control can be combined with e.g. a `SwitchPresenter` to provide easy navigation and with limited XAML and no code-behind!
+
+> [!SAMPLE SegmentedSwitchPresenterSample]

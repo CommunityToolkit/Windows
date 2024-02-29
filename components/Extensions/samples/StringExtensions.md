@@ -6,13 +6,13 @@ keywords: windows 10, uwp, windows community toolkit, uwp community toolkit, uwp
 dev_langs:
   - csharp
 category: Extensions
-subcategory: Input
+subcategory: Miscellaneous
 discussion-id: 0
 issue-id: 0
 icon: Assets/Extensions.png
 ---
 
-The [`StringExtensions`](/dotnet/api/microsoft.toolkit.StringExtensions) type contains helpers and extensions for `string` objects, including validation methods for common scenarios.
+The `StringExtensions` type contains helpers and extensions for `string` objects, including validation methods for common scenarios.
 
 ## Syntax
 
@@ -20,10 +20,10 @@ The [`StringExtensions`](/dotnet/api/microsoft.toolkit.StringExtensions) type co
 using CommunityToolkit.WinUI;
 
 string str = "test@test.com";
-bool isvalid = str.IsEmail();    //Returns true
+bool isValid = str.IsEmail();    //Returns true
 
 string str = "123+888";
-bool isvalid = str.IsDecimal();  //Returns false
+bool isValid = str.IsDecimal();  //Returns false
 ```
 
 ### Formats Supported for **IsPhoneNumber** Extension

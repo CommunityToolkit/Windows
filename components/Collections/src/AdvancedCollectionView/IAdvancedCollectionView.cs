@@ -4,7 +4,7 @@
 
 using System.Collections;
 
-namespace CommunityToolkit.WinUI;
+namespace CommunityToolkit.WinUI.Collections;
 
 /// <summary>
 /// Extended ICollectionView with filtering and sorting

@@ -12,7 +12,7 @@ issue-id: 0
 icon: Assets/RangeSelector.png
 ---
 
-A `RangeSelector` is pretty similiar to a regular `Slider`, and shares some of its properties such as `Minimum`, `Maximum` and `StepFrequency`.
+A `RangeSelector` is pretty similar to a regular `Slider`, and shares some of its properties such as `Minimum`, `Maximum` and `StepFrequency`.
 
 > [!Sample RangeSelectorSample]
 

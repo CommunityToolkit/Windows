@@ -22,7 +22,7 @@ public sealed partial class StaggeredLayoutSample : Page
         this.InitializeComponent();
 
         random = new Random(DateTime.Now.Millisecond);
-        for (int i = 0; i < random.Next(1000, 5000); i++)
+        for (int i = 0; i < random.Next(100, 200); i++)
         {
             var item = new ColorItem { Index = i, Width = random.Next(50, 250), Height = random.Next(50, 250), Color = Color.FromArgb(255, (byte)random.Next(0, 255), (byte)random.Next(0, 255), (byte)random.Next(0, 255)) };
             ColorsCollection.Add(item);

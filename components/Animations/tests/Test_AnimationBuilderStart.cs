@@ -9,7 +9,7 @@ using System.Numerics;
 namespace AnimationsExperiment.Tests;
 
 [TestClass]
-[TestCategory("Test_AnimationBuilderStart")]
+[TestCategory(nameof(Test_AnimationBuilderStart))]
 public class Test_AnimationBuilderStart : VisualUITestBase
 {
     [TestMethod]

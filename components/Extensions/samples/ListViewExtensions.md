@@ -6,13 +6,13 @@ keywords: ListViewBase, extensions
 dev_langs:
   - csharp
 category: Extensions
-subcategory: Layout
+subcategory: Controls
 discussion-id: 0
 issue-id: 0
 icon: Assets/Extensions.png
 ---
 
-The [`ListViewExtensions`](/dotnet/api/microsoft.toolkit.uwp.ui.listviewextensions) class provide a lightweight way to extend every control that inherits the [`ListViewBase`](/uwp/api/Windows.UI.Xaml.Controls.ListViewBase) class with attached properties. This means that all the extensions in this class can apply to both [`ListView`](/uwp/api/windows.ui.xaml.controls.listview), [`GridView`](/uwp/api/windows.ui.xaml.controls.gridview) and other controls.
+The `ListViewExtensions` class provide a lightweight way to extend every control that inherits the [`ListViewBase`](https://learn.microsoft.com/uwp/api/Windows.UI.Xaml.Controls.ListViewBase) class with attached properties. This means that all the extensions in this class can apply to both [`ListView`](https://learn.microsoft.com/uwp/api/windows.ui.xaml.controls.listview), [`GridView`](https://learn.microsoft.com/uwp/api/windows.ui.xaml.controls.gridview) and other controls.
 
 ## ListViewBase Extensions
 
@@ -27,7 +27,7 @@ The [`ListViewExtensions`](/dotnet/api/microsoft.toolkit.uwp.ui.listviewextensio
 The `AlternateColor` property provides a way to assign a background color to every other item.
 
 > [!WARNING]
-> The [`ContainerContentChanging`](/uwp/api/windows.ui.xaml.controls.listviewbase#Windows_UI_Xaml_Controls_ListViewBase_ContainerContentChanging) event used for this extension to work, will not be raised when the [`ItemsPanel`](/uwp/api/windows.ui.xaml.controls.itemscontrol.itemspanel) is replaced with another type of panel than [`ItemsStackPanel`](/uwp/api/windows.ui.xaml.controls.itemsstackpanel) or [`ItemsWrapGrid`](/uwp/api/windows.ui.xaml.controls.itemswrapgrid).
+> The [`ContainerContentChanging`](https://learn.microsoft.com/uwp/api/windows.ui.xaml.controls.listviewbase#Windows_UI_Xaml_Controls_ListViewBase_ContainerContentChanging) event used for this extension to work, will not be raised when the [`ItemsPanel`](https://learn.microsoft.com/uwp/api/windows.ui.xaml.controls.itemscontrol.itemspanel) is replaced with another type of panel than [`ItemsStackPanel`](https://learn.microsoft.com/uwp/api/windows.ui.xaml.controls.itemsstackpanel) or [`ItemsWrapGrid`](https://learn.microsoft.com/uwp/api/windows.ui.xaml.controls.itemswrapgrid).
 
 Here is how this property can be used in XAML:
 
@@ -42,10 +42,10 @@ Here is how this property can be used in XAML:
 
 ## AlternateItemTemplate
 
-The `AlternateItemTemplate` property provides a way to assign an alternate [`DataTemplate`](/uwp/api/windows.ui.xaml.datatemplate) to every other item. It is also possible to combine with the `AlternateColor` property.
+The `AlternateItemTemplate` property provides a way to assign an alternate [`DataTemplate`](https://learn.microsoft.com/uwp/api/windows.ui.xaml.datatemplate) to every other item. It is also possible to combine with the `AlternateColor` property.
 
 > [!WARNING]
-> The [`ContainerContentChanging`](/uwp/api/windows.ui.xaml.controls.listviewbase#Windows_UI_Xaml_Controls_ListViewBase_ContainerContentChanging) event used for this extension to work, will not be raised when the [`ItemsPanel`](/uwp/api/windows.ui.xaml.controls.itemscontrol.itemspanel) is replaced with another type of panel than [`ItemsStackPanel`](/uwp/api/windows.ui.xaml.controls.itemsstackpanel) or [`ItemsWrapGrid`](/uwp/api/windows.ui.xaml.controls.itemswrapgrid).
+> The [`ContainerContentChanging`](https://learn.microsoft.com/uwp/api/windows.ui.xaml.controls.listviewbase#Windows_UI_Xaml_Controls_ListViewBase_ContainerContentChanging) event used for this extension to work, will not be raised when the [`ItemsPanel`](https://learn.microsoft.com/uwp/api/windows.ui.xaml.controls.itemscontrol.itemspanel) is replaced with another type of panel than [`ItemsStackPanel`](https://learn.microsoft.com/uwp/api/windows.ui.xaml.controls.itemsstackpanel) or [`ItemsWrapGrid`](https://learn.microsoft.com/uwp/api/windows.ui.xaml.controls.itemswrapgrid).
 
 Here is how this property can be used in XAML:
 
@@ -71,10 +71,10 @@ Here is how this property can be used in XAML:
 
 ## Command
 
-`ListViewExtensions` provides extension method that allow attaching an [`ICommand`](/uwp/api/Windows.UI.Xaml.Input.ICommand) to handle `ListViewBase` item interaction by means of [`ItemClick`](/uwp/api/windows.ui.xaml.controls.listviewbase#Windows_UI_Xaml_Controls_ListViewBase_ItemClick) event.
+`ListViewExtensions` provides extension method that allow attaching an [`ICommand`](https://learn.microsoft.com/uwp/api/Windows.UI.Xaml.Input.ICommand) to handle `ListViewBase` item interaction by means of [`ItemClick`](https://learn.microsoft.com/uwp/api/windows.ui.xaml.controls.listviewbase#Windows_UI_Xaml_Controls_ListViewBase_ItemClick) event.
 
 > [!IMPORTANT]
-> ListViewBase [`IsItemClickEnabled`](/uwp/api/windows.ui.xaml.controls.listviewbase#Windows_UI_Xaml_Controls_ListViewBase_IsItemClickEnabled) must be set to `true`.
+> ListViewBase [`IsItemClickEnabled`](https://learn.microsoft.com/uwp/api/windows.ui.xaml.controls.listviewbase#Windows_UI_Xaml_Controls_ListViewBase_IsItemClickEnabled) must be set to `true`.
 
 Here is how this property can be used in XAML:
 
@@ -94,7 +94,7 @@ Here is how this property can be used in XAML:
 The `ItemContainerStretchDirection` property provides a way to stretch the `ItemContainer` in horizontal, vertical or both ways. The allowed values are items from the `ItemContainerStretchDirection` type.
 
 > [!WARNING]
-> The [`ContainerContentChanging`](/uwp/api/windows.ui.xaml.controls.listviewbase#Windows_UI_Xaml_Controls_ListViewBase_ContainerContentChanging) event used for this extension to work, will not be raised when the [`ItemsPanel`](/uwp/api/windows.ui.xaml.controls.itemscontrol.itemspanel) is replaced with another type of panel than [`ItemsStackPanel`](/uwp/api/windows.ui.xaml.controls.itemsstackpanel) or [`ItemsWrapGrid`](/uwp/api/windows.ui.xaml.controls.itemswrapgrid).
+> The [`ContainerContentChanging`](https://learn.microsoft.com/uwp/api/windows.ui.xaml.controls.listviewbase#Windows_UI_Xaml_Controls_ListViewBase_ContainerContentChanging) event used for this extension to work, will not be raised when the [`ItemsPanel`](https://learn.microsoft.com/uwp/api/windows.ui.xaml.controls.itemscontrol.itemspanel) is replaced with another type of panel than [`ItemsStackPanel`](https://learn.microsoft.com/uwp/api/windows.ui.xaml.controls.itemsstackpanel) or [`ItemsWrapGrid`](https://learn.microsoft.com/uwp/api/windows.ui.xaml.controls.itemswrapgrid).
 
 Here is how this property can be used from XAML:
 
@@ -111,71 +111,14 @@ Here is how this property can be used from XAML:
 
 Use SmoothScrollIntoView helps to scroll the item into the view with animation. Specify the ItemPosition property to align the item.
 
-### Syntax
-
 ```csharp
 // Scrolling with index
-await MyGridView.SmoothScrollIntoViewWithIndexAsync(index: int, itemPlacement: ItemPlacement, disableAnimation: bool, scrollIfVisibile: bool, additionalHorizontalOffset: int, additionalVerticalOffset: int);
+await MyGridView.SmoothScrollIntoViewWithIndexAsync(index: int, itemPlacement: ItemPlacement, disableAnimation: bool, scrollIfVisible: bool, additionalHorizontalOffset: int, additionalVerticalOffset: int);
 
 // Scrolling with item
-await MyGridView.SmoothScrollIntoViewWithItemAsync(item: object, itemPlacement: ItemPlacement, disableAnimation: bool, scrollIfVisibile: bool, additionalHorizontalOffset: int, additionalVerticalOffset: int);
+await MyGridView.SmoothScrollIntoViewWithItemAsync(item: object, itemPlacement: ItemPlacement, disableAnimation: bool, scrollIfVisible: bool, additionalHorizontalOffset: int, additionalVerticalOffset: int);
 ```
 
-### Methods
+We can use this extension to make the selected item always centered:
 
-| Methods | Return Type | Description |
-| -- | -- | -- |
-| SmoothScrollIntoViewWithIndexAsync(int, ScrollItemPlacement, bool, bool, int, int) | Task | Smooth scroll item into view With index number |
-| SmoothScrollIntoViewWithItemAsync(object, ScrollItemPlacement, bool, bool, int, int) | Task | Smooth scroll item into view With item object |
-
-### Method params
-
-| Properties | Type | Description |
-|------------|------|-------------|
-| intex      | int  | Intex of the item to be scrolled. Index can be negative |
-| item      | int  | Intex of the item to be scrolled |
-| itemPosition | ScrollItemPlacement | Specify the position of the Item after scrolling |
-| disableAnimation | bool | To disable the scrolling animation |
-| scrollIfVisibile | bool | Set `true` to scroll even if the scroll to item is visible so that the item will be aligned depend upon `itemPosition` |
-| additionalHorizontalOffset | bool | Give addition horizontal offset |
-| additionalVerticalOffset | bool | Give addition vertical offset |
-
-### ItemPosition
-
-| ScrollItemPlacement | Description |
-|--------------|-------------|
-| Default | If visible then it will not scroll, if not then item will be aligned to the nearest edge |
-| Left | Aligned left |
-| Top | Aligned top |
-| Center | Aligned center |
-| Right | Aligned right |
-| Bottom | Aligned bottom |
-
-### Examples
-
-- We can use this extension to make the selected item always centered.
-
-    **Sample Code**
-
-    ```xaml
-    <ListView ItemsSource="{x:Bind itemSources}" SelectionChanged="ListView_SelectionChanged">
-        <ListView.ItemTemplate>
-            <DataTemplate>
-                <!-- Your Template -->
-            </DataTemplate>
-        </ListView.ItemTemplate>
-        <ListView.ItemsPanel>
-            <ItemsPanelTemplate>
-                <StackPanel Orientation="Horizontal"/>
-            </ItemsPanelTemplate>
-        </ListView.ItemsPanel>
-    </ListView>
-    ```
-
-    ```csharp
-    private async void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-        var listView = (sender as ListView);
-        await listView.SmoothScrollIntoViewWithIndexAsync(listView.SelectedIndex, ScrollItemPlacement.Center, false, true);
-    }
-    ```
+> [!SAMPLE SmoothScrollIntoViewSample]

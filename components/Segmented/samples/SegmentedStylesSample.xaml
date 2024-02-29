@@ -1,4 +1,4 @@
-﻿<!--  Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license. See the LICENSE file in the project root for more information.  -->
+<!--  Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license. See the LICENSE file in the project root for more information.  -->
 <Page x:Class="SegmentedExperiment.Samples.SegmentedStylesSample"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -6,6 +6,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="using:SegmentedExperiment.Samples"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:ui="using:CommunityToolkit.WinUI"
       mc:Ignorable="d">
     <Page.Resources>
         <ResourceDictionary>
@@ -34,23 +35,14 @@
                             SelectionMode="{x:Bind local:SegmentedStylesSample.ConvertStringToSelectionMode(SelectionMode), Mode=OneWay}"
                             Style="{StaticResource ButtonSegmentedStyle}">
             <controls:SegmentedItem Content="Day"
-                                    ToolTipService.ToolTip="Day view">
-                <controls:SegmentedItem.Icon>
-                    <FontIcon Glyph="&#xE8BF;" />
-                </controls:SegmentedItem.Icon>
-            </controls:SegmentedItem>
+                                    Icon="{ui:FontIcon Glyph=&#xE8BF;}"
+                                    ToolTipService.ToolTip="Day view" />
             <controls:SegmentedItem Content="Week"
-                                    ToolTipService.ToolTip="Week view">
-                <controls:SegmentedItem.Icon>
-                    <FontIcon Glyph="&#xE8C0;" />
-                </controls:SegmentedItem.Icon>
-            </controls:SegmentedItem>
+                                    Icon="{ui:FontIcon Glyph=&#xE8C0;}"
+                                    ToolTipService.ToolTip="Week view" />
             <controls:SegmentedItem Content="Month"
-                                    ToolTipService.ToolTip="Month view">
-                <controls:SegmentedItem.Icon>
-                    <FontIcon Glyph="&#xE787;" />
-                </controls:SegmentedItem.Icon>
-            </controls:SegmentedItem>
+                                    Icon="{ui:FontIcon Glyph=&#xE787;}"
+                                    ToolTipService.ToolTip="Month view" />
         </controls:Segmented>
     </StackPanel>
 </Page>

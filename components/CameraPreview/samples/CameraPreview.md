@@ -6,14 +6,14 @@ keywords: CameraPreview, Control, skommireddi
 dev_langs:
   - csharp
 category: Controls
-subcategory: Layout
+subcategory: Media
 discussion-id: 0
 issue-id: 0
 icon: Assets/CameraPreview.png
 ---
 
 > [!IMPORTANT]
-> Make sure you have the [webcam capability](/windows/uwp/packaging/app-capability-declarations#device-capabilities) enabled for your app to access the device's camera.
+> Make sure you have the [webcam capability](https://learn.microsoft.com/windows/uwp/packaging/app-capability-declarations#device-capabilities) enabled for your app to access the device's camera.
 
 > [!Sample CameraPreviewSample]
 
@@ -44,7 +44,6 @@ private void CameraPreviewControl_PreviewFailed(object sender, PreviewFailedEven
 
 > [!IMPORTANT]
 > As a developer, you will need to make sure the CameraHelper resources used by the control are cleaned up when appropriate. See [CameraHelper documentation](../helpers/CameraHelper.md) for more details
-
 
 ## Examples
 

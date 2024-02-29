@@ -1,4 +1,6 @@
-<Project Sdk="MSBuild.Sdk.Extras/3.0.23">
+<Project>
+  <Import Project="$([MSBuild]::GetPathOfFileAbove(Directory.Build.props))" Condition="Exists('$([MSBuild]::GetPathOfFileAbove(Directory.Build.props))')" />
+  
   <PropertyGroup>
     <ToolkitComponentName>SettingsControls</ToolkitComponentName>
   </PropertyGroup>
@@ -7,7 +9,7 @@
   <Import Project="$(ToolingDirectory)\ToolkitComponent.SampleProject.props" />
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Extensions\src\CommunityToolkit.WinUI.Extensions.csproj"></ProjectReference>
+    <ProjectReference Include="$(ToolkitExtensionsSourceProject)"></ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Remove="Assets\SettingsCard.png" />

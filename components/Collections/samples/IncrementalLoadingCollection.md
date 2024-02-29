@@ -2,7 +2,7 @@
 title: IncrementalLoadingCollection
 author: nmetulev
 description: The IncrementalLoadingCollection helpers greatly simplify the definition and usage of collections whose items can be loaded incrementally only when needed by the view (such as a ScrollViewer).
-keywords: IncrementalLoadingCollection, Control, Data, Incremental, Loading
+keywords: IncrementalLoadingCollection, Control, Data, Incremental, Loading, Collections
 dev_langs:
   - csharp
 category: Helpers
@@ -14,9 +14,9 @@ icon: Assets/IncrementalLoadingCollection.png
 
 > [!Sample IncrementalLoadingCollectionSample]
 
-[IIncrementalSource](/dotnet/api/microsoft.toolkit.collections.iincrementalsource-1) - An interface that represents a data source whose items can be loaded incrementally.
+`IIncrementalSource` - An interface that represents a data source whose items can be loaded incrementally.
 
-[IncrementalLoadingCollection](/dotnet/api/microsoft.toolkit.uwp.incrementalloadingcollection-2) - An extension of [ObservableCollection](/dotnet/api/system.collections.objectmodel.observablecollection-1) such that its items are loaded only when needed.
+`IncrementalLoadingCollection` - An extension of [ObservableCollection](https://learn.microsoft.com/dotnet/api/system.collections.objectmodel.observablecollection-1) such that its items are loaded only when needed.
 
 ## Example
 
@@ -24,7 +24,7 @@ icon: Assets/IncrementalLoadingCollection.png
 
 ```csharp
 // Be sure to include the using at the top of the file:
-//using CommunityToolkit.WinUI;
+//using CommunityToolkit.WinUI.Collections;
 
 public class Person
 {
@@ -63,7 +63,7 @@ public class PeopleSource : IIncrementalSource<Person>
 
 The *GetPagedItemsAsync* method is invoked every time the view need to show more items.
 
-`IncrementalLoadingCollection` can then be bound to a [ListView](/uwp/api/Windows.UI.Xaml.Controls.ListView) or a [GridView-like](/uwp/api/Windows.UI.Xaml.Controls.GridView) control:
+`IncrementalLoadingCollection` can then be bound to a [ListView](https://learn.microsoft.com/uwp/api/Windows.UI.Xaml.Controls.ListView) or a [GridView-like](https://learn.microsoft.com/uwp/api/Windows.UI.Xaml.Controls.GridView) control:
 
 ```csharp
 var collection = new IncrementalLoadingCollection<PeopleSource, Person>();

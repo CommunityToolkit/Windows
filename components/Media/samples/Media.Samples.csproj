@@ -1,19 +1,29 @@
-<Project Sdk="MSBuild.Sdk.Extras/3.0.23">
+<Project>
+  <Import Project="$([MSBuild]::GetPathOfFileAbove(Directory.Build.props))" Condition="Exists('$([MSBuild]::GetPathOfFileAbove(Directory.Build.props))')" />
+  
   <PropertyGroup>
     <ToolkitComponentName>Media</ToolkitComponentName>
   </PropertyGroup>
 
   <!-- Sets this up as a toolkit component's sample project -->
   <Import Project="$(ToolingDirectory)\ToolkitComponent.SampleProject.props" />
+
+  <ItemGroup>
+    <ProjectReference Include="$(ToolkitBehaviorsSourceProject)" />
+  </ItemGroup>
   
   <ItemGroup>
     <None Remove="Assets\Bloom.jpg" />
     <None Remove="Assets\EffectAnimations.png" />
+    <None Remove="Assets\OwlShadow.jpg" />
     
     <Content Include="Assets\Bloom.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\EffectAnimations.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\OwlShadow.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

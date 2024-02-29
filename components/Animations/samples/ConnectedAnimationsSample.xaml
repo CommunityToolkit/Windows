@@ -6,7 +6,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="using:AnimationsExperiment.Samples"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      xmlns:ui="CommunityToolkit.WinUI"
+      xmlns:ui="using:CommunityToolkit.WinUI"
       mc:Ignorable="d">
     <Grid>
         <Border Background="{ThemeResource SolidBackgroundFillColorBaseBrush}"
@@ -24,10 +24,9 @@
                                 Orientation="Horizontal">
                         <Button x:Name="BackButton"
                                 Click="BackButton_Click"
-                                Visibility="Collapsed">
-                            <FontIcon FontSize="14"
-                                      Glyph="&#xE72B;" />
-                        </Button>
+                                Content="{ui:FontIcon Glyph=&#xE72B;,
+                                                      FontSize=14}"
+                                Visibility="Collapsed" />
                         <TextBlock Margin="12,0"
                                    VerticalAlignment="Center"
                                    Style="{StaticResource CaptionTextBlockStyle}"

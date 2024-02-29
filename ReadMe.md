@@ -5,15 +5,23 @@
 
 Welcome to the home of Windows Community Toolkit. Our components are built on top of [WinUI 2](https://aka.ms/winuigithub), [WinUI 3](https://aka.ms/winui3), and [Uno Platform](https://platform.uno)!
 
-**Find out more and provide feedback in the [2023 Windows Community Toolkit Feedback Thread](https://github.com/CommunityToolkit/Windows/discussions/31).**
+They enable developers to build great experiences for Windows with .NET!
+
+_Building something cool? Want to engage with other developers? Want to contribute to the Toolkit? **[Engage in the discussion here!](https://github.com/CommunityToolkit/Windows/discussions)**_
 
 ## Getting Started
 
-### [Try out our Sample App live in your browser!](https://toolkitlabs.dev)
+### [Try out our Sample Gallery from the Microsoft Store](https://aka.ms/windowstoolkitapp)
 
-Want to see the toolkit in action before jumping into the code? Download and play with the [Windows Community Toolkit Sample App](https://www.microsoft.com/store/apps/9nblggh4tlcq) from the Store.
+Want to see the toolkit in action before jumping into the code? Download and play with the [Windows Community Toolkit Gallery](https://www.microsoft.com/store/apps/9nblggh4tlcq) from the Store.
 
-Please read the [Getting Started with the Windows Community Toolkit](https://docs.microsoft.com/windows/communitytoolkit/getting-started) page for more detailed information about using the toolkit.
+Please read the [Getting Started with the Windows Community Toolkit](https://docs.microsoft.com/dotnet/communitytoolkit/windows/getting-started) page for more detailed information about using the toolkit.
+
+### Windows Community Toolkit Labs
+
+Have an idea for a new feature? Want to checkout the latest things being built. _[Then head over to Windows Community Toolkit Labs](https://aka.ms/toolkit/labs/windows)_.
+
+You can even see the latest components [live in your browser!](https://toolkitlabs.dev)
 
 ## Clone the repository
 
@@ -32,17 +40,24 @@ git clone --recurse-submodules https://github.com/CommunityToolkit/Windows.git
 
 ## 🚀 Contribution
 
-Find out the latest info in out [discussion thread here](https://github.com/CommunityToolkit/Windows/discussions/31)
+We're always looking for a helping hand, [look for issues that we need help with here](https://github.com/CommunityToolkit/Windows/issues?q=is%3Aopen+is%3Aissue+label%3A%22help+wanted%22) or head over to [Windows Community Toolkit Labs](https://aka.ms/toolkit/labs/windows) to try or build new features.
 
-Do you want to contribute? Check out our [Windows Community Toolkit Wiki](https://aka.ms/wct/wiki) page to learn more about contribution and guidelines in general.
+Even just improving our docs and samples for existing components here, or adding new tests can be a huge help!
+
+Check out our [Windows Community Toolkit Wiki](https://aka.ms/wct/wiki) page to learn more about contribution and guidelines in general (to be updated more soon).
 
 ## 📦 NuGet Packages
 
-NuGet is a standard package manager for .NET applications which is built into Visual Studio. When you open solution in Visual Studio, choose the *Tools* menu > *NuGet Package Manager* > *Manage NuGet packages for solution…* Enter one of the package names mentioned in [Windows Community Toolkit NuGet Packages](https://docs.microsoft.com/windows/communitytoolkit/nuget-packages) table to search for it online.
+NuGet is a standard package manager for .NET applications which is built into Visual Studio. When you open solution in Visual Studio, choose the *Tools* menu > *NuGet Package Manager* > *Manage NuGet packages for solution…* 
+
+There are now two sets of packages for each component:
+
+- `CommunityToolkit.Uwp.*` for UWP + WinUI 2 or Uno.UI
+- `CommunityToolkit.WinUI.*` for Windows App SDK + WinUI 3 or Uno.WinUI
 
 ## 📫 Features <a name="supported"></a>
 
-The [Features list](https://github.com/MicrosoftDocs/WindowsCommunityToolkitDocs/blob/master/docs/toc.md#controls) refers to all the currently available features that can be found in the Windows Community Toolkit. Most features should work with the October 2018 Update (1809) SDK 17763 and above; however, refer to specific documentation on each feature for more information.
+Most features should work with the October 2018 Update (1809) SDK 17763 and above; however, refer to specific documentation on each feature for more information.
 
 ## 💠 Principles
 

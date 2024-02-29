@@ -6,7 +6,7 @@ keywords: UniformGrid, grid, layout, responsive
 dev_langs:
   - csharp
 category: Layouts
-subcategory: Layout
+subcategory: Miscellaneous
 discussion-id: 0
 issue-id: 0
 icon: Assets/UniformGrid.png
@@ -20,7 +20,7 @@ If a fixed size is provided for `Rows` and `Columns` then additional children th
 
 In addition, UniformGrid is a `Panel` instead of an `ItemsControl`.  As such, it could be used as a Panel in such ItemsControls.
 
-The UniformGrid inherits from [Grid](/uwp/api/Windows.UI.Xaml.Controls.Grid) and provides many additional features compared to its predecessor, see more below.
+The UniformGrid inherits from [Grid](https://learn.microsoft.com/uwp/api/Windows.UI.Xaml.Controls.Grid) and provides many additional features compared to its predecessor, see more below.
 
 > [!SAMPLE UniformGridSample]
 
@@ -34,7 +34,7 @@ See further notes below on the additional features the UWP UniformGrid provides 
 
 ### Grid Properties
 
-UniformGrid supports the [RowSpacing](/uwp/api/windows.ui.xaml.controls.grid.rowspacing) and [ColumnSpacing](/uwp/api/windows.ui.xaml.controls.grid.columnspacing#Windows_UI_Xaml_Controls_Grid_ColumnSpacing) properties added in 16299, along with the previous Padding, Margin, and CornerRadius properties.
+UniformGrid supports the [RowSpacing](https://learn.microsoft.com/uwp/api/windows.ui.xaml.controls.grid.rowspacing) and [ColumnSpacing](https://learn.microsoft.com/uwp/api/windows.ui.xaml.controls.grid.columnspacing#Windows_UI_Xaml_Controls_Grid_ColumnSpacing) properties added in 16299, along with the previous Padding, Margin, and CornerRadius properties.
 
 ```xaml
 <controls:UniformGrid ColumnSpacing="24" RowSpacing="24">

@@ -1,5 +1,5 @@
 ---
-title: Icon markup extensions
+title: Icon extensions
 author: sergio0694
 description: The FontIcon, FontIconSource and BitmapIcon markup extensions allow developers to easily declare these types of icons directly from XAML in a compact manner.
 keywords: markup extension, XAML, markup, fonticon, fonticonsource, bitmapicon
@@ -12,7 +12,7 @@ issue-id: 0
 icon: Assets/Extensions.png
 ---
 
-The icon extensions are a group of markup extensions meant to simplify the creation of various icon types (specifically [`BitmapIcon`](/uwp/api/Windows.UI.Xaml.Controls.BitmapIcon), [`BitmapIconSource`](/uwp/api/Windows.UI.Xaml.Controls.BitmapIconSource), [`FontIcon`](/uwp/api/Windows.UI.Xaml.Controls.FontIcon), [`FontIconSource`](/uwp/api/Windows.UI.Xaml.Controls.FontIconSource), [`SymbolIcon`](/uwp/api/Windows.UI.Xaml.Controls.SymbolIcon), and [`SymbolIconSource`](/uwp/api/Windows.UI.Xaml.Controls.SymbolIconSource)) used across a variety of XAML controls. Using these extensions doesn't enable new capabilities per se, but it greatly simplifies the XAML syntax needed to create instances of these icon types.
+The icon extensions are a group of markup extensions meant to simplify the creation of various icon types (specifically [`BitmapIcon`](https://learn.microsoft.com/uwp/api/Windows.UI.Xaml.Controls.BitmapIcon), [`BitmapIconSource`](https://learn.microsoft.com/uwp/api/Windows.UI.Xaml.Controls.BitmapIconSource), [`FontIcon`](https://learn.microsoft.com/uwp/api/Windows.UI.Xaml.Controls.FontIcon), [`FontIconSource`](https://learn.microsoft.com/uwp/api/Windows.UI.Xaml.Controls.FontIconSource), [`SymbolIcon`](https://learn.microsoft.com/uwp/api/Windows.UI.Xaml.Controls.SymbolIcon), and [`SymbolIconSource`](https://learn.microsoft.com/uwp/api/Windows.UI.Xaml.Controls.SymbolIconSource)) used across a variety of XAML controls. Using these extensions doesn't enable new capabilities per se, but it greatly simplifies the XAML syntax needed to create instances of these icon types.
 
 ## BitmapIconExtension
 
@@ -57,7 +57,7 @@ The `FontIconExtension` type provides the ability to create `FontIcon` instances
     <!--Before-->
     <AppBarButton>
         <AppBarButton.Icon>
-            <FontIcon Glyph="&#xE102;" FontFamily="Segoe MDL2 Assets"/>
+            <FontIcon Glyph="&#xE102;" FontFamily="{ThemeResource SymbolThemeFontFamily}"/>
         </AppBarButton.Icon>
     </AppBarButton>
 
@@ -89,7 +89,7 @@ The `FontIconSourceExtension` class mirrors the `FontIconExtension` type, but pr
 
 ## SymbolIconExtension
 
-The `SymbolIconExtension` type mirrors the `FontIcon` markup extension, with the main difference being that it uses a [`Symbol`](/uwp/api/windows.ui.xaml.controls.symbol) value to specify the icon. All the other properties from `FontIconExtension` are available, with the exception of the font family, which is always set to "Segoe MDL2 Assets". Here is how it can be used:
+The `SymbolIconExtension` type mirrors the `FontIcon` markup extension, with the main difference being that it uses a [`Symbol`](https://learn.microsoft.com/uwp/api/windows.ui.xaml.controls.symbol) value to specify the icon. All the other properties from `FontIconExtension` are available, with the exception of the font family, which is always set to "Segoe MDL2 Assets". Here is how it can be used:
 
 ```xaml
 <CommandBar xmlns:ui="using:CommunityToolkit.WinUI">
@@ -111,7 +111,7 @@ The `SymbolIconExtension` type mirrors the `FontIcon` markup extension, with the
 
 ## SymbolIconSource
 
-The `SymbolIconSourceExtension` type is an alternative for `FontIconSourceExtension` that takes a `Symbol` value instead of a text, and displays the icon with the "Segoe MDL2 Assets". It's equivalent to the `SymbolIconExtension` type, except for the fact that it returns a [`FontIconSource`](/uwp/api/windows.ui.xaml.controls.fonticonsource) instance:
+The `SymbolIconSourceExtension` type is an alternative for `FontIconSourceExtension` that takes a `Symbol` value instead of a text, and displays the icon with the "Segoe MDL2 Assets". It's equivalent to the `SymbolIconExtension` type, except for the fact that it returns a [`FontIconSource`](https://learn.microsoft.com/uwp/api/windows.ui.xaml.controls.fonticonsource) instance:
 
 ```xaml
 <SwipeItems

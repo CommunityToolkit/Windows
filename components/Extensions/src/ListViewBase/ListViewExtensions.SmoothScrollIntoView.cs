@@ -180,13 +180,13 @@ public static partial class ListViewExtensions
     /// <param name="item">The data item to bring into view</param>
     /// <param name="itemPlacement">Set the item placement after scrolling</param>
     /// <param name="disableAnimation">Set true to disable animation</param>
-    /// <param name="scrollIfVisibile">Set true to disable scrolling when the corresponding item is in view</param>
+    /// <param name="scrollIfVisible">Set true to disable scrolling when the corresponding item is in view</param>
     /// <param name="additionalHorizontalOffset">Adds additional horizontal offset</param>
     /// <param name="additionalVerticalOffset">Adds additional vertical offset</param>
     /// <returns>Returns <see cref="Task"/> that completes after scrolling</returns>
-    public static async Task SmoothScrollIntoViewWithItemAsync(this ListViewBase listViewBase, object item, ScrollItemPlacement itemPlacement = ScrollItemPlacement.Default, bool disableAnimation = false, bool scrollIfVisibile = true, int additionalHorizontalOffset = 0, int additionalVerticalOffset = 0)
+    public static async Task SmoothScrollIntoViewWithItemAsync(this ListViewBase listViewBase, object item, ScrollItemPlacement itemPlacement = ScrollItemPlacement.Default, bool disableAnimation = false, bool scrollIfVisible = true, int additionalHorizontalOffset = 0, int additionalVerticalOffset = 0)
     {
-        await SmoothScrollIntoViewWithIndexAsync(listViewBase, listViewBase.Items.IndexOf(item), itemPlacement, disableAnimation, scrollIfVisibile, additionalHorizontalOffset, additionalVerticalOffset);
+        await SmoothScrollIntoViewWithIndexAsync(listViewBase, listViewBase.Items.IndexOf(item), itemPlacement, disableAnimation, scrollIfVisible, additionalHorizontalOffset, additionalVerticalOffset);
     }
 
     /// <summary>

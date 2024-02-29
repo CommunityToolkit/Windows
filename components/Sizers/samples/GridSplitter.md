@@ -1,12 +1,12 @@
 ---
 title: GridSplitter
-author: mhawker
+author: michael-hawker
 description:The GridSplitter control provides an easy-to-use Splitter that redistributes space between columns or rows of a Grid Control.
 keywords: ContentSizer, SizerBase, Control, Layout, Expander
 dev_langs:
   - csharp
 category: Controls
-subcategory: Layout
+subcategory: Sizers
 discussion-id: 96
 issue-id: 101
 icon: Assets/GridSplitter.png

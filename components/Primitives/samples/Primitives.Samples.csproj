@@ -1,4 +1,6 @@
-<Project Sdk="MSBuild.Sdk.Extras/3.0.23">
+<Project>
+  <Import Project="$([MSBuild]::GetPathOfFileAbove(Directory.Build.props))" Condition="Exists('$([MSBuild]::GetPathOfFileAbove(Directory.Build.props))')" />
+  
   <PropertyGroup>
     <ToolkitComponentName>Primitives</ToolkitComponentName>
   </PropertyGroup>
@@ -7,8 +9,8 @@
   <Import Project="$(ToolingDirectory)\ToolkitComponent.SampleProject.props" />
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Extensions\src\CommunityToolkit.WinUI.Extensions.csproj"></ProjectReference>
-    <ProjectReference Include="..\..\Sizers\src\CommunityToolkit.WinUI.Controls.Sizers.csproj"></ProjectReference>
+    <ProjectReference Include="$(ToolkitExtensionsSourceProject)"></ProjectReference>
+    <ProjectReference Include="$(ToolkitSizersSourceProject)"></ProjectReference>
   </ItemGroup>
   
   <ItemGroup>
@@ -17,10 +19,12 @@
     <None Remove="Assets\ConstrainedBox.png" />
     <None Remove="Assets\DockPanel.png" />
     <None Remove="Assets\StaggeredPanel.png" />
+    <None Remove="Assets\SwitchPresenter.png" />
     <None Remove="Assets\UniformGrid.png" />
     <None Remove="Assets\WestSeattleView.jpg" />
     <None Remove="Assets\WrapLayout.png" />
     <None Remove="Assets\WrapPanel.png" />
+    <None Remove="Assets\StaggeredLayout.png" />
   </ItemGroup>
   
   <ItemGroup>
@@ -37,6 +41,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\StaggeredPanel.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\StaggeredLayout.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\SwitchPresenter.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\UniformGrid.png">

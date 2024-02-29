@@ -29,6 +29,7 @@ The AutoSelectBehavior automatically selects the entire content of its associate
 > [!Sample AutoSelectBehaviorSample]
 
 ## ViewportBehavior
+
 This behavior allows you to listen an element enter or exit the ScrollViewer viewport.
 
 > [!Sample ViewportBehaviorSample]
@@ -44,6 +45,7 @@ Empty lists do not receive focus:
 > [!Sample FocusBehaviorListSample]
 
 ## NavigateToUriAction
-This behavior allows you to define a Uri in XAML, similiar to a `Hyperlink` or `HyperlinkButton`. This allows you to use a `Button` and still define the Uri in XAML without wiring up the `Click` event in code-behind, or restyling a `HyperlinkButton`.
+
+This behavior allows you to define a Uri in XAML, similar to a `Hyperlink` or `HyperlinkButton`. This allows you to use a `Button` and still define the Uri in XAML without wiring up the `Click` event in code-behind, or restyling a `HyperlinkButton`.
 
 > [!Sample NavigateToUriActionSample]

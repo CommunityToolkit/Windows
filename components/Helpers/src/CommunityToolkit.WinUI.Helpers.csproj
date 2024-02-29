@@ -1,14 +1,24 @@
-<Project Sdk="MSBuild.Sdk.Extras/3.0.23">
+<Project>
+  <Import Project="$([MSBuild]::GetPathOfFileAbove(Directory.Build.props))" Condition="Exists('$([MSBuild]::GetPathOfFileAbove(Directory.Build.props))')" />
+  
   <PropertyGroup>
     <ToolkitComponentName>Helpers</ToolkitComponentName>
     <Description>This package contains Helpers.</Description>
     
     <!-- Rns suffix is required for namespaces shared across projects. See https://github.com/CommunityToolkit/Labs-Windows/issues/152 -->
     <RootNamespace>CommunityToolkit.WinUI.HelpersRns</RootNamespace>
+    <PackageReadmeFile>ReadMe.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="$(ToolkitExtensionSourceProject)"/>
+    <ProjectReference Include="$(ToolkitExtensionsSourceProject)"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="ReadMe.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
   
   <!-- Sets this up as a toolkit component's source project -->

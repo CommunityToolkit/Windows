@@ -6,15 +6,13 @@ keywords: ImageCropper, Control, Layout
 dev_langs:
   - csharp
 category: Controls
-subcategory: Input
+subcategory: Media
 discussion-id: 0
 issue-id: 0
 icon: Assets/ImageCropper.png
 ---
 
-# ImageCropper
-
-The [ImageCropper Control](/dotnet/api/microsoft.toolkit.uwp.ui.controls.imagecropper) allows user to freely crop an image.
+The `ImageCropper Control` allows user to freely crop an image.
 
 > [!Sample ImageCropperSample]
 
@@ -47,7 +45,6 @@ using (var fileStream = await someFile.OpenAsync(FileAccessMode.ReadWrite, Stora
 }
 ```
 
-
 ### Use Circular ImageCropper
 
 You can set `CropShape` property to use the circular ImageCropper.
@@ -56,7 +53,6 @@ You can set `CropShape` property to use the circular ImageCropper.
 ImageCropper.CropShape = CropShape.Circular;
 ```
 
-
 ### Change Aspect Ratio
 
 You can set `AspectRatio` property to change the aspect ratio of the cropped image.
@@ -64,7 +60,6 @@ You can set `AspectRatio` property to change the aspect ratio of the cropped ima
 ```csharp
 ImageCropper.AspectRatio = 16d / 9d;
 ```
-
 
 Or you can crop image without aspect ratio.
 

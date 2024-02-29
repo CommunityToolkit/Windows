@@ -1,4 +1,6 @@
-<Project Sdk="MSBuild.Sdk.Extras/3.0.23">
+<Project>
+  <Import Project="$([MSBuild]::GetPathOfFileAbove(Directory.Build.props))" Condition="Exists('$([MSBuild]::GetPathOfFileAbove(Directory.Build.props))')" />
+  
   <PropertyGroup>
     <ToolkitComponentName>Extensions</ToolkitComponentName>
   </PropertyGroup>
@@ -9,6 +11,7 @@
     <None Remove="Assets\Extensions.png" />
     <None Remove="Assets\Llama.jpg" />
     <None Remove="Assets\Shadow.png" />
+    <None Remove="Assets\ShadowAnimation.png" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Extensions.png">
@@ -18,6 +21,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Shadow.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\ShadowAnimation.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

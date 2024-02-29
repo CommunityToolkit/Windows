@@ -6,24 +6,24 @@ keywords: windows 10, uwp, windows community toolkit, uwp community toolkit, uwp
 dev_langs:
   - csharp
 category: Extensions
-subcategory: Layout
+subcategory: Controls
 discussion-id: 0
 issue-id: 0
 icon: Assets/Extensions.png
 ---
 
-The [`ScrollViewerExtensions`](/dotnet/api/microsoft.toolkit.uwp.ui.scrollviewerextensions) type provides extension methods to improve your [`ScrollViewer`](/uwp/api/windows.ui.xaml.controls.scrollviewer) implementation.
+The `ScrollViewerExtensions` type provides extension methods to improve your [`ScrollViewer`](https://learn.microsoft.com/uwp/api/windows.ui.xaml.controls.scrollviewer) implementation.
 
-> **Platform APIs:** [`ScrollViewerExtensions`](/dotnet/api/microsoft.toolkit.uwp.ui.scrollviewerextensions)
+> **Platform APIs:** `ScrollViewerExtensions`
 
 ## ScrollBarMargin
 
-The `ScrollBarMargin` property provides a way to assign a [`Thickness`](/dotnet/api/system.windows.thickness) to the vertical/horizontal [`ScrollBar`](/uwp/api/windows.ui.xaml.controls.primitives.scrollbar) of your container.
+The `ScrollBarMargin` property provides a way to assign a [`Thickness`](https://learn.microsoft.com/dotnet/api/system.windows.thickness) to the vertical/horizontal [`ScrollBar`](https://learn.microsoft.com/uwp/api/windows.ui.xaml.controls.primitives.scrollbar) of your container.
 
 Here is how this property can be used in XAML:
 
 ```xaml
-<Page xmlns:ui="using:Microsoft.Toolkit.Uwp.UI">
+<Page xmlns:ui="using:CommunityToolkit.WinUI">
     <ListView ui:ScrollViewerExtensions.HorizontalScrollBarMargin="2, 2, 2, 2">
         <!-- ListView Item -->
     </ListView>
@@ -90,7 +90,7 @@ public class DoubleTopThicknessConverter : IValueConverter
 Here is how this property can be used in XAML:
 
 ```xaml
-<!-- Setting MiddleClickScrolling directely for ScrollViewer -->
+<!-- Setting MiddleClickScrolling directly for ScrollViewer -->
 <ScrollViewer
     xmlns:ui="using:CommunityToolkit.WinUI"
     ui:ScrollViewerExtensions.EnableMiddleClickScrolling="True">
