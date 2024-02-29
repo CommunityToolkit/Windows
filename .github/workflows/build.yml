@@ -17,7 +17,7 @@ on:
   merge_group:
 
 env:
-  DOTNET_VERSION: ${{ '7.0.100' }}
+  DOTNET_VERSION: ${{ '8.0.201' }}
   ENABLE_DIAGNOSTICS: true
   MSBUILD_VERBOSITY: normal
   #COREHOST_TRACE: 1
@@ -108,7 +108,6 @@ jobs:
       - name: Restore dotnet tools
         run: dotnet tool restore
 
-      # Pinning Manifest for 1.18 version of Uno.Check at the moment to unblock build, see https://github.com/CommunityToolkit/Windows/pull/320
       - name: Run Uno Check to Install Dependencies
         run: >
           dotnet tool run uno-check 
@@ -119,10 +118,11 @@ jobs:
           --skip androidemulator
           --skip vswinworkloads
           --verbose
-          --manifest https://raw.githubusercontent.com/unoplatform/uno.check/1660eba219684491362704c75153b40ce6ef7a35/manifests/uno.ui.manifest.json
 
       - name: Add msbuild to PATH
-        uses: microsoft/setup-msbuild@v1.3.1
+        uses: microsoft/setup-msbuild@v2
+        with:
+          vs-version: '[17.9,)'
 
       - name: Enable ${{ env.TARGET_PLATFORMS }} TargetFrameworks
         working-directory: ./${{ env.MULTI_TARGET_DIRECTORY }}
