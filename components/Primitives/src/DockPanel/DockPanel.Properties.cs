@@ -46,7 +46,7 @@ public partial class DockPanel
             nameof(LastChildFill),
             typeof(bool),
             typeof(DockPanel),
-            new PropertyMetadata(true, LastChildFillChanged));
+            new PropertyMetadata(true, OnPropertyChanged));
 
     /// <summary>
     /// Gets or sets a value indicating whether the last child element within a DockPanel stretches to fill the remaining available space.
@@ -66,7 +66,7 @@ public partial class DockPanel
             nameof(Padding),
             typeof(Thickness),
             typeof(DockPanel),
-            new PropertyMetadata(default(Thickness), OnPaddingChanged));
+            new PropertyMetadata(default(Thickness), OnPropertyChanged));
 
     /// <summary>
     /// Gets or sets the distance between the border and its child object.
