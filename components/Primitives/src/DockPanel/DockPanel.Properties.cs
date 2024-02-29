@@ -77,7 +77,7 @@ public partial class DockPanel
     /// </returns>
     public Thickness Padding
     {
-        get => return (Thickness)GetValue(PaddingProperty); 
+        get => (Thickness)GetValue(PaddingProperty); 
         set => SetValue(PaddingProperty, value); 
     }
 
