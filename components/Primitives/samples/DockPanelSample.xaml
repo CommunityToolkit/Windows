@@ -34,6 +34,8 @@
         </StackPanel>
 
         <controls:DockPanel x:Name="SampleDockPanel"
+                            HorizontalSpacing="5"
+                            VerticalSpacing="5"
                             Grid.Column="1"
                             Background="{ThemeResource CardBackgroundFillColorSecondaryBrush}"
                             LastChildFill="False">
