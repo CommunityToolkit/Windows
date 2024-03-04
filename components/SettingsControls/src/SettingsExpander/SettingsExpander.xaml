@@ -90,6 +90,7 @@
                                                     BorderThickness="0"
                                                     Content="{TemplateBinding Content}"
                                                     Description="{TemplateBinding Description}"
+                                                    FontFamily="{TemplateBinding FontFamily}"
                                                     Header="{TemplateBinding Header}"
                                                     HeaderIcon="{TemplateBinding HeaderIcon}"
                                                     IsClickEnabled="False" />
