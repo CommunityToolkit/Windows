@@ -12,7 +12,7 @@ issue-id: 0
 icon: Assets/SwitchPresenter.png
 ---
 
-The `SwitchPresenter` control acts like a switch statement for XAML. It allows a developer to display certain content based on the condition of another value as an alternative to managing multiple Visibility values or complex visual states.
+The `SwitchPresenter` control acts like a switch statement for XAML. It allows a developer to display certain content based on the condition of another value as an alternative to managing multiple `Visibility` values or complex visual states.
 
 Unlike traditional approaches of showing/hiding components within a page, the `SwitchPresenter` will only load and attach the matching Case's content to the Visual Tree.
 
@@ -25,3 +25,7 @@ SwitchPresenter can make it easier to follow complex layout changes or layouts w
 Or it can simply be used to clearly display different outcomes based on some state which can be useful for a `NavigationView` or with a simple enum as in the following example:
 
 > [!SAMPLE SwitchPresenterValueSample]
+
+`SwitchPresenter` can also be used as a replacement for the deprecated `Loading` control. This provides more fine-grained control over animations and content within each state:
+
+> [!SAMPLE SwitchPresenterLoaderSample]
