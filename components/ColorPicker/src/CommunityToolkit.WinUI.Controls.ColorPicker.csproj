@@ -23,4 +23,10 @@
   <PropertyGroup>
     <PackageId>$(PackageIdPrefix).$(PackageIdVariant).Controls.$(ToolkitComponentName)</PackageId>
   </PropertyGroup>
+
+  <Target Name="BeforeGenerateProjectPriFile">
+    <ItemGroup>
+      <_LayoutFile Remove="@(_LayoutFile)" Condition="$([System.String]::Copy(&quot;%(_LayoutFile.TargetPath)&quot;).StartsWith('CommunityToolkit.WinUI.Controls.Segmented\'))" />
+    </ItemGroup>
+  </Target>
 </Project>
