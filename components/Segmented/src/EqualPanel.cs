@@ -73,10 +73,10 @@ public partial class EqualPanel : Panel
     {
         double x = 0;
 
-        // Check if there's more width available - if so, recalculate (e.g. whenever Grid.Column is set to Auto)
+        // Check if there's more (little) width available - if so, set max item width to the maximum possible as we have an almost perfect height.
         if (finalSize.Width > _visibleItemsCount * _maxItemWidth + (Spacing * (_visibleItemsCount - 1)))
         {
-            MeasureOverride(finalSize);
+            maxItemWidth = (finalSize.Width - (Spacing * (visibleItemsCount - 1))) / visibleItemsCount;
         }
 
         var elements = Children.Where(static e => e.Visibility == Visibility.Visible);
