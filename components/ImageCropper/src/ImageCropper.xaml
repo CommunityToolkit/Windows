@@ -31,6 +31,9 @@
                                        Source="{TemplateBinding Source}" />
                                 <Path x:Name="PART_MaskAreaPath"
                                       Fill="{TemplateBinding Mask}" />
+                                <Path x:Name="PART_OverlayAreaPath"
+                                      Fill="{TemplateBinding Overlay}"
+                                      IsHitTestVisible="False" />
                                 <controls:ImageCropperThumb x:Name="PART_TopThumb"
                                                             Style="{TemplateBinding SecondaryThumbStyle}" />
                                 <!--  ui:FrameworkElementExtensions.Cursor="SizeNorthSouth"  -->

@@ -21,6 +21,7 @@ namespace CommunityToolkit.WinUI.Controls;
 [TemplatePart(Name = ImageCanvasPartName, Type = typeof(Canvas))]
 [TemplatePart(Name = SourceImagePartName, Type = typeof(Image))]
 [TemplatePart(Name = MaskAreaPathPartName, Type = typeof(Path))]
+[TemplatePart(Name = OverlayAreaPathPartName, Type = typeof(Path))]
 [TemplatePart(Name = TopThumbPartName, Type = typeof(ImageCropperThumb))]
 [TemplatePart(Name = BottomThumbPartName, Type = typeof(ImageCropperThumb))]
 [TemplatePart(Name = LeftThumbPartName, Type = typeof(ImageCropperThumb))]
@@ -39,6 +40,7 @@ public partial class ImageCropper : Control
     private Canvas? _imageCanvas;
     private Image? _sourceImage;
     private Path? _maskAreaPath;
+    private Path? _overlayAreaPath;
     private ImageCropperThumb? _topThumb;
     private ImageCropperThumb? _bottomThumb;
     private ImageCropperThumb? _leftThumb;
@@ -59,6 +61,7 @@ public partial class ImageCropper : Control
     private Rect _restrictedSelectRect = Rect.Empty;
     private RectangleGeometry _outerGeometry;
     private Geometry _innerGeometry;
+    private Geometry _overlayGeometry;
     private TimeSpan _animationDuration = TimeSpan.FromSeconds(0.3);
 
     /// <summary>
@@ -165,6 +168,7 @@ public partial class ImageCropper : Control
         _imageCanvas = GetTemplateChild(ImageCanvasPartName) as Canvas;
         _sourceImage = GetTemplateChild(SourceImagePartName) as Image;
         _maskAreaPath = GetTemplateChild(MaskAreaPathPartName) as Path;
+        _overlayAreaPath = GetTemplateChild(OverlayAreaPathPartName) as Path;
         _topThumb = GetTemplateChild(TopThumbPartName) as ImageCropperThumb;
         _bottomThumb = GetTemplateChild(BottomThumbPartName) as ImageCropperThumb;
         _leftThumb = GetTemplateChild(LeftThumbPartName) as ImageCropperThumb;
@@ -193,6 +197,11 @@ public partial class ImageCropper : Control
         if (_maskAreaPath != null)
         {
             _maskAreaPath.Data = _maskAreaGeometryGroup;
+        }
+
+        if (_overlayAreaPath != null)
+        {
+            _overlayAreaPath.Data = _overlayGeometry;
         }
 
         if (_topThumb != null)
