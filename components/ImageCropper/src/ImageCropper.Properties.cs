@@ -125,6 +125,15 @@ public partial class ImageCropper
     }
 
     /// <summary>
+    /// Gets or sets the overlay on the cropped image.
+    /// </summary>
+    public Brush Overlay
+    {
+        get { return (Brush)GetValue(OverlayProperty); }
+        set { SetValue(OverlayProperty, value); }
+    }
+
+    /// <summary>
     /// Gets or sets a value for the style to use for the primary thumbs of the ImageCropper.
     /// </summary>
     public Style PrimaryThumbStyle
@@ -174,6 +183,12 @@ public partial class ImageCropper
     /// </summary>
     public static readonly DependencyProperty MaskProperty =
         DependencyProperty.Register(nameof(Mask), typeof(Brush), typeof(ImageCropper), new PropertyMetadata(default(Brush)));
+
+    /// <summary>
+    /// Identifies the <see cref="Overlay"/> dependency property.
+    /// </summary>
+    public static readonly DependencyProperty OverlayProperty =
+        DependencyProperty.Register(nameof(Overlay), typeof(Brush), typeof(ImageCropper), new PropertyMetadata(default(Brush)));
 
     /// <summary>
     /// Identifies the <see cref="PrimaryThumbStyle"/> dependency property.

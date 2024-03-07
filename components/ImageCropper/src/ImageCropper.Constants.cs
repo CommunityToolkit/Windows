@@ -30,6 +30,11 @@ public partial class ImageCropper
     private const string MaskAreaPathPartName = "PART_MaskAreaPath";
 
     /// <summary>
+    /// Key of the overlay layer.
+    /// </summary>
+    private const string OverlayAreaPathPartName = "PART_OverlayAreaPath";
+
+    /// <summary>
     /// Key of the ImageCropperThumb that on the top.
     /// </summary>
     private const string TopThumbPartName = "PART_TopThumb";
