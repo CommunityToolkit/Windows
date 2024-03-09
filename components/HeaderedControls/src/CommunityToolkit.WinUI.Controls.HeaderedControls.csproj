@@ -3,7 +3,7 @@
   
   <PropertyGroup>
     <ToolkitComponentName>HeaderedControls</ToolkitComponentName>
-    <Description>This package contains HeaderedControls.</Description>
+    <Description>This package contains controls such as HeaderedItemsControl, HeaderedTreeView, and HeaderedContentControl.</Description>
     
     <!-- Rns suffix is required for namespaces shared across projects. See https://github.com/CommunityToolkit/Labs-Windows/issues/152 -->
     <RootNamespace>CommunityToolkit.WinUI.Controls.HeaderedControlsRns</RootNamespace>

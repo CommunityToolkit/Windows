@@ -3,7 +3,7 @@
   
   <PropertyGroup>
     <ToolkitComponentName>RichSuggestBox</ToolkitComponentName>
-    <Description>This package contains RichSuggestBox.</Description>
+    <Description>A rich text input control that auto-suggests and stores token items in a document.</Description>
     
     <!-- Rns suffix is required for namespaces shared across projects. See https://github.com/CommunityToolkit/Labs-Windows/issues/152 -->
     <RootNamespace>CommunityToolkit.WinUI.Controls.RichSuggestBoxRns</RootNamespace>

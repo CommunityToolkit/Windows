@@ -3,7 +3,7 @@
   
   <PropertyGroup>
     <ToolkitComponentName>Converters</ToolkitComponentName>
-    <Description>This package contains Converters.</Description>
+    <Description>Commonly used converters that allow the data to be modified as it passes through the binding engine.</Description>
     
     <!-- Rns suffix is required for namespaces shared across projects. See https://github.com/CommunityToolkit/Labs-Windows/issues/152 -->
     <RootNamespace>CommunityToolkit.WinUI.ConvertersRns</RootNamespace>

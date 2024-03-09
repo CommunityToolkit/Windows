@@ -3,7 +3,7 @@
   
   <PropertyGroup>
     <ToolkitComponentName>CameraPreview</ToolkitComponentName>
-    <Description>This package contains CameraPreview.</Description>
+    <Description>Enables easily previewing video in the MediaPlayerElement from available camera frame source groups.</Description>
     
     <!-- Rns suffix is required for namespaces shared across projects. See https://github.com/CommunityToolkit/Labs-Windows/issues/152 -->
     <RootNamespace>CommunityToolkit.WinUI.Controls.CameraPreviewRns</RootNamespace>

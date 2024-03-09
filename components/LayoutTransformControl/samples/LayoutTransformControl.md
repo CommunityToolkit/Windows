@@ -1,7 +1,7 @@
 ---
 title: LayoutTransformControl
 author: odonno
-description: The LayoutTransformControl is a control that support transformations on FrameworkElement as if applied by LayoutTransform.
+description: The LayoutTransformControl is a control that supports transformations on FrameworkElement as if applied by LayoutTransform.
 keywords: LayoutTransformControl, Control, Layout, RenderTransform, RotateTransform, ScaleTransform, SkewTransform, Transform
 dev_langs:
   - csharp

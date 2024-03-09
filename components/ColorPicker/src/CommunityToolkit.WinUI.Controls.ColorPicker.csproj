@@ -2,7 +2,7 @@
   <Import Project="$([MSBuild]::GetPathOfFileAbove(Directory.Build.props))" Condition="Exists('$([MSBuild]::GetPathOfFileAbove(Directory.Build.props))')" />
   <PropertyGroup>
     <ToolkitComponentName>ColorPicker</ToolkitComponentName>
-    <Description>This package contains ColorPicker.</Description>
+    <Description>An extended color picker that enables picking a color using a spectrum, sliders, or text input.</Description>
 
     <!-- Rns suffix is required for namespaces shared across projects. See https://github.com/CommunityToolkit/Labs-Windows/issues/152 -->
     <RootNamespace>CommunityToolkit.WinUI.Controls.ColorPickerRns</RootNamespace>

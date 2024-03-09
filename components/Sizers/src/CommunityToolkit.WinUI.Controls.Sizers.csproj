@@ -3,7 +3,7 @@
   
   <PropertyGroup>
     <ToolkitComponentName>Sizers</ToolkitComponentName>
-    <Description>This package contains SizerBase.</Description>
+    <Description>Resize various parts of your UI easily in a consistent fashion.</Description>
     
     <!-- Rns suffix is required for namespaces shared across projects. See https://github.com/CommunityToolkit/Labs-Windows/issues/152 -->
     <RootNamespace>CommunityToolkit.WinUI.Controls.SizersRns</RootNamespace>
