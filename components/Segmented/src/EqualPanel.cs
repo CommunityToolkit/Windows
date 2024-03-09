@@ -76,7 +76,7 @@ public partial class EqualPanel : Panel
         // Check if there's more (little) width available - if so, set max item width to the maximum possible as we have an almost perfect height.
         if (finalSize.Width > _visibleItemsCount * _maxItemWidth + (Spacing * (_visibleItemsCount - 1)))
         {
-            maxItemWidth = (finalSize.Width - (Spacing * (visibleItemsCount - 1))) / visibleItemsCount;
+            _maxItemWidth = (finalSize.Width - (Spacing * (_visibleItemsCount - 1))) / _visibleItemsCount;
         }
 
         var elements = Children.Where(static e => e.Visibility == Visibility.Visible);
