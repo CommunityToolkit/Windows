@@ -3,7 +3,7 @@
   
   <PropertyGroup>
     <ToolkitComponentName>DeveloperTools</ToolkitComponentName>
-    <Description>This package contains DeveloperTools.</Description>
+    <Description>The FocusTracker and AlignmentGrid help you to get more information about and aligning UI elements.</Description>
     
     <!-- Rns suffix is required for namespaces shared across projects. See https://github.com/CommunityToolkit/Labs-Windows/issues/152 -->
     <RootNamespace>CommunityToolkit.WinUI.DeveloperToolsRns</RootNamespace>

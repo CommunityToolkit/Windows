@@ -3,7 +3,7 @@
   
   <PropertyGroup>
     <ToolkitComponentName>SettingsControls</ToolkitComponentName>
-    <Description>This package contains SettingsControls.</Description>
+    <Description>Create a Windows 11 style settings experiences with these controls.</Description>
     
     <!-- Rns suffix is required for namespaces shared across projects. See https://github.com/CommunityToolkit/Labs-Windows/issues/152 -->
     <RootNamespace>CommunityToolkit.WinUI.Controls.SettingsControlsRns</RootNamespace>

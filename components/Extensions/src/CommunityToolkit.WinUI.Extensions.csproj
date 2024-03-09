@@ -3,7 +3,7 @@
   
   <PropertyGroup>
     <ToolkitComponentName>Extensions</ToolkitComponentName>
-    <Description>This package contains Extensions.</Description>
+    <Description>This package contains various Extensions for text, framework components (dispatcher, visual tree, FrameworkElement, etc.), visual transforms, shadows, ScrollViewer, ListViewBase, and more.</Description>
     
     <!-- Rns suffix is required for namespaces shared across projects. See https://github.com/CommunityToolkit/Labs-Windows/issues/152 -->
     <RootNamespace>CommunityToolkit.WinUI.ExtensionsRns</RootNamespace>
