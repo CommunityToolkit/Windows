@@ -3,7 +3,7 @@
   
   <PropertyGroup>
     <ToolkitComponentName>LayoutTransformControl</ToolkitComponentName>
-    <Description>TThe LayoutTransformControl is a control that supports transformations on FrameworkElement as if applied by LayoutTransform.</Description>
+    <Description>The LayoutTransformControl is a control that supports transformations on FrameworkElement as if applied by LayoutTransform.</Description>
     
     <!-- Rns suffix is required for namespaces shared across projects. See https://github.com/CommunityToolkit/Labs-Windows/issues/152 -->
     <RootNamespace>CommunityToolkit.WinUI.Controls.LayoutTransformControlRns</RootNamespace>
