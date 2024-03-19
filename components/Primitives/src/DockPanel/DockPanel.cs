@@ -17,13 +17,7 @@ public partial class DockPanel : Panel
         dockPanel?.InvalidateArrange();
     }
 
-    private static void LastChildFillChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
-    {
-        var dockPanel = (DockPanel)sender;
-        dockPanel.InvalidateArrange();
-    }
-
-    private static void OnPaddingChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+    private static void OnPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
     {
         var dockPanel = (DockPanel)sender;
         dockPanel.InvalidateMeasure();
@@ -32,15 +26,17 @@ public partial class DockPanel : Panel
     /// <inheritdoc />
     protected override Size ArrangeOverride(Size finalSize)
     {
-        if (Children.Count == 0)
-        {
+        if (Children.Count is 0)
             return finalSize;
-        }
 
-        var currentBounds = new Rect(Padding.Left, Padding.Top, finalSize.Width - Padding.Right, finalSize.Height - Padding.Bottom);
+        var currentBounds = new Rect(
+            Padding.Left,
+            Padding.Top,
+            GetPositiveOrZero(finalSize.Width - Padding.Left - Padding.Right),
+            GetPositiveOrZero(finalSize.Height - Padding.Top - Padding.Bottom));
         var childrenCount = LastChildFill ? Children.Count - 1 : Children.Count;
 
-        for (var index = 0; index < childrenCount; index++)
+        for (var index = 0; index < childrenCount; ++index)
         {
             var child = Children[index];
             var dock = (Dock)child.GetValue(DockProperty);
@@ -49,30 +45,36 @@ public partial class DockPanel : Panel
             {
                 case Dock.Left:
 
-                    width = Math.Min(child.DesiredSize.Width, GetPositiveOrZero(currentBounds.Width - currentBounds.X));
-                    child.Arrange(new Rect(currentBounds.X, currentBounds.Y, width, GetPositiveOrZero(currentBounds.Height - currentBounds.Y)));
+                    width = Math.Min(child.DesiredSize.Width, currentBounds.Width);
+                    child.Arrange(new Rect(currentBounds.X, currentBounds.Y, width, currentBounds.Height));
+                    width += HorizontalSpacing;
                     currentBounds.X += width;
+                    currentBounds.Width = GetPositiveOrZero(currentBounds.Width - width);
 
                     break;
                 case Dock.Top:
 
-                    height = Math.Min(child.DesiredSize.Height, GetPositiveOrZero(currentBounds.Height - currentBounds.Y));
-                    child.Arrange(new Rect(currentBounds.X, currentBounds.Y, GetPositiveOrZero(currentBounds.Width - currentBounds.X), height));
+                    height = Math.Min(child.DesiredSize.Height, currentBounds.Height);
+                    child.Arrange(new Rect(currentBounds.X, currentBounds.Y, currentBounds.Width, height));
+                    height += VerticalSpacing;
                     currentBounds.Y += height;
+                    currentBounds.Height = GetPositiveOrZero(currentBounds.Height - height);
 
                     break;
                 case Dock.Right:
 
-                    width = Math.Min(child.DesiredSize.Width, GetPositiveOrZero(currentBounds.Width - currentBounds.X));
-                    child.Arrange(new Rect(GetPositiveOrZero(currentBounds.Width - width), currentBounds.Y, width, GetPositiveOrZero(currentBounds.Height - currentBounds.Y)));
-                    currentBounds.Width -= (currentBounds.Width - width) > 0 ? width : 0;
+                    width = Math.Min(child.DesiredSize.Width, currentBounds.Width);
+                    child.Arrange(new Rect(currentBounds.X + currentBounds.Width - width, currentBounds.Y, width, currentBounds.Height));
+                    width += HorizontalSpacing;
+                    currentBounds.Width = GetPositiveOrZero(currentBounds.Width - width);
 
                     break;
                 case Dock.Bottom:
 
-                    height = Math.Min(child.DesiredSize.Height, GetPositiveOrZero(currentBounds.Height - currentBounds.Y));
-                    child.Arrange(new Rect(currentBounds.X, GetPositiveOrZero(currentBounds.Height - height), GetPositiveOrZero(currentBounds.Width - currentBounds.X), height));
-                    currentBounds.Height -= (currentBounds.Height - height) > 0 ? height : 0;
+                    height = Math.Min(child.DesiredSize.Height, currentBounds.Height);
+                    child.Arrange(new Rect(currentBounds.X, currentBounds.Y + currentBounds.Height - height, currentBounds.Width, height));
+                    height += VerticalSpacing;
+                    currentBounds.Height = GetPositiveOrZero(currentBounds.Height - height);
 
                     break;
             }
@@ -80,11 +82,8 @@ public partial class DockPanel : Panel
 
         if (LastChildFill)
         {
-            var width = GetPositiveOrZero(currentBounds.Width - currentBounds.X);
-            var height = GetPositiveOrZero(currentBounds.Height - currentBounds.Y);
             var child = Children[Children.Count - 1];
-            child.Arrange(
-                new Rect(currentBounds.X, currentBounds.Y, width, height));
+            child.Arrange(new Rect(currentBounds.X, currentBounds.Y, currentBounds.Width, currentBounds.Height));
         }
 
         return finalSize;
@@ -98,6 +97,11 @@ public partial class DockPanel : Panel
         var accumulatedWidth = Padding.Left + Padding.Right;
         var accumulatedHeight = Padding.Top + Padding.Bottom;
 
+        var leftSpacing = false;
+        var topSpacing = false;
+        var rightSpacing = false;
+        var bottomSpacing = false;
+
         foreach (var child in Children)
         {
             var childConstraint = new Size(
@@ -110,26 +114,48 @@ public partial class DockPanel : Panel
             switch ((Dock)child.GetValue(DockProperty))
             {
                 case Dock.Left:
+                    if (childConstraint.Width is not 0)
+                        accumulatedWidth += HorizontalSpacing;
+                    leftSpacing = true;
+                    parentHeight = Math.Max(parentHeight, accumulatedHeight + childDesiredSize.Height - VerticalSpacing);
+                    accumulatedWidth += childDesiredSize.Width;
+                    break;
+
                 case Dock.Right:
-                    parentHeight = Math.Max(parentHeight, accumulatedHeight + childDesiredSize.Height);
+                    if (childConstraint.Width is not 0)
+                        accumulatedWidth += HorizontalSpacing;
+                    rightSpacing = true;
+                    parentHeight = Math.Max(parentHeight, accumulatedHeight + childDesiredSize.Height - VerticalSpacing);
                     accumulatedWidth += childDesiredSize.Width;
                     break;
 
                 case Dock.Top:
+                    if (childConstraint.Height is not 0)
+                        accumulatedHeight += VerticalSpacing;
+                    topSpacing = true;
+                    parentWidth = Math.Max(parentWidth, accumulatedWidth + childDesiredSize.Width - HorizontalSpacing);
+                    accumulatedHeight += childDesiredSize.Height;
+                    break;
+
                 case Dock.Bottom:
-                    parentWidth = Math.Max(parentWidth, accumulatedWidth + childDesiredSize.Width);
+                    if (childConstraint.Height is not 0)
+                        accumulatedHeight += VerticalSpacing;
+                    bottomSpacing = true;
+                    parentWidth = Math.Max(parentWidth, accumulatedWidth + childDesiredSize.Width - HorizontalSpacing);
                     accumulatedHeight += childDesiredSize.Height;
                     break;
             }
         }
+
+        if (leftSpacing || rightSpacing)
+            accumulatedWidth -= HorizontalSpacing;
+        if (bottomSpacing || topSpacing)
+            accumulatedHeight -= VerticalSpacing;
 
         parentWidth = Math.Max(parentWidth, accumulatedWidth);
         parentHeight = Math.Max(parentHeight, accumulatedHeight);
         return new Size(parentWidth, parentHeight);
     }
 
-    private static double GetPositiveOrZero(double value)
-    {
-        return Math.Max(value, 0);
-    }
+    private static double GetPositiveOrZero(double value) => Math.Max(value, 0);
 }

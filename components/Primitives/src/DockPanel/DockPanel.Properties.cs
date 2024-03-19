@@ -13,7 +13,7 @@ public partial class DockPanel
     /// Gets or sets a value that indicates the position of a child element within a parent <see cref="DockPanel"/>.
     /// </summary>
     public static readonly DependencyProperty DockProperty = DependencyProperty.RegisterAttached(
-        "Dock",
+        nameof(Dock),
         typeof(Dock),
         typeof(FrameworkElement),
         new PropertyMetadata(Dock.Left, DockChanged));
@@ -46,15 +46,15 @@ public partial class DockPanel
             nameof(LastChildFill),
             typeof(bool),
             typeof(DockPanel),
-            new PropertyMetadata(true, LastChildFillChanged));
+            new PropertyMetadata(true, OnPropertyChanged));
 
     /// <summary>
     /// Gets or sets a value indicating whether the last child element within a DockPanel stretches to fill the remaining available space.
     /// </summary>
     public bool LastChildFill
     {
-        get { return (bool)GetValue(LastChildFillProperty); }
-        set { SetValue(LastChildFillProperty, value); }
+        get => (bool)GetValue(LastChildFillProperty);
+        set => SetValue(LastChildFillProperty, value);
     }
 
     /// <summary>
@@ -66,7 +66,7 @@ public partial class DockPanel
             nameof(Padding),
             typeof(Thickness),
             typeof(DockPanel),
-            new PropertyMetadata(default(Thickness), OnPaddingChanged));
+            new PropertyMetadata(default(Thickness), OnPropertyChanged));
 
     /// <summary>
     /// Gets or sets the distance between the border and its child object.
@@ -77,7 +77,47 @@ public partial class DockPanel
     /// </returns>
     public Thickness Padding
     {
-        get { return (Thickness)GetValue(PaddingProperty); }
-        set { SetValue(PaddingProperty, value); }
+        get => (Thickness)GetValue(PaddingProperty); 
+        set => SetValue(PaddingProperty, value); 
+    }
+
+    /// <summary>
+    /// Identifies the HorizontalSpacing dependency property.
+    /// </summary>
+    /// <returns>The identifier for the <see cref="HorizontalSpacing"/> dependency property.</returns>
+    public static readonly DependencyProperty HorizontalSpacingProperty
+        = DependencyProperty.Register(
+            nameof(HorizontalSpacing), 
+            typeof(double), 
+            typeof(DockPanel), 
+            new PropertyMetadata(0d, OnPropertyChanged));
+
+    /// <summary>
+    /// Gets or sets the horizontal distance between the child objects.
+    /// </summary>
+    public double HorizontalSpacing
+    {
+        get => (double)GetValue(HorizontalSpacingProperty); 
+        set => SetValue(HorizontalSpacingProperty, value);
+    }
+
+    /// <summary>
+    /// Identifies the VerticalSpacing dependency property.
+    /// </summary>
+    /// <returns>The identifier for the <see cref="VerticalSpacing"/> dependency property.</returns>
+    public static readonly DependencyProperty VerticalSpacingProperty
+        = DependencyProperty.Register(
+            nameof(VerticalSpacing), 
+            typeof(double), 
+            typeof(DockPanel), 
+            new PropertyMetadata(default(double), OnPropertyChanged));
+
+    /// <summary>
+    /// Gets or sets the vertical distance between the child objects.
+    /// </summary>
+    public double VerticalSpacing
+    {
+        get => (double)GetValue(VerticalSpacingProperty); 
+        set => SetValue(VerticalSpacingProperty, value);
     }
 }

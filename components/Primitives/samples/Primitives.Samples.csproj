@@ -11,6 +11,7 @@
   <ItemGroup>
     <ProjectReference Include="$(ToolkitExtensionsSourceProject)"></ProjectReference>
     <ProjectReference Include="$(ToolkitSizersSourceProject)"></ProjectReference>
+    <ProjectReference Include="$(ToolkitAnimationsSourceProject)"></ProjectReference>
   </ItemGroup>
   
   <ItemGroup>
