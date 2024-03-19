@@ -23,7 +23,7 @@
           VerticalAlignment="Top"
           BorderBrush="{ThemeResource SystemControlHighlightChromeHighBrush}"
           BorderThickness="0,0,1,1">
-        <Grid.RowDefinitions>            
+        <Grid.RowDefinitions>
             <RowDefinition MinHeight="100"
                            MaxHeight="300" />
             <RowDefinition Height="200" />
