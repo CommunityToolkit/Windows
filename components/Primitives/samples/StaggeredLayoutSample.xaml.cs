@@ -42,6 +42,8 @@ public class ColorItem
 {
     public int Index { get; internal set; }
 
+    public int Width { get; internal set; }
+
     public int Height { get; internal set; }
 
     public Color Color { get; internal set; }
