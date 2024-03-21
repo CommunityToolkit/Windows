@@ -10,24 +10,23 @@
       x:Name="ThisSamplePage">
 
     <Page.Resources>
-        <DataTemplate x:Key="StaggeredTemplate">
+        <DataTemplate x:Key="StaggeredTemplate" x:DataType="local:ColorItem">
             <Grid Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
                   BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                   BorderThickness="1"
                   CornerRadius="{StaticResource ControlCornerRadius}">
-                <Border Width="{Binding Width}"
-                        Height="{Binding Height}"
+                <Border Width="{x:Bind Width}"
+                        Height="{x:Bind Height}"
                         Margin="4"
                         CornerRadius="{StaticResource ControlCornerRadius}">
                     <Border.Background>
-                        <SolidColorBrush Color="{Binding Color}" />
+                        <SolidColorBrush Color="{x:Bind Color}" />
                     </Border.Background>
                     <TextBlock Margin="6,4,4,4"
                                FontSize="16"
-                               Text="{Binding Index}" />
+                               Text="{x:Bind Index}" />
                 </Border>
             </Grid>
-
         </DataTemplate>
     </Page.Resources>
 
