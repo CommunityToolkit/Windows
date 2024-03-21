@@ -22,9 +22,25 @@ public class StaggeredLayout : VirtualizingLayout
     /// <summary>
     /// Gets or sets the desired width for each column.
     /// </summary>
-    /// <remarks>
-    /// The width of columns can exceed the DesiredColumnWidth if the HorizontalAlignment is set to Stretch.
-    /// </remarks>
+    public StaggeredLayoutItemsStretch ItemsStretch
+    {
+        get => (StaggeredLayoutItemsStretch)GetValue(ItemsStretchProperty);
+        set => SetValue(ItemsStretchProperty, value);
+    }
+
+    /// <summary>
+    /// Identifies the <see cref="ItemsStretch"/> dependency property.
+    /// </summary>
+    /// <returns>The identifier for the <see cref="DesiredColumnWidth"/> dependency property.</returns>
+    public static readonly DependencyProperty ItemsStretchProperty = DependencyProperty.Register(
+        nameof(ItemsStretch),
+        typeof(StaggeredLayoutItemsStretch),
+        typeof(StaggeredLayout),
+        new PropertyMetadata(StaggeredLayoutItemsStretch.None, OnItemsStretchChanged));
+
+    /// <summary>
+    /// Gets or sets the desired width for each column.
+    /// </summary>
     public double DesiredColumnWidth
     {
         get { return (double)GetValue(DesiredColumnWidthProperty); }
@@ -144,16 +160,24 @@ public class StaggeredLayout : VirtualizingLayout
         // This ternary prevents the column width from being NaN, which would otherwise cause an exception when measuring item sizes
         double columnWidth;
         int numColumns;
-        if (double.IsNaN(DesiredColumnWidth) || DesiredColumnWidth > availableWidth)
+        if (ItemsStretch is StaggeredLayoutItemsStretch.None)
         {
-            columnWidth = availableWidth;
-            numColumns = 1;
+            columnWidth = double.IsNaN(DesiredColumnWidth) ? availableWidth : Math.Min(DesiredColumnWidth, availableWidth);
+            numColumns = Math.Max(1, (int)Math.Floor(availableWidth / state.ColumnWidth));
         }
         else
         {
-            var tempAvailableWidth = availableWidth + ColumnSpacing;
-            numColumns = (int)Math.Floor(tempAvailableWidth / DesiredColumnWidth);
-            columnWidth = tempAvailableWidth / numColumns - ColumnSpacing;
+            if (double.IsNaN(DesiredColumnWidth) || DesiredColumnWidth > availableWidth)
+            {
+                columnWidth = availableWidth;
+                numColumns = 1;
+            }
+            else
+            {
+                var tempAvailableWidth = availableWidth + ColumnSpacing;
+                numColumns = (int)Math.Floor(tempAvailableWidth / DesiredColumnWidth);
+                columnWidth = tempAvailableWidth / numColumns - ColumnSpacing;
+            }
         }
         
         if (columnWidth != state.ColumnWidth)
@@ -302,6 +326,12 @@ public class StaggeredLayout : VirtualizingLayout
         }
 
         return finalSize;
+    }
+
+    private static void OnItemsStretchChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+        var panel = (StaggeredLayout)d;
+        panel.InvalidateMeasure();
     }
 
     private static void OnDesiredColumnWidthChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
