@@ -3,7 +3,7 @@
   
   <PropertyGroup>
     <ToolkitComponentName>TokenizingTextBox</ToolkitComponentName>
-    <Description>This package contains TokenizingTextBox.</Description>
+    <Description>A text input control that auto-suggests and displays token items.</Description>
     
     <!-- Rns suffix is required for namespaces shared across projects. See https://github.com/CommunityToolkit/Labs-Windows/issues/152 -->
     <RootNamespace>CommunityToolkit.WinUI.Controls.TokenizingTextBoxRns</RootNamespace>

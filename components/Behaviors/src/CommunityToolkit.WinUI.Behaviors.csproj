@@ -3,7 +3,7 @@
   
   <PropertyGroup>
     <ToolkitComponentName>Behaviors</ToolkitComponentName>
-    <Description>This package contains Behaviors.</Description>
+    <Description>A collection of useful triggers and actions to supplement Microsoft.Xaml.Behaviors.*.</Description>
     
     <!-- Rns suffix is required for namespaces shared across projects. See https://github.com/CommunityToolkit/Labs-Windows/issues/152 -->
     <RootNamespace>CommunityToolkit.WinUI.BehaviorsRns</RootNamespace>

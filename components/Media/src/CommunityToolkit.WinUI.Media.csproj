@@ -3,7 +3,7 @@
   
   <PropertyGroup>
     <ToolkitComponentName>Media</ToolkitComponentName>
-    <Description>This package contains Media.</Description>
+    <Description>Create animated Media effects on UI elements. Saturation, Opacity, Color, CrossFade, Exposure, Sepia, HueRotation, and more.</Description>
     
     <!-- Rns suffix is required for namespaces shared across projects. See https://github.com/CommunityToolkit/Labs-Windows/issues/152 -->
     <RootNamespace>CommunityToolkit.WinUI.MediaRns</RootNamespace>

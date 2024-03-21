@@ -3,7 +3,7 @@
   
   <PropertyGroup>
     <ToolkitComponentName>MetadataControl</ToolkitComponentName>
-    <Description>This package contains MetadataControl.</Description>
+    <Description>The MetadataControl control displays a list of labels and hyper-links separated by a bullet.</Description>
     
     <!-- Rns suffix is required for namespaces shared across projects. See https://github.com/CommunityToolkit/Labs-Windows/issues/152 -->
     <RootNamespace>CommunityToolkit.WinUI.Controls.MetadataControlRns</RootNamespace>

@@ -3,7 +3,7 @@
   
   <PropertyGroup>
     <ToolkitComponentName>Animations</ToolkitComponentName>
-    <Description>This package contains Animations.</Description>
+    <Description>A collection of implicit, composition and connected animation helpers and builders.</Description>
     
     <!-- Rns suffix is required for namespaces shared across projects. See https://github.com/CommunityToolkit/Labs-Windows/issues/152 -->
     <RootNamespace>CommunityToolkit.WinUI.AnimationsRns</RootNamespace>
