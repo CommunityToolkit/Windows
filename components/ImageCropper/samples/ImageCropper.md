@@ -16,7 +16,7 @@ The `ImageCropper Control` allows user to freely crop an image.
 
 > [!Sample ImageCropperSample]
 
-## Syntax
+### Syntax
 
 ```xaml
 <Page ...
@@ -25,9 +25,7 @@ The `ImageCropper Control` allows user to freely crop an image.
 </Page>
 ```
 
-## Examples
-
-### Use ImageCropper
+### Basic usage
 
 You can set the cropped image source by using the `LoadImageFromFile(StorageFile)` method or setting the `Source` property.
 
@@ -66,3 +64,9 @@ Or you can crop image without aspect ratio.
 ```csharp
 ImageCropper.AspectRatio = null;
 ```
+
+### With an Overlay
+
+The crop area can be overlaid with a brush. Here we use a `RadialGradientBrush`, but you can use any brush; backdrop Media brushes, Geometry brushes, bitmap and image brushes, and so on.
+
+> [!Sample ImageCropperOverlaySample]
