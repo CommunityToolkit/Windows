@@ -1,25 +1,23 @@
-<Page
-	x:Class="ImageCropperExperiment.Samples.ImageCropperOverlaySample"
-	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-	xmlns:controls="using:CommunityToolkit.WinUI.Controls"
-	xmlns:local="using:ImageCropperExperiment.Samples"
-	xmlns:media="using:Microsoft.UI.Xaml.Media">
-	<Grid>
-		<controls:ImageCropper
-			x:Name="ImageCropper"
-			Width="520"
-			Height="520"
-			AspectRatio="{x:Bind local:ImageCropperSample.ConvertStringToAspectRatio(AspectRatioSetting), Mode=OneWay}"
-			CropShape="{x:Bind local:ImageCropperSample.ConvertStringToCropShape(CropShapeSetting), Mode=OneWay}"
-			ThumbPlacement="{x:Bind local:ImageCropperSample.ConvertStringToThumbPlacement(ThumbPlacementSetting), Mode=OneWay}">
-			<controls:ImageCropper.Overlay>
-				<media:RadialGradientBrush>
-					<GradientStop Offset="0.75" Color="Transparent" />
-					<GradientStop Offset="1" Color="DimGray" />
-				</media:RadialGradientBrush>
-			</controls:ImageCropper.Overlay>
-		</controls:ImageCropper>
+﻿<Page x:Class="ImageCropperExperiment.Samples.ImageCropperOverlaySample"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:controls="using:CommunityToolkit.WinUI.Controls"
+      xmlns:local="using:ImageCropperExperiment.Samples"
+      xmlns:media="using:Microsoft.UI.Xaml.Media">
+    <Grid>
+        <controls:ImageCropper x:Name="ImageCropper"
+                               Width="520"
+                               Height="520"
+                               AspectRatio="{x:Bind local:ImageCropperSample.ConvertStringToAspectRatio(AspectRatioSetting), Mode=OneWay}"
+                               CropShape="{x:Bind local:ImageCropperSample.ConvertStringToCropShape(CropShapeSetting), Mode=OneWay}"
+                               ThumbPlacement="{x:Bind local:ImageCropperSample.ConvertStringToThumbPlacement(ThumbPlacementSetting), Mode=OneWay}">
+            <controls:ImageCropper.Overlay>
+                <media:RadialGradientBrush>
+                    <GradientStop Offset="0.75" Color="Transparent" />
+                    <GradientStop Offset="1" Color="DimGray" />
+                </media:RadialGradientBrush>
+            </controls:ImageCropper.Overlay>
+        </controls:ImageCropper>
 
-	</Grid>
+    </Grid>
 </Page>
