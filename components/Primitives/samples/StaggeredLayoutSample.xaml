@@ -1,4 +1,4 @@
-<!--  Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license. See the LICENSE file in the project root for more information.  -->
+﻿<!--  Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license. See the LICENSE file in the project root for more information.  -->
 <Page x:Class="PrimitivesExperiment.Samples.StaggeredLayoutSample"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -9,7 +9,8 @@
       xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
       mc:Ignorable="d">
     <Page.Resources>
-        <DataTemplate x:Key="StaggeredTemplate" x:DataType="local:ColorItem">
+        <DataTemplate x:Key="StaggeredTemplate"
+                      x:DataType="local:ColorItem">
             <Grid Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
                   BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                   BorderThickness="1"
@@ -35,8 +36,8 @@
                                 ItemsSource="{x:Bind ColorsCollection, Mode=OneWay}">
                 <muxc:ItemsRepeater.Layout>
                     <controls:StaggeredLayout ColumnSpacing="{x:Bind ColumnSpacing, Mode=OneWay}"
-                                              ItemsStretch="{x:Bind local:StaggeredLayoutSample.ConvertStringToStaggeredLayoutItemsStretch(ItemsStretchProperty), Mode=OneWay}"
                                               DesiredColumnWidth="{x:Bind DesiredColumnWidth, Mode=OneWay}"
+                                              ItemsStretch="{x:Bind local:StaggeredLayoutSample.ConvertStringToStaggeredLayoutItemsStretch(ItemsStretchProperty), Mode=OneWay}"
                                               RowSpacing="{x:Bind RowSpacing, Mode=OneWay}" />
                 </muxc:ItemsRepeater.Layout>
             </muxc:ItemsRepeater>
