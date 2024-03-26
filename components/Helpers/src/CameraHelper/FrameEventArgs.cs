@@ -42,6 +42,8 @@ public class FrameEventArgs : EventArgs
             }
 
             _semaphore.Release();
+            _videoFrame?.SoftwareBitmap?.Dispose();
+            _videoFrame?.Dispose();
             return _videoFrameCopy! ?? _videoFrame!;
         }
 
