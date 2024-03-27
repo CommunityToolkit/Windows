@@ -3,7 +3,7 @@
   
   <PropertyGroup>
     <ToolkitComponentName>Helpers</ToolkitComponentName>
-    <Description>This package contains Helpers.</Description>
+    <Description>This package contains various helpers for Colors, Network, Camera, WeakEventListener, PackageVersion, ScreenUnit and more.</Description>
     
     <!-- Rns suffix is required for namespaces shared across projects. See https://github.com/CommunityToolkit/Labs-Windows/issues/152 -->
     <RootNamespace>CommunityToolkit.WinUI.HelpersRns</RootNamespace>

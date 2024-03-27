@@ -3,7 +3,7 @@
   
   <PropertyGroup>
     <ToolkitComponentName>Primitives</ToolkitComponentName>
-    <Description>This package contains Primitives.</Description>
+    <Description>Primitive layout controls such as SwitchPresenter, UniformGrid, WrapLayout, StaggeredPanel, WrapPanel, DockPanel, ConstrainedBox and more.</Description>
     
     <!-- Rns suffix is required for namespaces shared across projects. See https://github.com/CommunityToolkit/Labs-Windows/issues/152 -->
     <RootNamespace>CommunityToolkit.WinUI.Controls.PrimitivesRns</RootNamespace>

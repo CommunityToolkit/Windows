@@ -11,7 +11,7 @@ namespace PrimitivesExperiment.Samples;
 [ToolkitSampleNumericOption("ColumnSpacing", initial: 5, min: 0, max: 50, step: 1, Title = "ColumnSpacing")]
 [ToolkitSampleNumericOption("RowSpacing", initial: 5, min: 0, max: 50, step: 1, Title = "RowSpacing")]
 
-[ToolkitSample(id: nameof(StaggeredPanelSample), "WrapPanel", description: $"A sample for showing how to create and use a {nameof(StaggeredPanel)}.")]
+[ToolkitSample(id: nameof(StaggeredPanelSample), "StaggeredPanel", description: $"A sample for showing how to create and use a {nameof(StaggeredPanel)}.")]
 public sealed partial class StaggeredPanelSample : Page
 {
     public ObservableCollection<ColorItem> ColorsCollection = new();

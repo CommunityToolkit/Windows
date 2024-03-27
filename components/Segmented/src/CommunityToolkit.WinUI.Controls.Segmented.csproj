@@ -3,7 +3,7 @@
   
   <PropertyGroup>
     <ToolkitComponentName>Segmented</ToolkitComponentName>
-    <Description>This package contains Segmented.</Description>
+    <Description>A common UI control to configure a view or setting.</Description>
 
     <!-- Rns suffix is required for namespaces shared across projects. See https://github.com/CommunityToolkit/Labs-Windows/issues/152 -->
     <RootNamespace>CommunityToolkit.WinUI.Controls.SegmentedRns</RootNamespace>

@@ -3,7 +3,7 @@
   
   <PropertyGroup>
     <ToolkitComponentName>RadialGauge</ToolkitComponentName>
-    <Description>This package contains RadialGauge.</Description>
+    <Description>The Radial Gauge Control displays a value in a certain range using a needle on a circular face.</Description>
     
     <!-- Rns suffix is required for namespaces shared across projects. See https://github.com/CommunityToolkit/Labs-Windows/issues/152 -->
     <RootNamespace>CommunityToolkit.WinUI.Controls.RadialGaugeRns</RootNamespace>

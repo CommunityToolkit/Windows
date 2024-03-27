@@ -448,14 +448,20 @@ public partial class ImageCropper
         {
             case CropShape.Rectangular:
                 _innerGeometry = new RectangleGeometry();
+                _overlayGeometry = new RectangleGeometry();
                 break;
             case CropShape.Circular:
                 _innerGeometry = new EllipseGeometry();
+                _overlayGeometry = new EllipseGeometry();
                 break;
         }
 
         _maskAreaGeometryGroup.Children.Add(_outerGeometry);
         _maskAreaGeometryGroup.Children.Add(_innerGeometry);
+        if (_overlayAreaPath != null)
+        {
+            _overlayAreaPath.Data = _overlayGeometry;
+        }
     }
 
     /// <summary>
@@ -473,7 +479,7 @@ public partial class ImageCropper
         switch (CropShape)
         {
             case CropShape.Rectangular:
-                if (_innerGeometry is RectangleGeometry rectangleGeometry)
+                var updateRectangleGeometry = (RectangleGeometry rectangleGeometry) =>
                 {
                     var to = new Point(_startX, _startY).ToRect(new Point(_endX, _endY));
                     if (animate)
@@ -486,11 +492,19 @@ public partial class ImageCropper
                     {
                         rectangleGeometry.Rect = to;
                     }
+                };
+                if (_innerGeometry is RectangleGeometry innerRectangleGeometry)
+                {
+                    updateRectangleGeometry(innerRectangleGeometry);
+                }
+                if (_overlayGeometry is RectangleGeometry overlayRectangleGeometry)
+                {
+                    updateRectangleGeometry(overlayRectangleGeometry);
                 }
 
                 break;
             case CropShape.Circular:
-                if (_innerGeometry is EllipseGeometry ellipseGeometry)
+                var updateEllipseGeometry = (EllipseGeometry ellipseGeometry) =>
                 {
                     var center = new Point(((_endX - _startX) / 2) + _startX, ((_endY - _startY) / 2) + _startY);
                     var radiusX = (_endX - _startX) / 2;
@@ -509,6 +523,14 @@ public partial class ImageCropper
                         ellipseGeometry.RadiusX = radiusX;
                         ellipseGeometry.RadiusY = radiusY;
                     }
+                };
+                if (_innerGeometry is EllipseGeometry innerEllipseGeometry)
+                {
+                    updateEllipseGeometry(innerEllipseGeometry);
+                }
+                if (_overlayGeometry is EllipseGeometry overlayEllipseGeometry)
+                {
+                    updateEllipseGeometry(overlayEllipseGeometry);
                 }
 
                 break;

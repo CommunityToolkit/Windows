@@ -3,7 +3,7 @@
   
   <PropertyGroup>
     <ToolkitComponentName>Triggers</ToolkitComponentName>
-    <Description>This package contains Triggers.</Description>
+    <Description>A collection of custom visual State Triggers.</Description>
     
     <!-- Rns suffix is required for namespaces shared across projects. See https://github.com/CommunityToolkit/Labs-Windows/issues/152 -->
     <RootNamespace>CommunityToolkit.WinUI.TriggersRns</RootNamespace>

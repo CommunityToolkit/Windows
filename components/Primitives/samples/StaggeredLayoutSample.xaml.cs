@@ -10,8 +10,9 @@ namespace PrimitivesExperiment.Samples;
 [ToolkitSampleNumericOption("DesiredColumnWidth", initial: 250, min: 50, max: 400, step: 1, Title = "DesiredColumnWidth")]
 [ToolkitSampleNumericOption("ColumnSpacing", initial: 5, min: 0, max: 50, step: 1, Title = "ColumnSpacing")]
 [ToolkitSampleNumericOption("RowSpacing", initial: 5, min: 0, max: 50, step: 1, Title = "RowSpacing")]
+[ToolkitSampleMultiChoiceOption("ItemsStretchProperty", "None", "Fill", Title = "ItemsStretch")]
 
-[ToolkitSample(id: nameof(StaggeredLayoutSample), "StaggeredPanel", description: $"A sample for showing how to create and use a {nameof(StaggeredLayout)}.")]
+[ToolkitSample(id: nameof(StaggeredLayoutSample), "StaggeredLayout", description: $"A sample for showing how to create and use a {nameof(StaggeredLayout)}.")]
 public sealed partial class StaggeredLayoutSample : Page
 {
     public ObservableCollection<ColorItem> ColorsCollection = new();
@@ -24,10 +25,17 @@ public sealed partial class StaggeredLayoutSample : Page
         random = new Random(DateTime.Now.Millisecond);
         for (int i = 0; i < random.Next(100, 200); i++)
         {
-            var item = new ColorItem { Index = i, Width = random.Next(50, 250), Height = random.Next(50, 250), Color = Color.FromArgb(255, (byte)random.Next(0, 255), (byte)random.Next(0, 255), (byte)random.Next(0, 255)) };
+            var item = new ColorItem { Index = i, Height = random.Next(50, 250), Color = Color.FromArgb(255, (byte)random.Next(0, 255), (byte)random.Next(0, 255), (byte)random.Next(0, 255)) };
             ColorsCollection.Add(item);
         }
     }
+
+    public static StaggeredLayoutItemsStretch ConvertStringToStaggeredLayoutItemsStretch(string itemStretch) => itemStretch switch
+    {
+        "None" => StaggeredLayoutItemsStretch.None,
+        "Fill" => StaggeredLayoutItemsStretch.Fill,
+        _ => throw new System.NotImplementedException(),
+    };
 }
 
 public class ColorItem

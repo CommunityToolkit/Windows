@@ -3,7 +3,7 @@
   
   <PropertyGroup>
     <ToolkitComponentName>ImageCropper</ToolkitComponentName>
-    <Description>This package contains ImageCropper.</Description>
+    <Description>The ImageCropper control allows the user to freely crop an image.</Description>
     
     <!-- Rns suffix is required for namespaces shared across projects. See https://github.com/CommunityToolkit/Labs-Windows/issues/152 -->
     <RootNamespace>CommunityToolkit.WinUI.Controls.ImageCropperRns</RootNamespace>

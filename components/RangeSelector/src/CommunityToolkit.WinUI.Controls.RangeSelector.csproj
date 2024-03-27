@@ -3,7 +3,7 @@
   
   <PropertyGroup>
     <ToolkitComponentName>RangeSelector</ToolkitComponentName>
-    <Description>This package contains RangeSelector.</Description>
+    <Description>A double Slider control that allows the user to select a sub-range of values from a larger range of values.</Description>
     
     <!-- Rns suffix is required for namespaces shared across projects. See https://github.com/CommunityToolkit/Labs-Windows/issues/152 -->
     <RootNamespace>CommunityToolkit.WinUI.Controls.RangeSelectorRns</RootNamespace>

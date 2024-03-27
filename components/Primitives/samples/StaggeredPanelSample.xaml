@@ -1,4 +1,4 @@
-<!--  Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license. See the LICENSE file in the project root for more information.  -->
+﻿<!--  Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license. See the LICENSE file in the project root for more information.  -->
 <Page x:Class="PrimitivesExperiment.Samples.StaggeredPanelSample"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -10,24 +10,24 @@
       x:Name="ThisSamplePage">
 
     <Page.Resources>
-        <DataTemplate x:Key="StaggeredTemplate">
+        <DataTemplate x:Key="StaggeredTemplate"
+                      x:DataType="local:ColorItem">
             <Grid Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
                   BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                   BorderThickness="1"
                   CornerRadius="{StaticResource ControlCornerRadius}">
-                <Border Width="{Binding Width}"
-                        Height="{Binding Height}"
+                <Border Width="{x:Bind Width}"
+                        Height="{x:Bind Height}"
                         Margin="4"
                         CornerRadius="{StaticResource ControlCornerRadius}">
                     <Border.Background>
-                        <SolidColorBrush Color="{Binding Color}" />
+                        <SolidColorBrush Color="{x:Bind Color}" />
                     </Border.Background>
                     <TextBlock Margin="6,4,4,4"
                                FontSize="16"
-                               Text="{Binding Index}" />
+                               Text="{x:Bind Index}" />
                 </Border>
             </Grid>
-
         </DataTemplate>
     </Page.Resources>
 
