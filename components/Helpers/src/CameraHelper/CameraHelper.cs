@@ -294,8 +294,8 @@ public class CameraHelper : IDisposable
             EventHandler<FrameEventArgs> handler = FrameArrived!;
             var frameArgs = new FrameEventArgs() { VideoFrame = vmf.GetVideoFrame() };
             handler?.Invoke(sender, frameArgs);
+            frame.Dispose();
         }
-        frame?.Dispose();
     }
 
     private bool disposedValue = false;
