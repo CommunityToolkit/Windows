@@ -37,13 +37,13 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - name: Install .NET SDK v${{ env.DOTNET_VERSION }}
-        uses: actions/setup-dotnet@v3
+        uses: actions/setup-dotnet@v4
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout Repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           submodules: recursive
 
@@ -74,7 +74,7 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - name: Configure Pagefile
-        uses: al-cheb/configure-pagefile-action@v1.3
+        uses: al-cheb/configure-pagefile-action@v1.4
         with:
           minimum-size: 32GB
           maximum-size: 32GB
@@ -90,7 +90,7 @@ jobs:
           Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\Windows Error Reporting\LocalDumps' -Name 'DumpType' -Type DWord -Value '2'
 
       - name: Install .NET SDK v${{ env.DOTNET_VERSION }}
-        uses: actions/setup-dotnet@v3
+        uses: actions/setup-dotnet@v4
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
@@ -100,7 +100,7 @@ jobs:
 
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout Repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           submodules: recursive
 
@@ -199,14 +199,14 @@ jobs:
         if: ${{ always() && (steps.test-generator.conclusion == 'success' || steps.test-platform.conclusion == 'success') }}
 
       - name: Artifact - Diagnostic Logs
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: ${{ (env.ENABLE_DIAGNOSTICS == 'true' || env.COREHOST_TRACE != '') && always() }}
         with:
           name: build-logs
           path: ./**/*.*log
 
       - name: Artifact - ILC Repro
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: ${{ (env.ENABLE_DIAGNOSTICS == 'true' || env.COREHOST_TRACE != '') && always() }}
         with:
           name: ilc-repro
@@ -221,7 +221,7 @@ jobs:
           echo "DUMP_FILE=$(Get-ChildItem .\CrashDumps\*.dmp -ErrorAction SilentlyContinue)" >> $env:GITHUB_OUTPUT
 
       - name: Artifact - WER crash dumps
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: ${{ (env.ENABLE_DIAGNOSTICS == 'true' || env.COREHOST_TRACE != '') && always() }}
         with:
           name: CrashDumps-${{ matrix.platform }}
@@ -234,7 +234,7 @@ jobs:
           dotnet-dump analyze ${{ steps.detect-dump.outputs.DUMP_FILE }} -c "clrstack" -c "pe -lines" -c "exit"
 
       - name: Upload Package List
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: ${{ env.IS_PR == 'false' }}
         with:
           name: nuget-list
@@ -244,7 +244,7 @@ jobs:
 
       # if we're not doing a PR build (or it's a PR from a fork) then we upload our packages so we can sign as a separate job or have available to test.
       - name: Upload Packages as Artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: ${{ env.IS_PR == 'false' || github.event.pull_request.head.repo.full_name != github.repository }}
         with:
           name: nuget-packages-${{ matrix.platform }}
@@ -266,18 +266,18 @@ jobs:
 
     steps:
       - name: Install .NET SDK v${{ env.DOTNET_VERSION }}
-        uses: actions/setup-dotnet@v3
+        uses: actions/setup-dotnet@v4
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
       - name: Download Package List
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: nuget-list
           path: ./
   
       - name: Download built packages for ${{ matrix.platform }}
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: nuget-packages-${{ matrix.platform }}
           path: ./packages
@@ -310,7 +310,7 @@ jobs:
           dotnet nuget push "**/*.nupkg" --api-key dummy --source MainLatest --skip-duplicate
 
       - name: Upload Signed Packages as Artifacts (for release)
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: ${{ env.IS_RELEASE == 'true' }}
         with:
           name: signed-nuget-packages-${{ matrix.platform }}
@@ -331,12 +331,12 @@ jobs:
 
     steps:
       - name: Install .NET SDK v${{ env.DOTNET_VERSION }}
-        uses: actions/setup-dotnet@v3
+        uses: actions/setup-dotnet@v4
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
       - name: Download signed packages for ${{ matrix.platform }}
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: signed-nuget-packages-${{ matrix.platform }}
           path: ./packages
@@ -354,7 +354,7 @@ jobs:
 
     steps:
       - name: Install .NET SDK v${{ env.DOTNET_VERSION }}
-        uses: actions/setup-dotnet@v3
+        uses: actions/setup-dotnet@v4
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
@@ -364,7 +364,7 @@ jobs:
 
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout Repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           submodules: recursive
 
@@ -394,7 +394,7 @@ jobs:
       # TODO: Do we want to run tests here? Can we do that on linux easily?
 
       - name: Artifact - Diagnostic Logs
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: ${{ (env.ENABLE_DIAGNOSTICS == 'true' || env.COREHOST_TRACE != '') && always() }}
         with:
           name: linux-logs
