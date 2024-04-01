@@ -24,7 +24,7 @@ namespace RadialGaugeExperiment.Samples;
 [ToolkitSampleNumericOption("ScalePadding", 0, 0, 100, 1, false, Title = "ScalePadding")]
 [ToolkitSampleNumericOption("TickPadding", 24, 0, 100, 1, false, Title = "TickPadding")]
 [ToolkitSampleNumericOption("ScaleTickWidth", 0, 0, 20, 1, false, Title = "ScaleTickWidth")]
-[ToolkitSampleMultiChoiceOption("ValueVerticalAlignment", ["Center", "Bottom"], Title = "ValueVerticalAlignment")]
+[ToolkitSampleMultiChoiceOption("ValueVerticalAlignment", ["Bottom", "Center"], Title = "ValueVerticalAlignment")]
 [ToolkitSampleNumericOption("ValueFontSize", 24, 0, 100, 1, false, Title = "ValueFontSize")]
 
 [ToolkitSample(id: nameof(RadialGaugeSample), "RadialGauge", description: $"A sample for showing how to create and use a {nameof(RadialGauge)} control.")]

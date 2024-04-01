@@ -32,6 +32,6 @@
                               ValueStringFormat="N0"
                               Value="{x:Bind Value, Mode=OneWay}"
                               ValueVerticalAlignment="{x:Bind local:RadialGaugeSample.ConvertStringToVerticalAlignment(ValueVerticalAlignment), Mode=OneWay}"
-                              ValueFontSize="{x:Bind ValueFontSize, Mode=OneWay}"/>
+                              ValueFontSize="{x:Bind ValueFontSize, Mode=OneWay}" />
     </StackPanel>
 </Page>
