@@ -30,6 +30,8 @@
                               TickSpacing="{x:Bind (x:Int32)TickSpacing, Mode=OneWay}"
                               TickWidth="{x:Bind TickWidth, Mode=OneWay}"
                               ValueStringFormat="N0"
-                              Value="{x:Bind Value, Mode=OneWay}" />
+                              Value="{x:Bind Value, Mode=OneWay}"
+                              ValueVerticalAlignment="{x:Bind local:RadialGaugeSample.ConvertStringToVerticalAlignment(ValueVerticalAlignment), Mode=OneWay}"
+                              ValueFontSize="{x:Bind ValueFontSize, Mode=OneWay}"/>
     </StackPanel>
 </Page>

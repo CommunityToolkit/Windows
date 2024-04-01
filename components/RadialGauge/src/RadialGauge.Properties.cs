@@ -165,6 +165,36 @@ public partial class RadialGauge : RangeBase
         DependencyProperty.Register(nameof(ValueAngle), typeof(double), typeof(RadialGauge), new PropertyMetadata(null));
 
     /// <summary>
+    /// Identifies the ValueAlignment dependency property.
+    /// </summary>
+    public static readonly DependencyProperty ValueVerticalAlignmentProperty =
+        DependencyProperty.Register(nameof(ValueVerticalAlignment), typeof(VerticalAlignment), typeof(RadialGauge), new PropertyMetadata(VerticalAlignment.Center));
+
+    /// <summary>
+    /// Identifies the ValueTextSize dependency property.
+    /// </summary>
+    public static readonly DependencyProperty ValueFontSizeProperty =
+        DependencyProperty.Register(nameof(ValueFontSize), typeof(double), typeof(RadialGauge), new PropertyMetadata(12d, OnFaceChanged));
+
+    /// <summary>
+    /// Gets or sets the value text size.
+    /// </summary>
+    public double ValueFontSize
+    {
+        get { return (double)GetValue(ValueFontSizeProperty); }
+        set { SetValue(ValueFontSizeProperty, value); }
+    }
+
+    /// <summary>
+    /// Gets or sets the vertical alignment of the value text.
+    /// </summary>
+    public VerticalAlignment ValueVerticalAlignment
+    {
+        get { return (VerticalAlignment)GetValue(ValueVerticalAlignmentProperty); }
+        set { SetValue(ValueVerticalAlignmentProperty, value); }
+    }
+
+    /// <summary>
     /// Gets or sets the rounding interval for the Value.
     /// </summary>
     public double StepSize

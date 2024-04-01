@@ -114,10 +114,10 @@
 
                                 <!--  Value and Unit  -->
                                 <StackPanel HorizontalAlignment="Center"
-                                            VerticalAlignment="Bottom"
+                                            VerticalAlignment="{TemplateBinding ValueVerticalAlignment}"
                                             Spacing="2">
                                     <TextBlock Name="PART_ValueText"
-                                               FontSize="18"
+                                               FontSize="{TemplateBinding ValueFontSize}"
                                                FontWeight="SemiBold"
                                                Foreground="{TemplateBinding Foreground}"
                                                TextAlignment="Center" />
