@@ -178,7 +178,7 @@ jobs:
 
       # Run tests
       - name: Setup VSTest Path
-        uses: darenm/Setup-VSTest@v1.2
+        uses: darenm/Setup-VSTest@master
 
       - name: Install Testspace Module
         uses: testspace-com/setup-testspace@v1
