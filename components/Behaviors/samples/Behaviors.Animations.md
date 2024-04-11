@@ -119,10 +119,6 @@ Here is an example that showcases both the sequential mode for animations as wel
 
 The same functionality with respect to cancellation applies to `AnimationSet` as well: each individual invocation on an UI element internally gets its own cancellation token, which can be used to stop a running animation by invoking the `Stop()` method or one of its overloads. The same token is also forwarded to all invoked activities in the schedule, so stopping an animation set will also automatically stop all linked animations and activities as well.
 
-Here's an example of how all these various explicit animations can be combined together (including some of the new effect animations too):
-
-![AnimationSet in sequential mode and with combined animations](../resources/images/AnimationSet.gif)
-
 ## Behaviors
 
 If you are also referencing the `Behaviors` package, it will be possible to also use behaviors and actions to better support the new APIs, such as by automatically triggering an animation when a given event is raised, entirely from XAML. There are four main types being introduced in this package that interoperate with the Animation APIs:
@@ -203,7 +199,3 @@ Here is an example of how the new `PipelineVisualFactory` type can be combined w
 ```
 
 Here we are setting the `IsAnimatable` property for the effects we want to animate after creating the brush. This is necessary because Win2D/Composition effects do not support animation by default, and additional setup is required when creating a Composition brush to enable this functionality. Effects in a pipeline are not just all configured as being animatable by default both in order to reduce the overhead, and because there is a limit on the number of effects that can be animated in a single brush. Making this more advanced functionality opt-in for users ensures that it will still be possible to animate effects even within very large pipelines, without incurring into issues due to this limit.
-
-And here is the final result from the code above, with an image and some text as content:
-
-![AnimationSet used to animate effects in a custom pipeline](../resources/images/EffectAnimations.gif)
