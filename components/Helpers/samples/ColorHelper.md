@@ -1,6 +1,6 @@
 ---
 title: ColorHelper
-author: 
+author: niels9001
 description: Convert colors from text names, HTML hex, HSV, or HSL to Windows UI Colors (and back again).
 keywords: Helpers, Theming, theme listener, themes, screenunithelper, colorhelper
 dev_langs:
