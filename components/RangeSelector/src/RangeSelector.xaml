@@ -27,9 +27,11 @@
                                    TargetType="Thumb">
                                 <Setter Property="UseSystemFocusVisuals" Value="True" />
                                 <Setter Property="BorderThickness" Value="1" />
-                                <win:Setter Property="BorderBrush" Value="{ThemeResource SliderThumbBorderBrush}"/>
-                                <!-- Uno specific (https://github.com/unoplatform/uno/issues/6457): Use solid border brush -->
-                                <not_win:Setter Property="BorderBrush" Value="{ThemeResource ControlStrokeColorDefaultBrush}" />
+                                <win:Setter Property="BorderBrush"
+                                            Value="{ThemeResource SliderThumbBorderBrush}" />
+                                <!--  Uno specific (https://github.com/unoplatform/uno/issues/6457): Use solid border brush  -->
+                                <not_win:Setter Property="BorderBrush"
+                                                Value="{ThemeResource ControlStrokeColorDefaultBrush}" />
                                 <Setter Property="Background" Value="{ThemeResource SliderThumbBackground}" />
                                 <Setter Property="Height" Value="{ThemeResource SliderHorizontalThumbHeight}" />
                                 <Setter Property="Width" Value="{ThemeResource SliderHorizontalThumbWidth}" />
