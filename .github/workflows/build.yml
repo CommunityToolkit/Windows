@@ -202,7 +202,7 @@ jobs:
         uses: actions/upload-artifact@v4
         if: ${{ (env.ENABLE_DIAGNOSTICS == 'true' || env.COREHOST_TRACE != '') && always() }}
         with:
-          name: build-logs
+          name: build-logs-${{ matrix.platform }} 
           path: ./**/*.*log
 
       - name: Artifact - ILC Repro
