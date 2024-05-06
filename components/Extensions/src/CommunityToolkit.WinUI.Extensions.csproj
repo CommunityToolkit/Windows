@@ -31,7 +31,7 @@
 
     <!-- TODO: We should figure out a better way to share internal helpers without duplication -->
     <!-- e.g. Animations is using ThrowIfNull helper... -->
-    <InternalsVisibleTo Include="CommunityToolkit.WinUI.Animations" />
-    <InternalsVisibleTo Include="CommunityToolkit.WinUI.Media" />
+    <InternalsVisibleTo Include="CommunityToolkit.$(PackageIdVariant).Animations" />
+    <InternalsVisibleTo Include="CommunityToolkit.$(PackageIdVariant).Media" />
   </ItemGroup>
 </Project>

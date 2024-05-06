@@ -11,10 +11,7 @@
     <PackageReadmeFile>ReadMe.md</PackageReadmeFile>
   </PropertyGroup>
 
-  <ItemGroup>
-    <InternalsVisibleTo Include="CommunityToolkit.WinUI.Media" />
-    <InternalsVisibleTo Include="CommunityToolkit.WinUI.Behaviors" />
-    
+  <ItemGroup>    
     <PackageReference Include="PolySharp" Version="1.13.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -34,4 +31,9 @@
 
   <!-- Sets this up as a toolkit component's source project -->
   <Import Project="$(ToolingDirectory)\ToolkitComponent.SourceProject.props" />
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="CommunityToolkit.$(PackageIdVariant).Media" />
+    <InternalsVisibleTo Include="CommunityToolkit.$(PackageIdVariant).Behaviors" />
+  </ItemGroup>
 </Project>
