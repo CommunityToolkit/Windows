@@ -14,6 +14,9 @@ namespace CommunityToolkit.WinUI.Converters;
 /// The methods in this converter will safely return <see langword="null"/> if the input
 /// task is not set yet, still running, has faulted, or has been canceled.
 /// </summary>
+#if NET8_0_OR_GREATER
+[System.Diagnostics.CodeAnalysis.RequiresUnreferencedCode("This method uses reflection to try to access the Task<T>.Result property of the input Task instance.")]
+#endif
 public sealed class TaskResultConverter : IValueConverter
 {
     /// <inheritdoc/>
