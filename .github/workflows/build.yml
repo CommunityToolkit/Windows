@@ -273,7 +273,7 @@ jobs:
       - name: Download Package List
         uses: actions/download-artifact@v4
         with:
-          name: nuget-list
+          name: nuget-list-${{ matrix.platform }}
           path: ./
   
       - name: Download built packages for ${{ matrix.platform }}
