@@ -237,7 +237,7 @@ jobs:
         uses: actions/upload-artifact@v4
         if: ${{ env.IS_PR == 'false' }}
         with:
-          name: nuget-list
+          name: nuget-list-${{ matrix.platform }}
           if-no-files-found: error
           path: |
             ${{ github.workspace }}/.github/workflows/SignClientFileList.txt
