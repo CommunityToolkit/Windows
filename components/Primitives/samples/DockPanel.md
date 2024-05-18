@@ -21,12 +21,14 @@ You can set DockPanel LastChildFill property to true if you want the last item a
 
 ```xaml
 <Page ...
-     xmlns:controls="using:CommunityToolkit.WinUI.Controls"/>
+     xmlns:controls="using:CommunityToolkit.WinUI.Controls">
 
-<controls:DockPanel Name="SampleDockPanel" Margin="2" Background="LightGray" LastChildFill="False" >
-  <StackPanel Height="100" controls:DockPanel.Dock="Top" Background="Black"></StackPanel>
-  <StackPanel Width="100" controls:DockPanel.Dock="Left" Background="Red"></StackPanel>
-  <StackPanel Height="100" controls:DockPanel.Dock="Bottom" Background="Green"></StackPanel>
-  <StackPanel Width="100" controls:DockPanel.Dock="Right" Background="Blue"></StackPanel>
-</controls:DockPanel>
+    <controls:DockPanel Name="SampleDockPanel" Margin="2" Background="LightGray" LastChildFill="False" >
+      <StackPanel Height="100" controls:DockPanel.Dock="Top" Background="Black"></StackPanel>
+      <StackPanel Width="100" controls:DockPanel.Dock="Left" Background="Red"></StackPanel>
+      <StackPanel Height="100" controls:DockPanel.Dock="Bottom" Background="Green"></StackPanel>
+      <StackPanel Width="100" controls:DockPanel.Dock="Right" Background="Blue"></StackPanel>
+    </controls:DockPanel>
+
+</Page>
 ```
