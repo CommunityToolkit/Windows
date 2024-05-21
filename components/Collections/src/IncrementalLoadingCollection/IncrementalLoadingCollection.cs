@@ -134,7 +134,7 @@ public class IncrementalLoadingCollection<TSource, IType> : ObservableCollection
     [System.Diagnostics.CodeAnalysis.RequiresUnreferencedCode("This constructor is not AOT compatible and will be removed in a future version.")]
 #endif
     [EditorBrowsable(EditorBrowsableState.Never)]
-    [Obsolete("This constructor is not AOT compatible and will be removed in a future version.")]
+    [Obsolete("This constructor is not AOT compatible and will be removed in a future version. Use the other constructor and provide a source collection to use.")]
     public IncrementalLoadingCollection(int itemsPerPage = 20, Action onStartLoading = null, Action onEndLoading = null, Action<Exception> onError = null)
         : this(Activator.CreateInstance<TSource>(), itemsPerPage, onStartLoading, onEndLoading, onError)
     {
