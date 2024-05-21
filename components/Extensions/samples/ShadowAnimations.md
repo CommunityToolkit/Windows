@@ -12,7 +12,7 @@ issue-id: 0
 icon: Assets/ShadowAnimation.png
 ---
 
-Either type of Attached Shadow can be easily animated using the Toolkit's [`AnimationSet`](../animations/AnimationSet.md) api. These provide an easy XAML based way to animate a wide variety of elements, including a variety of shadow properties. They can also be animated with any other composition animation technique in code-behind as well using either the [`AnimationBuilder`](../animations/AnimationBuilder.md) or built-in composition animations.
+Either type of Attached Shadow can be easily animated using the Toolkit's [`AnimationSet`](../animations/AnimationSet.md) api. These provide an easy XAML based way to animate a wide variety of elements, including a variety of shadow properties. They can also be animated with any other composition animation technique in code-behind as well using either the [`AnimationBuilder`](../Behaviors/AnimationSet.md) or built-in composition animations.
 
 > **Platform APIs:** `BlurRadiusDropShadowAnimation`, `ColorDropShadowAnimation`, `OffsetDropShadowAnimation`, `OpacityDropShadowAnimation`
 

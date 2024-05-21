@@ -1,7 +1,11 @@
 ﻿<!--  Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license. See the LICENSE file in the project root for more information.  -->
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:controls="using:CommunityToolkit.WinUI.Controls">
+                    xmlns:controls="using:CommunityToolkit.WinUI.Controls"
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    xmlns:not_win="http://uno.ui/not_win"
+                    xmlns:win="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    mc:Ignorable="not_win">
 
     <Style BasedOn="{StaticResource DefaultRangeSelectorStyle}"
            TargetType="controls:RangeSelector" />
@@ -25,6 +29,11 @@
                                    TargetType="Thumb">
                                 <Setter Property="UseSystemFocusVisuals" Value="True" />
                                 <Setter Property="BorderThickness" Value="1" />
+                                <win:Setter Property="BorderBrush"
+                                            Value="{ThemeResource SliderThumbBorderBrush}" />
+                                <!--  Uno specific (https://github.com/unoplatform/uno/issues/6457): Use solid border brush  -->
+                                <not_win:Setter Property="BorderBrush"
+                                                Value="{ThemeResource ControlStrokeColorDefaultBrush}" />
                                 <Setter Property="Background" Value="{ThemeResource SliderThumbBackground}" />
                                 <Setter Property="Height" Value="{ThemeResource SliderHorizontalThumbHeight}" />
                                 <Setter Property="Width" Value="{ThemeResource SliderHorizontalThumbWidth}" />
@@ -35,7 +44,7 @@
                                         <ControlTemplate TargetType="Thumb">
                                             <Border Margin="-2"
                                                     Background="{ThemeResource SliderOuterThumbBackground}"
-                                                    BorderBrush="{ThemeResource SliderThumbBorderBrush}"
+                                                    BorderBrush="{TemplateBinding BorderBrush}"
                                                     BorderThickness="{TemplateBinding BorderThickness}"
                                                     CornerRadius="{TemplateBinding CornerRadius}">
                                                 <VisualStateManager.VisualStateGroups>
