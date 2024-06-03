@@ -13,6 +13,9 @@ namespace CommunityToolkit.WinUI.Collections;
 /// <summary>
 /// A collection view implementation that supports filtering, sorting and incremental loading
 /// </summary>
+#if NET8_0_OR_GREATER
+[System.Diagnostics.CodeAnalysis.RequiresUnreferencedCode("Item sorting uses reflection to get property types and may not be AOT compatible.")]
+#endif
 public partial class AdvancedCollectionView : IAdvancedCollectionView, INotifyPropertyChanged, ISupportIncrementalLoading, IComparer<object>
 {
     private readonly List<object> _view;
