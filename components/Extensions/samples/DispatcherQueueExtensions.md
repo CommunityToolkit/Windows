@@ -49,7 +49,7 @@ int someOtherValue = await dispatcherQueue.EnqueueAsync(async () =>
 });
 ```
 
-## Migrating from [`DispatcherHelper`](..\helpers\DispatcherHelper.md)
+## Migrating from DispatcherHelper
 
 The [`CoreDispatcher`](https://learn.microsoft.com/uwp/api/windows.ui.core.coredispatcher) is being deprecated (and it will no longer work with XAML Islands or WinUI 3) and should no longer be used, as it had a number of limitations. Specifically, it relied on the assumption that each window had its own UI thread tied to it, which is not always the case. The new `DispatcherQueue` instead can be used going forwards, and it requires some changes in code that was previously relying on `CoreDispatcher` and `DispatcherHelper`. Specifically, a background thread can no longer retrieve the `CoreDispatcher` by just accessing the dispatcher associated to the "main window" for the application, because this concept does not apply anymore. Instead, a `DispatcherQueue` instance needs to be retrieved on the UI thread and cached for later use in a background thread.
 
