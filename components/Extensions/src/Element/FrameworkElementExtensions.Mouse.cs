@@ -101,6 +101,7 @@ public static partial class FrameworkElementExtensions
         CursorShape cursor = GetCursor((FrameworkElement)sender);
 
 #if !WINAPPSDK
+    if (Window.Current?.CoreWindow is not null)
         Window.Current.CoreWindow.PointerCursor = _cursors[cursor];
 #endif
     }
@@ -124,6 +125,7 @@ public static partial class FrameworkElementExtensions
         }
 
 #if !WINAPPSDK
+    if (Window.Current?.CoreWindow is not null)
         Window.Current.CoreWindow.PointerCursor = cursor;
 #endif
     }
@@ -138,6 +140,7 @@ public static partial class FrameworkElementExtensions
         // when the element is programatically unloaded, reset the cursor back to default
         // this is necessary when click triggers immediate change in layout and PointerExited is not called
 #if !WINAPPSDK
+    if (Window.Current?.CoreWindow is not null)
         Window.Current.CoreWindow.PointerCursor = _defaultCursor;
 #endif
     }

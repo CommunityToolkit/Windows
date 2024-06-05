@@ -109,7 +109,9 @@ public static class CompositorExtensions
             animation.InsertKeyFrame(0, from.Value);
         }
 
-        animation.Target = target;
+        if (target is not null)
+            animation.Target = target;
+        
         animation.Direction = direction;
         animation.IterationBehavior = iterationBehavior;
         animation.IterationCount = iterationCount;
@@ -170,7 +172,9 @@ public static class CompositorExtensions
             animation.InsertKeyFrame(0, from.Value);
         }
 
-        animation.Target = target;
+        if (target is not null)
+            animation.Target = target;
+            
         animation.Direction = direction;
         animation.IterationBehavior = iterationBehavior;
         animation.IterationCount = iterationCount;
@@ -231,7 +235,9 @@ public static class CompositorExtensions
             animation.InsertKeyFrame(0, from.Value);
         }
 
-        animation.Target = target;
+        if (target is not null)
+            animation.Target = target;
+
         animation.Direction = direction;
         animation.IterationBehavior = iterationBehavior;
         animation.IterationCount = iterationCount;
@@ -292,7 +298,9 @@ public static class CompositorExtensions
             animation.InsertKeyFrame(0, from.Value);
         }
 
-        animation.Target = target;
+        if (target is not null)
+            animation.Target = target;
+
         animation.Direction = direction;
         animation.IterationBehavior = iterationBehavior;
         animation.IterationCount = iterationCount;
@@ -353,7 +361,9 @@ public static class CompositorExtensions
             animation.InsertKeyFrame(0, from.Value);
         }
 
-        animation.Target = target;
+        if (target is not null)
+            animation.Target = target;
+
         animation.Direction = direction;
         animation.IterationBehavior = iterationBehavior;
         animation.IterationCount = iterationCount;
@@ -414,7 +424,9 @@ public static class CompositorExtensions
             animation.InsertKeyFrame(0, from.Value);
         }
 
-        animation.Target = target;
+        if (target is not null)
+            animation.Target = target;
+
         animation.Direction = direction;
         animation.IterationBehavior = iterationBehavior;
         animation.IterationCount = iterationCount;
@@ -475,7 +487,9 @@ public static class CompositorExtensions
             animation.InsertKeyFrame(0, from.Value);
         }
 
-        animation.Target = target;
+        if (target is not null)
+            animation.Target = target;
+
         animation.Direction = direction;
         animation.IterationBehavior = iterationBehavior;
         animation.IterationCount = iterationCount;
