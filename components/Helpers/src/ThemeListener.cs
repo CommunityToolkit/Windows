@@ -76,7 +76,7 @@ public sealed class ThemeListener : IDisposable
 
         DispatcherQueue = dispatcherQueue ?? DispatcherQueue.GetForCurrentThread();
 
-        if (Window.Current != null)
+        if (Window.Current?.CoreWindow is not null)
         {
             _accessible.HighContrastChanged += Accessible_HighContrastChanged;
             _settings.ColorValuesChanged += Settings_ColorValuesChanged;
@@ -163,7 +163,7 @@ public sealed class ThemeListener : IDisposable
     {
         _accessible.HighContrastChanged -= Accessible_HighContrastChanged;
         _settings.ColorValuesChanged -= Settings_ColorValuesChanged;
-        if (Window.Current != null)
+        if (Window.Current?.CoreWindow is not null)
         {
             Window.Current.CoreWindow.Activated -= CoreWindow_Activated;
         }
