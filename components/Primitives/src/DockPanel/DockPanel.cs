@@ -96,64 +96,83 @@ public partial class DockPanel : Panel
         var parentHeight = 0.0;
         var accumulatedWidth = Padding.Left + Padding.Right;
         var accumulatedHeight = Padding.Top + Padding.Bottom;
-
+    
         var leftSpacing = false;
         var topSpacing = false;
         var rightSpacing = false;
         var bottomSpacing = false;
-
-        foreach (var child in Children)
+        var childrenCount = LastChildFill ? Children.Count - 1 : Children.Count;
+    
+        for (var index = 0; index < childrenCount; ++index)
         {
+            var child = Children[index];
             var childConstraint = new Size(
                 GetPositiveOrZero(availableSize.Width - accumulatedWidth),
                 GetPositiveOrZero(availableSize.Height - accumulatedHeight));
-
+    
             child.Measure(childConstraint);
             var childDesiredSize = child.DesiredSize;
-
+    
             switch ((Dock)child.GetValue(DockProperty))
             {
                 case Dock.Left:
-                    if (childConstraint.Width is not 0)
-                        accumulatedWidth += HorizontalSpacing;
                     leftSpacing = true;
-                    parentHeight = Math.Max(parentHeight, accumulatedHeight + childDesiredSize.Height - VerticalSpacing);
-                    accumulatedWidth += childDesiredSize.Width;
-                    break;
-
-                case Dock.Right:
+                    parentHeight = Math.Max(parentHeight, accumulatedHeight + childDesiredSize.Height);
                     if (childConstraint.Width is not 0)
                         accumulatedWidth += HorizontalSpacing;
-                    rightSpacing = true;
-                    parentHeight = Math.Max(parentHeight, accumulatedHeight + childDesiredSize.Height - VerticalSpacing);
                     accumulatedWidth += childDesiredSize.Width;
                     break;
-
+    
+                case Dock.Right:
+                    rightSpacing = true;
+                    parentHeight = Math.Max(parentHeight, accumulatedHeight + childDesiredSize.Height);
+                    if (childConstraint.Width is not 0)
+                        accumulatedWidth += HorizontalSpacing;
+                    accumulatedWidth += childDesiredSize.Width;
+                    break;
+    
                 case Dock.Top:
+                    topSpacing = true;
+                    parentWidth = Math.Max(parentWidth, accumulatedWidth + childDesiredSize.Width);
                     if (childConstraint.Height is not 0)
                         accumulatedHeight += VerticalSpacing;
-                    topSpacing = true;
-                    parentWidth = Math.Max(parentWidth, accumulatedWidth + childDesiredSize.Width - HorizontalSpacing);
                     accumulatedHeight += childDesiredSize.Height;
                     break;
-
+    
                 case Dock.Bottom:
+                    bottomSpacing = true;
+                    parentWidth = Math.Max(parentWidth, accumulatedWidth + childDesiredSize.Width);
                     if (childConstraint.Height is not 0)
                         accumulatedHeight += VerticalSpacing;
-                    bottomSpacing = true;
-                    parentWidth = Math.Max(parentWidth, accumulatedWidth + childDesiredSize.Width - HorizontalSpacing);
                     accumulatedHeight += childDesiredSize.Height;
                     break;
             }
         }
-
-        if (leftSpacing || rightSpacing)
-            accumulatedWidth -= HorizontalSpacing;
-        if (bottomSpacing || topSpacing)
-            accumulatedHeight -= VerticalSpacing;
-
-        parentWidth = Math.Max(parentWidth, accumulatedWidth);
-        parentHeight = Math.Max(parentHeight, accumulatedHeight);
+    
+        if (LastChildFill)
+        {
+            var child = Children[Children.Count - 1];
+            var childConstraint = new Size(
+                GetPositiveOrZero(availableSize.Width - accumulatedWidth),
+                GetPositiveOrZero(availableSize.Height - accumulatedHeight));
+    
+            child.Measure(childConstraint);
+            var childDesiredSize = child.DesiredSize;
+            parentHeight = Math.Max(parentHeight, accumulatedHeight + childDesiredSize.Height);
+            parentWidth = Math.Max(parentWidth, accumulatedWidth + childDesiredSize.Width);
+            accumulatedHeight += childDesiredSize.Height;
+            accumulatedWidth += childDesiredSize.Width;
+        }
+        else
+        {
+            if (leftSpacing || rightSpacing)
+                accumulatedWidth -= HorizontalSpacing;
+            if (bottomSpacing || topSpacing)
+                accumulatedHeight -= VerticalSpacing;
+        }
+    
+        parentWidth = Math.Min(availableSize.Width, Math.Max(parentWidth, accumulatedWidth));
+        parentHeight = Math.Min(availableSize.Height, Math.Max(parentHeight, accumulatedHeight));
         return new Size(parentWidth, parentHeight);
     }
 
