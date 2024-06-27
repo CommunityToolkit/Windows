@@ -132,7 +132,7 @@ public partial class SizerBase : Control
             return;
 #endif
 
-#if WINAPPSDK || HAS_UNO_WINUI
+#if WINUI3
             // Need to wait until we're at least applying template step of loading before setting Cursor
             // See https://github.com/microsoft/microsoft-ui-xaml/issues/7062
             if (gripper._appliedTemplate &&
