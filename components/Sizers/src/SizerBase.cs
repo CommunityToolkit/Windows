@@ -100,7 +100,7 @@ public abstract partial class SizerBase : Control
         return new SizerAutomationPeer(this);
     }
 
-#if WINAPPSDK || HAS_UNO_WINUI
+#if WINUI3
     // Used to track when we're in the OnApplyTemplateStep to change ProtectedCursor value.
     private bool _appliedTemplate = false;
 #endif
