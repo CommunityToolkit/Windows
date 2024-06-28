@@ -158,9 +158,19 @@ jobs:
           /m
           /p:DateForVersion=${{ env.VERSION_DATE }}
           /p:PreviewVersion=${{ env.VERSION_PROPERTY }}
+          /p:AppxPackageDir="${{ github.workspace }}\AppxPackages\"
+          /p:UapAppxPackageBuildMode=StoreUpload
+          /p:AppxBundlePlatforms="x86|x64|arm64"
+          /p:AppxBundle=Always
           ${{ env.ENABLE_DIAGNOSTICS == 'true' && '/bl' || '' }}
           /v:${{ env.MSBUILD_VERBOSITY }}
           CommunityToolkit.AllComponents.sln
+
+      - name: Artifact - Sample App
+        uses: actions/upload-artifact@v3
+        with:
+          name: sample-app-${{ matrix.platform }}
+          path: '${{ github.workspace }}\AppxPackages\'
 
       # Build All Packages
       - name: pack experiments
