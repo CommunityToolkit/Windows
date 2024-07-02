@@ -5,7 +5,7 @@
 namespace CommunityToolkit.WinUI.Animations;
 
 /// <inheritdoc cref="NormalizedKeyFrameAnimationBuilder{T}"/>
-internal abstract partial class NormalizedKeyFrameAnimationBuilder<T>
+public abstract partial class NormalizedKeyFrameAnimationBuilder<T>
     where T : unmanaged
 {
     /// <summary>

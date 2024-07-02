@@ -101,7 +101,7 @@ public abstract partial class AttachedShadowBase : DependencyObject, IAttachedSh
     /// <summary>
     /// Gets a value indicating whether or not OnSizeChanged should be called when <see cref="FrameworkElement.SizeChanged"/> is fired.
     /// </summary>
-    protected internal abstract bool SupportsOnSizeChangedEvent { get; }
+    public abstract bool SupportsOnSizeChangedEvent { get; }
 
     /// <summary>
     /// Use this method as the <see cref="PropertyChangedCallback"/> for <see cref="DependencyProperty">DependencyProperties</see> in derived classes.
@@ -142,7 +142,7 @@ public abstract partial class AttachedShadowBase : DependencyObject, IAttachedSh
     /// Override to handle when the <see cref="AttachedShadowElementContext"/> for an element is being initialized.
     /// </summary>
     /// <param name="context">The <see cref="AttachedShadowElementContext"/> that is being initialized.</param>
-    protected internal virtual void OnElementContextInitialized(AttachedShadowElementContext context)
+    public virtual void OnElementContextInitialized(AttachedShadowElementContext context)
     {
         OnPropertyChanged(context, OpacityProperty, Opacity, Opacity);
         OnPropertyChanged(context, BlurRadiusProperty, BlurRadius, BlurRadius);
@@ -288,7 +288,7 @@ public abstract partial class AttachedShadowBase : DependencyObject, IAttachedSh
     /// <param name="context">The <see cref="AttachedShadowElementContext"/> for the <see cref="FrameworkElement"/> firing its SizeChanged event</param>
     /// <param name="newSize">The new size of the <see cref="FrameworkElement"/></param>
     /// <param name="previousSize">The previous size of the <see cref="FrameworkElement"/></param>
-    protected internal virtual void OnSizeChanged(AttachedShadowElementContext context, Size newSize, Size previousSize)
+    public virtual void OnSizeChanged(AttachedShadowElementContext context, Size newSize, Size previousSize)
     {
     }
 }

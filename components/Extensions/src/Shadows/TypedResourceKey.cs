@@ -8,7 +8,7 @@ namespace CommunityToolkit.WinUI;
 /// A generic class that can be used to retrieve keyed resources of the specified type.
 /// </summary>
 /// <typeparam name="TValue">The <see cref="Type"/> of resource the <see cref="TypedResourceKey{TValue}"/> will retrieve.</typeparam>
-internal sealed class TypedResourceKey<TValue>
+public sealed class TypedResourceKey<TValue>
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="TypedResourceKey{TValue}"/> class  with the specified key.

@@ -14,7 +14,7 @@ namespace CommunityToolkit.WinUI.Animations;
 /// <summary>
 /// An interface representing a generic model containing info for an abstract keyframe.
 /// </summary>
-internal interface IKeyFrameInfo
+public interface IKeyFrameInfo
 {
     /// <summary>
     /// Gets the easing type to use to reach the new keyframe.

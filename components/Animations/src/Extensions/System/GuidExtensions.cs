@@ -9,7 +9,7 @@ namespace CommunityToolkit.WinUI.Animations;
 /// <summary>
 /// An extension <see langword="class"/> for the <see cref="Guid"/> type
 /// </summary>
-internal static class GuidExtensions
+public static class GuidExtensions
 {
     /// <summary>
     /// Returns a <see cref="string"/> representation of a <see cref="Guid"/> only made of uppercase letters

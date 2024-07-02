@@ -17,7 +17,7 @@ namespace CommunityToolkit.WinUI.Animations;
 /// A generic keyframe animation builder.
 /// </summary>
 /// <typeparam name="T">The type of values being set by the animation being constructed.</typeparam>
-internal abstract partial class NormalizedKeyFrameAnimationBuilder<T> : INormalizedKeyFrameAnimationBuilder<T>
+public abstract partial class NormalizedKeyFrameAnimationBuilder<T> : INormalizedKeyFrameAnimationBuilder<T>
     where T : unmanaged
 {
     /// <summary>

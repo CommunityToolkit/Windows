@@ -31,7 +31,7 @@ public sealed class AttachedDropShadow : AttachedShadowBase
 #endif
 
     /// <inheritdoc/>
-    protected internal override bool SupportsOnSizeChangedEvent => true;
+    public override bool SupportsOnSizeChangedEvent => true;
 
     private static readonly TypedResourceKey<CompositionRoundedRectangleGeometry> RoundedRectangleGeometryResourceKey = "RoundedGeometry";
     private static readonly TypedResourceKey<CompositionSpriteShape> ShapeResourceKey = "Shape";
@@ -350,7 +350,7 @@ public sealed class AttachedDropShadow : AttachedShadowBase
     }
 
     /// <inheritdoc/>
-    protected internal override void OnSizeChanged(AttachedShadowElementContext context, Size newSize, Size previousSize)
+    public override void OnSizeChanged(AttachedShadowElementContext context, Size newSize, Size previousSize)
     {
         if (context.SpriteVisual != null)
         {
