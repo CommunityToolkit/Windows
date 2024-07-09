@@ -132,7 +132,7 @@ public abstract partial class SizerBase : Control
 
         // Trigger initial state transition based on if we're Enabled or not currently.
         SizerBase_IsEnabledChanged(this, null!);
-#if WINAPPSDK || HAS_UNO_WINUI
+#if WINUI3
         // On WinAppSDK, we'll trigger this to setup the initial ProtectedCursor value.
         _appliedTemplate = true;
 #endif
