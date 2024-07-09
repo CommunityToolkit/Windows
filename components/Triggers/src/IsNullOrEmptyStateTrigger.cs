@@ -118,7 +118,11 @@ public class IsNullOrEmptyStateTrigger : StateTriggerBase
 
         // Object is not an ICollection, check for an empty IEnumerable
         var valEnumerable = val as IEnumerable;
-        if (valEnumerable != null)
+        if (val is IEnumerable valEnumerable
+#if HAS_UNO
+            && val is not FrameworkElement
+#endif
+            )
         {
             foreach (var item in valEnumerable)
             {
