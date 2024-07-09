@@ -100,8 +100,7 @@ public abstract partial class SizerBase : Control
         return new SizerAutomationPeer(this);
     }
 
-// On Uno the ProtectedCursor isn't supported yet, so we don't need this value.
-#if WINAPPSDK && !HAS_UNO
+#if WINUI3
     // Used to track when we're in the OnApplyTemplateStep to change ProtectedCursor value.
     private bool _appliedTemplate = false;
 #endif
@@ -133,7 +132,7 @@ public abstract partial class SizerBase : Control
 
         // Trigger initial state transition based on if we're Enabled or not currently.
         SizerBase_IsEnabledChanged(this, null!);
-#if WINAPPSDK && !HAS_UNO
+#if WINUI3
         // On WinAppSDK, we'll trigger this to setup the initial ProtectedCursor value.
         _appliedTemplate = true;
 #endif
