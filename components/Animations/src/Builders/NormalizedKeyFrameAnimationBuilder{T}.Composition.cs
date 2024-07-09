@@ -14,7 +14,7 @@ using Windows.UI;
 namespace CommunityToolkit.WinUI.Animations;
 
 /// <inheritdoc cref="NormalizedKeyFrameAnimationBuilder{T}"/>
-internal abstract partial class NormalizedKeyFrameAnimationBuilder<T>
+public abstract partial class NormalizedKeyFrameAnimationBuilder<T>
 {
     /// <summary>
     /// Gets a <see cref="CompositionAnimation"/> instance representing the animation to start.

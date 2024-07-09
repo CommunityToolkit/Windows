@@ -278,7 +278,7 @@ public sealed class AttachedShadowElementContext
     /// </summary>
     /// <typeparam name="T">The type of the resource being added.</typeparam>
     /// <returns>The resource that was added</returns>
-    internal T AddResource<T>(TypedResourceKey<T> key, T resource)
+    public T AddResource<T>(TypedResourceKey<T> key, T resource)
         where T : notnull => AddResource(key.Key, resource);
 
     /// <summary>
@@ -286,28 +286,28 @@ public sealed class AttachedShadowElementContext
     /// </summary>
     /// <typeparam name="T">The type of the resource being retrieved.</typeparam>
     /// <returns>True if the resource exists, false otherwise</returns>
-    internal bool TryGetResource<T>(TypedResourceKey<T> key, out T? resource) => TryGetResource(key.Key, out resource);
+    public bool TryGetResource<T>(TypedResourceKey<T> key, out T? resource) => TryGetResource(key.Key, out resource);
 
     /// <summary>
     /// Retries a resource with the specified key and type
     /// </summary>
     /// <typeparam name="T">The type of the resource being retrieved.</typeparam>
     /// <returns>The resource if it exists or a default value.</returns>
-    internal T? GetResource<T>(TypedResourceKey<T> key) => GetResource<T>(key.Key);
+    public T? GetResource<T>(TypedResourceKey<T> key) => GetResource<T>(key.Key);
 
     /// <summary>
     /// Removes an existing resource with the specified key and type
     /// </summary>
     /// <typeparam name="T">The type of the resource being removed.</typeparam>
     /// <returns>The resource that was removed, if any</returns>
-    internal T? RemoveResource<T>(TypedResourceKey<T> key) => RemoveResource<T>(key.Key);
+    public T? RemoveResource<T>(TypedResourceKey<T> key) => RemoveResource<T>(key.Key);
 
     /// <summary>
     /// Removes an existing resource with the specified key and type, and <see cref="IDisposable.Dispose">disposes</see> it
     /// </summary>
     /// <typeparam name="T">The type of the resource being removed.</typeparam>
     /// <returns>The resource that was removed, if any</returns>
-    internal T? RemoveAndDisposeResource<T>(TypedResourceKey<T> key)
+    public T? RemoveAndDisposeResource<T>(TypedResourceKey<T> key)
         where T : IDisposable => RemoveAndDisposeResource<T>(key.Key);
 
     /// <summary>

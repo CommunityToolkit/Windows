@@ -88,10 +88,10 @@ public sealed class AttachedCardShadow : AttachedShadowBase
 #endif
 
     /// <inheritdoc/>
-    protected internal override bool SupportsOnSizeChangedEvent => true;
+    public override bool SupportsOnSizeChangedEvent => true;
 
     /// <inheritdoc/>
-    protected internal override void OnElementContextInitialized(AttachedShadowElementContext context)
+    public override void OnElementContextInitialized(AttachedShadowElementContext context)
     {
         UpdateVisualOpacityMask(context);
         base.OnElementContextInitialized(context);
@@ -330,7 +330,7 @@ public sealed class AttachedCardShadow : AttachedShadowBase
     }
 
     /// <inheritdoc />
-    protected internal override void OnSizeChanged(AttachedShadowElementContext context, Size newSize, Size previousSize)
+    public override void OnSizeChanged(AttachedShadowElementContext context, Size newSize, Size previousSize)
     {
         Vector2 sizeAsVec2 = newSize.ToVector2();
 
