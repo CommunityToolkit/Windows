@@ -117,8 +117,13 @@ public class IsNullOrEmptyStateTrigger : StateTriggerBase
         }
 
         // Object is not an ICollection, check for an empty IEnumerable
-        var valEnumerable = val as IEnumerable;
-        if (valEnumerable != null)
+        if (val is IEnumerable valEnumerable
+// Workaround to regression introduced in https://github.com/unoplatform/uno/pull/16834
+// Track https://github.com/unoplatform/uno/issues/17311 for cleanup
+#if HAS_UNO
+            && val is not FrameworkElement
+#endif
+            )
         {
             foreach (var item in valEnumerable)
             {
