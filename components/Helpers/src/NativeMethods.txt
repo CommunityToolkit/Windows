@@ -1,0 +1,4 @@
+RegisterClassEx
+DefWindowProc
+CreateWindowEx
+WM_SETTINGCHANGE
