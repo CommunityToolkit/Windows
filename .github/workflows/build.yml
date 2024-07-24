@@ -20,7 +20,7 @@ env:
   DOTNET_VERSION: ${{ '8.0.201' }}
   # Debug logging enabled via GitHub UI during reruns or set as repo secret.
   # See also https://docs.github.com/en/actions/monitoring-and-troubleshooting-workflows/enabling-debug-logging
-  ENABLE_DIAGNOSTICS: ${{ github.ACTIONS_STEP_DEBUG }}
+  ENABLE_DIAGNOSTICS: ${{ runner.debug }}
   MSBUILD_VERBOSITY: normal
   #COREHOST_TRACE: 1
   COREHOST_TRACEFILE: corehosttrace.log
