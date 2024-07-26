@@ -242,6 +242,9 @@ jobs:
         run: |
           echo "VERSION_DATE=$(git log -1 --format=%cd --date=format:%y%m%d)" >> $env:GITHUB_ENV
 
+      - name: Restore dotnet tools
+        run: dotnet tool restore
+
       - name: Run Uno Check to Install Dependencies
         run: >
           dotnet tool run uno-check
