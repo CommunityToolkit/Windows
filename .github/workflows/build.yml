@@ -61,14 +61,17 @@ jobs:
 
     # See https://docs.github.com/actions/using-jobs/using-a-matrix-for-your-jobs
     strategy:
-      fail-fast: false # prevent one matrix pipeline from being cancelled if one fails, we want them both to run to completion.
+      fail-fast: false # prevent one matrix pipeline from being cancelled if one fails, we want them all to run to completion.
       matrix:
-        platform: [WinUI2, WinUI3]
+        winui: [2, 3]
+        multitarget: ['uwp', 'wasdk', 'wasm', 'wpf', 'linuxgtk', 'macos', 'ios', 'android']
+        exclude:
+          - winui: 2
+            multitarget: wasdk
+          - winui: 3
+            multitarget: uwp
 
     env:
-      # faux-ternary expression to select which platforms to build for each platform vs. duplicating step below.
-      TARGET_PLATFORMS: ${{ matrix.platform != 'WinUI3' && 'all-wasdk' || 'all-uwp' }}
-      TEST_PLATFORM: ${{ matrix.platform != 'WinUI3' && 'UWP' || 'WinAppSdk' }}
       VERSION_PROPERTY: ${{ github.ref == 'refs/heads/main' && format('build.{0}', github.run_number) || format('pull-{0}.{1}', github.event.number, github.run_number) }}
 
     # Steps represent a sequence of tasks that will be executed as part of the job
@@ -124,18 +127,17 @@ jobs:
         with:
           vs-version: '[17.9,)'
 
-      - name: Enable ${{ env.TARGET_PLATFORMS }} TargetFrameworks
+      - name: Enable ${{ matrix.multitarget }} TargetFrameworks
         working-directory: ./${{ env.MULTI_TARGET_DIRECTORY }}
-        run: powershell -version 5.1 -command "./UseTargetFrameworks.ps1 ${{ env.TARGET_PLATFORMS }}" -ErrorAction Stop
+        run: powershell -version 5.1 -command "./UseTargetFrameworks.ps1 -Include ${{ matrix.multitarget }}" -ErrorAction Stop
 
-      - name: Generate solution w/ ${{ env.TEST_PLATFORM }} Tests
+      - name: Set WinUI Version
+        working-directory: ./${{ env.MULTI_TARGET_DIRECTORY }}
+        run: powershell -version 5.1 -command "./UseUnoWinUI.ps1 ${{ matrix.winui }}" -ErrorAction Stop
+
+      - name: Generate solution with ${{ matrix.multitarget }} gallery and tests
         working-directory: ./
-        run: powershell -version 5.1 -command "./tooling/GenerateAllSolution.ps1 -IncludeHeads ${{ env.TEST_PLATFORM }}${{ env.ENABLE_DIAGNOSTICS == 'true' && ' -UseDiagnostics' || '' }}" -ErrorAction Stop
-
-      - name: Enable Uno.WinUI (in WinUI3 matrix only)
-        if: ${{ matrix.platform == 'WinUI3' }}
-        working-directory: ./${{ env.MULTI_TARGET_DIRECTORY }}
-        run: powershell -version 5.1 -command "./UseUnoWinUI.ps1 3" -ErrorAction Stop
+        run: powershell -version 5.1 -command "./tooling/GenerateAllSolution.ps1 -IncludeHeads ${{ matrix.multitarget }}${{ env.ENABLE_DIAGNOSTICS == 'true' && ' -UseDiagnostics' || '' }}" -ErrorAction Stop
 
       - name: Format Date/Time of Commit for Package Version
         if: ${{ env.IS_RELEASE == 'false' }}
@@ -189,9 +191,10 @@ jobs:
         id: test-generator
         run: vstest.console.exe ./tooling/CommunityToolkit.Tooling.SampleGen.Tests/bin/Release/net6.0/CommunityToolkit.Tooling.SampleGen.Tests.dll /logger:"trx;LogFileName=SourceGenerators.trx"
 
-      - name: Run experiment tests against ${{ env.TEST_PLATFORM }}
+      - name: Run experiment tests against ${{ matrix.multitarget }}
+        if: ${{ matrix.multitarget == 'uwp' || matrix.multitarget == 'wasdk' }}
         id: test-platform
-        run:  vstest.console.exe ./tooling/**/CommunityToolkit.Tests.${{ env.TEST_PLATFORM }}.build.appxrecipe /Framework:FrameworkUap10 /logger:"trx;LogFileName=${{ env.TEST_PLATFORM }}.trx" /Blame
+        run:  vstest.console.exe ./tooling/**/CommunityToolkit.Tests.${{ matrix.multitarget }}.build.appxrecipe /Framework:FrameworkUap10 /logger:"trx;LogFileName=${{ matrix.multitarget }}.trx" /Blame
 
       - name: Create test reports
         run: |
