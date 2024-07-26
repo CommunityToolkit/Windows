@@ -112,9 +112,11 @@ jobs:
         run: dotnet tool restore
 
       - name: Run Uno Check to Install Dependencies
+        if: ${{ matrix.multitarget == 'wasm' || matrix.multitarget == 'ios' || matrix.multitarget == 'android' || matrix.multitarget == 'macos' || matrix.multitarget == 'uwp' }}
         run: >
           dotnet tool run uno-check 
           --ci
+          --target ${{ matrix.multitarget }}
           --fix
           --non-interactive
           --skip wsl
