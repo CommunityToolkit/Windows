@@ -203,6 +203,7 @@ jobs:
           dotnet-dump analyze ${{ steps.detect-dump.outputs.DUMP_FILE }} -c "clrstack" -c "pe -lines" -c "exit"
 
   package:
+    runs-on: windows-latest
     needs: [build]
     strategy:
       fail-fast: false # prevent one matrix pipeline from being cancelled if one fails, we want them all to run to completion.
