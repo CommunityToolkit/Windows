@@ -162,10 +162,9 @@ jobs:
         run:  vstest.console.exe ./tooling/**/CommunityToolkit.Tests.${{ matrix.multitarget }}.build.appxrecipe /Framework:FrameworkUap10 /logger:"trx;LogFileName=${{ matrix.multitarget }}.trx" /Blame
 
       - name: Create test reports
-        if: ${{ matrix.multitarget == 'uwp' || matrix.multitarget == 'wasdk' }}
         run: |
           testspace '[${{ matrix.multitarget }}]./TestResults/*.trx'
-        if: ${{ always() && (steps.test-generator.conclusion == 'success' || steps.test-platform.conclusion == 'success') }}
+        if: ${{ (matrix.multitarget == 'uwp' || matrix.multitarget == 'wasdk') && (steps.test-generator.conclusion == 'success' || steps.test-platform.conclusion == 'success') }}
 
       - name: Artifact - Diagnostic Logs
         uses: actions/upload-artifact@v4
