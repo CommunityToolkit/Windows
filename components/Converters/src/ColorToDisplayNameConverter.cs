@@ -9,7 +9,7 @@ namespace CommunityToolkit.WinUI.Converters;
 /// <summary>
 /// Gets the approximated display name for the color.
 /// </summary>
-public class ColorToDisplayNameConverter : IValueConverter
+public partial class ColorToDisplayNameConverter : IValueConverter
 {
     /// <inheritdoc/>
     public object Convert(

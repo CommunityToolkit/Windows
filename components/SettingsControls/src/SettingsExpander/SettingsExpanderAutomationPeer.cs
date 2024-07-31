@@ -12,7 +12,7 @@ namespace CommunityToolkit.WinUI.Controls;
 /// <summary>
 /// AutomationPeer for SettingsExpander
 /// </summary>
-public class SettingsExpanderAutomationPeer : FrameworkElementAutomationPeer
+public partial class SettingsExpanderAutomationPeer : FrameworkElementAutomationPeer
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="SettingsExpander"/> class.
