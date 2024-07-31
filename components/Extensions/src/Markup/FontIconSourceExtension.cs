@@ -8,7 +8,7 @@ namespace CommunityToolkit.WinUI;
 /// Custom <see cref="MarkupExtension"/> which can provide <see cref="FontIconSource"/> values.
 /// </summary>
 [MarkupExtensionReturnType(ReturnType = typeof(FontIconSource))]
-public class FontIconSourceExtension : TextIconExtension
+public partial class FontIconSourceExtension : TextIconExtension
 {
     /// <summary>
     /// Gets or sets the <see cref="string"/> value representing the icon to display.

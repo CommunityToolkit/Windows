@@ -15,7 +15,7 @@ namespace CommunityToolkit.WinUI.Converters;
 /// <summary>
 /// Value converter that look up for the source string in the App Resources strings and returns its value, if found.
 /// </summary>
-public sealed class ResourceNameToResourceStringConverter : IValueConverter
+public sealed partial class ResourceNameToResourceStringConverter : IValueConverter
 {
 #if WINAPPSDK && !HAS_UNO
     private readonly ResourceManager _resourceManager = new ResourceManager();

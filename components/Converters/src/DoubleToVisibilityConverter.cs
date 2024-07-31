@@ -7,7 +7,7 @@ namespace CommunityToolkit.WinUI.Converters;
 /// <summary>
 /// This class converts a double value into a Visibility enumeration.
 /// </summary>
-public class DoubleToVisibilityConverter : DoubleToObjectConverter
+public partial class DoubleToVisibilityConverter : DoubleToObjectConverter
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="DoubleToVisibilityConverter"/> class.

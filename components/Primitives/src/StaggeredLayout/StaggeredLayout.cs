@@ -10,7 +10,7 @@ namespace CommunityToolkit.WinUI.Controls;
 /// <summary>
 /// Arranges child elements into a staggered grid pattern where items are added to the column that has used least amount of space.
 /// </summary>
-public class StaggeredLayout : VirtualizingLayout
+public partial class StaggeredLayout : VirtualizingLayout
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="StaggeredLayout"/> class.

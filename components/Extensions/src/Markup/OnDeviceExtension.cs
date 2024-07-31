@@ -20,7 +20,7 @@ namespace CommunityToolkit.WinUI;
 ///                xmlns:ui="using:CommunityToolkit.WinUI.UI" />
 /// </code>
 /// </example>
-public class OnDeviceExtension : MarkupExtension
+public partial class OnDeviceExtension : MarkupExtension
 {
     /// <summary>
     /// Gets the current device family.

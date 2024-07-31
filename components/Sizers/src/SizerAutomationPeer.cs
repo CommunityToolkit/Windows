@@ -7,7 +7,7 @@ namespace CommunityToolkit.WinUI.Controls.Automation.Peers;
 /// <summary>
 /// Defines a framework element automation peer for the <see cref="SizerBase"/> controls.
 /// </summary>
-public class SizerAutomationPeer : FrameworkElementAutomationPeer
+public partial class SizerAutomationPeer : FrameworkElementAutomationPeer
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="SizerAutomationPeer"/> class.

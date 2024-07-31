@@ -13,7 +13,7 @@ namespace CommunityToolkit.WinUI.Controls;
 /// <summary>
 /// Exposes <see cref="RadialGauge"/> to Microsoft UI Automation.
 /// </summary>
-public class RadialGaugeAutomationPeer :
+public partial class RadialGaugeAutomationPeer :
         RangeBaseAutomationPeer,
         IRangeValueProvider
 {

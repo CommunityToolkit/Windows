@@ -7,7 +7,7 @@ namespace CommunityToolkit.WinUI.Converters;
 /// <summary>
 /// Converts a file size in bytes to a more human-readable friendly format using <see cref="CommunityToolkit.Common.Converters.ToFileSizeString(long)"/>
 /// </summary>
-public class FileSizeToFriendlyStringConverter : IValueConverter
+public partial class FileSizeToFriendlyStringConverter : IValueConverter
 {
     /// <inheritdoc/>
     public object Convert(object value, Type targetType, object parameter, string language)
