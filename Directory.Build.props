@@ -30,6 +30,17 @@
 
     <!-- See https://github.com/CommunityToolkit/Windows/pull/567#issuecomment-2498739244 -->
     <WarningsNotAsErrors>NU1901;NU1902;NU1903;NU1904</WarningsNotAsErrors>
+    <NoWarn>$(NoWarn);TKSMPL0014;</NoWarn>
+
+    <!--
+      Suppress 'error CsWinRT1028: Class implements WinRT interfaces but isn't marked partial. ' for generated XamlMetaDataProvider.g.cs.
+      Fix is expected to arrive in prerelease1 of Microsoft.WindowsAppSdk 1.6.
+      Internal tracking: https://microsoft.visualstudio.com/OS/_workitems/edit/52541822/
+
+      Notice: This suppression affects CsWinRT1028 for all generated and non-generated code.
+        Disable to check non-generated code for CsWinRT1028.
+     -->
+    <NoWarn>$(NoWarn);CsWinRT1028;</NoWarn>    
   </PropertyGroup>
 
   <Import Project="Windows.Toolkit.Common.props" />
