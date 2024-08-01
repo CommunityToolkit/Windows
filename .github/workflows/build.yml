@@ -272,7 +272,7 @@ jobs:
           dotnet nuget add source https://pkgs.dev.azure.com/dotnet/CommunityToolkit/_packaging/CommunityToolkit-PullRequests/nuget/v3/index.json `
             --name PullRequests `
             --username dummy --password ${{ secrets.DEVOPS_PACKAGE_PUSH_TOKEN }}
-          dotnet nuget push "./**/*.nupkg" --api-key dummy --source PullRequests --skip-duplicate
+          dotnet nuget push "*.nupkg" --api-key dummy --source PullRequests --skip-duplicate
 
       - name: Upload Package List
         uses: actions/upload-artifact@v4
