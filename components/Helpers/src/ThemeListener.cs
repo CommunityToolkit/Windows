@@ -4,6 +4,8 @@
 
 using Windows.Foundation.Metadata;
 using Windows.UI.ViewManagement;
+using CommunityToolkit.WinUI.HelpersRns;
+
 
 #if !WINAPPSDK
 using Windows.System;
@@ -83,6 +85,15 @@ public sealed class ThemeListener : IDisposable
 
             Window.Current.CoreWindow.Activated += CoreWindow_Activated;
         }
+#if WINAPPSDK
+        ThemeListenerHelperWindow.Instance.ThemeChanged += this.Instance_ThemeChanged;
+#endif
+    }
+
+    private void Instance_ThemeChanged(ApplicationTheme theme)
+    {
+        CurrentTheme = theme;
+        ThemeChanged?.Invoke(this);
     }
 
     private async void Accessible_HighContrastChanged(AccessibilitySettings sender, object args)
