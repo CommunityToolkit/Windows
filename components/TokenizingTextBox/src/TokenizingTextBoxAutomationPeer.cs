@@ -54,8 +54,7 @@ public partial class TokenizingTextBoxAutomationPeer : ListViewBaseAutomationPee
         {
             #if WINDOWS_UWP
             #if NET8_0_OR_GREATER
-            // TODO: ElementNotEnabledException not available on modern uwp.
-            throw new Exception($"Could not set the value of the {nameof(TokenizingTextBox)} ");
+            throw new Microsoft.UI.Xaml.Automation.ElementNotEnabledException($"Could not set the value of the {nameof(TokenizingTextBox)} ");
             #else
             throw new Windows.UI.Xaml.Automation.ElementNotEnabledException($"Could not set the value of the {nameof(TokenizingTextBox)} ");
             #endif
