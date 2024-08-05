@@ -36,6 +36,7 @@ public partial class ColorToDisplayNameConverter : IValueConverter
 
 #if WINDOWS_UWP && NET8_0_OR_GREATER
         // Windows.UI.ColorHelper not yet supported on modern uwp.
+        // Following advice from Sergio0694
         return color.ToString();
 #elif WINUI2
         return Windows.UI.ColorHelper.ToDisplayName(color);
