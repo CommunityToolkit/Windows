@@ -46,7 +46,7 @@ public abstract class TextIconExtension : MarkupExtension
     #if WINUI3
     public Windows.UI.Text.FontStyle FontStyle { get; set; } = Windows.UI.Text.FontStyle.Normal;
     #elif WINUI2
-    public Windows.UI.Text.FontWeight FontWeight { get; set; } = Windows.UI.Text.FontWeights.Normal;
+    public Windows.UI.Text.FontStyle FontStyle { get; set; } = Windows.UI.Text.FontStyle.Normal;
     #endif
 
     /// <summary>
