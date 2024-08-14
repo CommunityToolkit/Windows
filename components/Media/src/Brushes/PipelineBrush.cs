@@ -10,7 +10,7 @@ namespace CommunityToolkit.WinUI.Media;
 /// A <see cref="Brush"/> that renders a customizable Composition/Win2D effects pipeline
 /// </summary>
 [ContentProperty(Name = nameof(Effects))]
-public sealed class PipelineBrush : XamlCompositionEffectBrushBase
+public sealed partial class PipelineBrush : XamlCompositionEffectBrushBase
 {
     /// <summary>
     /// Gets or sets the source for the current pipeline (defaults to a <see cref="BackdropSourceExtension"/> with <see cref="AcrylicBackgroundSource.Backdrop"/> source).

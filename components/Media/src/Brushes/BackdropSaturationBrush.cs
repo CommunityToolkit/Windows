@@ -15,7 +15,7 @@ namespace CommunityToolkit.WinUI.Media;
 /// <summary>
 /// Brush which applies a SaturationEffect to the Backdrop. http://microsoft.github.io/Win2D/html/T_Microsoft_Graphics_Canvas_Effects_SaturationEffect.htm
 /// </summary>
-public class BackdropSaturationBrush : XamlCompositionEffectBrushBase
+public partial class BackdropSaturationBrush : XamlCompositionEffectBrushBase
 {
     /// <summary>
     /// The <see cref="EffectSetter{T}"/> instance currently in use
