@@ -17,7 +17,7 @@ namespace CommunityToolkit.WinUI.Media;
 /// <summary>
 /// The <see cref="BackdropBlurBrush"/> is a <see cref="Brush"/> that blurs whatever is behind it in the application.
 /// </summary>
-public class BackdropBlurBrush : XamlCompositionEffectBrushBase
+public partial class BackdropBlurBrush : XamlCompositionEffectBrushBase
 {
     /// <summary>
     /// The <see cref="EffectSetter{T}"/> instance currently in use

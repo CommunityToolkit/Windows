@@ -15,7 +15,7 @@ namespace CommunityToolkit.WinUI.Media;
 /// <summary>
 /// A brush which alters the colors of whatever is behind it in the application by applying a per-channel gamma transfer function.  See https://microsoft.github.io/Win2D/html/T_Microsoft_Graphics_Canvas_Effects_GammaTransferEffect.htm.
 /// </summary>
-public class BackdropGammaTransferBrush : XamlCompositionBrushBase
+public partial class BackdropGammaTransferBrush : XamlCompositionBrushBase
 {
     /// <summary>
     /// Gets or sets the amount of scale to apply to the alpha chennel.

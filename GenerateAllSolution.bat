@@ -1,5 +1,5 @@
 @ECHO OFF
-SET "IncludeHeads=%1"
-IF "%IncludeHeads%"=="" SET "IncludeHeads=all"
+SET "MultiTargets=%1"
+IF "%MultiTargets%"=="" SET "MultiTargets=all"
 
-powershell .\tooling\GenerateAllSolution.ps1 -IncludeHeads %IncludeHeads%
+powershell .\tooling\GenerateAllSolution.ps1 -MultiTargets %MultiTargets%

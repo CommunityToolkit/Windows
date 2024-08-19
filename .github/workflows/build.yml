@@ -61,15 +61,17 @@ jobs:
 
     # See https://docs.github.com/actions/using-jobs/using-a-matrix-for-your-jobs
     strategy:
-      fail-fast: false # prevent one matrix pipeline from being cancelled if one fails, we want them both to run to completion.
+      fail-fast: false # prevent one matrix pipeline from being cancelled if one fails, we want them all to run to completion.
       matrix:
-        platform: [WinUI2, WinUI3]
-
-    env:
-      # faux-ternary expression to select which platforms to build for each platform vs. duplicating step below.
-      TARGET_PLATFORMS: ${{ matrix.platform != 'WinUI3' && 'all-wasdk' || 'all-uwp' }}
-      TEST_PLATFORM: ${{ matrix.platform != 'WinUI3' && 'UWP' || 'WinAppSdk' }}
-      VERSION_PROPERTY: ${{ github.ref == 'refs/heads/main' && format('build.{0}', github.run_number) || format('pull-{0}.{1}', github.event.number, github.run_number) }}
+        winui: [2, 3]
+        multitarget: ['uwp', 'wasdk', 'wasm', 'wpf', 'linuxgtk', 'macos', 'ios', 'android']
+        exclude:
+          # WinUI 2 not supported on wasdk
+          - winui: 2
+            multitarget: wasdk
+          # WinUI 3 not supported on uwp
+          - winui: 3
+            multitarget: uwp
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -109,9 +111,11 @@ jobs:
         run: dotnet tool restore
 
       - name: Run Uno Check to Install Dependencies
+        if: ${{ matrix.multitarget != 'wasdk' && matrix.multitarget != 'linuxgtk' && matrix.multitarget != 'wpf' }}
         run: >
           dotnet tool run uno-check 
           --ci
+          --target ${{ matrix.multitarget }}
           --fix
           --non-interactive
           --skip wsl
@@ -124,57 +128,20 @@ jobs:
         with:
           vs-version: '[17.9,)'
 
-      - name: Enable ${{ env.TARGET_PLATFORMS }} TargetFrameworks
-        working-directory: ./${{ env.MULTI_TARGET_DIRECTORY }}
-        run: powershell -version 5.1 -command "./UseTargetFrameworks.ps1 ${{ env.TARGET_PLATFORMS }}" -ErrorAction Stop
-
-      - name: Generate solution w/ ${{ env.TEST_PLATFORM }} Tests
+      # Generate full solution with all projects (sample gallery heads, components, tests)
+      - name: Generate solution with ${{ matrix.multitarget }} gallery, components and tests
         working-directory: ./
-        run: powershell -version 5.1 -command "./tooling/GenerateAllSolution.ps1 -IncludeHeads ${{ env.TEST_PLATFORM }}${{ env.ENABLE_DIAGNOSTICS == 'true' && ' -UseDiagnostics' || '' }}" -ErrorAction Stop
+        run: powershell -version 5.1 -command "./tooling/GenerateAllSolution.ps1 -MultiTargets ${{ matrix.multitarget }} ${{ env.ENABLE_DIAGNOSTICS == 'true' && ' -UseDiagnostics' || '' }} -WinUIMajorVersion ${{ matrix.winui }}" -ErrorAction Stop
 
-      - name: Enable Uno.WinUI (in WinUI3 matrix only)
-        if: ${{ matrix.platform == 'WinUI3' }}
-        working-directory: ./${{ env.MULTI_TARGET_DIRECTORY }}
-        run: powershell -version 5.1 -command "./UseUnoWinUI.ps1 3" -ErrorAction Stop
-
-      - name: Format Date/Time of Commit for Package Version
-        if: ${{ env.IS_RELEASE == 'false' }}
-        run: |
-          echo "VERSION_DATE=$(git log -1 --format=%cd --date=format:%y%m%d)" >> $env:GITHUB_ENV
-
-      # Semver regex: https://regex101.com/r/Ly7O1x/3/
-      - name: Format Date/Time of Release Package Version
-        if: ${{ env.IS_RELEASE == 'true' }}
-        run: |
-          $ref = "${{ github.ref }}"
-          $ref -match "^refs/heads/rel/(?<major>0|[1-9]\d*)\.(?<minor>0|[1-9]\d*)\.(?<patch>0|[1-9]\d*)(?:-(?<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+(?<buildmetadata>[0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$"
-          echo "VERSION_DATE=$($matches['patch'])" >> $env:GITHUB_ENV
-          echo "VERSION_PROPERTY=$($matches['prerelease'])" >> $env:GITHUB_ENV
-
+      # Build solution
       - name: MSBuild
         run: >
           msbuild.exe /restore /nowarn:MSB4011
           /p:Configuration=Release
           /m
-          /p:DateForVersion=${{ env.VERSION_DATE }}
-          /p:PreviewVersion=${{ env.VERSION_PROPERTY }}
           ${{ env.ENABLE_DIAGNOSTICS == 'true' && '/bl' || '' }}
           /v:${{ env.MSBUILD_VERBOSITY }}
           CommunityToolkit.AllComponents.sln
-
-      # Build All Packages
-      - name: pack experiments
-        working-directory: ./tooling/Scripts/
-        run: ./PackEachExperiment.ps1 -date ${{ env.VERSION_DATE }}${{ env.VERSION_PROPERTY != '' && format(' -postfix {0}', env.VERSION_PROPERTY) || '' }}
-
-      # Push Pull Request Packages to our DevOps Artifacts Feed (see nuget.config)
-      - name: Push Pull Request Packages (if not fork)
-        if: ${{ env.IS_PR == 'true' && github.event.pull_request.head.repo.full_name == github.repository && github.actor != 'dependabot[bot]' }}
-        run: |
-          dotnet nuget add source https://pkgs.dev.azure.com/dotnet/CommunityToolkit/_packaging/CommunityToolkit-PullRequests/nuget/v3/index.json `
-            --name PullRequests `
-            --username dummy --password ${{ secrets.DEVOPS_PACKAGE_PUSH_TOKEN }}
-          dotnet nuget push "**/*.nupkg" --api-key dummy --source PullRequests --skip-duplicate
 
       # Run tests
       - name: Setup VSTest Path
@@ -189,20 +156,21 @@ jobs:
         id: test-generator
         run: vstest.console.exe ./tooling/CommunityToolkit.Tooling.SampleGen.Tests/bin/Release/net6.0/CommunityToolkit.Tooling.SampleGen.Tests.dll /logger:"trx;LogFileName=SourceGenerators.trx"
 
-      - name: Run experiment tests against ${{ env.TEST_PLATFORM }}
+      - name: Run component tests against ${{ matrix.multitarget }}
+        if: ${{ matrix.multitarget == 'uwp' || matrix.multitarget == 'wasdk' }}
         id: test-platform
-        run:  vstest.console.exe ./tooling/**/CommunityToolkit.Tests.${{ env.TEST_PLATFORM }}.build.appxrecipe /Framework:FrameworkUap10 /logger:"trx;LogFileName=${{ env.TEST_PLATFORM }}.trx" /Blame
+        run:  vstest.console.exe ./tooling/**/CommunityToolkit.Tests.${{ matrix.multitarget }}.build.appxrecipe /Framework:FrameworkUap10 /logger:"trx;LogFileName=${{ matrix.multitarget }}.trx" /Blame
 
       - name: Create test reports
         run: |
-          testspace '[${{ matrix.platform }}]./TestResults/*.trx'
-        if: ${{ always() && (steps.test-generator.conclusion == 'success' || steps.test-platform.conclusion == 'success') }}
+          testspace '[${{ matrix.multitarget }}]./TestResults/*.trx'
+        if: ${{ (matrix.multitarget == 'uwp' || matrix.multitarget == 'wasdk') && (steps.test-generator.conclusion == 'success' || steps.test-platform.conclusion == 'success') }}
 
       - name: Artifact - Diagnostic Logs
         uses: actions/upload-artifact@v4
         if: ${{ (env.ENABLE_DIAGNOSTICS == 'true' || env.COREHOST_TRACE != '') && always() }}
         with:
-          name: build-logs-${{ matrix.platform }} 
+          name: build-logs-${{ matrix.multitarget }}-winui${{ matrix.winui }}
           path: ./**/*.*log
 
       - name: Artifact - ILC Repro
@@ -224,7 +192,7 @@ jobs:
         uses: actions/upload-artifact@v4
         if: ${{ (env.ENABLE_DIAGNOSTICS == 'true' || env.COREHOST_TRACE != '') && always() }}
         with:
-          name: CrashDumps-${{ matrix.platform }}
+          name: CrashDumps-${{ matrix.multitarget }}-winui${{ matrix.winui }}
           path: '${{ github.workspace }}/CrashDumps'
 
       - name: Analyze Dump
@@ -233,11 +201,84 @@ jobs:
           dotnet tool install --global dotnet-dump
           dotnet-dump analyze ${{ steps.detect-dump.outputs.DUMP_FILE }} -c "clrstack" -c "pe -lines" -c "exit"
 
+  package:
+    runs-on: windows-latest
+    needs: [build]
+    strategy:
+      fail-fast: false # prevent one matrix pipeline from being cancelled if one fails, we want them all to run to completion.
+      matrix:
+        winui: [2, 3]
+
+    env:
+      VERSION_PROPERTY: ${{ github.ref == 'refs/heads/main' && format('build.{0}', github.run_number) || format('pull-{0}.{1}', github.event.number, github.run_number) }}
+
+    steps:
+      - name: Install .NET SDK v${{ env.DOTNET_VERSION }}
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: .NET Info (if diagnostics)
+        if: ${{ env.ENABLE_DIAGNOSTICS == 'true' }}
+        run: dotnet --info
+
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      # Semver regex: https://regex101.com/r/Ly7O1x/3/
+      - name: Format Date/Time of Release Package Version
+        if: ${{ env.IS_RELEASE == 'true' }}
+        run: |
+          $ref = "${{ github.ref }}"
+          $ref -match "^refs/heads/rel/(?<major>0|[1-9]\d*)\.(?<minor>0|[1-9]\d*)\.(?<patch>0|[1-9]\d*)(?:-(?<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+(?<buildmetadata>[0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$"
+          echo "VERSION_DATE=$($matches['patch'])" >> $env:GITHUB_ENV
+          echo "VERSION_PROPERTY=$($matches['prerelease'])" >> $env:GITHUB_ENV
+          
+      - name: Format Date/Time of Commit for Package Version
+        if: ${{ env.IS_RELEASE == 'false' }}
+        run: |
+          echo "VERSION_DATE=$(git log -1 --format=%cd --date=format:%y%m%d)" >> $env:GITHUB_ENV
+
+      - name: Restore dotnet tools
+        run: dotnet tool restore
+
+      - name: Run Uno Check to Install Dependencies
+        run: >
+          dotnet tool run uno-check
+          --ci
+          --fix
+          --non-interactive
+          --skip wsl
+          --skip androidemulator
+          --skip vswinworkloads
+          --verbose
+
+      - name: Add msbuild to PATH
+        uses: microsoft/setup-msbuild@v2
+        with:
+          vs-version: '[17.9,)'
+
+      # Build and pack component nupkg
+      - name: Build and pack component packages
+        run: ./tooling/Build-Toolkit-Components.ps1 -MultiTargets all -WinUIMajorVersion ${{ matrix.winui }} -DateForVersion ${{ env.VERSION_DATE }} ${{ env.VERSION_PROPERTY != '' && format('-PreviewVersion "{0}"', env.VERSION_PROPERTY) || '' }} ${{ env.ENABLE_DIAGNOSTICS == 'true' && '-EnableBinlogs' || '' }} ${{ env.ENABLE_DIAGNOSTICS == 'true' && '-Verbose' || '' }} -BinlogOutput ./ -NupkgOutput ./ -Release
+
+      # Push Pull Request Packages to our DevOps Artifacts Feed (see nuget.config)
+      - name: Push Pull Request Packages (if not fork)
+        if: ${{ env.IS_PR == 'true' && github.event.pull_request.head.repo.full_name == github.repository && github.actor != 'dependabot[bot]' }}
+        run: |
+          dotnet nuget add source https://pkgs.dev.azure.com/dotnet/CommunityToolkit/_packaging/CommunityToolkit-PullRequests/nuget/v3/index.json `
+            --name PullRequests `
+            --username dummy --password ${{ secrets.DEVOPS_PACKAGE_PUSH_TOKEN }}
+          dotnet nuget push "*.nupkg" --api-key dummy --source PullRequests --skip-duplicate
+
       - name: Upload Package List
         uses: actions/upload-artifact@v4
         if: ${{ env.IS_PR == 'false' }}
         with:
-          name: nuget-list-${{ matrix.platform }}
+          name: nuget-list-${{ matrix.winui }}
           if-no-files-found: error
           path: |
             ${{ github.workspace }}/.github/workflows/SignClientFileList.txt
@@ -247,13 +288,20 @@ jobs:
         uses: actions/upload-artifact@v4
         if: ${{ env.IS_PR == 'false' || github.event.pull_request.head.repo.full_name != github.repository }}
         with:
-          name: nuget-packages-${{ matrix.platform }}
+          name: nuget-packages-winui${{ matrix.winui }}
           if-no-files-found: error
           path: |
-            **/*.nupkg
+            ./*.nupkg
+          
+      - name: Artifact - Diagnostic Logs
+        uses: actions/upload-artifact@v4
+        if: ${{ (env.ENABLE_DIAGNOSTICS == 'true' || env.COREHOST_TRACE != '') && always() }}
+        with:
+          name: build-logs-winui${{ matrix.winui }}
+          path: ./*.*log
 
   sign:
-    needs: [build]
+    needs: [package]
     if: ${{ github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/heads/rel/') }}
     runs-on: windows-latest
     permissions:
@@ -262,7 +310,7 @@ jobs:
     strategy:
       fail-fast: false # prevent one matrix pipeline from being cancelled if one fails, we want them both to run to completion.
       matrix:
-        platform: [WinUI2, WinUI3]
+        winui: [2, 3]
 
     steps:
       - name: Install .NET SDK v${{ env.DOTNET_VERSION }}
@@ -273,13 +321,13 @@ jobs:
       - name: Download Package List
         uses: actions/download-artifact@v4
         with:
-          name: nuget-list-${{ matrix.platform }}
+          name: nuget-list-${{ matrix.winui }}
           path: ./
   
-      - name: Download built packages for ${{ matrix.platform }}
+      - name: Download built packages for WinUI ${{ matrix.winui }}
         uses: actions/download-artifact@v4
         with:
-          name: nuget-packages-${{ matrix.platform }}
+          name: nuget-packages-winui${{ matrix.winui }}
           path: ./packages
 
       - name: Install Signing Tool
