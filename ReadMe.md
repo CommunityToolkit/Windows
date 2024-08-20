@@ -34,9 +34,9 @@ git clone --recurse-submodules https://github.com/CommunityToolkit/Windows.git
 ## Build Requirements
 
 - Visual Studio 2022 (UWP & Desktop Workloads for .NET)
-- .NET 6 SDK
-- Windows App SDK
-- Windows SDK 19041
+- .NET 8 SDK
+- Windows 10 SDK, version 2004 (10.0.19041.0)
+- Windows 10 21H1 (Build 19043) or greater
 
 ## 🚀 Contribution
 
