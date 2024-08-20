@@ -33,6 +33,8 @@ git clone --recurse-submodules https://github.com/CommunityToolkit/Windows.git
 
 ## Build Requirements
 
+- Run `dotnet tool restore` from the project root to install SlnGen
+- Run build scripts from the [Developer Command Prompt for Visual Studio](https://learn.microsoft.com/visualstudio/ide/reference/command-prompt-powershell) or from elsewhere after adding `MSBuild.exe` to your PATH
 - Visual Studio 2022 (UWP & Desktop Workloads for .NET)
 - .NET 8 SDK
 - Windows 10 SDK, version 2004 (10.0.19041.0)
