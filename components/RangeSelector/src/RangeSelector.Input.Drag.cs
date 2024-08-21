@@ -77,7 +77,7 @@ public partial class RangeSelector : Control
 
         Canvas.SetLeft(thumb, nextPos);
 
-        if (_toolTipText != null && _toolTip != null && thumb != null)
+        if (_toolTip != null && thumb != null)
         {
             var thumbCenter = nextPos + (thumb.Width / 2);
             _toolTip.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
@@ -99,7 +99,7 @@ public partial class RangeSelector : Control
         Canvas.SetZIndex(otherThumb, 0);
         _oldValue = RangeStart;
 
-        if (_toolTipText != null && _toolTip != null)
+        if (_toolTip != null)
         {
             _toolTip.Visibility = Visibility.Visible;
             var thumbCenter = _absolutePosition + (thumb.Width / 2);
@@ -107,7 +107,8 @@ public partial class RangeSelector : Control
             var ttWidth = _toolTip.ActualWidth / 2;
             Canvas.SetLeft(_toolTip, thumbCenter - ttWidth);
 
-            UpdateToolTipText(this, _toolTipText, useMin ? RangeStart : RangeEnd);
+            if (_toolTipText != null)
+                UpdateToolTipText(this, _toolTipText, useMin ? RangeStart : RangeEnd);
         }
 
         VisualStateManager.GoToState(this, useMin ? MinPressedState : MaxPressedState, true);
