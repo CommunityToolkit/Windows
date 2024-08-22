@@ -37,8 +37,7 @@ public partial class ColorToDisplayNameConverter : IValueConverter
 #if !WINAPPSDK && !HAS_UNO
         return Windows.UI.ColorHelper.ToDisplayName(color);
 #else
-        // ToDisplayName not yet supported on WASDK. See https://github.com/microsoft/microsoft-ui-xaml/issues/8287
-        return "Not supported";
+        return Microsoft.UI.ColorHelper.ToDisplayName(color);
 #endif
     }
 
