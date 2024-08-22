@@ -361,7 +361,7 @@ jobs:
         uses: actions/upload-artifact@v4
         if: ${{ env.IS_RELEASE == 'true' }}
         with:
-          name: signed-nuget-packages-${{ matrix.platform }}
+          name: signed-nuget-packages-${{ matrix.winui }}
           if-no-files-found: error
           path: |
             ${{ github.workspace }}/packages/**/*.nupkg
@@ -375,7 +375,7 @@ jobs:
     strategy:
       fail-fast: false # prevent one matrix pipeline from being cancelled if one fails, we want them both to run to completion.
       matrix:
-        platform: [WinUI2, WinUI3]
+        winui: [2, 3]
 
     steps:
       - name: Install .NET SDK v${{ env.DOTNET_VERSION }}
@@ -383,10 +383,10 @@ jobs:
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
-      - name: Download signed packages for ${{ matrix.platform }}
+      - name: Download signed packages for WinUI ${{ matrix.winui }}
         uses: actions/download-artifact@v4
         with:
-          name: signed-nuget-packages-${{ matrix.platform }}
+          name: signed-nuget-packages-${{ matrix.winui }}
           path: ./packages
 
       - name: Push to NuGet.org
