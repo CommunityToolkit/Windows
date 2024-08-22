@@ -33,10 +33,13 @@ public partial class ColorToDisplayNameConverter : IValueConverter
             // Invalid color value provided
             return DependencyProperty.UnsetValue;
         }
-
-#if !WINAPPSDK && !HAS_UNO
+#if HAS_UNO
+        // ColorHelper.ToDisplayName not yet supported on Uno Platform.
+        // Track https://github.com/unoplatform/uno/issues/18004
+        return "Not supported";
+#elif WINUI2
         return Windows.UI.ColorHelper.ToDisplayName(color);
-#else
+#elif WINUI3
         return Microsoft.UI.ColorHelper.ToDisplayName(color);
 #endif
     }
