@@ -2,17 +2,21 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
-#if WINUI2
 using CommunityToolkit.WinUI.Media.Pipelines;
+#if WINUI3
+using Microsoft.UI.Composition;
+#endif
 using Windows.UI;
+#if WINUI2
 using Windows.UI.Composition;
+#endif
 
 namespace CommunityToolkit.WinUI.Media;
 
 /// <summary>
 /// A <see cref="XamlCompositionBrush"/> that implements an acrylic effect with customizable parameters
 /// </summary>
-public sealed class AcrylicBrush : XamlCompositionEffectBrushBase
+public sealed partial class AcrylicBrush : XamlCompositionEffectBrushBase
 {
     /// <summary>
     /// The <see cref="EffectSetter{T}"/> instance in use to set the blur amount
@@ -30,6 +34,7 @@ public sealed class AcrylicBrush : XamlCompositionEffectBrushBase
     /// </summary>
     private EffectSetter<float>? tintOpacitySetter;
 
+#if WINUI2
     /// <summary>
     /// Gets or sets the background source mode for the effect (the default is <see cref="AcrylicBackgroundSource.Backdrop"/>).
     /// </summary>
@@ -62,6 +67,7 @@ public sealed class AcrylicBrush : XamlCompositionEffectBrushBase
             brush.OnConnected();
         }
     }
+#endif
 
     /// <summary>
     /// Gets or sets the blur amount for the effect (must be a positive value)
@@ -90,7 +96,9 @@ public sealed class AcrylicBrush : XamlCompositionEffectBrushBase
     private static void OnBlurAmountPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
         if (d is AcrylicBrush brush &&
+#if WINUI2
             brush.BackgroundSource != AcrylicBackgroundSource.HostBackdrop && // Blur is fixed by OS when using HostBackdrop source.
+#endif
             brush.CompositionBrush is CompositionBrush target)
         {
             brush.blurAmountSetter?.Invoke(target, (float)(double)e.NewValue);
@@ -197,6 +205,7 @@ public sealed class AcrylicBrush : XamlCompositionEffectBrushBase
     /// <inheritdoc/>
     protected override PipelineBuilder OnPipelineRequested()
     {
+#if WINUI2
         switch (BackgroundSource)
         {
             case AcrylicBackgroundSource.Backdrop:
@@ -217,6 +226,15 @@ public sealed class AcrylicBrush : XamlCompositionEffectBrushBase
                     TextureUri);
             default: throw new ArgumentOutOfRangeException(nameof(BackgroundSource), $"Invalid acrylic source: {BackgroundSource}");
         }
+#else
+        return PipelineBuilder.FromBackdropAcrylic(
+            TintColor,
+            out this.tintColorSetter,
+            (float)TintOpacity,
+            out this.tintOpacitySetter,
+            (float)BlurAmount,
+            out blurAmountSetter,
+            TextureUri);
+#endif
     }
 }
-#endif
