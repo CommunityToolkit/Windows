@@ -69,10 +69,16 @@ public sealed partial class AcrylicBrush : XamlCompositionEffectBrushBase
     }
 #endif
 
+#if WINUI2
     /// <summary>
     /// Gets or sets the blur amount for the effect (must be a positive value)
     /// </summary>
     /// <remarks>This property is ignored when the active mode is <see cref="AcrylicBackgroundSource.HostBackdrop"/></remarks>
+#else
+    /// <summary>
+    /// Gets or sets the blur amount for the effect (must be a positive value)
+    /// </summary>
+#endif
     public double BlurAmount
     {
         get => (double)GetValue(BlurAmountProperty);
