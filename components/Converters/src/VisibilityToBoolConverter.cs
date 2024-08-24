@@ -7,7 +7,7 @@ namespace CommunityToolkit.WinUI.Converters;
 /// <summary>
 /// This class converts a Visibility enumeration to a boolean value.
 /// </summary>
-public class VisibilityToBoolConverter : IValueConverter
+public partial class VisibilityToBoolConverter : IValueConverter
 {
     /// <summary>
     /// Convert a <see cref="Visibility"/> value to boolean.

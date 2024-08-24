@@ -7,7 +7,7 @@ namespace CommunityToolkit.WinUI.Converters;
 /// <summary>
 /// This class converts a string value into a Visibility value (if the value is null or empty returns a collapsed value).
 /// </summary>
-public class StringVisibilityConverter : EmptyStringToObjectConverter
+public partial class StringVisibilityConverter : EmptyStringToObjectConverter
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="StringVisibilityConverter"/> class.

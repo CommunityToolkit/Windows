@@ -36,7 +36,7 @@ namespace CommunityToolkit.WinUI.Animations;
 /// one <see cref="ImplicitAnimationSet"/> to another, and doing so will add unnecessary runtime overhead over time. If you want to apply the same animations
 /// to multiple elements, simply create another <see cref="ImplicitAnimationSet"/> instance and another set of animations with the same properties within it.
 /// </remarks>
-public sealed class ImplicitAnimationSet : DependencyObjectCollection
+public sealed partial class ImplicitAnimationSet : DependencyObjectCollection
 {
     /// <summary>
     /// Raised whenever any configuration change occurrs within the current <see cref="ImplicitAnimationSet"/> instance.

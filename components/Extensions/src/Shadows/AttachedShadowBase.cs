@@ -9,10 +9,12 @@ using Windows.UI;
 using Microsoft.UI;
 using Microsoft.UI.Composition;
 using Microsoft.UI.Xaml.Hosting;
+using Colors = Microsoft.UI.Colors;
 #else
 using Windows.Foundation.Metadata;
 using Windows.UI.Composition;
 using Windows.UI.Xaml.Hosting;
+using Colors = Windows.UI.Colors;
 #endif
 
 namespace CommunityToolkit.WinUI;

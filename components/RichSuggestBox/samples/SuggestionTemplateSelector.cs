@@ -4,7 +4,7 @@
 
 namespace RichSuggestBoxExperiment.Samples;
 
-public class SuggestionTemplateSelector : DataTemplateSelector
+public partial class SuggestionTemplateSelector : DataTemplateSelector
 {
     public DataTemplate? Person { get; set; }
 

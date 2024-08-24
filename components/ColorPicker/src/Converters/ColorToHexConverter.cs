@@ -10,7 +10,7 @@ namespace CommunityToolkit.WinUI.Controls;
 /// <summary>
 /// Converts a color to a hex string and vice versa.
 /// </summary>
-public class ColorToHexConverter : IValueConverter
+public partial class ColorToHexConverter : IValueConverter
 {
     /// <inheritdoc/>
     public object Convert(

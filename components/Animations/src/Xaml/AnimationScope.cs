@@ -8,7 +8,7 @@ namespace CommunityToolkit.WinUI.Animations;
 /// A container of <see cref="ITimeline"/> elements that can be used to conceptually group animations
 /// together and to assign shared properties to be applied to all the contained items automatically.
 /// </summary>
-public sealed class AnimationScope : DependencyObjectCollection, ITimeline
+public sealed partial class AnimationScope : DependencyObjectCollection, ITimeline
 {
     /// <summary>
     /// Gets or sets the optional initial delay for the animation.

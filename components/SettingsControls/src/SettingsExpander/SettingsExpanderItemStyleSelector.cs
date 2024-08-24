@@ -7,7 +7,7 @@ namespace CommunityToolkit.WinUI.Controls;
 /// <summary>
 /// <see cref="StyleSelector"/> used by <see cref="SettingsExpander"/> to choose the proper <see cref="SettingsCard"/> container style (clickable or not).
 /// </summary>
-public class SettingsExpanderItemStyleSelector : StyleSelector
+public partial class SettingsExpanderItemStyleSelector : StyleSelector
 {
     /// <summary>
     /// Gets or sets the default <see cref="Style"/>.
