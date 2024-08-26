@@ -204,6 +204,13 @@ jobs:
           name: 'vstest-diagnostic-log-${{ matrix.multitarget }}-winui${{ matrix.winui }}.txt'
           path: '${{ github.workspace }}/vstest-diagnostic-log.txt'
 
+      - name: Artifact - vstest-diagnostic-log
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: 'vstest-diagnostic-log-${{ matrix.multitarget }}-winui${{ matrix.winui }}.txt'
+          path: '${{ github.workspace }}/vstest-diagnostic-log.txt'
+
       - name: Analyze Dump
         if: ${{ steps.detect-dump.outputs.DUMP_FILE != '' && (env.ENABLE_DIAGNOSTICS == 'true' || env.COREHOST_TRACE != '') && always() }}
         run: |
