@@ -160,7 +160,7 @@ jobs:
       - name: Run component tests against ${{ matrix.multitarget }}
         if: ${{ matrix.multitarget == 'uwp' || matrix.multitarget == 'wasdk' }}
         id: test-platform
-        run:  vstest.console.exe ./tooling/**/CommunityToolkit.Tests.${{ matrix.multitarget }}.build.appxrecipe /Framework:FrameworkUap10 /logger:"trx;LogFileName=${{ matrix.multitarget }}.trx" /Blame
+        run:  vstest.console.exe ./tooling/**/CommunityToolkit.Tests.${{ matrix.multitarget }}.build.appxrecipe /Framework:FrameworkUap10 /logger:"trx;LogFileName=${{ matrix.multitarget }}.trx" /Blame:"CollectDump;DumpType=Full;CollectHangDump;TestTimeout=30m;HangDumpType=Full" /Diag:"${{ github.workspace }}/vstest-diagnostic-log.txt"
 
       - name: Create test reports
         run: |
@@ -195,6 +195,13 @@ jobs:
         with:
           name: CrashDumps-${{ matrix.multitarget }}-winui${{ matrix.winui }}
           path: '${{ github.workspace }}/CrashDumps'
+
+      - name: Artifact - vstest-diagnostic-log
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: 'vstest-diagnostic-log-${{ matrix.multitarget }}-winui${{ matrix.winui }}.txt'
+          path: '${{ github.workspace }}/vstest-diagnostic-log.txt'
 
       - name: Analyze Dump
         if: ${{ steps.detect-dump.outputs.DUMP_FILE != '' && (env.ENABLE_DIAGNOSTICS == 'true' || env.COREHOST_TRACE != '') && always() }}
