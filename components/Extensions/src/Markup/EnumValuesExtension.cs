@@ -11,7 +11,7 @@ namespace CommunityToolkit.WinUI;
 #if NET8_0_OR_GREATER
 [System.Diagnostics.CodeAnalysis.RequiresDynamicCode("It might not be possible to create an array of a user-defined enum type at runtime.")]
 #endif
-public sealed class EnumValuesExtension : MarkupExtension
+public sealed partial class EnumValuesExtension : MarkupExtension
 {
     /// <summary>
     /// Gets or sets the <see cref="global::System.Type"/> of the target <see langword="enum"/>

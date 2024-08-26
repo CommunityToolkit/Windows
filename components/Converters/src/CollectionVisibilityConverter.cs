@@ -7,7 +7,7 @@ namespace CommunityToolkit.WinUI.Converters;
 /// <summary>
 /// This class converts a collection size to visibility.
 /// </summary>
-public class CollectionVisibilityConverter : EmptyCollectionToObjectConverter
+public partial class CollectionVisibilityConverter : EmptyCollectionToObjectConverter
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="CollectionVisibilityConverter"/> class.

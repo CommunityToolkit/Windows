@@ -20,7 +20,7 @@ namespace CommunityToolkit.WinUI.Media;
 /// <summary>
 /// Brush which blends a <see cref="BitmapImage"/> to the Backdrop in a given mode. See http://microsoft.github.io/Win2D/html/T_Microsoft_Graphics_Canvas_Effects_BlendEffect.htm.
 /// </summary>
-public class ImageBlendBrush : XamlCompositionBrushBase
+public partial class ImageBlendBrush : XamlCompositionBrushBase
 {
     private LoadedImageSurface? _surface;
     private CompositionSurfaceBrush? _surfaceBrush;
