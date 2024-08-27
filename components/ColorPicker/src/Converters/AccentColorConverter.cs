@@ -11,7 +11,7 @@ namespace CommunityToolkit.WinUI.Controls;
 /// <summary>
 /// Creates an accent color for a base color value.
 /// </summary>
-public class AccentColorConverter : IValueConverter
+public partial class AccentColorConverter : IValueConverter
 {
     /// <summary>
     /// The amount to change the Value channel for each accent color step.

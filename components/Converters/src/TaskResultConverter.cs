@@ -17,7 +17,7 @@ namespace CommunityToolkit.WinUI.Converters;
 #if NET8_0_OR_GREATER
 [System.Diagnostics.CodeAnalysis.RequiresUnreferencedCode("This method uses reflection to try to access the Task<T>.Result property of the input Task instance.")]
 #endif
-public sealed class TaskResultConverter : IValueConverter
+public sealed partial class TaskResultConverter : IValueConverter
 {
     /// <inheritdoc/>
     public object Convert(object value, Type targetType, object parameter, string language)

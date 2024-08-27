@@ -7,7 +7,7 @@ namespace CommunityToolkit.WinUI.Controls;
 /// <summary>
 /// An collection of <see cref="Case"/> to help with XAML interop.
 /// </summary>
-public class CaseCollection : DependencyObjectCollection
+public partial class CaseCollection : DependencyObjectCollection
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="CaseCollection"/> class.

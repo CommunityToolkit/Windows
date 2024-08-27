@@ -14,7 +14,7 @@ namespace CommunityToolkit.WinUI.Automation.Peers;
 /// <summary>
 /// Defines a framework element automation peer for the <see cref="TokenizingTextBox"/> control.
 /// </summary>
-public class TokenizingTextBoxAutomationPeer : ListViewBaseAutomationPeer, IValueProvider
+public partial class TokenizingTextBoxAutomationPeer : ListViewBaseAutomationPeer, IValueProvider
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="TokenizingTextBoxAutomationPeer"/> class.

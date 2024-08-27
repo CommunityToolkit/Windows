@@ -10,7 +10,7 @@ namespace CommunityToolkit.WinUI.Converters;
 /// This class converts a collection size into an other object.
 /// Can be used to convert to bind a visibility, a color or an image to the size of the collection.
 /// </summary>
-public class EmptyCollectionToObjectConverter : EmptyObjectToObjectConverter
+public partial class EmptyCollectionToObjectConverter : EmptyObjectToObjectConverter
 {
     /// <summary>
     /// Checks collection for emptiness.

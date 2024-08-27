@@ -17,7 +17,7 @@ namespace CommunityToolkit.WinUI.Animations;
 /// A collection of animations that can be grouped together. This type represents a composite animation
 /// (such as <see cref="Storyboard"/>) that can be executed on a given element.
 /// </summary>
-public sealed class AnimationSet : DependencyObjectCollection
+public sealed partial class AnimationSet : DependencyObjectCollection
 {
     /// <summary>
     /// A conditional weak table storing <see cref="CancellationTokenSource"/> instances associated with animations
