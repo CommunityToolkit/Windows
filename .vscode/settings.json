@@ -1,5 +1,4 @@
 {
-    "omnisharp.defaultLaunchSolution": "CommunityToolkit.AllComponents.sln",
     "omnisharp.disableMSBuildDiagnosticWarning": true,
     "omnisharp.enableRoslynAnalyzers": true,
     "omnisharp.useGlobalMono": "never",
@@ -8,5 +7,6 @@
     "csharp.suppressDotnetRestoreNotification": true,
     "csharp.semanticHighlighting.enabled": true,
     "omnisharp.enableMsBuildLoadProjectsOnDemand": true,
-    "dotnet.completion.showCompletionItemsFromUnimportedNamespaces": true
+    "dotnet.completion.showCompletionItemsFromUnimportedNamespaces": true,
+    "dotnet.defaultSolution": "CommunityToolkit.AllComponents.sln"
 }

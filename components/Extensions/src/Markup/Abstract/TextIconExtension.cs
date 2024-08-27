@@ -4,8 +4,9 @@
 
 #if WINAPPSDK
 using Microsoft.UI.Text;
-#endif
+#else
 using Windows.UI.Text;
+#endif
 
 namespace CommunityToolkit.WinUI;
 
@@ -33,12 +34,20 @@ public abstract class TextIconExtension : MarkupExtension
     /// <summary>
     /// Gets or sets the thickness of the icon glyph.
     /// </summary>
-    public FontWeight FontWeight { get; set; } = FontWeights.Normal;
+    #if WINUI3
+    public Windows.UI.Text.FontWeight FontWeight { get; set; } = Microsoft.UI.Text.FontWeights.Normal;
+    #elif WINUI2
+    public Windows.UI.Text.FontWeight FontWeight { get; set; } = Windows.UI.Text.FontWeights.Normal;
+    #endif
 
     /// <summary>
     /// Gets or sets the font style for the icon glyph.
     /// </summary>
-    public FontStyle FontStyle { get; set; } = FontStyle.Normal;
+    #if WINUI3
+    public Windows.UI.Text.FontStyle FontStyle { get; set; } = Windows.UI.Text.FontStyle.Normal;
+    #elif WINUI2
+    public Windows.UI.Text.FontStyle FontStyle { get; set; } = Windows.UI.Text.FontStyle.Normal;
+    #endif
 
     /// <summary>
     /// Gets or sets the foreground <see cref="Brush"/> for the icon.

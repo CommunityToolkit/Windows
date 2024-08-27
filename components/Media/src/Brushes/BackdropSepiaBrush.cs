@@ -15,7 +15,7 @@ namespace CommunityToolkit.WinUI.Media;
 /// <summary>
 /// Brush which applies a SepiaEffect to the Backdrop. http://microsoft.github.io/Win2D/html/T_Microsoft_Graphics_Canvas_Effects_SepiaEffect.htm
 /// </summary>
-public class BackdropSepiaBrush : XamlCompositionEffectBrushBase
+public partial class BackdropSepiaBrush : XamlCompositionEffectBrushBase
 {
     /// <summary>
     /// The <see cref="EffectSetter{T}"/> instance currently in use

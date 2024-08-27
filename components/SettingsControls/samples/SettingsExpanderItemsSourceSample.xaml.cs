@@ -61,7 +61,7 @@ public class MyDataModel
     public string? Url { get; set; }
 }
 
-public class MyDataModelTemplateSelector : DataTemplateSelector
+public partial class MyDataModelTemplateSelector : DataTemplateSelector
 {
     public DataTemplate? ButtonTemplate { get; set; }
     public DataTemplate? LinkButtonTemplate { get; set; }

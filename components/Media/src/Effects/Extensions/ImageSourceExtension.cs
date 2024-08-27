@@ -9,7 +9,7 @@ namespace CommunityToolkit.WinUI.Media;
 /// <summary>
 /// An image effect, which displays an image loaded as a Win2D surface
 /// </summary>
-public sealed class ImageSourceExtension : ImageSourceBaseExtension
+public sealed partial class ImageSourceExtension : ImageSourceBaseExtension
 {
     /// <inheritdoc/>
     protected override object ProvideValue()

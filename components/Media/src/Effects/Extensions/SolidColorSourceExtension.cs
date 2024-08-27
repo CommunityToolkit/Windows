@@ -11,7 +11,7 @@ namespace CommunityToolkit.WinUI.Media;
 /// An effect that renders a standard 8bit SDR color on the available surface
 /// </summary>
 [MarkupExtensionReturnType(ReturnType = typeof(PipelineBuilder))]
-public sealed class SolidColorSourceExtension : MarkupExtension
+public sealed partial class SolidColorSourceExtension : MarkupExtension
 {
     /// <summary>
     /// Gets or sets the color to display

@@ -11,7 +11,7 @@ namespace CommunityToolkit.WinUI.Media;
 /// <summary>
 /// The <see cref="BackdropInvertBrush"/> is a <see cref="Brush"/> which inverts whatever is behind it in the application.
 /// </summary>
-public class BackdropInvertBrush : XamlCompositionEffectBrushBase
+public partial class BackdropInvertBrush : XamlCompositionEffectBrushBase
 {
     /// <inheritdoc/>
     protected override PipelineBuilder OnPipelineRequested()

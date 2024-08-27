@@ -9,7 +9,7 @@ namespace CommunityToolkit.WinUI.Converters;
 /// <summary>
 /// Gets the approximated display name for the color.
 /// </summary>
-public class ColorToDisplayNameConverter : IValueConverter
+public partial class ColorToDisplayNameConverter : IValueConverter
 {
     /// <inheritdoc/>
     public object Convert(
@@ -33,12 +33,14 @@ public class ColorToDisplayNameConverter : IValueConverter
             // Invalid color value provided
             return DependencyProperty.UnsetValue;
         }
-
-#if !WINAPPSDK && !HAS_UNO
-        return Windows.UI.ColorHelper.ToDisplayName(color);
-#else
-        // ToDisplayName not yet supported on WASDK. See https://github.com/microsoft/microsoft-ui-xaml/issues/8287
+#if HAS_UNO
+        // ColorHelper.ToDisplayName not yet supported on Uno Platform.
+        // Track https://github.com/unoplatform/uno/issues/18004
         return "Not supported";
+#elif WINUI2
+        return Windows.UI.ColorHelper.ToDisplayName(color);
+#elif WINUI3
+        return Microsoft.UI.ColorHelper.ToDisplayName(color);
 #endif
     }
 

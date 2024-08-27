@@ -1,7 +1,7 @@
 <Project>
   <PropertyGroup>
     <MajorVersion>8</MajorVersion>
-    <MinorVersion>1</MinorVersion>
+    <MinorVersion>2</MinorVersion>
 
     <PackageIdPrefix>CommunityToolkit</PackageIdPrefix>
     <RepositoryDirectory>$([MSBuild]::EnsureTrailingSlash('$(MSBuildThisFileDirectory)'))</RepositoryDirectory>
@@ -26,7 +26,7 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <NoWarn>$(NoWarn);Uno0001</NoWarn>
     <!-- TODO: Turn off sample pages needing samples for now, for initial commit -->
-    <NoWarn>$(NoWarn);TKSMPL0014</NoWarn>    
+    <NoWarn>$(NoWarn);TKSMPL0014;</NoWarn> 
   </PropertyGroup>
 
   <Import Project="Windows.Toolkit.Common.props" />

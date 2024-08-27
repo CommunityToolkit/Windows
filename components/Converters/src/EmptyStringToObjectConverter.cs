@@ -8,7 +8,7 @@ namespace CommunityToolkit.WinUI.Converters;
 /// This class converts a string value into a an object (if the value is null or empty returns the false value).
 /// Can be used to bind a visibility, a color or an image to the value of a string.
 /// </summary>
-public class EmptyStringToObjectConverter : EmptyObjectToObjectConverter
+public partial class EmptyStringToObjectConverter : EmptyObjectToObjectConverter
 {
     /// <summary>
     /// Checks string for emptiness.

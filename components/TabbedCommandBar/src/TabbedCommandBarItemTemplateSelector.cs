@@ -7,7 +7,7 @@ namespace CommunityToolkit.WinUI.Controls;
 /// <summary>
 /// <see cref="DataTemplateSelector"/> used by <see cref="TabbedCommandBar"/> for determining the style of normal vs. contextual <see cref="TabbedCommandBarItem"/>s.
 /// </summary>
-public class TabbedCommandBarItemTemplateSelector : DataTemplateSelector
+public partial class TabbedCommandBarItemTemplateSelector : DataTemplateSelector
 {
     /// <summary>
     /// Gets or sets the <see cref="Style"/> of a normal <see cref="TabbedCommandBarItem"/>.

@@ -7,7 +7,7 @@ namespace CommunityToolkit.WinUI.Controls;
 /// <summary>
 /// AutomationPeer for SettingsCard
 /// </summary>
-public class SettingsCardAutomationPeer : FrameworkElementAutomationPeer
+public partial class SettingsCardAutomationPeer : FrameworkElementAutomationPeer
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="SettingsCard"/> class.

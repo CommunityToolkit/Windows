@@ -7,7 +7,7 @@ namespace CommunityToolkit.WinUI.Controls;
 /// <summary>
 /// <see cref="StyleSelector"/> used by <see cref="TokenizingTextBox"/> to choose the proper <see cref="TokenizingTextBoxItem"/> container style (text entry or token).
 /// </summary>
-public class TokenizingTextBoxStyleSelector : StyleSelector
+public partial class TokenizingTextBoxStyleSelector : StyleSelector
 {
     /// <summary>
     /// Gets or sets the <see cref="Style"/> of a token item.

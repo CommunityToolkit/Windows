@@ -13,9 +13,11 @@ _Building something cool? Want to engage with other developers? Want to contribu
 
 ### [Try out our Sample Gallery from the Microsoft Store](https://aka.ms/windowstoolkitapp)
 
-Want to see the toolkit in action before jumping into the code? Download and play with the [Windows Community Toolkit Gallery](https://www.microsoft.com/store/apps/9nblggh4tlcq) from the Store.
+Want to see the toolkit in action before jumping into the code? Download and play with the [Windows Community Toolkit Gallery](https://aka.ms/windowstoolkitapp) from the Store.
 
 Please read the [Getting Started with the Windows Community Toolkit](https://docs.microsoft.com/dotnet/communitytoolkit/windows/getting-started) page for more detailed information about using the toolkit.
+
+If you're updating from a pre-8.x version of the Windows Community Toolkit, see [our migration notes here](https://aka.ms/toolkit/windows/migration).
 
 ### Windows Community Toolkit Labs
 
@@ -34,9 +36,11 @@ git clone --recurse-submodules https://github.com/CommunityToolkit/Windows.git
 ## Build Requirements
 
 - Visual Studio 2022 (UWP & Desktop Workloads for .NET)
-- .NET 6 SDK
-- Windows App SDK
-- Windows SDK 19041
+- .NET 8 SDK
+- Windows 10 SDK, version 2004 (10.0.19041.0)
+- Windows 10 21H1 (Build 19043) or greater
+- Run `dotnet tool restore` from the project root to install SlnGen
+- Run build scripts from the [Developer Command Prompt for Visual Studio](https://learn.microsoft.com/visualstudio/ide/reference/command-prompt-powershell) or from elsewhere after adding `MSBuild.exe` to your PATH
 
 ## 🚀 Contribution
 

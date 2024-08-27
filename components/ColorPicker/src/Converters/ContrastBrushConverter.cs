@@ -15,7 +15,7 @@ namespace CommunityToolkit.WinUI.Controls;
 /// <summary>
 /// Gets a color, either black or white, depending on the brightness of the supplied color.
 /// </summary>
-public class ContrastBrushConverter : IValueConverter
+public partial class ContrastBrushConverter : IValueConverter
 {
     /// <summary>
     /// Gets or sets the alpha channel threshold below which a default color is used instead of black/white.

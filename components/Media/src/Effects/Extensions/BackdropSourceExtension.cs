@@ -11,7 +11,7 @@ namespace CommunityToolkit.WinUI.Media;
 /// A backdrop effect that can sample from a specified source
 /// </summary>
 [MarkupExtensionReturnType(ReturnType = typeof(PipelineBuilder))]
-public sealed class BackdropSourceExtension : MarkupExtension
+public sealed partial class BackdropSourceExtension : MarkupExtension
 {
     #if WINUI2
     /// Gets or sets the background source mode for the effect (the default is <see cref="AcrylicBackgroundSource.Backdrop"/>).
