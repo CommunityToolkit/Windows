@@ -82,6 +82,13 @@ jobs:
           maximum-size: 32GB
           disk-root: "C:"
 
+      - name: Install procdump
+        if: ${{ env.ENABLE_DIAGNOSTICS == 'true' }}
+        shell: pwsh
+        run: |
+          Invoke-WebRequest -Uri https://download.sysinternals.com/files/Procdump.zip -OutFile Procdump.zip
+          Expand-Archive -Path Procdump.zip -DestinationPath $env:ProgramFiles
+
       - name: Enable Crash Dumps
         if: ${{ env.ENABLE_DIAGNOSTICS == 'true' }}
         shell: pwsh
