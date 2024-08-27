@@ -62,6 +62,9 @@ jobs:
     env:
       PROCDUMP_PATH: ${{ github.workspace }}
 
+    env:
+      PROCDUMP_PATH: c:\procdump\
+
     # See https://docs.github.com/actions/using-jobs/using-a-matrix-for-your-jobs
     strategy:
       fail-fast: false # prevent one matrix pipeline from being cancelled if one fails, we want them all to run to completion.
@@ -90,8 +93,7 @@ jobs:
         shell: pwsh
         run: |
           Invoke-WebRequest -Uri https://download.sysinternals.com/files/Procdump.zip -OutFile Procdump.zip
-          Expand-Archive -Path Procdump.zip -DestinationPath $env:ProgramFiles
-          echo "PROCDUMP_PATH = $env:ProgramFiles" >> $env:GITHUB_ENV
+          Expand-Archive -Path Procdump.zip -DestinationPath $PROCDUMP_PATH
 
       - name: Enable Crash Dumps
         if: ${{ env.ENABLE_DIAGNOSTICS == 'true' }}
