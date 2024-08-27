@@ -9,7 +9,7 @@ namespace CommunityToolkit.WinUI;
 /// See https://wpdev.uservoice.com/forums/110705-universal-windows-platform/suggestions/17767198-nullable-dependency-properties.
 /// </summary>
 [MarkupExtensionReturnType(ReturnType = typeof(bool?))]
-public class NullableBoolExtension : MarkupExtension
+public partial class NullableBoolExtension : MarkupExtension
 {
     /// <summary>
     /// Gets or sets a value indicating whether the value of the Boolean is true.  Ignored if <see cref="IsNull"/> is true.

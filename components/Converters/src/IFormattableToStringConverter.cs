@@ -8,7 +8,7 @@ namespace CommunityToolkit.WinUI.Converters;
 /// Value converter that converts an <see cref="IFormattable"/> to a formatted <see cref="string"/>.
 /// The string format needs to be passed as the converter parameter.
 /// </summary>
-public class IFormattableToStringConverter : IValueConverter
+public partial class IFormattableToStringConverter : IValueConverter
 {
     // TODO: Provide property to set a IFormatProvider for the 2nd parameter to ToString
 

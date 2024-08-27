@@ -29,7 +29,7 @@ public delegate Task XamlEffectAnimation<in T>(T value, TimeSpan duration)
 /// <summary>
 /// A simple <see langword="class"/> that can be used to quickly create XAML brushes from arbitrary <see cref="PipelineBuilder"/> pipelines
 /// </summary>
-public sealed class XamlCompositionBrush : XamlCompositionEffectBrushBase
+public sealed partial class XamlCompositionBrush : XamlCompositionEffectBrushBase
 {
     /// <summary>
     /// Gets the <see cref="PipelineBuilder"/> pipeline for the current instance
