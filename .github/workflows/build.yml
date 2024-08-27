@@ -88,6 +88,7 @@ jobs:
         run: |
           Invoke-WebRequest -Uri https://download.sysinternals.com/files/Procdump.zip -OutFile Procdump.zip
           Expand-Archive -Path Procdump.zip -DestinationPath $env:ProgramFiles
+          $env:PROCDUMP_PATH = $env:ProgramFiles 
 
       - name: Enable Crash Dumps
         if: ${{ env.ENABLE_DIAGNOSTICS == 'true' }}
