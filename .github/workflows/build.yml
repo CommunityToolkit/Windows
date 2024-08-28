@@ -225,14 +225,14 @@ jobs:
         if: always()
         working-directory: ${{ github.workspace }}
         run: |
-          echo "DUMP_FILE=$(Get-ChildItem ${{ env.PROCDUMP_PATH }}/*.dmp -ErrorAction SilentlyContinue)" >> $env:GITHUB_OUTPUT
+          echo "DUMP_FILE=$(Get-ChildItem ${{ env.PROCDUMP_PATH }}*.dmp -ErrorAction SilentlyContinue)" >> $env:GITHUB_OUTPUT
 
       - name: Artifact - Process Dumps
         uses: actions/upload-artifact@v4
         if: ${{ (env.ENABLE_DIAGNOSTICS == 'true' || env.COREHOST_TRACE != '') && always() }}
         with:
           name: CrashDumps-${{ matrix.multitarget }}-winui${{ matrix.winui }}
-          path: ${{ env.PROCDUMP_PATH }}/*.dmp
+          path: ${{ env.PROCDUMP_PATH }}*.dmp
 
       - name: Artifact - vstest-diagnostic-log
         uses: actions/upload-artifact@v4
