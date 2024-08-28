@@ -110,7 +110,7 @@ jobs:
           
           if(!$dumpFolder)
           {
-              $dumpFolder = "C:\dumps"
+              $dumpFolder = "${{ env.PROCDUMP_PATH }}"
           }
           
           function Enable-CrashDumpsForProcesses {
