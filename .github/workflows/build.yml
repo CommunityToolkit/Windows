@@ -179,7 +179,7 @@ jobs:
         uses: actions/upload-artifact@v4
         if: ${{ (env.ENABLE_DIAGNOSTICS == 'true' || env.COREHOST_TRACE != '') && always() }}
         with:
-          name: ilc-repro
+          name: ilc-repro-${{ matrix.multitarget }}-winui${{ matrix.winui }}
           path: ./*.zip
 
       # https://github.com/dorny/paths-filter#custom-processing-of-changed-files
