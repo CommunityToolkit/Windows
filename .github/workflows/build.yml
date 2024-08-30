@@ -85,13 +85,6 @@ jobs:
           maximum-size: 32GB
           disk-root: "C:"
 
-      - name: Install procdump
-        if: ${{ env.ENABLE_DIAGNOSTICS == 'true' }}
-        shell: pwsh
-        run: |
-          Invoke-WebRequest -Uri https://download.sysinternals.com/files/Procdump.zip -OutFile Procdump.zip
-          Expand-Archive -Path Procdump.zip -DestinationPath ${{ env.PROCDUMP_PATH }}
-
       - name: Install .NET SDK v${{ env.DOTNET_VERSION }}
         uses: actions/setup-dotnet@v4
         with:
@@ -106,6 +99,13 @@ jobs:
         uses: actions/checkout@v4
         with:
           submodules: recursive
+
+      - name: Install procdump
+        if: ${{ env.ENABLE_DIAGNOSTICS == 'true' }}
+        shell: pwsh
+        run: |
+          Invoke-WebRequest -Uri https://download.sysinternals.com/files/Procdump.zip -OutFile Procdump.zip
+          Expand-Archive -Path Procdump.zip -DestinationPath ${{ env.PROCDUMP_PATH }}
 
       # Restore Tools from Manifest list in the Repository
       - name: Restore dotnet tools
