@@ -63,7 +63,7 @@ jobs:
       PROCDUMP_PATH: ${{ github.workspace }}
 
     env:
-      PROCDUMP_PATH: c:\procdump\
+      PROCDUMP_PATH: ${{ github.workspace }}
 
     # See https://docs.github.com/actions/using-jobs/using-a-matrix-for-your-jobs
     strategy:
@@ -94,43 +94,6 @@ jobs:
         run: |
           Invoke-WebRequest -Uri https://download.sysinternals.com/files/Procdump.zip -OutFile Procdump.zip
           Expand-Archive -Path Procdump.zip -DestinationPath ${{ env.PROCDUMP_PATH }}
-
-      - name: Enable Crash Dumps
-        if: ${{ env.ENABLE_DIAGNOSTICS == 'true' }}
-        shell: pwsh
-        run: |
-          # If we set the registry from a 32-bit process on a 64-bit machine, we will set the "virtualized" syswow registry. 
-          # For crash dump collection we always want to set the "native" registry, so we make sure to invoke the native cmd.exe
-          $nativeCmdPath = "$env:SystemRoot\system32\cmd.exe"
-          if([Environment]::Is64BitOperatingSystem -and ![Environment]::Is64BitProcess)
-          {
-              # The "sysnative" path is a 'magic' path that allows a 32-bit process to invoke the native 64-bit cmd.exe.
-              $nativeCmdPath = "$env:SystemRoot\sysnative\cmd.exe"
-          }
-          
-          if(!$dumpFolder)
-          {
-              $dumpFolder = "${{ env.PROCDUMP_PATH }}"
-          }
-          
-          function Enable-CrashDumpsForProcesses {
-              Param([string[]]$namesOfProcessesForDumpCollection)
-          
-              foreach($procName in $namesOfProcessesForDumpCollection)
-              {
-                  Write-Host "Enabling local crash dumps for $procName"
-                  & $nativeCmdPath /c reg add "HKLM\Software\Microsoft\Windows\Windows Error Reporting\LocalDumps\$procName" /v DumpFolder /t REG_EXPAND_SZ /d $dumpFolder /f
-                  & $nativeCmdPath /c reg add "HKLM\Software\Microsoft\Windows\Windows Error Reporting\LocalDumps\$procName" /v DumpType /t REG_DWORD /d 2 /f
-                  & $nativeCmdPath /c reg add "HKLM\Software\Microsoft\Windows\Windows Error Reporting\LocalDumps\$procName" /v DumpCount /t REG_DWORD /d 3 /f
-              }
-          }
-          
-          # enable dump collection for our test apps:
-          $namesOfProcessesForDumpCollection = @(
-              "CommunityToolkit.Tests.${{ matrix.multitarget }}.exe",
-              "VSTest.Console.exe")
-          
-          Enable-CrashDumpsForProcesses $namesOfProcessesForDumpCollection
 
       - name: Install .NET SDK v${{ env.DOTNET_VERSION }}
         uses: actions/setup-dotnet@v4
@@ -243,13 +206,6 @@ jobs:
         with:
           name: CrashDumps-${{ matrix.multitarget }}-winui${{ matrix.winui }}
           path: ${{ env.PROCDUMP_PATH }}/**/*.dmp
-
-      - name: Artifact - vstest-diagnostic-log
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: 'vstest-diagnostic-log-${{ matrix.multitarget }}-winui${{ matrix.winui }}.txt'
-          path: '${{ github.workspace }}/vstest-diagnostic-log.txt'
 
       - name: Artifact - vstest-diagnostic-log
         uses: actions/upload-artifact@v4
