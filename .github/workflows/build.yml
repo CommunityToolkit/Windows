@@ -63,7 +63,7 @@ jobs:
       PROCDUMP_PATH: ${{ github.workspace }}
 
     env:
-      PROCDUMP_PATH: c:\procdump\
+      PROCDUMP_PATH: ${{ github.workspace }}
 
     # See https://docs.github.com/actions/using-jobs/using-a-matrix-for-your-jobs
     strategy:
