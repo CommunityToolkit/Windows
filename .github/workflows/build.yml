@@ -261,12 +261,12 @@ jobs:
         with:
           vs-version: '[17.9,)'
 
-      - name: Define excluded MultiTargets (WinUI ${{ matrix.winui }})
+      - name: Define excluded MultiTargets (WinUI 2)
         if: ${{ matrix.winui == '2' }}
         run: |
           echo "EXCLUDED_MULTITARGETS=wasdk" >> $env:GITHUB_ENV
 
-      - name: Define excluded MultiTargets (WinUI ${{ matrix.winui }})
+      - name: Define excluded MultiTargets (WinUI 3)
         if: ${{ matrix.winui == '3' }}
         run: |
           echo "EXCLUDED_MULTITARGETS=uwp" >> $env:GITHUB_ENV
