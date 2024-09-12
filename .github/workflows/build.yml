@@ -8,7 +8,7 @@ name: CI
 on:
   # Triggers the workflow on push or pull request events but only for the main or release branches
   push:
-    branches: [ main, 'rel/*' ]
+    branches: [ main, 'rel/*', 'dev/*' ]
   pull_request:
     branches: [ main, 'dev/*' ]
 
