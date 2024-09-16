@@ -14,7 +14,7 @@ namespace CommunityToolkit.WinUI.Animations.Expressions;
 /// Class DropShadowReferenceNode. This class cannot be inherited.
 /// </summary>
 /// <seealso cref="CommunityToolkit.WinUI.Animations.Expressions.ReferenceNode" />
-public sealed class DropShadowReferenceNode : ReferenceNode
+public sealed partial class DropShadowReferenceNode : ReferenceNode
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="DropShadowReferenceNode"/> class.

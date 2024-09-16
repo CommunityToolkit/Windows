@@ -10,7 +10,7 @@ namespace CommunityToolkit.WinUI.Animations.Expressions;
 /// Class BooleanNode. This class cannot be inherited.
 /// </summary>
 /// <seealso cref="CommunityToolkit.WinUI.Animations.Expressions.ExpressionNode" />
-public sealed class BooleanNode : ExpressionNode
+public sealed partial class BooleanNode : ExpressionNode
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="BooleanNode"/> class.
