@@ -22,7 +22,7 @@ public partial class AdvancedCollectionView
     /// Notification deferrer helper class
     /// </summary>
 #pragma warning disable CA1063 // Implement IDisposable Correctly
-    public class NotificationDeferrer : IDisposable
+    public partial class NotificationDeferrer : IDisposable
 #pragma warning restore CA1063 // Implement IDisposable Correctly
     {
         private readonly AdvancedCollectionView _acvs;

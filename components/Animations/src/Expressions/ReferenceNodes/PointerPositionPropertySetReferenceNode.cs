@@ -14,7 +14,7 @@ namespace CommunityToolkit.WinUI.Animations.Expressions;
 /// Class PointerPositionPropertySetReferenceNode. This class cannot be inherited.
 /// </summary>
 /// <seealso cref="CommunityToolkit.WinUI.Animations.Expressions.PropertySetReferenceNode" />
-public sealed class PointerPositionPropertySetReferenceNode : PropertySetReferenceNode
+public sealed partial class PointerPositionPropertySetReferenceNode : PropertySetReferenceNode
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="PointerPositionPropertySetReferenceNode"/> class.

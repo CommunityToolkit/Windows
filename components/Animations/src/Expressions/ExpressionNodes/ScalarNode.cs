@@ -10,7 +10,7 @@ namespace CommunityToolkit.WinUI.Animations.Expressions;
 /// Class ScalarNode. This class cannot be inherited.
 /// </summary>
 /// <seealso cref="CommunityToolkit.WinUI.Animations.Expressions.ExpressionNode" />
-public sealed class ScalarNode : ExpressionNode
+public sealed partial class ScalarNode : ExpressionNode
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="ScalarNode"/> class.

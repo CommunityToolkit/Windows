@@ -14,7 +14,7 @@ namespace CommunityToolkit.WinUI.Animations.Expressions;
 /// Class ColorBrushReferenceNode. This class cannot be inherited.
 /// </summary>
 /// <seealso cref="CommunityToolkit.WinUI.Animations.Expressions.ReferenceNode" />
-public sealed class ColorBrushReferenceNode : ReferenceNode
+public sealed partial class ColorBrushReferenceNode : ReferenceNode
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="ColorBrushReferenceNode"/> class.
