@@ -14,7 +14,7 @@ namespace CommunityToolkit.WinUI.Animations.Expressions;
 /// Class ManipulationPropertySetReferenceNode. This class cannot be inherited.
 /// </summary>
 /// <seealso cref="CommunityToolkit.WinUI.Animations.Expressions.PropertySetReferenceNode" />
-public sealed class ManipulationPropertySetReferenceNode : PropertySetReferenceNode
+public sealed partial class ManipulationPropertySetReferenceNode : PropertySetReferenceNode
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="ManipulationPropertySetReferenceNode"/> class.

@@ -8,9 +8,9 @@ name: CI
 on:
   # Triggers the workflow on push or pull request events but only for the main or release branches
   push:
-    branches: [ main, 'rel/*' ]
+    branches: [ main, 'rel/*', 'dev/*' ]
   pull_request:
-    branches: [ main ]
+    branches: [ main, 'dev/*' ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -261,9 +261,19 @@ jobs:
         with:
           vs-version: '[17.9,)'
 
+      - name: Define excluded MultiTargets (WinUI 2)
+        if: ${{ matrix.winui == '2' }}
+        run: |
+          echo "EXCLUDED_MULTITARGETS=wasdk" >> $env:GITHUB_ENV
+
+      - name: Define excluded MultiTargets (WinUI 3)
+        if: ${{ matrix.winui == '3' }}
+        run: |
+          echo "EXCLUDED_MULTITARGETS=uwp" >> $env:GITHUB_ENV
+
       # Build and pack component nupkg
       - name: Build and pack component packages
-        run: ./tooling/Build-Toolkit-Components.ps1 -MultiTargets all -WinUIMajorVersion ${{ matrix.winui }} -DateForVersion ${{ env.VERSION_DATE }} ${{ env.VERSION_PROPERTY != '' && format('-PreviewVersion "{0}"', env.VERSION_PROPERTY) || '' }} ${{ env.ENABLE_DIAGNOSTICS == 'true' && '-EnableBinlogs' || '' }} ${{ env.ENABLE_DIAGNOSTICS == 'true' && '-Verbose' || '' }} -BinlogOutput ./ -NupkgOutput ./ -Release
+        run: ./tooling/Build-Toolkit-Components.ps1 -MultiTargets all -ExcludeMultiTargets ${{ env.EXCLUDED_MULTITARGETS }} -WinUIMajorVersion ${{ matrix.winui }} -DateForVersion ${{ env.VERSION_DATE }} ${{ env.VERSION_PROPERTY != '' && format('-PreviewVersion "{0}"', env.VERSION_PROPERTY) || '' }} ${{ env.ENABLE_DIAGNOSTICS == 'true' && '-EnableBinlogs' || '' }} ${{ env.ENABLE_DIAGNOSTICS == 'true' && '-Verbose' || '' }} -BinlogOutput ./ -NupkgOutput ./ -Release
 
       # Push Pull Request Packages to our DevOps Artifacts Feed (see nuget.config)
       - name: Push Pull Request Packages (if not fork)

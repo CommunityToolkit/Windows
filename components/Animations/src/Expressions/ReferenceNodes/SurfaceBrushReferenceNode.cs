@@ -14,7 +14,7 @@ namespace CommunityToolkit.WinUI.Animations.Expressions;
 /// Class SurfaceBrushReferenceNode. This class cannot be inherited.
 /// </summary>
 /// <seealso cref="CommunityToolkit.WinUI.Animations.Expressions.ReferenceNode" />
-public sealed class SurfaceBrushReferenceNode : ReferenceNode
+public sealed partial class SurfaceBrushReferenceNode : ReferenceNode
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="SurfaceBrushReferenceNode"/> class.

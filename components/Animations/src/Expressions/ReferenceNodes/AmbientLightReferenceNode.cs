@@ -14,7 +14,7 @@ namespace CommunityToolkit.WinUI.Animations.Expressions;
 /// Class AmbientLightReferenceNode. This class cannot be inherited.
 /// </summary>
 /// <seealso cref="ReferenceNode" />
-public sealed class AmbientLightReferenceNode : ReferenceNode
+public sealed partial class AmbientLightReferenceNode : ReferenceNode
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="AmbientLightReferenceNode"/> class.

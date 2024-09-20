@@ -13,7 +13,7 @@ namespace CommunityToolkit.WinUI.Controls;
 /// <summary>
 /// RichSuggestToken describes a suggestion token in the document.
 /// </summary>
-public class RichSuggestToken : INotifyPropertyChanged
+public partial class RichSuggestToken : INotifyPropertyChanged
 {
     /// <inheritdoc/>
     public event PropertyChangedEventHandler? PropertyChanged;

@@ -33,17 +33,19 @@ public partial class ColorToDisplayNameConverter : IValueConverter
             // Invalid color value provided
             return DependencyProperty.UnsetValue;
         }
-
-#if WINDOWS_UWP
+#if HAS_UNO
+        // ColorHelper.ToDisplayName not yet supported on Uno Platform.
+        // Track https://github.com/unoplatform/uno/issues/18004
+        return "Not supported";
+#elif WINUI2
 #if NET8_0_OR_GREATER
         // Following advice from Sergio0694
         return color.ToString();
 #else
         return Windows.UI.ColorHelper.ToDisplayName(color);
 #endif
-#else
-        // ToDisplayName not yet supported on WASDK. See https://github.com/microsoft/microsoft-ui-xaml/issues/8287
-        return "Not supported";
+#elif WINUI3
+        return Microsoft.UI.ColorHelper.ToDisplayName(color);
 #endif
     }
 
