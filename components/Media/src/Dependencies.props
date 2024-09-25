@@ -11,12 +11,12 @@
 <Project>
   <!-- WinUI 2 / UWP -->
   <ItemGroup Condition="'$(IsUwp)' == 'true'">
-    <PackageReference Include="Win2D.uwp" Version="1.28.0-preview1-CI-240802.0" />
+    <PackageReference Include="Win2D.uwp" Version="1.28.0-preview1" />
     <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
   </ItemGroup>
 
   <!-- WinUI 3 / WinAppSdk -->
   <ItemGroup Condition="'$(IsWinAppSdk)' == 'true'">
-    <PackageReference Include="Microsoft.Graphics.Win2D" Version="1.1.1" />
+    <PackageReference Include="Microsoft.Graphics.Win2D" Version="1.28.0-preview1" />
   </ItemGroup>
 </Project>

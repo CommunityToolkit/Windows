@@ -14,7 +14,7 @@ namespace CommunityToolkit.WinUI.Media;
 /// </summary>
 /// <remarks>This effect mirrors the look of the default <see cref="AcrylicBrush"/> implementation</remarks>
 [MarkupExtensionReturnType(ReturnType = typeof(PipelineBuilder))]
-public sealed class AcrylicSourceExtension : MarkupExtension
+public sealed partial class AcrylicSourceExtension : MarkupExtension
 {
     /// <summary>
     /// Gets or sets the background source mode for the effect (the default is <see cref="AcrylicBackgroundSource.Backdrop"/>).
