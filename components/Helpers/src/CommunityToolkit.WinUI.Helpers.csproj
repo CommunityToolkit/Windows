@@ -30,7 +30,4 @@
   
   <!-- Sets this up as a toolkit component's source project -->
   <Import Project="$(ToolingDirectory)\ToolkitComponent.SourceProject.props" />
-  <ItemGroup>
-    <None Remove="NativeMethods.json" />
-  </ItemGroup>
 </Project>
