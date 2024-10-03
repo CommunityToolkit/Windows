@@ -16,7 +16,7 @@ namespace CommunityToolkit.WinUI.Animations.Expressions;
 /// Class InteractionTrackerReferenceNode. This class cannot be inherited.
 /// </summary>
 /// <seealso cref="CommunityToolkit.WinUI.Animations.Expressions.ReferenceNode" />
-public sealed class InteractionTrackerReferenceNode : ReferenceNode
+public sealed partial class InteractionTrackerReferenceNode : ReferenceNode
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="InteractionTrackerReferenceNode"/> class.

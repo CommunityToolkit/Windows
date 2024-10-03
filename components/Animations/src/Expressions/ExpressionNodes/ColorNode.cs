@@ -12,7 +12,7 @@ namespace CommunityToolkit.WinUI.Animations.Expressions;
 /// Class ColorNode. This class cannot be inherited.
 /// </summary>
 /// <seealso cref="CommunityToolkit.WinUI.Animations.Expressions.ExpressionNode" />
-public sealed class ColorNode : ExpressionNode
+public sealed partial class ColorNode : ExpressionNode
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="ColorNode"/> class.

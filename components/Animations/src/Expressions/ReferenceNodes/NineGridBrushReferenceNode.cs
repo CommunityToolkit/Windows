@@ -14,7 +14,7 @@ namespace CommunityToolkit.WinUI.Animations.Expressions;
 /// Class NineGridBrushReferenceNode. This class cannot be inherited.
 /// </summary>
 /// <seealso cref="CommunityToolkit.WinUI.Animations.Expressions.ReferenceNode" />
-public sealed class NineGridBrushReferenceNode : ReferenceNode
+public sealed partial class NineGridBrushReferenceNode : ReferenceNode
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="NineGridBrushReferenceNode"/> class.

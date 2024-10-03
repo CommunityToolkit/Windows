@@ -14,7 +14,7 @@ namespace CommunityToolkit.WinUI.Controls;
 #pragma warning disable CS8622
 #pragma warning disable CS8603
 #pragma warning disable CS8714
-internal class InterspersedObservableCollection : IList, IEnumerable<object>, INotifyCollectionChanged
+internal partial class InterspersedObservableCollection : IList, IEnumerable<object>, INotifyCollectionChanged
 {
     public IList ItemsSource { get; private set; }
 

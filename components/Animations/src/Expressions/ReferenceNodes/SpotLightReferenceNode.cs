@@ -14,7 +14,7 @@ namespace CommunityToolkit.WinUI.Animations.Expressions;
 /// Class SpotLightReferenceNode. This class cannot be inherited.
 /// </summary>
 /// <seealso cref="CommunityToolkit.WinUI.Animations.Expressions.ReferenceNode" />
-public sealed class SpotLightReferenceNode : ReferenceNode
+public sealed partial class SpotLightReferenceNode : ReferenceNode
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="SpotLightReferenceNode"/> class.

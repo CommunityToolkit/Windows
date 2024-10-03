@@ -5,7 +5,7 @@
 namespace CommunityToolkit.WinUI.Controls;
 
 [DebuggerDisplay("Count = {Count}, Height = {Height}")]
-internal class StaggeredColumnLayout : List<StaggeredItem>
+internal partial class StaggeredColumnLayout : List<StaggeredItem>
 {
     public double Height { get; private set; }
 

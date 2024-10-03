@@ -12,7 +12,7 @@ namespace CommunityToolkit.WinUI.Animations.Expressions;
 /// Class QuaternionNode. This class cannot be inherited.
 /// </summary>
 /// <seealso cref=CommunityToolkit.WinUI.Animations.Expressions.ExpressionNode" />
-public sealed class QuaternionNode : ExpressionNode
+public sealed partial class QuaternionNode : ExpressionNode
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="QuaternionNode"/> class.

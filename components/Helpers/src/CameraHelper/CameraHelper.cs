@@ -14,7 +14,7 @@ namespace CommunityToolkit.WinUI.Helpers;
 /// Make sure you have the capability webcam enabled for your app to access the device's camera.
 /// </summary>
 #pragma warning disable CA1063 // Implement IDisposable Correctly
-public class CameraHelper : IDisposable
+public partial class CameraHelper : IDisposable
 {
     private static IReadOnlyList<MediaFrameSourceGroup>? _frameSourceGroups;
 #pragma warning disable CA2213 // Disposable fields should be disposed

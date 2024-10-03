@@ -7,6 +7,6 @@ namespace CommunityToolkit.WinUI.Behaviors;
 /// <summary>
 /// A collection of <see cref="FocusTarget"/>.
 /// </summary>
-public sealed class FocusTargetList : List<FocusTarget>
+public sealed partial class FocusTargetList : List<FocusTarget>
 {
 }

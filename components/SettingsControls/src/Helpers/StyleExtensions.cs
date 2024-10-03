@@ -8,7 +8,7 @@ namespace CommunityToolkit.WinUI.Controls;
 public static partial class StyleExtensions
 {
     // Used to distinct normal ResourceDictionary and the one we add.
-    private sealed class StyleExtensionResourceDictionary : ResourceDictionary
+    private sealed partial class StyleExtensionResourceDictionary : ResourceDictionary
     {
     }
 

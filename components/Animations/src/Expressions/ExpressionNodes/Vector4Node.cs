@@ -12,7 +12,7 @@ namespace CommunityToolkit.WinUI.Animations.Expressions;
 /// Class Vector4Node. This class cannot be inherited.
 /// </summary>
 /// <seealso cref="CommunityToolkit.WinUI.Animations.Expressions.ExpressionNode" />
-public sealed class Vector4Node : ExpressionNode
+public sealed partial class Vector4Node : ExpressionNode
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="Vector4Node"/> class.

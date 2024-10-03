@@ -13,7 +13,7 @@ namespace CommunityToolkit.WinUI.Animations.Expressions;
 /// Class Matrix3x2Node. This class cannot be inherited.
 /// </summary>
 /// <seealso cref="CommunityToolkit.WinUI.Animations.Expressions.ExpressionNode" />
-public sealed class Matrix3x2Node : ExpressionNode
+public sealed partial class Matrix3x2Node : ExpressionNode
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="Matrix3x2Node"/> class.

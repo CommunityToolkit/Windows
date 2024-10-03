@@ -14,7 +14,7 @@ namespace CommunityToolkit.WinUI.Animations.Expressions;
 /// Class DistantLightReferenceNode. This class cannot be inherited.
 /// </summary>
 /// <seealso cref="CommunityToolkit.WinUI.Animations.Expressions.ReferenceNode" />
-public sealed class DistantLightReferenceNode : ReferenceNode
+public sealed partial class DistantLightReferenceNode : ReferenceNode
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="DistantLightReferenceNode"/> class.
