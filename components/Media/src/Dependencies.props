@@ -17,6 +17,6 @@
 
   <!-- WinUI 3 / WinAppSdk -->
   <ItemGroup Condition="'$(IsWinAppSdk)' == 'true'">
-    <PackageReference Include="Microsoft.Graphics.Win2D" Version="1.1.1" />
+    <PackageReference Include="Microsoft.Graphics.Win2D" Version="1.2.1-experimental2" />
   </ItemGroup>
 </Project>
