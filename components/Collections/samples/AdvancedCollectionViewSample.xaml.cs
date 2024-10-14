@@ -3,13 +3,16 @@
 // See the LICENSE file in the project root for more information.
 
 using CommunityToolkit.WinUI.Collections;
+using System.Diagnostics.CodeAnalysis;
 
 namespace CollectionsExperiment.Samples;
 
-[ToolkitSample(id: nameof(AdvancedCollectionViewSample), "AdvancedCollectionView", description: $"A sample for showing how to create and use a {nameof(AdvancedCollectionView)}.")]
+[ToolkitSample(id: nameof(AdvancedCollectionViewSample), "AdvancedCollectionView", description: $"A sample for showing how to create and use a {nameof(AdvancedCollectionView)} for sorting and filtering.")]
 public sealed partial class AdvancedCollectionViewSample : Page
 {
-    public ObservableCollection<Person>? oc;
+    public ObservableCollection<Person> Original { get; private set; }
+
+    public AdvancedCollectionView CollectionView { get; private set; }
 
     public AdvancedCollectionViewSample()
     {
@@ -17,10 +20,12 @@ public sealed partial class AdvancedCollectionViewSample : Page
         Setup();
     }
 
+    [MemberNotNull(nameof(Original))]
+    [MemberNotNull(nameof(CollectionView))]
     private void Setup()
     {
         // left list
-        oc = new ObservableCollection<Person>
+        Original = new ObservableCollection<Person>
             {
                 new Person { Name = "Staff" },
                 new Person { Name = "42" },
@@ -40,22 +45,20 @@ public sealed partial class AdvancedCollectionViewSample : Page
                 new Person { Name = "8" },
             };
 
-        LeftList.ItemsSource = oc;
-
         // right list
-        var acv = new AdvancedCollectionView(oc);
+        var acv = new AdvancedCollectionView(Original);
         int nul;
         acv.Filter = x => !int.TryParse(((Person)x).Name, out nul);
         acv.SortDescriptions.Add(new SortDescription("Name", SortDirection.Ascending));
 
-        RightList.ItemsSource = acv;
+        CollectionView = acv;
     }
 
     private void Add_Click(object sender, RoutedEventArgs e)
     {
         if (!string.IsNullOrWhiteSpace(NewItemBox.Text))
         {
-            oc!.Insert(0, new Person { Name = NewItemBox.Text });
+            Original.Insert(0, new Person { Name = NewItemBox.Text });
             NewItemBox.Text = "";
         }
     }
