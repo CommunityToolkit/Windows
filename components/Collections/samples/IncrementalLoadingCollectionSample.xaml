@@ -19,18 +19,18 @@
             <TextBlock Text="Items are loaded incrementally when the view needs to show them (i.e., when the user scrolls the ListView)"
                        TextWrapping="Wrap" />
             <Button Margin="0,12,0,12"
-                    Click="RefreshCollection"
+                    Click="{x:Bind PeopleSource.RefreshAsync}"
                     Content="Refresh collection"
                     Style="{StaticResource AccentButtonStyle}" />
             <TextBlock>
                 <Run Text="Is loading:" />
                 <Run FontWeight="SemiBold"
-                     Text="{Binding IsLoading, Mode=OneWay}" />
+                     Text="{x:Bind PeopleSource.IsLoading, Mode=OneWay}" />
             </TextBlock>
             <TextBlock>
                 <Run Text="Has more items:" />
                 <Run FontWeight="SemiBold"
-                     Text="{Binding HasMoreItems, Mode=OneWay}" />
+                     Text="{x:Bind PeopleSource.HasMoreItems, Mode=OneWay}" />
             </TextBlock>
 
         </StackPanel>
@@ -43,7 +43,8 @@
               BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
               BorderThickness="1"
               CornerRadius="4">
-            <ListView x:Name="PeopleListView">
+            <ListView x:Name="PeopleListView"
+                      ItemsSource="{x:Bind PeopleSource, Mode=OneWay}">
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="local:Person">
                         <Grid>
