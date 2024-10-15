@@ -10,7 +10,7 @@ namespace CollectionsExperiment.Samples;
 [ToolkitSample(id: nameof(AdvancedCollectionViewSample), "AdvancedCollectionView", description: $"A sample for showing how to create and use a {nameof(AdvancedCollectionView)} for sorting and filtering.")]
 public sealed partial class AdvancedCollectionViewSample : Page
 {
-    public ObservableCollection<Employee> Original { get; private set; }
+    public ObservableCollection<Employee> EmployeeCollection { get; private set; }
 
     public AdvancedCollectionView CollectionView { get; private set; }
 
@@ -20,35 +20,35 @@ public sealed partial class AdvancedCollectionViewSample : Page
         Setup();
     }
 
-    [MemberNotNull(nameof(Original))]
+    [MemberNotNull(nameof(EmployeeCollection))]
     [MemberNotNull(nameof(CollectionView))]
     private void Setup()
     {
         // left list
-        Original = new ObservableCollection<Employee>
+        EmployeeCollection = new()
             {
-                new Employee { Name = "Staff" },
-                new Employee { Name = "42" },
-                new Employee { Name = "Swan" },
-                new Employee { Name = "Orchid" },
-                new Employee { Name = "15" },
-                new Employee { Name = "Flame" },
-                new Employee { Name = "16" },
-                new Employee { Name = "Arrow" },
-                new Employee { Name = "Tempest" },
-                new Employee { Name = "23" },
-                new Employee { Name = "Pearl" },
-                new Employee { Name = "Hydra" },
-                new Employee { Name = "Lamp Post" },
-                new Employee { Name = "4" },
-                new Employee { Name = "Looking Glass" },
-                new Employee { Name = "8" },
+                new() { Name = "Staff" },
+                new() { Name = "42" },
+                new() { Name = "Swan" },
+                new() { Name = "Orchid" },
+                new() { Name = "15" },
+                new() { Name = "Flame" },
+                new() { Name = "16" },
+                new() { Name = "Arrow" },
+                new() { Name = "Tempest" },
+                new() { Name = "23" },
+                new() { Name = "Pearl" },
+                new() { Name = "Hydra" },
+                new() { Name = "Lamp Post" },
+                new() { Name = "4" },
+                new() { Name = "Looking Glass" },
+                new() { Name = "8" },
             };
 
         // right list
-        var acv = new AdvancedCollectionView(Original);
+        AdvancedCollectionView acv = new(EmployeeCollection);
         acv.Filter = x => !int.TryParse(((Employee)x).Name, out _);
-        acv.SortDescriptions.Add(new SortDescription("Name", SortDirection.Ascending));
+        acv.SortDescriptions.Add(new(nameof(Employee.Name), SortDirection.Ascending));
 
         CollectionView = acv;
     }
@@ -57,7 +57,7 @@ public sealed partial class AdvancedCollectionViewSample : Page
     {
         if (!string.IsNullOrWhiteSpace(NewItemBox.Text))
         {
-            Original.Insert(0, new Employee { Name = NewItemBox.Text });
+            EmployeeCollection.Insert(0, new Employee { Name = NewItemBox.Text });
             NewItemBox.Text = "";
         }
     }
