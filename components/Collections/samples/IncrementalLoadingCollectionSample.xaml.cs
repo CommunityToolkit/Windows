@@ -9,25 +9,12 @@ namespace CollectionsExperiment.Samples;
 [ToolkitSample(id: nameof(IncrementalLoadingCollectionSample), "Incremental Loading Collection", description: $"A sample for showing how to create and use a IncrementalLoadingCollection.")]
 public sealed partial class IncrementalLoadingCollectionSample : Page
 {
+    // IncrementalLoadingCollection can be bound to a GridView or a ListView. In this case it is a ListView called PeopleListView.
+    public IncrementalLoadingCollection<PeopleSource, Person> PeopleSource { get; set; } = new(new PeopleSource());
+
     public IncrementalLoadingCollectionSample()
     {
         this.InitializeComponent();
-        Load();
-    }
-    private void Load()
-    {
-        // IncrementalLoadingCollection can be bound to a GridView or a ListView. In this case it is a ListView called PeopleListView.
-        var collection = new IncrementalLoadingCollection<PeopleSource, Person>(new PeopleSource());
-        PeopleListView.ItemsSource = collection;
-
-        // Binds the collection to the page DataContext in order to use its IsLoading and HasMoreItems properties.
-        DataContext = collection;
-    }
-
-    private async void RefreshCollection(object sender, RoutedEventArgs e)
-    {
-        var collection = (IncrementalLoadingCollection<PeopleSource, Person>)PeopleListView.ItemsSource;
-        await collection.RefreshAsync();
     }
 }
 
@@ -35,7 +22,7 @@ public sealed partial class IncrementalLoadingCollectionSample : Page
 /// A sample implementation of the <see cref="IIncrementalSource{TSource}"/> interface.
 /// </summary>
 /// <seealso cref="IIncrementalSource{TSource}"/>
-public class PeopleSource : IIncrementalSource<Person>
+public partial class PeopleSource : IIncrementalSource<Person>
 {
     private readonly List<Person> _people;
 
@@ -94,7 +81,7 @@ public class PeopleSource : IIncrementalSource<Person>
 /// <summary>
 /// A sample class used to show how to use the <see cref="IIncrementalSource{TSource}"/> interface.
 /// </summary>
-public class Person
+public partial class Person
 {
     /// <summary>
     /// Gets or sets the name of the person.
