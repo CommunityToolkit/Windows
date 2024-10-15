@@ -17,8 +17,8 @@
                 <Setter Property="CornerRadius" Value="{StaticResource ControlCornerRadius}" />
             </Style.Setters>
         </Style>
-        <DataTemplate x:Key="PersonDataTemplate"
-                      x:DataType="local:Person">
+        <DataTemplate x:Key="EmployeeDataTemplate"
+                      x:DataType="local:Employee">
             <TextBlock Text="{x:Bind Name}" />
         </DataTemplate>
     </Page.Resources>
@@ -52,7 +52,7 @@
         <Grid Grid.Row="2"
               Style="{StaticResource CardStyle}">
             <ListView x:Name="LeftList"
-                      ItemTemplate="{StaticResource PersonDataTemplate}"
+                      ItemTemplate="{StaticResource EmployeeDataTemplate}"
                       ItemsSource="{x:Bind Original}" />
         </Grid>
         <TextBlock Grid.Row="1"
@@ -62,7 +62,7 @@
               Grid.Column="1"
               Style="{StaticResource CardStyle}">
             <ListView x:Name="RightList"
-                      ItemTemplate="{StaticResource PersonDataTemplate}"
+                      ItemTemplate="{StaticResource EmployeeDataTemplate}"
                       ItemsSource="{x:Bind CollectionView}" />
         </Grid>
     </Grid>
