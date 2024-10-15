@@ -53,7 +53,7 @@
               Style="{StaticResource CardStyle}">
             <ListView x:Name="LeftList"
                       ItemTemplate="{StaticResource EmployeeDataTemplate}"
-                      ItemsSource="{x:Bind Original}" />
+                      ItemsSource="{x:Bind EmployeeCollection}" />
         </Grid>
         <TextBlock Grid.Row="1"
                    Grid.Column="1"
