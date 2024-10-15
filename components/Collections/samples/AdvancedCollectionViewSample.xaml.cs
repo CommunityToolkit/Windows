@@ -10,7 +10,7 @@ namespace CollectionsExperiment.Samples;
 [ToolkitSample(id: nameof(AdvancedCollectionViewSample), "AdvancedCollectionView", description: $"A sample for showing how to create and use a {nameof(AdvancedCollectionView)} for sorting and filtering.")]
 public sealed partial class AdvancedCollectionViewSample : Page
 {
-    public ObservableCollection<Person> Original { get; private set; }
+    public ObservableCollection<Employee> Original { get; private set; }
 
     public AdvancedCollectionView CollectionView { get; private set; }
 
@@ -25,30 +25,30 @@ public sealed partial class AdvancedCollectionViewSample : Page
     private void Setup()
     {
         // left list
-        Original = new ObservableCollection<Person>
+        Original = new ObservableCollection<Employee>
             {
-                new Person { Name = "Staff" },
-                new Person { Name = "42" },
-                new Person { Name = "Swan" },
-                new Person { Name = "Orchid" },
-                new Person { Name = "15" },
-                new Person { Name = "Flame" },
-                new Person { Name = "16" },
-                new Person { Name = "Arrow" },
-                new Person { Name = "Tempest" },
-                new Person { Name = "23" },
-                new Person { Name = "Pearl" },
-                new Person { Name = "Hydra" },
-                new Person { Name = "Lamp Post" },
-                new Person { Name = "4" },
-                new Person { Name = "Looking Glass" },
-                new Person { Name = "8" },
+                new Employee { Name = "Staff" },
+                new Employee { Name = "42" },
+                new Employee { Name = "Swan" },
+                new Employee { Name = "Orchid" },
+                new Employee { Name = "15" },
+                new Employee { Name = "Flame" },
+                new Employee { Name = "16" },
+                new Employee { Name = "Arrow" },
+                new Employee { Name = "Tempest" },
+                new Employee { Name = "23" },
+                new Employee { Name = "Pearl" },
+                new Employee { Name = "Hydra" },
+                new Employee { Name = "Lamp Post" },
+                new Employee { Name = "4" },
+                new Employee { Name = "Looking Glass" },
+                new Employee { Name = "8" },
             };
 
         // right list
         var acv = new AdvancedCollectionView(Original);
         int nul;
-        acv.Filter = x => !int.TryParse(((Person)x).Name, out nul);
+        acv.Filter = x => !int.TryParse(((Employee)x).Name, out nul);
         acv.SortDescriptions.Add(new SortDescription("Name", SortDirection.Ascending));
 
         CollectionView = acv;
@@ -58,19 +58,19 @@ public sealed partial class AdvancedCollectionViewSample : Page
     {
         if (!string.IsNullOrWhiteSpace(NewItemBox.Text))
         {
-            Original.Insert(0, new Person { Name = NewItemBox.Text });
+            Original.Insert(0, new Employee { Name = NewItemBox.Text });
             NewItemBox.Text = "";
         }
     }
+}
 
+/// <summary>
+/// A sample class used to show how to use the <see cref="AdvancedCollectionView"/> class.
+/// </summary>
+public partial class Employee
+{
     /// <summary>
-    /// A sample class used to show how to use the <see cref="IIncrementalSource{TSource}"/> interface.
+    /// Gets or sets the name of the person.
     /// </summary>
-    public class Person
-    {
-        /// <summary>
-        /// Gets or sets the name of the person.
-        /// </summary>
-        public string? Name { get; set; }
-    }
+    public string? Name { get; set; }
 }
