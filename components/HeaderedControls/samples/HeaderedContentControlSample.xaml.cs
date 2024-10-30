@@ -6,6 +6,9 @@ using CommunityToolkit.WinUI.Controls;
 
 namespace HeaderedControlsExperiment.Samples;
 
+[ToolkitSampleNumericOption("SpacingProperty", initial: 0, min: 0, max: 36, step: 1, Title = "Spacing")]
+[ToolkitSampleMultiChoiceOption("OrientationProperty", "Vertical", "Horizontal", Title = "Orientation")]
+
 [ToolkitSample(id: nameof(HeaderedContentControlSample), "HeaderedContentControl", description: $"A sample for showing how to create and use a {nameof(HeaderedContentControl)} control.")]
 public sealed partial class HeaderedContentControlSample : Page
 {

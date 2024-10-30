@@ -47,6 +47,15 @@ public partial class HeaderedContentControl : ContentControl
         new PropertyMetadata(Orientation.Vertical, OnOrientationChanged));
 
     /// <summary>
+    /// Identifies the <see cref="Spacing"/> dependency property.
+    /// </summary>
+    public static readonly DependencyProperty SpacingProperty = DependencyProperty.Register(
+        nameof(Spacing),
+        typeof(double),
+        typeof(HeaderedContentControl),
+        new PropertyMetadata(0.0));
+
+    /// <summary>
     /// Gets or sets the <see cref="Orientation"/> used for the header.
     /// </summary>
     /// <remarks>
@@ -75,6 +84,15 @@ public partial class HeaderedContentControl : ContentControl
     {
         get { return (DataTemplate)GetValue(HeaderTemplateProperty); }
         set { SetValue(HeaderTemplateProperty, value); }
+    }
+
+    /// <summary>
+    /// Gets or sets the spacing between the header and the content.
+    /// </summary>
+    public double Spacing
+    {
+        get { return (double)GetValue(SpacingProperty); }
+        set { SetValue(SpacingProperty, value); }
     }
 
     /// <inheritdoc/>
