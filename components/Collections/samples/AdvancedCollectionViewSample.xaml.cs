@@ -3,13 +3,16 @@
 // See the LICENSE file in the project root for more information.
 
 using CommunityToolkit.WinUI.Collections;
+using System.Diagnostics.CodeAnalysis;
 
 namespace CollectionsExperiment.Samples;
 
-[ToolkitSample(id: nameof(AdvancedCollectionViewSample), "AdvancedCollectionView", description: $"A sample for showing how to create and use a {nameof(AdvancedCollectionView)}.")]
+[ToolkitSample(id: nameof(AdvancedCollectionViewSample), "AdvancedCollectionView", description: $"A sample for showing how to create and use a {nameof(AdvancedCollectionView)} for sorting and filtering.")]
 public sealed partial class AdvancedCollectionViewSample : Page
 {
-    public ObservableCollection<Person>? oc;
+    public ObservableCollection<Employee> EmployeeCollection { get; private set; }
+
+    public AdvancedCollectionView CollectionView { get; private set; }
 
     public AdvancedCollectionViewSample()
     {
@@ -17,57 +20,56 @@ public sealed partial class AdvancedCollectionViewSample : Page
         Setup();
     }
 
+    [MemberNotNull(nameof(EmployeeCollection))]
+    [MemberNotNull(nameof(CollectionView))]
     private void Setup()
     {
         // left list
-        oc = new ObservableCollection<Person>
+        EmployeeCollection = new()
             {
-                new Person { Name = "Staff" },
-                new Person { Name = "42" },
-                new Person { Name = "Swan" },
-                new Person { Name = "Orchid" },
-                new Person { Name = "15" },
-                new Person { Name = "Flame" },
-                new Person { Name = "16" },
-                new Person { Name = "Arrow" },
-                new Person { Name = "Tempest" },
-                new Person { Name = "23" },
-                new Person { Name = "Pearl" },
-                new Person { Name = "Hydra" },
-                new Person { Name = "Lamp Post" },
-                new Person { Name = "4" },
-                new Person { Name = "Looking Glass" },
-                new Person { Name = "8" },
+                new() { Name = "Staff" },
+                new() { Name = "42" },
+                new() { Name = "Swan" },
+                new() { Name = "Orchid" },
+                new() { Name = "15" },
+                new() { Name = "Flame" },
+                new() { Name = "16" },
+                new() { Name = "Arrow" },
+                new() { Name = "Tempest" },
+                new() { Name = "23" },
+                new() { Name = "Pearl" },
+                new() { Name = "Hydra" },
+                new() { Name = "Lamp Post" },
+                new() { Name = "4" },
+                new() { Name = "Looking Glass" },
+                new() { Name = "8" },
             };
 
-        LeftList.ItemsSource = oc;
-
         // right list
-        var acv = new AdvancedCollectionView(oc);
-        int nul;
-        acv.Filter = x => !int.TryParse(((Person)x).Name, out nul);
-        acv.SortDescriptions.Add(new SortDescription("Name", SortDirection.Ascending));
+        AdvancedCollectionView acv = new(EmployeeCollection);
+        acv.Filter = x => !int.TryParse(((Employee)x).Name, out _);
+        acv.SortDescriptions.Add(new(nameof(Employee.Name), SortDirection.Ascending));
 
-        RightList.ItemsSource = acv;
+        CollectionView = acv;
     }
 
     private void Add_Click(object sender, RoutedEventArgs e)
     {
         if (!string.IsNullOrWhiteSpace(NewItemBox.Text))
         {
-            oc!.Insert(0, new Person { Name = NewItemBox.Text });
+            EmployeeCollection.Insert(0, new Employee { Name = NewItemBox.Text });
             NewItemBox.Text = "";
         }
     }
+}
 
+/// <summary>
+/// A sample class used to show how to use the <see cref="AdvancedCollectionView"/> class.
+/// </summary>
+public partial class Employee
+{
     /// <summary>
-    /// A sample class used to show how to use the <see cref="IIncrementalSource{TSource}"/> interface.
+    /// Gets or sets the name of the person.
     /// </summary>
-    public class Person
-    {
-        /// <summary>
-        /// Gets or sets the name of the person.
-        /// </summary>
-        public string? Name { get; set; }
-    }
+    public string? Name { get; set; }
 }
