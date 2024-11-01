@@ -35,3 +35,9 @@ We can also invert the paradigm a bit with a `SwitchPresenter` to do data transf
 > [!SAMPLE SwitchPresenterTemplateSample]
 
 That's right! `SwitchPresenter` can be used not just for displaying different UIElements but in feeding different kinds of data into the `ContentTemplate` as well.
+
+## SwitchConverter
+
+A new analog to `SwitchPresenter` is the `SwitchConverter` which can be used in bindings to translate values into resources:
+
+> [!SAMPLE SwitchConverterBrushSample]
