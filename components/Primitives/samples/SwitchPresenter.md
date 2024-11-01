@@ -29,3 +29,9 @@ Or it can simply be used to clearly display different outcomes based on some sta
 `SwitchPresenter` can also be used as a replacement for the deprecated `Loading` control. This provides more fine-grained control over animations and content within each state:
 
 > [!SAMPLE SwitchPresenterLoaderSample]
+
+We can also invert the paradigm a bit with a `SwitchPresenter` to do data transformations within XAML using a `ContentTemplate`. Imagine an alternate view of our first starting example:
+
+> [!SAMPLE SwitchPresenterTemplateSample]
+
+That's right! `SwitchPresenter` can be used not just for displaying different UIElements but in feeding different kinds of data into the `ContentTemplate` as well.

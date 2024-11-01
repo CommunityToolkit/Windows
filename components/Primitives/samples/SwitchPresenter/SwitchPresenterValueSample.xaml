@@ -22,7 +22,7 @@
                   SelectedIndex="0" />
         <controls:SwitchPresenter Padding="16"
                                   TargetType="local:Animal"
-                                  Value="{Binding SelectedItem, ElementName=AnimalPicker}">
+                                  Value="{x:Bind AnimalPicker.SelectedItem, Mode=OneWay}">
             <controls:Case Value="Bunny">
                 <TextBlock FontSize="32"
                            Text="🐇" />
