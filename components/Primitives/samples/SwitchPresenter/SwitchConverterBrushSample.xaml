@@ -20,12 +20,12 @@
         <converters:SwitchConverter x:Key="StatusToColorSwitchConverter"
                                     TargetType="local:CheckStatus">
             <!--  Note: These are reused from the controls namespace from SwitchPresenter  -->
-            <controls:Case Content="{ThemeResource SystemFillColorCriticalBrush}"
-                           Value="Error" />
-            <controls:Case Content="{ThemeResource SystemFillColorCautionBrush}"
-                           Value="Warning" />
             <controls:Case Content="{ThemeResource SystemFillColorSuccessBrush}"
                            Value="Success" />
+            <controls:Case Content="{ThemeResource SystemFillColorCautionBrush}"
+                           Value="Warning" />
+            <controls:Case Content="{ThemeResource SystemFillColorCriticalBrush}"
+                           Value="Error" />
         </converters:SwitchConverter>
     </Page.Resources>
 
@@ -33,9 +33,9 @@
         <ComboBox x:Name="StatusPicker"
                   Header="Pick a status"
                   SelectedIndex="0">
-            <x:String>Error</x:String>
-            <x:String>Warning</x:String>
             <x:String>Success</x:String>
+            <x:String>Warning</x:String>
+            <x:String>Error</x:String>
         </ComboBox>
         <TextBlock Text="This is it, this is the demo:" />
         <TextBlock FontWeight="SemiBold"
