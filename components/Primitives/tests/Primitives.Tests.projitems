@@ -9,6 +9,9 @@
     <Import_RootNamespace>PrimitivesExperiment.Tests</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)SwitchPresenter\SwitchConverterBrushSample.xaml.cs">
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)SwitchPresenter\SwitchPresenterLayoutSample.xaml.cs">
       <DependentUpon>%(Filename)</DependentUpon>
     </Compile>
@@ -38,6 +41,10 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="$(MSBuildThisFileDirectory)SwitchPresenter\SwitchConverterBrushSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="$(MSBuildThisFileDirectory)SwitchPresenter\SwitchPresenterLayoutSample.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
