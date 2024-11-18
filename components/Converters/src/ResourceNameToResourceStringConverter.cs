@@ -34,16 +34,16 @@ public sealed partial class ResourceNameToResourceStringConverter : IValueConver
     /// <returns>The string corresponding to the resource name.</returns>
     public object? Convert(object value, Type targetType, object parameter, string language)
     {
-        var valueAsString = value?.ToString();
-        if (valueAsString == null)
+        var stringValue = value?.ToString();
+        if (stringValue is null)
         {
             return string.Empty;
         }
 
 #if WINAPPSDK && !HAS_UNO
-        return _resourceManager.MainResourceMap.TryGetValue(valueAsString).ValueAsString;
+        return _resourceManager.MainResourceMap.TryGetValue(stringValue).ValueAsString;
 #else
-        return _resourceLoader.GetString(valueAsString);
+        return _resourceLoader.GetString(stringValue) ?? string.Empty;
 #endif
     }
 
