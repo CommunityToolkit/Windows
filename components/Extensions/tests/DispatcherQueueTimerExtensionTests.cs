@@ -24,7 +24,36 @@ public partial class DispatcherQueueTimerExtensionTests : VisualUITestBase
 {
     [TestCategory("DispatcherQueueTimerExtensions")]
     [UIThreadTestMethod]
-    public async Task DispatcherQueueTimer_Debounce_Interrupt()
+    public async Task DispatcherQueueTimer_Debounce_Trailing()
+    {
+        var debounceTimer = DispatcherQueue.GetForCurrentThread().CreateTimer();
+
+        var triggeredCount = 0;
+        string? triggeredValue = null;
+
+        var value = "He";
+        debounceTimer.Debounce(
+            () =>
+            {
+                triggeredCount++;
+                triggeredValue = value;
+            },
+            TimeSpan.FromMilliseconds(60));
+
+        Assert.AreEqual(true, debounceTimer.IsRunning, "Expected time to be running.");
+        Assert.AreEqual(0, triggeredCount, "Function shouldn't have run yet.");
+        Assert.IsNull(triggeredValue, "Function shouldn't have run yet.");
+
+        await Task.Delay(TimeSpan.FromMilliseconds(80));
+
+        Assert.AreEqual(false, debounceTimer.IsRunning, "Expected to stop the timer.");
+        Assert.AreEqual(value, triggeredValue, "Expected result to be set.");
+        Assert.AreEqual(1, triggeredCount, "Expected to run once.");
+    }
+
+    [TestCategory("DispatcherQueueTimerExtensions")]
+    [UIThreadTestMethod]
+    public async Task DispatcherQueueTimer_Debounce_Trailing_Interrupt()
     {
         var debounceTimer = DispatcherQueue.GetForCurrentThread().CreateTimer();
 
@@ -60,6 +89,29 @@ public partial class DispatcherQueueTimerExtensionTests : VisualUITestBase
         Assert.AreEqual(false, debounceTimer.IsRunning, "Expected to stop the timer.");
         Assert.AreEqual(value2, triggeredValue, "Expected to execute the last action.");
         Assert.AreEqual(1, triggeredCount, "Expected to postpone execution.");
+    }
+
+    [TestCategory("DispatcherQueueTimerExtensions")]
+    [UIThreadTestMethod]
+    public async Task DispatcherQueueTimer_Debounce_Immediate()
+    {
+        var debounceTimer = DispatcherQueue.GetForCurrentThread().CreateTimer();
+
+        var triggeredCount = 0;
+        string? triggeredValue = null;
+
+        var value = "He";
+        debounceTimer.Debounce(
+            () =>
+            {
+                triggeredCount++;
+                triggeredValue = value;
+            },
+            TimeSpan.FromMilliseconds(60), true);
+
+        Assert.AreEqual(true, debounceTimer.IsRunning, "Expected time to be running.");
+        Assert.AreEqual(1, triggeredCount, "Function should have run right away.");
+        Assert.AreEqual(value, triggeredValue, "Should have expected immediate set of value");
     }
 
     [TestCategory("DispatcherQueueTimerExtensions")]
