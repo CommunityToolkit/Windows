@@ -192,10 +192,20 @@ public static partial class ListViewExtensions
         if (itemIndex % 2 == 0)
         {
             itemContainer.Background = GetAlternateColor(sender);
+            var rootBorder = itemContainer.FindDescendant<Border>();
+            if (rootBorder != null)
+            {
+                rootBorder.Background = GetAlternateColor(sender);
+            }
         }
         else
         {
             itemContainer.Background = null;
+            var rootBorder = itemContainer.FindDescendant<Border>();
+            if (rootBorder != null)
+            {
+                rootBorder.Background = null;
+            }
         }
     }
 }
