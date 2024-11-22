@@ -18,6 +18,8 @@ on:
 
 env:
   DOTNET_VERSION: ${{ '8.0.201' }}
+  DOTNET_INSTALL_DIR: dotnet-install
+  DOTNET_ROOT: dotnet-install
   ENABLE_DIAGNOSTICS: true
   MSBUILD_VERBOSITY: normal
   #COREHOST_TRACE: 1
