@@ -20,7 +20,7 @@ public static class DispatcherQueueTimerExtensions
     private static ConcurrentDictionary<DispatcherQueueTimer, Action> _debounceInstances = new ConcurrentDictionary<DispatcherQueueTimer, Action>();
 
     /// <summary>
-    /// <para>Used to debounce (rate-limit) an event.  The action will be postponed and executed after the interval has elapsed.  At the end of the interval, the function will be called with the arguments that were passed most recently to the debounced function.</para>
+    /// <para>Used to debounce (rate-limit) an event.  The action will be postponed and executed after the interval has elapsed.  At the end of the interval, the function will be called with the arguments that were passed most recently to the debounced function. Useful for smoothing keyboard input, for instance.</para>
     /// <para>Use this method to control the timer instead of calling Start/Interval/Stop manually.</para>
     /// <para>A scheduled debounce can still be stopped by calling the stop method on the timer instance.</para>
     /// <para>Each timer can only have one debounced function limited at a time.</para>
@@ -28,14 +28,14 @@ public static class DispatcherQueueTimerExtensions
     /// <param name="timer">Timer instance, only one debounced function can be used per timer.</param>
     /// <param name="action">Action to execute at the end of the interval.</param>
     /// <param name="interval">Interval to wait before executing the action.</param>
-    /// <param name="immediate">Determines if the action execute on the leading edge instead of trailing edge.</param>
+    /// <param name="immediate">Determines if the action execute on the leading edge instead of trailing edge of the interval. Subsequent input will be ignored into the interval has completed. Useful for ignore extraneous extra input like multiple mouse clicks.</param>
     /// <example>
     /// <code>
     /// private DispatcherQueueTimer _typeTimer = DispatcherQueue.GetForCurrentThread().CreateTimer();
     ///
     /// _typeTimer.Debounce(async () =>
     ///     {
-    ///         // Only executes this code after 0.3 seconds have elapsed since last trigger.
+    ///         // Only executes code put here after 0.3 seconds have elapsed since last call to Debounce.
     ///     }, TimeSpan.FromSeconds(0.3));
     /// </code>
     /// </example>
