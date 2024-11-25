@@ -53,6 +53,45 @@ public partial class DispatcherQueueTimerExtensionTests : VisualUITestBase
 
     [TestCategory("DispatcherQueueTimerExtensions")]
     [UIThreadTestMethod]
+    public async Task DispatcherQueueTimer_Debounce_Trailing_Stop()
+    {
+        var debounceTimer = DispatcherQueue.GetForCurrentThread().CreateTimer();
+
+        var triggeredCount = 0;
+        string? triggeredValue = null;
+
+        var value = "He";
+        debounceTimer.Debounce(
+            () =>
+            {
+                triggeredCount++;
+                triggeredValue = value;
+            },
+            TimeSpan.FromMilliseconds(60));
+
+        Assert.AreEqual(true, debounceTimer.IsRunning, "Expected time to be running.");
+        Assert.AreEqual(0, triggeredCount, "Function shouldn't have run yet.");
+        Assert.IsNull(triggeredValue, "Function shouldn't have run yet.");
+
+        await Task.Delay(TimeSpan.FromMilliseconds(20));
+
+        // Stop the timer before it would fire.
+        debounceTimer.Stop();
+
+        Assert.AreEqual(false, debounceTimer.IsRunning, "Expected to stop the timer.");
+        Assert.IsNull(triggeredValue, "Expected result should be no value set.");
+        Assert.AreEqual(0, triggeredCount, "Expected not to have code run.");
+
+        // Wait until timer would have fired
+        await Task.Delay(TimeSpan.FromMilliseconds(60));
+
+        Assert.AreEqual(false, debounceTimer.IsRunning, "Expected the timer to remain stopped.");
+        Assert.IsNull(triggeredValue, "Expected result should still be no value set.");
+        Assert.AreEqual(0, triggeredCount, "Expected not to have code run still.");
+    }
+
+    [TestCategory("DispatcherQueueTimerExtensions")]
+    [UIThreadTestMethod]
     public async Task DispatcherQueueTimer_Debounce_Trailing_Interrupt()
     {
         var debounceTimer = DispatcherQueue.GetForCurrentThread().CreateTimer();
