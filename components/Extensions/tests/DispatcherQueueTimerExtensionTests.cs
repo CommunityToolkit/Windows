@@ -168,6 +168,59 @@ public partial class DispatcherQueueTimerExtensionTests : VisualUITestBase
     }
 
     /// <summary>
+    /// Tests the scenario where we flip from wanting trailing to leading edge invocaton.
+    /// For instance, this could be for a case where a user has cleared the textbox, so you
+    /// want to immediately return new results vs. waiting for further input.
+    /// </summary>
+    /// <returns></returns>
+    [TestCategory("DispatcherQueueTimerExtensions")]
+    [UIThreadTestMethod]
+    public async Task DispatcherQueueTimer_Debounce_Trailing_Switch_Leading_Interrupt()
+    {
+        var debounceTimer = DispatcherQueue.GetForCurrentThread().CreateTimer();
+
+        var triggeredCount = 0;
+        string? triggeredValue = null;
+
+        var value = "Hello";
+        debounceTimer.Debounce(
+            () =>
+            {
+                triggeredCount++;
+                triggeredValue = value;
+            },
+            TimeSpan.FromMilliseconds(100), false); // Start off waiting
+
+        // Intentional pause to mimic reality
+        await Task.Delay(TimeSpan.FromMilliseconds(30));
+
+        Assert.AreEqual(true, debounceTimer.IsRunning, "Expected time to be running.");
+        Assert.AreEqual(0, triggeredCount, "Function shouldn't have run yet.");
+        Assert.IsNull(triggeredValue, "Function shouldn't have run yet.");
+
+        // Now interrupt with a scenario we want processed immediately, i.e. user started typing something new
+        var value2 = "He";
+        debounceTimer.Debounce(
+            () =>
+            {
+                triggeredCount++;
+                triggeredValue = value2;
+            },
+            TimeSpan.FromMilliseconds(100), true);
+
+        Assert.AreEqual(true, debounceTimer.IsRunning, "Expected timer should still be running.");
+        Assert.AreEqual(1, triggeredCount, "Function should now have run immediately.");
+        Assert.AreEqual(value2, triggeredValue, "Function should have set value to 'He'");
+
+        // Wait to where all should be done
+        await Task.Delay(TimeSpan.FromMilliseconds(120));
+
+        Assert.AreEqual(false, debounceTimer.IsRunning, "Expected to stop the timer.");
+        Assert.AreEqual(value2, triggeredValue, "Expected value to remain the same.");
+        Assert.AreEqual(1, triggeredCount, "Expected to interrupt execution and ignore initial queued exectution.");
+    }
+
+    /// <summary>
     /// Tests where we start with immediately processing a delay, but then want to switch to processing after.
     /// For instance, maybe we want to ensure we start processing the first letter of a search query to filter initial results.
     /// But then later want to delay and wait to execute until all the query string is available.

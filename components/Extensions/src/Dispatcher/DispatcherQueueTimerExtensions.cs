@@ -17,6 +17,7 @@ namespace CommunityToolkit.WinUI;
 /// </summary>
 public static class DispatcherQueueTimerExtensions
 {
+    // TODO: We should use a WeakReference here...
     private static ConcurrentDictionary<DispatcherQueueTimer, Action> _debounceInstances = new ConcurrentDictionary<DispatcherQueueTimer, Action>();
 
     /// <summary>
@@ -52,8 +53,20 @@ public static class DispatcherQueueTimerExtensions
         timer.Tick -= Timer_Tick;
         timer.Interval = interval;
 
+        // Ensure we haven't been misconfigured and won't execute more times than we expect.
+        timer.IsRepeating = false;
+
         if (immediate)
         {
+            // If we have a _debounceInstance queued, then we were running in trailing mode,
+            // so if we now have the immediate flag, we should ignore this timer, and run immediately.
+            if (_debounceInstances.ContainsKey(timer))
+            {
+                timeout = false;
+
+                _debounceInstances.Remove(timer, out var _);
+            }
+
             // If we're in immediate mode then we only execute if the timer wasn't running beforehand
             if (!timeout)
             {
