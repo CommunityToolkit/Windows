@@ -18,9 +18,13 @@ The `DispatcherQueueTimerExtensions` static class provides a collection of exten
 
 The `DispatcherQueueTimerExtensions` static class currently exposes a single extension method, `Debounce`. This is a standard technique used to rate-limit input from a user to not overload requests on an underlying service of query elsewhere.
 
-It can be used in a number of ways, but most simply like so:
+It can be used in a number of ways, but most simply like so as a keyboard limiter:
 
 > [!SAMPLE KeyboardDebounceSample]
+
+Or for preventing multiple inputs from occuring accidentally (e.g. ignoring a double/multi-click):
+
+> [!SAMPLE MouseDebounceSample]
 
 ## Examples
 
