@@ -26,20 +26,17 @@ public sealed partial class KeyboardDebounceSample : Page
 
     private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
     {
-        var interval = this.GeneratedPropertyMetadata?.FirstOrDefault(vm => vm.Name == "Interval")?.Value as double?;
-
-        if (sender is TextBox textBox && interval != null)
+        if (sender is TextBox textBox)
         {
             _debounceTimer.Debounce(() =>
                 {
                     ResultText.Text = textBox.Text;
                 },
                 //// i.e. if another keyboard press comes in within 120ms of the last, we'll wait before we fire off the request
-                interval: TimeSpan.FromMilliseconds(interval.Value),
+                interval: TimeSpan.FromMilliseconds(Interval),
                 //// If we're blanking out or the first character type, we'll start filtering immediately instead to appear more responsive.
                 //// We want to switch back to trailing as the user types more so that we still capture all the input.
                 immediate: textBox.Text.Length <= 1);
-
         }
     }
 }

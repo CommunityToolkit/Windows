@@ -28,17 +28,12 @@ public sealed partial class MouseDebounceSample : Page
 
     private void Button_Click(object sender, RoutedEventArgs e)
     {
-        var interval = this.GeneratedPropertyMetadata?.FirstOrDefault(vm => vm.Name == "Interval")?.Value as double?;
-
-        if (interval != null)
-        {
-            _debounceTimer.Debounce(() =>
-                {
-                    ResultText.Text = $"You hit the button {++_count} times!";
-                },
-                interval: TimeSpan.FromMilliseconds(interval.Value),
-                // By being on the leading edge, we ignore inputs past the first for the duration of the interval
-                immediate: true);
-        }
+        _debounceTimer.Debounce(() =>
+            {
+                ResultText.Text = $"You hit the button {++_count} times!";
+            },
+            interval: TimeSpan.FromMilliseconds(Interval),
+            // By being on the leading edge, we ignore inputs past the first for the duration of the interval
+            immediate: true);
     }
 }
