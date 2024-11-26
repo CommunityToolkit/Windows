@@ -27,6 +27,13 @@ public partial class DispatcherQueueTimerExtensionTests : VisualUITestBase
     {
         var debounceTimer = DispatcherQueue.GetForCurrentThread().CreateTimer();
 
+        // Test custom event handler too
+        var customTriggeredCount = 0;
+        debounceTimer.Tick += (s, o) =>
+        {
+            customTriggeredCount++;
+        };
+
         var triggeredCount = 0;
         string? triggeredValue = null;
 
@@ -41,6 +48,7 @@ public partial class DispatcherQueueTimerExtensionTests : VisualUITestBase
 
         Assert.AreEqual(true, debounceTimer.IsRunning, "Expected time to be running.");
         Assert.AreEqual(0, triggeredCount, "Function shouldn't have run yet.");
+        Assert.AreEqual(0, customTriggeredCount, "Custom Function shouldn't have run yet.");
         Assert.IsNull(triggeredValue, "Function shouldn't have run yet.");
 
         await Task.Delay(TimeSpan.FromMilliseconds(80));
@@ -48,6 +56,7 @@ public partial class DispatcherQueueTimerExtensionTests : VisualUITestBase
         Assert.AreEqual(false, debounceTimer.IsRunning, "Expected to stop the timer.");
         Assert.AreEqual(value, triggeredValue, "Expected result to be set.");
         Assert.AreEqual(1, triggeredCount, "Expected to run once.");
+        Assert.AreEqual(1, customTriggeredCount, "Custom Function should have run once.");
     }
 
     [TestCategory("DispatcherQueueTimerExtensions")]
@@ -56,6 +65,13 @@ public partial class DispatcherQueueTimerExtensionTests : VisualUITestBase
     {
         var debounceTimer = DispatcherQueue.GetForCurrentThread().CreateTimer();
 
+        // Test custom event handler too
+        var customTriggeredCount = 0;
+        debounceTimer.Tick += (s, o) =>
+        {
+            customTriggeredCount++;
+        };
+
         var triggeredCount = 0;
         string? triggeredValue = null;
 
@@ -70,6 +86,7 @@ public partial class DispatcherQueueTimerExtensionTests : VisualUITestBase
 
         Assert.AreEqual(true, debounceTimer.IsRunning, "Expected time to be running.");
         Assert.AreEqual(0, triggeredCount, "Function shouldn't have run yet.");
+        Assert.AreEqual(0, customTriggeredCount, "Custom Function shouldn't have run yet.");
         Assert.IsNull(triggeredValue, "Function shouldn't have run yet.");
 
         await Task.Delay(TimeSpan.FromMilliseconds(20));
@@ -80,6 +97,7 @@ public partial class DispatcherQueueTimerExtensionTests : VisualUITestBase
         Assert.AreEqual(false, debounceTimer.IsRunning, "Expected to stop the timer.");
         Assert.IsNull(triggeredValue, "Expected result should be no value set.");
         Assert.AreEqual(0, triggeredCount, "Expected not to have code run.");
+        Assert.AreEqual(0, customTriggeredCount, "Expected not to have custom code run.");
 
         // Wait until timer would have fired
         await Task.Delay(TimeSpan.FromMilliseconds(60));
@@ -87,6 +105,7 @@ public partial class DispatcherQueueTimerExtensionTests : VisualUITestBase
         Assert.AreEqual(false, debounceTimer.IsRunning, "Expected the timer to remain stopped.");
         Assert.IsNull(triggeredValue, "Expected result should still be no value set.");
         Assert.AreEqual(0, triggeredCount, "Expected not to have code run still.");
+        Assert.AreEqual(0, customTriggeredCount, "Expected not to have custom code run still.");
     }
 
     [TestCategory("DispatcherQueueTimerExtensions")]
@@ -94,6 +113,13 @@ public partial class DispatcherQueueTimerExtensionTests : VisualUITestBase
     public async Task DispatcherQueueTimer_Debounce_Trailing_Interrupt()
     {
         var debounceTimer = DispatcherQueue.GetForCurrentThread().CreateTimer();
+
+        // Test custom event handler too
+        var customTriggeredCount = 0;
+        debounceTimer.Tick += (s, o) =>
+        {
+            customTriggeredCount++;
+        };
 
         var triggeredCount = 0;
         string? triggeredValue = null;
@@ -109,6 +135,7 @@ public partial class DispatcherQueueTimerExtensionTests : VisualUITestBase
 
         Assert.AreEqual(true, debounceTimer.IsRunning, "Expected time to be running.");
         Assert.AreEqual(0, triggeredCount, "Function shouldn't have run yet.");
+        Assert.AreEqual(0, customTriggeredCount, "Custom Function shouldn't have run yet.");
         Assert.IsNull(triggeredValue, "Function shouldn't have run yet.");
 
         var value2 = "Hello";
@@ -122,6 +149,7 @@ public partial class DispatcherQueueTimerExtensionTests : VisualUITestBase
 
         Assert.AreEqual(true, debounceTimer.IsRunning, "Expected time to be running.");
         Assert.AreEqual(0, triggeredCount, "Function shouldn't have run yet.");
+        Assert.AreEqual(0, customTriggeredCount, "Custom Function shouldn't have run yet.");
         Assert.IsNull(triggeredValue, "Function shouldn't have run yet.");
 
         await Task.Delay(TimeSpan.FromMilliseconds(110));
@@ -129,6 +157,7 @@ public partial class DispatcherQueueTimerExtensionTests : VisualUITestBase
         Assert.AreEqual(false, debounceTimer.IsRunning, "Expected to stop the timer.");
         Assert.AreEqual(value2, triggeredValue, "Expected to execute the last action.");
         Assert.AreEqual(1, triggeredCount, "Expected to postpone execution.");
+        Assert.AreEqual(1, customTriggeredCount, "Expected to postpone execution of custom event handler.");
     }
 
     [TestCategory("DispatcherQueueTimerExtensions")]
@@ -136,6 +165,13 @@ public partial class DispatcherQueueTimerExtensionTests : VisualUITestBase
     public async Task DispatcherQueueTimer_Debounce_Immediate()
     {
         var debounceTimer = DispatcherQueue.GetForCurrentThread().CreateTimer();
+
+        // Test custom event handler too
+        var customTriggeredCount = 0;
+        debounceTimer.Tick += (s, o) =>
+        {
+            customTriggeredCount++;
+        };
 
         var triggeredCount = 0;
         string? triggeredValue = null;
@@ -151,11 +187,13 @@ public partial class DispatcherQueueTimerExtensionTests : VisualUITestBase
 
         Assert.AreEqual(true, debounceTimer.IsRunning, "Expected time to be running.");
         Assert.AreEqual(1, triggeredCount, "Function should have run right away.");
+        Assert.AreEqual(0, customTriggeredCount, "Custom Function won't have run as cooldown hasn't elapsed.");
         Assert.AreEqual(value, triggeredValue, "Should have expected immediate set of value");
 
         await Task.Delay(TimeSpan.FromMilliseconds(80));
 
         Assert.AreEqual(false, debounceTimer.IsRunning, "Expected to stop the timer.");
+        Assert.AreEqual(1, customTriggeredCount, "Custom Function should have run now that cooldown expired.");
     }
 
     /// <summary>
@@ -169,6 +207,13 @@ public partial class DispatcherQueueTimerExtensionTests : VisualUITestBase
     {
         var debounceTimer = DispatcherQueue.GetForCurrentThread().CreateTimer();
 
+        // Test custom event handler too
+        var customTriggeredCount = 0;
+        debounceTimer.Tick += (s, o) =>
+        {
+            customTriggeredCount++;
+        };
+
         var triggeredCount = 0;
         string? triggeredValue = null;
 
@@ -183,6 +228,7 @@ public partial class DispatcherQueueTimerExtensionTests : VisualUITestBase
 
         Assert.AreEqual(true, debounceTimer.IsRunning, "Expected time to be running.");
         Assert.AreEqual(1, triggeredCount, "Function should have run right away.");
+        Assert.AreEqual(0, customTriggeredCount, "Custom Function should not have run as cooldown hasn't expired.");
         Assert.AreEqual(value, triggeredValue, "Should have expected immediate set of value");
 
         var value2 = "Hello";
@@ -196,17 +242,20 @@ public partial class DispatcherQueueTimerExtensionTests : VisualUITestBase
 
         Assert.AreEqual(true, debounceTimer.IsRunning, "Expected time to be running.");
         Assert.AreEqual(1, triggeredCount, "2nd request coming within first period should have been ignored.");
+        Assert.AreEqual(0, customTriggeredCount, "Cooldown should be reset, so we still shouldn't have fired Tick.");
         Assert.AreEqual(value, triggeredValue, "Value shouldn't have changed from 2nd request within time bound.");
 
+        // Wait for cooldown to expire
         await Task.Delay(TimeSpan.FromMilliseconds(110));
 
         Assert.AreEqual(false, debounceTimer.IsRunning, "Expected to stop the timer.");
         Assert.AreEqual(value, triggeredValue, "Expected to execute only the first action.");
         Assert.AreEqual(1, triggeredCount, "Expected 2nd request to be ignored.");
+        Assert.AreEqual(1, customTriggeredCount, "Custom should have run now that cooldown expired.");
     }
 
     /// <summary>
-    /// Tests the scenario where we flip from wanting trailing to leading edge invocaton.
+    /// Tests the scenario where we flip from wanting trailing to leading edge invocation.
     /// For instance, this could be for a case where a user has cleared the textbox, so you
     /// want to immediately return new results vs. waiting for further input.
     /// </summary>
@@ -216,6 +265,13 @@ public partial class DispatcherQueueTimerExtensionTests : VisualUITestBase
     public async Task DispatcherQueueTimer_Debounce_Trailing_Switch_Leading_Interrupt()
     {
         var debounceTimer = DispatcherQueue.GetForCurrentThread().CreateTimer();
+
+        // Test custom event handler too
+        var customTriggeredCount = 0;
+        debounceTimer.Tick += (s, o) =>
+        {
+            customTriggeredCount++;
+        };
 
         var triggeredCount = 0;
         string? triggeredValue = null;
@@ -234,6 +290,7 @@ public partial class DispatcherQueueTimerExtensionTests : VisualUITestBase
 
         Assert.AreEqual(true, debounceTimer.IsRunning, "Expected time to be running.");
         Assert.AreEqual(0, triggeredCount, "Function shouldn't have run yet.");
+        Assert.AreEqual(0, customTriggeredCount, "Custom Function shouldn't have run yet.");
         Assert.IsNull(triggeredValue, "Function shouldn't have run yet.");
 
         // Now interrupt with a scenario we want processed immediately, i.e. user started typing something new
@@ -248,6 +305,7 @@ public partial class DispatcherQueueTimerExtensionTests : VisualUITestBase
 
         Assert.AreEqual(true, debounceTimer.IsRunning, "Expected timer should still be running.");
         Assert.AreEqual(1, triggeredCount, "Function should now have run immediately.");
+        Assert.AreEqual(0, customTriggeredCount, "Custom Function still shouldn't have run yet.");
         Assert.AreEqual(value2, triggeredValue, "Function should have set value to 'He'");
 
         // Wait to where all should be done
@@ -255,7 +313,8 @@ public partial class DispatcherQueueTimerExtensionTests : VisualUITestBase
 
         Assert.AreEqual(false, debounceTimer.IsRunning, "Expected to stop the timer.");
         Assert.AreEqual(value2, triggeredValue, "Expected value to remain the same.");
-        Assert.AreEqual(1, triggeredCount, "Expected to interrupt execution and ignore initial queued exectution.");
+        Assert.AreEqual(1, triggeredCount, "Expected to interrupt execution and ignore initial queued execution.");
+        Assert.AreEqual(1, customTriggeredCount, "Custom function should have run once at end of leading cooldown.");
     }
 
     /// <summary>
@@ -269,6 +328,13 @@ public partial class DispatcherQueueTimerExtensionTests : VisualUITestBase
     public async Task DispatcherQueueTimer_Debounce_Leading_Switch_Trailing_Interrupt_Twice()
     {
         var debounceTimer = DispatcherQueue.GetForCurrentThread().CreateTimer();
+
+        // Test custom event handler too
+        var customTriggeredCount = 0;
+        debounceTimer.Tick += (s, o) =>
+        {
+            customTriggeredCount++;
+        };
 
         var triggeredCount = 0;
         string? triggeredValue = null;
@@ -284,6 +350,7 @@ public partial class DispatcherQueueTimerExtensionTests : VisualUITestBase
 
         Assert.AreEqual(true, debounceTimer.IsRunning, "Expected time to be running.");
         Assert.AreEqual(1, triggeredCount, "Function should have run right away.");
+        Assert.AreEqual(0, customTriggeredCount, "Custom Function should not run right away on leading.");
         Assert.AreEqual(value, triggeredValue, "Function should have set value immediately.");
 
         // Pragmatic pause
@@ -301,6 +368,7 @@ public partial class DispatcherQueueTimerExtensionTests : VisualUITestBase
 
         Assert.AreEqual(true, debounceTimer.IsRunning, "Expected timer to still to be running.");
         Assert.AreEqual(1, triggeredCount, "Function should now haven't run again yet.");
+        Assert.AreEqual(0, customTriggeredCount, "Custom Function should not run right away on switch to trailing either.");
         Assert.AreEqual(value, triggeredValue, "Function should still be the initial value");
 
         // Pragmatic pause again
@@ -317,6 +385,7 @@ public partial class DispatcherQueueTimerExtensionTests : VisualUITestBase
 
         Assert.AreEqual(true, debounceTimer.IsRunning, "Expected timer to still to be running.");
         Assert.AreEqual(1, triggeredCount, "Function should still now haven't run again yet.");
+        Assert.AreEqual(0, customTriggeredCount, "Custom Function should not run yet, as not enough time passed.");
         Assert.AreEqual(value, triggeredValue, "Function should still be the initial value x2");
 
         // Wait to where the timer should have fired and is done
@@ -325,6 +394,7 @@ public partial class DispatcherQueueTimerExtensionTests : VisualUITestBase
         Assert.AreEqual(false, debounceTimer.IsRunning, "Expected timer to stopped at trailing edge to execute latest result.");
         Assert.AreEqual(value3, triggeredValue, "Expected value to now be the last value provided.");
         Assert.AreEqual(2, triggeredCount, "Expected to interrupt execution of 2nd request.");
+        Assert.AreEqual(1, customTriggeredCount, "Custom Function should have run once at end of trailing debounce.");
     }
 
     [TestCategory("DispatcherQueueTimerExtensions")]
