@@ -4,7 +4,6 @@
 
 using CommunityToolkit.Tests;
 using CommunityToolkit.Tooling.TestGen;
-using CommunityToolkit.WinUI;
 
 #if WINAPPSDK
 using DispatcherQueue = Microsoft.UI.Dispatching.DispatcherQueue;
@@ -326,5 +325,54 @@ public partial class DispatcherQueueTimerExtensionTests : VisualUITestBase
         Assert.AreEqual(false, debounceTimer.IsRunning, "Expected timer to stopped at trailing edge to execute latest result.");
         Assert.AreEqual(value3, triggeredValue, "Expected value to now be the last value provided.");
         Assert.AreEqual(2, triggeredCount, "Expected to interrupt execution of 2nd request.");
+    }
+
+    [TestCategory("DispatcherQueueTimerExtensions")]
+    [UIThreadTestMethod]
+    public async Task DispatcherQueueTimer_Debounce_Trailing_Stop_Lifetime()
+    {
+        // Our test indicator
+        WeakReference? reference = null;
+
+        // Still need to capture this on our UI thread
+        DispatcherQueue _queue = DispatcherQueue.GetForCurrentThread();
+
+        await Task.Run(() =>
+        {
+            // This test checks the lifetime of the timer and if we hold a reference to it.
+            var debounceTimer = _queue.CreateTimer();
+
+            // Track the DispatcherQueueTimer object
+            reference = new WeakReference(debounceTimer, true);
+
+            var triggeredCount = 0;
+            string? triggeredValue = null;
+
+            var value = "He";
+            debounceTimer.Debounce(
+                () =>
+                {
+                    triggeredCount++;
+                    triggeredValue = value;
+                },
+                TimeSpan.FromMilliseconds(60));
+
+            // Stop the timer before it would fire, with our proper method to clean-up
+            debounceTimer.Stop();
+
+            Assert.AreEqual(false, debounceTimer.IsRunning, "Expected to stop the timer.");
+
+            debounceTimer = null;
+        });
+
+        // Now out of scope and see if GC cleans up
+        GC.Collect();
+        GC.WaitForPendingFinalizers();
+
+        // Clean-up any UI thread work
+        await CompositionTargetHelper.ExecuteAfterCompositionRenderingAsync(() => { });
+
+        Assert.IsNotNull(reference, "Didn't capture weak reference.");
+        Assert.IsNull(reference.Target, "Strong reference to DispatcherQueueTimer still exists.");
     }
 }

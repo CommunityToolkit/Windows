@@ -3,6 +3,8 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Collections.Concurrent;
+using System.Runtime.CompilerServices;
+
 
 #if WINAPPSDK
 using DispatcherQueueTimer = Microsoft.UI.Dispatching.DispatcherQueueTimer;
@@ -17,8 +19,8 @@ namespace CommunityToolkit.WinUI;
 /// </summary>
 public static class DispatcherQueueTimerExtensions
 {
-    // TODO: We should use a WeakReference here...
-    private static ConcurrentDictionary<DispatcherQueueTimer, Action> _debounceInstances = new ConcurrentDictionary<DispatcherQueueTimer, Action>();
+    //// https://learn.microsoft.com/dotnet/api/system.runtime.compilerservices.conditionalweaktable-2
+    private static ConditionalWeakTable<DispatcherQueueTimer, Action> _debounceInstances = new();
 
     /// <summary>
     /// <para>Used to debounce (rate-limit) an event.  The action will be postponed and executed after the interval has elapsed.  At the end of the interval, the function will be called with the arguments that were passed most recently to the debounced function. Useful for smoothing keyboard input, for instance.</para>
@@ -60,11 +62,11 @@ public static class DispatcherQueueTimerExtensions
         {
             // If we have a _debounceInstance queued, then we were running in trailing mode,
             // so if we now have the immediate flag, we should ignore this timer, and run immediately.
-            if (_debounceInstances.ContainsKey(timer))
+            if (_debounceInstances.TryGetValue(timer, out var _))
             {
                 timeout = false;
 
-                _debounceInstances.Remove(timer, out var _);
+                _debounceInstances.Remove(timer);
             }
 
             // If we're in immediate mode then we only execute if the timer wasn't running beforehand
@@ -79,7 +81,7 @@ public static class DispatcherQueueTimerExtensions
             timer.Tick += Timer_Tick;
 
             // Store/Update function
-            _debounceInstances.AddOrUpdate(timer, action, (k, v) => action);
+            _debounceInstances.AddOrUpdate(timer, action);
         }
 
         // Start the timer to keep track of the last call here.
@@ -94,8 +96,9 @@ public static class DispatcherQueueTimerExtensions
             timer.Tick -= Timer_Tick;
             timer.Stop();
 
-            if (_debounceInstances.TryRemove(timer, out Action? action))
+            if (_debounceInstances.TryGetValue(timer, out Action? action))
             {
+                _debounceInstances.Remove(timer);
                 action?.Invoke();
             }
         }
