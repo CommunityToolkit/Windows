@@ -19,7 +19,7 @@ The `DispatcherQueueTimerExtensions` provides a single extension method, `Deboun
 > [!WARNING]
 > You should exclusively use the `DispatcherQueueTimer` instance calling `Debounce` for the purposes of Debouncing one specific action/scenario only and not configure it for other additional uses.
 
-For each sceario that you want to Debounce, you'll want to create a separate `DispatcherQueueTimer` instance to track that specific scenario. For instance, if the below samples were both within your application. You'd need two separate timers to track debouncing both scenarios. One for the keyboard input, and a different one for the mouse input.
+For each scenario that you want to Debounce, you'll want to create a separate `DispatcherQueueTimer` instance to track that specific scenario. For instance, if the below samples were both within your application. You'd need two separate timers to track debouncing both scenarios. One for the keyboard input, and a different one for the mouse input.
 
 > [!NOTE]
 > Using the `Debounce` method will set `DispatcherQueueTimer.IsRepeating` to `false` to ensure proper operation. Do not change this value.

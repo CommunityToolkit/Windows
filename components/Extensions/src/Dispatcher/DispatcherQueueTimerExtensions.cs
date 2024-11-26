@@ -19,7 +19,7 @@ namespace CommunityToolkit.WinUI;
 /// </summary>
 public static class DispatcherQueueTimerExtensions
 {
-    //// https://learn.microsoft.com/dotnet/api/system.runtime.compilerservices.conditionalweaktable-2
+    /// <inheritdoc cref="System.Runtime.CompilerServices.ConditionalWeakTable{TKey,TValue}" />
     private static ConditionalWeakTable<DispatcherQueueTimer, Action> _debounceInstances = new();
 
     /// <summary>

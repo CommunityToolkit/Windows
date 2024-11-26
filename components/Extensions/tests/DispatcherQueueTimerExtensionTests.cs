@@ -84,7 +84,7 @@ public partial class DispatcherQueueTimerExtensionTests : VisualUITestBase
             },
             TimeSpan.FromMilliseconds(60));
 
-        Assert.AreEqual(true, debounceTimer.IsRunning, "Expected time to be running.");
+        Assert.AreEqual(true, debounceTimer.IsRunning, "Expected timer to be running.");
         Assert.AreEqual(0, triggeredCount, "Function shouldn't have run yet.");
         Assert.AreEqual(0, customTriggeredCount, "Custom Function shouldn't have run yet.");
         Assert.IsNull(triggeredValue, "Function shouldn't have run yet.");
@@ -198,9 +198,9 @@ public partial class DispatcherQueueTimerExtensionTests : VisualUITestBase
 
     /// <summary>
     /// Tests the immediate mode of the Debounce function ignoring subsequent inputs that come after the first within the specified time window.
+    /// <para />
     /// For instance, this could be useful to ignore extra multiple clicks on a button, but immediately start processing upon the first click.
     /// </summary>
-    /// <returns></returns>
     [TestCategory("DispatcherQueueTimerExtensions")]
     [UIThreadTestMethod]
     public async Task DispatcherQueueTimer_Debounce_Immediate_Interrupt()
@@ -256,10 +256,10 @@ public partial class DispatcherQueueTimerExtensionTests : VisualUITestBase
 
     /// <summary>
     /// Tests the scenario where we flip from wanting trailing to leading edge invocation.
+    /// <para />
     /// For instance, this could be for a case where a user has cleared the textbox, so you
     /// want to immediately return new results vs. waiting for further input.
     /// </summary>
-    /// <returns></returns>
     [TestCategory("DispatcherQueueTimerExtensions")]
     [UIThreadTestMethod]
     public async Task DispatcherQueueTimer_Debounce_Trailing_Switch_Leading_Interrupt()
@@ -318,11 +318,10 @@ public partial class DispatcherQueueTimerExtensionTests : VisualUITestBase
     }
 
     /// <summary>
-    /// Tests where we start with immediately processing a delay, but then want to switch to processing after.
-    /// For instance, maybe we want to ensure we start processing the first letter of a search query to filter initial results.
-    /// But then later want to delay and wait to execute until all the query string is available.
+    /// Tests where we start with immediately processing a delay, then switch to processing after.
+    /// <para />
+    /// For instance, maybe we want to ensure we start processing the first letter of a search query to filter initial results. Then later, we might want to delay and wait to execute until all the query string is available.
     /// </summary>
-    /// <returns></returns>
     [TestCategory("DispatcherQueueTimerExtensions")]
     [UIThreadTestMethod]
     public async Task DispatcherQueueTimer_Debounce_Leading_Switch_Trailing_Interrupt_Twice()
