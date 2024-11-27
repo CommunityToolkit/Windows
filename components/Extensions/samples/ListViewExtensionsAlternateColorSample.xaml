@@ -1,0 +1,21 @@
+<Page x:Class="ExtensionsExperiment.Samples.ListViewExtensionsAlternateColorSample"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:ui="using:CommunityToolkit.WinUI"
+      Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <ListView ui:ListViewExtensions.AlternateColor="Silver">
+        <ListView.Items>
+            <x:String>One</x:String>
+            <x:String>Two</x:String>
+            <x:String>Three</x:String>
+            <x:String>Four</x:String>
+            <x:String>Five</x:String>
+            <x:String>Six</x:String>
+            <x:String>Seven</x:String>
+            <x:String>Eight</x:String>
+            <x:String>Nine</x:String>
+            <x:String>Ten</x:String>
+        </ListView.Items>
+    </ListView>
+</Page>
