@@ -163,7 +163,7 @@ public partial class StaggeredLayout : VirtualizingLayout
         if (ItemsStretch is StaggeredLayoutItemsStretch.None)
         {
             columnWidth = double.IsNaN(DesiredColumnWidth) ? availableWidth : Math.Min(DesiredColumnWidth, availableWidth);
-            numColumns = Math.Max(1, (int)Math.Floor(availableWidth / state.ColumnWidth));
+            numColumns = Math.Max(1, (int)Math.Floor(availableWidth / columnWidth));
         }
         else
         {
