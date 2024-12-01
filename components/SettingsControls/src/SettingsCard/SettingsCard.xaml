@@ -198,8 +198,8 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"
                                                   MinWidth="{ThemeResource SettingsCardLeftIndention}" />
-                                <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
                             <VisualStateManager.VisualStateGroups>
@@ -308,6 +308,7 @@
                                         <VisualState.Setters>
                                             <Setter Target="PART_ContentPresenter.(Grid.Row)" Value="1" />
                                             <Setter Target="PART_ContentPresenter.(Grid.Column)" Value="1" />
+                                            <Setter Target="PART_ContentPresenter.(Grid.ColumnSpan)" Value="2" />
                                             <Setter Target="PART_ContentPresenter.HorizontalAlignment" Value="Stretch" />
                                             <Setter Target="PART_ContentPresenter.HorizontalContentAlignment" Value="Left" />
                                             <Setter Target="HeaderPanel.Margin" Value="0" />
