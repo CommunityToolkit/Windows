@@ -14,7 +14,7 @@
                 <ControlTemplate TargetType="controls:HeaderedContentControl">
                     <Grid ColumnSpacing="{TemplateBinding Spacing}" RowSpacing="{TemplateBinding Spacing}">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
+                            <RowDefinition x:Name="FirstRow" Height="Auto" />
                             <RowDefinition />
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
@@ -43,6 +43,7 @@
                                         <Setter Target="ContentPresenter.(Grid.ColumnSpan)" Value="1" />
                                         <Setter Target="ContentPresenter.(Grid.Column)" Value="1" />
                                         <Setter Target="HeaderPresenter.(Grid.Row)" Value="1" />
+                                        <Setter Target="FirstRow.Height" Value="*"/>
                                     </VisualState.Setters>
                                 </VisualState>
                             </VisualStateGroup>
