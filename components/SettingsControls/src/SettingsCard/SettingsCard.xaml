@@ -198,8 +198,8 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"
                                                   MinWidth="{ThemeResource SettingsCardLeftIndention}" />
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition x:Name="COLUMN_HeaderPanel" Width="*" />
+                                <ColumnDefinition x:Name="COLUMN_ContentPresenter" Width="Auto" />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
                             <VisualStateManager.VisualStateGroups>
@@ -358,6 +358,17 @@
                                             <Setter Target="PART_ContentPresenter.(Grid.Column)" Value="1" />
                                             <Setter Target="PART_ContentPresenter.HorizontalAlignment" Value="Stretch" />
                                             <Setter Target="PART_ContentPresenter.HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource TemplatedParent}}" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+
+                                    <!--  Whenever the control width is more than SettingsCardWrapThreshold, the Content is always to stretch to middle  -->
+                                    <VisualState>
+                                        <VisualState.StateTriggers>
+                                            <AdaptiveTrigger MinWindowWidth="{ThemeResource SettingsCardWrapThreshold}" /> 
+                                        </VisualState.StateTriggers>
+                                        <VisualState.Setters>
+                                            <Setter Target="COLUMN_HeaderPanel.Width" Value="Auto" />
+                                            <Setter Target="COLUMN_ContentPresenter.Width" Value="*" />
                                         </VisualState.Setters>
                                     </VisualState>
                                 </VisualStateGroup>
