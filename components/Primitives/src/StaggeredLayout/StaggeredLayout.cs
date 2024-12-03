@@ -163,7 +163,7 @@ public partial class StaggeredLayout : VirtualizingLayout
         if (ItemsStretch is StaggeredLayoutItemsStretch.None)
         {
             columnWidth = double.IsNaN(DesiredColumnWidth) ? availableWidth : Math.Min(DesiredColumnWidth, availableWidth);
-            numColumns = Math.Max(1, (int)Math.Floor(availableWidth / state.ColumnWidth));
+            numColumns = Math.Max(1, (int)Math.Floor(availableWidth / (columnWidth + ColumnSpacing)));
         }
         else
         {
@@ -176,7 +176,7 @@ public partial class StaggeredLayout : VirtualizingLayout
             {
                 // 0.0001 is to prevent floating point errors
                 var tempAvailableWidth = availableWidth + ColumnSpacing - 0.0001;
-                numColumns = (int)Math.Floor(tempAvailableWidth / DesiredColumnWidth);
+                numColumns = (int)Math.Floor(tempAvailableWidth / (DesiredColumnWidth + ColumnSpacing));
                 columnWidth = tempAvailableWidth / numColumns - ColumnSpacing;
             }
         }
