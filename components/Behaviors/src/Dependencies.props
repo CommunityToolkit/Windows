@@ -11,7 +11,7 @@
 <Project>
   <!-- WinUI 2 / UWP -->
   <ItemGroup Condition="'$(IsUwp)' == 'true'">
-    <PackageReference Include="Microsoft.Xaml.Behaviors.Uwp.Managed" Version="3.0.0-local.240918"/>
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Uwp.Managed" Version="3.0.0-local.1126240956"/>
   </ItemGroup>
 
   <!-- WinUI 2 / Uno -->
