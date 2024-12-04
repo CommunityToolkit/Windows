@@ -65,6 +65,34 @@
                     </GridViewItem>
                 </GridView>
             </local:SettingsCard>
+            <local:SettingsCard
+                ContentAlignment="Horizontal"
+                Description="You can also align your content horizontally. Additional image will stretch to middle. You still can override this breakpoint by setting both SettingsCardWrapThreshold and additional SettingsCardHeaderPanelMaxWidth resoure to wrap vertically."
+                Header="Horizontally aligned">
+                <local:SettingsCard.Resources>
+                    <x:Double x:Key="SettingsCardHeaderPanelMaxWidth">550</x:Double>
+                    <x:Double x:Key="SettingsCardWrapThreshold">700</x:Double>
+                </local:SettingsCard.Resources>
+                <Grid x:Name="SettingsCard">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="auto" />
+                    </Grid.ColumnDefinitions>
+                    <Grid
+                        x:Name="AdditionalContent"
+                        Grid.Column="0"
+                        MaxHeight="96"
+                        Margin="0,0,20,0"
+                        Background="Pink"
+                        CornerRadius="4">
+                        <Image
+                            VerticalAlignment="Center"
+                            Source="/Assets/SplashScreen.png"
+                            Stretch="UniformToFill" />
+                    </Grid>
+                    <Button x:Name="PressedContent" Grid.Column="1">Button</Button>
+                </Grid>
+            </local:SettingsCard>
             <local:SettingsCard Description="You can override the Left indention of a SettingsCard by overriding the SettingsCardLeftIndention"
                                 Header="Customization">
                 <local:SettingsCard.Resources>
