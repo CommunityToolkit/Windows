@@ -96,9 +96,9 @@ internal class StaggeredLayoutState
     /// </remarks>
     internal double GetHeight()
     {
-        double desiredHeight = this._columnLayout.Values.Max(c => c.Height);
+        double desiredHeight = _columnLayout.Values.Max(c => c.Height);
 
-        var itemCount = this._columnLayout.Values.Sum(c => c.Count);
+        var itemCount = _columnLayout.Values.Sum(c => c.Count);
         if (itemCount == _context.ItemCount)
         {
             return desiredHeight;
