@@ -1,0 +1,19 @@
+#region Copyright
+// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the MIT license.
+// See the LICENSE file in the project root for more information.
+#endregion
+
+namespace CommunityToolkit.WinUI.Controls;
+
+internal partial class NullToTransparentConverter : IValueConverter
+{
+    public object Convert(object value, Type targetType, object parameter, string language) => value;
+
+    public object ConvertBack(object? value, Type targetType, object parameter, string language) => value ??
+#if !WINAPPSDK
+        Windows.UI.Colors.Transparent;
+#else
+        Microsoft.UI.Colors.Transparent;
+#endif
+}
