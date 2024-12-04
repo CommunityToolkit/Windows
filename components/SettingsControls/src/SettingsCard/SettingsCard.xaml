@@ -362,10 +362,11 @@
                                         </VisualState.Setters>
                                     </VisualState>
 
-                                    <!--  Whenever the control width is more than SettingsCardWrapThreshold, the Content is always to stretch to middle  -->
-                                    <VisualState>
+                                    <!--  Whenever the control width is more than SettingsCardWrapThreshold, the Content horizontally stretch to middle  -->
+                                    <VisualState x:Name="Horizontal">
                                         <VisualState.StateTriggers>
-                                            <AdaptiveTrigger MinWindowWidth="{ThemeResource SettingsCardWrapThreshold}" /> 
+                                            <tk:IsEqualStateTrigger Value="{Binding ContentAlignment, RelativeSource={RelativeSource TemplatedParent}}"
+                                                                    To="Horizontal" />
                                         </VisualState.StateTriggers>
                                         <VisualState.Setters>
                                             <Setter Target="COLUMN_HeaderPanel.Width" Value="Auto" />
