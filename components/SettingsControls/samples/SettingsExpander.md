@@ -18,8 +18,6 @@ A `SettingsExpander` can have it's own content to display a setting on the right
 
 > [!SAMPLE SettingsExpanderSample]
 
-You can easily override certain properties to create custom experiences. For instance, you can customize the `ContentAlignment` of a `SettingsCard`, to align your content to the Right (default), Left (hiding the `HeaderIcon`, `Header` and `Description`) or Vertically (usually best paired with changing the `HorizontalContentAlignment` to `Stretch`).
-
 `SettingsExpander` is also an `ItemsControl`, so its items can be driven by a collection and the `ItemsSource` property. You can use the `ItemTemplate` to define how your data object is represented as a `SettingsCard`, as shown below. The `ItemsHeader` and `ItemsFooter` property can be used to host custom content at the start or end of the items list.
 
 > [!SAMPLE SettingsExpanderItemsSourceSample]
