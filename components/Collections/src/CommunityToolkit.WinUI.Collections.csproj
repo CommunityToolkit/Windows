@@ -8,6 +8,7 @@
     <!-- Rns suffix is required for namespaces shared across projects. See https://github.com/CommunityToolkit/Labs-Windows/issues/152 -->
     <RootNamespace>CommunityToolkit.WinUI.CollectionsRns</RootNamespace>
     <PackageReadmeFile>ReadMe.md</PackageReadmeFile>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
   <ItemGroup>

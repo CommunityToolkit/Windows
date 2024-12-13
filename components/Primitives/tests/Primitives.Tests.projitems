@@ -9,6 +9,13 @@
     <Import_RootNamespace>PrimitivesExperiment.Tests</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)SwitchPresenter\SwitchConverterBrushSample.xaml.cs">
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)SwitchPresenter\SwitchPresenterLayoutSample.xaml.cs">
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)SwitchPresenter\SwitchPresenterTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Test_ConstrainedBox.Alignment.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Test_ConstrainedBox.AspectRatio.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Test_ConstrainedBox.Coerce.cs" />
@@ -29,6 +36,16 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="$(MSBuildThisFileDirectory)UniformGrid\AutoLayoutFixedElementZeroZeroSpecialPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="$(MSBuildThisFileDirectory)SwitchPresenter\SwitchConverterBrushSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)SwitchPresenter\SwitchPresenterLayoutSample.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
