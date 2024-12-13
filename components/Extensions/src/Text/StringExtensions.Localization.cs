@@ -54,11 +54,11 @@ public static partial class StringExtensions
         if (uiContext != null)
         {
             var resourceLoader = ResourceLoader.GetForUIContext(uiContext);
-            return resourceLoader.GetString(resourceKey);
+            return resourceLoader?.GetString(resourceKey) ?? string.Empty;
         }
         else
         {
-            return ResourceLoader.GetForCurrentView().GetString(resourceKey);
+            return ResourceLoader.GetForCurrentView().GetString(resourceKey) ?? string.Empty;
         }
     }
 #endif

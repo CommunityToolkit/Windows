@@ -1,7 +1,7 @@
 <Project>
 
   <ItemGroup Condition="'$(Configuration)' == 'Release'">
-    <PackageReference Include="NuGet.Build.Tasks.Pack" Version="6.7.0" PrivateAssets="all" Pack="false" />
+    <PackageReference Include="NuGet.Build.Tasks.Pack" Version="6.12.1" PrivateAssets="all" Pack="false" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
   </ItemGroup>
 
