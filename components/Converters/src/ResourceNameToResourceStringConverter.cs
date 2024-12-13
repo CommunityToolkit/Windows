@@ -32,18 +32,18 @@ public sealed partial class ResourceNameToResourceStringConverter : IValueConver
     /// <param name="parameter">Optional parameter. Not used.</param>
     /// <param name="language">The language of the conversion.</param>
     /// <returns>The string corresponding to the resource name.</returns>
-    public object Convert(object value, Type targetType, object parameter, string language)
+    public object? Convert(object value, Type targetType, object parameter, string language)
     {
-        var stringValue = value?.ToString();
-        if (stringValue is null)
+        var valueAsString = value?.ToString();
+        if (valueAsString == null)
         {
             return string.Empty;
         }
 
 #if WINAPPSDK && !HAS_UNO
-        return _resourceManager.MainResourceMap.TryGetValue(stringValue).ValueAsString;
+        return _resourceManager.MainResourceMap.TryGetValue(valueAsString).ValueAsString;
 #else
-        return _resourceLoader.GetString(stringValue) ?? string.Empty;
+        return _resourceLoader.GetString(valueAsString) ?? string.Empty;
 #endif
     }
 

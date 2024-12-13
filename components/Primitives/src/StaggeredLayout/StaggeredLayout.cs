@@ -147,7 +147,7 @@ public partial class StaggeredLayout : VirtualizingLayout
             return new Size(availableSize.Width, 0);
         }
 
-        if ((context.RealizationRect.Width == 0) && (context.RealizationRect.Height == 0))
+        if (context.RealizationRect is { Width: 0, Height: 0 })
         {
             return new Size(availableSize.Width, 0.0f);
         }
@@ -163,7 +163,7 @@ public partial class StaggeredLayout : VirtualizingLayout
         if (ItemsStretch is StaggeredLayoutItemsStretch.None)
         {
             columnWidth = double.IsNaN(DesiredColumnWidth) ? availableWidth : Math.Min(DesiredColumnWidth, availableWidth);
-            numColumns = Math.Max(1, (int)Math.Floor(availableWidth / state.ColumnWidth));
+            numColumns = Math.Max(1, (int)Math.Floor(availableWidth / (columnWidth + ColumnSpacing)));
         }
         else
         {
@@ -174,13 +174,14 @@ public partial class StaggeredLayout : VirtualizingLayout
             }
             else
             {
-                var tempAvailableWidth = availableWidth + ColumnSpacing;
-                numColumns = (int)Math.Floor(tempAvailableWidth / DesiredColumnWidth);
+                // 0.0001 is to prevent floating point errors
+                var tempAvailableWidth = availableWidth + ColumnSpacing - 0.0001;
+                numColumns = (int)Math.Floor(tempAvailableWidth / (DesiredColumnWidth + ColumnSpacing));
                 columnWidth = tempAvailableWidth / numColumns - ColumnSpacing;
             }
         }
         
-        if (columnWidth != state.ColumnWidth)
+        if (Math.Abs(columnWidth - state.ColumnWidth) > double.Epsilon)
         {
             // The items will need to be remeasured
             state.Clear();
@@ -205,10 +206,10 @@ public partial class StaggeredLayout : VirtualizingLayout
             state.ClearColumns();
         }
 
-        if (RowSpacing != state.RowSpacing)
+        if (Math.Abs(this.RowSpacing - state.RowSpacing) > double.Epsilon)
         {
             // If the RowSpacing changes the height of the rows will be different.
-            // The columns stores the height so we'll want to clear them out to
+            // The columns store the height so we'll want to clear them out to
             // get the proper height
             state.ClearColumns();
             state.RowSpacing = RowSpacing;
@@ -228,7 +229,7 @@ public partial class StaggeredLayout : VirtualizingLayout
             {
                 // Item has not been measured yet. Get the element and store the values
                 item.Element = context.GetOrCreateElementAt(i);
-                item.Element.Measure(new Size((float)state.ColumnWidth, (float)availableHeight));
+                item.Element.Measure(new Size(state.ColumnWidth, availableHeight));
                 item.Height = item.Element.DesiredSize.Height;
                 measured = true;
             }
@@ -260,12 +261,12 @@ public partial class StaggeredLayout : VirtualizingLayout
 
                 deadColumns.Add(columnIndex);
             }
-            else if (measured == false)
+            else if (!measured)
             {
                 // We ALWAYS want to measure an item that will be in the bounds
                 item.Element = context.GetOrCreateElementAt(i);
-                item.Element.Measure(new Size((float)state.ColumnWidth, (float)availableHeight));
-                if (item.Height != item.Element.DesiredSize.Height)
+                item.Element.Measure(new Size(state.ColumnWidth, availableHeight));
+                if (Math.Abs(item.Height - item.Element.DesiredSize.Height) > double.Epsilon)
                 {
                     // this item changed size; we need to recalculate layout for everything after this
                     state.RemoveFromIndex(i + 1);
@@ -282,7 +283,7 @@ public partial class StaggeredLayout : VirtualizingLayout
 
         double desiredHeight = state.GetHeight();
 
-        return new Size((float)availableWidth, (float)desiredHeight);
+        return new Size(availableWidth, desiredHeight);
     }
 
     /// <inheritdoc/>
