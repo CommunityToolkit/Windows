@@ -10,7 +10,7 @@
             <interactivity:Interaction.Behaviors>
                 <behaviors:KeyDownTriggerBehavior Key="Enter">
                     <interactivity:CallMethodAction MethodName="IncrementCount"
-                                           TargetObject="{x:Bind}" />
+                                                    TargetObject="{x:Bind}" />
                 </behaviors:KeyDownTriggerBehavior>
             </interactivity:Interaction.Behaviors>
         </TextBox>
