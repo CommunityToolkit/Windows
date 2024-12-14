@@ -71,6 +71,8 @@
             IsEnabled="{x:Bind IsCardEnabled, Mode=OneWay}">
             <controls:SettingsCard.Resources>
                 <x:Double x:Key="SettingsCardHeaderPanelMaxWidth">550</x:Double>
+                <x:Double x:Key="SettingsCardContentPresenterMinWidth">0</x:Double>
+
                 <x:Double x:Key="SettingsCardWrapThreshold">900</x:Double>
             </controls:SettingsCard.Resources>
             <Grid>

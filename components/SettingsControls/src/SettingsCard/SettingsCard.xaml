@@ -103,6 +103,7 @@
     <x:Double x:Key="SettingsCardHeaderIconMaxSize">20</x:Double>
     <x:Double x:Key="SettingsCardLeftIndention">0</x:Double>
     <x:Double x:Key="SettingsCardHeaderPanelMaxWidth">477</x:Double>
+    <x:Double x:Key="SettingsCardContentPresenterMinWidth">375</x:Double>
     <x:Double x:Key="SettingsCardContentMinWidth">120</x:Double>
     <Thickness x:Key="SettingsCardHeaderIconMargin">2,0,20,0</Thickness>
     <Thickness x:Key="SettingsCardActionIconMargin">14,0,0,0</Thickness>
@@ -309,7 +310,6 @@
                                         <VisualState.Setters>
                                             <Setter Target="PART_ContentPresenter.(Grid.Row)" Value="1" />
                                             <Setter Target="PART_ContentPresenter.(Grid.Column)" Value="1" />
-                                            <Setter Target="PART_ContentPresenter.(Grid.ColumnSpan)" Value="2" />
                                             <Setter Target="PART_ContentPresenter.HorizontalAlignment" Value="Stretch" />
                                             <Setter Target="PART_ContentPresenter.HorizontalContentAlignment" Value="Left" />
                                             <Setter Target="HeaderPanel.Margin" Value="0" />
@@ -371,6 +371,7 @@
                                         <VisualState.Setters>
                                             <Setter Target="COLUMN_HeaderPanel.Width" Value="Auto" />
                                             <Setter Target="COLUMN_ContentPresenter.Width" Value="*" />
+                                            <Setter Target="PART_ContentPresenter.MinWidth" Value="{ThemeResource SettingsCardContentPresenterMinWidth}" />
                                             <Setter Target="HeaderPanel.MaxWidth" Value="{ThemeResource SettingsCardHeaderPanelMaxWidth}" />
                                         </VisualState.Setters>
                                     </VisualState>
