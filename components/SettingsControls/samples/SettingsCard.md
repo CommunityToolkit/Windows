@@ -12,11 +12,15 @@ issue-id: 0
 icon: Assets/SettingsCard.png
 ---
 
-SettingsCard is a control that can be used to display settings in your experience. It uses the default styling found in Windows 11 and is easy to use, meets all accessibility standards and will make your settings page look great!
+`SettingsCard` is a control that can be used to display settings in your experience. It uses the default styling found in Windows 11 and is easy to use, meets all accessibility standards and will make your settings page look great!
 You can set the `Header`, `Description`, `HeaderIcon` and `Content` properties to create an easy to use experience, like so:
 
 > [!SAMPLE SettingsCardSample]
 
-SettingsCard can also be turned into a button, by setting the `IsClickEnabled` property. This can be useful whenever you want your settings component to navigate to a detail page or open an external link. You can set a custom icon by setting the `ActionIcon`, or hiding it completely by setting the `IsActionIconVisible` to `false`.
+`SettingsCard` can also be turned into a button, by setting the `IsClickEnabled` property. This can be useful whenever you want your settings component to navigate to a detail page or open an external link. You can set a custom icon by setting the `ActionIcon`, or hiding it completely by setting the `IsActionIconVisible` to `false`.
 
 > [!SAMPLE ClickableSettingsCardSample]
+
+You can easily override certain properties to create custom experiences. For instance, you can customize the `ContentAlignment` of a `SettingsCard`, to align your content to the Right (default), Left (hiding the `HeaderIcon`, `Header` and `Description`), Vertically (usually best paired with changing the `HorizontalContentAlignment` to `Stretch`) or Horizontally (attaching additional `VisualState` to reverse the Content layout).
+
+> [!SAMPLE ContentAlignmentSettingsCardSample]

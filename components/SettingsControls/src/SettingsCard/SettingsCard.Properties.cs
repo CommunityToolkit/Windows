@@ -190,5 +190,9 @@ public enum ContentAlignment
     /// <summary>
     /// The Content is vertically aligned.
     /// </summary>
-    Vertical
+    Vertical,
+    /// <summary>
+    /// The Content is horizontally aligned.
+    /// </summary>
+    Horizontal
 }
