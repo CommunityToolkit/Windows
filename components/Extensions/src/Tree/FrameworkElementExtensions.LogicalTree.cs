@@ -6,7 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using CommunityToolkit.WinUI.Predicates;
-using System.Diagnostics.CodeAnalysis;
 
 #nullable enable
 
@@ -96,7 +95,7 @@ public static partial class FrameworkElementExtensions
     /// <param name="element">The root element.</param>
     /// <param name="predicate">The predicatee to use to match the child nodes.</param>
     /// <returns>The child that was found, or <see langword="null"/>.</returns>
-    private static T? FindChild<T, TPredicate>([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicProperties)] this FrameworkElement element, ref TPredicate predicate)
+    private static T? FindChild<T, TPredicate>(this FrameworkElement element, ref TPredicate predicate)
         where T : notnull, FrameworkElement
         where TPredicate : struct, IPredicate<T>
     {
@@ -663,7 +662,7 @@ public static partial class FrameworkElementExtensions
     /// </summary>
     /// <param name="element">The parent element.</param>
     /// <returns>The retrieved content control, or <see langword="null"/> if not available.</returns>
-    public static UIElement? GetContentControl([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicProperties)] this FrameworkElement element)
+    public static UIElement? GetContentControl(this FrameworkElement element)
     {
         Type type = element.GetType();
         TypeInfo? typeInfo = type.GetTypeInfo();
