@@ -62,9 +62,6 @@ jobs:
     env:
       PROCDUMP_PATH: ${{ github.workspace }}
 
-    env:
-      PROCDUMP_PATH: ${{ github.workspace }}
-
     # See https://docs.github.com/actions/using-jobs/using-a-matrix-for-your-jobs
     strategy:
       fail-fast: false # prevent one matrix pipeline from being cancelled if one fails, we want them all to run to completion.
