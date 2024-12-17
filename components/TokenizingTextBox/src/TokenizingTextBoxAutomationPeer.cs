@@ -52,13 +52,11 @@ public partial class TokenizingTextBoxAutomationPeer : ListViewBaseAutomationPee
     {
         if (IsReadOnly)
         {
-            #if WINDOWS_UWP
-            #if NET8_0_OR_GREATER
+#if NET8_0_OR_GREATER
             throw new Microsoft.UI.Xaml.Automation.ElementNotEnabledException($"Could not set the value of the {nameof(TokenizingTextBox)} ");
-            #else
+#elif WINDOWS_UWP
             throw new Windows.UI.Xaml.Automation.ElementNotEnabledException($"Could not set the value of the {nameof(TokenizingTextBox)} ");
-            #endif
-            #endif
+#endif
         }
 
         this.OwningTokenizingTextBox.Text = value;
