@@ -358,7 +358,7 @@ public partial class ColorPicker : Microsoft.UI.Xaml.Controls.ColorPicker
         VisualStateManager.GoToState(this, (Truth(IsColorPaletteVisible, IsColorSpectrumVisible, IsColorChannelTextInputVisible) <= 1) ? "ColorPanelSelectorCollapsed" : "ColorPanelSelectorVisible", useTransitions);
     }
 
-    public static int Truth(params bool[] booleans)
+    private static int Truth(params bool[] booleans)
     {
         return booleans.Count(b => b);
     }
