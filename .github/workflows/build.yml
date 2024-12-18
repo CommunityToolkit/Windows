@@ -273,7 +273,7 @@ jobs:
 
       # Build and pack component nupkg
       - name: Build and pack component packages
-        run: ./tooling/Build-Toolkit-Components.ps1 -MultiTargets all -ExcludeMultiTargets ${{ env.EXCLUDED_MULTITARGETS }} -WinUIMajorVersion ${{ matrix.winui }} -DateForVersion ${{ env.VERSION_DATE }} ${{ env.VERSION_PROPERTY != '' && format('-PreviewVersion "{0}"', env.VERSION_PROPERTY) || '' }} ${{ env.ENABLE_DIAGNOSTICS == 'true' && '-EnableBinlogs' || '' }} ${{ env.ENABLE_DIAGNOSTICS == 'true' && '-Verbose' || '' }} -BinlogOutput ./ -NupkgOutput ./ -Release -AdditionalProperties @{ "Platform" = "`"x86,x64,arm64`"" }
+        run: ./tooling/Build-Toolkit-Components.ps1 -MultiTargets all -ExcludeMultiTargets ${{ env.EXCLUDED_MULTITARGETS }} -WinUIMajorVersion ${{ matrix.winui }} -DateForVersion ${{ env.VERSION_DATE }} ${{ env.VERSION_PROPERTY != '' && format('-PreviewVersion "{0}"', env.VERSION_PROPERTY) || '' }} ${{ env.ENABLE_DIAGNOSTICS == 'true' && '-EnableBinlogs' || '' }} ${{ env.ENABLE_DIAGNOSTICS == 'true' && '-Verbose' || '' }} -BinlogOutput ./ -NupkgOutput ./ -Release
 
       # Push Pull Request Packages to our DevOps Artifacts Feed (see nuget.config)
       - name: Push Pull Request Packages (if not fork)
