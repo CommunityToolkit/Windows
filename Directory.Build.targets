@@ -1,4 +1,8 @@
 <Project>
+  <ItemGroup>
+  <!-- Workaround for WebView2 on uap pulling in Microsoft.VCLibs.Desktop when it shouldn't -->
+    <SDKReference Remove="Microsoft.VCLibs.Desktop, Version=14.0" />
+  </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)' == 'Release'">
     <PackageReference Include="NuGet.Build.Tasks.Pack" Version="6.12.1" PrivateAssets="all" Pack="false" />
