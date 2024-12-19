@@ -49,16 +49,16 @@ public static partial class StringExtensions
     /// You can retrieve this from a UIElement.UIContext, XamlRoot.UIContext (XamlIslands), or Window.UIContext.</param>
     /// <returns>string value for given resource or empty string if not found.</returns>
     ////[SupportedOSPlatform("Windows10.0.18362.0")]
-    public static string GetViewLocalized(this string resourceKey, UIContext? uiContext = null)
+    public static string? GetViewLocalized(this string resourceKey, UIContext? uiContext = null)
     {
         if (uiContext != null)
         {
             var resourceLoader = ResourceLoader.GetForUIContext(uiContext);
-            return resourceLoader.GetString(resourceKey);
+            return resourceLoader?.GetString(resourceKey) ?? string.Empty;
         }
         else
         {
-            return ResourceLoader.GetForCurrentView().GetString(resourceKey);
+            return ResourceLoader.GetForCurrentView().GetString(resourceKey) ?? string.Empty;
         }
     }
 #endif

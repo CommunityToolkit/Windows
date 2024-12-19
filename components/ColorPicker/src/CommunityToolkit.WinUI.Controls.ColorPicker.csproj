@@ -30,4 +30,15 @@
       <_LayoutFile Remove="@(_LayoutFile)" Condition="$([System.String]::Copy(&quot;%(_LayoutFile.TargetPath)&quot;).StartsWith('CommunityToolkit.WinUI.Controls.Segmented\'))" />
     </ItemGroup>
   </Target>
+
+  <!-- 
+    Known platform issue
+    
+    error IL2059: Unrecognized value passed to the parameter 'type' of method
+    'System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(RuntimeTypeHandle)'.
+    It's not possible to guarantee the availability of the target static constructor. 
+  -->
+  <PropertyGroup>
+    <NoWarn>$(NoWarn)IL2059;</NoWarn>
+  </PropertyGroup>
 </Project>

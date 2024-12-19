@@ -17,9 +17,7 @@ on:
   merge_group:
 
 env:
-  DOTNET_VERSION: ${{ '8.0.201' }}
-  DOTNET_INSTALL_DIR: dotnet-install
-  DOTNET_ROOT: dotnet-install
+  DOTNET_VERSION: ${{ '9.0.x' }}
   ENABLE_DIAGNOSTICS: true
   MSBUILD_VERBOSITY: normal
   #COREHOST_TRACE: 1
@@ -59,7 +57,7 @@ jobs:
   # Build both Uno.UI/WinUI2/UWP and Uno.WinUI/WinUI3/WindowsAppSDK versions of our packages using a matrix
   build:
     needs: [Xaml-Style-Check]
-    runs-on: windows-latest-large
+    runs-on: windows-latest
 
     # See https://docs.github.com/actions/using-jobs/using-a-matrix-for-your-jobs
     strategy:

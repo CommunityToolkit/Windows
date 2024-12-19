@@ -2,14 +2,13 @@
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:behaviors="using:CommunityToolkit.WinUI.Behaviors"
-      xmlns:core="using:Microsoft.Xaml.Interactions.Core"
       xmlns:interactivity="using:Microsoft.Xaml.Interactivity">
 
     <Button Content="Click to navigate">
         <interactivity:Interaction.Behaviors>
-            <core:EventTriggerBehavior EventName="Click">
+            <interactivity:EventTriggerBehavior EventName="Click">
                 <behaviors:NavigateToUriAction NavigateUri="https://aka.ms/toolkit/windows" />
-            </core:EventTriggerBehavior>
+            </interactivity:EventTriggerBehavior>
         </interactivity:Interaction.Behaviors>
     </Button>
 </Page>

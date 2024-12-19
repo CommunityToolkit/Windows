@@ -3,7 +3,6 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:ani="using:CommunityToolkit.WinUI.Animations"
       xmlns:behaviors="using:CommunityToolkit.WinUI.Behaviors"
-      xmlns:interactions="using:Microsoft.Xaml.Interactions.Core"
       xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
       xmlns:media="using:CommunityToolkit.WinUI.Media">
 
@@ -38,9 +37,9 @@
         </ani:Explicit.Animations>
 
         <interactivity:Interaction.Behaviors>
-            <interactions:EventTriggerBehavior EventName="Loaded">
+            <interactivity:EventTriggerBehavior EventName="Loaded">
                 <behaviors:StartAnimationAction Animation="{x:Bind SaturationAnimation}" />
-            </interactions:EventTriggerBehavior>
+            </interactivity:EventTriggerBehavior>
         </interactivity:Interaction.Behaviors>
     </Border>
 </Page>

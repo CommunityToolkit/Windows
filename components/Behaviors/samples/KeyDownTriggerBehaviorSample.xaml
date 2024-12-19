@@ -2,7 +2,6 @@
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:behaviors="using:CommunityToolkit.WinUI.Behaviors"
-      xmlns:core="using:Microsoft.Xaml.Interactions.Core"
       xmlns:interactivity="using:Microsoft.Xaml.Interactivity">
 
     <StackPanel MaxWidth="480"
@@ -10,8 +9,8 @@
         <TextBox PlaceholderText="Set the focus to this TextBox and press enter">
             <interactivity:Interaction.Behaviors>
                 <behaviors:KeyDownTriggerBehavior Key="Enter">
-                    <core:CallMethodAction MethodName="IncrementCount"
-                                           TargetObject="{x:Bind}" />
+                    <interactivity:CallMethodAction MethodName="IncrementCount"
+                                                    TargetObject="{x:Bind}" />
                 </behaviors:KeyDownTriggerBehavior>
             </interactivity:Interaction.Behaviors>
         </TextBox>

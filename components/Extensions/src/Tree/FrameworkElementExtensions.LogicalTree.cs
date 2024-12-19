@@ -662,6 +662,9 @@ public static partial class FrameworkElementExtensions
     /// </summary>
     /// <param name="element">The parent element.</param>
     /// <returns>The retrieved content control, or <see langword="null"/> if not available.</returns>
+    #if NET8_0_OR_GREATER
+    [System.Diagnostics.CodeAnalysis.UnconditionalSuppressMessage("Trimming", "IL2075", Justification = "This method is currently not safe for trimming, and annotations here wouldn't help.")]
+    #endif
     public static UIElement? GetContentControl(this FrameworkElement element)
     {
         Type type = element.GetType();

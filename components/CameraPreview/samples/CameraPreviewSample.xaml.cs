@@ -92,7 +92,7 @@ public sealed partial class CameraPreviewSample : Page
         await CleanUpAsync();
     }
 
-    private async void Application_Suspending(object sender, SuspendingEventArgs e)
+    private async void Application_Suspending(object? sender, SuspendingEventArgs e)
     {
         if (Frame?.CurrentSourcePageType == typeof(CameraPreviewSample))
         {
@@ -102,7 +102,7 @@ public sealed partial class CameraPreviewSample : Page
         }
     }
 
-    private async void Application_Resuming(object sender, object e)
+    private async void Application_Resuming(object? sender, object e)
     {
         if (CameraPreviewControl != null)
         {
@@ -113,19 +113,19 @@ public sealed partial class CameraPreviewSample : Page
         }
     }
 
-    private void CameraPreviewControl_FrameArrived(object sender, FrameEventArgs e)
+    private void CameraPreviewControl_FrameArrived(object? sender, FrameEventArgs e)
     {
         _currentVideoFrame = e.VideoFrame;
     }
 
-    private void CameraPreviewControl_PreviewFailed(object sender, PreviewFailedEventArgs e)
+    private void CameraPreviewControl_PreviewFailed(object? sender, PreviewFailedEventArgs e)
     {
         ErrorBar.Message = e.Error;
         ErrorBar.IsOpen = true;
     }
 
 
-    private async void CaptureButton_Click(object sender, RoutedEventArgs e)
+    private async void CaptureButton_Click(object? sender, RoutedEventArgs e)
     {
         var softwareBitmap = _currentVideoFrame?.SoftwareBitmap;
 

@@ -38,7 +38,12 @@ public partial class ColorToDisplayNameConverter : IValueConverter
         // Track https://github.com/unoplatform/uno/issues/18004
         return "Not supported";
 #elif WINUI2
+#if NET8_0_OR_GREATER
+        // Following advice from Sergio0694
+        return color.ToString();
+#else
         return Windows.UI.ColorHelper.ToDisplayName(color);
+#endif
 #elif WINUI3
         return Microsoft.UI.ColorHelper.ToDisplayName(color);
 #endif
