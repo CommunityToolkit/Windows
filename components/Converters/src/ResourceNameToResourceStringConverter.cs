@@ -43,7 +43,7 @@ public sealed partial class ResourceNameToResourceStringConverter : IValueConver
 #if WINAPPSDK && !HAS_UNO
         return _resourceManager.MainResourceMap.TryGetValue(stringValue).ValueAsString;
 #else
-        return _resourceLoader.GetString(valueAsString);
+        return _resourceLoader.GetString(stringValue);
 #endif
     }
 
