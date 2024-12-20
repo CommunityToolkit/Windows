@@ -58,7 +58,7 @@ public static partial class StringExtensions
         }
         else
         {
-            return ResourceLoader.GetForCurrentView().GetString(resourceKey) ?? string.Empty;
+            return ResourceLoader.GetForCurrentView().GetString(resourceKey);
         }
     }
 #endif
