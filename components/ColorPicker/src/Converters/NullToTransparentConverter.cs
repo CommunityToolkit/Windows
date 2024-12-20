@@ -4,7 +4,7 @@
 
 namespace CommunityToolkit.WinUI.Controls;
 
-internal partial class NullToTransparentConverter : IValueConverter
+public partial class NullToTransparentConverter : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, string language) => value;
 
