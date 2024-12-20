@@ -54,7 +54,7 @@ public static partial class StringExtensions
         if (uiContext != null)
         {
             var resourceLoader = ResourceLoader.GetForUIContext(uiContext);
-            return resourceLoader?.GetString(resourceKey) ?? string.Empty;
+            return resourceLoader.GetString(resourceKey);
         }
         else
         {
