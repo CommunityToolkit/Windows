@@ -3,9 +3,11 @@
 // See the LICENSE file in the project root for more information.
 
 using CommunityToolkit.WinUI.Controls;
-#if WINAPPSDK
+#if WINUI3
+using Microsoft.UI.Xaml.Automation;
 using Microsoft.UI.Xaml.Automation.Provider;
 #else
+using Windows.UI.Xaml.Automation;
 using Windows.UI.Xaml.Automation.Provider;
 #endif
 
@@ -47,7 +49,7 @@ public partial class TokenizingTextBoxAutomationPeer : ListViewBaseAutomationPee
 
     /// <summary>Sets the value of a control.</summary>
     /// <param name="value">The value to set. The provider is responsible for converting the value to the appropriate data type.</param>
-    /// <exception cref="T:Windows.UI.Xaml.Automation.ElementNotEnabledException">Thrown if the control is in a read-only state.</exception>
+    /// <exception cref="T:ElementNotEnabledException">Thrown if the control is in a read-only state.</exception>
     public void SetValue(string value)
     {
         if (IsReadOnly)
