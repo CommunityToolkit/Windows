@@ -36,7 +36,20 @@ public partial class ImageCropper
         using (var sourceStream = writeableBitmap.PixelBuffer.AsStream())
         {
             var buffer = new byte[sourceStream.Length];
-            await sourceStream.ReadAsync(buffer, 0, buffer.Length);
+            var pos = 0;
+
+            while (pos < buffer.Length)
+            {
+                var remaining = buffer.Length - pos;
+                var read = await sourceStream.ReadAsync(buffer, pos, remaining);
+                if (read == 0)
+                {
+                    break;
+                }
+
+                pos += read;
+            }
+
             var bitmapEncoder = await BitmapEncoder.CreateAsync(GetEncoderId(bitmapFileFormat), stream);
             bitmapEncoder.SetPixelData(BitmapPixelFormat.Bgra8, BitmapAlphaMode.Premultiplied, (uint)writeableBitmap.PixelWidth, (uint)writeableBitmap.PixelHeight, 96.0, 96.0, buffer);
             bitmapEncoder.BitmapTransform.Bounds = new BitmapBounds

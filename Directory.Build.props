@@ -30,6 +30,7 @@
 
     <!-- See https://github.com/CommunityToolkit/Windows/pull/567#issuecomment-2498739244 -->
     <WarningsNotAsErrors>NU1901;NU1902;NU1903;NU1904</WarningsNotAsErrors>
+    <NoWarn>$(NoWarn);TKSMPL0014;</NoWarn>
   </PropertyGroup>
 
   <Import Project="Windows.Toolkit.Common.props" />

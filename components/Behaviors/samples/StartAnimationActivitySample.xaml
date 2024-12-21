@@ -5,7 +5,6 @@
       xmlns:ani="using:CommunityToolkit.WinUI.Animations"
       xmlns:behaviors="using:CommunityToolkit.WinUI.Behaviors"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:interactions="using:Microsoft.Xaml.Interactions.Core"
       xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
       xmlns:local="using:BehaviorsExperiment.Samples"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -55,9 +54,9 @@
         </Image>
 
         <interactivity:Interaction.Behaviors>
-            <interactions:EventTriggerBehavior EventName="Click">
+            <interactivity:EventTriggerBehavior EventName="Click">
                 <behaviors:StartAnimationAction Animation="{Binding ElementName=MoveAnimation}" />
-            </interactions:EventTriggerBehavior>
+            </interactivity:EventTriggerBehavior>
         </interactivity:Interaction.Behaviors>
     </Button>
 </Page>
