@@ -9,7 +9,7 @@ public partial class NullToTransparentConverter : IValueConverter
     public object Convert(object value, Type targetType, object parameter, string language) => value;
 
     public object ConvertBack(object? value, Type targetType, object parameter, string language) => value ??
-#if !WINAPPSDK
+#if WINUI2
         Windows.UI.Colors.Transparent;
 #else
         Microsoft.UI.Colors.Transparent;
