@@ -91,14 +91,14 @@ internal class StaggeredLayoutState
     /// </summary>
     /// <returns>The estimated height of the layout.</returns>
     /// <remarks>
-    /// If all of the items have been calculated then the actual height will be returned.
-    /// If all of the items have not been calculated then an estimated height will be calculated based on the average height of the items.
+    /// If all the items have been calculated then the actual height will be returned.
+    /// If all the items have not been calculated then an estimated height will be calculated based on the average height of the items.
     /// </remarks>
     internal double GetHeight()
     {
-        double desiredHeight = Enumerable.Max(_columnLayout.Values, c => c.Height);
+        double desiredHeight = _columnLayout.Values.Max(c => c.Height);
 
-        var itemCount = Enumerable.Sum(_columnLayout.Values, c => c.Count);
+        var itemCount = _columnLayout.Values.Sum(c => c.Count);
         if (itemCount == _context.ItemCount)
         {
             return desiredHeight;
