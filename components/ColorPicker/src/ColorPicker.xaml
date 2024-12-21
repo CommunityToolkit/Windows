@@ -1,4 +1,4 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:animations="using:CommunityToolkit.WinUI.Animations"
                     xmlns:contract8Present="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract,8)"
@@ -16,6 +16,7 @@
     <SolidColorBrush x:Key="CheckerboardColor1"
                      Color="#FFd4d4d4" />
     <converters:ColorToDisplayNameConverter x:Key="ColorToDisplayNameConverter" />
+    <localconverters:NullToTransparentConverter x:Key="NullToTransparentConverter" />
     <localconverters:ColorToHexConverter x:Key="ColorToHexConverter" />
 
     <localconverters:ContrastBrushConverter x:Key="ContrastBrushConverter" />
@@ -291,7 +292,7 @@
                                                   animations:Implicit.HideAnimations="{StaticResource HideTransitions}"
                                                   animations:Implicit.ShowAnimations="{StaticResource ShowTransitions}"
                                                   ItemsSource="{TemplateBinding CustomPaletteColors}"
-                                                  SelectedValue="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Color, Mode=TwoWay}"
+                                                  SelectedValue="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Color, Converter={StaticResource NullToTransparentConverter}, Mode=TwoWay}"
                                                   SelectionMode="Single"
                                                   Tag="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Color, Mode=OneWay}">
                                             <GridView.ItemsPanel>
