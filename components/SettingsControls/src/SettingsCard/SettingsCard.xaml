@@ -200,8 +200,10 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"
                                                   MinWidth="{ThemeResource SettingsCardLeftIndention}" />
-                                <ColumnDefinition x:Name="COLUMN_HeaderPanel" Width="*" />
-                                <ColumnDefinition x:Name="COLUMN_ContentPresenter" Width="Auto" />
+                                <ColumnDefinition x:Name="COLUMN_HeaderPanel"
+                                                  Width="*" />
+                                <ColumnDefinition x:Name="COLUMN_ContentPresenter"
+                                                  Width="Auto" />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
                             <VisualStateManager.VisualStateGroups>
