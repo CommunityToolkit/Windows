@@ -110,7 +110,7 @@ We can create the above connected animations.
 
 ### In first page
 
-We need a set a key for the element to be connected with another element in a different page.
+We need to set a key for the element to be connected with another element in a different page.
 
 ```xaml
 <Grid>
