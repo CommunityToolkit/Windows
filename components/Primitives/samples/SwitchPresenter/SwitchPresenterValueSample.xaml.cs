@@ -15,10 +15,13 @@ public sealed partial class SwitchPresenterValueSample : Page
 
 public enum Animal
 {
+    Bunny,
     Cat,
     Dog,
-    Bunny,
+    Giraffe,
     Llama,
+    Otter,
+    Owl,
     Parrot,
     Squirrel
 }

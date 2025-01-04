@@ -45,7 +45,7 @@ public partial class SettingsExpander
         new PropertyMetadata(defaultValue: null));
 
     /// <summary>
-    /// The backing <see cref="DependencyProperty"/> for the <see cref="Content"/> property.
+    /// The backing <see cref="DependencyProperty"/> for the <see cref="ItemsHeader"/> property.
     /// </summary>
     public static readonly DependencyProperty ItemsHeaderProperty = DependencyProperty.Register(
         nameof(ItemsHeader),
@@ -54,7 +54,7 @@ public partial class SettingsExpander
         new PropertyMetadata(defaultValue: null));
 
     /// <summary>
-    /// The backing <see cref="DependencyProperty"/> for the <see cref="Content"/> property.
+    /// The backing <see cref="DependencyProperty"/> for the <see cref="ItemsFooter"/> property.
     /// </summary>
     public static readonly DependencyProperty ItemsFooterProperty = DependencyProperty.Register(
         nameof(ItemsFooter),

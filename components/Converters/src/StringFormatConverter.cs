@@ -9,7 +9,7 @@ namespace CommunityToolkit.WinUI.Converters;
 /// <summary>
 /// This class provides a binding converter to display formatted strings
 /// </summary>
-public class StringFormatConverter : IValueConverter
+public partial class StringFormatConverter : IValueConverter
 {
     /// <summary>
     /// Return the formatted string version of the source object.

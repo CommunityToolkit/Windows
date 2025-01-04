@@ -14,7 +14,7 @@ namespace CommunityToolkit.WinUI.Animations.Expressions;
 /// Class PropertySetReferenceNode.
 /// </summary>
 /// <seealso cref="CommunityToolkit.WinUI.Animations.Expressions.ReferenceNode" />
-public class PropertySetReferenceNode : ReferenceNode
+public partial class PropertySetReferenceNode : ReferenceNode
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="PropertySetReferenceNode"/> class.

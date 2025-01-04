@@ -12,7 +12,7 @@ namespace CommunityToolkit.WinUI.Controls;
 /// When <see cref="Orientation"/> is set to Orientation.Horizontal, element are arranged in rows until the available width is reached and then to a new row.
 /// When <see cref="Orientation"/> is set to Orientation.Vertical, element are arranged in columns until the available height is reached.
 /// </summary>
-public class WrapLayout : VirtualizingLayout
+public partial class WrapLayout : VirtualizingLayout
 {
     /// <summary>
     /// Gets or sets a uniform Horizontal distance (in pixels) between items when <see cref="Orientation"/> is set to Horizontal,

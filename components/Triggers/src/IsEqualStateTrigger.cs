@@ -13,7 +13,7 @@ namespace CommunityToolkit.WinUI;
 /// <para>
 /// Example: Trigger if a value is null
 /// <code lang="xaml">
-///     &lt;triggers:EqualsStateTrigger Value="{Binding MyObject}" EqualTo="{x:Null}" />
+///     &lt;triggers:EqualsStateTrigger Value="{x:Bind MyObject, Mode=OneWay}" EqualTo="{x:Null}" />
 /// </code>
 /// </para>
 /// </remarks>

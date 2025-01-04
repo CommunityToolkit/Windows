@@ -63,22 +63,4 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  
-  <ItemGroup>
-    <Compile Update="UniformGridSample.xaml.cs">
-      <DependentUpon>UniformGridSample.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="DockPanelSample.xaml.cs">
-      <DependentUpon>DockPanelSample.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="ConstrainedBoxSample.xaml.cs">
-      <DependentUpon>ConstrainedBoxSample.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="StaggeredLayoutSample.xaml.cs">
-      <DependentUpon>StaggeredLayoutSample.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="WrapPanelSample.xaml.cs">
-      <DependentUpon>WrapPanelSample.xaml</DependentUpon>
-    </Compile>
-  </ItemGroup>
 </Project>

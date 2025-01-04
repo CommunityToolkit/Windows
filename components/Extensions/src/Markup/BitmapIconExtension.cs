@@ -8,7 +8,7 @@ namespace CommunityToolkit.WinUI;
 /// Custom <see cref="MarkupExtension"/> which can provide <see cref="BitmapIcon"/> values.
 /// </summary>
 [MarkupExtensionReturnType(ReturnType = typeof(BitmapIcon))]
-public sealed class BitmapIconExtension : MarkupExtension
+public sealed partial class BitmapIconExtension : MarkupExtension
 {
     /// <summary>
     /// Gets or sets the <see cref="Uri"/> representing the image to display.

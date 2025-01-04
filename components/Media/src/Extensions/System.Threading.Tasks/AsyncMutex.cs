@@ -10,7 +10,9 @@ namespace CommunityToolkit.WinUI.Media;
 /// An <see langword="async"/> <see cref="AsyncMutex"/> implementation that can be easily used inside a <see langword="using"/> block
 /// </summary>
 #pragma warning disable CA1001 // Types that own disposable fields should be disposable
+#pragma warning disable CsWinRT1028 // Partial not required for types never passed to native WinRT method.
 internal sealed class AsyncMutex
+#pragma warning restore CsWinRT1028
 #pragma warning restore CA1001 // Types that own disposable fields should be disposable
 {
     /// <summary>
@@ -32,7 +34,9 @@ internal sealed class AsyncMutex
     /// <summary>
     /// Private class that implements the automatic release of the semaphore
     /// </summary>
+#pragma warning disable CsWinRT1028 // Partial not required for types never passed to native WinRT method.
     private sealed class Lock : IDisposable
+#pragma warning restore CsWinRT1028
     {
         /// <summary>
         /// The <see cref="SemaphoreSlim"/> instance of the parent class

@@ -20,4 +20,4 @@ contact_links:
     about: "The Windows Community Toolkit uses Uno Platform for cross-platform WinUI. See the Uno Platform repo for issues specific to running on non-Windows platforms:"
   - name: Discord
     url: https://aka.ms/wct/discord
-    about: "Join the UWP Discord Server and talk to us in the #community-toolkit channel."
+    about: "Join the Windows App Community Discord Server and talk to us in the #community-toolkit channel."

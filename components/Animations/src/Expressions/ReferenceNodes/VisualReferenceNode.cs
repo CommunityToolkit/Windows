@@ -14,7 +14,7 @@ namespace CommunityToolkit.WinUI.Animations.Expressions;
 /// Class VisualReferenceNode. This class cannot be inherited.
 /// </summary>
 /// <seealso cref="CommunityToolkit.WinUI.Animations.Expressions.ReferenceNode" />
-public sealed class VisualReferenceNode : ReferenceNode
+public sealed partial class VisualReferenceNode : ReferenceNode
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="VisualReferenceNode" /> class.

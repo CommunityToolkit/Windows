@@ -12,7 +12,7 @@ issue-id: 0
 icon: Assets/Shadow.png
 ---
 
-The `AttachedCardShadow` is the easiest to use and most performant shadow. It is recommended to use it where possible, if taking a Win2D dependency is not a concern. It's only drawbacks are the extra dependency required and that it only supports rectangular and rounded-rectangular geometries (as described in the table above).
+The `AttachedCardShadow` is the easiest to use and most performant shadow. It is recommended to use it where possible, if taking a Win2D dependency is not a concern. Its only drawbacks are the extra dependency required and that it only supports rectangular and rounded-rectangular geometries (as described in the table above).
 
 The great benefit to the `AttachedCardShadow` is that no extra surface or element is required to add the shadow. This reduces the complexity required in development and allows shadows to easily be added at any point in the development process. It also supports transparent elements, without displaying the shadow behind them!
 

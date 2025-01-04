@@ -9,7 +9,7 @@ namespace CommunityToolkit.WinUI.Media;
 /// <summary>
 /// A <see cref="XamlCompositionBrush"/> that displays a tiled image
 /// </summary>
-public sealed class TilesBrush : XamlCompositionEffectBrushBase
+public sealed partial class TilesBrush : XamlCompositionEffectBrushBase
 {
     /// <summary>
     /// Gets or sets the <see cref="Uri"/> to the texture to use

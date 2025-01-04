@@ -9,7 +9,7 @@ namespace CommunityToolkit.WinUI.Converters;
 /// <summary>
 /// Gets the approximated display name for the color.
 /// </summary>
-public class ColorToDisplayNameConverter : IValueConverter
+public partial class ColorToDisplayNameConverter : IValueConverter
 {
     /// <inheritdoc/>
     public object Convert(
@@ -34,11 +34,14 @@ public class ColorToDisplayNameConverter : IValueConverter
             return DependencyProperty.UnsetValue;
         }
 
-#if !WINAPPSDK && !HAS_UNO
+#if WINDOWS_UWP && NET8_0_OR_GREATER
+        // Windows.UI.ColorHelper not yet supported on modern uwp.
+        // Following advice from Sergio0694
+        return color.ToString();
+#elif WINUI2
         return Windows.UI.ColorHelper.ToDisplayName(color);
-#else
-        // ToDisplayName not yet supported on WASDK. See https://github.com/microsoft/microsoft-ui-xaml/issues/8287
-        return "Not supported";
+#elif WINUI3
+        return Microsoft.UI.ColorHelper.ToDisplayName(color);
 #endif
     }
 

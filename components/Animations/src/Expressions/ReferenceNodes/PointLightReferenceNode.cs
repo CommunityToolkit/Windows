@@ -14,7 +14,7 @@ namespace CommunityToolkit.WinUI.Animations.Expressions;
 /// Class PointLightReferenceNode. This class cannot be inherited.
 /// </summary>
 /// <seealso cref="CommunityToolkit.WinUI.Animations.Expressions.ReferenceNode" />
-public sealed class PointLightReferenceNode : ReferenceNode
+public sealed partial class PointLightReferenceNode : ReferenceNode
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="PointLightReferenceNode"/> class.
