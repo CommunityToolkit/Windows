@@ -18,7 +18,6 @@ on:
 
 env:
   DOTNET_VERSION: ${{ '9.0.x' }}
-  ENABLE_DIAGNOSTICS: true
   MSBUILD_VERBOSITY: normal
   #COREHOST_TRACE: 1
   COREHOST_TRACEFILE: corehosttrace.log
@@ -83,7 +82,7 @@ jobs:
           disk-root: "C:"
 
       - name: Enable User-Mode Dumps collecting
-        if: ${{ env.ENABLE_DIAGNOSTICS == 'true' || env.COREHOST_TRACE != '' }}
+        if: ${{ env.ACTIONS_RUNNER_DEBUG == 'true' || env.COREHOST_TRACE != '' }}
         shell: powershell
         run: |
           New-Item '${{ github.workspace }}\CrashDumps' -Type Directory
@@ -97,7 +96,7 @@ jobs:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
       - name: .NET Info (if diagnostics)
-        if: ${{ env.ENABLE_DIAGNOSTICS == 'true' }}
+        if: ${{ env.ACTIONS_RUNNER_DEBUG == 'true' }}
         run: dotnet --info
 
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -131,7 +130,7 @@ jobs:
       # Generate full solution with all projects (sample gallery heads, components, tests)
       - name: Generate solution with ${{ matrix.multitarget }} gallery, components and tests
         working-directory: ./
-        run: powershell -version 5.1 -command "./tooling/GenerateAllSolution.ps1 -MultiTargets ${{ matrix.multitarget }} ${{ env.ENABLE_DIAGNOSTICS == 'true' && ' -UseDiagnostics' || '' }} -WinUIMajorVersion ${{ matrix.winui }}" -ErrorAction Stop
+        run: powershell -version 5.1 -command "./tooling/GenerateAllSolution.ps1 -MultiTargets ${{ matrix.multitarget }} ${{ env.ACTIONS_RUNNER_DEBUG == 'true' && ' -UseDiagnostics' || '' }} -WinUIMajorVersion ${{ matrix.winui }}" -ErrorAction Stop
 
       # Build solution
       - name: MSBuild
@@ -139,7 +138,7 @@ jobs:
           msbuild.exe /restore /nowarn:MSB4011
           /p:Configuration=Release
           /m
-          ${{ env.ENABLE_DIAGNOSTICS == 'true' && '/bl' || '' }}
+          ${{ env.ACTIONS_RUNNER_DEBUG == 'true' && '/bl' || '' }}
           /v:${{ env.MSBUILD_VERBOSITY }}
           CommunityToolkit.AllComponents.sln
 
@@ -168,14 +167,14 @@ jobs:
 
       - name: Artifact - Diagnostic Logs
         uses: actions/upload-artifact@v4
-        if: ${{ (env.ENABLE_DIAGNOSTICS == 'true' || env.COREHOST_TRACE != '') && always() }}
+        if: ${{ (env.ACTIONS_RUNNER_DEBUG == 'true' || env.COREHOST_TRACE != '') && always() }}
         with:
           name: build-logs-${{ matrix.multitarget }}-winui${{ matrix.winui }}
           path: ./**/*.*log
 
       - name: Artifact - ILC Repro
         uses: actions/upload-artifact@v4
-        if: ${{ (env.ENABLE_DIAGNOSTICS == 'true' || env.COREHOST_TRACE != '') && always() }}
+        if: ${{ (env.ACTIONS_RUNNER_DEBUG == 'true' || env.COREHOST_TRACE != '') && always() }}
         with:
           name: ilc-repro
           path: ./*.zip
@@ -190,13 +189,13 @@ jobs:
 
       - name: Artifact - WER crash dumps
         uses: actions/upload-artifact@v4
-        if: ${{ (env.ENABLE_DIAGNOSTICS == 'true' || env.COREHOST_TRACE != '') && always() }}
+        if: ${{ (env.ACTIONS_RUNNER_DEBUG == 'true' || env.COREHOST_TRACE != '') && always() }}
         with:
           name: CrashDumps-${{ matrix.multitarget }}-winui${{ matrix.winui }}
           path: '${{ github.workspace }}/CrashDumps'
 
       - name: Analyze Dump
-        if: ${{ steps.detect-dump.outputs.DUMP_FILE != '' && (env.ENABLE_DIAGNOSTICS == 'true' || env.COREHOST_TRACE != '') && always() }}
+        if: ${{ steps.detect-dump.outputs.DUMP_FILE != '' && (env.ACTIONS_RUNNER_DEBUG == 'true' || env.COREHOST_TRACE != '') && always() }}
         run: |
           dotnet tool install --global dotnet-dump
           dotnet-dump analyze ${{ steps.detect-dump.outputs.DUMP_FILE }} -c "clrstack" -c "pe -lines" -c "exit"
@@ -219,7 +218,7 @@ jobs:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
       - name: .NET Info (if diagnostics)
-        if: ${{ env.ENABLE_DIAGNOSTICS == 'true' }}
+        if: ${{ env.ACTIONS_RUNNER_DEBUG == 'true' }}
         run: dotnet --info
 
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -273,7 +272,7 @@ jobs:
 
       # Build and pack component nupkg
       - name: Build and pack component packages
-        run: ./tooling/Build-Toolkit-Components.ps1 -MultiTargets all -ExcludeMultiTargets ${{ env.EXCLUDED_MULTITARGETS }} -WinUIMajorVersion ${{ matrix.winui }} -DateForVersion ${{ env.VERSION_DATE }} ${{ env.VERSION_PROPERTY != '' && format('-PreviewVersion "{0}"', env.VERSION_PROPERTY) || '' }} ${{ env.ENABLE_DIAGNOSTICS == 'true' && '-EnableBinlogs' || '' }} ${{ env.ENABLE_DIAGNOSTICS == 'true' && '-Verbose' || '' }} -BinlogOutput ./ -NupkgOutput ./ -Release
+        run: ./tooling/Build-Toolkit-Components.ps1 -MultiTargets all -ExcludeMultiTargets ${{ env.EXCLUDED_MULTITARGETS }} -WinUIMajorVersion ${{ matrix.winui }} -DateForVersion ${{ env.VERSION_DATE }} ${{ env.VERSION_PROPERTY != '' && format('-PreviewVersion "{0}"', env.VERSION_PROPERTY) || '' }} ${{ env.ACTIONS_RUNNER_DEBUG == 'true' && '-EnableBinlogs' || '' }} ${{ env.ACTIONS_RUNNER_DEBUG == 'true' && '-Verbose' || '' }} -BinlogOutput ./ -NupkgOutput ./ -Release
 
       # Push Pull Request Packages to our DevOps Artifacts Feed (see nuget.config)
       - name: Push Pull Request Packages (if not fork)
@@ -305,7 +304,7 @@ jobs:
           
       - name: Artifact - Diagnostic Logs
         uses: actions/upload-artifact@v4
-        if: ${{ (env.ENABLE_DIAGNOSTICS == 'true' || env.COREHOST_TRACE != '') && always() }}
+        if: ${{ (env.ACTIONS_RUNNER_DEBUG == 'true' || env.COREHOST_TRACE != '') && always() }}
         with:
           name: build-logs-winui${{ matrix.winui }}
           path: ./*.*log
@@ -417,7 +416,7 @@ jobs:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
       - name: .NET Info (if diagnostics)
-        if: ${{ env.ENABLE_DIAGNOSTICS == 'true' }}
+        if: ${{ env.ACTIONS_RUNNER_DEBUG == 'true' }}
         run: dotnet --info
 
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -438,7 +437,7 @@ jobs:
       - name: Generate solution
         shell: pwsh
         working-directory: ./
-        run: ./tooling/GenerateAllSolution.ps1${{ env.ENABLE_DIAGNOSTICS == 'true' && ' -UseDiagnostics' || '' }}
+        run: ./tooling/GenerateAllSolution.ps1${{ env.ACTIONS_RUNNER_DEBUG == 'true' && ' -UseDiagnostics' || '' }}
 
       - name: Install ninja for WASM native dependencies
         run: sudo apt-get install ninja-build
@@ -453,7 +452,7 @@ jobs:
 
       - name: Artifact - Diagnostic Logs
         uses: actions/upload-artifact@v4
-        if: ${{ (env.ENABLE_DIAGNOSTICS == 'true' || env.COREHOST_TRACE != '') && always() }}
+        if: ${{ (env.ACTIONS_RUNNER_DEBUG == 'true' || env.COREHOST_TRACE != '') && always() }}
         with:
           name: linux-logs
           path: ./**/*.*log
