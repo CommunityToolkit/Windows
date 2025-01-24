@@ -44,6 +44,7 @@ public partial class SettingsCardAutomationPeer : FrameworkElementAutomationPeer
         return Owner.GetType().Name;
     }
 
+    /// <inheritdoc/>
     protected override string GetNameCore()
     {
         // We only want to announce the button card name if it is clickable, else it's just a regular card that does not receive focus

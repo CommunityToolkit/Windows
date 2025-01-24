@@ -6,11 +6,18 @@ using System.Data;
 
 namespace CommunityToolkit.WinUI.Controls;
 
+/// <summary>
+/// A panel that arranges its children in equal columns.
+/// </summary>
 public partial class EqualPanel : Panel
 {
     private double _maxItemWidth = 0;
     private double _maxItemHeight = 0;
     private int _visibleItemsCount = 0;
+    
+    /// <summary>
+    /// Gets or sets the spacing between items.
+    /// </summary>
     public double Spacing
     {
         get { return (double)GetValue(SpacingProperty); }
@@ -27,11 +34,15 @@ public partial class EqualPanel : Panel
         typeof(EqualPanel),
         new PropertyMetadata(default(double), OnSpacingChanged));
 
+    /// <summary>
+    /// Creates a new instance of the <see cref="EqualPanel"/> class.
+    /// </summary>
     public EqualPanel()
     {
         RegisterPropertyChangedCallback(HorizontalAlignmentProperty, OnHorizontalAlignmentChanged);
     }
 
+    /// <inheritdoc/>
     protected override Size MeasureOverride(Size availableSize)
     {
         _maxItemWidth = 0;
@@ -69,6 +80,7 @@ public partial class EqualPanel : Panel
         }
     }
 
+    /// <inheritdoc/>
     protected override Size ArrangeOverride(Size finalSize)
     {
         double x = 0;

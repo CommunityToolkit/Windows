@@ -148,12 +148,18 @@ public partial class SettingsCard : ButtonBase
         }
     }
 
+    /// <summary>
+    /// Handles the PointerEntered event.
+    /// </summary>
     public void Control_PointerEntered(object sender, PointerRoutedEventArgs e)
     {
         base.OnPointerEntered(e);
         VisualStateManager.GoToState(this, PointerOverState, true);
     }
     
+    /// <summary>
+    /// Handles the PointerExited event.
+    /// </summary>
     public void Control_PointerExited(object sender, PointerRoutedEventArgs e)
     {
         base.OnPointerExited(e);
@@ -172,6 +178,9 @@ public partial class SettingsCard : ButtonBase
         VisualStateManager.GoToState(this, NormalState, true);
     }
 
+    /// <summary>
+    /// Handles the PointerPressed event.
+    /// </summary>
     protected override void OnPointerPressed(PointerRoutedEventArgs e)
     {
         //  e.Handled = true;
@@ -182,6 +191,9 @@ public partial class SettingsCard : ButtonBase
         }
     }
     
+    /// <summary>
+    /// Handles the PointerReleased event.
+    /// </summary>
     protected override void OnPointerReleased(PointerRoutedEventArgs e)
     {
         if (IsClickEnabled)
