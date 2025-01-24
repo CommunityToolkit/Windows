@@ -4,6 +4,9 @@
 
 namespace CommunityToolkit.WinUI.Controls;
 
+/// <summary>
+///  The SettingsExpander is a collapsable control to host multiple SettingsCards.
+/// </summary>
 //// Note: ItemsRepeater will request all the available horizontal space: https://github.com/microsoft/microsoft-ui-xaml/issues/3842
 [TemplatePart(Name = PART_ItemsRepeater, Type = typeof(MUXC.ItemsRepeater))]
 public partial class SettingsExpander : Control

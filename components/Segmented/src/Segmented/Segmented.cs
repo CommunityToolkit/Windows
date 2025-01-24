@@ -6,11 +6,17 @@ using Windows.System;
 
 namespace CommunityToolkit.WinUI.Controls;
 
+/// <summary>
+/// A control that displays a set of items that can be selected by the user.
+/// </summary>
 public partial class Segmented : ListViewBase
 {
     private int _internalSelectedIndex = -1;
     private bool _hasLoaded = false;
 
+    /// <summary>
+    /// Creates a new instance of <see cref="Segmented"/>.
+    /// </summary>
     public Segmented()
     {
         this.DefaultStyleKey = typeof(Segmented);
@@ -18,13 +24,20 @@ public partial class Segmented : ListViewBase
         RegisterPropertyChangedCallback(SelectedIndexProperty, OnSelectedIndexChanged);
     }
 
+    /// <summary>
+    /// Get the container for the item.
+    /// </summary>
     protected override DependencyObject GetContainerForItemOverride() => new SegmentedItem();
 
+    /// <summary>
+    /// Check if the item is its own container.
+    /// </summary>
     protected override bool IsItemItsOwnContainerOverride(object item)
     {
         return item is SegmentedItem;
     }
 
+    /// <inheritdoc/>
     protected override void OnApplyTemplate()
     {
         base.OnApplyTemplate();
@@ -37,6 +50,9 @@ public partial class Segmented : ListViewBase
         PreviewKeyDown += Segmented_PreviewKeyDown;
     }
 
+    /// <summary>
+    /// Prepare the container for the item.
+    /// </summary>
     protected override void PrepareContainerForItemOverride(DependencyObject element, object item)
     {
         base.PrepareContainerForItemOverride(element, item);
@@ -63,6 +79,9 @@ public partial class Segmented : ListViewBase
         }
     }
 
+    /// <summary>
+    /// Handles the ItemsChanged event
+    /// </summary>
     protected override void OnItemsChanged(object e)
     {
         base.OnItemsChanged(e);
