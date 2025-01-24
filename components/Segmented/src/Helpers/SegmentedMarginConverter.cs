@@ -4,6 +4,9 @@
 
 namespace CommunityToolkit.WinUI.Controls;
 
+/// <summary>
+/// A converter that returns a margin based on the position of the item in a segmented control.
+/// </summary>
 public partial class SegmentedMarginConverter : DependencyObject, IValueConverter
 {
     /// <summary>
@@ -51,6 +54,7 @@ public partial class SegmentedMarginConverter : DependencyObject, IValueConverte
         set { SetValue(RightItemMarginProperty, value); }
     }
 
+    /// <inheritdoc/>
     public object Convert(object value, Type targetType, object parameter, string language)
     {
         var segmentedItem = value as SegmentedItem;
@@ -72,6 +76,7 @@ public partial class SegmentedMarginConverter : DependencyObject, IValueConverte
         }
     }
 
+    /// <inheritdoc/>
     public object ConvertBack(object value, Type targetType, object parameter, string language)
     {
         return value;

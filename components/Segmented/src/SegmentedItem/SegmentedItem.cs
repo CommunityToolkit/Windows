@@ -4,6 +4,9 @@
 
 namespace CommunityToolkit.WinUI.Controls;
 
+/// <summary>
+/// Represents an item in a <see cref="Segmented"/> control.
+/// </summary>
 [ContentProperty(Name = nameof(Content))]
 public partial class SegmentedItem : ListViewItem
 {
@@ -11,11 +14,15 @@ public partial class SegmentedItem : ListViewItem
     internal const string IconOnlyState = "IconOnly";
     internal const string ContentOnlyState = "ContentOnly";
 
+    /// <summary>
+    /// Creates a new instance of <see cref="SegmentedItem"/>.
+    /// </summary>
     public SegmentedItem()
     {
         this.DefaultStyleKey = typeof(SegmentedItem);
     }
 
+    /// <inheritdoc/>
     protected override void OnApplyTemplate()
     {
         base.OnApplyTemplate();
@@ -23,6 +30,9 @@ public partial class SegmentedItem : ListViewItem
         ContentChanged();
     }
 
+    /// <summary>
+    /// Handles changes to the Content property.
+    /// </summary>
     protected override void OnContentChanged(object oldContent, object newContent)
     {
         base.OnContentChanged(oldContent, newContent);
@@ -41,6 +51,9 @@ public partial class SegmentedItem : ListViewItem
         }
     }
 
+    /// <summary>
+    /// Handles changes to the Icon property.
+    /// </summary>
     protected virtual void OnIconPropertyChanged(IconElement oldValue, IconElement newValue)
     {
         OnIconChanged();

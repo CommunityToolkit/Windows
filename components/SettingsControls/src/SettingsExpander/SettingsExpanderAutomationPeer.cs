@@ -42,6 +42,7 @@ public partial class SettingsExpanderAutomationPeer : FrameworkElementAutomation
         return Owner.GetType().Name;
     }
 
+    /// <inheritdoc/>
     protected override string GetNameCore()
     {
         string name = base.GetNameCore();
