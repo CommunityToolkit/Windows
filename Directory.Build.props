@@ -33,7 +33,7 @@
     <NoWarn>$(NoWarn);TKSMPL0014;</NoWarn>
 
     <!-- See https://github.com/CommunityToolkit/Windows/pull/609#issuecomment-2613505591 -->
-    <WarningsNotAsErrors>$(WarningsNotAsErrors);CS0419;CS1570</WarningsNotAsErrors>
+    <WarningsNotAsErrors>$(WarningsNotAsErrors);CS0419;CS1570;CS1574</WarningsNotAsErrors>
   </PropertyGroup>
 
   <Import Project="Windows.Toolkit.Common.props" />
