@@ -154,7 +154,7 @@ jobs:
 
       - name: Run SourceGenerators tests
         id: test-generator
-        run: vstest.console.exe ./tooling/CommunityToolkit.Tooling.SampleGen.Tests/bin/Release/net6.0/CommunityToolkit.Tooling.SampleGen.Tests.dll /logger:"trx;LogFileName=SourceGenerators.trx"
+        run: vstest.console.exe ./tooling/CommunityToolkit.Tooling.SampleGen.Tests/bin/Release/net8.0/CommunityToolkit.Tooling.SampleGen.Tests.dll /logger:"trx;LogFileName=SourceGenerators.trx"
 
       - name: Run component tests against ${{ matrix.multitarget }}
         if: ${{ matrix.multitarget == 'uwp' || matrix.multitarget == 'wasdk' }}
