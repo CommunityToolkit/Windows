@@ -24,14 +24,10 @@ public partial class Segmented : ListViewBase
         RegisterPropertyChangedCallback(SelectedIndexProperty, OnSelectedIndexChanged);
     }
 
-    /// <summary>
-    /// Get the container for the item.
-    /// </summary>
+    /// <inheritdoc/>
     protected override DependencyObject GetContainerForItemOverride() => new SegmentedItem();
 
-    /// <summary>
-    /// Check if the item is its own container.
-    /// </summary>
+    /// <inheritdoc/>
     protected override bool IsItemItsOwnContainerOverride(object item)
     {
         return item is SegmentedItem;
@@ -50,9 +46,7 @@ public partial class Segmented : ListViewBase
         PreviewKeyDown += Segmented_PreviewKeyDown;
     }
 
-    /// <summary>
-    /// Prepare the container for the item.
-    /// </summary>
+    /// <inheritdoc/>
     protected override void PrepareContainerForItemOverride(DependencyObject element, object item)
     {
         base.PrepareContainerForItemOverride(element, item);
@@ -79,9 +73,7 @@ public partial class Segmented : ListViewBase
         }
     }
 
-    /// <summary>
-    /// Handles the ItemsChanged event
-    /// </summary>
+    /// <inheritdoc/>
     protected override void OnItemsChanged(object e)
     {
         base.OnItemsChanged(e);
