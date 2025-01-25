@@ -46,6 +46,7 @@ public partial class ImageCropperThumb : Control
      
     }
 
+    /// <inheritdoc/>
     protected override void OnApplyTemplate()
     {
         PointerEntered -= Control_PointerEntered;
@@ -79,8 +80,6 @@ public partial class ImageCropperThumb : Control
         target.UpdatePosition();
     }
 
-
-
     private static void OnYChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
         var target = (ImageCropperThumb)d;
@@ -99,12 +98,18 @@ public partial class ImageCropperThumb : Control
     public static readonly DependencyProperty YProperty =
         DependencyProperty.Register(nameof(Y), typeof(double), typeof(ImageCropperThumb), new PropertyMetadata(0d, OnYChanged));
 
+    /// <summary>
+    /// Handles the PointerEntered event.
+    /// </summary>
     public void Control_PointerEntered(object sender, PointerRoutedEventArgs e)
     {
         base.OnPointerEntered(e);
         VisualStateManager.GoToState(this, PointerOverState, true);
     }
 
+    /// <summary>
+    /// Handles the PointerExited event.
+    /// </summary>
     public void Control_PointerExited(object sender, PointerRoutedEventArgs e)
     {
         base.OnPointerExited(e);
@@ -123,12 +128,14 @@ public partial class ImageCropperThumb : Control
         VisualStateManager.GoToState(this, NormalState, true);
     }
 
+    /// <inheritdoc/>
     protected override void OnPointerPressed(PointerRoutedEventArgs e)
     {
         base.OnPointerPressed(e);
         VisualStateManager.GoToState(this, PressedState, true);
     }
 
+    /// <inheritdoc/>
     protected override void OnPointerReleased(PointerRoutedEventArgs e)
     {
         base.OnPointerReleased(e);
