@@ -207,7 +207,7 @@ jobs:
     strategy:
       fail-fast: false # prevent one matrix pipeline from being cancelled if one fails, we want them all to run to completion.
       matrix:
-        winui: [2, 3]
+        winui: [0, 2, 3]
 
     env:
       VERSION_PROPERTY: ${{ github.ref == 'refs/heads/main' && format('build.{0}', github.run_number) || format('pull-{0}.{1}', github.event.number, github.run_number) }}
@@ -261,19 +261,9 @@ jobs:
         with:
           vs-version: '[17.9,)'
 
-      - name: Define excluded MultiTargets (WinUI 2)
-        if: ${{ matrix.winui == '2' }}
-        run: |
-          echo "EXCLUDED_MULTITARGETS=wasdk" >> $env:GITHUB_ENV
-
-      - name: Define excluded MultiTargets (WinUI 3)
-        if: ${{ matrix.winui == '3' }}
-        run: |
-          echo "EXCLUDED_MULTITARGETS=uwp" >> $env:GITHUB_ENV
-
       # Build and pack component nupkg
       - name: Build and pack component packages
-        run: ./tooling/Build-Toolkit-Components.ps1 -MultiTargets all -ExcludeMultiTargets ${{ env.EXCLUDED_MULTITARGETS }} -WinUIMajorVersion ${{ matrix.winui }} -DateForVersion ${{ env.VERSION_DATE }} ${{ env.VERSION_PROPERTY != '' && format('-PreviewVersion "{0}"', env.VERSION_PROPERTY) || '' }} ${{ env.ENABLE_DIAGNOSTICS == 'true' && '-EnableBinlogs' || '' }} ${{ env.ENABLE_DIAGNOSTICS == 'true' && '-Verbose' || '' }} -BinlogOutput ./ -NupkgOutput ./ -Release
+        run: ./tooling/Build-Toolkit-Components.ps1 -MultiTargets all -WinUIMajorVersion ${{ matrix.winui }} -DateForVersion ${{ env.VERSION_DATE }} ${{ env.VERSION_PROPERTY != '' && format('-PreviewVersion "{0}"', env.VERSION_PROPERTY) || '' }} ${{ env.ENABLE_DIAGNOSTICS == 'true' && '-EnableBinlogs' || '' }} ${{ env.ENABLE_DIAGNOSTICS == 'true' && '-Verbose' || '' }} -BinlogOutput ./ -NupkgOutput ./ -Release
 
       # Push Pull Request Packages to our DevOps Artifacts Feed (see nuget.config)
       - name: Push Pull Request Packages (if not fork)
