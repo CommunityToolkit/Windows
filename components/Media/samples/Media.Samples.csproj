@@ -27,4 +27,10 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  
+  <ItemGroup>
+    <Compile Update="Brushes\TilesBrushSample.xaml.cs">
+      <DependentUpon>TilesBrushSample.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
 </Project>
