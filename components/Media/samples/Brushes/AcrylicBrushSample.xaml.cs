@@ -6,10 +6,10 @@ using CommunityToolkit.WinUI.Media;
 
 namespace MediaExperiment.Samples.Brushes;
 
-[ToolkitSample(id: nameof(TilesBrushSample), "Tiles Brush", description: $"A sample that uses a {nameof(TilesBrush)} to display a tiled image. Here, an image of polka dots is tiled to create a seamless repeated background.")]
-public sealed partial class TilesBrushSample : Page
+[ToolkitSample(id: nameof(AcrylicBrushSample), "AcrylicBrush", description: $"A sample for showing how to apply a {nameof(CommunityToolkit.WinUI.Media.AcrylicBrush)} effect to a background.")]
+public sealed partial class AcrylicBrushSample : Page
 {
-    public TilesBrushSample()
+    public AcrylicBrushSample()
     {
         this.InitializeComponent();
     }
