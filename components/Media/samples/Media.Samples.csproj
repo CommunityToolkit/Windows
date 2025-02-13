@@ -1,4 +1,4 @@
-<Project>
+﻿<Project>
   <Import Project="$([MSBuild]::GetPathOfFileAbove(Directory.Build.props))" Condition="Exists('$([MSBuild]::GetPathOfFileAbove(Directory.Build.props))')" />
   
   <PropertyGroup>
@@ -19,9 +19,6 @@
     <Content Include="Assets\BrushAssets\Windows.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\BrushAssets\BloomTile.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Assets\BrushAssets\PolkaDotsBackground.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -40,6 +37,9 @@
   <ItemGroup>
     <Compile Update="Brushes\AcrylicBrushSample.xaml.cs">
       <DependentUpon>AcrylicBrushSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Brushes\BackdropBlurBrushSample.xaml.cs">
+      <DependentUpon>BackdropBlurBrushSample.xaml</DependentUpon>
     </Compile>
     <Compile Update="Brushes\TilesBrushSample.xaml.cs">
       <DependentUpon>TilesBrushSample.xaml</DependentUpon>
