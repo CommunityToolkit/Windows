@@ -1,7 +1,7 @@
 ---
 title: TilesBrush
 author: erinwoo  
-description: A brush that displays a tiled image 
+description: A brush can be used to display a tiled image as a background.
 keywords: brush, tiles, tile, tilesbrush
 dev_langs:
   - csharp
