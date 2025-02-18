@@ -14,7 +14,7 @@
                 <brushes:TilesBrush TextureUri="ms-appx:///Assets/BrushAssets/PolkaDotsBackground.jpg" />
             </Border.Background>
             
-            <Image VerticalAlignment="Center" Source="ms-appx:///Assets/BrushAssets/Windows.png" />
+            <Image VerticalAlignment="Center" Source="ms-appx:///Assets/BrushAssets/Trex.png" Height="100" />
         </Border>
 
     </StackPanel>
