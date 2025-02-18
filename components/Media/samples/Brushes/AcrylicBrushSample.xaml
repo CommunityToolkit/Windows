@@ -9,10 +9,10 @@
 
     <StackPanel VerticalAlignment="Center"
                 Spacing="32">
-        <Border VerticalAlignment="Center" HorizontalAlignment="Center" Width="600" Height="600" >
+        <Border VerticalAlignment="Center" HorizontalAlignment="Center" Width="400" Height="400" >
             <Image VerticalAlignment="Center"
-                Source="ms-appx:///Assets/BrushAssets/Windows.png"
-                Height="300"/>
+                Source="ms-appx:///Assets/BrushAssets/Trex.png"
+                Height="100"/>
             
             <Border.Background>
                 <brushes:AcrylicBrush
