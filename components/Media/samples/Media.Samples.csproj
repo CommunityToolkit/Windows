@@ -41,6 +41,9 @@
     <Compile Update="Brushes\AcrylicBrushSample.xaml.cs">
       <DependentUpon>AcrylicBrushSample.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Brushes\AcrylicBrushHostBackdropSample.xaml.cs">
+      <DependentUpon>AcrylicBrushHostBackdropSample.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Brushes\BackdropBlurBrushSample.xaml.cs">
       <DependentUpon>BackdropBlurBrushSample.xaml</DependentUpon>
     </Compile>
@@ -65,9 +68,5 @@
     <Compile Update="Brushes\PipelineVisualFactorySample.xaml.cs">
       <DependentUpon>PipelineVisualFactorySample.xaml</DependentUpon>
     </Compile>
-  </ItemGroup>
-  
-  <ItemGroup>
-    <Folder Include="Assets\BrushAssets\" />
   </ItemGroup>
 </Project>
