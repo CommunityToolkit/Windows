@@ -61,6 +61,7 @@ internal static partial class SwitchHelpers
     /// </summary>
     /// <param name="compare">Our main value in our SwitchPresenter.</param>
     /// <param name="value">The value from the case to compare to.</param>
+    /// <param name="targetType">The desired type of the result for automatic conversion.</param>
     /// <returns>true if the two values are equal</returns>
     internal static bool CompareValues(object compare, object value, Type targetType)
     {

@@ -28,6 +28,9 @@ public class IsNullOrEmptyStateTrigger : StateTriggerBase
     public static readonly DependencyProperty ValueProperty =
         DependencyProperty.Register(nameof(Value), typeof(object), typeof(IsNullOrEmptyStateTrigger), new PropertyMetadata(null, OnValuePropertyChanged));
 
+    /// <summary>
+    /// Creates a new instance of <see cref="IsNullOrEmptyStateTrigger"/>.
+    /// </summary>
     public IsNullOrEmptyStateTrigger()
     {
         UpdateTrigger();

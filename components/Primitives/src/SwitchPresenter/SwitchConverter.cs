@@ -66,6 +66,7 @@ public sealed partial class SwitchConverter : DependencyObject, IValueConverter
         SwitchCases = new CaseCollection();
     }
 
+    /// <inheritdoc/>
     public object Convert(object value, Type targetType, object parameter, string language)
     {
         var result = SwitchCases.EvaluateCases(value, TargetType ?? targetType);
@@ -73,6 +74,7 @@ public sealed partial class SwitchConverter : DependencyObject, IValueConverter
         return result?.Content!;
     }
 
+    /// <inheritdoc/>
     public object ConvertBack(object value, Type targetType, object parameter, string language)
     {
         throw new NotImplementedException();

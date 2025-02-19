@@ -22,9 +22,24 @@ public abstract class HeaderBehaviorBase : BehaviorBase<FrameworkElement>
     // From Doc: https://learn.microsoft.com/windows/windows-app-sdk/api/winrt/microsoft.ui.xaml.controls.canvas.zindex
     private const int CanvasZIndexMax = 1_000_000;
 
+    /// <summary>
+    /// The ScrollViewer associated with the ListViewBase control.
+    /// </summary>
     protected ScrollViewer? _scrollViewer;
+
+    /// <summary>
+    /// The CompositionPropertySet associated with the ScrollViewer.
+    /// </summary>
     protected CompositionPropertySet? _scrollProperties;
+
+    /// <summary>
+    /// The CompositionPropertySet associated with the animation.
+    /// </summary>
     protected CompositionPropertySet? _animationProperties;
+
+    /// <summary>
+    /// The Visual associated with the header element.
+    /// </summary>
     protected Visual? _headerVisual;
 
     /// <summary>
