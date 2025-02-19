@@ -82,7 +82,7 @@ public partial class DockPanel : Panel
             }
         }
 
-        if (LastChildFill)
+        if (LastChildFill && Children.Count > 0)
         {
             var child = Children[Children.Count - 1];
             child.Arrange(new Rect(currentBounds.X, currentBounds.Y, currentBounds.Width, currentBounds.Height));
@@ -141,7 +141,7 @@ public partial class DockPanel : Panel
             }
         }
 
-        if (LastChildFill)
+        if (LastChildFill && Children.Count > 0)
         {
             var child = Children[Children.Count - 1];
             var childConstraint = new Size(
