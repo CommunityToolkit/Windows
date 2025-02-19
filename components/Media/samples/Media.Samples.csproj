@@ -16,7 +16,6 @@
     <None Remove="Assets\Bloom.jpg" />
     <None Remove="Assets\EffectAnimations.png" />
     <None Remove="Assets\OwlShadow.jpg" />
-    <Page Remove="Brushes\BackdropBlurBrushSample - Copy.xaml" />
     <Content Include="Assets\BrushAssets\Trex.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

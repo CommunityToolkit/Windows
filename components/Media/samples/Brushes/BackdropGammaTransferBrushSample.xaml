@@ -15,11 +15,7 @@
                 Height="100"/>
             
             <Border.Background>
-                <brushes:AcrylicBrush
-                    BackgroundSource="HostBackdrop"
-                    TintColor="DarkGray"
-                    TintOpacity="0.1"
-                    BlurAmount="15"/>
+                <brushes:BackdropGammaTransferBrush RedAmplitude="1.25"/>
             </Border.Background>
          </Border>
 
