@@ -1,7 +1,7 @@
 ---
 title: BackdropGammaTransferBrush
 author: erinwoo  
-description: A brush can be used to display a tiled image as a background.
+description: A brush which modifies the color values of whaetever is behind it in the application.
 keywords: back, backdrop, gamma, transfer, brush
 dev_langs:
   - csharp
@@ -11,5 +11,7 @@ discussion-id: 0
 issue-id: 0
 icon: Assets/EffectAnimations.png
 ---
+
+Map the color intensities of an image using a gamma function created using an amplitude, exponent, and offset you provide for each channel.
 
 > [!SAMPLE BackdropGammaTransferBrushSample]

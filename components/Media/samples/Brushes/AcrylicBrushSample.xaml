@@ -14,7 +14,7 @@
             <Image Source="ms-appx:///Assets/Bloom.jpg"
                    Height="400"/>
             <!--Brush area-->
-            <Border VerticalAlignment="Center" HorizontalAlignment="Center" Width="550" Height="300">
+            <Border BorderBrush="Black" BorderThickness="1" VerticalAlignment="Center" HorizontalAlignment="Center" Width="550" Height="300">
                 <Border.Background>
                     <brushes:AcrylicBrush
                         BackgroundSource="Backdrop"

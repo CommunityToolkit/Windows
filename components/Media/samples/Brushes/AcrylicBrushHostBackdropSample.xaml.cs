@@ -6,7 +6,7 @@ using CommunityToolkit.WinUI.Media;
 
 namespace MediaExperiment.Samples.Brushes;
 
-[ToolkitSample(id: nameof(AcrylicBrushHostBackdropSample), "AcrylicBrush", description: $"A sample for showing how to apply a {nameof(CommunityToolkit.WinUI.Media.AcrylicBrush)} effect to a background.")]
+[ToolkitSample(id: nameof(AcrylicBrushHostBackdropSample), "AcrylicBrushHostBackdrop", description: $"A sample for showing how to apply a {nameof(CommunityToolkit.WinUI.Media.AcrylicBrush)} effect to a background.")]
 public sealed partial class AcrylicBrushHostBackdropSample : Page
 {
     public AcrylicBrushHostBackdropSample()

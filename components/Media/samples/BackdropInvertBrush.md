@@ -1,7 +1,7 @@
 ---
 title: BackdropInvertBrush
 author: erinwoo  
-description: A brush can be used to display a tiled image as a background.
+description: A brush that inverts the colors of whatever is behind it in the application.
 keywords: backdrop, invert, brush
 dev_langs:
   - csharp

@@ -8,20 +8,21 @@
       mc:Ignorable="d">
 
     <StackPanel VerticalAlignment="Center"
-                Spacing="32">
-        <Border VerticalAlignment="Center" HorizontalAlignment="Center" Width="400" Height="400" >
-            <Image VerticalAlignment="Center"
-                Source="ms-appx:///Assets/BrushAssets/Trex.png"
-                Height="100"/>
-            
-            <Border.Background>
-                <brushes:AcrylicBrush
-                    BackgroundSource="HostBackdrop"
-                    TintColor="DarkGray"
-                    TintOpacity="0.1"
-                    BlurAmount="15"/>
-            </Border.Background>
-         </Border>
-
+            Spacing="32">
+        <Grid>
+            <!--Background image -->
+            <Image Source="ms-appx:///Assets/Bloom.jpg"
+               Height="400"/>
+            <!--Brush area-->
+            <Border BorderBrush="Black" BorderThickness="1" VerticalAlignment="Center" HorizontalAlignment="Center" Width="550" Height="300">
+                <Border.Background>
+                    <brushes:BackdropInvertBrush />
+                </Border.Background>
+                <!--Foreground image-->
+                <Image VerticalAlignment="Center"
+                    Source="ms-appx:///Assets/BrushAssets/Trex.png"
+                    Height="100"/>
+            </Border>
+        </Grid>
     </StackPanel>
 </Page>
