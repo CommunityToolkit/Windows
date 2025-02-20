@@ -1,7 +1,7 @@
 ---
 title: BackdropBlurBrush
 author: erinwoo  
-description: A brush that blurs whatever is behind it in the application.
+description: A brush that blurs the background in the application
 keywords: backdrop, background, blur, brush
 dev_langs:
   - csharp
