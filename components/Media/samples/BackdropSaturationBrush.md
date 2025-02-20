@@ -1,7 +1,7 @@
 ---
 title: BackdropSaturationBrush
 author: erinwoo  
-description: A brush that can increase or decrease the saturation of whataever is behind it in the application.
+description: A brush that can increase or decrease the saturation of the brush's background in the application.
 keywords: back, backdrop, saturation, brush
 dev_langs:
   - csharp

@@ -1,7 +1,7 @@
 ---
 title: BackdropGammaTransferBrush
 author: erinwoo  
-description: A brush which modifies the color values of whaetever is behind it in the application.
+description: A brush which modifies the color values of the brush's background in the application
 keywords: back, backdrop, gamma, transfer, brush
 dev_langs:
   - csharp
