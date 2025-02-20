@@ -1,7 +1,7 @@
 ---
 title: PipelineVisualFactory
 author: erinwoo  
-description: A brush can be used to display a tiled image as a background.
+description: A helper type that can be used to create sprite visuals with custom Win2D/Composition effects chains and attach them to UI elements. It can create the same visual brushes as the PipelineBrush type, but it can attach them directly on the underlying Visual instance backing a UI element. This can make the XAML code less verbose and more efficient, as there is no need to insert additional elements just so that a brush can be applied to them.
 keywords: pipeline, visual, factory, pipe
 dev_langs:
   - csharp
