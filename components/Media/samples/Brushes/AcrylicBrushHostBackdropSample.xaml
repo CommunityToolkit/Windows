@@ -3,7 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      xmlns:brushes="using:CommunityToolkit.WinUI.Media"
+      xmlns:media="using:CommunityToolkit.WinUI.Media"
       xmlns:ui="using:CommunityToolkit.WinUI"
       mc:Ignorable="d">
 
@@ -16,7 +16,7 @@
             <!--Brush area-->
             <Border BorderBrush="Black" BorderThickness=".5" VerticalAlignment="Center" HorizontalAlignment="Center" Width="550" Height="300">
                 <Border.Background>
-                    <brushes:AcrylicBrush
+                    <media:AcrylicBrush
                         BackgroundSource="HostBackdrop"
                         TintColor="Black"
                         TintOpacity=".2"
