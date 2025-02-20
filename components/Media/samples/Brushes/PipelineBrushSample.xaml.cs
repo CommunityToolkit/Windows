@@ -6,7 +6,7 @@ using CommunityToolkit.WinUI.Media;
 
 namespace MediaExperiment.Samples.Brushes;
 
-[ToolkitSample(id: nameof(PipelineBrushSample), "BackdropGammaTransferBrush", description: $"A sample for showing how to apply a {nameof(PipelineBrush)} effect to a background.")]
+[ToolkitSample(id: nameof(PipelineBrushSample), "PipelineBrush", description: $"A sample for showing how to apply a {nameof(PipelineBrush)} effect to a background.")]
 public sealed partial class PipelineBrushSample : Page
 {
     public PipelineBrushSample()
