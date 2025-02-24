@@ -386,16 +386,7 @@ public partial class AdvancedCollectionView : IAdvancedCollectionView, INotifyPr
         if (!_sortProperties.Any())
         {
             var listType = _source?.GetType();
-            Type type;
-
-            if (listType != null && listType.IsGenericType)
-            {
-                type = listType.GetGenericArguments()[0];
-            }
-            else
-            {
-                type = x.GetType();
-            }
+            Type type = x.GetType();
 
             foreach (var sd in _sortDescriptions)
             {
