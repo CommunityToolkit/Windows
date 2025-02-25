@@ -9,7 +9,7 @@ category: Media
 subcategory: Brushes
 discussion-id: 0
 issue-id: 0
-icon: Assets/EffectAnimations.png
+icon: Assets/MediaBrushes.png
 ---
 
 Map the color intensities of an image using a gamma function created using an amplitude, exponent, and offset you provide for each channel.

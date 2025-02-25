@@ -7,21 +7,27 @@
       xmlns:ui="using:CommunityToolkit.WinUI"
       mc:Ignorable="d">
 
-    <StackPanel VerticalAlignment="Center" Spacing="32">
+    <StackPanel VerticalAlignment="Center"
+                Spacing="32">
         <Grid>
-            <!--Background image -->
-            <Image Source="ms-appx:///Assets/Bloom.jpg"
-               Height="400"/>
-            <!--Brush area-->
-            <Border BorderBrush="Black" BorderThickness=".5" VerticalAlignment="Center" HorizontalAlignment="Center" Width="550" Height="300">
+            <!--  Background image  -->
+            <Image Height="400"
+                   Source="ms-appx:///Assets/Bloom.jpg" />
+            <!--  Brush area  -->
+            <Border Width="550"
+                    Height="300"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    BorderBrush="Black"
+                    BorderThickness=".5">
                 <Border.Background>
-                    <media:BackdropBlurBrush Amount="5.0"/>
+                    <media:BackdropBlurBrush Amount="5.0" />
                 </Border.Background>
             </Border>
-            <!--Foreground image-->
-            <Image VerticalAlignment="Center"
-                Source="ms-appx:///Assets/BrushAssets/Trex.png"
-                Height="100"/>
+            <!--  Foreground image  -->
+            <Image Height="100"
+                   VerticalAlignment="Center"
+                   Source="ms-appx:///Assets/BrushAssets/Trex.png" />
         </Grid>
     </StackPanel>
 </Page>

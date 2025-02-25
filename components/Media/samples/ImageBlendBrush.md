@@ -9,7 +9,7 @@ category: Media
 subcategory: Brushes
 discussion-id: 0
 issue-id: 0
-icon: Assets/EffectAnimations.png
+icon: Assets/MediaBrushes.png
 ---
 
 The ImageBlendMode property specifies how the image should be blended with the backdrop. More info about the effect modes can be found [here](https://microsoft.github.io/Win2D/WinUI2/html/T_Microsoft_Graphics_Canvas_Effects_BlendEffectMode.htm).

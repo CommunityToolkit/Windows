@@ -9,7 +9,7 @@ category: Media
 subcategory: Brushes
 discussion-id: 0
 issue-id: 0
-icon: Assets/EffectAnimations.png
+icon: Assets/MediaBrushes.png
 ---
 There are two modes for setting the BackgroundSource property when using an `AcrylicBrush`.
 Setting it to `Backdrop` results in the acrylic effect being applied to whatever is behind the brush in the application.

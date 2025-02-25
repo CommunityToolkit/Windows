@@ -9,7 +9,7 @@ category: Media
 subcategory: Brushes
 discussion-id: 0
 issue-id: 0
-icon: Assets/EffectAnimations.png
+icon: Assets/MediaBrushes.png
 ---
 
 > [!SAMPLE TilesBrushSample]
