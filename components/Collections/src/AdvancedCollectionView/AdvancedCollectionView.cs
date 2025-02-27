@@ -3,6 +3,8 @@
 // See the LICENSE file in the project root for more information.
 
 using CommunityToolkit.WinUI.Helpers;
+using System;
+using System.CodeDom;
 using System.Collections;
 using System.Collections.Specialized;
 using System.Runtime.CompilerServices;
@@ -386,7 +388,20 @@ public partial class AdvancedCollectionView : IAdvancedCollectionView, INotifyPr
         if (!_sortProperties.Any())
         {
             var listType = _source?.GetType();
-            Type type = x.GetType();
+            Type type;
+
+            if (listType == typeof(IncrementalLoadingCollection))
+            {
+                type = listType.GetGenericArguments()[1];
+            }
+            else if (listType != null && listType.IsGenericType)
+            {
+                type = listType.GetGenericArguments()[0];
+            }
+            else
+            {
+                type = x.GetType();
+            }
 
             foreach (var sd in _sortDescriptions)
             {
