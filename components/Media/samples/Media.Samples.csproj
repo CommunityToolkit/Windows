@@ -1,4 +1,4 @@
-<Project>
+﻿<Project>
   <Import Project="$([MSBuild]::GetPathOfFileAbove(Directory.Build.props))" Condition="Exists('$([MSBuild]::GetPathOfFileAbove(Directory.Build.props))')" />
   
   <PropertyGroup>
@@ -16,6 +16,12 @@
     <None Remove="Assets\Bloom.jpg" />
     <None Remove="Assets\EffectAnimations.png" />
     <None Remove="Assets\OwlShadow.jpg" />
+    <Content Include="Assets\BrushAssets\Trex.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\BrushAssets\PolkaDotsBackground.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     
     <Content Include="Assets\Bloom.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -26,5 +32,41 @@
     <Content Include="Assets\OwlShadow.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Compile Update="Brushes\BackdropGammaTransferBrushSample.xaml.cs">
+      <DependentUpon>BackdropGammaTransferBrushSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Brushes\AcrylicBrushSample.xaml.cs">
+      <DependentUpon>AcrylicBrushSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Brushes\AcrylicBrushHostBackdropSample.xaml.cs">
+      <DependentUpon>AcrylicBrushHostBackdropSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Brushes\BackdropBlurBrushSample.xaml.cs">
+      <DependentUpon>BackdropBlurBrushSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Brushes\TilesBrushSample.xaml.cs">
+      <DependentUpon>TilesBrushSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Brushes\BackdropInvertBrushSample.xaml.cs">
+      <DependentUpon>BackdropInvertBrushSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Brushes\BackdropSaturationBrushSample.xaml.cs">
+      <DependentUpon>BackdropSaturationBrushSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Brushes\BackdropSepiaBrushSample.xaml.cs">
+      <DependentUpon>BackdropSepiaBrushSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Brushes\ImageBlendBrushSample.xaml.cs">
+      <DependentUpon>ImageBlendBrushSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Brushes\PipelineBrushSample.xaml.cs">
+      <DependentUpon>PipelineBrushSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Brushes\PipelineVisualFactorySample.xaml.cs">
+      <DependentUpon>PipelineVisualFactorySample.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 </Project>
