@@ -21,8 +21,7 @@
                     BorderBrush="Black"
                     BorderThickness=".5">
                 <Border.Background>
-                    <media:AcrylicBrush BackgroundSource="Backdrop"
-                                        BlurAmount="15"
+                    <media:AcrylicBrush BlurAmount="15"
                                         TintColor="Black"
                                         TintOpacity=".6" />
                 </Border.Background>
