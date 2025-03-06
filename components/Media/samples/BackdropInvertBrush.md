@@ -5,8 +5,8 @@ description: A brush that inverts the colors of the brush's background in the ap
 keywords: backdrop, invert, brush
 dev_langs:
   - csharp
-category: Media
-subcategory: Brushes
+category: Xaml
+subcategory: Effects
 discussion-id: 0
 issue-id: 0
 icon: Assets/MediaBrushes.png

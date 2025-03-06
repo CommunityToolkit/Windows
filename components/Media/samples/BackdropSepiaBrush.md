@@ -5,8 +5,8 @@ description: A brush that applies the sepia effect to the brush's background
 keywords: back, backdrop, sepia, brush
 dev_langs:
   - csharp
-category: Media
-subcategory: Brushes
+category: Xaml
+subcategory: Effects
 discussion-id: 0
 issue-id: 0
 icon: Assets/MediaBrushes.png

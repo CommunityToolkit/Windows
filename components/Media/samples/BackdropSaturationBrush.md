@@ -5,8 +5,8 @@ description: A brush that can increase or decrease the saturation of the brush's
 keywords: back, backdrop, saturation, brush
 dev_langs:
   - csharp
-category: Media
-subcategory: Brushes
+category: Xaml
+subcategory: Effects
 discussion-id: 0
 issue-id: 0
 icon: Assets/MediaBrushes.png
