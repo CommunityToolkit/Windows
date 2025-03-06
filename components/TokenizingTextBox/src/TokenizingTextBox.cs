@@ -499,9 +499,17 @@ public partial class TokenizingTextBox : ListViewBase
             return;
         }
 
-        if (data is string str && TokenItemAdding != null)
+        if (TokenItemAdding != null)
         {
-            var tiaea = new TokenItemAddingEventArgs(str);
+            TokenItemAddingEventArgs tiaea;
+            if (data is string str)
+            {
+                tiaea = new TokenItemAddingEventArgs(str);
+            }
+            else
+            {
+                tiaea = new TokenItemAddingEventArgs(null) { Item = data };
+            }
             await TokenItemAdding.InvokeAsync(this, tiaea);
 
             if (tiaea.Cancel)
