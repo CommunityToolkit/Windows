@@ -5,8 +5,8 @@ description: A brush that blends the provided image with whatever is behind it i
 keywords: brush, image, blend
 dev_langs:
   - csharp
-category: Media
-subcategory: Brushes
+category: Xaml
+subcategory: Effects
 discussion-id: 0
 issue-id: 0
 icon: Assets/MediaBrushes.png

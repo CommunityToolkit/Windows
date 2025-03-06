@@ -5,8 +5,8 @@ description: A brush that renders a customizable Composition/Win2D effects pipel
 keywords: brush, pipeline, pipe
 dev_langs:
   - csharp
-category: Media
-subcategory: Brushes
+category: Xaml
+subcategory: Effects
 discussion-id: 0
 issue-id: 0
 icon: Assets/EffectAnimations.png

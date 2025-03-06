@@ -5,8 +5,8 @@ description: A helper type that can be used to create sprite visuals with custom
 keywords: pipeline, visual, factory, pipe
 dev_langs:
   - csharp
-category: Media
-subcategory: Brushes
+category: Xaml
+subcategory: Effects
 discussion-id: 0
 issue-id: 0
 icon: Assets/EffectAnimations.png
