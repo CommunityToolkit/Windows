@@ -26,7 +26,7 @@ Please read the [Getting Started with the Windows Community Toolkit](https://doc
 Want to see the Toolkit in action before jumping into the code? Download and play with the [Windows Community Toolkit Gallery](https://aka.ms/windowstoolkitapp) from the Microsoft Store.
 
 <p align="center">
-<img src="docs/images/Gallery.png" alt="Windows Community Toolkit Gallery" width="480"/>
+<img src="docs/images/gallery.png" alt="Windows Community Toolkit Gallery" width="480"/>
 </p>
 <p align="center">
 <a href="https://aka.ms/windowstoolkitapp">
