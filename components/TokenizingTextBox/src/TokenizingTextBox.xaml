@@ -23,6 +23,7 @@
 
     <Style x:Key="DefaultTokenizingTextBoxStyle"
            TargetType="controls:TokenizingTextBox">
+        <Setter Property="AutoSuggestBoxStyle" Value="{StaticResource SystemAutoSuggestBoxStyle}" />
         <Setter Property="AutoSuggestBoxTextBoxStyle" Value="{StaticResource TokenizingTextBoxTextBoxStyle}" />
         <Setter Property="Foreground" Value="{ThemeResource TextControlForeground}" />
         <Setter Property="Background" Value="{ThemeResource TextControlBackground}" />
