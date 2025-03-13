@@ -4,7 +4,7 @@
 
 using CommunityToolkit.WinUI.Controls;
 
-namespace RichSuggestBoxExperiment.Tests;
+namespace RichSuggestBox.Tests;
 
 public sealed partial class RichSuggestBoxTestPage : Page
 {

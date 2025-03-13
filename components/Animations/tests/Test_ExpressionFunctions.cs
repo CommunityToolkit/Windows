@@ -15,7 +15,7 @@ using CommunityToolkit.Tests;
 using CommunityToolkit.Tooling.TestGen;
 using CommunityToolkit.WinUI.Animations.Expressions;
 
-namespace AnimationsExperiment.Tests;
+namespace Animations.Tests;
 
 [TestClass]
 [TestCategory(nameof(Test_ExpressionFunctions))]

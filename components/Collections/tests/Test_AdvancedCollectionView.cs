@@ -6,7 +6,7 @@ using CommunityToolkit.WinUI.Collections;
 
 using System.Runtime.CompilerServices;
 
-namespace CollectionsExperiment.Tests;
+namespace Collections.Tests;
 
 [TestClass]
 public class Test_AdvancedCollectionView

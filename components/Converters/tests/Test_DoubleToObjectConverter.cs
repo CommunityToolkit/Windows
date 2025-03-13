@@ -4,7 +4,7 @@
 
 using CommunityToolkit.WinUI.Converters;
 
-namespace ConvertersExperiment.Tests;
+namespace Converters.Tests;
 
 [TestClass]
 public class Test_DoubleToObjectConverter
