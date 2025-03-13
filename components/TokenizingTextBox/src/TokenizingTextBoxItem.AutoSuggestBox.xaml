@@ -410,7 +410,7 @@
                                     ItemTemplate="{Binding Path=Owner.SuggestedItemTemplate, RelativeSource={RelativeSource Mode=TemplatedParent}}"
                                     ItemsSource="{Binding Path=Owner.SuggestedItemsSource, RelativeSource={RelativeSource Mode=TemplatedParent}}"
                                     PlaceholderText="{Binding Path=Owner.PlaceholderText, RelativeSource={RelativeSource Mode=TemplatedParent}}"
-                                    Style="{StaticResource SystemAutoSuggestBoxStyle}"
+                                    Style="{Binding Path=Owner.AutoSuggestBoxStyle, RelativeSource={RelativeSource Mode=TemplatedParent}}"
                                     Text="{Binding Text, Mode=TwoWay}"
                                     TextBoxStyle="{StaticResource TokenizingTextBoxTextBoxStyle}"
                                     TextMemberPath="{Binding Path=Owner.TextMemberPath, RelativeSource={RelativeSource Mode=TemplatedParent}}"
