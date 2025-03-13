@@ -6,7 +6,7 @@ using CommunityToolkit.Tests;
 using CommunityToolkit.Tests.Internal;
 using CommunityToolkit.WinUI.Controls;
 
-namespace PrimitivesExperiment.Tests;
+namespace Primitives.Tests;
 
     /// <summary>
     /// These tests check multiple constraints are applied together in the correct order.

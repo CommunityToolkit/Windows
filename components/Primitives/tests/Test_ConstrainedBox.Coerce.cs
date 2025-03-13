@@ -5,7 +5,7 @@
 using CommunityToolkit.Tests;
 using CommunityToolkit.WinUI.Controls;
 
-namespace PrimitivesExperiment.Tests;
+namespace Primitives.Tests;
 
 /// <summary>
 /// These tests check for the various values which can be coerced and changed if out of bounds for each property.

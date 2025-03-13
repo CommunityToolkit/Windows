@@ -5,7 +5,7 @@
 using CommunityToolkit.Tests;
 using CommunityToolkit.WinUI;
 
-namespace TriggersExperiment.Tests;
+namespace Triggers.Tests;
 
 [TestClass]
 [TestCategory("ControlSizeTriggerTests")]
