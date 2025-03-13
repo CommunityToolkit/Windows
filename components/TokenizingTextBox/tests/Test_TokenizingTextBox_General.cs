@@ -5,7 +5,7 @@
 using CommunityToolkit.Tests;
 using CommunityToolkit.WinUI.Controls;
 
-namespace TokenizingTextBoxExperiment.Tests;
+namespace TokenizingTextBox.Tests;
 
     [TestClass]
 public class Test_TokenizingTextBox_General : VisualUITestBase

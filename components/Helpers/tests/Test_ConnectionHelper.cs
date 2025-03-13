@@ -4,7 +4,7 @@
 
 using CommunityToolkit.WinUI.Helpers;
 
-namespace HelpersExperiment.Tests;
+namespace Helpers.Tests;
 
 //// TODO: Need Mock to WinRT Issue #3196 - https://github.com/CommunityToolkit/WindowsCommunityToolkit/issues/3196
 [TestClass]

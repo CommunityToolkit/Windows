@@ -5,7 +5,7 @@
 using CommunityToolkit.Tests;
 using CommunityToolkit.WinUI.Controls;
 
-namespace PrimitivesExperiment.Tests;
+namespace Primitives.Tests;
 
 /// <summary>
 /// These tests check for cases where we want to constrain the size of the ConstrainedBox with other
