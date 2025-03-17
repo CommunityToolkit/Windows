@@ -4,7 +4,7 @@
 
 using CommunityToolkit.WinUI.Converters;
 
-namespace Converters.Tests;
+namespace ConvertersTests;
 
 [TestClass]
 public class Test_StringFormatConverter

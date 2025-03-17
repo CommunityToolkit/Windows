@@ -4,7 +4,7 @@
 
 using CommunityToolkit.Tests;
 
-namespace ExtensionsComponent.Tests;
+namespace ExtensionsTests;
 
 [TestClass]
 public class Test_LogicalTreeExtensions : VisualUITestBase

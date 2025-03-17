@@ -6,7 +6,7 @@
 using CommunityToolkit.Tests;
 using CommunityToolkit.WinUI.Controls;
 
-namespace Primitives.Tests;
+namespace PrimitivesTests;
 
 public partial class Test_ConstrainedBox : VisualUITestBase
 {

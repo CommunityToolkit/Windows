@@ -4,7 +4,7 @@
 
 using CommunityToolkit.WinUI.Helpers;
 
-namespace Helpers.Tests;
+namespace HelpersTests;
 
 [TestClass]
 public class Test_ColorHelper

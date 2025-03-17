@@ -6,7 +6,7 @@ using CommunityToolkit.Tooling.TestGen;
 using CommunityToolkit.Tests;
 using CommunityToolkit.WinUI.Controls;
 
-namespace TabbedCommandBar.Tests;
+namespace TabbedCommandBarTests;
 
 [TestClass]
 public partial class ExampleTabbedCommandBarTestClass : VisualUITestBase
