@@ -5,7 +5,7 @@
 using CommunityToolkit.Common;
 using CommunityToolkit.WinUI.Controls;
 
-namespace Primitives.Tests;
+namespace PrimitivesTests;
 
 [TestClass]
 public class Test_UniformGrid_FreeSpots

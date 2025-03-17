@@ -6,7 +6,7 @@ using CommunityToolkit.Tooling.TestGen;
 using CommunityToolkit.Tests;
 using CommunityToolkit.WinUI;
 
-namespace Extensions.Tests;
+namespace ExtensionsTests;
 
 [TestClass]
 public partial class AttachedDropShadowTests : VisualUITestBase

@@ -4,7 +4,7 @@
 
 using System.Diagnostics.CodeAnalysis;
 
-namespace ExtensionsComponent.Tests;
+namespace ExtensionsTests;
 
 [TestClass]
 public class Test_RectExtensions

@@ -2,9 +2,9 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
-using ExtensionsComponent.Tests.Helpers;
+using ExtensionsTests.Helpers;
 
-namespace ExtensionsComponent.Tests;
+namespace ExtensionsTests;
 
 [TestClass]
 public class Test_NullableBoolMarkupExtension

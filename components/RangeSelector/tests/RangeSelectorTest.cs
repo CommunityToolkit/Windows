@@ -15,7 +15,7 @@
 //using Windows.UI.Xaml.Tests.MUXControls.InteractionTests.Common;
 //using Windows.UI.Xaml.Tests.MUXControls.InteractionTests.Infra;
 
-//namespace RangeSelector.Tests
+//namespace RangeSelectorTests
 //{
 //    [TestClass]
 //    public class RangeSelectorTest : UITestBase

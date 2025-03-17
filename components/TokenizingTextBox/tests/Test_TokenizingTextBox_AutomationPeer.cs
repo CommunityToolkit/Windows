@@ -7,7 +7,7 @@ using CommunityToolkit.Tooling.TestGen;
 using CommunityToolkit.WinUI.Automation.Peers;
 using CommunityToolkit.WinUI.Controls;
 
-namespace TokenizingTextBox.Tests;
+namespace TokenizingTextBoxTests;
 
 [TestClass]
 [TestCategory("Test_TokenizingTextBox")]

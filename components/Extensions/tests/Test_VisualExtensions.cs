@@ -5,7 +5,7 @@
 using System.Numerics;
 using CommunityToolkit.Tests;
 
-namespace ExtensionsComponent.Tests;
+namespace ExtensionsTests;
 
 [TestClass]
 [TestCategory("Test_VisualExtensions")]
