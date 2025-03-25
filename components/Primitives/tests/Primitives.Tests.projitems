@@ -9,6 +9,10 @@
     <Import_RootNamespace>PrimitivesTests</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)DockPanel\DockPanelSample.xaml.cs">
+      <DependentUpon>DockPanelSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)DockPanel\DockPanelTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SwitchPresenter\SwitchConverterBrushSample.xaml.cs">
       <DependentUpon>%(Filename)</DependentUpon>
     </Compile>
@@ -35,6 +39,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="$(MSBuildThisFileDirectory)DockPanel\DockPanelSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="$(MSBuildThisFileDirectory)UniformGrid\AutoLayoutFixedElementZeroZeroSpecialPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
