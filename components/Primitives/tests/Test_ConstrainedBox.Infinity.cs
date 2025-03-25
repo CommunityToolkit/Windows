@@ -5,7 +5,7 @@
 using CommunityToolkit.Tests;
 using CommunityToolkit.WinUI.Controls;
 
-namespace PrimitivesExperiment.Tests;
+namespace PrimitivesTests;
 
 /// <summary>
 /// These tests check for cases where one of the bounds provided by the parent panel is infinite.

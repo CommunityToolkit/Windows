@@ -5,7 +5,7 @@ using CommunityToolkit.Tests;
 using CommunityToolkit.WinUI.Controls;
 using CommunityToolkit.Tooling.TestGen;
 
-namespace HeaderedControls.Tests;
+namespace HeaderedControlsTests;
 
 [TestClass]
 public partial class HeaderedItemsControlTestClass : VisualUITestBase

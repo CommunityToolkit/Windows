@@ -5,7 +5,7 @@
 using CommunityToolkit.Tests;
 using CommunityToolkit.Tooling.TestGen;
 
-namespace ExtensionsComponent.Tests;
+namespace ExtensionsTests;
 
 [TestClass]
 public partial class FrameworkElementExtensionsTests : VisualUITestBase

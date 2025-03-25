@@ -6,6 +6,6 @@
     <SharedGUID>29B0EAEF-DDC3-461E-BE63-4052976510E8</SharedGUID>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
-    <Import_RootNamespace>MediaExperiment.Tests</Import_RootNamespace>
+    <Import_RootNamespace>MediaTests</Import_RootNamespace>
   </PropertyGroup>
 </Project>

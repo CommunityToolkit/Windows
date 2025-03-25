@@ -6,7 +6,7 @@
     <SharedGUID>D7336E4A-3FAF-4E9B-A151-DBDAF210A728</SharedGUID>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
-    <Import_RootNamespace>TriggersExperiment.Tests</Import_RootNamespace>
+    <Import_RootNamespace>TriggersTests</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)ControlSizeTriggerTests.cs" />

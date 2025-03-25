@@ -6,7 +6,7 @@
     <SharedGUID>FC9D577B-E440-47F9-96EA-EDBEA7ED05D1</SharedGUID>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
-    <Import_RootNamespace>SettingsControlsExperiment.Tests</Import_RootNamespace>
+    <Import_RootNamespace>SettingsControlsTests</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Test_SettingsCard.cs" />

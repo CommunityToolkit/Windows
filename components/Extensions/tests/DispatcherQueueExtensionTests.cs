@@ -16,7 +16,7 @@ using DispatcherQueue = Windows.System.DispatcherQueue;
 using DispatcherQueuePriority = Windows.System.DispatcherQueuePriority;
 #endif
 
-namespace ExtensionsComponent.Tests;
+namespace ExtensionsTests;
 
 [TestClass]
 public partial class DispatcherQueueExtensionTests : VisualUITestBase

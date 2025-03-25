@@ -11,7 +11,7 @@ using Microsoft.UI.Text;
 using Windows.UI.Text;
 #endif
 
-namespace RichSuggestBoxExperiment.Tests;
+namespace RichSuggestBoxTests;
 
 [TestClass]
 public class Test_RichSuggestBox : VisualUITestBase

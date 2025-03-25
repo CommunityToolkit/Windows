@@ -6,7 +6,7 @@
     <SharedGUID>C5924901-9000-4A6D-936D-BD69944E8C8F</SharedGUID>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
-    <Import_RootNamespace>BehaviorsExperiment.Tests</Import_RootNamespace>
+    <Import_RootNamespace>BehaviorsTests</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)StackedNotificationsBehaviorsTestPage.xaml.cs">

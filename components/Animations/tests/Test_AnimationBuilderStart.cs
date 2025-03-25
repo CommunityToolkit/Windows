@@ -6,7 +6,7 @@ using CommunityToolkit.Tests;
 using CommunityToolkit.WinUI.Animations;
 using System.Numerics;
 
-namespace AnimationsExperiment.Tests;
+namespace AnimationsTests;
 
 [TestClass]
 [TestCategory(nameof(Test_AnimationBuilderStart))]

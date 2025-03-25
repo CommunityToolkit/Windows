@@ -2,13 +2,13 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
-using BehaviorsExperiment.Tests;
+using BehaviorsTests;
 using CommunityToolkit.Tests;
 using CommunityToolkit.Tooling.TestGen;
 using CommunityToolkit.WinUI.Behaviors;
 using Microsoft.Xaml.Interactivity;
 
-namespace StackedNotificationsBehaviorExperiment.Tests;
+namespace StackedNotificationsBehaviorTests;
 
 [TestClass]
 public partial class StackedNotificationsBehaviorTestClass : VisualUITestBase

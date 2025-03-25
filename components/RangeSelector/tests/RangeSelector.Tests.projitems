@@ -6,7 +6,7 @@
     <SharedGUID>B6882184-C4B7-4A9B-BDB5-2D013E45DC70</SharedGUID>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
-    <Import_RootNamespace>RangeSelectorExperiment.Tests</Import_RootNamespace>
+    <Import_RootNamespace>RangeSelectorTests</Import_RootNamespace>
   </PropertyGroup>
 <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)RangeSelectorTest.cs" />

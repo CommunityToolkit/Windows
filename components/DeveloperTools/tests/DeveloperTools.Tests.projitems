@@ -6,6 +6,6 @@
     <SharedGUID>5034CE36-00F1-493C-88F7-93809DA5DDB6</SharedGUID>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
-    <Import_RootNamespace>DeveloperToolsExperiment.Tests</Import_RootNamespace>
+    <Import_RootNamespace>DeveloperToolsTests</Import_RootNamespace>
   </PropertyGroup>
 </Project>

@@ -6,7 +6,7 @@
     <SharedGUID>FCB7491B-6DFB-419F-8482-315C6F59C5AC</SharedGUID>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
-    <Import_RootNamespace>PrimitivesExperiment.Tests</Import_RootNamespace>
+    <Import_RootNamespace>PrimitivesTests</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)SwitchPresenter\SwitchConverterBrushSample.xaml.cs">

@@ -6,7 +6,7 @@
     <SharedGUID>AA9FB2D1-9A19-4442-A2FC-B62003F99558</SharedGUID>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
-    <Import_RootNamespace>SegmentedExperiment.Tests</Import_RootNamespace>
+    <Import_RootNamespace>SegmentedTests</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)ExampleSegmentedTestClass.cs" />

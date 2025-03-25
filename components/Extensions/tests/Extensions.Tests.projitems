@@ -6,7 +6,7 @@
     <SharedGUID>E666FD74-48E1-4BA7-A98E-95A90369B598</SharedGUID>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
-    <Import_RootNamespace>ExtensionsExperiment.Tests</Import_RootNamespace>
+    <Import_RootNamespace>ExtensionsTests</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)BitmapIconExtensionTestPage.xaml.cs">

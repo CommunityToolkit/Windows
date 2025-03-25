@@ -4,7 +4,7 @@
 
 using CommunityToolkit.WinUI.Controls;
 
-namespace RadialGaugeExperiment.Tests;
+namespace RadialGaugeTests;
 
 [TestClass]
 public class Test_RadialGauge
