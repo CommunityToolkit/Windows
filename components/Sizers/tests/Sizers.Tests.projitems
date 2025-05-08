@@ -12,9 +12,13 @@
     <Compile Include="$(MSBuildThisFileDirectory)ContentSizerTestInitialLayout.xaml.cs">
       <DependentUpon>ContentSizerTestInitialLayout.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)SizerInputTestClass.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ExampleSizerBaseTestClass.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PropertySizerTestInitialBinding.xaml.cs">
       <DependentUpon>PropertySizerTestInitialBinding.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)TouchInjectionTest.xaml.cs">
+      <DependentUpon>TouchInjectionTest.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -23,6 +27,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="$(MSBuildThisFileDirectory)PropertySizerTestInitialBinding.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)TouchInjectionTest.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
