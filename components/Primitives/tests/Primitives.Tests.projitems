@@ -37,6 +37,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)UniformGrid\AutoLayoutFixedElementZeroZeroSpecialPage.xaml.cs">
       <DependentUpon>AutoLayoutFixedElementZeroZeroSpecialPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)WrapPanel\WrapPanelSample.xaml.cs">
+      <DependentUpon>WrapPanelSample.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Include="$(MSBuildThisFileDirectory)DockPanel\DockPanelSample.xaml">
@@ -44,6 +47,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="$(MSBuildThisFileDirectory)UniformGrid\AutoLayoutFixedElementZeroZeroSpecialPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)WrapPanel\WrapPanelSample.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
