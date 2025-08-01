@@ -21,7 +21,7 @@ Please read the [Getting Started with the Windows Community Toolkit](https://doc
 > [!NOTE]
 > If you're updating from a pre-8.x version of the Windows Community Toolkit, see [our migration notes here](https://aka.ms/toolkit/windows/migration).
 
-## Windows Community Toolkit Gallery app
+## 🪟 Windows Community Toolkit Gallery app
 
 Want to see the Toolkit in action before jumping into the code? Download and play with the [Windows Community Toolkit Gallery](https://aka.ms/windowstoolkitapp) from the Microsoft Store.
 
