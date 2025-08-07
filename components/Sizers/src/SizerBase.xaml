@@ -41,12 +41,21 @@
                             ResourceKey="SystemColorButtonTextColorBrush" />
         </ResourceDictionary>
     </ResourceDictionary.ThemeDictionaries>
+
     <x:Double x:Key="SizerBaseThumbHeight">24</x:Double>
     <x:Double x:Key="SizerBaseThumbWidth">4</x:Double>
     <x:Double x:Key="SizerBaseThumbRadius">2</x:Double>
     <Thickness x:Key="SizerBasePadding">4</Thickness>
 
-    <Style TargetType="controls:SizerBase">
+    <Style BasedOn="{StaticResource DefaultContentSizerStyle}"
+           TargetType="controls:ContentSizer" />
+    <Style BasedOn="{StaticResource DefaultGridSplitterStyle}"
+           TargetType="controls:GridSplitter" />
+    <Style BasedOn="{StaticResource DefaultPropertySizerStyle}"
+           TargetType="controls:PropertySizer" />
+
+    <Style x:Key="DefaultSizerBaseStyle"
+           TargetType="controls:SizerBase">
         <Setter Property="IsTabStop" Value="True" />
         <Setter Property="UseSystemFocusVisuals" Value="True" />
         <Setter Property="HorizontalAlignment" Value="Stretch" />
@@ -123,5 +132,17 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+    <Style x:Key="DefaultContentSizerStyle"
+           BasedOn="{StaticResource DefaultSizerBaseStyle}"
+           TargetType="controls:ContentSizer" />
+
+    <Style x:Key="DefaultGridSplitterStyle"
+           BasedOn="{StaticResource DefaultSizerBaseStyle}"
+           TargetType="controls:GridSplitter" />
+
+    <Style x:Key="DefaultPropertySizerStyle"
+           BasedOn="{StaticResource DefaultSizerBaseStyle}"
+           TargetType="controls:PropertySizer" />
 
 </ResourceDictionary>
