@@ -47,6 +47,8 @@
     <x:Double x:Key="SizerBaseThumbRadius">2</x:Double>
     <Thickness x:Key="SizerBasePadding">4</Thickness>
 
+    <Style BasedOn="{StaticResource DefaultSizerBaseStyle}"
+           TargetType="controls:SizerBase" />
     <Style BasedOn="{StaticResource DefaultContentSizerStyle}"
            TargetType="controls:ContentSizer" />
     <Style BasedOn="{StaticResource DefaultGridSplitterStyle}"

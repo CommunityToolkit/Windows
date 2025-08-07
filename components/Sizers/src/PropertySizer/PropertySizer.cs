@@ -9,4 +9,11 @@ namespace CommunityToolkit.WinUI.Controls;
 /// </summary>
 public partial class PropertySizer : SizerBase
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="PropertySizer"/> class.
+    /// </summary>
+    public PropertySizer()
+    {
+        DefaultStyleKey = typeof(PropertySizer);
+    }
 }
