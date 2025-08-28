@@ -11,7 +11,11 @@ namespace CommunityToolkit.WinUI.Collections;
 /// A generic version of <see cref="SortDescription"/> which preserves the required metadata for reflection-based sorting.
 /// </summary>
 /// <typeparam name="T">The type to sort</typeparam>
-public class SortDescription<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicProperties)] T> : SortDescription
+public class SortDescription<
+#if NET5_0_OR_GREATER
+    [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicProperties)]
+#endif
+    T> : SortDescription
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="SortDescription{T}"/> class.
