@@ -2,6 +2,7 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
+
 namespace CommunityToolkit.WinUI.Controls;
 
 /// <summary>
@@ -20,6 +21,17 @@ public partial class SegmentedItem : ListViewItem
     public SegmentedItem()
     {
         this.DefaultStyleKey = typeof(SegmentedItem);
+        RegisterPropertyChangedCallback(VisibilityProperty, OnVisibilityChanged);
+    }
+
+    private void OnVisibilityChanged(DependencyObject sender, DependencyProperty dp)
+    {
+        // If the parent is a Segmented control with an EqualPanel,
+        // we need to invalidate measure to update the layout.
+        if ((this.Parent as Segmented)?.ItemsPanelRoot is EqualPanel panel)
+        {
+            panel.InvalidateMeasure();
+        }
     }
 
     /// <inheritdoc/>
