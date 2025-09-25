@@ -228,6 +228,12 @@ public partial class SettingsCard : ButtonBase
     private void OnIsEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)
     {
         VisualStateManager.GoToState(this, IsEnabled ? NormalState : DisabledState, true);
+
+        // The Disabled visual state will only set the right Foreground brush, but for images we need to lower the opacity so it looks disabled.
+        if (HeaderIcon is BitmapIcon && GetTemplateChild(HeaderIconPresenterHolder) is FrameworkElement headerIconPresenter)
+        {
+            headerIconPresenter.Opacity = IsEnabled ? 1 : 0.4;
+        }
     }
 
     private void OnActionIconChanged()
