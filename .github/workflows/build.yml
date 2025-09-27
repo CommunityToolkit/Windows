@@ -388,6 +388,9 @@ jobs:
     environment: nuget-release-gate # This gates this job until manually approved
     runs-on: ubuntu-latest
 
+    permissions:
+      id-token: write
+
     strategy:
       fail-fast: false # prevent one matrix pipeline from being cancelled if one fails, we want them both to run to completion.
       matrix:
@@ -405,12 +408,18 @@ jobs:
           name: signed-nuget-packages-${{ matrix.winui }}
           path: ./packages
 
+      - name: NuGet login
+        uses: NuGet/login@v1
+        id: nuget-login
+        with:
+          user: ${{ secrets.NUGET_USER }}
+
       - name: Push to NuGet.org
         run: >
           dotnet nuget push
           **/*.nupkg
           --source https://api.nuget.org/v3/index.json
-          --api-key ${{ secrets.NUGET_PACKAGE_PUSH_TOKEN }}
+          --api-key ${{ steps.nuget-login.outputs.NUGET_API_KEY }}
           --skip-duplicate
 
   wasm-linux:
