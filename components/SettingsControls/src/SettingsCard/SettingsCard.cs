@@ -21,6 +21,9 @@ namespace CommunityToolkit.WinUI.Controls;
 [TemplateVisualState(Name = PressedState, GroupName = CommonStates)]
 [TemplateVisualState(Name = DisabledState, GroupName = CommonStates)]
 
+[TemplateVisualState(Name = BitmapHeaderIconEnabledState, GroupName = CommonStates)]
+[TemplateVisualState(Name = BitmapHeaderIconDisabledState, GroupName = CommonStates)]
+
 [TemplateVisualState(Name = RightState, GroupName = ContentAlignmentStates)]
 [TemplateVisualState(Name = RightWrappedState, GroupName = ContentAlignmentStates)]
 [TemplateVisualState(Name = RightWrappedNoIconState, GroupName = ContentAlignmentStates)]
@@ -37,6 +40,10 @@ public partial class SettingsCard : ButtonBase
     internal const string PointerOverState = "PointerOver";
     internal const string PressedState = "Pressed";
     internal const string DisabledState = "Disabled";
+
+    internal const string BitmapHeaderIconStates = "BitmapHeaderIconStates";
+    internal const string BitmapHeaderIconEnabledState = "BitmapHeaderIconEnabled";
+    internal const string BitmapHeaderIconDisabledState = "BitmapHeaderIconDisabled";
 
     internal const string ContentAlignmentStates = "ContentAlignmentStates";
     internal const string RightState = "Right";
@@ -230,9 +237,9 @@ public partial class SettingsCard : ButtonBase
         VisualStateManager.GoToState(this, IsEnabled ? NormalState : DisabledState, true);
 
         // The Disabled visual state will only set the right Foreground brush, but for images we need to lower the opacity so it looks disabled.
-        if (HeaderIcon is BitmapIcon && GetTemplateChild(HeaderIconPresenterHolder) is FrameworkElement headerIconPresenter)
+        if (HeaderIcon is BitmapIcon)
         {
-            headerIconPresenter.Opacity = IsEnabled ? 1 : 0.4;
+            VisualStateManager.GoToState(this, IsEnabled ? BitmapHeaderIconEnabledState : BitmapHeaderIconDisabledState, true);
         }
     }
 

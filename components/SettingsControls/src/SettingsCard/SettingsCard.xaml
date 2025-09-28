@@ -109,6 +109,7 @@
     <x:Double x:Key="SettingsCardVerticalHeaderContentSpacing">8</x:Double>
     <x:Double x:Key="SettingsCardWrapThreshold">476</x:Double>
     <x:Double x:Key="SettingsCardWrapNoIconThreshold">286</x:Double>
+    <x:Double x:Key="SettingsCardBitmapIconDisabledOpacity">0.4</x:Double>
 
     <Style BasedOn="{StaticResource DefaultSettingsCardStyle}"
            TargetType="local:SettingsCard" />
@@ -290,6 +291,16 @@
                                         <VisualState.Setters>
                                             <!--  DisabledVisual Should be handled by the control, not the animated icon.  -->
                                             <Setter Target="PART_RootGrid.(muxc:AnimatedIcon.State)" Value="Normal" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                </VisualStateGroup>
+
+                                <!--  These states are only relevant if a BitmapIcon is used as HeaderIcon or ActionIcon.  -->
+                                <VisualStateGroup x:Name="BitmapHeaderIconStates">
+                                    <VisualState x:Name="BitmapHeaderIconEnabled" />
+                                    <VisualState x:Name="BitmapHeaderIconDisabled">
+                                        <VisualState.Setters>
+                                            <Setter Target="PART_HeaderIconPresenterHolder.Opacity" Value="{StaticResource SettingsCardBitmapIconDisabledOpacity}" />
                                         </VisualState.Setters>
                                     </VisualState>
                                 </VisualStateGroup>
