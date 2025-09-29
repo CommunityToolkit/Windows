@@ -2,8 +2,6 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
-using System.ComponentModel.Design;
-
 namespace CommunityToolkit.WinUI.Controls;
 
 /// <summary>
@@ -21,8 +19,8 @@ namespace CommunityToolkit.WinUI.Controls;
 [TemplateVisualState(Name = PressedState, GroupName = CommonStates)]
 [TemplateVisualState(Name = DisabledState, GroupName = CommonStates)]
 
-[TemplateVisualState(Name = BitmapHeaderIconEnabledState, GroupName = CommonStates)]
-[TemplateVisualState(Name = BitmapHeaderIconDisabledState, GroupName = CommonStates)]
+[TemplateVisualState(Name = BitmapHeaderIconEnabledState, GroupName = BitmapHeaderIconStates)]
+[TemplateVisualState(Name = BitmapHeaderIconDisabledState, GroupName = BitmapHeaderIconStates)]
 
 [TemplateVisualState(Name = RightState, GroupName = ContentAlignmentStates)]
 [TemplateVisualState(Name = RightWrappedState, GroupName = ContentAlignmentStates)]
