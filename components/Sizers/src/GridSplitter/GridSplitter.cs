@@ -142,4 +142,12 @@ public partial class GridSplitter : SizerBase
             return null;
         }
     }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="GridSplitter"/> class.
+    /// </summary>
+    public GridSplitter()
+    {
+        DefaultStyleKey = typeof(GridSplitter);
+    }
 }
