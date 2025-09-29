@@ -81,7 +81,7 @@ public partial class SettingsCard : ButtonBase
         CheckInitialVisualState();
         SetAccessibleContentName();
         RegisterPropertyChangedCallback(ContentProperty, OnContentChanged);
-        IsEnabledChanged += OnIsEnabledChanged;     
+        IsEnabledChanged += OnIsEnabledChanged;
     }
 
     private void CheckInitialVisualState()
@@ -188,7 +188,6 @@ public partial class SettingsCard : ButtonBase
     /// </summary>
     protected override void OnPointerPressed(PointerRoutedEventArgs e)
     {
-        //  e.Handled = true;
         if (IsClickEnabled)
         {
             base.OnPointerPressed(e);
