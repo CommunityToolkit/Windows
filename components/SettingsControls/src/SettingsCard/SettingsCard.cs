@@ -94,6 +94,8 @@ public partial class SettingsCard : ButtonBase
             CheckVerticalSpacingState(contentAlignmentStatesGroup.CurrentState);
             contentAlignmentStatesGroup.CurrentStateChanged += this.ContentAlignmentStates_Changed;
         }
+
+        CheckHeaderIconState();
     }
 
     // We automatically set the AutomationProperties.Name of the Content if not configured.
@@ -236,6 +238,14 @@ public partial class SettingsCard : ButtonBase
         // The Disabled visual state will only set the right Foreground brush, but for images we need to lower the opacity so it looks disabled.
         if (HeaderIcon is BitmapIcon)
         {
+            CheckHeaderIconState();
+        }
+    }
+    
+    private void CheckHeaderIconState()
+    {
+        if (HeaderIcon is BitmapIcon)
+        {
             VisualStateManager.GoToState(this, IsEnabled ? BitmapHeaderIconEnabledState : BitmapHeaderIconDisabledState, true);
         }
     }
@@ -250,7 +260,7 @@ public partial class SettingsCard : ButtonBase
             }
             else
             {
-                actionIconPresenter.Visibility =Visibility.Collapsed;
+                actionIconPresenter.Visibility = Visibility.Collapsed;
             }
         }
     }
