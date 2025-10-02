@@ -235,15 +235,13 @@ public partial class SettingsCard : ButtonBase
     {
         VisualStateManager.GoToState(this, IsEnabled ? NormalState : DisabledState, true);
 
-        // The Disabled visual state will only set the right Foreground brush, but for images we need to lower the opacity so it looks disabled.
-        if (HeaderIcon is BitmapIcon)
-        {
-            CheckHeaderIconState();
-        }
+        CheckHeaderIconState();
     }
     
     private void CheckHeaderIconState()
     {
+        // The Disabled visual state will only set the right Foreground brush, but for images we need to lower the opacity so it looks disabled.
+        
         if (HeaderIcon is BitmapIcon)
         {
             VisualStateManager.GoToState(this, IsEnabled ? BitmapHeaderIconEnabledState : BitmapHeaderIconDisabledState, true);
