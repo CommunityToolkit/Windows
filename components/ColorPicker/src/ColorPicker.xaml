@@ -237,8 +237,7 @@
                             </controls:Segmented>
 
                             <controls:SwitchPresenter x:Name="ContentContainer"
-                                                      Grid.Row="2"
-                                                      Value="{Binding ElementName=ColorPanelSelector, Path=SelectedItem.Name}">
+                                                      Grid.Row="2">
                                 <controls:Case Value="SpectrumItem">
                                     <Grid HorizontalAlignment="Stretch"
                                           animations:Implicit.HideAnimations="{StaticResource HideTransitions}"
