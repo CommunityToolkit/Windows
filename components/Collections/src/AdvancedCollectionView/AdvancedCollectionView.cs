@@ -13,9 +13,6 @@ namespace CommunityToolkit.WinUI.Collections;
 /// <summary>
 /// A collection view implementation that supports filtering, sorting and incremental loading
 /// </summary>
-#if NET8_0_OR_GREATER
-[System.Diagnostics.CodeAnalysis.RequiresUnreferencedCode("Item sorting uses reflection to get property types and may not be AOT compatible.")]
-#endif
 public partial class AdvancedCollectionView : IAdvancedCollectionView, INotifyPropertyChanged, ISupportIncrementalLoading, IComparer<object>
 {
     private readonly List<object> _view;
@@ -380,6 +377,8 @@ public partial class AdvancedCollectionView : IAdvancedCollectionView, INotifyPr
     /// <param name="y">Object B</param>
     /// <returns>Comparison value</returns>
 #pragma warning disable CA1033 // Interface methods should be callable by child types
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Trimming", "IL2065:The method has a DynamicallyAccessedMembersAttribute (which applies to the implicit 'this' parameter), but the value used for the 'this' parameter can not be statically analyzed.", Justification = "Trimmer warnings are surfaced to the user with SortDescription")]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Trimming", "IL2075:'this' argument does not satisfy 'DynamicallyAccessedMembersAttribute' in call to target method. The return value of the source method does not have matching annotations.", Justification = "Trimmer warnings are surfaced to the user with SortDescription")]
     int IComparer<object>.Compare(object x, object y)
 #pragma warning restore CA1033 // Interface methods should be callable by child types
     {
