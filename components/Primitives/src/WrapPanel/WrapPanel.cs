@@ -220,7 +220,7 @@ public partial class WrapPanel : Panel
 
             // Stretch the last item to fill the available space
             // if the parent measure is not infinite
-            if (isLast && double.IsInfinity(parentMeasure.U) is false)
+            if (isLast && !double.IsInfinity(parentMeasure.U))
             {
                 desiredMeasure.U = parentMeasure.U - position.U;
             }
