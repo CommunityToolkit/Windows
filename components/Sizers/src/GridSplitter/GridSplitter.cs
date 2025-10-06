@@ -13,6 +13,14 @@ public partial class GridSplitter : SizerBase
     private GridResizeBehavior _resizeBehavior;
 
     /// <summary>
+    /// Initializes a new instance of the <see cref="GridSplitter"/> class.
+    /// </summary>
+    public GridSplitter()
+    {
+        this.DefaultStyleKey = typeof(GridSplitter);
+    }
+
+    /// <summary>
     /// Gets the target parent grid from level
     /// </summary>
     private FrameworkElement? TargetControl

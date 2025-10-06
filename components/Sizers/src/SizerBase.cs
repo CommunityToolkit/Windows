@@ -139,7 +139,7 @@ public abstract partial class SizerBase : Control
         // Ensure we have the proper cursor value setup, as we can only set now for WinUI 3
         OnOrientationPropertyChanged(this, null!);
 
-        // Ensure we set the Thumb visiblity
+        // Ensure we set the Thumb visibility
         OnIsThumbVisiblePropertyChanged(this, null!);
     }
 
