@@ -14,6 +14,6 @@ public partial class ContentSizer : SizerBase
     /// </summary>
     public ContentSizer()
     {
-        DefaultStyleKey = typeof(ContentSizer);
+        this.DefaultStyleKey = typeof(ContentSizer);
     }
 }
