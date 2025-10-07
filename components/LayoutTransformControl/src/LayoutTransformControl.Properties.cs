@@ -127,6 +127,7 @@ public partial class LayoutTransformControl : Control
         foreach (var propertyChangeEventSource in propertyChangeEventSources)
         {
             propertyChangeEventSource.ValueChanged -= OnTransformPropertyChanged;
+            propertyChangeEventSource.Unregister();
         }
 
         _transformPropertyChangeEventSources.Remove(transform);
@@ -153,7 +154,7 @@ public partial class LayoutTransformControl : Control
 
         if (rotateTransform != null)
         {
-            var anglePropertyChangeEventSource = new PropertyChangeEventSource<double>(rotateTransform, "Angle");
+            var anglePropertyChangeEventSource = new PropertyChangeEventSource<double>(rotateTransform, RotateTransform.AngleProperty);
             anglePropertyChangeEventSource.ValueChanged += OnTransformPropertyChanged;
             propertyChangeEventSources.Add(anglePropertyChangeEventSource);
             return;
@@ -163,11 +164,11 @@ public partial class LayoutTransformControl : Control
 
         if (scaleTransform != null)
         {
-            var scaleXPropertyChangeEventSource =  new PropertyChangeEventSource<double>(scaleTransform, "ScaleX");
+            var scaleXPropertyChangeEventSource = new PropertyChangeEventSource<double>(scaleTransform, ScaleTransform.ScaleXProperty);
             scaleXPropertyChangeEventSource.ValueChanged += OnTransformPropertyChanged;
             propertyChangeEventSources.Add(scaleXPropertyChangeEventSource);
 
-            var scaleYPropertyChangeEventSource = new PropertyChangeEventSource<double>(scaleTransform, "ScaleY");
+            var scaleYPropertyChangeEventSource = new PropertyChangeEventSource<double>(scaleTransform, ScaleTransform.ScaleYProperty);
             scaleYPropertyChangeEventSource.ValueChanged += OnTransformPropertyChanged;
             propertyChangeEventSources.Add(scaleYPropertyChangeEventSource);
             return;
@@ -177,11 +178,11 @@ public partial class LayoutTransformControl : Control
 
         if (skewTransform != null)
         {
-            var angleXPropertyChangeEventSource =  new PropertyChangeEventSource<double>(skewTransform, "AngleX");
+            var angleXPropertyChangeEventSource = new PropertyChangeEventSource<double>(skewTransform, SkewTransform.AngleXProperty);
             angleXPropertyChangeEventSource.ValueChanged += OnTransformPropertyChanged;
             propertyChangeEventSources.Add(angleXPropertyChangeEventSource);
 
-            var angleYPropertyChangeEventSource = new PropertyChangeEventSource<double>(skewTransform, "AngleY");
+            var angleYPropertyChangeEventSource = new PropertyChangeEventSource<double>(skewTransform, SkewTransform.AngleYProperty);
             angleYPropertyChangeEventSource.ValueChanged += OnTransformPropertyChanged;
             propertyChangeEventSources.Add(angleYPropertyChangeEventSource);
             return;
@@ -194,7 +195,7 @@ public partial class LayoutTransformControl : Control
             var matrixPropertyChangeEventSource =
                 new PropertyChangeEventSource<double>(
                     matrixTransform,
-                    "Matrix");
+                    MatrixTransform.MatrixProperty);
             matrixPropertyChangeEventSource.ValueChanged += OnTransformPropertyChanged;
             propertyChangeEventSources.Add(matrixPropertyChangeEventSource);
         }
