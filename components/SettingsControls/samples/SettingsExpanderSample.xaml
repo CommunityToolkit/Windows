@@ -1,20 +1,20 @@
-﻿<!--  Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license. See the LICENSE file in the project root for more information.  -->
+<!--  Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license. See the LICENSE file in the project root for more information.  -->
 <Page x:Class="SettingsControlsExperiment.Samples.SettingsExpanderSample"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:controls="using:CommunityToolkit.WinUI.Controls"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:local="using:CommunityToolkit.WinUI.Controls"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:ui="using:CommunityToolkit.WinUI"
       mc:Ignorable="d">
 
-    <local:SettingsExpander x:Name="settingsCard"
-                            VerticalAlignment="Top"
-                            Description="The SettingsExpander has the same properties as a Card, and you can set SettingsCard as part of the Items collection."
-                            Header="SettingsExpander"
-                            HeaderIcon="{ui:FontIcon Glyph=&#xE91B;}"
-                            IsEnabled="{x:Bind IsCardEnabled, Mode=OneWay}"
-                            IsExpanded="{x:Bind IsCardExpanded, Mode=OneWay}">
+    <controls:SettingsExpander x:Name="settingsCard"
+                               VerticalAlignment="Top"
+                               Description="The SettingsExpander has the same properties as a Card, and you can set SettingsCard as part of the Items collection."
+                               Header="SettingsExpander"
+                               HeaderIcon="{ui:FontIcon Glyph=&#xE91B;}"
+                               IsEnabled="{x:Bind IsCardEnabled, Mode=OneWay}"
+                               IsExpanded="{x:Bind IsCardExpanded, Mode=OneWay}">
         <!--  TODO: This should be TwoWay bound but throws compile error in Uno.  -->
         <ComboBox SelectedIndex="0">
             <ComboBoxItem>Option 1</ComboBoxItem>
@@ -22,22 +22,22 @@
             <ComboBoxItem>Option 3</ComboBoxItem>
         </ComboBox>
 
-        <local:SettingsExpander.Items>
-            <local:SettingsCard Header="A basic SettingsCard within an SettingsExpander">
+        <controls:SettingsExpander.Items>
+            <controls:SettingsCard Header="A basic SettingsCard within an SettingsExpander">
                 <Button Content="Button" />
-            </local:SettingsCard>
-            <local:SettingsCard Description="SettingsCard within an Expander can be made clickable too!"
-                                Header="This item can be clicked"
-                                IsClickEnabled="True" />
+            </controls:SettingsCard>
+            <controls:SettingsCard Description="SettingsCard within an Expander can be made clickable too!"
+                                   Header="This item can be clicked"
+                                   IsClickEnabled="True" />
 
-            <local:SettingsCard ContentAlignment="Left">
+            <controls:SettingsCard ContentAlignment="Left">
                 <CheckBox Content="Here the ContentAlignment is set to Left. This is great for e.g. CheckBoxes or RadioButtons." />
-            </local:SettingsCard>
+            </controls:SettingsCard>
 
-            <local:SettingsCard HorizontalContentAlignment="Left"
-                                ContentAlignment="Vertical"
-                                Description="You can also align your content vertically. Make sure to set the HorizontalAlignment to Left when you do!"
-                                Header="Vertically aligned">
+            <controls:SettingsCard HorizontalContentAlignment="Left"
+                                   ContentAlignment="Vertical"
+                                   Description="You can also align your content vertically. Make sure to set the HorizontalAlignment to Left when you do!"
+                                   Header="Vertically aligned">
                 <GridView SelectedIndex="1">
                     <GridViewItem>
                         <Border Width="64"
@@ -64,13 +64,13 @@
                                 CornerRadius="4" />
                     </GridViewItem>
                 </GridView>
-            </local:SettingsCard>
-            <local:SettingsCard Description="You can override the Left indention of a SettingsCard by overriding the SettingsCardLeftIndention"
-                                Header="Customization">
-                <local:SettingsCard.Resources>
+            </controls:SettingsCard>
+            <controls:SettingsCard Description="You can override the Left indention of a SettingsCard by overriding the SettingsCardLeftIndention"
+                                   Header="Customization">
+                <controls:SettingsCard.Resources>
                     <x:Double x:Key="SettingsCardLeftIndention">40</x:Double>
-                </local:SettingsCard.Resources>
-            </local:SettingsCard>
-        </local:SettingsExpander.Items>
-    </local:SettingsExpander>
+                </controls:SettingsCard.Resources>
+            </controls:SettingsCard>
+        </controls:SettingsExpander.Items>
+    </controls:SettingsExpander>
 </Page>

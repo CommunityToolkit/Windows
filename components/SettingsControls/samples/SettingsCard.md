@@ -20,3 +20,9 @@ You can set the `Header`, `Description`, `HeaderIcon` and `Content` properties t
 SettingsCard can also be turned into a button, by setting the `IsClickEnabled` property. This can be useful whenever you want your settings component to navigate to a detail page or open an external link. You can set a custom icon by setting the `ActionIcon`, or hiding it completely by setting the `IsActionIconVisible` to `false`.
 
 > [!SAMPLE ClickableSettingsCardSample]
+
+### Settings page example
+
+The following sample provides a typical design page, following the correct Windows 11 design specifications for things like spacing, section headers and animations.
+
+> [!SAMPLE SettingsPageExample]
