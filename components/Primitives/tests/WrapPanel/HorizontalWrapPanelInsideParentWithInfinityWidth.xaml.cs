@@ -4,9 +4,9 @@
 
 namespace PrimitivesTests;
 
-public sealed partial class WrapPanelSample : Page
+public sealed partial class HorizontalWrapPanelInsideParentWithInfinityWidth : Page
 {
-    public WrapPanelSample()
+    public HorizontalWrapPanelInsideParentWithInfinityWidth()
     {
         this.InitializeComponent();
     }
