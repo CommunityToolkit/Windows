@@ -33,13 +33,22 @@
     <Compile Include="$(MSBuildThisFileDirectory)Test_UniformGrid_FreeSpots.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Test_UniformGrid_RowColDefinitions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Test_WrapPanel_BasicLayout.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Test_WrapPanel_Infinity.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Test_WrapPanel_StretchChild.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Test_WrapPanel_Visibility.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UniformGrid\AutoLayoutFixedElementZeroZeroSpecialPage.xaml.cs">
       <DependentUpon>AutoLayoutFixedElementZeroZeroSpecialPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)WrapPanel\WrapPanelSample.xaml.cs">
-      <DependentUpon>WrapPanelSample.xaml</DependentUpon>
+    <Compile Include="$(MSBuildThisFileDirectory)WrapPanel\HorizontalWrapPanelInsideParentWithInfinityWidth.xaml.cs">
+      <DependentUpon>HorizontalWrapPanelInsideParentWithInfinityWidth.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)WrapPanel\HorizontalWrapPanelInsideParentWithLimitedWidth.xaml.cs">
+      <DependentUpon>HorizontalWrapPanelInsideParentWithLimitedWidth.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)WrapPanel\VerticalWrapPanelInsideParentWithInfinityHeight.xaml.cs">
+      <DependentUpon>VerticalWrapPanelInsideParentWithInfinityHeight.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)WrapPanel\VerticalWrapPanelInsideParentWithLimitedHeight.xaml.cs">
+      <DependentUpon>VerticalWrapPanelInsideParentWithLimitedHeight.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -51,7 +60,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="$(MSBuildThisFileDirectory)WrapPanel\WrapPanelSample.xaml">
+    <Page Include="$(MSBuildThisFileDirectory)WrapPanel\HorizontalWrapPanelInsideParentWithInfinityWidth.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)WrapPanel\HorizontalWrapPanelInsideParentWithLimitedWidth.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)WrapPanel\VerticalWrapPanelInsideParentWithInfinityHeight.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)WrapPanel\VerticalWrapPanelInsideParentWithLimitedHeight.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
