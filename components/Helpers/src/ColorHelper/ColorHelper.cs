@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Globalization;
+
 #if WINAPPSDK
 using Microsoft.UI;
 #else
@@ -155,94 +156,57 @@ public static partial class ColorHelper
     /// </summary>
     /// <param name="color">The <see cref="Color"/> to convert.</param>
     /// <returns>The converted <see cref="HslColor"/>.</returns>
-    public static HslColor ToHsl(this Color color)
-    {
-        const double toDouble = 1.0 / 255;
-        var r = toDouble * color.R;
-        var g = toDouble * color.G;
-        var b = toDouble * color.B;
-        var max = Math.Max(Math.Max(r, g), b);
-        var min = Math.Min(Math.Min(r, g), b);
-        var chroma = max - min;
-        double h1;
-
-        if (chroma == 0)
-        {
-            h1 = 0;
-        }
-        else if (max == r)
-        {
-            // The % operator doesn't do proper modulo on negative
-            // numbers, so we'll add 6 before using it
-            h1 = (((g - b) / chroma) + 6) % 6;
-        }
-        else if (max == g)
-        {
-            h1 = 2 + ((b - r) / chroma);
-        }
-        else
-        {
-            h1 = 4 + ((r - g) / chroma);
-        }
-
-        double lightness = 0.5 * (max + min);
-        double saturation = chroma == 0 ? 0 : chroma / (1 - Math.Abs((2 * lightness) - 1));
-        HslColor ret = default;
-        ret.H = 60 * h1;
-        ret.S = saturation;
-        ret.L = lightness;
-        ret.A = toDouble * color.A;
-        return ret;
-    }
+    public static HslColor ToHsl(this Color color) => (HslColor)color;
 
     /// <summary>
     /// Converts a <see cref="Color"/> to an <see cref="HsvColor"/>.
     /// </summary>
     /// <param name="color">The <see cref="Color"/> to convert.</param>
     /// <returns>The converted <see cref="HsvColor"/>.</returns>
-    public static HsvColor ToHsv(this Color color)
-    {
-        const double toDouble = 1.0 / 255;
-        var r = toDouble * color.R;
-        var g = toDouble * color.G;
-        var b = toDouble * color.B;
-        var max = Math.Max(Math.Max(r, g), b);
-        var min = Math.Min(Math.Min(r, g), b);
-        var chroma = max - min;
-        double h1;
+    public static HsvColor ToHsv(this Color color) => (HsvColor)color;
 
+    internal static (double h1, double chroma) CalculateHueAndChroma(Color color, out double min, out double max, out double alpha)
+    {
+        // This code is shared between both the conversion
+        // to both HSL and HSV from RGB.
+
+        var r = (double)color.R / 255;
+        var g = (double)color.G / 255;
+        var b = (double)color.B / 255;
+        alpha = (double)color.A / 255;
+        
+        max = Math.Max(Math.Max(r, g), b);
+        min = Math.Min(Math.Min(r, g), b);
+        var chroma = max - min;
+
+        double h1;
         if (chroma == 0)
         {
+            // No max
             h1 = 0;
         }
         else if (max == r)
         {
-            // The % operator doesn't do proper modulo on negative
-            // numbers, so we'll add 6 before using it
-            h1 = (((g - b) / chroma) + 6) % 6;
-        }
-        else if (max == g)
+            // Red is max
+            h1 = ((g - b) / chroma + 6) % 6;
+        } else if (max == g)
         {
+            // Green is max
             h1 = 2 + ((b - r) / chroma);
         }
         else
         {
+            // Blue is max
             h1 = 4 + ((r - g) / chroma);
         }
 
-        double saturation = chroma == 0 ? 0 : chroma / max;
-        HsvColor ret = default;
-        ret.H = 60 * h1;
-        ret.S = saturation;
-        ret.V = max;
-        ret.A = toDouble * color.A;
-        return ret;
+        return (h1, chroma);
     }
 
     internal static Color FromHueChroma(double h1, double chroma, double x, double m, double alpha)
     {
-        // This code is shared between both the conversion of
-        // both HSL and HSV to RGB.
+        // This code is shared between both the conversion
+        // from both HSL and HSV to RGB.
 
         double r1, g1, b1;
         (r1, g1, b1) = h1 switch

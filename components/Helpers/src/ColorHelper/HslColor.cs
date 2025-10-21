@@ -18,6 +18,26 @@ public struct HslColor
     private double _alpha;
 
     /// <summary>
+    /// Initializes a new instance of the <see cref="HsvColor"/> struct.
+    /// </summary>
+    /// <param name="color">The <see cref="Color"/> to convert to a <see cref="HsvColor"/>.</param>
+    private HslColor(Color color)
+    {
+        // Calculate hue, chroma, and supplementary values
+        (double h1, double chroma) = ColorHelper.CalculateHueAndChroma(color, out var min, out var max, out var alpha);
+        
+        // Calculate saturation and lightness
+        double lightness = 0.5 * (max + min);
+        double saturation = chroma == 0 ? 0 : chroma / (1 - Math.Abs((2 * lightness) - 1));
+        
+        // Set hsl properties
+        H = 60 * h1;
+        S = saturation;
+        L = lightness;
+        A = alpha;
+    }
+
+    /// <summary>
     /// Creates a new <see cref="HslColor"/>.
     /// </summary>
     /// <param name="hue">The color's hue.</param>
@@ -101,4 +121,9 @@ public struct HslColor
     /// Cast a <see cref="HslColor"/> to a <see cref="Color"/>.
     /// </summary>
     public static implicit operator Color(HslColor hsl) => hsl.ToColor();
+
+    /// <summary>
+    /// Cast a <see cref="Color"/> to <see cref="HslColor"/>
+    /// </summary>
+    public static explicit operator HslColor(Color color) => new(color);
 }

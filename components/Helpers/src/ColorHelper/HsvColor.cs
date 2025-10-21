@@ -18,6 +18,26 @@ public struct HsvColor
     private double _alpha;
 
     /// <summary>
+    /// Initializes a new instance of the <see cref="HsvColor"/> struct.
+    /// </summary>
+    /// <param name="color">The <see cref="Color"/> to convert to a <see cref="HsvColor"/>.</param>
+    private HsvColor(Color color)
+    {
+        // Calculate hue, chroma, and supplementary values
+        (double h1, double chroma) = ColorHelper.CalculateHueAndChroma(color, out var _, out var max, out var alpha);
+
+        // Calculate saturation and value
+        double saturation = chroma == 0 ? 0 : chroma / max;
+        double value = max;
+
+        // Set hsv properties
+        H = 60 * h1;
+        S = saturation;
+        V = value;
+        A = alpha;
+    }
+
+    /// <summary>
     /// Creates a new <see cref="HsvColor"/>.
     /// </summary>
     /// <param name="hue">The color's hue.</param>
@@ -84,9 +104,9 @@ public struct HsvColor
     }
 
     /// <summary>
-    /// Converts the <see cref="HslColor"/> to a <see cref="Color"/>.
+    /// Converts the <see cref="HsvColor"/> to a <see cref="Color"/>.
     /// </summary>
-    /// <returns>The <see cref="HslColor"/> as a <see cref="Color"/>.</returns>
+    /// <returns>The <see cref="HsvColor"/> as a <see cref="Color"/>.</returns>
     public readonly Color ToColor()
     {
         double chroma = V * S;
@@ -98,7 +118,12 @@ public struct HsvColor
     }
 
     /// <summary>
-    /// Cast a <see cref="HslColor"/> to a <see cref="Color"/>.
+    /// Cast a <see cref="HsvColor"/> to a <see cref="Color"/>.
     /// </summary>
     public static implicit operator Color(HsvColor hsv) => hsv.ToColor();
+
+    /// <summary>
+    /// Cast a <see cref="Color"/> to <see cref="HsvColor"/>
+    /// </summary>
+    public static explicit operator HsvColor(Color color) => new(color);
 }
