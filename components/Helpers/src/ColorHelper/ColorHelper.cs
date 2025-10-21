@@ -15,7 +15,7 @@ namespace CommunityToolkit.WinUI.Helpers;
 /// <summary>
 /// This class provides static helper methods for colors.
 /// </summary>
-public static class ColorHelper
+public static partial class ColorHelper
 {
     /// <summary>
     /// Creates a <see cref="Color"/> from a XAML color string.
@@ -187,7 +187,7 @@ public static class ColorHelper
 
         double lightness = 0.5 * (max + min);
         double saturation = chroma == 0 ? 0 : chroma / (1 - Math.Abs((2 * lightness) - 1));
-        HslColor ret;
+        HslColor ret = default;
         ret.H = 60 * h1;
         ret.S = saturation;
         ret.L = lightness;
@@ -231,7 +231,7 @@ public static class ColorHelper
         }
 
         double saturation = chroma == 0 ? 0 : chroma / max;
-        HsvColor ret;
+        HsvColor ret = default;
         ret.H = 60 * h1;
         ret.S = saturation;
         ret.V = max;
@@ -239,129 +239,21 @@ public static class ColorHelper
         return ret;
     }
 
-    /// <summary>
-    /// Creates a <see cref="Color"/> from the specified hue, saturation, lightness, and alpha values.
-    /// </summary>
-    /// <param name="hue">0..360 range hue</param>
-    /// <param name="saturation">0..1 range saturation</param>
-    /// <param name="lightness">0..1 range lightness</param>
-    /// <param name="alpha">0..1 alpha</param>
-    /// <returns>The created <see cref="Color"/>.</returns>
-    public static Color FromHsl(double hue, double saturation, double lightness, double alpha = 1.0)
+    internal static Color FromHueChroma(double h1, double chroma, double x, double m, double alpha)
     {
-        if (hue < 0 || hue > 360)
-        {
-            throw new ArgumentOutOfRangeException(nameof(hue));
-        }
+        // This code is shared between both the conversion of
+        // both HSL and HSV to RGB.
 
-        double chroma = (1 - Math.Abs((2 * lightness) - 1)) * saturation;
-        double h1 = hue / 60;
-        double x = chroma * (1 - Math.Abs((h1 % 2) - 1));
-        double m = lightness - (0.5 * chroma);
         double r1, g1, b1;
-
-        if (h1 < 1)
+        (r1, g1, b1) = h1 switch
         {
-            r1 = chroma;
-            g1 = x;
-            b1 = 0;
-        }
-        else if (h1 < 2)
-        {
-            r1 = x;
-            g1 = chroma;
-            b1 = 0;
-        }
-        else if (h1 < 3)
-        {
-            r1 = 0;
-            g1 = chroma;
-            b1 = x;
-        }
-        else if (h1 < 4)
-        {
-            r1 = 0;
-            g1 = x;
-            b1 = chroma;
-        }
-        else if (h1 < 5)
-        {
-            r1 = x;
-            g1 = 0;
-            b1 = chroma;
-        }
-        else
-        {
-            r1 = chroma;
-            g1 = 0;
-            b1 = x;
-        }
-
-        byte r = (byte)(255 * (r1 + m));
-        byte g = (byte)(255 * (g1 + m));
-        byte b = (byte)(255 * (b1 + m));
-        byte a = (byte)(255 * alpha);
-
-        return Color.FromArgb(a, r, g, b);
-    }
-
-    /// <summary>
-    /// Creates a <see cref="Color"/> from the specified hue, saturation, value, and alpha values.
-    /// </summary>
-    /// <param name="hue">0..360 range hue</param>
-    /// <param name="saturation">0..1 range saturation</param>
-    /// <param name="value">0..1 range value</param>
-    /// <param name="alpha">0..1 alpha</param>
-    /// <returns>The created <see cref="Color"/>.</returns>
-    public static Color FromHsv(double hue, double saturation, double value, double alpha = 1.0)
-    {
-        if (hue < 0 || hue > 360)
-        {
-            throw new ArgumentOutOfRangeException(nameof(hue));
-        }
-
-        double chroma = value * saturation;
-        double h1 = hue / 60;
-        double x = chroma * (1 - Math.Abs((h1 % 2) - 1));
-        double m = value - chroma;
-        double r1, g1, b1;
-
-        if (h1 < 1)
-        {
-            r1 = chroma;
-            g1 = x;
-            b1 = 0;
-        }
-        else if (h1 < 2)
-        {
-            r1 = x;
-            g1 = chroma;
-            b1 = 0;
-        }
-        else if (h1 < 3)
-        {
-            r1 = 0;
-            g1 = chroma;
-            b1 = x;
-        }
-        else if (h1 < 4)
-        {
-            r1 = 0;
-            g1 = x;
-            b1 = chroma;
-        }
-        else if (h1 < 5)
-        {
-            r1 = x;
-            g1 = 0;
-            b1 = chroma;
-        }
-        else
-        {
-            r1 = chroma;
-            g1 = 0;
-            b1 = x;
-        }
+            < 1 => (chroma, x, 0d),
+            < 2 => (x,  chroma, 0d),
+            < 3 => (0d, chroma, x),
+            < 4 => (0d, x, chroma),
+            < 5 => (x, 0d, chroma),
+            _ => (chroma, 0d, x),
+        };
 
         byte r = (byte)(255 * (r1 + m));
         byte g = (byte)(255 * (g1 + m));

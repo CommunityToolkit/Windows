@@ -69,7 +69,7 @@ public class Test_ColorHelper
     [TestMethod]
     public void Test_ColorHelper_ToHsl()
     {
-        HslColor hslRed;
+        HslColor hslRed = default;
         hslRed.A = 1.0;  // Alpha
         hslRed.H = 0.0;  // Hue
         hslRed.S = 1.0;  // Saturation
@@ -82,7 +82,7 @@ public class Test_ColorHelper
     [TestMethod]
     public void Test_ColorHelper_ToHsl_White()
     {
-        HslColor hslWhite;
+        HslColor hslWhite = default;
         hslWhite.A = 1.0;  // Alpha
         hslWhite.H = 0.0;  // Hue
         hslWhite.S = 0.0;  // Saturation
@@ -96,7 +96,7 @@ public class Test_ColorHelper
     public void Test_ColorHelper_ToHsl_MaxR()
     {
         // Test when given an RGB value where R is the max value.
-        HslColor hslColor;
+        HslColor hslColor = default;
         hslColor.A = 1.0;        // Alpha
         hslColor.H = 330.0;      // Hue
         hslColor.S = 1.0;        // Saturation
@@ -114,7 +114,7 @@ public class Test_ColorHelper
     [TestMethod]
     public void Test_ColorHelper_ToHsv()
     {
-        HsvColor hsvColor;
+        HsvColor hsvColor = default;
         hsvColor.A = 1.0;   // Alpha
         hsvColor.H = 100;   // Hue
         hsvColor.S = 0.25;  // Saturation
@@ -136,7 +136,7 @@ public class Test_ColorHelper
     [TestMethod]
     public void Test_ColorHelper_ToHsv_MaxR()
     {
-        HsvColor hsvColor;
+        HsvColor hsvColor = default;
         hsvColor.A = 1.0;        // Alpha
         hsvColor.H = 330;        // Hue
         hsvColor.S = 0.58823529; // Saturation

@@ -2,6 +2,9 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
+using Windows.UI;
+using ColorHelper = CommunityToolkit.WinUI.Helpers.ColorHelper;
+
 namespace CommunityToolkit.WinUI;
 
 /// <summary>
@@ -13,6 +16,24 @@ public struct HslColor
     private double _saturation;
     private double _lightness;
     private double _alpha;
+
+    /// <summary>
+    /// Creates a new <see cref="HslColor"/>.
+    /// </summary>
+    /// <param name="hue">The color's hue.</param>
+    /// <param name="saturation">The color's saturation.</param>
+    /// <param name="lightness">The color's lightness.</param>
+    /// <param name="alpha">The alpha/opacity.</param>
+    /// <returns>The new <see cref="HslColor"/>.</returns>
+    public static HslColor Create(double hue, double saturation, double lightness, double alpha = 1)
+    {
+        HslColor color = default;
+        color.H = hue;
+        color.S = saturation;
+        color.L = lightness;
+        color.A = alpha;
+        return color;
+    }
 
     /// <summary>
     /// Gets or sets the hue.
@@ -61,4 +82,23 @@ public struct HslColor
         readonly get => _alpha;
         set => _alpha = Math.Clamp(value, 0, 1);
     }
+
+    /// <summary>
+    /// Converts the <see cref="HslColor"/> to a <see cref="Color"/>.
+    /// </summary>
+    /// <returns>The <see cref="HslColor"/> as a <see cref="Color"/>.</returns>
+    public readonly Color ToColor()
+    {
+        double chroma = (1 - Math.Abs((2 * L) - 1)) * S;
+        double h1 = H / 60;
+        double x = chroma * (1 - Math.Abs((h1 % 2) - 1));
+        double m = L - (0.5 * chroma);
+        
+        return ColorHelper.FromHueChroma(h1, chroma, x, m, A);
+    }
+
+    /// <summary>
+    /// Cast a <see cref="HslColor"/> to a <see cref="Color"/>.
+    /// </summary>
+    public static implicit operator Color(HslColor hsl) => hsl.ToColor();
 }
