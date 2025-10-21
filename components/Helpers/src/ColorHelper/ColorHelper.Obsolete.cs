@@ -9,6 +9,15 @@ namespace CommunityToolkit.WinUI.Helpers;
 public static partial class ColorHelper
 {
     /// <summary>
+    /// Creates a <see cref="Color"/> from a XAML color string.
+    /// Any format used in XAML should work.
+    /// </summary>
+    /// <param name="colorString">The XAML color string.</param>
+    /// <returns>The created <see cref="Color"/>.</returns>
+    [Obsolete("This method is marked deprecated, and will be removed in a future version. Please replace with ColorHelper.ParseColor(string colorString).")]
+    public static Color ToColor(this string colorString) => ParseColor(colorString);
+
+    /// <summary>
     /// Creates a <see cref="Color"/> from the specified hue, saturation, lightness, and alpha values.
     /// </summary>
     /// <param name="hue">0..360 range hue</param>
@@ -31,4 +40,12 @@ public static partial class ColorHelper
     [Obsolete("This method is marked deprecated, and will be removed in a future version. Please replace with (Color)HsvColor.Create().")]
     public static Color FromHsv(double hue, double saturation, double value, double alpha = 1.0)
         => HsvColor.Create(hue, saturation, value, alpha);
+
+    /// <summary>
+    /// Converts a <see cref="Color"/> to a hexadecimal string representation.
+    /// </summary>
+    /// <param name="color">The color to convert.</param>
+    /// <returns>The hexadecimal string representation of the color.</returns>
+    [Obsolete("This method is marked deprecated, and will be removed in a future version. Please replace with .ToString().")]
+    public static string ToHex(this Color color) => color.ToString();
 }

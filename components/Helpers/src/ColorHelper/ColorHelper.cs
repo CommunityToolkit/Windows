@@ -24,7 +24,7 @@ public static partial class ColorHelper
     /// </summary>
     /// <param name="colorString">The XAML color string.</param>
     /// <returns>The created <see cref="Color"/>.</returns>
-    public static Color ToColor(this string colorString)
+    public static Color ParseColor(string colorString)
     {
         if (string.IsNullOrEmpty(colorString))
         {
@@ -128,42 +128,6 @@ public static partial class ColorHelper
         static void ThrowArgumentException() => throw new ArgumentException("The parameter \"colorString\" must not be null or empty.");
         static Color ThrowFormatException() => throw new FormatException("The parameter \"colorString\" is not a recognized Color format.");
     }
-
-    /// <summary>
-    /// Converts a <see cref="Color"/> to a hexadecimal string representation.
-    /// </summary>
-    /// <param name="color">The color to convert.</param>
-    /// <returns>The hexadecimal string representation of the color.</returns>
-    public static string ToHex(this Color color)
-    {
-        return $"#{color.A:X2}{color.R:X2}{color.G:X2}{color.B:X2}";
-    }
-
-    /// <summary>
-    /// Converts a <see cref="Color"/> to a premultiplied Int32 - 4 byte ARGB structure.
-    /// </summary>
-    /// <param name="color">The color to convert.</param>
-    /// <returns>The int representation of the color.</returns>
-    public static int ToInt(this Color color)
-    {
-        var a = color.A + 1;
-        var col = (color.A << 24) | ((byte)((color.R * a) >> 8) << 16) | ((byte)((color.G * a) >> 8) << 8) | (byte)((color.B * a) >> 8);
-        return col;
-    }
-
-    /// <summary>
-    /// Converts a <see cref="Color"/> to an <see cref="HslColor"/>.
-    /// </summary>
-    /// <param name="color">The <see cref="Color"/> to convert.</param>
-    /// <returns>The converted <see cref="HslColor"/>.</returns>
-    public static HslColor ToHsl(this Color color) => (HslColor)color;
-
-    /// <summary>
-    /// Converts a <see cref="Color"/> to an <see cref="HsvColor"/>.
-    /// </summary>
-    /// <param name="color">The <see cref="Color"/> to convert.</param>
-    /// <returns>The converted <see cref="HsvColor"/>.</returns>
-    public static HsvColor ToHsv(this Color color) => (HsvColor)color;
 
     internal static (double h1, double chroma) CalculateHueAndChroma(Color color, out double min, out double max, out double alpha)
     {
