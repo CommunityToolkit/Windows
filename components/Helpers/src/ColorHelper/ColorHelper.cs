@@ -33,59 +33,35 @@ public static partial class ColorHelper
 
         if (colorString[0] == '#')
         {
-            switch (colorString.Length)
+            var cuint = Convert.ToUInt32(colorString[1..], 16);
+
+            // 4 bytes
+            byte b3 = (byte)(cuint >> 24);
+            byte b2 = (byte)((cuint >> 16) & 0xff);
+            byte b1 = (byte)((cuint >> 8) & 0xff);
+            byte b0 = (byte)(cuint & 0xff);
+
+            // 4 half-bytes
+            byte h3 = (byte)(cuint >> 12);
+            byte h2 = (byte)((cuint >> 8) & 0xf);
+            byte h1 = (byte)((cuint >> 4) & 0xf);
+            byte h0 = (byte)(cuint & 0xf);
+            h3 = (byte)(h3 << 4 | h3);
+            h2 = (byte)(h2 << 4 | h2);
+            h1 = (byte)(h1 << 4 | h1);
+            h0 = (byte)(h0 << 4 | h0);
+
+            byte r, g, b, a;
+            (a, r, g, b) = colorString.Length switch
             {
-                case 9:
-                {
-                    var cuint = Convert.ToUInt32(colorString.Substring(1), 16);
-                    var a = (byte)(cuint >> 24);
-                    var r = (byte)((cuint >> 16) & 0xff);
-                    var g = (byte)((cuint >> 8) & 0xff);
-                    var b = (byte)(cuint & 0xff);
+                9 => (b3, b2, b1, b0),
+                7 => ((byte)255, b2, b1, b0),
+                5 => (h3, h2, h1, h0),
+                4 => ((byte)255, h2, h1, h0),
+                _ => ThrowFormatException<(byte, byte, byte, byte)>(),
+            };
 
-                    return Color.FromArgb(a, r, g, b);
-                }
-
-                case 7:
-                {
-                    var cuint = Convert.ToUInt32(colorString.Substring(1), 16);
-                    var r = (byte)((cuint >> 16) & 0xff);
-                    var g = (byte)((cuint >> 8) & 0xff);
-                    var b = (byte)(cuint & 0xff);
-
-                    return Color.FromArgb(255, r, g, b);
-                }
-
-                case 5:
-                {
-                    var cuint = Convert.ToUInt16(colorString.Substring(1), 16);
-                    var a = (byte)(cuint >> 12);
-                    var r = (byte)((cuint >> 8) & 0xf);
-                    var g = (byte)((cuint >> 4) & 0xf);
-                    var b = (byte)(cuint & 0xf);
-                    a = (byte)(a << 4 | a);
-                    r = (byte)(r << 4 | r);
-                    g = (byte)(g << 4 | g);
-                    b = (byte)(b << 4 | b);
-
-                    return Color.FromArgb(a, r, g, b);
-                }
-
-                case 4:
-                {
-                    var cuint = Convert.ToUInt16(colorString.Substring(1), 16);
-                    var r = (byte)((cuint >> 8) & 0xf);
-                    var g = (byte)((cuint >> 4) & 0xf);
-                    var b = (byte)(cuint & 0xf);
-                    r = (byte)(r << 4 | r);
-                    g = (byte)(g << 4 | g);
-                    b = (byte)(b << 4 | b);
-
-                    return Color.FromArgb(255, r, g, b);
-                }
-
-                default: return ThrowFormatException();
-            }
+            return Color.FromArgb(a, r, g, b);
         }
 
         if (colorString.Length > 3 && colorString[0] == 's' && colorString[1] == 'c' && colorString[2] == '#')
@@ -111,7 +87,7 @@ public static partial class ColorHelper
                 return Color.FromArgb(255, (byte)(scR * 255), (byte)(scG * 255), (byte)(scB * 255));
             }
 
-            return ThrowFormatException();
+            return ThrowFormatException<Color>();
         }
 
         var prop = typeof(Colors).GetTypeInfo().GetDeclaredProperty(colorString);
@@ -123,10 +99,10 @@ public static partial class ColorHelper
 #pragma warning restore CS8605 // Unboxing a possibly null value.
         }
 
-        return ThrowFormatException();
+        return ThrowFormatException<Color>();
 
         static void ThrowArgumentException() => throw new ArgumentException("The parameter \"colorString\" must not be null or empty.");
-        static Color ThrowFormatException() => throw new FormatException("The parameter \"colorString\" is not a recognized Color format.");
+        static T ThrowFormatException<T>() => throw new FormatException("The parameter \"colorString\" is not a recognized Color format.");
     }
 
     internal static (double h1, double chroma) CalculateHueAndChroma(Color color, out double min, out double max, out double alpha)

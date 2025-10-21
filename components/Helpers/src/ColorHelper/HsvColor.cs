@@ -117,6 +117,9 @@ public struct HsvColor
         return ColorHelper.FromHueChroma(h1, chroma, x, m, A);
     }
 
+    /// <inheritdoc/>
+    public override readonly string ToString() => $"hsv({H:N0}, {S}, {V})";
+
     /// <summary>
     /// Cast a <see cref="HsvColor"/> to a <see cref="Color"/>.
     /// </summary>
@@ -126,4 +129,9 @@ public struct HsvColor
     /// Cast a <see cref="Color"/> to <see cref="HsvColor"/>
     /// </summary>
     public static explicit operator HsvColor(Color color) => new(color);
+
+    /// <summary>
+    /// Cast a <see cref="HslColor"/> to <see cref="HsvColor"/>
+    /// </summary>
+    public static explicit operator HsvColor(HslColor color) => new(color);
 }

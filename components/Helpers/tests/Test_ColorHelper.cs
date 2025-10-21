@@ -60,6 +60,20 @@ public class Test_ColorHelper
 
     [TestCategory("Helpers")]
     [TestMethod]
+    public void Test_ColorHelper_HslToString()
+    {
+        Assert.AreEqual(((HslColor)Colors.Red).ToString(), "hsl(0, 1, 0.5)");
+    }
+
+    [TestCategory("Helpers")]
+    [TestMethod]
+    public void Test_ColorHelper_HsvToString()
+    {
+        Assert.AreEqual(((HsvColor)Colors.Red).ToString(), "hsv(0, 1, 1)");
+    }
+
+    [TestCategory("Helpers")]
+    [TestMethod]
     public void Test_ColorHelper_ToInt()
     {
         Assert.AreEqual(Colors.Red.ToInt(), -65536);
