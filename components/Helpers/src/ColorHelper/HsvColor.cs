@@ -5,27 +5,60 @@
 namespace CommunityToolkit.WinUI;
 
 /// <summary>
-/// Defines a color in Hue/Saturation/Value (HSV) space.
+/// Defines a color in Hue/Saturation/Value (HSV) space with alpha.
 /// </summary>
 public struct HsvColor
 {
+    private double _hue;
+    private double _saturation;
+    private double _value;
+    private double _alpha;
+    
     /// <summary>
-    /// The Hue in 0..360 range.
+    /// Gets or sets the hue.
     /// </summary>
-    public double H;
-
+    /// <remarks>
+    /// This value is clamped between 0 and 360.
+    /// </remarks>
+    public double H
+    {
+        readonly get => _hue;
+        set => _hue = Math.Clamp(value, 0, 360);
+    }
+    
     /// <summary>
-    /// The Saturation in 0..1 range.
+    /// Gets or sets the saturation.
     /// </summary>
-    public double S;
-
+    /// <remarks>
+    /// This value is clamped between 0 and 1.
+    /// </remarks>
+    public double S
+    {
+        readonly get => _saturation;
+        set => _saturation = Math.Clamp(value, 0, 1);
+    }
+    
     /// <summary>
-    /// The Value in 0..1 range.
+    /// Gets or sets the color value.
     /// </summary>
-    public double V;
-
+    /// <remarks>
+    /// This value is clamped between 0 and 1.
+    /// </remarks>
+    public double V
+    {
+        readonly get => _value;
+        set => _value = Math.Clamp(value, 0, 1);
+    }
+    
     /// <summary>
-    /// The Alpha/opacity in 0..1 range.
+    /// Gets or sets the alpha/opacity.
     /// </summary>
-    public double A;
+    /// <remarks>
+    /// This value is clamped between 0 and 1.
+    /// </remarks>
+    public double A
+    {
+        readonly get => _alpha;
+        set => _alpha = Math.Clamp(value, 0, 1);
+    }
 }
