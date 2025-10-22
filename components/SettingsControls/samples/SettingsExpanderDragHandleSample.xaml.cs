@@ -2,6 +2,8 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
+using CommunityToolkit.Mvvm.ComponentModel;
+
 namespace SettingsControlsExperiment.Samples;
 
 [ToolkitSample(id: nameof(SettingsExpanderDragHandleSample), "SettingsExpanderDragHandle", description: "The SettingsCard/SettingsExpander can be within a collection itself which can be re-ordered.")]
@@ -38,7 +40,7 @@ public sealed partial class SettingsExpanderDragHandleSample : Page
     }
 }
 
-public class ExpandedCardInfo
+public partial class ExpandedCardInfo : ObservableObject
 {
     public string? Name { get; set; }
 
@@ -47,5 +49,8 @@ public class ExpandedCardInfo
     public string? LinkDescription { get; set; }
 
     public string? Url { get; set; }
+
+    [ObservableProperty]
+    public partial bool IsExpanded { get; set; } = false;
 }
 
