@@ -45,6 +45,9 @@ The main important pieces of this example are:
 3. Using a simple UIElement to act as a drag handle, the pass-through of the mouse on this element to `ListView` allows the normal drag experience to work uninterrupted.
 4. Modifying the `Margin` and `Padding` values of the `ItemContainerStyle` to align cards how we want within the ListView.
 5. Overriding the `ListViewItemBackgroundPointerOver` resource to prevent the hover effect across the entire list item, the Settings Controls already have an effect here on hover.
+6. Optionally, add a behavior to highlight the drag region when the pointer is over it.
+
+Note: If controls within the dragged SettingsCard/Expander state are not bound, they will be reset upon drop in some cases. E.g. a ToggleSwitch. It is best to ensure you have bound your control's states to your data model.
 
 ### Settings page example
 

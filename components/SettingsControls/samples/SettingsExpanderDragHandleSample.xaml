@@ -1,6 +1,7 @@
 <Page x:Class="SettingsControlsExperiment.Samples.SettingsExpanderDragHandleSample"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:Interactivity="using:Microsoft.Xaml.Interactivity"
       xmlns:controls="using:CommunityToolkit.WinUI.Controls"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="using:SettingsControlsExperiment.Samples"
@@ -23,28 +24,46 @@
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <!--  Provide a custom area that can be manipulated by the user  -->
-                    <!--  TODO: Show how to highlight this on hover with a behavior  -->
-                    <Border Width="18"
-                            Margin="1,1,0,1"
-                            Padding="0"
-                            VerticalAlignment="Stretch"
-                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    <!--  Provide a custom area that can be manipulated by the user, this could be before or after the card.  -->
+                    <Border Width="36"
+                            Height="75"
+                            Margin="1,1,1,1"
+                            VerticalAlignment="Top"
+                            Background="Transparent"
                             CornerRadius="{ThemeResource ControlCornerRadius}">
                         <TextBlock HorizontalAlignment="Center"
                                    VerticalAlignment="Center"
                                    FontFamily="Segoe UI Symbol"
-                                   FontSize="16"
+                                   FontSize="20"
                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                   Opacity="0.5"
                                    Text="&#x283F;" />
+                        <!-- Use Behaviors to hover on pointer -->
+                        <Interactivity:Interaction.Behaviors>
+                            <Interactivity:EventTriggerBehavior EventName="PointerEntered">
+                                <Interactivity:ChangePropertyAction PropertyName="Background">
+                                    <Interactivity:ChangePropertyAction.Value>
+                                        <SolidColorBrush Color="{ThemeResource ControlFillColorDefault}" />
+                                    </Interactivity:ChangePropertyAction.Value>
+                                </Interactivity:ChangePropertyAction>
+                            </Interactivity:EventTriggerBehavior>
+                            <Interactivity:EventTriggerBehavior EventName="PointerExited">
+                                <Interactivity:ChangePropertyAction PropertyName="Background">
+                                    <Interactivity:ChangePropertyAction.Value>
+                                        <SolidColorBrush Color="Transparent" />
+                                    </Interactivity:ChangePropertyAction.Value>
+                                </Interactivity:ChangePropertyAction>
+                            </Interactivity:EventTriggerBehavior>
+                        </Interactivity:Interaction.Behaviors>
                     </Border>
+                    <!-- Standard Settings Expander (could also just be a Card) -->
                     <controls:SettingsExpander Grid.Column="1"
                                                Description="{x:Bind Info}"
-                                               Header="{x:Bind Name}">
+                                               Header="{x:Bind Name}"
+                                               IsExpanded="{x:Bind IsExpanded, Mode=TwoWay}">
 
                         <ToggleSwitch OffContent="Off"
-                                      OnContent="On" />
+                                      OnContent="On"
+                                      IsOn="{x:Bind IsExpanded, Mode=TwoWay}"/>
 
                         <controls:SettingsExpander.Items>
                             <controls:SettingsCard Header="{x:Bind LinkDescription}">
@@ -56,6 +75,7 @@
                 </Grid>
             </DataTemplate>
         </ListView.ItemTemplate>
+        <!-- Customize Size of Item Container from ListView -->
         <ListView.ItemContainerStyle>
             <Style BasedOn="{StaticResource DefaultListViewItemStyle}"
                    TargetType="ListViewItem">
