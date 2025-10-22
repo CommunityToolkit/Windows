@@ -1,4 +1,4 @@
-<Page x:Class="SettingsControlsExperiment.Samples.SettingsExpanderDragHandleSample"
+﻿<Page x:Class="SettingsControlsExperiment.Samples.SettingsExpanderDragHandleSample"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:Interactivity="using:Microsoft.Xaml.Interactivity"
@@ -37,7 +37,7 @@
                                    FontSize="20"
                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                    Text="&#x283F;" />
-                        <!-- Use Behaviors to hover on pointer -->
+                        <!--  Use Behaviors to hover on pointer  -->
                         <Interactivity:Interaction.Behaviors>
                             <Interactivity:EventTriggerBehavior EventName="PointerEntered">
                                 <Interactivity:ChangePropertyAction PropertyName="Background">
@@ -55,15 +55,15 @@
                             </Interactivity:EventTriggerBehavior>
                         </Interactivity:Interaction.Behaviors>
                     </Border>
-                    <!-- Standard Settings Expander (could also just be a Card) -->
+                    <!--  Standard Settings Expander (could also just be a Card)  -->
                     <controls:SettingsExpander Grid.Column="1"
                                                Description="{x:Bind Info}"
                                                Header="{x:Bind Name}"
                                                IsExpanded="{x:Bind IsExpanded, Mode=TwoWay}">
 
-                        <ToggleSwitch OffContent="Off"
-                                      OnContent="On"
-                                      IsOn="{x:Bind IsExpanded, Mode=TwoWay}"/>
+                        <ToggleSwitch IsOn="{x:Bind IsExpanded, Mode=TwoWay}"
+                                      OffContent="Off"
+                                      OnContent="On" />
 
                         <controls:SettingsExpander.Items>
                             <controls:SettingsCard Header="{x:Bind LinkDescription}">
@@ -75,7 +75,7 @@
                 </Grid>
             </DataTemplate>
         </ListView.ItemTemplate>
-        <!-- Customize Size of Item Container from ListView -->
+        <!--  Customize Size of Item Container from ListView  -->
         <ListView.ItemContainerStyle>
             <Style BasedOn="{StaticResource DefaultListViewItemStyle}"
                    TargetType="ListViewItem">
