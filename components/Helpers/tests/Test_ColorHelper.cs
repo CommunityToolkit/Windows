@@ -54,6 +54,20 @@ public class Test_ColorHelper
 
     [TestCategory("Helpers")]
     [TestMethod]
+    public void Test_ColorHelper_ParseHslColor()
+    {
+        Assert.AreEqual(ColorHelper.ParseHslColor("hsl(0,1,0.5)"), Colors.Red);
+    }
+
+    [TestCategory("Helpers")]
+    [TestMethod]
+    public void Test_ColorHelper_ParseHsvColor()
+    {
+        Assert.AreEqual(ColorHelper.ParseHsvColor("hsv(0,1,1)"), Colors.Red);
+    }
+
+    [TestCategory("Helpers")]
+    [TestMethod]
     public void Test_ColorHelper_ToHex()
     {
         Assert.AreEqual(Colors.Red.ToString(), "#FFFF0000");

@@ -42,6 +42,8 @@ public static partial class ColorHelper
         if (TryParseScreenColor(colorString, out color))
             return true;
 
+        // TODO: Should hsl and hsv be added?
+
         if (TryParseColorName(colorString, out color))
             return true;
 
@@ -66,7 +68,7 @@ public static partial class ColorHelper
             return false;
 
         // Convert base 16 string to uint
-        if(!uint.TryParse(hexString[1..], NumberStyles.HexNumber, CultureInfo.InvariantCulture, out var cuint))
+        if (!uint.TryParse(hexString[1..], NumberStyles.HexNumber, CultureInfo.InvariantCulture, out var cuint))
             return false;
 
         // Extract 4 bytes
@@ -111,6 +113,46 @@ public static partial class ColorHelper
     }
 
     /// <summary>
+    /// Attempts to parse a string as a hsl color.
+    /// </summary>
+    /// <param name="hslColor">The string to parse.</param>
+    /// <param name="color">The resulting color.</param>
+    /// <returns>Whether or not the parse succeeded.</returns>
+    public static bool TryParseHslColor(string hslColor, out HslColor color)
+    {
+        color = default;
+
+        if (!MatchArgPattern<double>(hslColor, "hsl", out var args))
+            return false;
+
+        if (args.Length != 3)
+            return false;
+
+        color = HslColor.Create(args[0], args[1], args[2]);
+        return true;
+    }
+    
+    /// <summary>
+    /// Attempts to parse a string as a hsv color.
+    /// </summary>
+    /// <param name="hsvColor">The string to parse.</param>
+    /// <param name="color">The resulting color.</param>
+    /// <returns>Whether or not the parse succeeded.</returns>
+    public static bool TryParseHsvColor(string hsvColor, out HsvColor color)
+    {
+        color = default;
+
+        if (!MatchArgPattern<double>(hsvColor, "hsv", out var args))
+            return false;
+
+        if (args.Length != 3)
+            return false;
+
+        color = HsvColor.Create(args[0], args[1], args[2]);
+        return true;
+    }
+
+    /// <summary>
     /// Attempts to parse a string as a screen color.
     /// </summary>
     /// <param name="screenColor">The string to parse.</param>
@@ -130,7 +172,7 @@ public static partial class ColorHelper
 
         // Parse the arguments from string doubles into bytes
         var args = new byte[values.Length];
-        for (int i = 0; i <  values.Length; i++)
+        for (int i = 0; i < values.Length; i++)
         {
             if (!double.TryParse(values[i], out var arg))
                 return false;
@@ -154,7 +196,7 @@ public static partial class ColorHelper
                 return false;
         }
     }
-    
+
     /// <summary>
     /// Attempts to parse a string color name.
     /// </summary>
@@ -164,7 +206,7 @@ public static partial class ColorHelper
     public static bool TryParseColorName(string colorName, out Color color)
     {
         color = default;
-        
+
 #pragma warning disable CS8605 // Unboxing a possibly null value.
         var prop = typeof(Colors).GetTypeInfo().GetDeclaredProperty(colorName);
         if (prop != null)
@@ -202,6 +244,32 @@ public static partial class ColorHelper
             return color;
 
         throw new FormatException($"The string '{hexColor}' could not be parsed as a hex color.");
+    }
+    
+    /// <summary>
+    /// Parses a hsl color string into a <see cref="Color"/>.
+    /// </summary>
+    /// <param name="hslColor">The hsl color string.</param>
+    /// <returns>The resulting <see cref="Color"/>.</returns>
+    public static HslColor ParseHslColor(string hslColor)
+    {
+        if (TryParseHslColor(hslColor, out var color))
+            return color;
+
+        throw new FormatException($"The string '{hslColor}' could not be parsed as a hsl color.");
+    }
+    
+    /// <summary>
+    /// Parses a hsv color string into a <see cref="Color"/>.
+    /// </summary>
+    /// <param name="hsvColor">The hsv color string.</param>
+    /// <returns>The resulting <see cref="Color"/>.</returns>
+    public static HsvColor ParseHsvColor(string hsvColor)
+    {
+        if (TryParseHsvColor(hsvColor, out var color))
+            return color;
+
+        throw new FormatException($"The string '{hsvColor}' could not be parsed as a hsv color.");
     }
 
     /// <summary>
@@ -292,5 +360,42 @@ public static partial class ColorHelper
         byte a = (byte)(255 * alpha);
 
         return Color.FromArgb(a, r, g, b);
+    }
+
+    /// <summary>
+    /// Parses a string to match the argument pattern "<paramref name="funcName"/>(args[0], args[1], ...)"
+    /// </summary>
+    private static bool MatchArgPattern<T>(string value, string funcName, out T?[] args)
+        where T : IParsable<T>
+    {
+        args = [];
+
+        // Find opening and closing parenthesis
+        var argsStart = value.IndexOf('(');
+        var argsEnd = value.Length - 1;
+        if (argsStart is -1)
+            return false;
+
+        // Ensure the string begins with the function name
+        if (value[0..argsStart] != funcName)
+            return false;
+
+        // Ensure the string ends with ')' 
+        if (value[argsEnd] != ')')
+            return false;
+
+        // Split to substring between the parenthesis
+        value = value[(argsStart + 1)..argsEnd];
+        var argStrings = value.Split(',');
+
+        // Parse the args into an array of doubles
+        args = new T[argStrings.Length];
+        for (var i = 0; i < argStrings.Length; i++)
+        {
+            if (!T.TryParse(argStrings[i], null, out args[i]))
+                return false;
+        }
+
+        return true;
     }
 }
