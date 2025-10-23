@@ -12,42 +12,42 @@ public class Test_ColorHelper
 {
     [TestCategory("Helpers")]
     [TestMethod]
-    public void Test_ColorHelper_ToColor_Predifined()
+    public void Test_ColorHelper_ParseColor_Predifined()
     {
         Assert.AreEqual(ColorHelper.ParseColor("Red"), Colors.Red);
     }
 
     [TestCategory("Helpers")]
     [TestMethod]
-    public void Test_ColorHelper_ToColor_Hex8Digits()
+    public void Test_ColorHelper_ParseColor_Hex8Digits()
     {
         Assert.AreEqual(ColorHelper.ParseColor("#FFFF0000"), Colors.Red);
     }
 
     [TestCategory("Helpers")]
     [TestMethod]
-    public void Test_ColorHelper_ToColor_Hex6Digits()
+    public void Test_ColorHelper_ParseColor_Hex6Digits()
     {
         Assert.AreEqual(ColorHelper.ParseColor("#FF0000"), Colors.Red);
     }
 
     [TestCategory("Helpers")]
     [TestMethod]
-    public void Test_ColorHelper_ToColor_Hex4Digits()
+    public void Test_ColorHelper_ParseColor_Hex4Digits()
     {
         Assert.AreEqual(ColorHelper.ParseColor("#FF00"), Colors.Red);
     }
 
     [TestCategory("Helpers")]
     [TestMethod]
-    public void Test_ColorHelper_ToColor_Hex3Digits()
+    public void Test_ColorHelper_ParseColor_Hex3Digits()
     {
         Assert.AreEqual(ColorHelper.ParseColor("#F00"), Colors.Red);
     }
 
     [TestCategory("Helpers")]
     [TestMethod]
-    public void Test_ColorHelper_ToColor_ScreenColor()
+    public void Test_ColorHelper_ParseColor_ScreenColor()
     {
         Assert.AreEqual(ColorHelper.ParseColor("sc#1.0,1.0,0,0"), Colors.Red);
     }
@@ -175,14 +175,14 @@ public class Test_ColorHelper
 
     [TestCategory("Helpers")]
     [TestMethod]
-    public void Test_ColorHelper_FromHsl()
+    public void Test_ColorHelper_CreateHsl()
     {
         Assert.AreEqual(HslColor.Create(0.0, 1.0, 0.5), Colors.Red);
     }
 
     [TestCategory("Helpers")]
     [TestMethod]
-    public void Test_ColorHelper_FromHsv()
+    public void Test_ColorHelper_CreateHsv()
     {
         Assert.AreEqual(HsvColor.Create(0.0, 1.0, 1.0), Colors.Red);
     }
