@@ -12,10 +12,29 @@ namespace CommunityToolkit.WinUI;
 /// </summary>
 public struct HslColor
 {
-    private double _hue;
-    private double _saturation;
-    private double _lightness;
-    private double _alpha;
+    /// <summary>
+    /// The hue value.
+    /// </summary>
+    [Obsolete("This field is marked deprecated, and will be removed in a future version. Please replace with the HsvColor.Hue property")]
+    public double H;
+
+    /// <summary>
+    /// The saturation value.
+    /// </summary>
+    [Obsolete("This field is marked deprecated, and will be removed in a future version. Please replace with the HsvColor.Saturation property")]
+    public double S;
+
+    /// <summary>
+    /// The lightness value.
+    /// </summary>
+    [Obsolete("This field is marked deprecated, and will be removed in a future version. Please replace with the HsvColor.Lightness property")]
+    public double L;
+
+    /// <summary>
+    /// The alpha/opacity value.
+    /// </summary>
+    [Obsolete("This field is marked deprecated, and will be removed in a future version. Please replace with the HsvColor.Alpha property")]
+    public double A;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="HsvColor"/> struct.
@@ -61,10 +80,10 @@ public struct HslColor
     /// <remarks>
     /// This value is clamped between 0 and 360.
     /// </remarks>
-    public double H
+    public double Hue
     {
-        readonly get => _hue;
-        set => _hue = Math.Clamp(value, 0, 360);
+        readonly get => Math.Clamp(H, 0, 360);
+        set => H = Math.Clamp(value, 0, 360);
     }
 
     /// <summary>
@@ -73,10 +92,10 @@ public struct HslColor
     /// <remarks>
     /// This value is clamped between 0 and 1.
     /// </remarks>
-    public double S
+    public double Saturation
     {
-        readonly get => _saturation;
-        set => _saturation = Math.Clamp(value, 0, 1);
+        readonly get => Math.Clamp(S, 0, 1);
+        set => S = Math.Clamp(value, 0, 1);
     }
 
     /// <summary>
@@ -85,10 +104,10 @@ public struct HslColor
     /// <remarks>
     /// This value is clamped between 0 and 1.
     /// </remarks>
-    public double L
+    public double Lightness
     {
-        readonly get => _lightness;
-        set => _lightness = Math.Clamp(value, 0, 1);
+        readonly get => Math.Clamp(L, 0, 1);
+        set => L = Math.Clamp(value, 0, 1);
     }
 
     /// <summary>
@@ -97,10 +116,10 @@ public struct HslColor
     /// <remarks>
     /// This value is clamped between 0 and 1.
     /// </remarks>
-    public double A
+    public double Alpha
     {
-        readonly get => _alpha;
-        set => _alpha = Math.Clamp(value, 0, 1);
+        readonly get => Math.Clamp(A, 0, 1);
+        set => A = Math.Clamp(value, 0, 1);
     }
 
     /// <summary>
