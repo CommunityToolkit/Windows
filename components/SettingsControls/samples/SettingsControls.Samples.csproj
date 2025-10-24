@@ -7,6 +7,10 @@
 
   <!-- Sets this up as a toolkit component's sample project -->
   <Import Project="$(ToolingDirectory)\ToolkitComponent.SampleProject.props" />
+  <ItemGroup>
+    <Content Remove="ContentAlignmentSettingsCardSample.xaml" />
+    <Content Remove="ContentAlignmentSettingsCardSample.xaml.cs" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="$(ToolkitExtensionsSourceProject)"></ProjectReference>
@@ -22,5 +26,10 @@
     <Content Include="Assets\SettingsExpander.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="ContentAlignmentSettingsCardSample.xaml">
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
 </Project>

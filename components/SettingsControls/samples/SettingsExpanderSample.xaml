@@ -26,45 +26,18 @@
             <local:SettingsCard Header="A basic SettingsCard within an SettingsExpander">
                 <Button Content="Button" />
             </local:SettingsCard>
+            <local:SettingsCard Header="A ToggleSwitch attach TextBox">
+                <StackPanel Orientation="Horizontal">
+                    <ToggleSwitch x:Name="toggleSwitch" />
+                    <TextBox MinWidth="100"
+                             Margin="30,5,0,5"
+                             IsEnabled="{Binding IsOn, ElementName=toggleSwitch}"
+                             PlaceholderText="TextBox" />
+                </StackPanel>
+            </local:SettingsCard>
             <local:SettingsCard Description="SettingsCard within an Expander can be made clickable too!"
                                 Header="This item can be clicked"
                                 IsClickEnabled="True" />
-
-            <local:SettingsCard ContentAlignment="Left">
-                <CheckBox Content="Here the ContentAlignment is set to Left. This is great for e.g. CheckBoxes or RadioButtons." />
-            </local:SettingsCard>
-
-            <local:SettingsCard HorizontalContentAlignment="Left"
-                                ContentAlignment="Vertical"
-                                Description="You can also align your content vertically. Make sure to set the HorizontalAlignment to Left when you do!"
-                                Header="Vertically aligned">
-                <GridView SelectedIndex="1">
-                    <GridViewItem>
-                        <Border Width="64"
-                                Height="64"
-                                Background="#0078D4"
-                                CornerRadius="4" />
-                    </GridViewItem>
-                    <GridViewItem>
-                        <Border Width="64"
-                                Height="64"
-                                Background="#005EB7"
-                                CornerRadius="4" />
-                    </GridViewItem>
-                    <GridViewItem>
-                        <Border Width="64"
-                                Height="64"
-                                Background="#003D92"
-                                CornerRadius="4" />
-                    </GridViewItem>
-                    <GridViewItem>
-                        <Border Width="64"
-                                Height="64"
-                                Background="#001968"
-                                CornerRadius="4" />
-                    </GridViewItem>
-                </GridView>
-            </local:SettingsCard>
             <local:SettingsCard Description="You can override the Left indention of a SettingsCard by overriding the SettingsCardLeftIndention"
                                 Header="Customization">
                 <local:SettingsCard.Resources>

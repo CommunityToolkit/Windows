@@ -102,6 +102,8 @@
     <x:Double x:Key="SettingsCardDescriptionFontSize">12</x:Double>
     <x:Double x:Key="SettingsCardHeaderIconMaxSize">20</x:Double>
     <x:Double x:Key="SettingsCardLeftIndention">0</x:Double>
+    <x:Double x:Key="SettingsCardHeaderPanelMaxWidth">477</x:Double>
+    <x:Double x:Key="SettingsCardContentPresenterMinWidth">375</x:Double>
     <x:Double x:Key="SettingsCardContentMinWidth">120</x:Double>
     <Thickness x:Key="SettingsCardHeaderIconMargin">2,0,20,0</Thickness>
     <Thickness x:Key="SettingsCardActionIconMargin">14,0,0,0</Thickness>
@@ -199,8 +201,10 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"
                                                   MinWidth="{ThemeResource SettingsCardLeftIndention}" />
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition x:Name="COLUMN_HeaderPanel"
+                                                  Width="*" />
+                                <ColumnDefinition x:Name="COLUMN_ContentPresenter"
+                                                  Width="Auto" />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
                             <VisualStateManager.VisualStateGroups>
@@ -368,6 +372,20 @@
                                             <Setter Target="PART_ContentPresenter.(Grid.Column)" Value="1" />
                                             <Setter Target="PART_ContentPresenter.HorizontalAlignment" Value="Stretch" />
                                             <Setter Target="PART_ContentPresenter.HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource TemplatedParent}}" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+
+                                    <!--  Whenever the control width is more than SettingsCardWrapThreshold, the Content horizontally stretch to middle  -->
+                                    <VisualState x:Name="Horizontal">
+                                        <VisualState.StateTriggers>
+                                            <tk:IsEqualStateTrigger Value="{Binding ContentAlignment, RelativeSource={RelativeSource TemplatedParent}}"
+                                                                    To="Horizontal" />
+                                        </VisualState.StateTriggers>
+                                        <VisualState.Setters>
+                                            <Setter Target="COLUMN_HeaderPanel.Width" Value="Auto" />
+                                            <Setter Target="COLUMN_ContentPresenter.Width" Value="*" />
+                                            <Setter Target="PART_ContentPresenter.MinWidth" Value="{ThemeResource SettingsCardContentPresenterMinWidth}" />
+                                            <Setter Target="HeaderPanel.MaxWidth" Value="{ThemeResource SettingsCardHeaderPanelMaxWidth}" />
                                         </VisualState.Setters>
                                     </VisualState>
                                 </VisualStateGroup>

@@ -27,6 +27,7 @@ namespace CommunityToolkit.WinUI.Controls;
 [TemplateVisualState(Name = RightWrappedNoIconState, GroupName = ContentAlignmentStates)]
 [TemplateVisualState(Name = LeftState, GroupName = ContentAlignmentStates)]
 [TemplateVisualState(Name = VerticalState, GroupName = ContentAlignmentStates)]
+[TemplateVisualState(Name = HorizontalState, GroupName = ContentAlignmentStates)]
 
 [TemplateVisualState(Name = NoContentSpacingState, GroupName = ContentSpacingStates)]
 [TemplateVisualState(Name = ContentSpacingState, GroupName = ContentSpacingStates)]
@@ -49,6 +50,7 @@ public partial class SettingsCard : ButtonBase
     internal const string RightWrappedNoIconState = "RightWrappedNoIcon";
     internal const string LeftState = "Left";
     internal const string VerticalState = "Vertical";
+    internal const string HorizontalState = "Horizontal";
 
     internal const string ContentSpacingStates = "ContentSpacingStates";
     internal const string NoContentSpacingState = "NoContentSpacing";
