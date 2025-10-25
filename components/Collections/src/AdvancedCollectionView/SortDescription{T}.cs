@@ -33,6 +33,6 @@ public class SortDescription<
         _prop = typeof(T).GetProperty(propertyName) ?? throw new ArgumentException("Type does not have the expected property");
     }
 
-    override internal PropertyInfo? GetProperty(Type type) =>
+    internal override PropertyInfo? GetProperty(Type type) =>
         type.IsAssignableTo(_prop.DeclaringType) ? _prop : throw new ArgumentException("This SortDescription is not compatible with this type");
 }
