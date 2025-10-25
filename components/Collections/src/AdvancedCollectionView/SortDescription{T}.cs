@@ -17,14 +17,22 @@ public class SortDescription<
 #endif
     T> : SortDescription
 {
+    private readonly PropertyInfo _prop;
+
+    /// <inheritdoc/>
+    public override string PropertyName => _prop.Name;
+
     /// <summary>
     /// Initializes a new instance of the <see cref="SortDescription{T}"/> class.
     /// </summary>
     /// <param name="propertyName">Name of property to sort on</param>
     /// <param name="direction">Direction of sort</param>
     /// <param name="comparer">Comparer to use. If null, will use default comparer</param>
-    [SuppressMessage("Trimming", "IL2026:Members annotated with 'RequiresUnreferencedCodeAttribute' require dynamic access otherwise can break functionality when trimming application code", Justification = "This class preserves metadata")]
-    public SortDescription(string propertyName, SortDirection direction, IComparer? comparer = null) : base(propertyName, direction, comparer)
+    public SortDescription(string propertyName, SortDirection direction, IComparer? comparer = null) : base(direction, comparer)
     {
+        _prop = typeof(T).GetProperty(propertyName) ?? throw new ArgumentException("Type does not have the expected property");
     }
+
+    override internal PropertyInfo? GetProperty(Type type) =>
+        type.IsAssignableTo(_prop.DeclaringType) ? _prop : throw new ArgumentException("This SortDescription is not compatible with this type");
 }
