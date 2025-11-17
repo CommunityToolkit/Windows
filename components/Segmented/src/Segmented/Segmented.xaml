@@ -48,6 +48,7 @@
             <Setter Property="HorizontalAlignment" Value="Left" />
             <Setter Property="VerticalAlignment" Value="Center" />
             <Setter Property="SelectionMode" Value="Single" />
+            <Setter Property="Orientation" Value="Horizontal" />
             <Setter Property="IsItemClickEnabled" Value="False" />
             <win:Setter Property="SingleSelectionFollowsFocus"
                         Value="False" />
@@ -112,7 +113,8 @@
             <Setter Property="ItemsPanel">
                 <Setter.Value>
                     <ItemsPanelTemplate>
-                        <StackPanel Orientation="{Binding (tk:FrameworkElementExtensions.Ancestor).Orientation, RelativeSource={RelativeSource Self}}"
+                        <StackPanel tk:FrameworkElementExtensions.AncestorType="local:Segmented"
+                                    Orientation="{Binding (tk:FrameworkElementExtensions.Ancestor).Orientation, RelativeSource={RelativeSource Self}}"
                                     Spacing="{ThemeResource ButtonItemSpacing}" />
                     </ItemsPanelTemplate>
                 </Setter.Value>
