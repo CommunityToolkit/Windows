@@ -14,6 +14,7 @@
         <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}"
                    Text="Icon + content" />
         <controls:Segmented HorizontalAlignment="{x:Bind local:SegmentedBasicSample.ConvertStringToHorizontalAlignment(Alignment), Mode=OneWay}"
+                            Orientation="{x:Bind local:SegmentedBasicSample.ConvertStringToOrientation(OrientationMode), Mode=OneWay}"
                             SelectedIndex="0"
                             SelectionMode="{x:Bind local:SegmentedBasicSample.ConvertStringToSelectionMode(SelectionMode), Mode=OneWay}">
             <controls:SegmentedItem Content="Item 1"
@@ -30,6 +31,7 @@
                    Style="{StaticResource BodyStrongTextBlockStyle}"
                    Text="Icon only" />
         <controls:Segmented HorizontalAlignment="{x:Bind local:SegmentedBasicSample.ConvertStringToHorizontalAlignment(Alignment), Mode=OneWay}"
+                            Orientation="{x:Bind local:SegmentedBasicSample.ConvertStringToOrientation(OrientationMode), Mode=OneWay}"
                             SelectedIndex="2"
                             SelectionMode="{x:Bind local:SegmentedBasicSample.ConvertStringToSelectionMode(SelectionMode), Mode=OneWay}">
             <controls:SegmentedItem Icon="{ui:FontIcon Glyph=&#xE8BF;}"
