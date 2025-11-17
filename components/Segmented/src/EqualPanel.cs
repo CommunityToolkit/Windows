@@ -2,6 +2,7 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
+using Microsoft.UI.Xaml.Controls;
 using System.Data;
 
 namespace CommunityToolkit.WinUI.Controls;
@@ -14,15 +15,6 @@ public partial class EqualPanel : Panel
     private double _maxItemWidth = 0;
     private double _maxItemHeight = 0;
     private int _visibleItemsCount = 0;
-    
-    /// <summary>
-    /// Gets or sets the spacing between items.
-    /// </summary>
-    public double Spacing
-    {
-        get { return (double)GetValue(SpacingProperty); }
-        set { SetValue(SpacingProperty, value); }
-    }
 
     /// <summary>
     /// Identifies the Spacing dependency property.
@@ -32,14 +24,42 @@ public partial class EqualPanel : Panel
         nameof(Spacing),
         typeof(double),
         typeof(EqualPanel),
-        new PropertyMetadata(default(double), OnSpacingChanged));
+        new PropertyMetadata(default(double), OnPropertyChanged));
+
+    /// <summary>
+    /// Backing <see cref="DependencyProperty"/> for the <see cref="Orientation"/> property.
+    /// </summary>
+    public static readonly DependencyProperty OrientationProperty = DependencyProperty.Register(
+        nameof(Orientation),
+        typeof(Orientation),
+        typeof(EqualPanel),
+        new PropertyMetadata(default(Orientation), OnPropertyChanged));
+
+    /// <summary>
+    /// Gets or sets the spacing between items.
+    /// </summary>
+    public double Spacing
+    {
+        get => (double)GetValue(SpacingProperty);
+        set => SetValue(SpacingProperty, value);
+    }
+
+    /// <summary>
+    /// Gets or sets the panel orientation.
+    /// </summary>
+    public Orientation Orientation
+    {
+        get => (Orientation)GetValue(OrientationProperty);
+        set => SetValue(OrientationProperty, value);
+    }
 
     /// <summary>
     /// Creates a new instance of the <see cref="EqualPanel"/> class.
     /// </summary>
     public EqualPanel()
     {
-        RegisterPropertyChangedCallback(HorizontalAlignmentProperty, OnHorizontalAlignmentChanged);
+        RegisterPropertyChangedCallback(HorizontalAlignmentProperty, OnAlignmentChanged);
+        RegisterPropertyChangedCallback(VerticalAlignmentProperty, OnAlignmentChanged);
     }
 
     /// <inheritdoc/>
@@ -60,19 +80,39 @@ public partial class EqualPanel : Panel
 
         if (_visibleItemsCount > 0)
         {
-            // Return equal widths based on the widest item
-            // In very specific edge cases the AvailableWidth might be infinite resulting in a crash.
-            if (HorizontalAlignment != HorizontalAlignment.Stretch || double.IsInfinity(availableSize.Width))
+            bool stretch = Orientation switch
             {
-                return new Size((_maxItemWidth * _visibleItemsCount) + (Spacing * (_visibleItemsCount - 1)), _maxItemHeight);
+                Orientation.Horizontal => HorizontalAlignment is HorizontalAlignment.Stretch && !double.IsInfinity(availableSize.Width),
+                Orientation.Vertical or _ => VerticalAlignment is VerticalAlignment.Stretch && !double.IsInfinity(availableSize.Height),
+            };
+
+            // Define XY coords
+            double xSize = 0, ySize = 0;
+
+            // Define UV coords for orientation agnostic XY manipulation
+            ref double uSize = ref SelectAxis(Orientation, ref xSize, ref ySize, true);
+            ref double vSize = ref SelectAxis(Orientation, ref xSize, ref ySize, false);
+            ref double maxItemU = ref SelectAxis(Orientation, ref _maxItemWidth, ref _maxItemHeight, true);
+            ref double maxItemV = ref SelectAxis(Orientation, ref _maxItemWidth, ref _maxItemHeight, false);
+            double availableU = Orientation is Orientation.Horizontal ? availableSize.Width : availableSize.Height;
+
+            if (stretch)
+            {
+                // Adjust maxItemU to form equal rows/columns by available U space (adjust for spacing)
+                double totalU = availableU - (Spacing * (_visibleItemsCount - 1));
+                maxItemU = totalU / _visibleItemsCount;
+
+                // Set uSize/vSize for XY result contstruction
+                uSize = availableU;
+                vSize = maxItemV;
             }
             else
             {
-                // Equal columns based on the available width, adjust for spacing
-                double totalWidth = availableSize.Width - (Spacing * (_visibleItemsCount - 1));
-                _maxItemWidth = totalWidth / _visibleItemsCount;
-                return new Size(availableSize.Width, _maxItemHeight);
+                uSize = (maxItemU * _visibleItemsCount) + (Spacing * (_visibleItemsCount - 1));
+                vSize = maxItemV;
             }
+
+            return new Size(xSize, ySize);
         }
         else
         {
@@ -83,31 +123,53 @@ public partial class EqualPanel : Panel
     /// <inheritdoc/>
     protected override Size ArrangeOverride(Size finalSize)
     {
+        // Define X and Y
         double x = 0;
+        double y = 0;
 
-        // Check if there's more (little) width available - if so, set max item width to the maximum possible as we have an almost perfect height.
-        if (finalSize.Width > _visibleItemsCount * _maxItemWidth + (Spacing * (_visibleItemsCount - 1)))
+        // Define UV axis
+        ref double u = ref x;
+        ref double maxItemU = ref _maxItemWidth;
+        double finalSizeU = finalSize.Width;
+        if (Orientation is Orientation.Vertical)
         {
-            _maxItemWidth = (finalSize.Width - (Spacing * (_visibleItemsCount - 1))) / _visibleItemsCount;
+            u = ref y;
+            maxItemU = ref _maxItemHeight;
+            finalSizeU = finalSize.Height;
+        }
+        
+        // Check if there's more (little) width available - if so, set max item width to the maximum possible as we have an almost perfect height.
+        if (finalSizeU > _visibleItemsCount * maxItemU + (Spacing * (_visibleItemsCount - 1)))
+        {
+            maxItemU = (finalSizeU - (Spacing * (_visibleItemsCount - 1))) / _visibleItemsCount;
         }
 
         var elements = Children.Where(static e => e.Visibility == Visibility.Visible);
         foreach (var child in elements)
         {
-            child.Arrange(new Rect(x, 0, _maxItemWidth, _maxItemHeight));
-            x += _maxItemWidth + Spacing;
+            // NOTE: The arrange method is still in X/Y coordinate system
+            child.Arrange(new Rect(x, y, _maxItemWidth, _maxItemHeight));
+            u += maxItemU + Spacing;
         }
         return finalSize;
     }
 
-    private void OnHorizontalAlignmentChanged(DependencyObject sender, DependencyProperty dp)
+    private void OnAlignmentChanged(DependencyObject sender, DependencyProperty dp)
     {
         InvalidateMeasure();
     }
 
-    private static void OnSpacingChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    private static void OnPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
         var panel = (EqualPanel)d;
         panel.InvalidateMeasure();
+    }
+
+    private static ref double SelectAxis(Orientation orientation, ref double x, ref double y, bool u)
+    {
+        if ((orientation is Orientation.Horizontal && u) || (orientation is Orientation.Vertical && !u))
+            return ref x;
+        else
+            return ref y;
     }
 }
