@@ -16,24 +16,28 @@ public struct HsvColor
     /// <summary>
     /// The hue value.
     /// </summary>
+    [EditorBrowsable(EditorBrowsableState.Never)]
     [Obsolete("This field is marked deprecated, and will be removed in a future version. Please replace with the HsvColor.Hue property")]
     public double H;
 
     /// <summary>
     /// The saturation value.
     /// </summary>
+    [EditorBrowsable(EditorBrowsableState.Never)]
     [Obsolete("This field is marked deprecated, and will be removed in a future version. Please replace with the HsvColor.Saturation property")]
     public double S;
 
     /// <summary>
     /// The "value" value.
     /// </summary>
+    [EditorBrowsable(EditorBrowsableState.Never)]
     [Obsolete("This field is marked deprecated, and will be removed in a future version. Please replace with the HsvColor.Value property")]
     public double V;
 
     /// <summary>
     /// The alpha/opacity value.
     /// </summary>
+    [EditorBrowsable(EditorBrowsableState.Never)]
     [Obsolete("This field is marked deprecated, and will be removed in a future version. Please replace with the HsvColor.Alpha property")]
     public double A;
 
