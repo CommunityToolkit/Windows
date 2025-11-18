@@ -36,4 +36,39 @@ public static class ColorExtensions
     /// <param name="color">The <see cref="Color"/> to convert.</param>
     /// <returns>The converted <see cref="HsvColor"/>.</returns>
     public static HsvColor ToHsv(this Color color) => (HsvColor)color;
+
+#if NET10_0_OR_GREATER
+
+    extension(Color color)
+    {
+        /// <summary>
+        /// Gets a <see cref="HsvColor"/> from alpha, hue, saturation, and lightness channel info.
+        /// </summary>
+        /// <remarks>
+        /// This returns a <see cref="HslColor"/> in order to avoid unneccesary conversions.
+        /// However, the <see cref="HslColor"/> will be implicitly cast to a <see cref="Color"/> if needed.
+        /// </remarks>
+        /// <param name="h">The color's hue.</param>
+        /// <param name="s">The color's saturation.</param>
+        /// <param name="l">The color's lightness.</param>
+        /// <param name="a">The color's alpha value.</param>
+        /// <returns>The color as a <see cref="HslColor"/>.</returns>
+        public static HslColor FromAhsl(double a, double h, double s, double l) => HslColor.Create(h, s, l, a);
+
+        /// <summary>
+        /// Gets a <see cref="HsvColor"/> from alpha, hue, saturation, and value channel info.
+        /// </summary>
+        /// <remarks>
+        /// This returns a <see cref="HsvColor"/> in order to avoid unneccesary conversions.
+        /// However, the <see cref="HsvColor"/> will be implicitly cast to a <see cref="Color"/> if needed.
+        /// </remarks>
+        /// <param name="h">The color's hue.</param>
+        /// <param name="s">The color's saturation.</param>
+        /// <param name="v">The color's value.</param>
+        /// <param name="a">The color's alpha value.</param>
+        /// <returns>The color as a <see cref="HsvColor"/>.</returns>
+        public static HsvColor FromAhsv(double a, double h, double s, double v) => HsvColor.Create(h, s, v, a);
+    }
+
+#endif
 }
