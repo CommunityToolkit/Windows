@@ -50,10 +50,10 @@ public struct HslColor
         double saturation = chroma == 0 ? 0 : chroma / (1 - Math.Abs((2 * lightness) - 1));
         
         // Set hsl properties
-        H = 60 * h1;
-        S = saturation;
-        L = lightness;
-        A = alpha;
+        Hue = 60 * h1;
+        Saturation = saturation;
+        Lightness = lightness;
+        Alpha = alpha;
     }
 
     /// <summary>
@@ -67,12 +67,16 @@ public struct HslColor
     public static HslColor Create(double hue, double saturation, double lightness, double alpha = 1)
     {
         HslColor color = default;
-        color.H = hue;
-        color.S = saturation;
-        color.L = lightness;
-        color.A = alpha;
+        color.Hue = hue;
+        color.Saturation = saturation;
+        color.Lightness = lightness;
+        color.Alpha = alpha;
         return color;
     }
+
+    // This class contains deprecated public backing fields to be removed in a future version.
+    // Suppress the warnings from using them in their new wrapping properties.
+#pragma warning disable 0618
 
     /// <summary>
     /// Gets or sets the hue.
@@ -122,22 +126,24 @@ public struct HslColor
         set => A = Math.Clamp(value, 0, 1);
     }
 
+#pragma warning restore 0618
+
     /// <summary>
     /// Converts the <see cref="HslColor"/> to a <see cref="Color"/>.
     /// </summary>
     /// <returns>The <see cref="HslColor"/> as a <see cref="Color"/>.</returns>
     public readonly Color ToColor()
     {
-        double chroma = (1 - Math.Abs((2 * L) - 1)) * S;
-        double h1 = H / 60;
+        double chroma = (1 - Math.Abs((2 * Lightness) - 1)) * Saturation;
+        double h1 = Hue / 60;
         double x = chroma * (1 - Math.Abs((h1 % 2) - 1));
-        double m = L - (0.5 * chroma);
+        double m = Lightness - (0.5 * chroma);
         
-        return ColorHelper.FromHueChroma(h1, chroma, x, m, A);
+        return ColorHelper.FromHueChroma(h1, chroma, x, m, Alpha);
     }
 
     /// <inheritdoc/>
-    public override readonly string ToString() => $"hsl({H:N0}, {S}, {L})";
+    public override readonly string ToString() => $"hsl({Hue:N0}, {Saturation}, {Lightness})";
 
     /// <summary>
     /// Cast a <see cref="HslColor"/> to a <see cref="Color"/>.

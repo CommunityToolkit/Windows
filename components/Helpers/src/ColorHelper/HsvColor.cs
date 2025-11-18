@@ -7,6 +7,7 @@ using ColorHelper = CommunityToolkit.WinUI.Helpers.ColorHelper;
 
 namespace CommunityToolkit.WinUI;
 
+
 /// <summary>
 /// Defines a color in Hue/Saturation/Value (HSV) space with alpha.
 /// </summary>
@@ -50,10 +51,10 @@ public struct HsvColor
         double value = max;
 
         // Set hsv properties
-        H = 60 * h1;
-        S = saturation;
-        V = value;
-        A = alpha;
+        Hue = 60 * h1;
+        Saturation = saturation;
+        Value = value;
+        Alpha = alpha;
     }
 
     /// <summary>
@@ -67,13 +68,18 @@ public struct HsvColor
     public static HsvColor Create(double hue, double saturation, double value, double alpha = 1)
     {
         HsvColor color = default;
-        color.H = hue;
-        color.S = saturation;
-        color.V = value;
-        color.A = alpha;
+        color.Hue = hue;
+        color.Saturation = saturation;
+        color.Value = value;
+        color.Alpha = alpha;
         return color;
     }
-    
+
+
+    // This class contains deprecated public backing fields to be removed in a future version.
+    // Suppress the warnings from using them in their new wrapping properties.
+#pragma warning disable 0618
+
     /// <summary>
     /// Gets or sets the hue.
     /// </summary>
@@ -122,22 +128,25 @@ public struct HsvColor
         set => A = Math.Clamp(value, 0, 1);
     }
 
+#pragma warning restore 0618
+
+
     /// <summary>
     /// Converts the <see cref="HsvColor"/> to a <see cref="Color"/>.
     /// </summary>
     /// <returns>The <see cref="HsvColor"/> as a <see cref="Color"/>.</returns>
     public readonly Color ToColor()
     {
-        double chroma = V * S;
-        double h1 = H / 60;
+        double chroma = Value * Saturation;
+        double h1 = Hue / 60;
         double x = chroma * (1 - Math.Abs((h1 % 2) - 1));
-        double m = V - chroma;
+        double m = Value - chroma;
 
-        return ColorHelper.FromHueChroma(h1, chroma, x, m, A);
+        return ColorHelper.FromHueChroma(h1, chroma, x, m, Alpha);
     }
 
     /// <inheritdoc/>
-    public override readonly string ToString() => $"hsv({H:N0}, {S}, {V})";
+    public override readonly string ToString() => $"hsv({Hue:N0}, {Saturation}, {Value})";
 
     /// <summary>
     /// Cast a <see cref="HsvColor"/> to a <see cref="Color"/>.
