@@ -160,11 +160,10 @@ public partial class Segmented : ListViewBase
     {
         for (int i = 0; i < Items.Count; i++)
         {
-            var container = ContainerFromIndex(i) as SegmentedItem;
-            if (container is null)
-                continue;
-
-            container.UpdateOrientation(Orientation);
+            if (ContainerFromIndex(i) is SegmentedItem item)
+            {
+                item.UpdateOrientation(Orientation);
+            }
         }
     }
 }
