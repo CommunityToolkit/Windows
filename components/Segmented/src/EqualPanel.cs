@@ -59,7 +59,6 @@ public partial class EqualPanel : Panel
     public EqualPanel()
     {
         RegisterPropertyChangedCallback(HorizontalAlignmentProperty, OnAlignmentChanged);
-        RegisterPropertyChangedCallback(VerticalAlignmentProperty, OnAlignmentChanged);
     }
 
     /// <inheritdoc/>
