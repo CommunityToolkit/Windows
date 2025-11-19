@@ -62,7 +62,7 @@ public partial class SegmentedItem : ListViewItem
             (false, false) => _isVertical ? IconTopState : IconLeftState,
             (false, true) => IconOnlyState,
             (true, false) => ContentOnlyState,
-            (true, true) => ContentOnlyState, // Invalid state. Treast as content only
+            (true, true) => ContentOnlyState, // Invalid state. Treat as content only
         };
 
         // Update states
