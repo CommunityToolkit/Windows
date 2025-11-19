@@ -102,7 +102,7 @@ public partial class EqualPanel : Panel
                 double totalU = availableU - (Spacing * (_visibleItemsCount - 1));
                 maxItemU = totalU / _visibleItemsCount;
 
-                // Set uSize/vSize for XY result contstruction
+                // Set uSize/vSize for XY result construction
                 uSize = availableU;
                 vSize = maxItemV;
             }
