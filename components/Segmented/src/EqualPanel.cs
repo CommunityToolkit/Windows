@@ -92,26 +92,24 @@ public partial class EqualPanel : Panel
         double xSize = 0, ySize = 0;
 
         // Define UV coords for orientation agnostic XY manipulation
-        ref double uSize = ref SelectAxis(Orientation, ref xSize, ref ySize, true);
-        ref double vSize = ref SelectAxis(Orientation, ref xSize, ref ySize, false);
-        ref double maxItemU = ref SelectAxis(Orientation, ref _maxItemWidth, ref _maxItemHeight, true);
-        ref double maxItemV = ref SelectAxis(Orientation, ref _maxItemWidth, ref _maxItemHeight, false);
+        var uvSize = new UVCoord(ref xSize, ref ySize, Orientation);
+        var maxItemSize = new UVCoord(ref _maxItemWidth, ref _maxItemHeight, Orientation);
         double availableU = Orientation is Orientation.Horizontal ? availableSize.Width : availableSize.Height;
 
         if (stretch)
         {
             // Adjust maxItemU to form equal rows/columns by available U space (adjust for spacing)
             double totalU = availableU - (Spacing * (_visibleItemsCount - 1));
-            maxItemU = totalU / _visibleItemsCount;
+            maxItemSize.U = totalU / _visibleItemsCount;
 
             // Set uSize/vSize for XY result construction
-            uSize = availableU;
-            vSize = maxItemV;
+            uvSize.U = availableU;
+            uvSize.V = maxItemSize.V;
         }
         else
         {
-            uSize = (maxItemU * _visibleItemsCount) + (Spacing * (_visibleItemsCount - 1));
-            vSize = maxItemV;
+            uvSize.U = (maxItemSize.U * _visibleItemsCount) + (Spacing * (_visibleItemsCount - 1));
+            uvSize.V = maxItemSize.V;
         }
 
         return new Size(xSize, ySize);
@@ -125,12 +123,11 @@ public partial class EqualPanel : Panel
         double y = 0;
 
         // Define UV axis
-        ref double u = ref x;
+        var pos = new UVCoord(ref x, ref y, Orientation);
         ref double maxItemU = ref _maxItemWidth;
         double finalSizeU = finalSize.Width;
         if (Orientation is Orientation.Vertical)
         {
-            u = ref y;
             maxItemU = ref _maxItemHeight;
             finalSizeU = finalSize.Height;
         }
@@ -146,7 +143,7 @@ public partial class EqualPanel : Panel
         {
             // NOTE: The arrange method is still in X/Y coordinate system
             child.Arrange(new Rect(x, y, _maxItemWidth, _maxItemHeight));
-            u += maxItemU + Spacing;
+            pos.U += maxItemU + Spacing;
         }
         return finalSize;
     }
@@ -162,11 +159,55 @@ public partial class EqualPanel : Panel
         panel.InvalidateMeasure();
     }
 
-    private static ref double SelectAxis(Orientation orientation, ref double x, ref double y, bool u)
+    /// <summary>
+    /// A struct for mapping X/Y coordinates to an orientation adjusted U/V coordinate system.
+    /// </summary>
+    private ref struct UVCoord
     {
-        if ((orientation is Orientation.Horizontal && u) || (orientation is Orientation.Vertical && !u))
-            return ref x;
-        else
-            return ref y;
+        private readonly bool _vertical;
+
+        private ref double _x;
+        private ref double _y;
+
+        public UVCoord(ref double x, ref double y, Orientation orientation)
+        {
+            _x = ref x;
+            _y = ref y;
+            _vertical = orientation is Orientation.Vertical;
+        }
+
+        public ref double X => ref _x;
+
+        public ref double Y => ref _y;
+
+        public ref double U
+        {
+            get
+            {
+                if (_vertical)
+                {
+                    return ref Y;
+                }
+                else
+                {
+                    return ref X;
+                }
+            }
+        }
+
+        public ref double V
+        {
+            get
+            {
+                if (_vertical)
+                {
+                    return ref X;
+                }
+                else
+                {
+                    return ref Y;
+                }
+            }
+        }
     }
 }
