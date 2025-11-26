@@ -21,6 +21,7 @@ public class Test_RichSuggestBox : VisualUITestBase
     [DataRow("@Token1", "@Token2", "@Token3")]
     [DataRow("@Token1", "@Token2", "#Token3")]
     [DataRow("#Token1", "@Token2", "@Token3")]
+    [Ignore("Intermittent failure - see https://github.com/CommunityToolkit/Windows/issues/589")]
     public async Task Test_RichSuggestBox_AddTokens(string tokenText1, string tokenText2, string tokenText3)
     {
         await App.DispatcherQueue.EnqueueAsync(async () =>
