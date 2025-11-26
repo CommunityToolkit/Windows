@@ -419,16 +419,16 @@
                                     <VisualState x:Name="IconLeft" />
                                     <VisualState x:Name="IconTop">
                                         <VisualState.Setters>
-                                            <Setter Target="ContentHolder.ColumnSpacing" Value="0" />
-                                            <Setter Target="ContentHolder.RowSpacing" Value="1" />
+                                            <Setter Target="ContentHolder.Orientation" Value="Vertical" />
+                                            <Setter Target="ContentHolder.HorizontalAlignment" Value="Stretch" />
+                                            <Setter Target="ContentHolder.Spacing" Value="1" />
                                             <Setter Target="ContentHolder.Margin" Value="7,11,7,5" />
+                                            <Setter Target="PART_Hover.Margin" Value="1,3,1,3" />
                                             <Setter Target="PART_IconBox.Width" Value="20" />
                                             <Setter Target="PART_IconBox.Margin" Value="0" />
                                             <Setter Target="PART_IconBox.HorizontalAlignment" Value="Center" />
                                             <Setter Target="PART_IconBox.VerticalAlignment" Value="Center" />
                                             <Setter Target="PART_ContentPresenter.Margin" Value="0" />
-                                            <Setter Target="PART_ContentPresenter.(Grid.Column)" Value="0" />
-                                            <Setter Target="PART_ContentPresenter.(Grid.Row)" Value="1" />
                                             <Setter Target="PART_ContentPresenter.MaxWidth" Value="48" />
                                             <Setter Target="PART_ContentPresenter.HorizontalAlignment" Value="Center" />
                                         </VisualState.Setters>
@@ -436,13 +436,11 @@
                                     <VisualState x:Name="IconOnly">
                                         <VisualState.Setters>
                                             <Setter Target="PART_ContentPresenter.Visibility" Value="Collapsed" />
-                                            <Setter Target="ContentHolder.ColumnSpacing" Value="0" />
                                         </VisualState.Setters>
                                     </VisualState>
                                     <VisualState x:Name="ContentOnly">
                                         <VisualState.Setters>
                                             <Setter Target="PART_IconBox.Visibility" Value="Collapsed" />
-                                            <Setter Target="ContentHolder.ColumnSpacing" Value="0" />
                                         </VisualState.Setters>
                                     </VisualState>
                                 </VisualStateGroup>
@@ -650,19 +648,12 @@
                             </Border>
 
                             <!--  Content  -->
-                            <Grid x:Name="ContentHolder"
-                                  Margin="11,0,11,0"
-                                  HorizontalAlignment="Center"
-                                  VerticalAlignment="Stretch"
-                                  ColumnSpacing="8">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                </Grid.RowDefinitions>
+                            <StackPanel x:Name="ContentHolder"
+                                        Margin="11,0,11,0"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Stretch"
+                                        Orientation="Horizontal"
+                                        Spacing="8">
                                 <Viewbox x:Name="PART_IconBox"
                                          Width="16"
                                          Margin="0,7,0,7"
@@ -684,7 +675,7 @@
                                                   ContentTransitions="{TemplateBinding ContentTransitions}"
                                                   FontWeight="{TemplateBinding FontWeight}"
                                                   Foreground="{TemplateBinding Foreground}" />
-                            </Grid>
+                            </StackPanel>
 
                             <Rectangle x:Name="PART_Pill"
                                        Width="4"
