@@ -32,7 +32,7 @@ public partial class SegmentedItem : ListViewItem
     protected override void OnApplyTemplate()
     {
         base.OnApplyTemplate();
-        UpdateState();
+        UpdateVisualStates();
     }
 
     /// <summary>
@@ -41,21 +41,21 @@ public partial class SegmentedItem : ListViewItem
     protected override void OnContentChanged(object oldContent, object newContent)
     {
         base.OnContentChanged(oldContent, newContent);
-        UpdateState();
+        UpdateVisualStates();
     }
 
     /// <summary>
     /// Handles changes to the Icon property.
     /// </summary>
-    protected virtual void OnIconPropertyChanged(IconElement oldValue, IconElement newValue) => UpdateState();
+    protected virtual void OnIconPropertyChanged(IconElement oldValue, IconElement newValue) => UpdateVisualStates();
 
     internal void UpdateOrientation(Orientation orientation)
     {
         _isVertical = orientation is Orientation.Vertical;
-        UpdateState();
+        UpdateVisualStates();
     }
 
-    private void UpdateState()
+    private void UpdateVisualStates()
     {
         string contentState = (Icon is null, Content is null) switch
         {
@@ -65,7 +65,7 @@ public partial class SegmentedItem : ListViewItem
             (true, true) => ContentOnlyState, // Invalid state. Treat as content only
         };
 
-        // Update states
+        // Update visual states
         VisualStateManager.GoToState(this, contentState, true);
         VisualStateManager.GoToState(this, _isVertical ? VerticalState : HorizontalState, true);
     }

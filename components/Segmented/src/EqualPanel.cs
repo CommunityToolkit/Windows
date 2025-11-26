@@ -2,7 +2,6 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
-using Microsoft.UI.Xaml.Controls;
 using System.Data;
 
 namespace CommunityToolkit.WinUI.Controls;
@@ -77,46 +76,45 @@ public partial class EqualPanel : Panel
             _maxItemHeight = Math.Max(_maxItemHeight, child.DesiredSize.Height);
         }
 
-        if (_visibleItemsCount > 0)
+        // No children, no space taken
+        if (_visibleItemsCount <= 0)
+            return new Size(0, 0);
+
+        // Determine if the desired alignment is stretched.
+        // Don't stretch if infinite space is available though. Attempting to divide infinite space will result in a crash.
+        bool stretch = Orientation switch
         {
-            bool stretch = Orientation switch
-            {
-                Orientation.Horizontal => HorizontalAlignment is HorizontalAlignment.Stretch && !double.IsInfinity(availableSize.Width),
-                Orientation.Vertical or _ => VerticalAlignment is VerticalAlignment.Stretch && !double.IsInfinity(availableSize.Height),
-            };
+            Orientation.Horizontal => HorizontalAlignment is HorizontalAlignment.Stretch && !double.IsInfinity(availableSize.Width),
+            Orientation.Vertical or _ => VerticalAlignment is VerticalAlignment.Stretch && !double.IsInfinity(availableSize.Height),
+        };
 
-            // Define XY coords
-            double xSize = 0, ySize = 0;
+        // Define XY coords
+        double xSize = 0, ySize = 0;
 
-            // Define UV coords for orientation agnostic XY manipulation
-            ref double uSize = ref SelectAxis(Orientation, ref xSize, ref ySize, true);
-            ref double vSize = ref SelectAxis(Orientation, ref xSize, ref ySize, false);
-            ref double maxItemU = ref SelectAxis(Orientation, ref _maxItemWidth, ref _maxItemHeight, true);
-            ref double maxItemV = ref SelectAxis(Orientation, ref _maxItemWidth, ref _maxItemHeight, false);
-            double availableU = Orientation is Orientation.Horizontal ? availableSize.Width : availableSize.Height;
+        // Define UV coords for orientation agnostic XY manipulation
+        ref double uSize = ref SelectAxis(Orientation, ref xSize, ref ySize, true);
+        ref double vSize = ref SelectAxis(Orientation, ref xSize, ref ySize, false);
+        ref double maxItemU = ref SelectAxis(Orientation, ref _maxItemWidth, ref _maxItemHeight, true);
+        ref double maxItemV = ref SelectAxis(Orientation, ref _maxItemWidth, ref _maxItemHeight, false);
+        double availableU = Orientation is Orientation.Horizontal ? availableSize.Width : availableSize.Height;
 
-            if (stretch)
-            {
-                // Adjust maxItemU to form equal rows/columns by available U space (adjust for spacing)
-                double totalU = availableU - (Spacing * (_visibleItemsCount - 1));
-                maxItemU = totalU / _visibleItemsCount;
+        if (stretch)
+        {
+            // Adjust maxItemU to form equal rows/columns by available U space (adjust for spacing)
+            double totalU = availableU - (Spacing * (_visibleItemsCount - 1));
+            maxItemU = totalU / _visibleItemsCount;
 
-                // Set uSize/vSize for XY result construction
-                uSize = availableU;
-                vSize = maxItemV;
-            }
-            else
-            {
-                uSize = (maxItemU * _visibleItemsCount) + (Spacing * (_visibleItemsCount - 1));
-                vSize = maxItemV;
-            }
-
-            return new Size(xSize, ySize);
+            // Set uSize/vSize for XY result construction
+            uSize = availableU;
+            vSize = maxItemV;
         }
         else
         {
-            return new Size(0, 0);
+            uSize = (maxItemU * _visibleItemsCount) + (Spacing * (_visibleItemsCount - 1));
+            vSize = maxItemV;
         }
+
+        return new Size(xSize, ySize);
     }
 
     /// <inheritdoc/>
