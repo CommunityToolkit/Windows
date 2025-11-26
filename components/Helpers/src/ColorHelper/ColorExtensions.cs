@@ -2,6 +2,7 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
+using System.ComponentModel.DataAnnotations;
 using Windows.UI;
 
 namespace CommunityToolkit.WinUI.Helpers;
@@ -37,6 +38,42 @@ public static class ColorExtensions
     /// <returns>The converted <see cref="HsvColor"/>.</returns>
     public static HsvColor ToHsv(this Color color) => (HsvColor)color;
 
+    /// <inheritdoc cref="AlphaOver(Color, Color, double)"/>
+    public static Color AlphaOver(this Color @base, Color overlay)
+        => AlphaOver(@base, overlay, (double)overlay.A / 255);
+
+    /// <summary>
+    /// Performs an AlphaOverlay between two colors.
+    /// </summary>
+    /// <param name="base">The base color.</param>
+    /// <param name="overlay">The overlay color.</param>
+    /// <param name="alpha">The alpha factor.</param>
+    /// <returns>The resulting color from alpha overlaying <paramref name="overlay"/> over <paramref name="base"/>.</returns>
+    public static Color AlphaOver(this Color @base, Color overlay, double alpha)
+    {
+        // Find the color's mix, using the overlay's opacity as a factor
+        var mix = MixColors(@base, overlay, alpha);
+
+        // Restore the alpha to match the base
+        mix.A = @base.A;
+        return mix;
+    }
+
+    private static Color MixColors(Color color1, Color color2, double factor)
+    {
+        // Formula for linearly blending a channel
+        var invFactor = 1 - factor;
+        byte Blend(byte c1, byte c2) => (byte)Math.Round((c1 * factor) + (c2 * invFactor));
+
+        // Blend each channel
+        var a = Blend(color1.A, color2.A);
+        var r = Blend(color1.R, color2.R);
+        var g = Blend(color1.G, color2.G);
+        var b = Blend(color1.B, color2.B);
+
+        return Color.FromArgb(a, r, g, b);
+    }
+
 #if NET10_0_OR_GREATER
 
     extension(Color color)
@@ -68,6 +105,16 @@ public static class ColorExtensions
         /// <param name="a">The color's alpha value.</param>
         /// <returns>The color as a <see cref="HsvColor"/>.</returns>
         public static HsvColor FromAhsv(double a, double h, double s, double v) => HsvColor.Create(h, s, v, a);
+
+        /// <summary>
+        /// Mixes two colors
+        /// </summary>
+        /// <param name="color1"></param>
+        /// <param name="color2"></param>
+        /// <param name="factor"></param>
+        /// <returns></returns>
+        public static Color Mix(Color color1, Color color2, double factor)
+            => MixColors(color1, color2, factor);
     }
 
 #endif
