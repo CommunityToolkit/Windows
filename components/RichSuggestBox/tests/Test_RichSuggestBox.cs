@@ -21,7 +21,6 @@ public class Test_RichSuggestBox : VisualUITestBase
     [DataRow("@Token1", "@Token2", "@Token3")]
     [DataRow("@Token1", "@Token2", "#Token3")]
     [DataRow("#Token1", "@Token2", "@Token3")]
-    [Ignore("Intermittent failure - see https://github.com/CommunityToolkit/Windows/issues/589")]
     public async Task Test_RichSuggestBox_AddTokens(string tokenText1, string tokenText2, string tokenText3)
     {
         await App.DispatcherQueue.EnqueueAsync(async () =>
@@ -129,7 +128,6 @@ public class Test_RichSuggestBox : VisualUITestBase
     [DataRow("@Token1", "@Token2")]
     [DataRow("@Token1", "#Token2")]
     [DataRow("#Token1", "@Token2")]
-    [Ignore("Intermittent failure - see https://github.com/CommunityToolkit/Windows/issues/589")]
     public async Task Test_RichSuggestBox_DeleteTokens(string token1, string token2)
     {
         await App.DispatcherQueue.EnqueueAsync(async () =>
@@ -147,13 +145,13 @@ public class Test_RichSuggestBox : VisualUITestBase
             // Delete token as a whole
             selection.Delete(TextRangeUnit.Character, -1);
             selection.Delete(TextRangeUnit.Link, -1);
-            await Task.Delay(10);
+            await CompositionTargetHelper.ExecuteAfterCompositionRenderingAsync(() => { });
 
             Assert.AreEqual(1, rsb.Tokens.Count, "Unexpected token count after deleting token 2");
 
             // Partially delete a token
             selection.Delete(TextRangeUnit.Character, -2);
-            await Task.Delay(10);
+            await CompositionTargetHelper.ExecuteAfterCompositionRenderingAsync(() => { });
 
             Assert.AreEqual(0, rsb.Tokens.Count, "Unexpected token count after deleting token 1");
         });
@@ -175,7 +173,7 @@ public class Test_RichSuggestBox : VisualUITestBase
             AssertToken(rsb, tokenBefore);
 
             selection.Delete(TextRangeUnit.Character, -2);
-            await Task.Delay(10);
+            await CompositionTargetHelper.ExecuteAfterCompositionRenderingAsync(() => { });
 
             await AddTokenAsync(rsb, "@After");
             var tokenAfter = rsb.Tokens[0];
@@ -205,17 +203,17 @@ public class Test_RichSuggestBox : VisualUITestBase
             await AddTokenAsync(rsb, "@Token2");
             selection.Delete(TextRangeUnit.Character, -1);
 
-            await Task.Delay(10);
+            await CompositionTargetHelper.ExecuteAfterCompositionRenderingAsync(() => { });
             selection.SetText(TextSetOptions.Unhide, "text");
             Assert.AreEqual(defaultFormat.BackgroundColor, selection.CharacterFormat.BackgroundColor, "Raw text have background color after a token.");
 
             selection.SetRange(middlePosition, middlePosition);
-            await Task.Delay(10);
+            await CompositionTargetHelper.ExecuteAfterCompositionRenderingAsync(() => { });
             selection.SetText(TextSetOptions.Unhide, "text");
             Assert.AreEqual(defaultFormat.BackgroundColor, selection.CharacterFormat.BackgroundColor, "Raw text have background color when sandwiched between 2 tokens.");
 
             selection.SetRange(0, 0);
-            await Task.Delay(10);
+            await CompositionTargetHelper.ExecuteAfterCompositionRenderingAsync(() => { });
             selection.SetText(TextSetOptions.Unhide, "text");
             Assert.AreEqual(defaultFormat.BackgroundColor, selection.CharacterFormat.BackgroundColor, "Raw text have background color when insert at beginning of the document.");
         });
@@ -304,7 +302,7 @@ public class Test_RichSuggestBox : VisualUITestBase
             selection.TypeText("after");
 
             rsb.Load(rtf, new[] { token1, token2 });
-            await Task.Delay(10);
+            await CompositionTargetHelper.ExecuteAfterCompositionRenderingAsync(() => { });
             document.GetText(TextGetOptions.NoHidden, out var text);
 
             Assert.AreEqual(2, rsb.Tokens.Count, "Unexpected tokens count after load.");
@@ -360,8 +358,8 @@ public class Test_RichSuggestBox : VisualUITestBase
     {
         var selection = rsb.TextDocument!.Selection;
         selection.TypeText(tokenText);
-        await Task.Delay(10);   // Wait for SelectionChanged to be invoked
+        await CompositionTargetHelper.ExecuteAfterCompositionRenderingAsync(() => { });   // Wait for SelectionChanged to be invoked
         await rsb.CommitSuggestionAsync(tokenText);
-        await Task.Delay(10);   // Wait for TextChanged to be invoked
+        await CompositionTargetHelper.ExecuteAfterCompositionRenderingAsync(() => { });   // Wait for TextChanged to be invoked
     }
 }
