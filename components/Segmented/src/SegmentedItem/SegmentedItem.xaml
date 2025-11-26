@@ -419,14 +419,14 @@
                                     <VisualState x:Name="IconLeft" />
                                     <VisualState x:Name="IconTop">
                                         <VisualState.Setters>
-                                            <Setter Target="PART_Root.MaxWidth" Value="64" />
-                                            <Setter Target="PART_Root.MaxHeight" Value="56" />
                                             <Setter Target="ContentHolder.ColumnSpacing" Value="0" />
+                                            <Setter Target="ContentHolder.RowSpacing" Value="1" />
+                                            <Setter Target="ContentHolder.Margin" Value="7,11,7,5" />
                                             <Setter Target="PART_IconBox.Width" Value="20" />
-                                            <Setter Target="PART_IconBox.Margin" Value="4,6,4,2" />
+                                            <Setter Target="PART_IconBox.Margin" Value="0" />
                                             <Setter Target="PART_IconBox.HorizontalAlignment" Value="Center" />
                                             <Setter Target="PART_IconBox.VerticalAlignment" Value="Center" />
-                                            <Setter Target="PART_ContentPresenter.Margin" Value="4,2,4,6" />
+                                            <Setter Target="PART_ContentPresenter.Margin" Value="0" />
                                             <Setter Target="PART_ContentPresenter.(Grid.Column)" Value="0" />
                                             <Setter Target="PART_ContentPresenter.(Grid.Row)" Value="1" />
                                             <Setter Target="PART_ContentPresenter.MaxWidth" Value="48" />
