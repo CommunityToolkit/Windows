@@ -128,6 +128,7 @@ public class Test_RichSuggestBox : VisualUITestBase
     [DataRow("@Token1", "@Token2")]
     [DataRow("@Token1", "#Token2")]
     [DataRow("#Token1", "@Token2")]
+    [Ignore("Intermittent failure - see https://github.com/CommunityToolkit/Windows/issues/589")]
     public async Task Test_RichSuggestBox_DeleteTokens(string token1, string token2)
     {
         await App.DispatcherQueue.EnqueueAsync(async () =>
