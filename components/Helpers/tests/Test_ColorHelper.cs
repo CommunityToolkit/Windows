@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using CommunityToolkit.WinUI.Helpers;
+using Windows.UI;
 using ColorHelper = CommunityToolkit.WinUI.Helpers.ColorHelper;
 
 namespace HelpersTests;
@@ -200,4 +201,66 @@ public class Test_ColorHelper
     {
         Assert.AreEqual(HsvColor.Create(0.0, 1.0, 1.0), Colors.Red);
     }
+
+    [TestCategory("Helpers")]
+    [TestMethod]
+    public void Test_ColorHelper_AlphaOver()
+    {
+        Assert.AreEqual(Colors.Red.AlphaOver(Colors.Blue, 0.5), Color.FromArgb(255, 128, 0, 128));
+    }
+
+    [TestCategory("Helpers")]
+    [TestMethod]
+    public void Test_ColorHelper_Mix()
+    {
+        Assert.AreEqual(Color.Mix(Colors.White, Colors.Black, 0.6625), Colors.DarkGray);
+    }
+
+    [TestCategory("Helpers")]
+    [TestMethod]
+    public void Test_ColorHelper_WithHue()
+    {
+        Assert.AreEqual(Colors.Blue.WithHue(0), Colors.Red);
+    }
+
+    [TestCategory("Helpers")]
+    [TestMethod]
+    public void Test_ColorHelper_WithSaturation()
+    {
+        Assert.AreEqual(Colors.Red.WithSaturation(0), Colors.White);
+    }
+
+    [TestCategory("Helpers")]
+    [TestMethod]
+    public void Test_ColorHelper_WithValue()
+    {
+        Assert.AreEqual(Colors.Red.WithValue(0), Colors.Black);
+    }
+
+    [TestCategory("Helpers")]
+    [TestMethod]
+    public void Test_ColorHelper_WithLightness()
+    {
+        Assert.AreEqual(Colors.Red.WithLightness(0), Colors.Black);
+    }
+
+#if NET10_0_OR_GREATER
+
+    [TestCategory("Helpers")]
+    [TestMethod]
+    public void Test_ColorHelper_Add()
+    {
+        Assert.AreEqual(Color.Add(Colors.Red, Colors.Blue), Colors.Magenta);
+        Assert.AreEqual(Colors.Red + Colors.Blue, Colors.Magenta);
+    }
+
+    [TestCategory("Helpers")]
+    [TestMethod]
+    public void Test_ColorHelper_Subtract()
+    {
+        Assert.AreEqual(Color.Subtract(Colors.Magenta, Colors.Red), Colors.Blue);
+        Assert.AreEqual(Colors.Magenta - Colors.Red, Colors.Blue);
+    }
+
+#endif
 }
