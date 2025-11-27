@@ -215,13 +215,6 @@ public class Test_ColorHelper
 
     [TestCategory("Helpers")]
     [TestMethod]
-    public void Test_ColorHelper_Mix()
-    {
-        Assert.AreEqual(Color.Mix(Colors.White, Colors.Black, 0.6625), Colors.DarkGray);
-    }
-
-    [TestCategory("Helpers")]
-    [TestMethod]
     public void Test_ColorHelper_WithHue()
     {
         Assert.AreEqual(Colors.Blue.WithHue(0), Colors.Red);
@@ -249,6 +242,13 @@ public class Test_ColorHelper
     }
 
 #if NET10_0_OR_GREATER
+
+    [TestCategory("Helpers")]
+    [TestMethod]
+    public void Test_ColorHelper_Mix()
+    {
+        Assert.AreEqual(Color.Mix(Colors.White, Colors.Black, 0.6625), Colors.DarkGray);
+    }
 
     [TestCategory("Helpers")]
     [TestMethod]
