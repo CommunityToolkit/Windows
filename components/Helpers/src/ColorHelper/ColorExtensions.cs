@@ -2,6 +2,8 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
+using Microsoft.UI;
+using System.Globalization;
 using Windows.UI;
 
 namespace CommunityToolkit.WinUI.Helpers;
@@ -135,8 +137,44 @@ public static class ColorExtensions
 
 #if NET10_0_OR_GREATER
 
-    extension(Color color)
+    extension(Color _)
     {
+        /// <inheritdoc cref="ColorHelper.TryParseColor(string, out Color)"/>
+        public static bool TryParseColor(string colorString, out Color color) => ColorHelper.TryParseColor(colorString, out color);
+
+        /// <inheritdoc cref="ColorHelper.TryParseHexColor(string, out Color)"/>
+        public static bool TryParseHexColor(string hexString, out Color color) => ColorHelper.TryParseHexColor(hexString, out color);
+
+        /// <inheritdoc cref="ColorHelper.TryParseHslColor(string, out HslColor)"/>
+        public static bool TryParseHslColor(string hslColor, out HslColor color) => ColorHelper.TryParseHslColor(hslColor, out color);
+
+        /// <inheritdoc cref="ColorHelper.TryParseHsvColor(string, out HsvColor)"/>
+        public static bool TryParseHsvColor(string hsvColor, out HsvColor color) => ColorHelper.TryParseHsvColor(hsvColor, out color);
+
+        /// <inheritdoc cref="ColorHelper.TryParseScreenColor(string, out Color)"/>
+        public static bool TryParseScreenColor(string screenColor, out Color color) => ColorHelper.TryParseScreenColor(screenColor, out color);
+
+        /// <inheritdoc cref="ColorHelper.TryParseColorName(string, out Color)"/>
+        public static bool TryParseColorName(string colorName, out Color color) => ColorHelper.TryParseColorName(colorName, out color);
+
+        /// <inheritdoc cref="ColorHelper.ParseColor(string)"/>
+        public static Color ParseColor(string colorString) => ColorHelper.ParseColor(colorString);
+
+        /// <inheritdoc cref="ColorHelper.ParseHexColor(string)"/>
+        public static Color ParseHexColor(string hexColor) => ColorHelper.ParseHexColor(hexColor);
+
+        /// <inheritdoc cref="ColorHelper.ParseHslColor(string)"/>
+        public static HslColor ParseHslColor(string hslColor) => ColorHelper.ParseHslColor(hslColor);
+
+        /// <inheritdoc cref="ColorHelper.ParseHsvColor(string)"/>
+        public static HsvColor ParseHsvColor(string hsvColor) => ColorHelper.ParseHsvColor(hsvColor);
+
+        /// <inheritdoc cref="ColorHelper.ParseScreenColor(string)"/>
+        public static Color ParseScreenColor(string screenColor) => ColorHelper.ParseScreenColor(screenColor);
+
+        /// <inheritdoc cref="ColorHelper.ParseColorName(string)"/>
+        public static Color ParseColorName(string colorName) => ColorHelper.ParseColorName(colorName);
+
         /// <summary>
         /// Gets a <see cref="HsvColor"/> from alpha, hue, saturation, and lightness channel info.
         /// </summary>
