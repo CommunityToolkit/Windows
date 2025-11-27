@@ -11,6 +11,10 @@ namespace HelpersTests;
 [TestClass]
 public class Test_ColorHelper
 {
+    // Keep testing the old APIs until they are removed
+    // In the meantime suppress the warnings from using them
+#pragma warning disable 0618
+
     [TestCategory("Helpers")]
     [TestMethod]
     public void Test_ColorHelper_ParseColor_Predifined()
@@ -263,4 +267,5 @@ public class Test_ColorHelper
     }
 
 #endif
+#pragma warning restore 0618
 }
