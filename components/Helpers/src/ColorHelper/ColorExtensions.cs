@@ -61,12 +61,12 @@ public static class ColorExtensions
     /// <summary>
     /// Gets a color with the same saturation and value, but with an adjusted hue.
     /// </summary>
-    /// <param name="base">The original color.</param>
+    /// <param name="original">The original color.</param>
     /// <param name="hue">The new hue.</param>
     /// <returns>A <see cref="HsvColor"/> with a new hue and the same saturation and value.</returns>
-    public static HsvColor WithHue(this Color @base, double hue)
+    public static HsvColor WithHue(this Color original, double hue)
     {
-        var hsv = (HsvColor)@base;
+        var hsv = (HsvColor)original;
         hsv.Hue = hue;
         return hsv;
     }
@@ -74,12 +74,12 @@ public static class ColorExtensions
     /// <summary>
     /// Gets a color with the same hue and value, but with an adjusted saturation.
     /// </summary>
-    /// <param name="base">The original color.</param>
+    /// <param name="original">The original color.</param>
     /// <param name="saturation">The new saturation.</param>
     /// <returns>A <see cref="HsvColor"/> with a new saturation and the same hue and value.</returns>
-    public static HsvColor WithSaturation(this Color @base, double saturation)
+    public static HsvColor WithSaturation(this Color original, double saturation)
     {
-        var hsv = (HsvColor)@base;
+        var hsv = (HsvColor)original;
         hsv.Saturation = saturation;
         return hsv;
     }
@@ -87,12 +87,12 @@ public static class ColorExtensions
     /// <summary>
     /// Gets a color with the same hue and saturation, but with an adjusted saturation.
     /// </summary>
-    /// <param name="base">The original color.</param>
+    /// <param name="original">The original color.</param>
     /// <param name="value">The new value.</param>
     /// <returns>A <see cref="HsvColor"/> with a new value and the same hue and saturation.</returns>
-    public static HsvColor WithValue(this Color @base, double value)
+    public static HsvColor WithValue(this Color original, double value)
     {
-        var hsv = (HsvColor)@base;
+        var hsv = (HsvColor)original;
         hsv.Value = value;
         return hsv;
     }
@@ -100,12 +100,12 @@ public static class ColorExtensions
     /// <summary>
     /// Gets a color with the same hue and saturation, but with an adjusted lightness.
     /// </summary>
-    /// <param name="base">The original color.</param>
+    /// <param name="original">The original color.</param>
     /// <param name="lightness">The new lightness.</param>
     /// <returns>A <see cref="HsvColor"/> with a new lightness and the same hue and saturation.</returns>
-    public static HslColor WithLightness(this Color @base, double lightness)
+    public static HslColor WithLightness(this Color original, double lightness)
     {
-        var hsl = (HslColor)@base;
+        var hsl = (HslColor)original;
         hsl.Lightness = lightness;
         return hsl;
     }

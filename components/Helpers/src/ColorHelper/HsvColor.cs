@@ -7,7 +7,6 @@ using ColorHelper = CommunityToolkit.WinUI.Helpers.ColorHelper;
 
 namespace CommunityToolkit.WinUI;
 
-
 /// <summary>
 /// Defines a color in Hue/Saturation/Value (HSV) space with alpha.
 /// </summary>
