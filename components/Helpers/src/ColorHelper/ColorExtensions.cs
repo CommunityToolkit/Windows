@@ -2,7 +2,6 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
-using System.ComponentModel.DataAnnotations;
 using Windows.UI;
 
 namespace CommunityToolkit.WinUI.Helpers;
@@ -59,11 +58,71 @@ public static class ColorExtensions
         return mix;
     }
 
+    /// <summary>
+    /// Gets a color with the same saturation and value/lightness, but with an adjusted hue.
+    /// </summary>
+    /// <param name="base">The original color.</param>
+    /// <param name="hue">The new hue.</param>
+    /// <returns>A <see cref="HsvColor"/> with a new hue and the same saturation and value/lightness.</returns>
+    public static HsvColor Hue(this Color @base, double hue)
+    {
+        var hsv = (HsvColor)@base;
+        hsv.Hue = hue;
+        return hsv;
+    }
+
+    /// <summary>
+    /// Gets a color with the same hue and value/lightness, but with an adjusted saturation.
+    /// </summary>
+    /// <param name="base">The original color.</param>
+    /// <param name="saturation">The new saturation.</param>
+    /// <returns>A <see cref="HsvColor"/> with a new saturation and the same hue and value/lightness.</returns>
+    public static HsvColor Saturation(this Color @base, double saturation)
+    {
+        var hsv = (HsvColor)@base;
+        hsv.Saturation = saturation;
+        return hsv;
+    }
+
+    /// <summary>
+    /// Gets a color with the same hue and saturation, but with an adjusted saturation.
+    /// </summary>
+    /// <param name="base">The original color.</param>
+    /// <param name="value">The new value.</param>
+    /// <returns>A <see cref="HsvColor"/> with a new value and the same hue and saturation.</returns>
+    public static HsvColor Value(this Color @base, double value)
+    {
+        var hsv = (HsvColor)@base;
+        hsv.Value = value;
+        return hsv;
+    }
+
+    /// <summary>
+    /// Gets a color with the same hue and saturation, but with an adjusted lightness.
+    /// </summary>
+    /// <param name="base">The original color.</param>
+    /// <param name="lightness">The new lightness.</param>
+    /// <returns>A <see cref="HsvColor"/> with a new lightness and the same hue and saturation.</returns>
+    public static HslColor Lightness(this Color @base, double lightness)
+    {
+        var hsl = (HslColor)@base;
+        hsl.Lightness = lightness;
+        return hsl;
+    }
+
     private static Color MixColors(Color color1, Color color2, double factor)
     {
+        factor = Math.Clamp(factor, 0, 1);
+
         // Formula for linearly blending a channel
         var invFactor = 1 - factor;
         byte Blend(byte c1, byte c2) => (byte)Math.Round((c1 * factor) + (c2 * invFactor));
+
+        if (factor is 0)
+            return color1;
+
+        if (factor is 1)
+            return color2;
 
         // Blend each channel
         var a = Blend(color1.A, color2.A);
@@ -107,14 +166,62 @@ public static class ColorExtensions
         public static HsvColor FromAhsv(double a, double h, double s, double v) => HsvColor.Create(h, s, v, a);
 
         /// <summary>
-        /// Mixes two colors
+        /// Mixes two colors using a factor for deciding how much influence each color has.
         /// </summary>
-        /// <param name="color1"></param>
-        /// <param name="color2"></param>
-        /// <param name="factor"></param>
-        /// <returns></returns>
+        /// <param name="color1">The first color.</param>
+        /// <param name="color2">The second color.</param>
+        /// <param name="factor">The influence of each color, where 0 is entirely <paramref name="color1"/> and 1 is entirely <paramref name="color2"/>.</param>
+        /// <returns>The mix of the two colors.</returns>
         public static Color Mix(Color color1, Color color2, double factor)
             => MixColors(color1, color2, factor);
+
+        /// <summary>
+        /// Adds two colors.
+        /// </summary>
+        /// <remarks>
+        /// Simple RGB summation, with each channel clamped seperately.
+        /// </remarks>
+        /// <param name="color1">The first color.</param>
+        /// <param name="color2">The second color.</param>
+        /// <returns>The sume of the two colors.</returns>
+        public static Color Add(Color color1, Color color2)
+        {
+            static byte ClampedAdd(byte b1, byte b2) => (byte)int.Min(b1 + b2, 255);
+
+            var a = ClampedAdd(color1.A, color2.A);
+            var r = ClampedAdd(color1.R, color2.R);
+            var g = ClampedAdd(color1.G, color2.G);
+            var b = ClampedAdd(color1.B, color2.B);
+
+            return Color.FromArgb(a, r, g, b);
+        }
+
+        /// <summary>
+        /// Subtracts a color from another.
+        /// </summary>
+        /// <remarks>
+        /// Simple RGB subtraction, with each channel clamped seperately.
+        /// </remarks>
+        /// <param name="color1">The first color.</param>
+        /// <param name="color2">The second color.</param>
+        /// <returns>The sume of the two colors.</returns>
+        public static Color Subtract(Color color1, Color color2)
+        {
+            static byte ClampedSubtract(byte b1, byte b2) => (byte)int.Max(b1 - b2, 0);
+
+            var a = ClampedSubtract(color1.A, color2.A);
+            var r = ClampedSubtract(color1.R, color2.R);
+            var g = ClampedSubtract(color1.G, color2.G);
+            var b = ClampedSubtract(color1.B, color2.B);
+
+            return Color.FromArgb(a, r, g, b);
+        }
+
+        /// <inheritdoc cref="Add(Color, Color)"/>
+        public static Color operator +(Color color1, Color color2) => Add(color1, color2);
+
+        /// <inheritdoc cref="Subtract(Color, Color)"/>
+        public static Color operator -(Color color1, Color color2) => Add(color1, color2);
     }
 
 #endif
