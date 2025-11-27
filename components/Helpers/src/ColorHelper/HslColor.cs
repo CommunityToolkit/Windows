@@ -52,7 +52,7 @@ public struct HslColor
         // Calculate saturation and lightness
         double lightness = 0.5 * (max + min);
         double saturation = chroma == 0 ? 0 : chroma / (1 - Math.Abs((2 * lightness) - 1));
-        
+
         // Set hsl properties
         Hue = 60 * h1;
         Saturation = saturation;
@@ -71,10 +71,12 @@ public struct HslColor
     public static HslColor Create(double hue, double saturation, double lightness, double alpha = 1)
     {
         HslColor color = default;
-        color.Hue = hue;
-        color.Saturation = saturation;
-        color.Lightness = lightness;
-        color.Alpha = alpha;
+#pragma warning disable 0618
+        color.H = hue;
+        color.S = saturation;
+        color.L = lightness;
+        color.A = alpha;
+#pragma warning restore 0618
         return color;
     }
 

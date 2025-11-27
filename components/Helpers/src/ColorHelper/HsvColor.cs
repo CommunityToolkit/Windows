@@ -71,10 +71,12 @@ public struct HsvColor
     public static HsvColor Create(double hue, double saturation, double value, double alpha = 1)
     {
         HsvColor color = default;
-        color.Hue = hue;
-        color.Saturation = saturation;
-        color.Value = value;
-        color.Alpha = alpha;
+#pragma warning disable 0618
+        color.H = hue;
+        color.S = saturation;
+        color.V = value;
+        color.A = alpha;
+#pragma warning restore 0618
         return color;
     }
 
