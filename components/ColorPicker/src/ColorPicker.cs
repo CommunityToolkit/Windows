@@ -510,12 +510,12 @@ public partial class ColorPicker : Microsoft.UI.Xaml.Controls.ColorPicker
                 if (this.IsAlphaEnabled)
                 {
                     // Remove only the "#" sign
-                    this.HexInputTextBox.Text = rgbColor.ToHex().Replace("#", string.Empty);
+                    this.HexInputTextBox.Text = rgbColor.ToString().TrimStart('#');
                 }
                 else
                 {
                     // Remove the "#" sign and alpha hex
-                    this.HexInputTextBox.Text = rgbColor.ToHex().Replace("#", string.Empty).Substring(2);
+                    this.HexInputTextBox.Text = rgbColor.ToString().TrimStart('#')[2..];
                 }
             }
 
@@ -532,10 +532,10 @@ public partial class ColorPicker : Microsoft.UI.Xaml.Controls.ColorPicker
                 int decimals = 0;
                 hsvColor = new HsvColor()
                 {
-                    H = Math.Round(hsvColor.H, decimals),
-                    S = Math.Round(hsvColor.S, 2 + decimals),
-                    V = Math.Round(hsvColor.V, 2 + decimals),
-                    A = Math.Round(hsvColor.A, 2 + decimals)
+                    Hue = Math.Round(hsvColor.Hue, decimals),
+                    Saturation = Math.Round(hsvColor.Saturation, 2 + decimals),
+                    Value = Math.Round(hsvColor.Value, 2 + decimals),
+                    Alpha = Math.Round(hsvColor.Alpha, 2 + decimals)
                 };
 
                 // Must update HSV color
@@ -554,10 +554,10 @@ public partial class ColorPicker : Microsoft.UI.Xaml.Controls.ColorPicker
             {
                 this.ColorSpectrumControl.HsvColor = new System.Numerics.Vector4()
                 {
-                    X = Convert.ToSingle(hsvColor.H),
-                    Y = Convert.ToSingle(hsvColor.S),
-                    Z = Convert.ToSingle(hsvColor.V),
-                    W = Convert.ToSingle(hsvColor.A)
+                    X = Convert.ToSingle(hsvColor.Hue),
+                    Y = Convert.ToSingle(hsvColor.Saturation),
+                    Z = Convert.ToSingle(hsvColor.Value),
+                    W = Convert.ToSingle(hsvColor.Alpha)
                 };
             }
 
@@ -565,9 +565,9 @@ public partial class ColorPicker : Microsoft.UI.Xaml.Controls.ColorPicker
             if (this.ColorSpectrumThirdDimensionSlider != null)
             {
                 // Convert the channels into a usable range for the user
-                double hue         = hsvColor.H;
-                double staturation = hsvColor.S * 100;
-                double value       = hsvColor.V * 100;
+                double hue         = hsvColor.Hue;
+                double staturation = hsvColor.Saturation * 100;
+                double value       = hsvColor.Value * 100;
 
                 switch (this.GetActiveColorSpectrumThirdDimension())
                 {
@@ -610,10 +610,10 @@ public partial class ColorPicker : Microsoft.UI.Xaml.Controls.ColorPicker
             if (this.GetActiveColorRepresentation() == ColorRepresentation.Hsva)
             {
                 // Convert the channels into a usable range for the user
-                double hue         = hsvColor.H;
-                double staturation = hsvColor.S * 100;
-                double value       = hsvColor.V * 100;
-                double alpha       = hsvColor.A * 100;
+                double hue         = hsvColor.Hue;
+                double staturation = hsvColor.Saturation * 100;
+                double value       = hsvColor.Value * 100;
+                double alpha       = hsvColor.Alpha * 100;
 
                 // Hue
                 if (this.Channel1NumberBox != null)
@@ -792,10 +792,10 @@ public partial class ColorPicker : Microsoft.UI.Xaml.Controls.ColorPicker
                 oldHsvColor = this.savedHsvColor.Value;
             }
 
-            double hue        = oldHsvColor.H;
-            double saturation = oldHsvColor.S;
-            double value      = oldHsvColor.V;
-            double alpha      = oldHsvColor.A;
+            double hue        = oldHsvColor.Hue;
+            double saturation = oldHsvColor.Saturation;
+            double value      = oldHsvColor.Value;
+            double alpha      = oldHsvColor.Alpha;
 
             switch (channel)
             {
@@ -825,20 +825,11 @@ public partial class ColorPicker : Microsoft.UI.Xaml.Controls.ColorPicker
                 }
             }
 
-            newRgbColor = Helpers.ColorHelper.FromHsv(
-                hue,
-                saturation,
-                value,
-                alpha);
+            var hsv = HsvColor.Create(hue, saturation, value, alpha);
+            newRgbColor = hsv;
 
             // Must update HSV color
-            this.savedHsvColor = new HsvColor()
-            {
-                H = hue,
-                S = saturation,
-                V = value,
-                A = alpha
-            };
+            this.savedHsvColor = hsv;
             this.savedHsvColorRgbEquivalent = newRgbColor;
         }
         else
@@ -1351,16 +1342,14 @@ public partial class ColorPicker : Microsoft.UI.Xaml.Controls.ColorPicker
     /// </summary>
     private void ColorPreviewer_ColorChangeRequested(object? sender, HsvColor hsvColor)
     {
-        Color rgbColor = Helpers.ColorHelper.FromHsv(hsvColor.H, hsvColor.S, hsvColor.V, hsvColor.A);
-
         // Regardless of the active color model, the previewer always uses HSV
         // Therefore, always calculate HSV color here
         // Warning: Always maintain/use HSV information in the saved HSV color
         // This avoids loss of precision and drift caused by continuously converting to/from RGB
         this.savedHsvColor = hsvColor;
-        this.savedHsvColorRgbEquivalent = rgbColor;
+        this.savedHsvColorRgbEquivalent = hsvColor;
 
-        this.ScheduleColorUpdate(rgbColor);
+        this.ScheduleColorUpdate(hsvColor);
 
         return;
     }
