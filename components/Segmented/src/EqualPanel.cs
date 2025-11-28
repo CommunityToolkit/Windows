@@ -162,52 +162,27 @@ public partial class EqualPanel : Panel
     /// <summary>
     /// A struct for mapping X/Y coordinates to an orientation adjusted U/V coordinate system.
     /// </summary>
-    private ref struct UVCoord
+    private readonly ref struct UVCoord
     {
-        private readonly bool _vertical;
-
-        private ref double _x;
-        private ref double _y;
+        private readonly ref double _u;
+        private readonly ref double _v;
 
         public UVCoord(ref double x, ref double y, Orientation orientation)
         {
-            _x = ref x;
-            _y = ref y;
-            _vertical = orientation is Orientation.Vertical;
-        }
-
-        public ref double X => ref _x;
-
-        public ref double Y => ref _y;
-
-        public ref double U
-        {
-            get
+            if (orientation is Orientation.Horizontal)
             {
-                if (_vertical)
-                {
-                    return ref Y;
-                }
-                else
-                {
-                    return ref X;
-                }
+                _u = ref x;
+                _v = ref y;
+            }
+            else
+            {
+                _u = ref y;
+                _v = ref x;
             }
         }
 
-        public ref double V
-        {
-            get
-            {
-                if (_vertical)
-                {
-                    return ref X;
-                }
-                else
-                {
-                    return ref Y;
-                }
-            }
-        }
+        public readonly ref double U => ref _u;
+
+        public readonly ref double V => ref _v;
     }
 }
