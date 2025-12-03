@@ -117,7 +117,7 @@ public partial class RangeSelector : Control
         var position = isHorizontal ? point.X : point.Y;
         var normalizedPosition = isHorizontal
             ? position * Math.Abs(Maximum - Minimum) / DragWidth()
-            : (Maximum - Minimum) - (position * Math.Abs(Maximum - Minimum) / DragWidth());
+            : Maximum - ((position / DragWidth()) * (Maximum - Minimum));
 
         double upperValueDiff = Math.Abs(RangeEnd - normalizedPosition);
         double lowerValueDiff = Math.Abs(RangeStart - normalizedPosition);
