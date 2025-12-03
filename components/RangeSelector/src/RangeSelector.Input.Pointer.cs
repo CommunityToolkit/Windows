@@ -16,8 +16,12 @@ public partial class RangeSelector : Control
 
     private void ContainerCanvas_PointerExited(object sender, PointerRoutedEventArgs e)
     {
-        var position = e.GetCurrentPoint(_containerCanvas).Position.X;
-        var normalizedPosition = ((position / DragWidth()) * (Maximum - Minimum)) + Minimum;
+        var isHorizontal = Orientation == Orientation.Horizontal;
+        var point = e.GetCurrentPoint(_containerCanvas).Position;
+        var position = isHorizontal ? point.X : point.Y;
+        var normalizedPosition = isHorizontal
+            ? ((position / DragWidth()) * (Maximum - Minimum)) + Minimum
+            : Maximum - ((position / DragWidth()) * (Maximum - Minimum));
 
         if (_pointerManipulatingMin)
         {
@@ -40,13 +44,17 @@ public partial class RangeSelector : Control
             _toolTip.Visibility = Visibility.Collapsed;
         }
 
-        VisualStateManager.GoToState(this, "Normal", false);
+        VisualStateManager.GoToState(this, NormalState, false);
     }
 
     private void ContainerCanvas_PointerReleased(object sender, PointerRoutedEventArgs e)
     {
-        var position = e.GetCurrentPoint(_containerCanvas).Position.X;
-        var normalizedPosition = ((position / DragWidth()) * (Maximum - Minimum)) + Minimum;
+        var isHorizontal = Orientation == Orientation.Horizontal;
+        var point = e.GetCurrentPoint(_containerCanvas).Position;
+        var position = isHorizontal ? point.X : point.Y;
+        var normalizedPosition = isHorizontal
+            ? ((position / DragWidth()) * (Maximum - Minimum)) + Minimum
+            : Maximum - ((position / DragWidth()) * (Maximum - Minimum));
 
         if (_pointerManipulatingMin)
         {
@@ -74,12 +82,16 @@ public partial class RangeSelector : Control
 
     private void ContainerCanvas_PointerMoved(object sender, PointerRoutedEventArgs e)
     {
-        var position = e.GetCurrentPoint(_containerCanvas).Position.X;
-        var normalizedPosition = ((position / DragWidth()) * (Maximum - Minimum)) + Minimum;
+        var isHorizontal = Orientation == Orientation.Horizontal;
+        var point = e.GetCurrentPoint(_containerCanvas).Position;
+        var position = isHorizontal ? point.X : point.Y;
 
         if (_pointerManipulatingMin)
         {
-            RangeStart = DragThumb(_minThumb, 0, DragWidth(), position);
+            RangeStart = isHorizontal
+                ? DragThumb(_minThumb, 0, Canvas.GetLeft(_maxThumb), position)
+                : DragThumbVertical(_minThumb, Canvas.GetTop(_maxThumb), DragWidth(), position);
+
             if (_toolTipText is not null)
             {
                 UpdateToolTipText(this, _toolTipText, RangeStart);
@@ -87,9 +99,12 @@ public partial class RangeSelector : Control
         }
         else if (_pointerManipulatingMax)
         {
+            RangeEnd = isHorizontal
+                ? DragThumb(_maxThumb, Canvas.GetLeft(_minThumb), DragWidth(), position)
+                : DragThumbVertical(_maxThumb, 0, Canvas.GetTop(_minThumb), position);
+
             if (_toolTipText is not null)
             {
-                RangeEnd = DragThumb(_maxThumb, 0, DragWidth(), position);
                 UpdateToolTipText(this, _toolTipText, RangeEnd);
             }
         }
@@ -97,8 +112,13 @@ public partial class RangeSelector : Control
 
     private void ContainerCanvas_PointerPressed(object sender, PointerRoutedEventArgs e)
     {
-        var position = e.GetCurrentPoint(_containerCanvas).Position.X;
-        var normalizedPosition = position * Math.Abs(Maximum - Minimum) / DragWidth();
+        var isHorizontal = Orientation == Orientation.Horizontal;
+        var point = e.GetCurrentPoint(_containerCanvas).Position;
+        var position = isHorizontal ? point.X : point.Y;
+        var normalizedPosition = isHorizontal
+            ? position * Math.Abs(Maximum - Minimum) / DragWidth()
+            : (Maximum - Minimum) - (position * Math.Abs(Maximum - Minimum) / DragWidth());
+
         double upperValueDiff = Math.Abs(RangeEnd - normalizedPosition);
         double lowerValueDiff = Math.Abs(RangeStart - normalizedPosition);
 
