@@ -73,14 +73,9 @@ public partial class RangeSelector : Control
 
     private double DragWidth()
     {
-        if (Orientation == Orientation.Horizontal)
-        {
-            return _containerCanvas!.ActualWidth - _maxThumb!.Width;
-        }
-        else
-        {
-            return _containerCanvas!.ActualHeight - _maxThumb!.Height;
-        }
+        return Orientation == Orientation.Horizontal
+            ? _containerCanvas!.ActualWidth - _maxThumb!.Width
+            : _containerCanvas!.ActualHeight - _maxThumb!.Height;
     }
 
     private double DragThumb(Thumb? thumb, double min, double max, double nextPos)
