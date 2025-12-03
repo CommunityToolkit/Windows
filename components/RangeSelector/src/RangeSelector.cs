@@ -16,6 +16,8 @@ namespace CommunityToolkit.WinUI.Controls;
 [TemplateVisualState(Name = MinPressedState, GroupName = CommonStates)]
 [TemplateVisualState(Name = MaxPressedState, GroupName = CommonStates)]
 [TemplateVisualState(Name = DisabledState, GroupName = CommonStates)]
+[TemplateVisualState(Name = HorizontalState, GroupName = OrientationStates)]
+[TemplateVisualState(Name = VerticalState, GroupName = OrientationStates)]
 [TemplatePart(Name = "OutOfRangeContentContainer", Type = typeof(Border))]
 [TemplatePart(Name = "ActiveRectangle", Type = typeof(Rectangle))]
 [TemplatePart(Name = "MinThumb", Type = typeof(Thumb))]
@@ -33,6 +35,9 @@ public partial class RangeSelector : Control
     internal const string DisabledState = "Disabled";
     internal const string MinPressedState = "MinPressed";
     internal const string MaxPressedState = "MaxPressed";
+    internal const string OrientationStates = "OrientationStates";
+    internal const string HorizontalState = "Horizontal";
+    internal const string VerticalState = "Vertical";
 
     private const double Epsilon = 0.01;
     private const double DefaultMinimum = 0.0;
@@ -135,6 +140,7 @@ public partial class RangeSelector : Control
         }
 
         VisualStateManager.GoToState(this, IsEnabled ? NormalState : DisabledState, false);
+        VisualStateManager.GoToState(this, Orientation == Orientation.Horizontal ? HorizontalState : VerticalState, false);
 
         IsEnabledChanged += RangeSelector_IsEnabledChanged;
 
@@ -142,7 +148,16 @@ public partial class RangeSelector : Control
         var tb = new TextBlock { Text = Maximum.ToString() };
         tb.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
 
+        // Ensure thumbs and active rectangle are synced after the control is fully loaded
+        Loaded += RangeSelector_Loaded;
+
         base.OnApplyTemplate();
+    }
+
+    private void RangeSelector_Loaded(object sender, RoutedEventArgs e)
+    {
+        Loaded -= RangeSelector_Loaded;
+        SyncThumbs();
     }
 
     private static void UpdateToolTipText(RangeSelector rangeSelector, TextBlock toolTip, double newValue)
@@ -237,24 +252,46 @@ public partial class RangeSelector : Control
 
     private void SyncThumbs(bool fromMinKeyDown = false, bool fromMaxKeyDown = false)
     {
-        if (_containerCanvas == null)
+        if (_containerCanvas == null || _minThumb == null || _maxThumb == null)
         {
             return;
         }
 
-        var relativeLeft = ((RangeStart - Minimum) / (Maximum - Minimum)) * DragWidth();
-        var relativeRight = ((RangeEnd - Minimum) / (Maximum - Minimum)) * DragWidth();
+        var relativeStart = ((RangeStart - Minimum) / (Maximum - Minimum)) * DragWidth();
+        var relativeEnd = ((RangeEnd - Minimum) / (Maximum - Minimum)) * DragWidth();
+        var isHorizontal = Orientation == Orientation.Horizontal;
 
-        Canvas.SetLeft(_minThumb, relativeLeft);
-        Canvas.SetLeft(_maxThumb, relativeRight);
+        if (isHorizontal)
+        {
+            Canvas.SetLeft(_minThumb, relativeStart);
+            Canvas.SetLeft(_maxThumb, relativeEnd);
+        }
+        else
+        {
+            // Vertical: invert positions so min is at bottom, max is at top
+            Canvas.SetTop(_minThumb, DragWidth() - relativeStart);
+            Canvas.SetTop(_maxThumb, DragWidth() - relativeEnd);
+        }
 
         if (fromMinKeyDown || fromMaxKeyDown)
         {
-            DragThumb(
-                fromMinKeyDown ? _minThumb : _maxThumb,
-                fromMinKeyDown ? 0 : Canvas.GetLeft(_minThumb),
-                fromMinKeyDown ? Canvas.GetLeft(_maxThumb) : DragWidth(),
-                fromMinKeyDown ? relativeLeft : relativeRight);
+            var thumb = fromMinKeyDown ? _minThumb : _maxThumb;
+            var position = fromMinKeyDown ? relativeStart : relativeEnd;
+
+            if (isHorizontal)
+            {
+                var min = fromMinKeyDown ? 0 : Canvas.GetLeft(_minThumb);
+                var max = fromMinKeyDown ? Canvas.GetLeft(_maxThumb) : DragWidth();
+                DragThumb(thumb, min, max, position);
+            }
+            else
+            {
+                var invertedPosition = DragWidth() - position;
+                var min = fromMinKeyDown ? Canvas.GetTop(_maxThumb) : 0;
+                var max = fromMinKeyDown ? DragWidth() : Canvas.GetTop(_minThumb);
+                DragThumbVertical(thumb, min, max, invertedPosition);
+            }
+
             if (_toolTipText != null)
             {
                 UpdateToolTipText(this, _toolTipText, fromMinKeyDown ? RangeStart : RangeEnd);
@@ -266,25 +303,25 @@ public partial class RangeSelector : Control
 
     private void SyncActiveRectangle()
     {
-        if (_containerCanvas == null)
+        if (_containerCanvas == null || _minThumb == null || _maxThumb == null || _activeRectangle == null)
         {
             return;
         }
 
-        if (_minThumb == null)
+        if (Orientation == Orientation.Horizontal)
         {
-            return;
+            var relativeLeft = Canvas.GetLeft(_minThumb);
+            Canvas.SetLeft(_activeRectangle, relativeLeft);
+            Canvas.SetTop(_activeRectangle, (_containerCanvas.ActualHeight - _activeRectangle.ActualHeight) / 2);
+            _activeRectangle.Width = Math.Max(0, Canvas.GetLeft(_maxThumb) - relativeLeft);
         }
-
-        if (_maxThumb == null)
+        else
         {
-            return;
+            var relativeTop = Canvas.GetTop(_maxThumb);
+            Canvas.SetTop(_activeRectangle, relativeTop);
+            Canvas.SetLeft(_activeRectangle, (_containerCanvas.ActualWidth - _activeRectangle.ActualWidth) / 2);
+            _activeRectangle.Height = Math.Max(0, Canvas.GetTop(_minThumb) - relativeTop);
         }
-
-        var relativeLeft = Canvas.GetLeft(_minThumb);
-        Canvas.SetLeft(_activeRectangle, relativeLeft);
-        Canvas.SetTop(_activeRectangle, (_containerCanvas.ActualHeight - _activeRectangle!.ActualHeight) / 2);
-        _activeRectangle.Width = Math.Max(0, Canvas.GetLeft(_maxThumb) - Canvas.GetLeft(_minThumb));
     }
 
     private void RangeSelector_IsEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)
