@@ -262,7 +262,7 @@
                                         <Setter Target="MaxThumb.Margin" Value="7,0,0,0" />
                                         <Setter Target="MaxThumb.HorizontalAlignment" Value="Center" />
                                         <Setter Target="MaxThumb.VerticalAlignment" Value="Top" />
-                                        <Setter Target="ToolTip.Margin" Value="52,0,0,0" />
+                                        <Setter Target="ToolTip.Margin" Value="0" />
                                     </VisualState.Setters>
                                 </VisualState>
                             </VisualStateGroup>
