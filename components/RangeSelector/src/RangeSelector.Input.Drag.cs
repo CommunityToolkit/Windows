@@ -108,7 +108,7 @@ public partial class RangeSelector : Control
         {
             var thumbCenter = nextPos + (thumb.Height / 2);
             _toolTip.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
-            var ttHeight = _toolTip.ActualHeight / 2;
+            var ttHeight = _toolTip.DesiredSize.Height / 2;
 
             Canvas.SetTop(_toolTip, thumbCenter - ttHeight);
             UpdateToolTipPositionForVertical();
