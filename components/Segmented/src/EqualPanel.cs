@@ -23,7 +23,7 @@ public partial class EqualPanel : Panel
         nameof(Spacing),
         typeof(double),
         typeof(EqualPanel),
-        new PropertyMetadata(default(double), OnPropertyChanged));
+        new PropertyMetadata(default(double), OnEqualPanelPropertyChanged));
 
     /// <summary>
     /// Backing <see cref="DependencyProperty"/> for the <see cref="Orientation"/> property.
@@ -32,7 +32,7 @@ public partial class EqualPanel : Panel
         nameof(Orientation),
         typeof(Orientation),
         typeof(EqualPanel),
-        new PropertyMetadata(default(Orientation), OnPropertyChanged));
+        new PropertyMetadata(default(Orientation), OnEqualPanelPropertyChanged));
 
     /// <summary>
     /// Gets or sets the spacing between items.
@@ -153,7 +153,7 @@ public partial class EqualPanel : Panel
         InvalidateMeasure();
     }
 
-    private static void OnPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    private static void OnEqualPanelPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
         var panel = (EqualPanel)d;
         panel.InvalidateMeasure();
