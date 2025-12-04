@@ -329,4 +329,30 @@ public partial class RangeSelector : Control
     {
         VisualStateManager.GoToState(this, IsEnabled ? NormalState : DisabledState, true);
     }
+
+    private void UpdateToolTipPositionForVertical()
+    {
+        if (_toolTip == null || _containerCanvas == null)
+        {
+            return;
+        }
+
+        // Offset to position tooltip beside the thumb
+        const double toolTipOffset = 52;
+
+        switch (VerticalToolTipPlacement)
+        {
+            case VerticalToolTipPlacement.Right:
+                Canvas.SetLeft(_toolTip, toolTipOffset);
+                break;
+            case VerticalToolTipPlacement.Left:
+                _toolTip.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+                var toolTipWidth = _toolTip.DesiredSize.Width;
+                Canvas.SetLeft(_toolTip, -toolTipWidth - (toolTipOffset - _containerCanvas.ActualWidth));
+                break;
+            case VerticalToolTipPlacement.None:
+                _toolTip.Visibility = Visibility.Collapsed;
+                break;
+        }
+    }
 }
