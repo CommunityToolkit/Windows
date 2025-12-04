@@ -74,6 +74,8 @@ public partial class RangeSelector : Control
 
     private void ShowToolTip()
     {
+        var isHorizontal = Orientation == Orientation.Horizontal;
+        if (!isHorizontal && VerticalToolTipPlacement == VerticalToolTipPlacement.None) return;
         if (_toolTip != null)
         {
             _toolTip.Visibility = Visibility.Visible;
