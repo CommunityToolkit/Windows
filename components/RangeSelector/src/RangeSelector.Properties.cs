@@ -70,6 +70,16 @@ public partial class RangeSelector : Control
             new PropertyMetadata(DefaultStepFrequency));
 
     /// <summary>
+    /// Identifies the <see cref="VerticalToolTipPlacement"/> property.
+    /// </summary>
+    public static readonly DependencyProperty VerticalToolTipPlacementProperty =
+        DependencyProperty.Register(
+            nameof(VerticalToolTipPlacement),
+            typeof(VerticalToolTipPlacement),
+            typeof(RangeSelector),
+            new PropertyMetadata(VerticalToolTipPlacement.Right));
+
+    /// <summary>
     /// Gets or sets the absolute minimum value of the range.
     /// </summary>
     /// <value>
@@ -139,6 +149,19 @@ public partial class RangeSelector : Control
     {
         get => (Orientation)GetValue(OrientationProperty);
         set => SetValue(OrientationProperty, value);
+    }
+
+    /// <summary>
+    /// Gets or sets the placement of the tooltip for the vertical range selector.
+    /// This property only takes effect when <see cref="Orientation"/> is set to <see cref="Orientation.Vertical"/>.
+    /// </summary>
+    /// <value>
+    /// The placement of the tooltip. Default is <see cref="VerticalToolTipPlacement.Right"/>.
+    /// </value>
+    public VerticalToolTipPlacement VerticalToolTipPlacement
+    {
+        get => (VerticalToolTipPlacement)GetValue(VerticalToolTipPlacementProperty);
+        set => SetValue(VerticalToolTipPlacementProperty, value);
     }
 
     private static void OrientationChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
