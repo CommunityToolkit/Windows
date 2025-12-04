@@ -149,6 +149,7 @@ public partial class RangeSelector : Control
         tb.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
 
         // Ensure thumbs and active rectangle are synced after the control is fully loaded
+        Loaded -= RangeSelector_Loaded;
         Loaded += RangeSelector_Loaded;
 
         base.OnApplyTemplate();
