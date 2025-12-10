@@ -121,6 +121,7 @@ jobs:
           --skip wsl
           --skip androidemulator
           --skip vswinworkloads
+          --skip vswin
           --verbose
 
       - name: Add msbuild to PATH
@@ -254,6 +255,7 @@ jobs:
           --skip wsl
           --skip androidemulator
           --skip vswinworkloads
+          --skip vswin
           --verbose
 
       - name: Add msbuild to PATH

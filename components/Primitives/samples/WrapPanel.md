@@ -20,6 +20,9 @@ Spacing can be automatically added between items using the HorizontalSpacing and
 
 When the Orientation is Vertical, HorizontalSpacing adds uniform spacing between each column of items, and VerticalSpacing adds uniform vertical spacing between individual items.
 
+> [!NOTE]
+> When `StretchChild="Last"` is set, the last child will only stretch if the available measure size is finite. If the panel is measured with an infinite width (for horizontal orientation) or infinite height (for vertical orientation), the last child will not stretch.
+
 > [!SAMPLE WrapPanelSample]
 
 ## Examples
