@@ -20,6 +20,15 @@ internal partial class PropertyChangeEventSource<TPropertyType>
     public event EventHandler<TPropertyType> ValueChanged;
 
     /// <summary>
+    /// Gets the Value property.
+    /// </summary>
+    public TPropertyType Value
+    {
+        get => (TPropertyType)_source.GetValue(_property);
+        set => _source.SetValue(_property, value);
+    }
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="PropertyChangeEventSource{TPropertyType}"/> class.
     /// </summary>
     /// <param name="source">The source.</param>
