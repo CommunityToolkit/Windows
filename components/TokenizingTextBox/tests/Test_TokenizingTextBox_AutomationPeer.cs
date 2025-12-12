@@ -3,14 +3,15 @@
 // See the LICENSE file in the project root for more information.
 
 using CommunityToolkit.Tests;
+using CommunityToolkit.Tooling.TestGen;
 using CommunityToolkit.WinUI.Automation.Peers;
 using CommunityToolkit.WinUI.Controls;
 
-namespace TokenizingTextBoxExperiment.Tests;
+namespace TokenizingTextBoxTests;
 
 [TestClass]
 [TestCategory("Test_TokenizingTextBox")]
-public class Test_TokenizingTextBox_AutomationPeer : VisualUITestBase
+public partial class Test_TokenizingTextBox_AutomationPeer : VisualUITestBase
 {
     [TestMethod]
     public async Task ShouldConfigureTokenizingTextBoxAutomationPeerAsync()
@@ -83,24 +84,21 @@ public class Test_TokenizingTextBox_AutomationPeer : VisualUITestBase
         });
     }
 
-    [TestMethod]
+    [UIThreadTestMethod]
     public async Task ShouldThrowElementNotEnabledExceptionIfValueSetWhenDisabled()
     {
-        await App.DispatcherQueue.EnqueueAsync(async () =>
+        const string expectedValue = "Wor";
+
+        var tokenizingTextBox = new TokenizingTextBox { IsEnabled = false };
+
+        await LoadTestContentAsync(tokenizingTextBox);
+
+        var tokenizingTextBoxAutomationPeer =
+            FrameworkElementAutomationPeer.CreatePeerForElement(tokenizingTextBox) as TokenizingTextBoxAutomationPeer;
+
+        Assert.ThrowsException<ElementNotEnabledException>(() =>
         {
-            const string expectedValue = "Wor";
-
-            var tokenizingTextBox = new TokenizingTextBox { IsEnabled = false };
-
-            await LoadTestContentAsync(tokenizingTextBox);
-
-            var tokenizingTextBoxAutomationPeer =
-                FrameworkElementAutomationPeer.CreatePeerForElement(tokenizingTextBox) as TokenizingTextBoxAutomationPeer;
-
-            Assert.ThrowsException<ElementNotEnabledException>(() =>
-            {
-                tokenizingTextBoxAutomationPeer!.SetValue(expectedValue);
-            });
+            tokenizingTextBoxAutomationPeer!.SetValue(expectedValue);
         });
     }
 

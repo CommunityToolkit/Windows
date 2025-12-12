@@ -6,7 +6,7 @@
     <SharedGUID>26383DFF-4962-4C54-B444-B170B62D7252</SharedGUID>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
-    <Import_RootNamespace>HeaderedControlsExperiment.Tests</Import_RootNamespace>
+    <Import_RootNamespace>HeaderedControlsTests</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)HeaderedContentControlTestClass.cs" />

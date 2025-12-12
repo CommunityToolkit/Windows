@@ -6,7 +6,7 @@
     <SharedGUID>A46DF5FE-B90C-452E-BA13-68E795DEB80C</SharedGUID>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
-    <Import_RootNamespace>ConvertersExperiment.Tests</Import_RootNamespace>
+    <Import_RootNamespace>ConvertersTests</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Test_BoolToObjectConverter.cs" />

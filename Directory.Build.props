@@ -27,6 +27,13 @@
     <NoWarn>$(NoWarn);Uno0001</NoWarn>
     <!-- TODO: Turn off sample pages needing samples for now, for initial commit -->
     <NoWarn>$(NoWarn);TKSMPL0014;</NoWarn> 
+
+    <!-- See https://github.com/CommunityToolkit/Windows/pull/567#issuecomment-2498739244 -->
+    <WarningsNotAsErrors>$(WarningsNotAsErrors);NU1901;NU1902;NU1903;NU1904</WarningsNotAsErrors>
+    <NoWarn>$(NoWarn);TKSMPL0014;</NoWarn>
+
+    <!-- See https://github.com/CommunityToolkit/Windows/pull/609#issuecomment-2613505591 -->
+    <WarningsNotAsErrors>$(WarningsNotAsErrors);CS0419;CS1570;CS1574</WarningsNotAsErrors>
   </PropertyGroup>
 
   <Import Project="Windows.Toolkit.Common.props" />

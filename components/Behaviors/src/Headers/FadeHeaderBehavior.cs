@@ -46,6 +46,9 @@ public class FadeHeaderBehavior : HeaderBehaviorBase
         return false;
     }
 
+    /// <summary>
+    /// Stops the animation.
+    /// </summary>
     protected override void StopAnimation()
     {
         if (_headerVisual != null)

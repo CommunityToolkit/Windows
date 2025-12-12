@@ -2,8 +2,6 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
-using System.ComponentModel.Design;
-
 namespace CommunityToolkit.WinUI.Controls;
 
 /// <summary>
@@ -21,6 +19,9 @@ namespace CommunityToolkit.WinUI.Controls;
 [TemplateVisualState(Name = PressedState, GroupName = CommonStates)]
 [TemplateVisualState(Name = DisabledState, GroupName = CommonStates)]
 
+[TemplateVisualState(Name = BitmapHeaderIconEnabledState, GroupName = BitmapHeaderIconStates)]
+[TemplateVisualState(Name = BitmapHeaderIconDisabledState, GroupName = BitmapHeaderIconStates)]
+
 [TemplateVisualState(Name = RightState, GroupName = ContentAlignmentStates)]
 [TemplateVisualState(Name = RightWrappedState, GroupName = ContentAlignmentStates)]
 [TemplateVisualState(Name = RightWrappedNoIconState, GroupName = ContentAlignmentStates)]
@@ -37,6 +38,10 @@ public partial class SettingsCard : ButtonBase
     internal const string PointerOverState = "PointerOver";
     internal const string PressedState = "Pressed";
     internal const string DisabledState = "Disabled";
+
+    internal const string BitmapHeaderIconStates = "BitmapHeaderIconStates";
+    internal const string BitmapHeaderIconEnabledState = "BitmapHeaderIconEnabled";
+    internal const string BitmapHeaderIconDisabledState = "BitmapHeaderIconDisabled";
 
     internal const string ContentAlignmentStates = "ContentAlignmentStates";
     internal const string RightState = "Right";
@@ -76,7 +81,7 @@ public partial class SettingsCard : ButtonBase
         CheckInitialVisualState();
         SetAccessibleContentName();
         RegisterPropertyChangedCallback(ContentProperty, OnContentChanged);
-        IsEnabledChanged += OnIsEnabledChanged;     
+        IsEnabledChanged += OnIsEnabledChanged;
     }
 
     private void CheckInitialVisualState()
@@ -89,6 +94,8 @@ public partial class SettingsCard : ButtonBase
             CheckVerticalSpacingState(contentAlignmentStatesGroup.CurrentState);
             contentAlignmentStatesGroup.CurrentStateChanged += this.ContentAlignmentStates_Changed;
         }
+
+        CheckHeaderIconState();
     }
 
     // We automatically set the AutomationProperties.Name of the Content if not configured.
@@ -148,12 +155,18 @@ public partial class SettingsCard : ButtonBase
         }
     }
 
+    /// <summary>
+    /// Handles the PointerEntered event.
+    /// </summary>
     public void Control_PointerEntered(object sender, PointerRoutedEventArgs e)
     {
         base.OnPointerEntered(e);
         VisualStateManager.GoToState(this, PointerOverState, true);
     }
     
+    /// <summary>
+    /// Handles the PointerExited event.
+    /// </summary>
     public void Control_PointerExited(object sender, PointerRoutedEventArgs e)
     {
         base.OnPointerExited(e);
@@ -172,9 +185,11 @@ public partial class SettingsCard : ButtonBase
         VisualStateManager.GoToState(this, NormalState, true);
     }
 
+    /// <summary>
+    /// Handles the PointerPressed event.
+    /// </summary>
     protected override void OnPointerPressed(PointerRoutedEventArgs e)
     {
-        //  e.Handled = true;
         if (IsClickEnabled)
         {
             base.OnPointerPressed(e);
@@ -182,6 +197,9 @@ public partial class SettingsCard : ButtonBase
         }
     }
     
+    /// <summary>
+    /// Handles the PointerReleased event.
+    /// </summary>
     protected override void OnPointerReleased(PointerRoutedEventArgs e)
     {
         if (IsClickEnabled)
@@ -216,6 +234,18 @@ public partial class SettingsCard : ButtonBase
     private void OnIsEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)
     {
         VisualStateManager.GoToState(this, IsEnabled ? NormalState : DisabledState, true);
+
+        CheckHeaderIconState();
+    }
+    
+    private void CheckHeaderIconState()
+    {
+        // The Disabled visual state will only set the right Foreground brush, but for images we need to lower the opacity so it looks disabled.
+        
+        if (HeaderIcon is BitmapIcon)
+        {
+            VisualStateManager.GoToState(this, IsEnabled ? BitmapHeaderIconEnabledState : BitmapHeaderIconDisabledState, true);
+        }
     }
 
     private void OnActionIconChanged()
@@ -228,7 +258,7 @@ public partial class SettingsCard : ButtonBase
             }
             else
             {
-                actionIconPresenter.Visibility =Visibility.Collapsed;
+                actionIconPresenter.Visibility = Visibility.Collapsed;
             }
         }
     }

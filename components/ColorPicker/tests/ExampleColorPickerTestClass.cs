@@ -7,7 +7,7 @@ using CommunityToolkit.Tests;
 using CommunityToolkit.WinUI.Controls;
 using ColorPicker = CommunityToolkit.WinUI.Controls.ColorPicker;
 
-namespace ColorPickerExperiment.Tests;
+namespace ColorPickerTests;
 
 [TestClass]
 public partial class ExampleColorPickerTestClass : VisualUITestBase

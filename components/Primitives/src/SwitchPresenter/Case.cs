@@ -13,9 +13,9 @@ public partial class Case : DependencyObject
     /// <summary>
     /// Gets or sets the Content to display when this case is active.
     /// </summary>
-    public UIElement Content
+    public object Content
     {
-        get { return (UIElement)GetValue(ContentProperty); }
+        get { return (object)GetValue(ContentProperty); }
         set { SetValue(ContentProperty, value); }
     }
 
@@ -23,7 +23,7 @@ public partial class Case : DependencyObject
     /// Identifies the <see cref="Content"/> property.
     /// </summary>
     public static readonly DependencyProperty ContentProperty =
-        DependencyProperty.Register(nameof(Content), typeof(UIElement), typeof(Case), new PropertyMetadata(null));
+        DependencyProperty.Register(nameof(Content), typeof(object), typeof(Case), new PropertyMetadata(null));
 
     /// <summary>
     /// Gets or sets a value indicating whether this is the default case to display when no values match the specified value in the <see cref="SwitchPresenter"/>. There should only be a single default case provided. Do not set the <see cref="Value"/> property when setting <see cref="IsDefault"/> to <c>true</c>. Default is <c>false</c>.

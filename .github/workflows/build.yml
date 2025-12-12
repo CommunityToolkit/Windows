@@ -17,7 +17,7 @@ on:
   merge_group:
 
 env:
-  DOTNET_VERSION: ${{ '8.0.201' }}
+  DOTNET_VERSION: ${{ '9.0.x' }}
   ENABLE_DIAGNOSTICS: true
   MSBUILD_VERBOSITY: normal
   #COREHOST_TRACE: 1
@@ -32,7 +32,7 @@ env:
 jobs:
   # This workflow contains a single job called "Xaml-Style-Check"
   Xaml-Style-Check:
-    runs-on: windows-latest
+    runs-on: windows-2022
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -57,7 +57,7 @@ jobs:
   # Build both Uno.UI/WinUI2/UWP and Uno.WinUI/WinUI3/WindowsAppSDK versions of our packages using a matrix
   build:
     needs: [Xaml-Style-Check]
-    runs-on: windows-latest-large
+    runs-on: windows-2022
 
     # See https://docs.github.com/actions/using-jobs/using-a-matrix-for-your-jobs
     strategy:
@@ -121,6 +121,7 @@ jobs:
           --skip wsl
           --skip androidemulator
           --skip vswinworkloads
+          --skip vswin
           --verbose
 
       - name: Add msbuild to PATH
@@ -154,7 +155,7 @@ jobs:
 
       - name: Run SourceGenerators tests
         id: test-generator
-        run: vstest.console.exe ./tooling/CommunityToolkit.Tooling.SampleGen.Tests/bin/Release/net6.0/CommunityToolkit.Tooling.SampleGen.Tests.dll /logger:"trx;LogFileName=SourceGenerators.trx"
+        run: vstest.console.exe ./tooling/CommunityToolkit.Tooling.SampleGen.Tests/bin/Release/net8.0/CommunityToolkit.Tooling.SampleGen.Tests.dll /logger:"trx;LogFileName=SourceGenerators.trx"
 
       - name: Run component tests against ${{ matrix.multitarget }}
         if: ${{ matrix.multitarget == 'uwp' || matrix.multitarget == 'wasdk' }}
@@ -202,7 +203,7 @@ jobs:
           dotnet-dump analyze ${{ steps.detect-dump.outputs.DUMP_FILE }} -c "clrstack" -c "pe -lines" -c "exit"
 
   package:
-    runs-on: windows-latest
+    runs-on: windows-2022
     needs: [build]
     strategy:
       fail-fast: false # prevent one matrix pipeline from being cancelled if one fails, we want them all to run to completion.
@@ -254,6 +255,7 @@ jobs:
           --skip wsl
           --skip androidemulator
           --skip vswinworkloads
+          --skip vswin
           --verbose
 
       - name: Add msbuild to PATH
@@ -313,7 +315,7 @@ jobs:
   sign:
     needs: [package]
     if: ${{ github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/heads/rel/') }}
-    runs-on: windows-latest
+    runs-on: windows-2022
     permissions:
       id-token: write # Required for requesting the JWT
 

@@ -152,41 +152,62 @@ public partial class SettingsCard : ButtonBase
         set => SetValue(IsActionIconVisibleProperty, value);
     }
 
+    /// <summary>
+    /// Called when the IsClickEnabled property changes.
+    /// </summary>
     protected virtual void OnIsClickEnabledPropertyChanged(bool oldValue, bool newValue)
     {
         OnIsClickEnabledChanged();
     }
+
+    /// <summary>
+    /// Called when the HeaderIcon property changes.
+    /// </summary>
     protected virtual void OnHeaderIconPropertyChanged(IconElement oldValue, IconElement newValue)
     {
         OnHeaderIconChanged();
     }
 
+    /// <summary>
+    /// Called when the Header property changes.
+    /// </summary>
     protected virtual void OnHeaderPropertyChanged(object oldValue, object newValue)
     {
         OnHeaderChanged();
     }
 
+    /// <summary>
+    /// Called when the Description property changes.
+    /// </summary>
     protected virtual void OnDescriptionPropertyChanged(object oldValue, object newValue)
     {
         OnDescriptionChanged();
     }
 
+    /// <summary>
+    /// Called when the IsActionIconVisible property changes.
+    /// </summary>
     protected virtual void OnIsActionIconVisiblePropertyChanged(bool oldValue, bool newValue)
     {
         OnActionIconChanged();
     }
 }
 
+/// <summary>
+/// The alignment of Content.
+/// </summary>
 public enum ContentAlignment
 {
     /// <summary>
     /// The Content is aligned to the right. Default state.
     /// </summary>
     Right,
+
     /// <summary>
     /// The Content is left-aligned while the Header, HeaderIcon and Description are collapsed. This is commonly used for Content types such as CheckBoxes, RadioButtons and custom layouts.
     /// </summary>
     Left,
+
     /// <summary>
     /// The Content is vertically aligned.
     /// </summary>

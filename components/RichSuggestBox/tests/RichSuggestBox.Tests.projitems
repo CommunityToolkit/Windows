@@ -6,7 +6,7 @@
     <SharedGUID>0D173C44-6D69-49B6-B52D-A71C7141EC73</SharedGUID>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
-    <Import_RootNamespace>RichSuggestBoxExperiment.Tests</Import_RootNamespace>
+    <Import_RootNamespace>RichSuggestBoxTests</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)RichSuggestBoxTest.cs" />

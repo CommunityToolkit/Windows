@@ -5,7 +5,7 @@
 using CommunityToolkit.Tests;
 using CommunityToolkit.WinUI.Controls;
 
-namespace PrimitivesExperiment.Tests;
+namespace PrimitivesTests;
 
 [TestClass]
 public class Test_WrapPanel_Visibility : VisualUITestBase

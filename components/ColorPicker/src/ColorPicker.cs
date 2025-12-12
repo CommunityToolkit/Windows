@@ -42,9 +42,11 @@ namespace CommunityToolkit.WinUI.Controls;
 [TemplatePart(Name = nameof(ColorPicker.CheckeredBackground9Border),  Type = typeof(Border))]
 [TemplatePart(Name = nameof(ColorPicker.CheckeredBackground10Border), Type = typeof(Border))]
 [TemplatePart(Name = nameof(ColorPicker.ColorPanelSelector),          Type = typeof(Segmented))]
+[TemplatePart(Name = nameof(ColorPicker.ContentContainer),            Type = typeof(SwitchPresenter))]
 [TemplatePart(Name = nameof(ColorPicker.ColorSpectrumControl),        Type = typeof(ColorSpectrum))]
 [TemplatePart(Name = nameof(ColorPicker.ColorSpectrumAlphaSlider),    Type = typeof(ColorPickerSlider))]
 [TemplatePart(Name = nameof(ColorPicker.ColorSpectrumThirdDimensionSlider), Type = typeof(ColorPickerSlider))]
+[TemplatePart(Name = nameof(ColorPicker.PaletteItemGridView),         Type = typeof(GridView))]
 [TemplatePart(Name = nameof(ColorPicker.HexInputTextBox),             Type = typeof(TextBox))]
 [TemplatePart(Name = nameof(ColorPicker.ColorModeComboBox), Type = typeof(ComboBox))]
 
@@ -74,10 +76,13 @@ public partial class ColorPicker : Microsoft.UI.Xaml.Controls.ColorPicker
     private Color?               updatedRgbColor            = null;
     private DispatcherQueueTimer? dispatcherQueueTimer       = null;
 
-    private Segmented           ColorPanelSelector;
+    private Segmented       ColorPanelSelector;
+    private SwitchPresenter ContentContainer;
+
     private ColorSpectrum     ColorSpectrumControl;
     private ColorPickerSlider ColorSpectrumAlphaSlider;
     private ColorPickerSlider ColorSpectrumThirdDimensionSlider;
+    private GridView          PaletteItemGridView;
     private TextBox           HexInputTextBox;
     private ComboBox          ColorModeComboBox;
 
@@ -177,10 +182,13 @@ public partial class ColorPicker : Microsoft.UI.Xaml.Controls.ColorPicker
         this.ConnectEvents(false);
 
         this.ColorPanelSelector = (Segmented)GetTemplateChild(nameof(ColorPanelSelector));
+        this.ContentContainer   = (SwitchPresenter)GetTemplateChild(nameof(ContentContainer));
 
         this.ColorSpectrumControl              = (ColorSpectrum)GetTemplateChild(nameof(ColorSpectrumControl));
         this.ColorSpectrumAlphaSlider          = (ColorPickerSlider)this.GetTemplateChild(nameof(ColorSpectrumAlphaSlider));
         this.ColorSpectrumThirdDimensionSlider = (ColorPickerSlider)this.GetTemplateChild(nameof(ColorSpectrumThirdDimensionSlider));
+
+        this.PaletteItemGridView = (GridView)GetTemplateChild(nameof(PaletteItemGridView));
 
         this.HexInputTextBox = (TextBox)this.GetTemplateChild(nameof(HexInputTextBox));
         this.ColorModeComboBox = (ComboBox)this.GetTemplateChild(nameof(ColorModeComboBox));
@@ -255,8 +263,13 @@ public partial class ColorPicker : Microsoft.UI.Xaml.Controls.ColorPicker
             this.eventsConnected == false)
         {
             // Add all events
+            if (this.ColorPanelSelector != null) { this.ColorPanelSelector.SelectionChanged += this.ColorPanelSelector_SelectionChanged; }
+
             if (this.ColorSpectrumControl != null) { this.ColorSpectrumControl.ColorChanged += ColorSpectrum_ColorChanged; }
             if (this.ColorSpectrumControl != null) { this.ColorSpectrumControl.GotFocus     += ColorSpectrum_GotFocus; }
+
+            if (this.PaletteItemGridView != null) { this.PaletteItemGridView.SelectionChanged += this.PaletteItemGridView_SelectionChanged; }
+
             if (this.HexInputTextBox      != null) { this.HexInputTextBox.KeyDown           += HexInputTextBox_KeyDown; }
             if (this.HexInputTextBox      != null) { this.HexInputTextBox.LostFocus         += HexInputTextBox_LostFocus; }
             if (this.ColorModeComboBox    != null) { this.ColorModeComboBox.SelectionChanged += ColorModeComboBox_SelectionChanged; }
@@ -299,8 +312,13 @@ public partial class ColorPicker : Microsoft.UI.Xaml.Controls.ColorPicker
                  this.eventsConnected == true)
         {
             // Remove all events
+            if (this.ColorPanelSelector != null) { this.ColorPanelSelector.SelectionChanged -= this.ColorPanelSelector_SelectionChanged; }
+
             if (this.ColorSpectrumControl != null) { this.ColorSpectrumControl.ColorChanged -= ColorSpectrum_ColorChanged; }
             if (this.ColorSpectrumControl != null) { this.ColorSpectrumControl.GotFocus     -= ColorSpectrum_GotFocus; }
+
+            if (this.PaletteItemGridView != null) { this.PaletteItemGridView.SelectionChanged -= this.PaletteItemGridView_SelectionChanged; }
+
             if (this.HexInputTextBox      != null) { this.HexInputTextBox.KeyDown           -= HexInputTextBox_KeyDown; }
             if (this.HexInputTextBox      != null) { this.HexInputTextBox.LostFocus         -= HexInputTextBox_LostFocus; }
             if (this.ColorModeComboBox != null) { this.ColorModeComboBox.SelectionChanged -= ColorModeComboBox_SelectionChanged; }
@@ -358,7 +376,7 @@ public partial class ColorPicker : Microsoft.UI.Xaml.Controls.ColorPicker
         VisualStateManager.GoToState(this, (Truth(IsColorPaletteVisible, IsColorSpectrumVisible, IsColorChannelTextInputVisible) <= 1) ? "ColorPanelSelectorCollapsed" : "ColorPanelSelectorVisible", useTransitions);
     }
 
-    public static int Truth(params bool[] booleans)
+    private static int Truth(params bool[] booleans)
     {
         return booleans.Count(b => b);
     }
@@ -1187,6 +1205,22 @@ public partial class ColorPicker : Microsoft.UI.Xaml.Controls.ColorPicker
     }
 
     /// <summary>
+    /// Event handler for when the color panel selector selection changes.
+    /// We are setting the value here instead of ElementName binding as a workaround for AoT issues.
+    /// (See https://github.com/microsoft/microsoft-ui-xaml/issues/10214)
+    /// </summary>
+    private void ColorPanelSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        if (this.ContentContainer is null ||
+            (sender as Segmented)?.SelectedItem is not FrameworkElement selectedItem)
+        {
+            return;
+        }
+
+        this.ContentContainer.Value = selectedItem.Name;
+    }
+
+    /// <summary>
     /// Event handler for when the color spectrum color is changed.
     /// This occurs when the user presses on the spectrum to select a new color.
     /// </summary>
@@ -1299,6 +1333,20 @@ public partial class ColorPicker : Microsoft.UI.Xaml.Controls.ColorPicker
         }
 
         return;
+    }
+
+    /// <summary>
+    /// Event handler for when a color is selected from the palette.
+    /// This will update the current color.
+    /// </summary>
+    private void PaletteItemGridView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        if ((sender as GridView)?.SelectedValue is not Color selectedColor)
+        {
+            return;
+        }
+
+        this.Color = selectedColor;
     }
 
     /// <summary>

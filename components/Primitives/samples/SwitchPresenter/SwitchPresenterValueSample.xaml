@@ -22,7 +22,11 @@
                   SelectedIndex="0" />
         <controls:SwitchPresenter Padding="16"
                                   TargetType="local:Animal"
-                                  Value="{Binding SelectedItem, ElementName=AnimalPicker}">
+                                  Value="{x:Bind AnimalPicker.SelectedItem, Mode=OneWay}">
+            <controls:Case Value="Bunny">
+                <TextBlock FontSize="32"
+                           Text="🐇" />
+            </controls:Case>
             <controls:Case Value="Cat">
                 <TextBlock FontSize="32"
                            Text="🐈" />
@@ -31,13 +35,21 @@
                 <TextBlock FontSize="32"
                            Text="🐕" />
             </controls:Case>
-            <controls:Case Value="Bunny">
+            <controls:Case Value="Giraffe">
                 <TextBlock FontSize="32"
-                           Text="🐇" />
+                           Text="🦒" />
             </controls:Case>
             <controls:Case Value="Llama">
                 <TextBlock FontSize="32"
                            Text="🦙" />
+            </controls:Case>
+            <controls:Case Value="Otter">
+                <TextBlock FontSize="32"
+                           Text="🦦" />
+            </controls:Case>
+            <controls:Case Value="Owl">
+                <TextBlock FontSize="32"
+                           Text="🦉" />
             </controls:Case>
             <controls:Case Value="Parrot">
                 <TextBlock FontSize="32"

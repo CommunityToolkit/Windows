@@ -9,23 +9,27 @@
     For UWP / WinAppSDK / Uno packages, place the package references here.
 -->
 <Project>
+    <ItemGroup>
+        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0"/>
+    </ItemGroup>
+  
     <!-- WinUI 2 / UWP -->
     <ItemGroup Condition="'$(IsUwp)' == 'true'">
-        <!-- <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Controls.Primitives" Version="7.1.2"/> -->
+        <PackageReference Include="Microsoft.Xaml.Behaviors.Uwp.Managed" Version="3.0.0"/>
     </ItemGroup>
 
     <!-- WinUI 2 / Uno -->
     <ItemGroup Condition="'$(IsUno)' == 'true' AND '$(WinUIMajorVersion)' == '2'">
-        <!-- <PackageReference Include="Uno.Microsoft.Toolkit.Uwp.UI.Controls.Primitives" Version="7.1.11"/> -->
+        <PackageReference Include="Uno.Microsoft.Xaml.Behaviors.Interactivity" Version="3.0.3"/>
     </ItemGroup>
 
     <!-- WinUI 3 / WinAppSdk -->
-    <ItemGroup Condition="'$(IsWinAppSdk)' == 'true'">
-        <!-- <PackageReference Include="CommunityToolkit.WinUI.UI.Controls.Primitives" Version="7.1.2"/> -->
+    <ItemGroup Condition="'$(IsWinAppSdk)' == 'true'">      
+         <PackageReference Include="Microsoft.Xaml.Behaviors.WinUI.Managed" Version="3.0.0"/>
     </ItemGroup>
     
     <!-- WinUI 3 / Uno -->
     <ItemGroup Condition="'$(IsUno)' == 'true' AND '$(WinUIMajorVersion)' == '3'">
-        <!-- <PackageReference Include="Uno.CommunityToolkit.WinUI.UI.Controls.Primitives" Version="7.1.100-dev.15.g12261e2626"/> -->
+         <PackageReference Include="Uno.Microsoft.Xaml.Behaviors.Interactivity.WinUI" Version="3.0.3"/>
     </ItemGroup>
 </Project>

@@ -226,6 +226,7 @@ public sealed partial class SurfaceLoader : IDisposable
         return await LoadFromUri(uri, sizeTarget);
     }
 
+    /// <inheritdoc/>
     public void Dispose()
     {
         compositionDevice?.Dispose();

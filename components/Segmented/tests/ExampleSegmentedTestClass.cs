@@ -6,7 +6,7 @@ using CommunityToolkit.WinUI.Controls;
 using CommunityToolkit.Tooling.TestGen;
 using CommunityToolkit.Tests;
 
-namespace SegmentedExperiment.Tests;
+namespace SegmentedTests;
 
 [TestClass]
 public partial class ExampleSegmentedTestClass : VisualUITestBase

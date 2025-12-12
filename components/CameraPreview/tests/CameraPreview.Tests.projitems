@@ -6,6 +6,6 @@
     <SharedGUID>E4B3B38E-CB22-4C76-8906-018E2191DA41</SharedGUID>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
-    <Import_RootNamespace>CameraPreviewExperiment.Tests</Import_RootNamespace>
+    <Import_RootNamespace>CameraPreviewTests</Import_RootNamespace>
   </PropertyGroup>
 </Project>

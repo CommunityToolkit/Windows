@@ -6,7 +6,7 @@
     <SharedGUID>0EE1522F-BD8D-4BB1-9B44-303BAE40E457</SharedGUID>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
-    <Import_RootNamespace>TokenizingTextBoxExperiment.Tests</Import_RootNamespace>
+    <Import_RootNamespace>TokenizingTextBoxTests</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Test_TokenizingTextBox_General.cs" />

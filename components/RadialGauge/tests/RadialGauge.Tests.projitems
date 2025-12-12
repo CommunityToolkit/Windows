@@ -6,7 +6,7 @@
     <SharedGUID>2D8A9068-EF5F-4569-982C-D7147398B174</SharedGUID>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
-    <Import_RootNamespace>RadialGaugeExperiment.Tests</Import_RootNamespace>
+    <Import_RootNamespace>RadialGaugeTests</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Test_RadialGauge.cs" />

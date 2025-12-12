@@ -5,7 +5,7 @@
 using CommunityToolkit.Tests;
 using CommunityToolkit.WinUI.Controls;
 
-namespace PrimitivesExperiment.Tests;
+namespace PrimitivesTests;
 
 /// <summary>
 /// These tests check whether the inner alignment of the box within it's parent works as expected.
