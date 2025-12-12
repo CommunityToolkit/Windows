@@ -4,7 +4,7 @@
 
 using CommunityToolkit.WinUI.Helpers;
 
-namespace HelpersExperiment.Tests;
+namespace HelpersTests;
 
 [TestClass]
 public class Test_WeakEventListener

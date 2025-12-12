@@ -7,7 +7,7 @@ using CommunityToolkit.Tooling.TestGen;
 using CommunityToolkit.WinUI.Controls;
 using CommunityToolkit.WinUI.Converters;
 
-namespace PrimitivesExperiment.Tests;
+namespace PrimitivesTests;
 
 [TestClass]
 public partial class SwitchPresenterTests : VisualUITestBase

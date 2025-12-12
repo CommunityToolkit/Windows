@@ -7,7 +7,7 @@ using CommunityToolkit.Tooling.TestGen;
 using CommunityToolkit.Tests;
 using CommunityToolkit.WinUI.Controls.Automation.Peers;
 
-namespace SizersExperiment.Tests;
+namespace SizersTests;
 
 [TestClass]
 public partial class ExampleSizerBaseTestClass : VisualUITestBase

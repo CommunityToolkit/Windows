@@ -6,6 +6,6 @@
     <SharedGUID>44685B7D-B5D2-401F-8EFA-843568DCCF8D</SharedGUID>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
-    <Import_RootNamespace>MetadataControlExperiment.Tests</Import_RootNamespace>
+    <Import_RootNamespace>MetadataControlTests</Import_RootNamespace>
   </PropertyGroup>
 </Project>

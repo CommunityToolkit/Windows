@@ -3,19 +3,19 @@
   "isRoot": true,
   "tools": {
     "uno.check": {
-      "version": "1.27.4",
+      "version": "1.33.1",
       "commands": [
         "uno-check"
       ]
     },
     "xamlstyler.console": {
-      "version": "3.2206.4",
+      "version": "3.2501.8",
       "commands": [
         "xstyler"
       ]
     },
     "microsoft.visualstudio.slngen.tool": {
-      "version": "11.2.6",
+      "version": "12.0.13",
       "commands": [
         "slngen"
       ]

@@ -16,7 +16,7 @@
 //using Microsoft.VisualStudio.TestTools.UnitTesting;
 //#endif
 
-//namespace RichSuggestBoxExperiment.Tests;
+//namespace RichSuggestBoxTests;
 
 //    [TestClass]
 //    public class RichSuggestBoxTest : UITestBase

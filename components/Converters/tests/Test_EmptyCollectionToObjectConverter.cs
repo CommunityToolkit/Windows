@@ -10,7 +10,7 @@ using Windows.UI.Xaml.Media.Imaging;
 
 using CommunityToolkit.WinUI.Converters;
 
-namespace ConvertersExperiment.Tests;
+namespace ConvertersTests;
 
 [TestClass]
 public class Test_EmptyCollectionToObjectConverter

@@ -39,6 +39,7 @@ public partial class Segmented : ListViewBase
         base.OnApplyTemplate();
         if (!_hasLoaded)
         {
+            SelectedIndex = -1;
             SelectedIndex = _internalSelectedIndex;
             _hasLoaded = true;
         }

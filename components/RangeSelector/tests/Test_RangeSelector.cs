@@ -5,7 +5,7 @@
 using CommunityToolkit.Tests;
 using CommunityToolkit.WinUI.Controls;
 
-namespace RangeSelectorExperiment.Tests;
+namespace RangeSelectorTests;
 
 [TestClass]
 public class Test_RangeSelector : VisualUITestBase

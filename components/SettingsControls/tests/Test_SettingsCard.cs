@@ -6,7 +6,7 @@ using CommunityToolkit.Tooling.TestGen;
 using CommunityToolkit.Tests;
 using CommunityToolkit.WinUI.Controls;
 
-namespace SettingsControlsExperiment.Tests;
+namespace SettingsControlsTests;
 
 [TestClass]
 public partial class SettingsCardTestClass : VisualUITestBase

@@ -4,7 +4,7 @@
 
 using CommunityToolkit.WinUI.Collections;
 
-namespace CollectionsExperiment.Tests;
+namespace CollectionsTests;
 
 [TestClass]
 public class Test_IncrementalLoadingCollection

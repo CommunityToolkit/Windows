@@ -6,6 +6,6 @@
     <SharedGUID>3F30E029-8FAC-4F2C-852D-5298DC74FC3D</SharedGUID>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
-    <Import_RootNamespace>LayoutTransformControlExperiment.Tests</Import_RootNamespace>
+    <Import_RootNamespace>LayoutTransformControlTests</Import_RootNamespace>
   </PropertyGroup>
 </Project>

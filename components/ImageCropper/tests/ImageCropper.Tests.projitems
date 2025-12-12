@@ -6,6 +6,6 @@
     <SharedGUID>ED5ED007-DAC5-4018-898F-DE03DAA67173</SharedGUID>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
-    <Import_RootNamespace>ImageCropperExperiment.Tests</Import_RootNamespace>
+    <Import_RootNamespace>ImageCropperTests</Import_RootNamespace>
   </PropertyGroup>
 </Project>

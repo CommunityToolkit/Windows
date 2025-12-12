@@ -6,7 +6,7 @@ using CommunityToolkit.Tests;
 using CommunityToolkit.Tooling.TestGen;
 using CommunityToolkit.WinUI.Controls;
 
-namespace PrimitivesExperiment.Tests;
+namespace PrimitivesTests;
 
 [TestClass]
 public partial class Test_UniformGrid_AutoLayout : VisualUITestBase

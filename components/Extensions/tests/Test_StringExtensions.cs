@@ -5,7 +5,7 @@
 using System.Numerics;
 using System.Globalization;
 
-namespace ExtensionsComponent.Tests;
+namespace ExtensionsTests;
 
 [TestClass]
 public class Test_StringExtensions
