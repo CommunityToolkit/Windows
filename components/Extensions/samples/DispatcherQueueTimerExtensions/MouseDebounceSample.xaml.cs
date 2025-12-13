@@ -11,7 +11,7 @@ using DispatcherQueue = Windows.System.DispatcherQueue;
 using DispatcherQueueTimer = Windows.System.DispatcherQueueTimer;
 #endif
 
-namespace ExtensionsExperiment.Samples.DispatcherQueueExtensions;
+namespace ExtensionsExperiment.Samples.DispatcherQueueTimerExtensions;
 
 [ToolkitSample(id: nameof(MouseDebounceSample), "DispatcherQueueTimer Debounce Mouse", description: "A sample for showing how to use the DispatcherQueueTimer Debounce extension to smooth mouse input.")]
 [ToolkitSampleNumericOption("Interval", 400, 300, 1000)]
