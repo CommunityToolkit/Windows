@@ -34,7 +34,6 @@ public partial class RangeSelector : Control
     internal const string MinPressedState = "MinPressed";
     internal const string MaxPressedState = "MaxPressed";
 
-    private const double Epsilon = 0.01;
     private const double DefaultMinimum = 0.0;
     private const double DefaultMaximum = 10.0;
     private const double DefaultStepFrequency = 1;
@@ -162,13 +161,14 @@ public partial class RangeSelector : Control
     {
         if (Minimum > Maximum)
         {
-            Minimum = Maximum;
-            Maximum = Maximum;
+            Maximum = Math.Min(Minimum, Maximum);
+            Minimum = Math.Min(Minimum, Maximum);
         }
 
         if (Minimum == Maximum)
         {
-            Maximum += Epsilon;
+            RangeStart = Minimum;
+            RangeEnd = Maximum;
         }
 
         if (!_maxSet)
@@ -241,6 +241,8 @@ public partial class RangeSelector : Control
         {
             return;
         }
+
+        VerifyValues();
 
         var relativeLeft = ((RangeStart - Minimum) / (Maximum - Minimum)) * DragWidth();
         var relativeRight = ((RangeEnd - Minimum) / (Maximum - Minimum)) * DragWidth();
