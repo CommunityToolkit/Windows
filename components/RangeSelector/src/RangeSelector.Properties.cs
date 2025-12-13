@@ -10,6 +10,16 @@ namespace CommunityToolkit.WinUI.Controls;
 public partial class RangeSelector : Control
 {
     /// <summary>
+    /// Identifies the <see cref="Orientation"/> property.
+    /// </summary>
+    public static readonly DependencyProperty OrientationProperty =
+        DependencyProperty.Register(
+            nameof(Orientation),
+            typeof(Orientation),
+            typeof(RangeSelector),
+            new PropertyMetadata(Orientation.Horizontal, OrientationChangedCallback));
+
+    /// <summary>
     /// Identifies the <see cref="Minimum"/> property.
     /// </summary>
     public static readonly DependencyProperty MinimumProperty =
@@ -58,6 +68,16 @@ public partial class RangeSelector : Control
             typeof(double),
             typeof(RangeSelector),
             new PropertyMetadata(DefaultStepFrequency));
+
+    /// <summary>
+    /// Identifies the <see cref="VerticalToolTipPlacement"/> property.
+    /// </summary>
+    public static readonly DependencyProperty VerticalToolTipPlacementProperty =
+        DependencyProperty.Register(
+            nameof(VerticalToolTipPlacement),
+            typeof(VerticalToolTipPlacement),
+            typeof(RangeSelector),
+            new PropertyMetadata(VerticalToolTipPlacement.Right));
 
     /// <summary>
     /// Gets or sets the absolute minimum value of the range.
@@ -117,6 +137,45 @@ public partial class RangeSelector : Control
     {
         get => (double)GetValue(StepFrequencyProperty);
         set => SetValue(StepFrequencyProperty, value);
+    }
+
+    /// <summary>
+    /// Gets or sets the orientation of the range selector (horizontal or vertical).
+    /// </summary>
+    /// <value>
+    /// The orientation of the range selector. Default is <see cref="Orientation.Horizontal"/>.
+    /// </value>
+    public Orientation Orientation
+    {
+        get => (Orientation)GetValue(OrientationProperty);
+        set => SetValue(OrientationProperty, value);
+    }
+
+    /// <summary>
+    /// Gets or sets the placement of the tooltip for the vertical range selector.
+    /// This property only takes effect when <see cref="Orientation"/> is set to <see cref="Orientation.Vertical"/>.
+    /// </summary>
+    /// <value>
+    /// The placement of the tooltip. Default is <see cref="VerticalToolTipPlacement.Right"/>.
+    /// </value>
+    public VerticalToolTipPlacement VerticalToolTipPlacement
+    {
+        get => (VerticalToolTipPlacement)GetValue(VerticalToolTipPlacementProperty);
+        set => SetValue(VerticalToolTipPlacementProperty, value);
+    }
+
+    private static void OrientationChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+        var rangeSelector = d as RangeSelector;
+
+        if (rangeSelector == null || !rangeSelector._valuesAssigned)
+        {
+            return;
+        }
+
+        VisualStateManager.GoToState(rangeSelector, rangeSelector.Orientation == Orientation.Horizontal ? HorizontalState : VerticalState, true);
+
+        rangeSelector.SyncThumbs();
     }
 
     private static void MinimumChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
