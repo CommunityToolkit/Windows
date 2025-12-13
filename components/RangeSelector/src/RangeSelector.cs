@@ -161,13 +161,13 @@ public partial class RangeSelector : Control
     {
         if (Minimum > Maximum)
         {
-            Minimum = Maximum;
-            Maximum = Maximum;
+            Maximum = Minimum;
         }
 
         if (Minimum == Maximum)
         {
-            throw new ArgumentException("Maximum and Minimum values cannot be equal.");
+            RangeStart = Minimum;
+            RangeEnd = Maximum;
         }
 
         if (!_maxSet)
@@ -240,6 +240,8 @@ public partial class RangeSelector : Control
         {
             return;
         }
+
+        VerifyValues();
 
         var relativeLeft = ((RangeStart - Minimum) / (Maximum - Minimum)) * DragWidth();
         var relativeRight = ((RangeEnd - Minimum) / (Maximum - Minimum)) * DragWidth();

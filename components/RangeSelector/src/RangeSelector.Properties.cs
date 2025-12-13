@@ -131,21 +131,6 @@ public partial class RangeSelector : Control
         var newValue = (double)e.NewValue;
         var oldValue = (double)e.OldValue;
 
-        if (rangeSelector.Maximum < newValue)
-        {
-            rangeSelector.Maximum = newValue + Epsilon;
-        }
-
-        if (rangeSelector.RangeStart < newValue)
-        {
-            rangeSelector.RangeStart = newValue;
-        }
-
-        if (rangeSelector.RangeEnd < newValue)
-        {
-            rangeSelector.RangeEnd = newValue;
-        }
-
         if (newValue != oldValue)
         {
             rangeSelector.SyncThumbs();
@@ -163,21 +148,6 @@ public partial class RangeSelector : Control
 
         var newValue = (double)e.NewValue;
         var oldValue = (double)e.OldValue;
-
-        if (rangeSelector.Minimum > newValue)
-        {
-            rangeSelector.Minimum = newValue - Epsilon;
-        }
-
-        if (rangeSelector.RangeEnd > newValue)
-        {
-            rangeSelector.RangeEnd = newValue;
-        }
-
-        if (rangeSelector.RangeStart > newValue)
-        {
-            rangeSelector.RangeStart = newValue;
-        }
 
         if (newValue != oldValue)
         {
