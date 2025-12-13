@@ -50,6 +50,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)WrapPanel\VerticalWrapPanelInsideParentWithLimitedHeight.xaml.cs">
       <DependentUpon>VerticalWrapPanelInsideParentWithLimitedHeight.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)WrapPanel\WrapPanelStretchLastChildInNewRow.xaml.cs">
+      <DependentUpon>WrapPanelStretchLastChildInNewRow.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Include="$(MSBuildThisFileDirectory)DockPanel\DockPanelSample.xaml">
@@ -73,6 +76,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="$(MSBuildThisFileDirectory)WrapPanel\VerticalWrapPanelInsideParentWithLimitedHeight.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)WrapPanel\WrapPanelStretchLastChildInNewRow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

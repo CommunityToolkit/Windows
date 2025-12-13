@@ -1,0 +1,28 @@
+﻿<Page x:Class="PrimitivesTests.WrapPanelStretchLastChildInNewRow"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:controls="using:CommunityToolkit.WinUI.Controls"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="using:PrimitivesTests.WrapPanel"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+      mc:Ignorable="d">
+
+    <Grid>
+        <controls:WrapPanel Width="132"
+                            StretchChild="Last">
+            <Rectangle Width="44"
+                       Height="44"
+                       Fill="Red" />
+            <Rectangle Width="44"
+                       Height="44"
+                       Fill="Blue" />
+            <Rectangle Width="44"
+                       Height="44"
+                       Fill="Green" />
+            <Rectangle Height="44"
+                       Fill="Orange" />
+        </controls:WrapPanel>
+    </Grid>
+
+</Page>
