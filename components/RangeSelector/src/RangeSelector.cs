@@ -161,7 +161,8 @@ public partial class RangeSelector : Control
     {
         if (Minimum > Maximum)
         {
-            Maximum = Minimum;
+            Maximum = Math.Min(Minimum, Maximum);
+            Minimum = Math.Min(Minimum, Maximum);
         }
 
         if (Minimum == Maximum)
