@@ -28,7 +28,7 @@ public partial class SegmentedItem : ListViewItem
     {
         // If the parent is a Segmented control with an EqualPanel,
         // we need to invalidate measure to update the layout.
-        if ((this.Parent as Segmented)?.ItemsPanelRoot is EqualPanel panel)
+        if ((this.Parent as Segmented)?.ItemsPanelRoot is Panel panel)
         {
             panel.InvalidateMeasure();
         }
