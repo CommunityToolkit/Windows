@@ -2,8 +2,6 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
-using Microsoft.UI;
-using System.Globalization;
 using Windows.UI;
 
 namespace CommunityToolkit.WinUI.Helpers;
@@ -135,8 +133,6 @@ public static class ColorExtensions
         return Color.FromArgb(a, r, g, b);
     }
 
-#if NET10_0_OR_GREATER
-
     extension(Color _)
     {
         /// <inheritdoc cref="ColorHelper.TryParseColor(string, out Color)"/>
@@ -259,6 +255,4 @@ public static class ColorExtensions
         /// <inheritdoc cref="Subtract(Color, Color)"/>
         public static Color operator -(Color color1, Color color2) => Subtract(color1, color2);
     }
-
-#endif
 }
