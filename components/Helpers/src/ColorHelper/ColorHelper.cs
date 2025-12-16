@@ -122,7 +122,7 @@ public static partial class ColorHelper
     {
         color = default;
 
-        if (!MatchArgPattern<double>(hslColor, "hsl", out var args))
+        if (!MatchArgPattern(hslColor, "hsl", out var args))
             return false;
 
         if (args.Length != 3)
@@ -142,7 +142,7 @@ public static partial class ColorHelper
     {
         color = default;
 
-        if (!MatchArgPattern<double>(hsvColor, "hsv", out var args))
+        if (!MatchArgPattern(hsvColor, "hsv", out var args))
             return false;
 
         if (args.Length != 3)
@@ -365,8 +365,7 @@ public static partial class ColorHelper
     /// <summary>
     /// Parses a string to match the argument pattern "<paramref name="funcName"/>(args[0], args[1], ...)"
     /// </summary>
-    private static bool MatchArgPattern<T>(string value, string funcName, out T?[] args)
-        where T : IParsable<T>
+    private static bool MatchArgPattern(string value, string funcName, out double[] args)
     {
         args = [];
 
@@ -389,10 +388,10 @@ public static partial class ColorHelper
         var argStrings = value.Split(',');
 
         // Parse the args into an array of doubles
-        args = new T[argStrings.Length];
+        args = new double[argStrings.Length];
         for (var i = 0; i < argStrings.Length; i++)
         {
-            if (!T.TryParse(argStrings[i], null, out args[i]))
+            if (!double.TryParse(argStrings[i], null, out args[i]))
                 return false;
         }
 
