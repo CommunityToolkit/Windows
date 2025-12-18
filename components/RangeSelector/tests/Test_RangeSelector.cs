@@ -113,7 +113,7 @@ public class Test_RangeSelector : VisualUITestBase
     //
     // Then
     // Minimum will be Maximum
-    // Maximum will be Maximum + 0.01
+    // Maximum will be Maximum
 
     // If
     // Minimum >= Maximum
@@ -121,8 +121,6 @@ public class Test_RangeSelector : VisualUITestBase
     // RangeEnd > Maximum
     //
     // Then
-    // RangeStart will be Maximum + 0.01
-    // Else
     // RangeStart will be Maximum
 
     // If
@@ -130,37 +128,35 @@ public class Test_RangeSelector : VisualUITestBase
     // RangeEnd > Maximum
     //
     // Then
-    // RangeEnd will be Maximum + 0.01
-    // Else
     // RangeEnd will be Maximum
 
     // Input:Start End    Expected:Start End
     [DataRow(0, 0, 0, 0)]
-    [DataRow(0, 10, 0, 0.01)]
+    [DataRow(0, 10, 0, 0)]
     [DataRow(0, -10, 0, 0)]
     [DataRow(-10, 0, 0, 0)]
     [DataRow(10, 0, 0, 0)]
-    [DataRow(10, 90, 0.01, 0.01)]
-    [DataRow(90, 10, 0.01, 0.01)]
+    [DataRow(10, 90, 0, 0)]
+    [DataRow(90, 10, 0, 0)]
     [DataRow(-90, -10, 0, 0)]
     [DataRow(-10, -90, 0, 0)]
     [DataRow(10, -10, 0, 0)]
-    [DataRow(-10, 10, 0, 0.01)]
+    [DataRow(-10, 10, 0, 0)]
     public Task Initialize_MinEqMax(double rangeStart, double rangeEnd, double expectedRangeStart, double expectedRangeEnd)
-        => Initialize(1, 0, rangeStart, rangeEnd, 0, 1, 0, expectedRangeStart, expectedRangeEnd, 0.01);
+        => Initialize(1, 0, rangeStart, rangeEnd, 0, 1, 0, expectedRangeStart, expectedRangeEnd, 0);
 
     [TestCategory("Initialize")]
     [TestMethod]
-    [DataRow(0, 100, 0, 0.01)]
-    [DataRow(10, 90, 0.01, 0.01)]
-    [DataRow(50, 50, 0.01, 0.01)]
+    [DataRow(0, 100, 0, 0)]
+    [DataRow(10, 90, 0, 0)]
+    [DataRow(50, 50, 0, 0)]
     [DataRow(0, 0, 0, 0)]
-    [DataRow(100, 100, 0.01, 0.01)]
+    [DataRow(100, 100, 0, 0)]
 
-    [DataRow(10, 100, 0.01, 0.01)]
+    [DataRow(10, 100, 0, 0)]
 
-    [DataRow(90, 10, 0.01, 0.01)]
-    [DataRow(100, 10, 0.01, 0.01)]
+    [DataRow(90, 10, 0, 0)]
+    [DataRow(100, 10, 0, 0)]
     [DataRow(90, 0, 0, 0)]
 
     [DataRow(100, 0, 0, 0)]
@@ -169,25 +165,25 @@ public class Test_RangeSelector : VisualUITestBase
     [DataRow(-10, -90, 0, 0)]
     [DataRow(-50, -50, 0, 0)]
 
-    [DataRow(110, 190, 0.01, 0.01)]
-    [DataRow(190, 110, 0.01, 0.01)]
-    [DataRow(150, 150, 0.01, 0.01)]
+    [DataRow(110, 190, 0, 0)]
+    [DataRow(190, 110, 0, 0)]
+    [DataRow(150, 150, 0, 0)]
     public Task Initialize_MinGtMax(double rangeStart, double rangeEnd, double expectedRangeStart, double expectedRangeEnd)
-        => Initialize(1, 100, rangeStart, rangeEnd, 0, 1, 0, expectedRangeStart, expectedRangeEnd, 0.01);
+        => Initialize(1, 100, rangeStart, rangeEnd, 0, 1, 0, expectedRangeStart, expectedRangeEnd, 0);
 
     [TestMethod]
     [TestCategory("Set Prop")]
 
     // Set:Min      Then:Min   Start   End     Max
-    [DataRow(0, 0, 10, 90, 100)]
-    [DataRow(-10, -10, 10, 90, 100)]
-    [DataRow(10, 10, 10, 90, 100)]
-    [DataRow(50, 50, 50, 90, 100)]
-    [DataRow(90, 90, 90, 90, 100)]
-    [DataRow(100, 100, 100, 100, 100)]
-    [DataRow(110, 110, 110.01, 110.01, 110.01)]
+    [DataRow(0, 0, 10, 90, 110)]
+    [DataRow(-10, -10, 10, 90, 110)]
+    [DataRow(10, 10, 10, 90, 110)]
+    [DataRow(50, 50, 50, 90, 110)]
+    [DataRow(90, 90, 90, 90, 110)]
+    [DataRow(100, 100, 100, 100, 110)]
+    [DataRow(110, 110, 110, 110, 110)]
     public Task SetMinimum(double setMinimumValue, double expectedMinimum, double expectedRangeStart, double expectedRangeEnd, double expectedMaximum)
-        => SetProp(1, 0, 10, 90, 100, Property.Minimum, setMinimumValue, 1, expectedMinimum, expectedRangeStart, expectedRangeEnd, expectedMaximum);
+        => SetProp(1, 0, 10, 90, 110, Property.Minimum, setMinimumValue, 1, expectedMinimum, expectedRangeStart, expectedRangeEnd, expectedMaximum);
 
     [TestMethod]
     [TestCategory("Set Prop")]
@@ -199,7 +195,7 @@ public class Test_RangeSelector : VisualUITestBase
     [DataRow(50, 0, 10, 50, 50)]
     [DataRow(10, 0, 10, 10, 10)]
     [DataRow(0, 0, 0, 0, 0)]
-    [DataRow(-10, -10.01, -10, -10, -10)]
+    [DataRow(-10, -10, -10, -10, -10)]
     public Task SetMaximum(double propInput, double expectedMinimum, double expectedRangeStart, double expectedRangeEnd, double expectedMaximum)
         => SetProp(1, 0, 10, 90, 100, Property.Maximum, propInput, 1, expectedMinimum, expectedRangeStart, expectedRangeEnd, expectedMaximum);
 
@@ -212,9 +208,10 @@ public class Test_RangeSelector : VisualUITestBase
     [DataRow(0, 0, 90)]
     [DataRow(-10, 0, 90)]
     [DataRow(90, 90, 90)]
-    [DataRow(95, 95, 95)]
-    [DataRow(100, 100, 100)]
-    [DataRow(110, 100, 100)]
+    // RangeStart should not move beyond RangeEnd
+    [DataRow(95, 90, 90)]
+    [DataRow(100, 90, 90)]
+    [DataRow(110, 90, 90)] 
     public Task SetRangeStart(double propInput, double expectedRangeStart, double expectedRangeEnd)
         => SetProp(1, 0, 10, 90, 100, Property.RangeStart, propInput, 1, 0, expectedRangeStart, expectedRangeEnd, 100);
 
@@ -232,13 +229,13 @@ public class Test_RangeSelector : VisualUITestBase
     [DataRow(5, 10, 90, 4, 5, 90)]
     [DataRow(5, 10, 90, 6, 5, 90)]
     [DataRow(5, 10, 90, 9, 10, 90)]
-    [DataRow(5, 10, 90, 100, 100, 100)]
+    [DataRow(5, 10, 90, 100, 90, 90)] // RangeStart should not exceed RangeEnd
     [DataRow(5, 10, 90, 89, 90, 90)]
     [DataRow(5, 10, 90, 91, 90, 90)]
-    [DataRow(30, 60, 70, 80, 100, 100)]
-    [DataRow(30, 60, 70, 74, 60, 60)]
-    [DataRow(30, 60, 70, 75, 60, 60)]
-    [DataRow(30, 60, 70, 76, 100, 100)]
+    [DataRow(30, 60, 70, 80, 60, 70)]
+    [DataRow(30, 60, 70, 74, 60, 70)]
+    [DataRow(30, 60, 70, 75, 60, 70)]
+    [DataRow(30, 60, 70, 76, 60, 70)]
     [DataRow(40, 40, 60, 20, 0, 60)]
     [DataRow(40, 40, 60, 50, 40, 60)]
     [DataRow(40, 40, 60, 60, 40, 60)]  // When RangeStart is set equal to RangeEnd but RangeEnd doesn't align with original RangeStart + StepFrequency 
