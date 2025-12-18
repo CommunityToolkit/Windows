@@ -167,8 +167,9 @@ public partial class RangeSelector : Control
 
         if (Minimum == Maximum)
         {
-            RangeStart = Minimum;
+            // Move RangeEnd before RangeStart to avoid code paths which correct for RangeStart being greater than RangeEnd
             RangeEnd = Maximum;
+            RangeStart = Minimum;
         }
 
         if (!_maxSet)
@@ -181,24 +182,26 @@ public partial class RangeSelector : Control
             RangeStart = Minimum;
         }
 
-        if (RangeStart < Minimum)
-        {
-            RangeStart = Minimum;
-        }
-
+        // RangeEnd bound correction
         if (RangeEnd < Minimum)
         {
             RangeEnd = Minimum;
         }
 
-        if (RangeStart > Maximum)
-        {
-            RangeStart = Maximum;
-        }
-
         if (RangeEnd > Maximum)
         {
             RangeEnd = Maximum;
+        }
+
+        // RangeStart bound correction
+        if (RangeStart < Minimum)
+        {
+            RangeStart = Minimum;
+        }
+
+        if (RangeStart > Maximum)
+        {
+            RangeStart = Maximum;
         }
 
         if (RangeEnd < RangeStart)
