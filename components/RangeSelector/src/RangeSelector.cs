@@ -167,7 +167,7 @@ public partial class RangeSelector : Control
 
         if (Minimum == Maximum)
         {
-            throw new ArgumentException("Maximum and Minimum values cannot be equal.");
+            // Do nothing
         }
 
         if (!_maxSet)
