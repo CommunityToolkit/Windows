@@ -241,7 +241,7 @@ public class Test_RangeSelector : VisualUITestBase
     [DataRow(30, 60, 70, 76, 100, 100)]
     [DataRow(40, 40, 60, 20, 0, 60)]
     [DataRow(40, 40, 60, 50, 40, 60)]
-    [DataRow(40, 40, 60, 60, 100, 100)]
+    [DataRow(40, 40, 60, 60, 40, 60)]  // When RangeStart is set equal to RangeEnd but RangeEnd doesn't align with original RangeStart + StepFrequency 
     public Task SetRangeStart_StepTest(double stepFrequency, double rangeStart, double rangeEnd, double propInput, double expectedRangeStart, double expectedRangeEnd)
         => SetProp(stepFrequency, 0, rangeStart, rangeEnd, 100, Property.RangeStart, propInput, stepFrequency, 0, expectedRangeStart, expectedRangeEnd, 100);
 

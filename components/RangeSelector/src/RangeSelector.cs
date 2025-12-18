@@ -209,12 +209,28 @@ public partial class RangeSelector : Control
 
     private void RangeMinToStepFrequency()
     {
-        RangeStart = MoveToStepFrequency(RangeStart);
+        var newValue = MoveToStepFrequency(RangeStart);
+
+        // If snapped value exceeds RangeEnd, snap down to previous step
+        if (newValue > RangeEnd)
+        {
+            newValue = Minimum + (((int)Math.Floor((RangeEnd - Minimum) / StepFrequency)) * StepFrequency);
+        }
+
+        RangeStart = newValue;
     }
 
     private void RangeMaxToStepFrequency()
     {
-        RangeEnd = MoveToStepFrequency(RangeEnd);
+        var newValue = MoveToStepFrequency(RangeEnd);
+
+        // If snapped value is below RangeStart, snap up to next step
+        if (newValue < RangeStart)
+        {
+            newValue = Minimum + (((int)Math.Ceiling((RangeStart - Minimum) / StepFrequency)) * StepFrequency);
+        }
+
+        RangeEnd = newValue;
     }
 
     private double MoveToStepFrequency(double rangeValue)
