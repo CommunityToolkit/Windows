@@ -161,15 +161,13 @@ public partial class RangeSelector : Control
     {
         if (Minimum > Maximum)
         {
-            Maximum = Math.Min(Minimum, Maximum);
-            Minimum = Math.Min(Minimum, Maximum);
+            Minimum = Maximum;
+            Maximum = Maximum;
         }
 
         if (Minimum == Maximum)
         {
-            // Move RangeEnd before RangeStart to avoid code paths which correct for RangeStart being greater than RangeEnd
-            RangeEnd = Maximum;
-            RangeStart = Minimum;
+            throw new ArgumentException("Maximum and Minimum values cannot be equal.");
         }
 
         if (!_maxSet)
@@ -182,26 +180,24 @@ public partial class RangeSelector : Control
             RangeStart = Minimum;
         }
 
-        // RangeEnd bound correction
-        if (RangeEnd < Minimum)
-        {
-            RangeEnd = Minimum;
-        }
-
-        if (RangeEnd > Maximum)
-        {
-            RangeEnd = Maximum;
-        }
-
-        // RangeStart bound correction
         if (RangeStart < Minimum)
         {
             RangeStart = Minimum;
         }
 
+        if (RangeEnd < Minimum)
+        {
+            RangeEnd = Minimum;
+        }
+
         if (RangeStart > Maximum)
         {
             RangeStart = Maximum;
+        }
+
+        if (RangeEnd > Maximum)
+        {
+            RangeEnd = Maximum;
         }
 
         if (RangeEnd < RangeStart)
@@ -212,28 +208,12 @@ public partial class RangeSelector : Control
 
     private void RangeMinToStepFrequency()
     {
-        var newValue = MoveToStepFrequency(RangeStart);
-
-        // If snapped value exceeds RangeEnd, snap down to previous step
-        if (newValue > RangeEnd)
-        {
-            newValue = Minimum + (((int)Math.Floor((RangeEnd - Minimum) / StepFrequency)) * StepFrequency);
-        }
-
-        RangeStart = newValue;
+        RangeStart = MoveToStepFrequency(RangeStart);
     }
 
     private void RangeMaxToStepFrequency()
     {
-        var newValue = MoveToStepFrequency(RangeEnd);
-
-        // If snapped value is below RangeStart, snap up to next step
-        if (newValue < RangeStart)
-        {
-            newValue = Minimum + (((int)Math.Ceiling((RangeStart - Minimum) / StepFrequency)) * StepFrequency);
-        }
-
-        RangeEnd = newValue;
+        RangeEnd = MoveToStepFrequency(RangeEnd);
     }
 
     private double MoveToStepFrequency(double rangeValue)
@@ -260,8 +240,6 @@ public partial class RangeSelector : Control
         {
             return;
         }
-
-        VerifyValues();
 
         var relativeLeft = ((RangeStart - Minimum) / (Maximum - Minimum)) * DragWidth();
         var relativeRight = ((RangeEnd - Minimum) / (Maximum - Minimum)) * DragWidth();
