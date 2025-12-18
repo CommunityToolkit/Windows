@@ -34,6 +34,7 @@ public partial class RangeSelector : Control
     internal const string MinPressedState = "MinPressed";
     internal const string MaxPressedState = "MaxPressed";
 
+    private const double Epsilon = 0.01;
     private const double DefaultMinimum = 0.0;
     private const double DefaultMaximum = 10.0;
     private const double DefaultStepFrequency = 1;
