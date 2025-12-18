@@ -131,6 +131,21 @@ public partial class RangeSelector : Control
         var newValue = (double)e.NewValue;
         var oldValue = (double)e.OldValue;
 
+        if (rangeSelector.Maximum < newValue)
+        {
+            rangeSelector.Maximum = newValue + Epsilon;
+        }
+
+        if (rangeSelector.RangeStart < newValue)
+        {
+            rangeSelector.RangeStart = newValue;
+        }
+
+        if (rangeSelector.RangeEnd < newValue)
+        {
+            rangeSelector.RangeEnd = newValue;
+        }
+
         if (newValue != oldValue)
         {
             rangeSelector.SyncThumbs();
@@ -148,6 +163,21 @@ public partial class RangeSelector : Control
 
         var newValue = (double)e.NewValue;
         var oldValue = (double)e.OldValue;
+
+        if (rangeSelector.Minimum > newValue)
+        {
+            rangeSelector.Minimum = newValue - Epsilon;
+        }
+
+        if (rangeSelector.RangeEnd > newValue)
+        {
+            rangeSelector.RangeEnd = newValue;
+        }
+
+        if (rangeSelector.RangeStart > newValue)
+        {
+            rangeSelector.RangeStart = newValue;
+        }
 
         if (newValue != oldValue)
         {
@@ -171,7 +201,29 @@ public partial class RangeSelector : Control
             return;
         }
 
+        var newValue = (double)e.NewValue;
         rangeSelector.RangeMinToStepFrequency();
+
+        if (rangeSelector._valuesAssigned)
+        {
+            if (newValue < rangeSelector.Minimum)
+            {
+                rangeSelector.RangeStart = rangeSelector.Minimum;
+            }
+            else if (newValue > rangeSelector.Maximum)
+            {
+                rangeSelector.RangeStart = rangeSelector.Maximum;
+            }
+
+            rangeSelector.SyncActiveRectangle();
+
+            // If the new value is greater than the old max, move the max also
+            if (newValue > rangeSelector.RangeEnd)
+            {
+                rangeSelector.RangeEnd = newValue;
+            }
+        }
+
         rangeSelector.SyncThumbs();
     }
 
@@ -191,7 +243,29 @@ public partial class RangeSelector : Control
             return;
         }
 
+        var newValue = (double)e.NewValue;
         rangeSelector.RangeMaxToStepFrequency();
+
+        if (rangeSelector._valuesAssigned)
+        {
+            if (newValue < rangeSelector.Minimum)
+            {
+                rangeSelector.RangeEnd = rangeSelector.Minimum;
+            }
+            else if (newValue > rangeSelector.Maximum)
+            {
+                rangeSelector.RangeEnd = rangeSelector.Maximum;
+            }
+
+            rangeSelector.SyncActiveRectangle();
+
+            // If the new max is less than the old minimum then move the minimum
+            if (newValue < rangeSelector.RangeStart)
+            {
+                rangeSelector.RangeStart = newValue;
+            }
+        }
+
         rangeSelector.SyncThumbs();
     }
 }
