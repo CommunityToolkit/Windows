@@ -109,10 +109,6 @@ public partial class Segmented : ListViewBase
                 {
                     index -= 1;
                 }
-                else
-                {
-                    retVal = true;
-                }
             }
             else if (direction == MoveDirection.Next)
             {

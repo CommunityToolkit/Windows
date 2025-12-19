@@ -286,12 +286,12 @@
                                 </controls:Case>
                                 <controls:Case Value="PaletteItem">
                                     <Grid HorizontalAlignment="Stretch">
-                                        <GridView Margin="0"
+                                        <GridView x:Name="PaletteItemGridView"
+                                                  Margin="0"
                                                   Padding="0"
                                                   animations:Implicit.HideAnimations="{StaticResource HideTransitions}"
                                                   animations:Implicit.ShowAnimations="{StaticResource ShowTransitions}"
                                                   ItemsSource="{TemplateBinding CustomPaletteColors}"
-                                                  SelectedValue="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Color, Converter={StaticResource NullToTransparentConverter}, Mode=TwoWay}"
                                                   SelectionMode="Single"
                                                   Tag="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Color, Mode=OneWay}">
                                             <GridView.ItemsPanel>
