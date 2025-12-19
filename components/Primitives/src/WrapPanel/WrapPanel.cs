@@ -214,7 +214,7 @@ public partial class WrapPanel : Panel
             }
 
             var desiredMeasure = new UvMeasure(Orientation, child.DesiredSize);
-            if ((desiredMeasure.U + position.U + paddingEnd.U) > parentMeasure.U)
+            if ((desiredMeasure.U + position.U + paddingEnd.U) > parentMeasure.U || position.U >= parentMeasure.U)
             {
                 // next row!
                 position.U = paddingStart.U;

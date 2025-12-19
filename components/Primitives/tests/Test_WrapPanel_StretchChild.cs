@@ -101,4 +101,30 @@ public partial class Test_WrapPanel_StretchChild : VisualUITestBase
         double lastChildExpectedWidth = wrapPanel.ActualWidth - precedingChildren.Sum(child => child.ActualWidth);
         Assert.AreEqual(lastChildExpectedWidth, lastChild.ActualWidth, "Last child width not as expected.");
     }
+
+    /// <summary>
+    /// When a WrapPanel's width is constrained such that the last child wraps to a new row, the last child with Stretch alignment should fill the entire width of the new row.
+    /// </summary>
+    /// <param name="page"></param>
+    [TestCategory("WrapPanel")]
+    [UIThreadTestMethod]
+    public void WrapPanelStretchLastChildInNewRowTest(WrapPanelStretchLastChildInNewRow page)
+    {
+        var wrapPanel = page.FindDescendant<WrapPanel>();
+        Assert.IsNotNull(wrapPanel, "Could not find WrapPanel.");
+        Assert.IsFalse(wrapPanel.StretchChild is not StretchChild.Last, "WrapPanel StretchChild property not set to Last.");
+        Assert.IsFalse(wrapPanel.Children.Count < 1, "No children to test.");
+
+        var precedingChildren = wrapPanel.Children.Cast<FrameworkElement>().Take(wrapPanel.Children.Count - 1);
+
+        foreach (var child in precedingChildren)
+        {
+            double expectedWidth = child.DesiredSize.Width;
+            Assert.AreEqual(expectedWidth, child.ActualWidth, "Child width not as expected.");
+        }
+
+        var lastChild = wrapPanel.Children.Cast<FrameworkElement>().Last();
+        double lastChildExpectedWidth = wrapPanel.ActualWidth;
+        Assert.AreEqual(lastChildExpectedWidth, lastChild.ActualWidth, "Last child width not as expected.");
+    }
 }
