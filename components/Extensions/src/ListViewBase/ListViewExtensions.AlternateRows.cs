@@ -194,6 +194,9 @@ public static partial class ListViewExtensions
         var rootBorder = itemContainer.FindDescendant<Border>();
 
         itemContainer.Background = brush;
-        rootBorder?.Background = brush;
+        if (rootBorder is not null)
+        {
+            rootBorder.Background = brush;
+        }
     }
 }
