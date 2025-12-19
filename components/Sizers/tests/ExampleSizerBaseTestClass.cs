@@ -6,7 +6,6 @@ using CommunityToolkit.WinUI.Controls;
 using CommunityToolkit.Tooling.TestGen;
 using CommunityToolkit.Tests;
 using CommunityToolkit.WinUI.Controls.Automation.Peers;
-using CommunityToolkit.WinUI.Helpers;
 
 namespace SizersTests;
 
