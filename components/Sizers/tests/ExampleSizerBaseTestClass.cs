@@ -6,31 +6,31 @@ using CommunityToolkit.WinUI.Controls;
 using CommunityToolkit.Tooling.TestGen;
 using CommunityToolkit.Tests;
 using CommunityToolkit.WinUI.Controls.Automation.Peers;
+using CommunityToolkit.WinUI.Helpers;
 
 namespace SizersTests;
 
 [TestClass]
 public partial class ExampleSizerBaseTestClass : VisualUITestBase
 {
-    [TestMethod]
+    [UIThreadTestMethod]
     public async Task ShouldConfigureGridSplitterAutomationPeer()
     {
-        await EnqueueAsync(() =>
-        {
-            const string automationName = "MyCustomAutomationName";
-            const string name = "Sizer";
+        const string automationName = "MyCustomAutomationName";
+        const string name = "Sizer";
 
-            var gridSplitter = new GridSplitter();
-            var gridSplitterAutomationPeer = FrameworkElementAutomationPeer.CreatePeerForElement(gridSplitter) as SizerAutomationPeer;
+        var gridSplitter = new GridSplitter();
+        var gridSplitterAutomationPeer = FrameworkElementAutomationPeer.CreatePeerForElement(gridSplitter) as SizerAutomationPeer;
 
-            Assert.IsNotNull(gridSplitterAutomationPeer, "Verify that the AutomationPeer is SizerAutomationPeer.");
+        Assert.IsNotNull(gridSplitterAutomationPeer, "Verify that the AutomationPeer is SizerAutomationPeer.");
 
-            gridSplitter.Name = name;
-            Assert.IsTrue(gridSplitterAutomationPeer.GetName().Contains(name), "Verify that the UIA name contains the given Name of the GridSplitter (Sizer).");
+        gridSplitter.Name = name;
+        await CompositionTargetHelper.ExecuteAfterCompositionRenderingAsync(() => { });
+        Assert.IsTrue(gridSplitterAutomationPeer.GetName().Contains(name), "Verify that the UIA name contains the given Name of the GridSplitter (Sizer).");
 
-            gridSplitter.SetValue(AutomationProperties.NameProperty, automationName);
-            Assert.IsTrue(gridSplitterAutomationPeer.GetName().Contains(automationName), "Verify that the UIA name contains the customized AutomationProperties.Name of the GridSplitter.");
-        });
+        gridSplitter.SetValue(AutomationProperties.NameProperty, automationName);
+        await CompositionTargetHelper.ExecuteAfterCompositionRenderingAsync(() => { });
+        Assert.IsTrue(gridSplitterAutomationPeer.GetName().Contains(automationName), "Verify that the UIA name contains the customized AutomationProperties.Name of the GridSplitter.");
     }
 
     [UIThreadTestMethod]
