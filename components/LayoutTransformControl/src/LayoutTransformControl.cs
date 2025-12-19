@@ -9,9 +9,12 @@ namespace CommunityToolkit.WinUI.Controls;
 /// Control that implements support for transformations as if applied by LayoutTransform.
 /// </summary>
 [ContentProperty(Name = "Child")]
-
+[TemplatePart(Name = "LayoutRoot", Type = typeof(Panel))]
+[TemplatePart(Name = "MatrixTransform", Type = typeof(MatrixTransform))]
 public partial class LayoutTransformControl : Control
 {
+    private static Size EmptySize => new Size();
+
     /// <summary>
     /// Value used to work around double arithmetic rounding issues.
     /// </summary>
@@ -45,7 +48,7 @@ public partial class LayoutTransformControl : Control
     /// <summary>
     /// Actual DesiredSize of Child element.
     /// </summary>
-    private Size _childActualSize = Size.Empty;
+    private Size _childActualSize = EmptySize;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="LayoutTransformControl"/> class.
@@ -235,11 +238,11 @@ public partial class LayoutTransformControl : Control
         if (_layoutRoot == null || child == null)
         {
             // No content, no size
-            return Size.Empty;
+            return EmptySize;
         }
 
         Size measureSize;
-        if (_childActualSize == Size.Empty)
+        if (_childActualSize == EmptySize)
         {
             // Determine the largest size after the transformation
             measureSize = ComputeLargestTransformedSize(availableSize);
@@ -301,7 +304,7 @@ public partial class LayoutTransformControl : Control
         _layoutRoot.Arrange(finalRect);
 
         // This is the first opportunity to find out the Child's true DesiredSize
-        if (IsSizeSmaller(finalSizeTransformed, child.RenderSize) && (Size.Empty == _childActualSize))
+        if (IsSizeSmaller(finalSizeTransformed, child.RenderSize) && (EmptySize == _childActualSize))
         {
             // Unfortunately, all the work so far is invalid because the wrong DesiredSize was used
             // Make a note of the actual DesiredSize
@@ -313,7 +316,7 @@ public partial class LayoutTransformControl : Control
         else
         {
             // Clear the "need to measure/arrange again" flag
-            _childActualSize = Size.Empty;
+            _childActualSize = EmptySize;
         }
 
         // Return result to perform the transformation
@@ -329,7 +332,7 @@ public partial class LayoutTransformControl : Control
     private Size ComputeLargestTransformedSize(Size arrangeBounds)
     {
         // Computed largest transformed size
-        Size computedSize = Size.Empty;
+        Size computedSize = EmptySize;
 
         // Detect infinite bounds and constrain the scenario
         bool infiniteWidth = double.IsInfinity(arrangeBounds.Width);
