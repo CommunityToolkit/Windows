@@ -171,15 +171,16 @@ public static partial class ListViewExtensions
         {
             _itemsForList.TryGetValue(sender, out ListViewBase? listViewBase);
             if (listViewBase == null)
-            {
                 return;
-            }
 
             int index = (int)args.Index;
             for (int i = index; i < sender.Count; i++)
             {
+                // Get item container or element at index
                 var itemContainer = listViewBase.ContainerFromIndex(i) as Control;
-                if (itemContainer != null)
+                itemContainer ??= listViewBase.Items[i] as Control;
+
+                if (itemContainer is not null)
                 {
                     SetItemContainerBackground(listViewBase, itemContainer, i);
                 }
@@ -189,23 +190,10 @@ public static partial class ListViewExtensions
 
     private static void SetItemContainerBackground(ListViewBase sender, Control itemContainer, int itemIndex)
     {
-        if (itemIndex % 2 == 0)
-        {
-            itemContainer.Background = GetAlternateColor(sender);
-            var rootBorder = itemContainer.FindDescendant<Border>();
-            if (rootBorder != null)
-            {
-                rootBorder.Background = GetAlternateColor(sender);
-            }
-        }
-        else
-        {
-            itemContainer.Background = null;
-            var rootBorder = itemContainer.FindDescendant<Border>();
-            if (rootBorder != null)
-            {
-                rootBorder.Background = null;
-            }
-        }
+        var brush = itemIndex % 2 == 0 ? GetAlternateColor(sender) : null;
+        var rootBorder = itemContainer.FindDescendant<Border>();
+
+        itemContainer.Background = brush;
+        rootBorder?.Background = brush;
     }
 }
