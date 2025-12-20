@@ -64,19 +64,22 @@ public static partial class ListViewExtensions
 
     private static void OnAlternateColorPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
     {
-        if (sender is ListViewBase listViewBase)
-        {
-            listViewBase.ContainerContentChanging -= ColorContainerContentChanging;
-            listViewBase.Items.VectorChanged -= ColorItemsVectorChanged;
-            listViewBase.Unloaded -= OnListViewBaseUnloaded;
+        if (sender is not ListViewBase listViewBase)
+            return;
 
-            _itemsForList[listViewBase.Items] = listViewBase;
-            if (AlternateColorProperty != null)
-            {
-                listViewBase.ContainerContentChanging += ColorContainerContentChanging;
-                listViewBase.Items.VectorChanged += ColorItemsVectorChanged;
-                listViewBase.Unloaded += OnListViewBaseUnloaded;
-            }
+        // Cleanup existing subscriptions
+        listViewBase.ContainerContentChanging -= ColorContainerContentChanging;
+        listViewBase.Items.VectorChanged -= ColorItemsVectorChanged;
+        listViewBase.Unloaded -= OnListViewBaseUnloaded;
+
+        _itemsForList[listViewBase.Items] = listViewBase;
+
+        // Resubscribe to events as necessary
+        if (GetAlternateColor(listViewBase) is not null)
+        {
+            listViewBase.ContainerContentChanging += ColorContainerContentChanging;
+            listViewBase.Items.VectorChanged += ColorItemsVectorChanged;
+            listViewBase.Unloaded += OnListViewBaseUnloaded;
         }
     }
 
@@ -88,16 +91,18 @@ public static partial class ListViewExtensions
 
     private static void OnAlternateItemTemplatePropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
     {
-        if (sender is ListViewBase listViewBase)
-        {
-            listViewBase.ContainerContentChanging -= ItemTemplateContainerContentChanging;
-            listViewBase.Unloaded -= OnListViewBaseUnloaded;
+        if (sender is not ListViewBase listViewBase)
+            return;
 
-            if (AlternateItemTemplateProperty != null)
-            {
-                listViewBase.ContainerContentChanging += ItemTemplateContainerContentChanging;
-                listViewBase.Unloaded += OnListViewBaseUnloaded;
-            }
+        // Cleanup existing subscriptions
+        listViewBase.ContainerContentChanging -= ItemTemplateContainerContentChanging;
+        listViewBase.Unloaded -= OnListViewBaseUnloaded;
+
+        // Resubscribe to events as necessary
+        if (GetAlternateItemTemplate(listViewBase) != null)
+        {
+            listViewBase.ContainerContentChanging += ItemTemplateContainerContentChanging;
+            listViewBase.Unloaded += OnListViewBaseUnloaded;
         }
     }
 
@@ -110,36 +115,6 @@ public static partial class ListViewExtensions
         else
         {
             args.ItemContainer.ContentTemplate = sender.ItemTemplate;
-        }
-    }
-
-    private static void OnItemContainerStretchDirectionPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
-    {
-        if (sender is ListViewBase listViewBase)
-        {
-            listViewBase.ContainerContentChanging -= ItemContainerStretchDirectionChanging;
-            listViewBase.Unloaded -= OnListViewBaseUnloaded;
-
-            if (ItemContainerStretchDirectionProperty != null)
-            {
-                listViewBase.ContainerContentChanging += ItemContainerStretchDirectionChanging;
-                listViewBase.Unloaded += OnListViewBaseUnloaded;
-            }
-        }
-    }
-
-    private static void ItemContainerStretchDirectionChanging(ListViewBase sender, ContainerContentChangingEventArgs args)
-    {
-        var stretchDirection = GetItemContainerStretchDirection(sender);
-
-        if (stretchDirection == ItemContainerStretchDirection.Vertical || stretchDirection == ItemContainerStretchDirection.Both)
-        {
-            args.ItemContainer.VerticalContentAlignment = VerticalAlignment.Stretch;
-        }
-
-        if (stretchDirection == ItemContainerStretchDirection.Horizontal || stretchDirection == ItemContainerStretchDirection.Both)
-        {
-            args.ItemContainer.HorizontalContentAlignment = HorizontalAlignment.Stretch;
         }
     }
 
