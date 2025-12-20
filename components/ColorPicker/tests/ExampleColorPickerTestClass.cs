@@ -5,6 +5,7 @@
 using CommunityToolkit.Tooling.TestGen;
 using CommunityToolkit.Tests;
 using CommunityToolkit.WinUI.Controls;
+using CommunityToolkit.WinUI.Helpers;
 using ColorPicker = CommunityToolkit.WinUI.Controls.ColorPicker;
 
 namespace ColorPickerTests;
@@ -97,23 +98,22 @@ public partial class ExampleColorPickerTestClass : VisualUITestBase
 
     // If you want to load other content not within a XAML page using the UIThreadTestMethod above.
     // Then you can do that using the Load/UnloadTestContentAsync methods.
-    [TestMethod]
+    [UIThreadTestMethod]
     public async Task ComplexAsyncLoadUIExampleTest()
     {
-        await EnqueueAsync(async () =>
-        {
-            var component = new ColorPicker();
-            Assert.IsNotNull(component);
-            Assert.IsFalse(component.IsLoaded);
+        var component = new ColorPicker();
+        Assert.IsNotNull(component);
+        Assert.IsFalse(component.IsLoaded);
 
-            await LoadTestContentAsync(component);
+        await LoadTestContentAsync(component);
+        await CompositionTargetHelper.ExecuteAfterCompositionRenderingAsync(() => { });
 
-            Assert.IsTrue(component.IsLoaded);
+        Assert.IsTrue(component.IsLoaded);
 
-            await UnloadTestContentAsync(component);
+        await UnloadTestContentAsync(component);
+        await CompositionTargetHelper.ExecuteAfterCompositionRenderingAsync(() => { });
 
-            Assert.IsFalse(component.IsLoaded);
-        });
+        Assert.IsFalse(component.IsLoaded);
     }
 
     // You can still use the UIThreadTestMethod to remove the extra layer for the dispatcher as well:
