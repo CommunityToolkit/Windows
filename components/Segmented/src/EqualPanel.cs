@@ -88,12 +88,9 @@ public partial class EqualPanel : Panel
             Orientation.Vertical or _ => VerticalAlignment is VerticalAlignment.Stretch && !double.IsInfinity(availableSize.Height),
         };
 
-        // Define XY coords
-        double xSize = 0, ySize = 0;
-
         // Define UV coords for orientation agnostic XY manipulation
-        var uvSize = new UVCoord(ref xSize, ref ySize, Orientation);
-        var maxItemSize = new UVCoord(ref _maxItemWidth, ref _maxItemHeight, Orientation);
+        var uvSize = new UVCoord(0, 0, Orientation);
+        var maxItemSize = new UVCoord(_maxItemWidth, _maxItemHeight, Orientation);
         double availableU = Orientation is Orientation.Horizontal ? availableSize.Width : availableSize.Height;
 
         if (stretch)
@@ -112,18 +109,14 @@ public partial class EqualPanel : Panel
             uvSize.V = maxItemSize.V;
         }
 
-        return new Size(xSize, ySize);
+        return new Size(uvSize.X, uvSize.Y);
     }
 
     /// <inheritdoc/>
     protected override Size ArrangeOverride(Size finalSize)
     {
-        // Define X and Y
-        double x = 0;
-        double y = 0;
-
         // Define UV axis
-        var pos = new UVCoord(ref x, ref y, Orientation);
+        var pos = new UVCoord(0, 0, Orientation);
         ref double maxItemU = ref _maxItemWidth;
         double finalSizeU = finalSize.Width;
         if (Orientation is Orientation.Vertical)
@@ -142,7 +135,7 @@ public partial class EqualPanel : Panel
         foreach (var child in elements)
         {
             // NOTE: The arrange method is still in X/Y coordinate system
-            child.Arrange(new Rect(x, y, _maxItemWidth, _maxItemHeight));
+            child.Arrange(new Rect(pos.X, pos.Y, _maxItemWidth, _maxItemHeight));
             pos.U += maxItemU + Spacing;
         }
         return finalSize;
@@ -162,27 +155,50 @@ public partial class EqualPanel : Panel
     /// <summary>
     /// A struct for mapping X/Y coordinates to an orientation adjusted U/V coordinate system.
     /// </summary>
-    private readonly ref struct UVCoord
+    private struct UVCoord(double x, double y, Orientation orientation)
     {
-        private readonly ref double _u;
-        private readonly ref double _v;
+        private readonly bool _horizontal = orientation is Orientation.Horizontal;
 
-        public UVCoord(ref double x, ref double y, Orientation orientation)
+        public UVCoord(Size size, Orientation orientation) : this(size.Width, size.Height, orientation)
         {
-            if (orientation is Orientation.Horizontal)
+        }
+
+        public double X { get; set; } = x;
+
+        public double Y { get; set; } = y;
+
+        public double U
+        {
+            readonly get => _horizontal ? X : Y;
+            set
             {
-                _u = ref x;
-                _v = ref y;
-            }
-            else
-            {
-                _u = ref y;
-                _v = ref x;
+                if (_horizontal)
+                {
+                    X = value;
+                }
+                else
+                {
+                    Y = value;
+                }
             }
         }
 
-        public readonly ref double U => ref _u;
+        public double V
+        {
+            readonly get => _horizontal ? Y : X;
+            set
+            {
+                if (_horizontal)
+                {
+                    Y = value;
+                }
+                else
+                {
+                    X = value;
+                }
+            }
+        }
 
-        public readonly ref double V => ref _v;
+        public readonly Size Size => new(X, Y);
     }
 }
