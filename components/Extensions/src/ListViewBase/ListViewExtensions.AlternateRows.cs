@@ -10,57 +10,49 @@ namespace CommunityToolkit.WinUI;
 /// </summary>
 public static partial class ListViewExtensions
 {
-    private static Dictionary<IObservableVector<object>, ListViewBase> _itemsForList = new Dictionary<IObservableVector<object>, ListViewBase>();
+    private static readonly Dictionary<IObservableVector<object>, ListViewBase> _trackedListViews = [];
 
     /// <summary>
     /// Attached <see cref="DependencyProperty"/> for binding a <see cref="Brush"/> as an alternate background color to a <see cref="ListViewBase"/>
     /// </summary>
-    public static readonly DependencyProperty AlternateColorProperty = DependencyProperty.RegisterAttached("AlternateColor", typeof(Brush), typeof(ListViewExtensions), new PropertyMetadata(null, OnAlternateColorPropertyChanged));
+    public static readonly DependencyProperty AlternateColorProperty =
+        DependencyProperty.RegisterAttached("AlternateColor", typeof(Brush), typeof(ListViewExtensions),
+            new PropertyMetadata(null, OnAlternateColorPropertyChanged));
 
     /// <summary>
     /// Attached <see cref="DependencyProperty"/> for binding a <see cref="DataTemplate"/> as an alternate template to a <see cref="ListViewBase"/>
     /// </summary>
-    public static readonly DependencyProperty AlternateItemTemplateProperty = DependencyProperty.RegisterAttached("AlternateItemTemplate", typeof(DataTemplate), typeof(ListViewExtensions), new PropertyMetadata(null, OnAlternateItemTemplatePropertyChanged));
+    public static readonly DependencyProperty AlternateItemTemplateProperty =
+        DependencyProperty.RegisterAttached("AlternateItemTemplate", typeof(DataTemplate), typeof(ListViewExtensions),
+            new PropertyMetadata(null, OnAlternateItemTemplatePropertyChanged));
 
     /// <summary>
     /// Gets the alternate <see cref="Brush"/> associated with the specified <see cref="ListViewBase"/>
     /// </summary>
     /// <param name="obj">The <see cref="ListViewBase"/> to get the associated <see cref="Brush"/> from</param>
     /// <returns>The <see cref="Brush"/> associated with the <see cref="ListViewBase"/></returns>
-    public static Brush GetAlternateColor(ListViewBase obj)
-    {
-        return (Brush)obj.GetValue(AlternateColorProperty);
-    }
+    public static Brush GetAlternateColor(ListViewBase obj) => (Brush)obj.GetValue(AlternateColorProperty);
 
     /// <summary>
     /// Sets the alternate <see cref="Brush"/> associated with the specified <see cref="DependencyObject"/>
     /// </summary>
     /// <param name="obj">The <see cref="ListViewBase"/> to associate the <see cref="Brush"/> with</param>
     /// <param name="value">The <see cref="Brush"/> for binding to the <see cref="ListViewBase"/></param>
-    public static void SetAlternateColor(ListViewBase obj, Brush value)
-    {
-        obj.SetValue(AlternateColorProperty, value);
-    }
+    public static void SetAlternateColor(ListViewBase obj, Brush value) => obj.SetValue(AlternateColorProperty, value);
 
     /// <summary>
     /// Gets the <see cref="DataTemplate"/> associated with the specified <see cref="ListViewBase"/>
     /// </summary>
     /// <param name="obj">The <see cref="ListViewBase"/> to get the associated <see cref="DataTemplate"/> from</param>
     /// <returns>The <see cref="DataTemplate"/> associated with the <see cref="ListViewBase"/></returns>
-    public static DataTemplate GetAlternateItemTemplate(ListViewBase obj)
-    {
-        return (DataTemplate)obj.GetValue(AlternateItemTemplateProperty);
-    }
+    public static DataTemplate GetAlternateItemTemplate(ListViewBase obj) => (DataTemplate)obj.GetValue(AlternateItemTemplateProperty);
 
     /// <summary>
     /// Sets the <see cref="DataTemplate"/> associated with the specified <see cref="ListViewBase"/>
     /// </summary>
     /// <param name="obj">The <see cref="ListViewBase"/> to associate the <see cref="DataTemplate"/> with</param>
     /// <param name="value">The <see cref="DataTemplate"/> for binding to the <see cref="ListViewBase"/></param>
-    public static void SetAlternateItemTemplate(ListViewBase obj, DataTemplate value)
-    {
-        obj.SetValue(AlternateItemTemplateProperty, value);
-    }
+    public static void SetAlternateItemTemplate(ListViewBase obj, DataTemplate value) => obj.SetValue(AlternateItemTemplateProperty, value);
 
     private static void OnAlternateColorPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
     {
@@ -70,23 +62,29 @@ public static partial class ListViewExtensions
         // Cleanup existing subscriptions
         listViewBase.ContainerContentChanging -= ColorContainerContentChanging;
         listViewBase.Items.VectorChanged -= ColorItemsVectorChanged;
-        listViewBase.Unloaded -= OnListViewBaseUnloaded;
+        listViewBase.Unloaded -= OnListViewBaseUnloaded_AltRow;
 
-        _itemsForList[listViewBase.Items] = listViewBase;
+        _trackedListViews[listViewBase.Items] = listViewBase;
 
         // Resubscribe to events as necessary
         if (GetAlternateColor(listViewBase) is not null)
         {
             listViewBase.ContainerContentChanging += ColorContainerContentChanging;
             listViewBase.Items.VectorChanged += ColorItemsVectorChanged;
-            listViewBase.Unloaded += OnListViewBaseUnloaded;
+            listViewBase.Unloaded += OnListViewBaseUnloaded_AltRow;
         }
     }
 
     private static void ColorContainerContentChanging(ListViewBase sender, ContainerContentChangingEventArgs args)
     {
-        var itemContainer = args.ItemContainer as Control;
-        SetItemContainerBackground(sender, itemContainer, args.ItemIndex);
+        // Get the row's item container, or contents as a fallback
+        Control? control = args.ItemContainer ?? args.Item as Control;
+
+        // Update the row background if the item was found
+        if (control is not null)
+        {
+            SetRowBackground(sender, control, args.ItemIndex);
+        }
     }
 
     private static void OnAlternateItemTemplatePropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
@@ -96,74 +94,55 @@ public static partial class ListViewExtensions
 
         // Cleanup existing subscriptions
         listViewBase.ContainerContentChanging -= ItemTemplateContainerContentChanging;
-        listViewBase.Unloaded -= OnListViewBaseUnloaded;
+        listViewBase.Unloaded -= OnListViewBaseUnloaded_AltRow;
 
         // Resubscribe to events as necessary
         if (GetAlternateItemTemplate(listViewBase) != null)
         {
             listViewBase.ContainerContentChanging += ItemTemplateContainerContentChanging;
-            listViewBase.Unloaded += OnListViewBaseUnloaded;
+            listViewBase.Unloaded += OnListViewBaseUnloaded_AltRow;
         }
     }
 
     private static void ItemTemplateContainerContentChanging(ListViewBase sender, ContainerContentChangingEventArgs args)
     {
-        if (args.ItemIndex % 2 == 0)
-        {
-            args.ItemContainer.ContentTemplate = GetAlternateItemTemplate(sender);
-        }
-        else
-        {
-            args.ItemContainer.ContentTemplate = sender.ItemTemplate;
-        }
-    }
-
-    private static void OnListViewBaseUnloaded(object sender, RoutedEventArgs e)
-    {
-        if (sender is ListViewBase listViewBase)
-        {
-            _itemsForList.Remove(listViewBase.Items);
-
-            listViewBase.ContainerContentChanging -= ItemContainerStretchDirectionChanging;
-            listViewBase.ContainerContentChanging -= ItemTemplateContainerContentChanging;
-            listViewBase.ContainerContentChanging -= ColorContainerContentChanging;
-            listViewBase.Items.VectorChanged -= ColorItemsVectorChanged;
-            listViewBase.Unloaded -= OnListViewBaseUnloaded;
-        }
+        var template = args.ItemIndex % 2 == 0 ? GetAlternateItemTemplate(sender) : sender.ItemTemplate;
+        args.ItemContainer.ContentTemplate = template;
     }
 
     private static void ColorItemsVectorChanged(IObservableVector<object> sender, IVectorChangedEventArgs args)
     {
-        // If the index is at the end we can ignore
+        // If the index is at the end, no other items were affected
+        // and there's no action to take
         if (args.Index == (sender.Count - 1))
-        {
             return;
-        }
 
-        // Only need to handle Inserted and Removed because we'll handle everything else in the
-        // ColorContainerContentChanging method
-        if ((args.CollectionChange == CollectionChange.ItemInserted) || (args.CollectionChange == CollectionChange.ItemRemoved))
+        // This function is for updating indirectly affected items
+        // Therefore we only need to handle items inserted and removed where every
+        // item beneath would potentially change if they are even or odd.
+        if (args.CollectionChange is not (CollectionChange.ItemInserted or CollectionChange.ItemRemoved))
+            return;
+
+        // Attempt to get the list view for the affected items
+        _trackedListViews.TryGetValue(sender, out ListViewBase? listViewBase);
+        if (listViewBase is null)
+            return;
+
+        int index = (int)args.Index;
+        for (int i = index; i < sender.Count; i++)
         {
-            _itemsForList.TryGetValue(sender, out ListViewBase? listViewBase);
-            if (listViewBase == null)
-                return;
+            // Get item container or element at index
+            var itemContainer = listViewBase.ContainerFromIndex(i) as Control;
+            itemContainer ??= listViewBase.Items[i] as Control;
 
-            int index = (int)args.Index;
-            for (int i = index; i < sender.Count; i++)
+            if (itemContainer is not null)
             {
-                // Get item container or element at index
-                var itemContainer = listViewBase.ContainerFromIndex(i) as Control;
-                itemContainer ??= listViewBase.Items[i] as Control;
-
-                if (itemContainer is not null)
-                {
-                    SetItemContainerBackground(listViewBase, itemContainer, i);
-                }
+                SetRowBackground(listViewBase, itemContainer, i);
             }
         }
     }
 
-    private static void SetItemContainerBackground(ListViewBase sender, Control itemContainer, int itemIndex)
+    private static void SetRowBackground(ListViewBase sender, Control itemContainer, int itemIndex)
     {
         var brush = itemIndex % 2 == 0 ? GetAlternateColor(sender) : null;
         var rootBorder = itemContainer.FindDescendant<Border>();
@@ -173,5 +152,20 @@ public static partial class ListViewExtensions
         {
             rootBorder.Background = brush;
         }
+    }
+
+    private static void OnListViewBaseUnloaded_AltRow(object sender, RoutedEventArgs e)
+    {
+        if (sender is not ListViewBase listViewBase)
+            return;
+
+        // Untrack the list view
+        _trackedListViews.Remove(listViewBase.Items);
+
+        // Unsubscribe from events
+        listViewBase.ContainerContentChanging -= ItemTemplateContainerContentChanging;
+        listViewBase.ContainerContentChanging -= ColorContainerContentChanging;
+        listViewBase.Items.VectorChanged -= ColorItemsVectorChanged;
+        listViewBase.Unloaded -= OnListViewBaseUnloaded_AltRow;
     }
 }

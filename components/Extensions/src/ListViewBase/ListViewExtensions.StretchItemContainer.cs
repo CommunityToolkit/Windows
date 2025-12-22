@@ -14,15 +14,13 @@ public static partial class ListViewExtensions
     /// </summary>
     public static readonly DependencyProperty ItemContainerStretchDirectionProperty = DependencyProperty.RegisterAttached("ItemContainerStretchDirection", typeof(ItemContainerStretchDirection), typeof(ListViewExtensions), new PropertyMetadata(null, OnItemContainerStretchDirectionPropertyChanged));
 
-            /// <summary>
+    /// <summary>
     /// Gets the stretch <see cref="ItemContainerStretchDirection"/> associated with the specified <see cref="ListViewBase"/>
     /// </summary>
     /// <param name="obj">The <see cref="ListViewBase"/> to get the associated <see cref="ItemContainerStretchDirection"/> from</param>
     /// <returns>The <see cref="ItemContainerStretchDirection"/> associated with the <see cref="ListViewBase"/></returns>
     public static ItemContainerStretchDirection? GetItemContainerStretchDirection(ListViewBase obj)
-    {
-        return (ItemContainerStretchDirection)obj.GetValue(ItemContainerStretchDirectionProperty);
-    }
+        => (ItemContainerStretchDirection)obj.GetValue(ItemContainerStretchDirectionProperty);
 
     /// <summary>
     /// Sets the stretch <see cref="ItemContainerStretchDirection"/> associated with the specified <see cref="ListViewBase"/>
@@ -30,9 +28,7 @@ public static partial class ListViewExtensions
     /// <param name="obj">The <see cref="ListViewBase"/> to associate the <see cref="ItemContainerStretchDirection"/> with</param>
     /// <param name="value">The <see cref="ItemContainerStretchDirection"/> for binding to the <see cref="ListViewBase"/></param>
     public static void SetItemContainerStretchDirection(ListViewBase obj, ItemContainerStretchDirection value)
-    {
-        obj.SetValue(ItemContainerStretchDirectionProperty, value);
-    }
+        => obj.SetValue(ItemContainerStretchDirectionProperty, value);
 
     private static void OnItemContainerStretchDirectionPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
     {
@@ -41,13 +37,13 @@ public static partial class ListViewExtensions
 
         // Cleanup existing subscriptions
         listViewBase.ContainerContentChanging -= ItemContainerStretchDirectionChanging;
-        listViewBase.Unloaded -= OnListViewBaseUnloaded;
+        listViewBase.Unloaded -= OnListViewBaseUnloaded_StretchDirection;
 
         // Resubscribe to events as necessary
         if (GetItemContainerStretchDirection(listViewBase) is not null)
         {
             listViewBase.ContainerContentChanging += ItemContainerStretchDirectionChanging;
-            listViewBase.Unloaded += OnListViewBaseUnloaded;
+            listViewBase.Unloaded += OnListViewBaseUnloaded_StretchDirection;
         }
     }
 
@@ -55,15 +51,22 @@ public static partial class ListViewExtensions
     {
         var stretchDirection = GetItemContainerStretchDirection(sender);
 
-        if (stretchDirection == ItemContainerStretchDirection.Vertical || stretchDirection == ItemContainerStretchDirection.Both)
-        {
-            args.ItemContainer.VerticalContentAlignment = VerticalAlignment.Stretch;
-        }
-
-        if (stretchDirection == ItemContainerStretchDirection.Horizontal || stretchDirection == ItemContainerStretchDirection.Both)
-        {
+        // Set vertical content stretching
+        if (stretchDirection is ItemContainerStretchDirection.Horizontal or ItemContainerStretchDirection.Both)
             args.ItemContainer.HorizontalContentAlignment = HorizontalAlignment.Stretch;
-        }
+
+        // Set horizontal content stretching
+        if (stretchDirection is ItemContainerStretchDirection.Vertical or ItemContainerStretchDirection.Both)
+            args.ItemContainer.VerticalContentAlignment = VerticalAlignment.Stretch;
     }
 
+    private static void OnListViewBaseUnloaded_StretchDirection(object sender, RoutedEventArgs e)
+    {
+        if (sender is not ListViewBase listViewBase)
+            return;
+
+        // Unsubscribe from events
+        listViewBase.ContainerContentChanging -= ItemContainerStretchDirectionChanging;
+        listViewBase.Unloaded -= OnListViewBaseUnloaded_StretchDirection;
+    }
 }
