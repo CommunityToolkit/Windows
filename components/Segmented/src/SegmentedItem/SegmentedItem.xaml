@@ -361,7 +361,8 @@
     </ResourceDictionary.ThemeDictionaries>
 
     <x:String x:Key="SegmentedItemScaleAnimationDuration">00:00:00.167</x:String>
-
+    <win:BrushTransition x:Key="SegmentedItemBackgroundBrushTransition" Duration="0:0:0.083" />
+    
     <Style BasedOn="{StaticResource DefaultSegmentedItemStyle}"
            TargetType="local:SegmentedItem" />
 
@@ -374,6 +375,7 @@
     <Thickness x:Key="MiddleItemHoverMargin">1, 3, 1, 3</Thickness>
     <Thickness x:Key="RightItemHoverMargin">1, 3, 3, 3</Thickness>
     <Thickness x:Key="ButtonItemPadding">11</Thickness>
+
     <Style x:Key="DefaultSegmentedItemStyle"
            TargetType="local:SegmentedItem">
         <Style.Setters>
@@ -400,11 +402,9 @@
                               BorderBrush="{TemplateBinding BorderBrush}"
                               BorderThickness="{TemplateBinding BorderThickness}"
                               Control.IsTemplateFocusTarget="True"
-                              CornerRadius="{TemplateBinding CornerRadius}">
-                            <win:Grid.BackgroundTransition>
-                                <win:BrushTransition Duration="0:0:0.083" />
-                            </win:Grid.BackgroundTransition>
-                            <VisualStateManager.VisualStateGroups>
+                              CornerRadius="{TemplateBinding CornerRadius}"
+                              BackgroundTransition="{ThemeResource SegmentedItemBackgroundBrushTransition}">
+                             <VisualStateManager.VisualStateGroups>
                                 <VisualStateGroup x:Name="SegmentedIconPositionStates">
                                     <VisualState x:Name="IconOnLeft" />
                                     <VisualState x:Name="IconOnly">
@@ -615,10 +615,8 @@
                                     Margin="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Converter={StaticResource MarginConverter}}"
                                     Background="Transparent"
                                     CornerRadius="{TemplateBinding CornerRadius}"
-                                    RenderTransformOrigin="0.5, 0.5">
-                                <win:Border.BackgroundTransition>
-                                    <win:BrushTransition Duration="0:0:0.083" />
-                                </win:Border.BackgroundTransition>
+                                    RenderTransformOrigin="0.5, 0.5"
+                                    BackgroundTransition="{ThemeResource SegmentedItemBackgroundBrushTransition}">
                                 <Border.RenderTransform>
                                     <CompositeTransform />
                                 </Border.RenderTransform>
@@ -926,10 +924,8 @@
                               Background="{TemplateBinding Background}"
                               BackgroundSizing="{TemplateBinding BackgroundSizing}"
                               Control.IsTemplateFocusTarget="True"
-                              CornerRadius="{TemplateBinding CornerRadius}">
-                            <win:Grid.BackgroundTransition>
-                                <win:BrushTransition Duration="0:0:0.083" />
-                            </win:Grid.BackgroundTransition>
+                              CornerRadius="{TemplateBinding CornerRadius}"
+                              BackgroundTransition="{ThemeResource SegmentedItemBackgroundBrushTransition}">
                             <VisualStateManager.VisualStateGroups>
                                 <VisualStateGroup x:Name="SegmentedIconPositionStates">
                                     <VisualState x:Name="IconOnLeft" />
