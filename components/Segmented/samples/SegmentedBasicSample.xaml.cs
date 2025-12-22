@@ -11,6 +11,7 @@ namespace SegmentedExperiment.Samples;
 /// </summary>
 [ToolkitSampleMultiChoiceOption("SelectionMode", "Single", "Multiple", Title = "Selection mode")]
 [ToolkitSampleMultiChoiceOption("Alignment", "Left", "Center", "Right", "Stretch", Title = "Horizontal alignment")]
+[ToolkitSampleMultiChoiceOption("OrientationMode", "Horizontal", "Vertical", Title = "Orientation")]
 
 [ToolkitSample(id: nameof(SegmentedBasicSample), "Basics", description: $"A sample for showing how to create and use a {nameof(Segmented)} custom control.")]
 public sealed partial class SegmentedBasicSample : Page
@@ -34,6 +35,13 @@ public sealed partial class SegmentedBasicSample : Page
         "Center" => HorizontalAlignment.Center,
         "Right" => HorizontalAlignment.Right,
         "Stretch" => HorizontalAlignment.Stretch,
+        _ => throw new System.NotImplementedException(),
+    };
+
+    public static Orientation ConvertStringToOrientation(string orientation) => orientation switch
+    {
+        "Horizontal" => Orientation.Horizontal,
+        "Vertical" => Orientation.Vertical,
         _ => throw new System.NotImplementedException(),
     };
 }
