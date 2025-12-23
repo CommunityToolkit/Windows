@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Globalization;
+
 #if WINAPPSDK
 using Microsoft.UI;
 #else
@@ -15,287 +16,343 @@ namespace CommunityToolkit.WinUI.Helpers;
 /// <summary>
 /// This class provides static helper methods for colors.
 /// </summary>
-public static class ColorHelper
+public static partial class ColorHelper
 {
+    /// <summary>
+    /// Attempts to parse a string as a color.
+    /// </summary>
+    /// <remarks>
+    /// Any format used in XAML should work.
+    /// </remarks>
+    /// <param name="colorString">The string to parse.</param>
+    /// <param name="color">The resulting color.</param>
+    /// <returns>Whether or not the parse succeeded.</returns>
+    public static bool TryParseColor(string colorString, out Color color)
+    {
+        color = default;
+
+        if (string.IsNullOrEmpty(colorString))
+            return false;
+
+        // Try as hex
+        if (TryParseHexColor(colorString, out color))
+            return true;
+
+        // Try as screen color
+        if (TryParseScreenColor(colorString, out color))
+            return true;
+
+        // TODO: Should hsl and hsv be added?
+
+        if (TryParseColorName(colorString, out color))
+            return true;
+
+        return false;
+    }
+
+    /// <summary>
+    /// Attempts to parse a string as a hex color.
+    /// </summary>
+    /// <param name="hexString">The string to parse.</param>
+    /// <param name="color">The resulting color.</param>
+    /// <returns>Whether or not the parse succeeded.</returns>
+    public static bool TryParseHexColor(string hexString, out Color color)
+    {
+        color = default;
+
+        // Ensure string begins with '#'
+        // and is long enough to not break later in the parser.
+        if (string.IsNullOrEmpty(hexString) ||
+            hexString.Length < 2 ||
+            hexString[0] != '#')
+            return false;
+
+        // Convert base 16 string to uint
+        if (!uint.TryParse(hexString[1..], NumberStyles.HexNumber, CultureInfo.InvariantCulture, out var cuint))
+            return false;
+
+        // Extract 4 bytes
+        byte b3 = (byte)(cuint >> 24);
+        byte b2 = (byte)((cuint >> 16) & 0xff);
+        byte b1 = (byte)((cuint >> 8) & 0xff);
+        byte b0 = (byte)(cuint & 0xff);
+
+        // Extract 4 half-bytes
+        byte h3 = (byte)(cuint >> 12);
+        byte h2 = (byte)((cuint >> 8) & 0xf);
+        byte h1 = (byte)((cuint >> 4) & 0xf);
+        byte h0 = (byte)(cuint & 0xf);
+        h3 = (byte)(h3 << 4 | h3);
+        h2 = (byte)(h2 << 4 | h2);
+        h1 = (byte)(h1 << 4 | h1);
+        h0 = (byte)(h0 << 4 | h0);
+
+        // Select bytes based on string length
+        switch (hexString.Length)
+        {
+            // #AaRrGgBb
+            case 9:
+                color = Color.FromArgb(b3, b2, b1, b0);
+                return true;
+            // #RrGgBb
+            case 7:
+                color = Color.FromArgb(255, b2, b1, b0);
+                return true;
+            // #ARGB
+            case 5:
+                color = Color.FromArgb(h3, h2, h1, h0);
+                return true;
+            // #RGB
+            case 4:
+                color = Color.FromArgb(255, h2, h1, h0);
+                return true;
+            // Invalid format
+            default:
+                return false;
+        }
+    }
+
+    /// <summary>
+    /// Attempts to parse a string as a hsl color.
+    /// </summary>
+    /// <param name="hslColor">The string to parse.</param>
+    /// <param name="color">The resulting color.</param>
+    /// <returns>Whether or not the parse succeeded.</returns>
+    public static bool TryParseHslColor(string hslColor, out HslColor color)
+    {
+        color = default;
+
+        if (!MatchArgPattern(hslColor, "hsl", out var args))
+            return false;
+
+        if (args.Length != 3)
+            return false;
+
+        color = HslColor.Create(args[0], args[1], args[2]);
+        return true;
+    }
+    
+    /// <summary>
+    /// Attempts to parse a string as a hsv color.
+    /// </summary>
+    /// <param name="hsvColor">The string to parse.</param>
+    /// <param name="color">The resulting color.</param>
+    /// <returns>Whether or not the parse succeeded.</returns>
+    public static bool TryParseHsvColor(string hsvColor, out HsvColor color)
+    {
+        color = default;
+
+        if (!MatchArgPattern(hsvColor, "hsv", out var args))
+            return false;
+
+        if (args.Length != 3)
+            return false;
+
+        color = HsvColor.Create(args[0], args[1], args[2]);
+        return true;
+    }
+
+    /// <summary>
+    /// Attempts to parse a string as a screen color.
+    /// </summary>
+    /// <param name="screenColor">The string to parse.</param>
+    /// <param name="color">The resulting color.</param>
+    /// <returns>Whether or not the parse succeeded.</returns>
+    public static bool TryParseScreenColor(string screenColor, out Color color)
+    {
+        color = default;
+
+        // Ensure the string begins with "sc#"
+        if (screenColor.Length < 3 || screenColor[0..3] != "sc#")
+            return false;
+
+        // Get arguments
+        screenColor = screenColor[3..];
+        var values = screenColor.Split(',');
+
+        // Parse the arguments from string doubles into bytes
+        var args = new byte[values.Length];
+        for (int i = 0; i < values.Length; i++)
+        {
+            if (!double.TryParse(values[i], out var arg))
+                return false;
+
+            args[i] = (byte)(arg * 255);
+        }
+
+        // Assign channel data based on arguments
+        switch (args.Length)
+        {
+            // sc#Alpha,Red,Green,Blue
+            case 4:
+                color = Color.FromArgb(args[0], args[1], args[2], args[3]);
+                return true;
+            // sc#Red,Green,Blue
+            case 3:
+                color = Color.FromArgb(255, args[0], args[1], args[2]);
+                return true;
+            // Invalid format
+            default:
+                return false;
+        }
+    }
+
+    /// <summary>
+    /// Attempts to parse a string color name.
+    /// </summary>
+    /// <param name="colorName">The color name.</param>
+    /// <param name="color">The resulting color.</param>
+    /// <returns>Whether or not the parse succeeded.</returns>
+    public static bool TryParseColorName(string colorName, out Color color)
+    {
+        color = default;
+
+#pragma warning disable CS8605 // Unboxing a possibly null value.
+        var prop = typeof(Colors).GetTypeInfo().GetDeclaredProperty(colorName);
+        if (prop != null)
+        {
+            color = (Color)prop.GetValue(null);
+            return true;
+        }
+#pragma warning restore CS8605 // Unboxing a possibly null value.
+
+        return false;
+    }
+
     /// <summary>
     /// Creates a <see cref="Color"/> from a XAML color string.
     /// Any format used in XAML should work.
     /// </summary>
     /// <param name="colorString">The XAML color string.</param>
     /// <returns>The created <see cref="Color"/>.</returns>
-    public static Color ToColor(this string colorString)
+    public static Color ParseColor(string colorString)
     {
-        if (string.IsNullOrEmpty(colorString))
-        {
-            ThrowArgumentException();
-        }
+        if (TryParseColor(colorString, out var color))
+            return color;
 
-        if (colorString[0] == '#')
-        {
-            switch (colorString.Length)
-            {
-                case 9:
-                {
-                    var cuint = Convert.ToUInt32(colorString.Substring(1), 16);
-                    var a = (byte)(cuint >> 24);
-                    var r = (byte)((cuint >> 16) & 0xff);
-                    var g = (byte)((cuint >> 8) & 0xff);
-                    var b = (byte)(cuint & 0xff);
-
-                    return Color.FromArgb(a, r, g, b);
-                }
-
-                case 7:
-                {
-                    var cuint = Convert.ToUInt32(colorString.Substring(1), 16);
-                    var r = (byte)((cuint >> 16) & 0xff);
-                    var g = (byte)((cuint >> 8) & 0xff);
-                    var b = (byte)(cuint & 0xff);
-
-                    return Color.FromArgb(255, r, g, b);
-                }
-
-                case 5:
-                {
-                    var cuint = Convert.ToUInt16(colorString.Substring(1), 16);
-                    var a = (byte)(cuint >> 12);
-                    var r = (byte)((cuint >> 8) & 0xf);
-                    var g = (byte)((cuint >> 4) & 0xf);
-                    var b = (byte)(cuint & 0xf);
-                    a = (byte)(a << 4 | a);
-                    r = (byte)(r << 4 | r);
-                    g = (byte)(g << 4 | g);
-                    b = (byte)(b << 4 | b);
-
-                    return Color.FromArgb(a, r, g, b);
-                }
-
-                case 4:
-                {
-                    var cuint = Convert.ToUInt16(colorString.Substring(1), 16);
-                    var r = (byte)((cuint >> 8) & 0xf);
-                    var g = (byte)((cuint >> 4) & 0xf);
-                    var b = (byte)(cuint & 0xf);
-                    r = (byte)(r << 4 | r);
-                    g = (byte)(g << 4 | g);
-                    b = (byte)(b << 4 | b);
-
-                    return Color.FromArgb(255, r, g, b);
-                }
-
-                default: return ThrowFormatException();
-            }
-        }
-
-        if (colorString.Length > 3 && colorString[0] == 's' && colorString[1] == 'c' && colorString[2] == '#')
-        {
-            var values = colorString.Split(',');
-
-            if (values.Length == 4)
-            {
-                var scA = double.Parse(values[0].Substring(3), CultureInfo.InvariantCulture);
-                var scR = double.Parse(values[1], CultureInfo.InvariantCulture);
-                var scG = double.Parse(values[2], CultureInfo.InvariantCulture);
-                var scB = double.Parse(values[3], CultureInfo.InvariantCulture);
-
-                return Color.FromArgb((byte)(scA * 255), (byte)(scR * 255), (byte)(scG * 255), (byte)(scB * 255));
-            }
-
-            if (values.Length == 3)
-            {
-                var scR = double.Parse(values[0].Substring(3), CultureInfo.InvariantCulture);
-                var scG = double.Parse(values[1], CultureInfo.InvariantCulture);
-                var scB = double.Parse(values[2], CultureInfo.InvariantCulture);
-
-                return Color.FromArgb(255, (byte)(scR * 255), (byte)(scG * 255), (byte)(scB * 255));
-            }
-
-            return ThrowFormatException();
-        }
-
-        var prop = typeof(Colors).GetTypeInfo().GetDeclaredProperty(colorString);
-
-        if (prop != null)
-        {
-#pragma warning disable CS8605 // Unboxing a possibly null value.
-            return (Color)prop.GetValue(null);
-#pragma warning restore CS8605 // Unboxing a possibly null value.
-        }
-
-        return ThrowFormatException();
-
-        static void ThrowArgumentException() => throw new ArgumentException("The parameter \"colorString\" must not be null or empty.");
-        static Color ThrowFormatException() => throw new FormatException("The parameter \"colorString\" is not a recognized Color format.");
+        throw new FormatException($"The string '{colorString}' could not be parsed as a string.");
     }
 
     /// <summary>
-    /// Converts a <see cref="Color"/> to a hexadecimal string representation.
+    /// Parses a hexadecimal color string into a <see cref="Color"/>.
     /// </summary>
-    /// <param name="color">The color to convert.</param>
-    /// <returns>The hexadecimal string representation of the color.</returns>
-    public static string ToHex(this Color color)
+    /// <param name="hexColor">The hex color string.</param>
+    /// <returns>The resulting <see cref="Color"/>.</returns>
+    public static Color ParseHexColor(string hexColor)
     {
-        return $"#{color.A:X2}{color.R:X2}{color.G:X2}{color.B:X2}";
+        if (TryParseHexColor(hexColor, out var color))
+            return color;
+
+        throw new FormatException($"The string '{hexColor}' could not be parsed as a hex color.");
+    }
+    
+    /// <summary>
+    /// Parses a hsl color string into a <see cref="Color"/>.
+    /// </summary>
+    /// <param name="hslColor">The hsl color string.</param>
+    /// <returns>The resulting <see cref="Color"/>.</returns>
+    public static HslColor ParseHslColor(string hslColor)
+    {
+        if (TryParseHslColor(hslColor, out var color))
+            return color;
+
+        throw new FormatException($"The string '{hslColor}' could not be parsed as a hsl color.");
+    }
+    
+    /// <summary>
+    /// Parses a hsv color string into a <see cref="Color"/>.
+    /// </summary>
+    /// <param name="hsvColor">The hsv color string.</param>
+    /// <returns>The resulting <see cref="Color"/>.</returns>
+    public static HsvColor ParseHsvColor(string hsvColor)
+    {
+        if (TryParseHsvColor(hsvColor, out var color))
+            return color;
+
+        throw new FormatException($"The string '{hsvColor}' could not be parsed as a hsv color.");
     }
 
     /// <summary>
-    /// Converts a <see cref="Color"/> to a premultiplied Int32 - 4 byte ARGB structure.
+    /// Parses a screen color string into a <see cref="Color"/>.
     /// </summary>
-    /// <param name="color">The color to convert.</param>
-    /// <returns>The int representation of the color.</returns>
-    public static int ToInt(this Color color)
+    /// <param name="screenColor">The screen color string.</param>
+    /// <returns>The resulting <see cref="Color"/>.</returns>
+    public static Color ParseScreenColor(string screenColor)
     {
-        var a = color.A + 1;
-        var col = (color.A << 24) | ((byte)((color.R * a) >> 8) << 16) | ((byte)((color.G * a) >> 8) << 8) | (byte)((color.B * a) >> 8);
-        return col;
+        if (TryParseScreenColor(screenColor, out var color))
+            return color;
+
+        throw new FormatException($"The string '{screenColor}' is not a valid ScreenColor string");
     }
 
     /// <summary>
-    /// Converts a <see cref="Color"/> to an <see cref="HslColor"/>.
+    /// Parses a color by name.
     /// </summary>
-    /// <param name="color">The <see cref="Color"/> to convert.</param>
-    /// <returns>The converted <see cref="HslColor"/>.</returns>
-    public static HslColor ToHsl(this Color color)
+    /// <param name="colorName">The color's name.</param>
+    /// <returns>The resulting <see cref="Color"/>.</returns>
+    /// <exception cref="ArgumentException">Throws if the color name is not recognized.</exception>
+    public static Color ParseColorName(string colorName)
     {
-        const double toDouble = 1.0 / 255;
-        var r = toDouble * color.R;
-        var g = toDouble * color.G;
-        var b = toDouble * color.B;
-        var max = Math.Max(Math.Max(r, g), b);
-        var min = Math.Min(Math.Min(r, g), b);
+        if (TryParseColorName(colorName, out var color))
+            return color;
+
+        throw new FormatException($"The name '{colorName}' not a valid color");
+    }
+
+    internal static (double h1, double chroma) CalculateHueAndChroma(Color color, out double min, out double max, out double alpha)
+    {
+        // This code is shared between both the conversion
+        // to both HSL and HSV from RGB.
+
+        var r = (double)color.R / 255;
+        var g = (double)color.G / 255;
+        var b = (double)color.B / 255;
+        alpha = (double)color.A / 255;
+
+        max = Math.Max(Math.Max(r, g), b);
+        min = Math.Min(Math.Min(r, g), b);
         var chroma = max - min;
-        double h1;
 
+        double h1;
         if (chroma == 0)
         {
+            // No max
             h1 = 0;
         }
         else if (max == r)
         {
-            // The % operator doesn't do proper modulo on negative
-            // numbers, so we'll add 6 before using it
-            h1 = (((g - b) / chroma) + 6) % 6;
+            // Red is max
+            h1 = ((g - b) / chroma + 6) % 6;
         }
         else if (max == g)
         {
+            // Green is max
             h1 = 2 + ((b - r) / chroma);
         }
         else
         {
+            // Blue is max
             h1 = 4 + ((r - g) / chroma);
         }
 
-        double lightness = 0.5 * (max + min);
-        double saturation = chroma == 0 ? 0 : chroma / (1 - Math.Abs((2 * lightness) - 1));
-        HslColor ret;
-        ret.H = 60 * h1;
-        ret.S = saturation;
-        ret.L = lightness;
-        ret.A = toDouble * color.A;
-        return ret;
+        return (h1, chroma);
     }
 
-    /// <summary>
-    /// Converts a <see cref="Color"/> to an <see cref="HsvColor"/>.
-    /// </summary>
-    /// <param name="color">The <see cref="Color"/> to convert.</param>
-    /// <returns>The converted <see cref="HsvColor"/>.</returns>
-    public static HsvColor ToHsv(this Color color)
+    internal static Color FromHueChroma(double h1, double chroma, double x, double m, double alpha)
     {
-        const double toDouble = 1.0 / 255;
-        var r = toDouble * color.R;
-        var g = toDouble * color.G;
-        var b = toDouble * color.B;
-        var max = Math.Max(Math.Max(r, g), b);
-        var min = Math.Min(Math.Min(r, g), b);
-        var chroma = max - min;
-        double h1;
+        // This code is shared between both the conversion
+        // from both HSL and HSV to RGB.
 
-        if (chroma == 0)
-        {
-            h1 = 0;
-        }
-        else if (max == r)
-        {
-            // The % operator doesn't do proper modulo on negative
-            // numbers, so we'll add 6 before using it
-            h1 = (((g - b) / chroma) + 6) % 6;
-        }
-        else if (max == g)
-        {
-            h1 = 2 + ((b - r) / chroma);
-        }
-        else
-        {
-            h1 = 4 + ((r - g) / chroma);
-        }
-
-        double saturation = chroma == 0 ? 0 : chroma / max;
-        HsvColor ret;
-        ret.H = 60 * h1;
-        ret.S = saturation;
-        ret.V = max;
-        ret.A = toDouble * color.A;
-        return ret;
-    }
-
-    /// <summary>
-    /// Creates a <see cref="Color"/> from the specified hue, saturation, lightness, and alpha values.
-    /// </summary>
-    /// <param name="hue">0..360 range hue</param>
-    /// <param name="saturation">0..1 range saturation</param>
-    /// <param name="lightness">0..1 range lightness</param>
-    /// <param name="alpha">0..1 alpha</param>
-    /// <returns>The created <see cref="Color"/>.</returns>
-    public static Color FromHsl(double hue, double saturation, double lightness, double alpha = 1.0)
-    {
-        if (hue < 0 || hue > 360)
-        {
-            throw new ArgumentOutOfRangeException(nameof(hue));
-        }
-
-        double chroma = (1 - Math.Abs((2 * lightness) - 1)) * saturation;
-        double h1 = hue / 60;
-        double x = chroma * (1 - Math.Abs((h1 % 2) - 1));
-        double m = lightness - (0.5 * chroma);
         double r1, g1, b1;
-
-        if (h1 < 1)
+        (r1, g1, b1) = h1 switch
         {
-            r1 = chroma;
-            g1 = x;
-            b1 = 0;
-        }
-        else if (h1 < 2)
-        {
-            r1 = x;
-            g1 = chroma;
-            b1 = 0;
-        }
-        else if (h1 < 3)
-        {
-            r1 = 0;
-            g1 = chroma;
-            b1 = x;
-        }
-        else if (h1 < 4)
-        {
-            r1 = 0;
-            g1 = x;
-            b1 = chroma;
-        }
-        else if (h1 < 5)
-        {
-            r1 = x;
-            g1 = 0;
-            b1 = chroma;
-        }
-        else
-        {
-            r1 = chroma;
-            g1 = 0;
-            b1 = x;
-        }
+            < 1 => (chroma, x, 0d),
+            < 2 => (x, chroma, 0d),
+            < 3 => (0d, chroma, x),
+            < 4 => (0d, x, chroma),
+            < 5 => (x, 0d, chroma),
+            _ => (chroma, 0d, x),
+        };
 
         byte r = (byte)(255 * (r1 + m));
         byte g = (byte)(255 * (g1 + m));
@@ -306,68 +363,38 @@ public static class ColorHelper
     }
 
     /// <summary>
-    /// Creates a <see cref="Color"/> from the specified hue, saturation, value, and alpha values.
+    /// Parses a string to match the argument pattern "<paramref name="funcName"/>(args[0], args[1], ...)"
     /// </summary>
-    /// <param name="hue">0..360 range hue</param>
-    /// <param name="saturation">0..1 range saturation</param>
-    /// <param name="value">0..1 range value</param>
-    /// <param name="alpha">0..1 alpha</param>
-    /// <returns>The created <see cref="Color"/>.</returns>
-    public static Color FromHsv(double hue, double saturation, double value, double alpha = 1.0)
+    private static bool MatchArgPattern(string value, string funcName, out double[] args)
     {
-        if (hue < 0 || hue > 360)
+        args = [];
+
+        // Find opening and closing parenthesis
+        var argsStart = value.IndexOf('(');
+        var argsEnd = value.Length - 1;
+        if (argsStart is -1)
+            return false;
+
+        // Ensure the string begins with the function name
+        if (value[0..argsStart] != funcName)
+            return false;
+
+        // Ensure the string ends with ')' 
+        if (value[argsEnd] != ')')
+            return false;
+
+        // Split to substring between the parenthesis
+        value = value[(argsStart + 1)..argsEnd];
+        var argStrings = value.Split(',');
+
+        // Parse the args into an array of doubles
+        args = new double[argStrings.Length];
+        for (var i = 0; i < argStrings.Length; i++)
         {
-            throw new ArgumentOutOfRangeException(nameof(hue));
+            if (!double.TryParse(argStrings[i], null, out args[i]))
+                return false;
         }
 
-        double chroma = value * saturation;
-        double h1 = hue / 60;
-        double x = chroma * (1 - Math.Abs((h1 % 2) - 1));
-        double m = value - chroma;
-        double r1, g1, b1;
-
-        if (h1 < 1)
-        {
-            r1 = chroma;
-            g1 = x;
-            b1 = 0;
-        }
-        else if (h1 < 2)
-        {
-            r1 = x;
-            g1 = chroma;
-            b1 = 0;
-        }
-        else if (h1 < 3)
-        {
-            r1 = 0;
-            g1 = chroma;
-            b1 = x;
-        }
-        else if (h1 < 4)
-        {
-            r1 = 0;
-            g1 = x;
-            b1 = chroma;
-        }
-        else if (h1 < 5)
-        {
-            r1 = x;
-            g1 = 0;
-            b1 = chroma;
-        }
-        else
-        {
-            r1 = chroma;
-            g1 = 0;
-            b1 = x;
-        }
-
-        byte r = (byte)(255 * (r1 + m));
-        byte g = (byte)(255 * (g1 + m));
-        byte b = (byte)(255 * (b1 + m));
-        byte a = (byte)(255 * alpha);
-
-        return Color.FromArgb(a, r, g, b);
+        return true;
     }
 }
