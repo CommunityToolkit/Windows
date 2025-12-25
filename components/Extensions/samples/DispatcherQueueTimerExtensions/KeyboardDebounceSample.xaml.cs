@@ -11,7 +11,7 @@ using DispatcherQueue = Windows.System.DispatcherQueue;
 using DispatcherQueueTimer = Windows.System.DispatcherQueueTimer;
 #endif
 
-namespace ExtensionsExperiment.Samples.DispatcherQueueExtensions;
+namespace ExtensionsExperiment.Samples.DispatcherQueueTimerExtensions;
 
 [ToolkitSample(id: nameof(KeyboardDebounceSample), "DispatcherQueueTimer Debounce Keyboard", description: "A sample for showing how to use the DispatcherQueueTimer Debounce extension to smooth keyboard input.")]
 [ToolkitSampleNumericOption("Interval", 120, 60, 240)]

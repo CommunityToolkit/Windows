@@ -97,6 +97,12 @@ public partial class WrapPanel : Panel
     /// <summary>
     /// Gets or sets a value indicating how to arrange child items
     /// </summary>
+    /// <remarks>
+    /// When the available size provided to the panel is infinite (for example,
+    /// when placed in a container with Auto sizing), the last child will not be
+    /// stretched. Attempting to stretch in this scenario would cause the element
+    /// to expand to an infinite size and result in a runtime exception.
+    /// </remarks>
     public StretchChild StretchChild
     {
         get { return (StretchChild)GetValue(StretchChildProperty); }
@@ -208,7 +214,7 @@ public partial class WrapPanel : Panel
             }
 
             var desiredMeasure = new UvMeasure(Orientation, child.DesiredSize);
-            if ((desiredMeasure.U + position.U + paddingEnd.U) > parentMeasure.U)
+            if ((desiredMeasure.U + position.U + paddingEnd.U) > parentMeasure.U || position.U >= parentMeasure.U)
             {
                 // next row!
                 position.U = paddingStart.U;
@@ -219,7 +225,8 @@ public partial class WrapPanel : Panel
             }
 
             // Stretch the last item to fill the available space
-            if (isLast)
+            // if the parent measure is not infinite
+            if (isLast && !double.IsInfinity(parentMeasure.U))
             {
                 desiredMeasure.U = parentMeasure.U - position.U;
             }

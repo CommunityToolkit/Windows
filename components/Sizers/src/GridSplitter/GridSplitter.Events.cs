@@ -50,7 +50,7 @@ public partial class GridSplitter
         var currentChange = _currentSize + verticalChange;
         var siblingChange = _siblingSize + (verticalChange * -1); // sibling moves opposite
 
-        // Would changing the columnn sizes violate the constraints?
+        // Would changing the column sizes violate the constraints?
         if (!IsValidRowHeight(CurrentRow, currentChange) || !IsValidRowHeight(SiblingRow, siblingChange))
         {
             return false;
@@ -125,7 +125,7 @@ public partial class GridSplitter
         var currentChange = _currentSize + horizontalChange;
         var siblingChange = _siblingSize + (horizontalChange * -1); // sibling moves opposite
 
-        // Would changing the columnn sizes violate the constraints?
+        // Would changing the column sizes violate the constraints?
         if (!IsValidColumnWidth(CurrentColumn, currentChange) || !IsValidColumnWidth(SiblingColumn, siblingChange))
         {
             return false;

@@ -3,6 +3,7 @@
   
   <PropertyGroup>
     <ToolkitComponentName>SettingsControls</ToolkitComponentName>
+    <LangVersion>preview</LangVersion>
   </PropertyGroup>
 
   <!-- Sets this up as a toolkit component's sample project -->
