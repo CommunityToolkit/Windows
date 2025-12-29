@@ -99,6 +99,9 @@ public static partial class ListViewExtensions
             listViewBase.Items.VectorChanged += OnItemsVectorChanged;
             listViewBase.Unloaded += OnListViewBaseUnloaded_AltRow;
         }
+
+        // Update all items to apply the new property
+        UpdateItems(listViewBase);
     }
 
     private static void OnContainerContentChanging(ListViewBase sender, ContainerContentChangingEventArgs args) => UpdateItem(sender, args.ItemIndex);
@@ -121,8 +124,13 @@ public static partial class ListViewExtensions
         if (listViewBase is null)
             return;
 
-        int index = (int)args.Index;
-        for (int i = index; i < sender.Count; i++)
+        // Update all items from the affected index and below
+        UpdateItems(listViewBase, (int)args.Index);
+    }
+
+    private static void UpdateItems(ListViewBase listViewBase, int startingIndex = 0)
+    {
+        for (int i = startingIndex; i < listViewBase.Items.Count; i++)
             UpdateItem(listViewBase, i);
     }
 
@@ -137,32 +145,38 @@ public static partial class ListViewExtensions
             return;
 
         // Get the item as a container. This may be null if the item is not in a container.
-        // Also get all the alternate properties
         var container = control as SelectorItem;
+
+        // Get the base properties
+        // The base color cannot be retrieved, and therefore cannot be unapplied.
+        // NOTE: This is a huge design limitation, and one reason I believe
+        // AlternateColor should be replaced entirely with AlternateStyle.
+        var baseStyle = listViewBase.ItemContainerStyle;
+        var baseTemplate = listViewBase.ItemTemplate;
+
+        // Get all the alternate properties. 
         var altColor = GetAlternateColor(listViewBase);
         var altStyle = GetAlternateStyle(listViewBase);
         var altTemplate = GetAlternateItemTemplate(listViewBase);
 
-        // Apply the alternate properties as necessary
-        if (altStyle is not null)
-        {
-            control.Style = itemIndex % 2 == 0 ? altStyle : listViewBase.ItemContainerStyle;
-        }
+        // Determine the realized properties based on the item index and
+        // whether or not alternate properties are set.
+        bool altRow = itemIndex % 2 == 0;
+        var realizedColor = (altRow ? altColor : null) ?? null;
+        var realizedStyle = (altRow ? altStyle : baseStyle) ?? baseStyle;
+        var realizedTemplate = (altRow ? altTemplate : baseTemplate) ?? baseTemplate;
 
-        if (altColor is not null)
+        // Apply the realized properties
+        SetRowBackground(listViewBase, control, realizedColor);
+        control.Style = realizedStyle;
+        if (container is not null)
         {
-            SetRowBackground(listViewBase, control, itemIndex);
-        }
-
-        if (altTemplate is not null && container is not null)
-        {
-            container.ContentTemplate = itemIndex % 2 == 0 ? altTemplate : listViewBase.ItemTemplate;
+            container.ContentTemplate = realizedTemplate;
         }
     }
 
-    private static void SetRowBackground(ListViewBase sender, Control itemContainer, int itemIndex)
+    private static void SetRowBackground(ListViewBase sender, Control itemContainer, Brush? brush)
     {
-        var brush = itemIndex % 2 == 0 ? GetAlternateColor(sender) : null;
         var rootBorder = itemContainer.FindDescendant<Border>();
 
         itemContainer.Background = brush;

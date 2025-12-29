@@ -1,20 +1,19 @@
-<Page
-    x:Class="ExtensionsExperiment.Samples.ListViewExtensionsAlternateColorSample"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:ExtensionsExperiment.Samples"
-    xmlns:ui="using:CommunityToolkit.WinUI"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+<Page x:Class="ExtensionsExperiment.Samples.ListViewExtensionsAlternateColorSample"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:local="using:ExtensionsExperiment.Samples"
+      xmlns:ui="using:CommunityToolkit.WinUI"
+      Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <ListView ui:ListViewExtensions.AlternateColor="Blue">
         <ui:ListViewExtensions.AlternateStyle>
             <Style TargetType="ListViewItem">
-                <Setter Property="MinHeight" Value="30"/>
+                <Setter Property="MinHeight" Value="30" />
             </Style>
         </ui:ListViewExtensions.AlternateStyle>
         <ui:ListViewExtensions.AlternateItemTemplate>
             <DataTemplate x:DataType="x:Int32">
-                <TextBlock Text="{x:Bind local:ListViewExtensionsAlternateColorSample.NaiveHumanize((x:Int32))}"/>
+                <TextBlock Text="{x:Bind local:ListViewExtensionsAlternateColorSample.NaiveHumanize((x:Int32))}" />
             </DataTemplate>
         </ui:ListViewExtensions.AlternateItemTemplate>
         <ListView.Items>
