@@ -1,4 +1,4 @@
-﻿<!--  Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license. See the LICENSE file in the project root for more information.  -->
+<!--  Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license. See the LICENSE file in the project root for more information.  -->
 <Page x:Class="SegmentedExperiment.Samples.SegmentedBasicSample"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -14,6 +14,7 @@
         <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}"
                    Text="Icon + content" />
         <controls:Segmented HorizontalAlignment="{x:Bind local:SegmentedBasicSample.ConvertStringToHorizontalAlignment(Alignment), Mode=OneWay}"
+                            Orientation="{x:Bind local:SegmentedBasicSample.ConvertStringToOrientation(OrientationMode), Mode=OneWay}"
                             SelectedIndex="0"
                             SelectionMode="{x:Bind local:SegmentedBasicSample.ConvertStringToSelectionMode(SelectionMode), Mode=OneWay}">
             <controls:SegmentedItem Content="Item 1"
@@ -30,6 +31,7 @@
                    Style="{StaticResource BodyStrongTextBlockStyle}"
                    Text="Icon only" />
         <controls:Segmented HorizontalAlignment="{x:Bind local:SegmentedBasicSample.ConvertStringToHorizontalAlignment(Alignment), Mode=OneWay}"
+                            Orientation="{x:Bind local:SegmentedBasicSample.ConvertStringToOrientation(OrientationMode), Mode=OneWay}"
                             SelectedIndex="2"
                             SelectionMode="{x:Bind local:SegmentedBasicSample.ConvertStringToSelectionMode(SelectionMode), Mode=OneWay}">
             <controls:SegmentedItem Icon="{ui:FontIcon Glyph=&#xE8BF;}"
