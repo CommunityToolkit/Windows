@@ -9,6 +9,230 @@ namespace CommunityToolkit.WinUI;
 /// </summary>
 public static partial class ListViewExtensions
 {
+    #region New Horizontal/Vertical Centering Methods
+
+    /// <summary>
+    /// Smooth scrolling the list to bring the specified index into view, centering it horizontally.
+    /// </summary>
+    /// <param name="listViewBase">List to scroll</param>
+    /// <param name="index">The index to bring into view. Index can be negative.</param>
+    /// <param name="disableAnimation">Set true to disable animation</param>
+    /// <param name="scrollIfVisible">Set false to disable scrolling when the corresponding item is in view horizontally</param>
+    /// <param name="additionalHorizontalOffset">Adds additional horizontal offset</param>
+    /// <returns>Returns <see cref="Task"/> that completes after scrolling</returns>
+    public static async Task SmoothScrollHorizontallyIntoViewWithIndexAsync(this ListViewBase listViewBase, int index, bool disableAnimation = false, bool scrollIfVisible = true, int additionalHorizontalOffset = 0)
+    {
+        if (index > (listViewBase.Items.Count - 1))
+        {
+            index = listViewBase.Items.Count - 1;
+        }
+
+        if (index < -listViewBase.Items.Count)
+        {
+            index = -listViewBase.Items.Count;
+        }
+
+        index = (index < 0) ? (index + listViewBase.Items.Count) : index;
+
+        bool isVirtualizing = default;
+        double previousXOffset = default, previousYOffset = default;
+
+        var scrollViewer = listViewBase.FindDescendant<ScrollViewer>();
+        var selectorItem = listViewBase.ContainerFromIndex(index) as SelectorItem;
+
+        if (scrollViewer == null)
+        {
+            return;
+        }
+
+        // If selectorItem is null then the panel is virtualized.
+        // Scroll into view to materialize the container.
+        if (selectorItem == null)
+        {
+            isVirtualizing = true;
+            previousXOffset = scrollViewer.HorizontalOffset;
+            previousYOffset = scrollViewer.VerticalOffset;
+
+            var tcs = new TaskCompletionSource<object?>();
+            void ViewChanged(object? _, ScrollViewerViewChangedEventArgs __) => tcs.TrySetResult(result: default);
+
+            try
+            {
+                scrollViewer.ViewChanged += ViewChanged;
+                listViewBase.ScrollIntoView(listViewBase.Items[index], ScrollIntoViewAlignment.Leading);
+                await tcs.Task;
+            }
+            finally
+            {
+                scrollViewer.ViewChanged -= ViewChanged;
+            }
+            selectorItem = (SelectorItem)listViewBase.ContainerFromIndex(index);
+        }
+
+        var transform = selectorItem.TransformToVisual((UIElement)scrollViewer.Content);
+        var position = transform.TransformPoint(new Point(0, 0));
+
+        // If we had to scroll to materialize the item, scroll back to the previous view.
+        if (isVirtualizing)
+        {
+            await scrollViewer.ChangeViewAsync(previousXOffset, previousYOffset, zoomFactor: null, disableAnimation: true);
+        }
+
+        var listViewBaseWidth = listViewBase.ActualWidth;
+        var selectorItemWidth = selectorItem.ActualWidth;
+        var listViewBaseHeight = listViewBase.ActualHeight;
+        var selectorItemHeight = selectorItem.ActualHeight;
+
+        previousXOffset = scrollViewer.HorizontalOffset;
+        previousYOffset = scrollViewer.VerticalOffset;
+
+        var minXPosition = position.X - listViewBaseWidth + selectorItemWidth;
+        var maxXPosition = position.X;
+        double finalXPosition, finalYPosition;
+
+        // Check horizontal visibility; if the item is already in view, no horizontal scrolling is needed.
+        if (!scrollIfVisible && (previousXOffset <= maxXPosition && previousXOffset >= minXPosition))
+        {
+            finalXPosition = previousXOffset;
+        }
+        else
+        {
+            var centreX = (listViewBaseWidth - selectorItemWidth) / 2.0;
+            finalXPosition = maxXPosition - centreX + additionalHorizontalOffset;
+        }
+
+        // Keep vertical position unchanged.
+        finalYPosition = previousYOffset;
+
+        await scrollViewer.ChangeViewAsync(finalXPosition, finalYPosition, zoomFactor: null, disableAnimation);
+    }
+
+    /// <summary>
+    /// Smooth scrolling the list to bring the specified data item into view, centering it horizontally.
+    /// </summary>
+    /// <param name="listViewBase">List to scroll</param>
+    /// <param name="item">The data item to bring into view</param>
+    /// <param name="disableAnimation">Set true to disable animation</param>
+    /// <param name="scrollIfVisible">Set false to disable scrolling when the corresponding item is in view horizontally</param>
+    /// <param name="additionalHorizontalOffset">Adds additional horizontal offset</param>
+    /// <returns>Returns <see cref="Task"/> that completes after scrolling</returns>
+    public static async Task SmoothScrollHorizontallyIntoViewWithItemAsync(this ListViewBase listViewBase, object item, bool disableAnimation = false, bool scrollIfVisible = true, int additionalHorizontalOffset = 0)
+    {
+        await SmoothScrollHorizontallyIntoViewWithIndexAsync(listViewBase, listViewBase.Items.IndexOf(item), disableAnimation, scrollIfVisible, additionalHorizontalOffset);
+    }
+
+    /// <summary>
+    /// Smooth scrolling the list to bring the specified index into view, centering it vertically.
+    /// </summary>
+    /// <param name="listViewBase">List to scroll</param>
+    /// <param name="index">The index to bring into view. Index can be negative.</param>
+    /// <param name="disableAnimation">Set true to disable animation</param>
+    /// <param name="scrollIfVisible">Set false to disable scrolling when the corresponding item is in view vertically</param>
+    /// <param name="additionalVerticalOffset">Adds additional vertical offset</param>
+    /// <returns>Returns <see cref="Task"/> that completes after scrolling</returns>
+    public static async Task SmoothScrollVerticallyIntoViewWithIndexAsync(this ListViewBase listViewBase, int index, bool disableAnimation = false, bool scrollIfVisible = true, int additionalVerticalOffset = 0)
+    {
+        if (index > (listViewBase.Items.Count - 1))
+        {
+            index = listViewBase.Items.Count - 1;
+        }
+
+        if (index < -listViewBase.Items.Count)
+        {
+            index = -listViewBase.Items.Count;
+        }
+
+        index = (index < 0) ? (index + listViewBase.Items.Count) : index;
+
+        bool isVirtualizing = default;
+        double previousXOffset = default, previousYOffset = default;
+
+        var scrollViewer = listViewBase.FindDescendant<ScrollViewer>();
+        var selectorItem = listViewBase.ContainerFromIndex(index) as SelectorItem;
+
+        if (scrollViewer == null)
+        {
+            return;
+        }
+
+        // If selectorItem is null then the panel is virtualized.
+        // Scroll into view to materialize the container.
+        if (selectorItem == null)
+        {
+            isVirtualizing = true;
+            previousXOffset = scrollViewer.HorizontalOffset;
+            previousYOffset = scrollViewer.VerticalOffset;
+
+            var tcs = new TaskCompletionSource<object?>();
+            void ViewChanged(object? _, ScrollViewerViewChangedEventArgs __) => tcs.TrySetResult(result: default);
+
+            try
+            {
+                scrollViewer.ViewChanged += ViewChanged;
+                listViewBase.ScrollIntoView(listViewBase.Items[index], ScrollIntoViewAlignment.Leading);
+                await tcs.Task;
+            }
+            finally
+            {
+                scrollViewer.ViewChanged -= ViewChanged;
+            }
+            selectorItem = (SelectorItem)listViewBase.ContainerFromIndex(index);
+        }
+
+        var transform = selectorItem.TransformToVisual((UIElement)scrollViewer.Content);
+        var position = transform.TransformPoint(new Point(0, 0));
+
+        // If we had to scroll to materialize the item, scroll back to the previous view.
+        if (isVirtualizing)
+        {
+            await scrollViewer.ChangeViewAsync(previousXOffset, previousYOffset, zoomFactor: null, disableAnimation: true);
+        }
+
+        var listViewBaseWidth = listViewBase.ActualWidth;
+        var selectorItemWidth = selectorItem.ActualWidth;
+        var listViewBaseHeight = listViewBase.ActualHeight;
+        var selectorItemHeight = selectorItem.ActualHeight;
+
+        previousXOffset = scrollViewer.HorizontalOffset;
+        previousYOffset = scrollViewer.VerticalOffset;
+
+        var minYPosition = position.Y - listViewBaseHeight + selectorItemHeight;
+        var maxYPosition = position.Y;
+        double finalXPosition, finalYPosition;
+
+        // Check vertical visibility; if the item is already in view, no vertical scrolling is needed.
+        if (!scrollIfVisible && (previousYOffset <= maxYPosition && previousYOffset >= minYPosition))
+        {
+            finalYPosition = previousYOffset;
+        }
+        else
+        {
+            var centreY = (listViewBaseHeight - selectorItemHeight) / 2.0;
+            finalYPosition = maxYPosition - centreY + additionalVerticalOffset;
+        }
+
+        // Keep horizontal position unchanged.
+        finalXPosition = previousXOffset;
+
+        await scrollViewer.ChangeViewAsync(finalXPosition, finalYPosition, zoomFactor: null, disableAnimation);
+    }
+
+    /// <summary>
+    /// Smooth scrolling the list to bring the specified data item into view, centering it vertically.
+    /// </summary>
+    /// <param name="listViewBase">List to scroll</param>
+    /// <param name="item">The data item to bring into view</param>
+    /// <param name="disableAnimation">Set true to disable animation</param>
+    /// <param name="scrollIfVisible">Set false to disable scrolling when the corresponding item is in view vertically</param>
+    /// <param name="additionalVerticalOffset">Adds additional vertical offset</param>
+    /// <returns>Returns <see cref="Task"/> that completes after scrolling</returns>
+    public static async Task SmoothScrollVerticallyIntoViewWithItemAsync(this ListViewBase listViewBase, object item, bool disableAnimation = false, bool scrollIfVisible = true, int additionalVerticalOffset = 0)
+    {
+        await SmoothScrollVerticallyIntoViewWithIndexAsync(listViewBase, listViewBase.Items.IndexOf(item), disableAnimation, scrollIfVisible, additionalVerticalOffset);
+    }
+
+    #endregion
+
     /// <summary>
     /// Smooth scrolling the list to bring the specified index into view
     /// </summary>
@@ -133,7 +357,6 @@ public static partial class ListViewExtensions
                     {
                         finalYPosition = maxYPosition + additionalVerticalOffset;
                     }
-
                     break;
 
                 case ScrollItemPlacement.Left:
@@ -151,6 +374,16 @@ public static partial class ListViewExtensions
                     var centreY = (listViewBaseHeight - selectorItemHeight) / 2.0;
                     finalXPosition = maxXPosition - centreX + additionalHorizontalOffset;
                     finalYPosition = maxYPosition - centreY + additionalVerticalOffset;
+                    break;
+
+                case ScrollItemPlacement.CenterHorizontally:
+                    finalXPosition = maxXPosition - ((listViewBaseWidth - selectorItemWidth) / 2.0) + additionalHorizontalOffset;
+                    finalYPosition = previousYOffset + additionalVerticalOffset;
+                    break;
+
+                case ScrollItemPlacement.CenterVertically:
+                    finalXPosition = previousXOffset + additionalHorizontalOffset;
+                    finalYPosition = maxYPosition - ((listViewBaseHeight - selectorItemHeight) / 2.0) + additionalVerticalOffset;
                     break;
 
                 case ScrollItemPlacement.Right:
