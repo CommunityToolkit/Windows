@@ -22,6 +22,7 @@ public partial class Segmented : ListViewBase
         this.DefaultStyleKey = typeof(Segmented);
 
         RegisterPropertyChangedCallback(SelectedIndexProperty, OnSelectedIndexChanged);
+        RegisterPropertyChangedCallback(OrientationProperty, OnSelectedIndexChanged);
     }
 
     /// <inheritdoc/>
@@ -148,6 +149,17 @@ public partial class Segmented : ListViewBase
         {
             // We catch the correct SelectedIndex and save it.
             _internalSelectedIndex = SelectedIndex;
+        }
+    }
+
+    private void OnOrientationChanged()
+    {
+        for (int i = 0; i < Items.Count; i++)
+        {
+            if (ContainerFromIndex(i) is SegmentedItem item)
+            {
+                item.UpdateOrientation(Orientation);
+            }
         }
     }
 }
