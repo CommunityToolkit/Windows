@@ -61,60 +61,52 @@ public partial class Segmented : ListViewBase
 
     private void Segmented_PreviewKeyDown(object sender, KeyRoutedEventArgs e)
     {
-        switch (e.Key)
+        var dir = e.Key switch
         {
-            case VirtualKey.Left: e.Handled = MoveFocus(MoveDirection.Previous); break;
-            case VirtualKey.Right: e.Handled = MoveFocus(MoveDirection.Next); break;
-        }
-    }
+#if !HAS_UNO
+            // Invert left/right when the flow direction is right to left
+            VirtualKey.Left when FlowDirection is FlowDirection.RightToLeft => 1,
+            VirtualKey.Right when FlowDirection is FlowDirection.RightToLeft => -1,
+#endif
 
-    private enum MoveDirection
-    {
-        Next,
-        Previous
+            // Decrement if left/up or increment if right/up
+            VirtualKey.Left or VirtualKey.Up => -1,
+            VirtualKey.Right or VirtualKey.Down => 1,
+
+            // Otherwise don't adjust
+            _ => 0,
+        };
+
+        if (dir is not 0)
+        {
+            e.Handled = MoveFocus(dir);
+        }
     }
 
     /// <summary>
     /// Adjust the selected item and range based on keyboard input.
     /// This is used to override the ListView behaviors for up/down arrow manipulation vs left/right for a horizontal control
     /// </summary>
-    /// <param name="direction">direction to move the selection</param>
+    /// <param name="adjustment">The signed number of indicies to shift the focus.</param>
     /// <returns>True if the focus was moved, false otherwise</returns>
-    private bool MoveFocus(MoveDirection direction)
+    private bool MoveFocus(int adjustment)
     {
-        bool retVal = false;
         var currentContainerItem = GetCurrentContainerItem();
+        if (currentContainerItem is null)
+            return false;
 
-        if (currentContainerItem != null)
-        {
-            var currentItem = ItemFromContainer(currentContainerItem);
-            var previousIndex = Items.IndexOf(currentItem);
-            var index = previousIndex;
+        var currentItem = ItemFromContainer(currentContainerItem);
+        var previousIndex = Items.IndexOf(currentItem);
 
-            if (direction == MoveDirection.Previous)
-            {
-                if (previousIndex > 0)
-                {
-                    index -= 1;
-                }
-            }
-            else if (direction == MoveDirection.Next)
-            {
-                if (previousIndex < Items.Count - 1)
-                {
-                    index += 1;
-                }
-            }
+        // Apply the adjustment, with a clamp
+        var index = Math.Clamp(previousIndex + adjustment, 0, Items.Count);
 
-            // Only do stuff if the index is actually changing
-            if (index != previousIndex && ContainerFromIndex(index) is SegmentedItem newItem)
-            {
-                newItem.Focus(FocusState.Keyboard);
-                retVal = true;
-            }
-        }
+        // Only do stuff if the index is actually changing
+        if (index == previousIndex || ContainerFromIndex(index) is not SegmentedItem newItem)
+            return false;
 
-        return retVal;
+        newItem.Focus(FocusState.Keyboard);
+        return true;
     }
 
     private SegmentedItem? GetCurrentContainerItem()
