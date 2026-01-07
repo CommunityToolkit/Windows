@@ -30,20 +30,20 @@ public partial class Segmented : ListViewBase
 
     /// <inheritdoc/>
     protected override bool IsItemItsOwnContainerOverride(object item)
-    {
-        return item is SegmentedItem;
-    }
+        => item is SegmentedItem;
 
     /// <inheritdoc/>
     protected override void OnApplyTemplate()
     {
         base.OnApplyTemplate();
+
         if (!_hasLoaded)
         {
             SelectedIndex = -1;
             SelectedIndex = _internalSelectedIndex;
             _hasLoaded = true;
         }
+
         PreviewKeyDown -= Segmented_PreviewKeyDown;
         PreviewKeyDown += Segmented_PreviewKeyDown;
     }
@@ -52,9 +52,10 @@ public partial class Segmented : ListViewBase
     protected override void PrepareContainerForItemOverride(DependencyObject element, object item)
     {
         base.PrepareContainerForItemOverride(element, item);
+
         if (element is SegmentedItem segmentedItem)
         {
-            segmentedItem.Loaded += SegmentedItem_Loaded;
+            segmentedItem.UpdateOrientation(Orientation);
         }
     }
 
@@ -65,20 +66,6 @@ public partial class Segmented : ListViewBase
             case VirtualKey.Left: e.Handled = MoveFocus(MoveDirection.Previous); break;
             case VirtualKey.Right: e.Handled = MoveFocus(MoveDirection.Next); break;
         }
-    }
-
-    private void SegmentedItem_Loaded(object sender, RoutedEventArgs e)
-    {
-        if (sender is SegmentedItem segmentedItem)
-        {
-            segmentedItem.Loaded -= SegmentedItem_Loaded;
-        }
-    }
-
-    /// <inheritdoc/>
-    protected override void OnItemsChanged(object e)
-    {
-        base.OnItemsChanged(e);
     }
 
     private enum MoveDirection
