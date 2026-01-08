@@ -135,6 +135,12 @@ public sealed class AttachedShadowElementContext
 
         IsInitialized = false;
 
+        if (Element != null)
+        {
+            ElementCompositionPreview.SetElementChildVisual(Element, null!);
+            Element.SizeChanged -= OnElementSizeChanged;
+        }
+
         Parent.OnElementContextUninitialized(this);
 
         if (SpriteVisual != null)
@@ -146,12 +152,6 @@ public sealed class AttachedShadowElementContext
         if (Shadow != null)
         {
             Shadow.Dispose();
-        }
-
-        if (Element != null)
-        {
-            ElementCompositionPreview.SetElementChildVisual(Element, null!);
-            Element.SizeChanged -= OnElementSizeChanged;
         }
 
         SpriteVisual = null;
