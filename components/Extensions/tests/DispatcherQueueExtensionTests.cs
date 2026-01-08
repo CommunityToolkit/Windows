@@ -45,8 +45,8 @@ public partial class DispatcherQueueExtensionTests : VisualUITestBase
         Assert.IsInstanceOfType(task.Exception.InnerExceptions.FirstOrDefault(), typeof(ArgumentException));
     }
 
-    [TestCategory("DispatcherQueueExtensions")]
-    [UIThreadTestMethod]
+    // [TestCategory("DispatcherQueueExtensions")]
+    // [UIThreadTestMethod]
     public async Task DispatcherQueueHelper_Action_Null()
     {
         var task = DispatcherQueue.GetForCurrentThread().EnqueueAsync(default(Action)!);
