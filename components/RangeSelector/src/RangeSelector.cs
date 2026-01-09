@@ -264,14 +264,23 @@ public partial class RangeSelector : Control
 
         if (isHorizontal)
         {
+            // Set horizontal positions
             Canvas.SetLeft(_minThumb, relativeStart);
             Canvas.SetLeft(_maxThumb, relativeEnd);
+
+            // Clear vertical positions to prevent conflicts
+            _minThumb.ClearValue(Canvas.TopProperty);
+            _maxThumb.ClearValue(Canvas.TopProperty);
         }
         else
         {
             // Vertical: invert positions so min is at bottom, max is at top
             Canvas.SetTop(_minThumb, DragWidth() - relativeStart);
             Canvas.SetTop(_maxThumb, DragWidth() - relativeEnd);
+
+            // Clear horizontal positions to prevent conflicts
+            _minThumb.ClearValue(Canvas.LeftProperty);
+            _maxThumb.ClearValue(Canvas.LeftProperty);
         }
 
         if (fromMinKeyDown || fromMaxKeyDown)
