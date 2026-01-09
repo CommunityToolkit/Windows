@@ -57,7 +57,7 @@ jobs:
   # Build both Uno.UI/WinUI2/UWP and Uno.WinUI/WinUI3/WindowsAppSDK versions of our packages using a matrix
   build:
     needs: [Xaml-Style-Check]
-    runs-on: windows-latest
+    runs-on: windows-2022
 
     env:
       PROCDUMP_PATH: ${{ github.workspace }}
