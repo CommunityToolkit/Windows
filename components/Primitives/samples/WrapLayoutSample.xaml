@@ -10,31 +10,29 @@
       xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
       mc:Ignorable="d">
     <Page.Resources>
-        <DataTemplate x:Key="WrapTemplate">
-            <Border Width="{Binding Width}"
+        <DataTemplate x:Key="WrapTemplate" x:DataType="local:ColorItem">
+            <Border Width="{x:Bind Width}"
                     Height="48"
                     CornerRadius="{StaticResource ControlCornerRadius}">
                 <Border.Background>
-                    <SolidColorBrush Color="{Binding Color}" />
+                    <SolidColorBrush Color="{x:Bind Color}" />
                 </Border.Background>
                 <TextBlock Margin="6,4,4,4"
                            FontSize="16"
-                           Text="{Binding Index}" />
+                           Text="{x:Bind Index}" />
             </Border>
         </DataTemplate>
     </Page.Resources>
 
     <Grid>
-        <ScrollViewer x:Name="WrapScrollParent">
-            <muxc:ItemsRepeater x:Name="WrapRepeater"
+        <muxc:ItemsRepeater x:Name="WrapRepeater"
                                 ItemTemplate="{StaticResource WrapTemplate}"
                                 ItemsSource="{x:Bind ColorsCollection, Mode=OneWay}">
-                <muxc:ItemsRepeater.Layout>
-                    <controls:WrapLayout x:Name="Wrap"
+            <muxc:ItemsRepeater.Layout>
+                <controls:WrapLayout x:Name="Wrap"
                                          HorizontalSpacing="{x:Bind HorizontalSpacing, Mode=OneWay}"
                                          VerticalSpacing="{x:Bind VerticalSpacing, Mode=OneWay}" />
-                </muxc:ItemsRepeater.Layout>
-            </muxc:ItemsRepeater>
-        </ScrollViewer>
+            </muxc:ItemsRepeater.Layout>
+        </muxc:ItemsRepeater>
     </Grid>
 </Page>
