@@ -16,11 +16,21 @@ A `RangeSelector` is pretty similar to a regular `Slider`, and shares some of it
 
 > [!Sample RangeSelectorSample]
 
-## Vertical Orientation
+> [!NOTE]
+> Use 'VerticalAlignment="Stretch"' When 'Orientation="Vertical"'
 
-The `RangeSelector` also supports vertical orientation. Set the `Orientation` property to `Vertical` to display the range selector vertically.
+Like this:
 
-> [!Sample RangeSelectorVerticalSample]
+```xaml
+<controls:RangeSelector x:Name="rangeSelector"
+                                VerticalAlignment="Stretch"
+                                Maximum="100"
+                                Minimum="1"
+                                Orientation="Vertical"
+                                RangeEnd="100"
+                                RangeStart="0"
+                                StepFrequency="1" />
+```
 
 > [!NOTE]
 > If you are using a RangeSelector within a ScrollViewer you'll need to add some codes. This is because by default, the ScrollViewer will block the thumbs of the RangeSelector to capture the pointer.

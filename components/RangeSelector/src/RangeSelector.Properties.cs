@@ -173,7 +173,29 @@ public partial class RangeSelector : Control
             return;
         }
 
-        VisualStateManager.GoToState(rangeSelector, rangeSelector.Orientation == Orientation.Horizontal ? HorizontalState : VerticalState, true);
+        // Clear old Canvas position properties before switching orientation
+        if (rangeSelector._minThumb != null && rangeSelector._maxThumb != null && rangeSelector._activeRectangle != null)
+        {
+            var oldOrientation = (Orientation)e.OldValue;
+            var newOrientation = (Orientation)e.NewValue;
+
+            if (oldOrientation == Orientation.Horizontal && newOrientation == Orientation.Vertical)
+            {
+                // Clear horizontal properties
+                rangeSelector._minThumb.ClearValue(Canvas.LeftProperty);
+                rangeSelector._maxThumb.ClearValue(Canvas.LeftProperty);
+                rangeSelector._activeRectangle.ClearValue(Canvas.LeftProperty);
+            }
+            else if (oldOrientation == Orientation.Vertical && newOrientation == Orientation.Horizontal)
+            {
+                // Clear vertical properties
+                rangeSelector._minThumb.ClearValue(Canvas.TopProperty);
+                rangeSelector._maxThumb.ClearValue(Canvas.TopProperty);
+                rangeSelector._activeRectangle.ClearValue(Canvas.TopProperty);
+            }
+        }
+
+        VisualStateManager.GoToState(rangeSelector, rangeSelector.Orientation == Orientation.Horizontal ? HorizontalState : VerticalState, false);
 
         rangeSelector.SyncThumbs();
     }
