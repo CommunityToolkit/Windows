@@ -20,52 +20,55 @@ public partial class RangeSelector : Control
 
     private void MinThumb_KeyDown(object sender, KeyRoutedEventArgs e)
     {
-        var isHorizontal = Orientation == Orientation.Horizontal;
-        var handled = false;
+        var change = GetKeyboardChange(e.Key);
 
-        switch (e.Key)
+        if (change != 0)
         {
-            case VirtualKey.Left when isHorizontal:
-            case VirtualKey.Down when !isHorizontal:
-                RangeStart -= StepFrequency;
-                handled = true;
-                break;
-            case VirtualKey.Right when isHorizontal:
-            case VirtualKey.Up when !isHorizontal:
-                RangeStart += StepFrequency;
-                handled = true;
-                break;
-        }
+            RangeStart += change;
 
-        if (handled)
-        {
             SyncThumbs(fromMinKeyDown: true);
             ShowToolTip();
             e.Handled = true;
         }
     }
 
-    private void MaxThumb_KeyDown(object sender, KeyRoutedEventArgs e)
+    private double GetKeyboardChange(VirtualKey key)
     {
         var isHorizontal = Orientation == Orientation.Horizontal;
-        var handled = false;
+        var isRtl = FlowDirection == FlowDirection.RightToLeft;
 
-        switch (e.Key)
+        if (isHorizontal)
         {
-            case VirtualKey.Left when isHorizontal:
-            case VirtualKey.Down when !isHorizontal:
-                RangeEnd -= StepFrequency;
-                handled = true;
-                break;
-            case VirtualKey.Right when isHorizontal:
-            case VirtualKey.Up when !isHorizontal:
-                RangeEnd += StepFrequency;
-                handled = true;
-                break;
+            switch (key)
+            {
+                case VirtualKey.Left:
+                    return isRtl ? StepFrequency : -StepFrequency;
+                case VirtualKey.Right:
+                    return isRtl ? -StepFrequency : StepFrequency;
+            }
+        }
+        else // Vertical
+        {
+            switch (key)
+            {
+                case VirtualKey.Down:
+                    return -StepFrequency;
+                case VirtualKey.Up:
+                    return StepFrequency;
+            }
         }
 
-        if (handled)
+        return 0;
+    }
+
+    private void MaxThumb_KeyDown(object sender, KeyRoutedEventArgs e)
+    {
+        var change = GetKeyboardChange(e.Key);
+
+        if (change != 0)
         {
+            RangeEnd += change;
+
             SyncThumbs(fromMaxKeyDown: true);
             ShowToolTip();
             e.Handled = true;
