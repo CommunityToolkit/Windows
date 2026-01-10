@@ -97,7 +97,7 @@ public static partial class ListViewExtensions
         listViewBase.Unloaded -= OnListViewBaseUnloaded_AltRow;
 
         // Resubscribe to events as necessary
-        if (GetAlternateItemTemplate(listViewBase) != null)
+        if (GetAlternateItemTemplate(listViewBase) is not null)
         {
             listViewBase.ContainerContentChanging += ItemTemplateContainerContentChanging;
             listViewBase.Unloaded += OnListViewBaseUnloaded_AltRow;
