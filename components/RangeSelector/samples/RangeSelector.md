@@ -25,7 +25,7 @@ Like this:
 <controls:RangeSelector x:Name="rangeSelector"
                                 VerticalAlignment="Stretch"
                                 Maximum="100"
-                                Minimum="1"
+                                Minimum="0"
                                 Orientation="Vertical"
                                 RangeEnd="100"
                                 RangeStart="0"
