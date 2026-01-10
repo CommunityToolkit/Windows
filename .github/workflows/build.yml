@@ -59,6 +59,9 @@ jobs:
     needs: [Xaml-Style-Check]
     runs-on: windows-2022
 
+    env:
+      PROCDUMP_PATH: ${{ github.workspace }}
+
     # See https://docs.github.com/actions/using-jobs/using-a-matrix-for-your-jobs
     strategy:
       fail-fast: false # prevent one matrix pipeline from being cancelled if one fails, we want them all to run to completion.
@@ -82,15 +85,6 @@ jobs:
           maximum-size: 32GB
           disk-root: "C:"
 
-      - name: Enable User-Mode Dumps collecting
-        if: ${{ env.ENABLE_DIAGNOSTICS == 'true' || env.COREHOST_TRACE != '' }}
-        shell: powershell
-        run: |
-          New-Item '${{ github.workspace }}\CrashDumps' -Type Directory
-          Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\Windows Error Reporting\LocalDumps' -Name 'DumpFolder' -Type ExpandString -Value '${{ github.workspace }}\CrashDumps'
-          Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\Windows Error Reporting\LocalDumps' -Name 'DumpCount' -Type DWord -Value '10'
-          Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\Windows Error Reporting\LocalDumps' -Name 'DumpType' -Type DWord -Value '2'
-
       - name: Install .NET SDK v${{ env.DOTNET_VERSION }}
         uses: actions/setup-dotnet@v4
         with:
@@ -105,6 +99,13 @@ jobs:
         uses: actions/checkout@v4
         with:
           submodules: recursive
+
+      - name: Install procdump
+        if: ${{ env.ENABLE_DIAGNOSTICS == 'true' }}
+        shell: pwsh
+        run: |
+          Invoke-WebRequest -Uri https://download.sysinternals.com/files/Procdump.zip -OutFile Procdump.zip
+          Expand-Archive -Path Procdump.zip -DestinationPath ${{ env.PROCDUMP_PATH }}
 
       # Restore Tools from Manifest list in the Repository
       - name: Restore dotnet tools
@@ -160,7 +161,7 @@ jobs:
       - name: Run component tests against ${{ matrix.multitarget }}
         if: ${{ matrix.multitarget == 'uwp' || matrix.multitarget == 'wasdk' }}
         id: test-platform
-        run:  vstest.console.exe ./tooling/**/CommunityToolkit.Tests.${{ matrix.multitarget }}.build.appxrecipe /Framework:FrameworkUap10 /logger:"trx;LogFileName=${{ matrix.multitarget }}.trx" /Blame
+        run:  vstest.console.exe ./tooling/**/CommunityToolkit.Tests.${{ matrix.multitarget }}.build.appxrecipe /Framework:FrameworkUap10 /logger:"trx;LogFileName=${{ matrix.multitarget }}.trx" /Blame:"CollectDump;DumpType=Full;CollectHangDump;TestTimeout=30m;HangDumpType=Full" /Diag:"${{ github.workspace }}/vstest-diagnostic-log.txt"
 
       - name: Create test reports
         run: |
@@ -178,7 +179,7 @@ jobs:
         uses: actions/upload-artifact@v4
         if: ${{ (env.ENABLE_DIAGNOSTICS == 'true' || env.COREHOST_TRACE != '') && always() }}
         with:
-          name: ilc-repro
+          name: ilc-repro-${{ matrix.multitarget }}-winui${{ matrix.winui }}
           path: ./*.zip
 
       # https://github.com/dorny/paths-filter#custom-processing-of-changed-files
@@ -187,14 +188,21 @@ jobs:
         if: always()
         working-directory: ${{ github.workspace }}
         run: |
-          echo "DUMP_FILE=$(Get-ChildItem .\CrashDumps\*.dmp -ErrorAction SilentlyContinue)" >> $env:GITHUB_OUTPUT
+          echo "DUMP_FILE=$(Get-ChildItem ${{ env.PROCDUMP_PATH }}/**/*.dmp -ErrorAction SilentlyContinue)" >> $env:GITHUB_OUTPUT
 
-      - name: Artifact - WER crash dumps
+      - name: Artifact - Process Dumps
         uses: actions/upload-artifact@v4
         if: ${{ (env.ENABLE_DIAGNOSTICS == 'true' || env.COREHOST_TRACE != '') && always() }}
         with:
           name: CrashDumps-${{ matrix.multitarget }}-winui${{ matrix.winui }}
-          path: '${{ github.workspace }}/CrashDumps'
+          path: ${{ env.PROCDUMP_PATH }}/**/*.dmp
+
+      - name: Artifact - vstest-diagnostic-log
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: 'vstest-diagnostic-log-${{ matrix.multitarget }}-winui${{ matrix.winui }}.txt'
+          path: '${{ github.workspace }}/vstest-diagnostic-log.txt'
 
       - name: Analyze Dump
         if: ${{ steps.detect-dump.outputs.DUMP_FILE != '' && (env.ENABLE_DIAGNOSTICS == 'true' || env.COREHOST_TRACE != '') && always() }}
