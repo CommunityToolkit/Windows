@@ -16,12 +16,8 @@ public partial class RangeSelector : Control
 
     private void ContainerCanvas_PointerExited(object sender, PointerRoutedEventArgs e)
     {
-        var isHorizontal = Orientation == Orientation.Horizontal;
-        var point = e.GetCurrentPoint(_containerCanvas).Position;
-        var position = isHorizontal ? point.X : point.Y;
-        var normalizedPosition = isHorizontal
-            ? ((position / DragWidth()) * (Maximum - Minimum)) + Minimum
-            : Maximum - ((position / DragWidth()) * (Maximum - Minimum));
+        var point = UVPoint.FromPoint(e.GetCurrentPoint(_containerCanvas).Position, Orientation);
+        var normalizedPosition = CalculateNormalizedPosition(point.U);
 
         if (_pointerManipulatingMin)
         {
@@ -49,12 +45,8 @@ public partial class RangeSelector : Control
 
     private void ContainerCanvas_PointerReleased(object sender, PointerRoutedEventArgs e)
     {
-        var isHorizontal = Orientation == Orientation.Horizontal;
-        var point = e.GetCurrentPoint(_containerCanvas).Position;
-        var position = isHorizontal ? point.X : point.Y;
-        var normalizedPosition = isHorizontal
-            ? ((position / DragWidth()) * (Maximum - Minimum)) + Minimum
-            : Maximum - ((position / DragWidth()) * (Maximum - Minimum));
+        var point = UVPoint.FromPoint(e.GetCurrentPoint(_containerCanvas).Position, Orientation);
+        var normalizedPosition = CalculateNormalizedPosition(point.U);
 
         if (_pointerManipulatingMin)
         {
@@ -82,15 +74,14 @@ public partial class RangeSelector : Control
 
     private void ContainerCanvas_PointerMoved(object sender, PointerRoutedEventArgs e)
     {
-        var isHorizontal = Orientation == Orientation.Horizontal;
-        var point = e.GetCurrentPoint(_containerCanvas).Position;
-        var position = isHorizontal ? point.X : point.Y;
+        var point = UVPoint.FromPoint(e.GetCurrentPoint(_containerCanvas).Position, Orientation);
 
         if (_pointerManipulatingMin)
         {
-            RangeStart = isHorizontal
-                ? DragThumb(_minThumb, 0, Canvas.GetLeft(_maxThumb), position)
-                : DragThumbVertical(_minThumb, Canvas.GetTop(_maxThumb), DragWidth(), position);
+            var maxThumbPos = _maxThumb.GetCanvasU(Orientation);
+            RangeStart = Orientation == Orientation.Horizontal
+                ? DragThumb(_minThumb, 0, maxThumbPos, point.U)
+                : DragThumb(_minThumb, maxThumbPos, DragWidth(), point.U);
 
             if (_toolTipText is not null)
             {
@@ -99,9 +90,10 @@ public partial class RangeSelector : Control
         }
         else if (_pointerManipulatingMax)
         {
-            RangeEnd = isHorizontal
-                ? DragThumb(_maxThumb, Canvas.GetLeft(_minThumb), DragWidth(), position)
-                : DragThumbVertical(_maxThumb, 0, Canvas.GetTop(_minThumb), position);
+            var minThumbPos = _minThumb.GetCanvasU(Orientation);
+            RangeEnd = Orientation == Orientation.Horizontal
+                ? DragThumb(_maxThumb, minThumbPos, DragWidth(), point.U)
+                : DragThumb(_maxThumb, 0, minThumbPos, point.U);
 
             if (_toolTipText is not null)
             {
@@ -112,12 +104,8 @@ public partial class RangeSelector : Control
 
     private void ContainerCanvas_PointerPressed(object sender, PointerRoutedEventArgs e)
     {
-        var isHorizontal = Orientation == Orientation.Horizontal;
-        var point = e.GetCurrentPoint(_containerCanvas).Position;
-        var position = isHorizontal ? point.X : point.Y;
-        var normalizedPosition = isHorizontal
-            ? position * Math.Abs(Maximum - Minimum) / DragWidth()
-            : Maximum - ((position / DragWidth()) * (Maximum - Minimum));
+        var point = UVPoint.FromPoint(e.GetCurrentPoint(_containerCanvas).Position, Orientation);
+        var normalizedPosition = CalculateNormalizedPosition(point.U);
 
         double upperValueDiff = Math.Abs(RangeEnd - normalizedPosition);
         double lowerValueDiff = Math.Abs(RangeStart - normalizedPosition);
@@ -142,5 +130,19 @@ public partial class RangeSelector : Control
         }
 
         SyncThumbs();
+    }
+
+    /// <summary>
+    /// Converts a position along the primary axis to a normalized value in the range [Minimum, Maximum].
+    /// Handles vertical inversion automatically.
+    /// </summary>
+    private double CalculateNormalizedPosition(double position)
+    {
+        var ratio = position / DragWidth();
+        var range = Maximum - Minimum;
+
+        return Orientation == Orientation.Horizontal
+            ? (ratio * range) + Minimum
+            : Maximum - (ratio * range);
     }
 }
