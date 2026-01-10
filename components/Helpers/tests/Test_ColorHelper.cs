@@ -3,59 +3,93 @@
 // See the LICENSE file in the project root for more information.
 
 using CommunityToolkit.WinUI.Helpers;
+using Windows.UI;
+using ColorHelper = CommunityToolkit.WinUI.Helpers.ColorHelper;
 
 namespace HelpersTests;
 
 [TestClass]
 public class Test_ColorHelper
 {
+    // Keep testing the old APIs until they are removed
+    // In the meantime suppress the warnings from using them
+#pragma warning disable 0618
+
     [TestCategory("Helpers")]
     [TestMethod]
-    public void Test_ColorHelper_ToColor_Predifined()
+    public void Test_ColorHelper_ParseColor_Predifined()
     {
-        Assert.AreEqual("Red".ToColor(), Colors.Red);
+        Assert.AreEqual(ColorHelper.ParseColor("Red"), Colors.Red);
     }
 
     [TestCategory("Helpers")]
     [TestMethod]
-    public void Test_ColorHelper_ToColor_Hex8Digits()
+    public void Test_ColorHelper_ParseColor_Hex8Digits()
     {
-        Assert.AreEqual("#FFFF0000".ToColor(), Colors.Red);
+        Assert.AreEqual(ColorHelper.ParseColor("#FFFF0000"), Colors.Red);
     }
 
     [TestCategory("Helpers")]
     [TestMethod]
-    public void Test_ColorHelper_ToColor_Hex6Digits()
+    public void Test_ColorHelper_ParseColor_Hex6Digits()
     {
-        Assert.AreEqual("#FF0000".ToColor(), Colors.Red);
+        Assert.AreEqual(ColorHelper.ParseColor("#FF0000"), Colors.Red);
     }
 
     [TestCategory("Helpers")]
     [TestMethod]
-    public void Test_ColorHelper_ToColor_Hex4Digits()
+    public void Test_ColorHelper_ParseColor_Hex4Digits()
     {
-        Assert.AreEqual("#FF00".ToColor(), Colors.Red);
+        Assert.AreEqual(ColorHelper.ParseColor("#FF00"), Colors.Red);
     }
 
     [TestCategory("Helpers")]
     [TestMethod]
-    public void Test_ColorHelper_ToColor_Hex3Digits()
+    public void Test_ColorHelper_ParseColor_Hex3Digits()
     {
-        Assert.AreEqual("#F00".ToColor(), Colors.Red);
+        Assert.AreEqual(ColorHelper.ParseColor("#F00"), Colors.Red);
     }
 
     [TestCategory("Helpers")]
     [TestMethod]
-    public void Test_ColorHelper_ToColor_ScreenColor()
+    public void Test_ColorHelper_ParseColor_ScreenColor()
     {
-        Assert.AreEqual("sc#1.0,1.0,0,0".ToColor(), Colors.Red);
+        Assert.AreEqual(ColorHelper.ParseColor("sc#1.0,1.0,0,0"), Colors.Red);
+    }
+
+    [TestCategory("Helpers")]
+    [TestMethod]
+    public void Test_ColorHelper_ParseHslColor()
+    {
+        Assert.AreEqual(ColorHelper.ParseHslColor("hsl(0,1,0.5)"), Colors.Red);
+    }
+
+    [TestCategory("Helpers")]
+    [TestMethod]
+    public void Test_ColorHelper_ParseHsvColor()
+    {
+        Assert.AreEqual(ColorHelper.ParseHsvColor("hsv(0,1,1)"), Colors.Red);
     }
 
     [TestCategory("Helpers")]
     [TestMethod]
     public void Test_ColorHelper_ToHex()
     {
-        Assert.AreEqual(Colors.Red.ToHex(), "#FFFF0000");
+        Assert.AreEqual(Colors.Red.ToString(), "#FFFF0000");
+    }
+
+    [TestCategory("Helpers")]
+    [TestMethod]
+    public void Test_ColorHelper_HslToString()
+    {
+        Assert.AreEqual(((HslColor)Colors.Red).ToString(), "hsl(0, 1, 0.5)");
+    }
+
+    [TestCategory("Helpers")]
+    [TestMethod]
+    public void Test_ColorHelper_HsvToString()
+    {
+        Assert.AreEqual(((HsvColor)Colors.Red).ToString(), "hsv(0, 1, 1)");
     }
 
     [TestCategory("Helpers")]
@@ -69,7 +103,7 @@ public class Test_ColorHelper
     [TestMethod]
     public void Test_ColorHelper_ToHsl()
     {
-        HslColor hslRed;
+        HslColor hslRed = default;
         hslRed.A = 1.0;  // Alpha
         hslRed.H = 0.0;  // Hue
         hslRed.S = 1.0;  // Saturation
@@ -82,7 +116,7 @@ public class Test_ColorHelper
     [TestMethod]
     public void Test_ColorHelper_ToHsl_White()
     {
-        HslColor hslWhite;
+        HslColor hslWhite = default;
         hslWhite.A = 1.0;  // Alpha
         hslWhite.H = 0.0;  // Hue
         hslWhite.S = 0.0;  // Saturation
@@ -96,7 +130,7 @@ public class Test_ColorHelper
     public void Test_ColorHelper_ToHsl_MaxR()
     {
         // Test when given an RGB value where R is the max value.
-        HslColor hslColor;
+        HslColor hslColor = default;
         hslColor.A = 1.0;        // Alpha
         hslColor.H = 330.0;      // Hue
         hslColor.S = 1.0;        // Saturation
@@ -114,11 +148,13 @@ public class Test_ColorHelper
     [TestMethod]
     public void Test_ColorHelper_ToHsv()
     {
-        HsvColor hsvColor;
-        hsvColor.A = 1.0;   // Alpha
-        hsvColor.H = 100;   // Hue
-        hsvColor.S = 0.25;  // Saturation
-        hsvColor.V = 0.80;  // Value
+        HsvColor hsvColor = new HsvColor
+        {
+            A = 1.0,        // Alpha
+            H = 100,        // Hue
+            S = 0.25,       // Saturation
+            V = 0.80,       // Value
+        };
 
         // Use a test color with non-zero/non-max values for both RGB and HSV
         var color = Windows.UI.Color.FromArgb(255, 170, 204, 153).ToHsv();
@@ -136,11 +172,13 @@ public class Test_ColorHelper
     [TestMethod]
     public void Test_ColorHelper_ToHsv_MaxR()
     {
-        HsvColor hsvColor;
-        hsvColor.A = 1.0;        // Alpha
-        hsvColor.H = 330;        // Hue
-        hsvColor.S = 0.58823529; // Saturation
-        hsvColor.V = 1;          // Value
+        HsvColor hsvColor = new HsvColor
+        {
+            A = 1.0,        // Alpha
+            H = 330,        // Hue
+            S = 0.58823529, // Saturation
+            V = 1,          // Value
+        };
 
         // Use a test color with non-zero/non-max values for both RGB and HSV
         var color = Windows.UI.Color.FromArgb(255, 255, 105, 180).ToHsv();
@@ -156,15 +194,78 @@ public class Test_ColorHelper
 
     [TestCategory("Helpers")]
     [TestMethod]
-    public void Test_ColorHelper_FromHsl()
+    public void Test_ColorHelper_CreateHsl()
     {
-        Assert.AreEqual(CommunityToolkit.WinUI.Helpers.ColorHelper.FromHsl(0.0, 1.0, 0.5), Colors.Red);
+        Assert.AreEqual(HslColor.Create(0.0, 1.0, 0.5), Colors.Red);
     }
 
     [TestCategory("Helpers")]
     [TestMethod]
-    public void Test_ColorHelper_FromHsv()
+    public void Test_ColorHelper_CreateHsv()
     {
-        Assert.AreEqual(CommunityToolkit.WinUI.Helpers.ColorHelper.FromHsv(0.0, 1.0, 1.0), Colors.Red);
+        Assert.AreEqual(HsvColor.Create(0.0, 1.0, 1.0), Colors.Red);
     }
+
+    [TestCategory("Helpers")]
+    [TestMethod]
+    public void Test_ColorHelper_AlphaOver()
+    {
+        Assert.AreEqual(Colors.Red.AlphaOver(Colors.Blue, 0.5), Color.FromArgb(255, 128, 0, 128));
+    }
+
+    [TestCategory("Helpers")]
+    [TestMethod]
+    public void Test_ColorHelper_WithHue()
+    {
+        Assert.AreEqual(Colors.Blue.WithHue(0), Colors.Red);
+    }
+
+    [TestCategory("Helpers")]
+    [TestMethod]
+    public void Test_ColorHelper_WithSaturation()
+    {
+        Assert.AreEqual(Colors.Red.WithSaturation(0), Colors.White);
+    }
+
+    [TestCategory("Helpers")]
+    [TestMethod]
+    public void Test_ColorHelper_WithValue()
+    {
+        Assert.AreEqual(Colors.Red.WithValue(0), Colors.Black);
+    }
+
+    [TestCategory("Helpers")]
+    [TestMethod]
+    public void Test_ColorHelper_WithLightness()
+    {
+        Assert.AreEqual(Colors.Red.WithLightness(0), Colors.Black);
+    }
+
+#if NET10_0_OR_GREATER
+
+    [TestCategory("Helpers")]
+    [TestMethod]
+    public void Test_ColorHelper_Mix()
+    {
+        Assert.AreEqual(Color.Mix(Colors.White, Colors.Black, 0.6625), Colors.DarkGray);
+    }
+
+    [TestCategory("Helpers")]
+    [TestMethod]
+    public void Test_ColorHelper_Add()
+    {
+        Assert.AreEqual(Color.Add(Colors.Red, Colors.Blue), Colors.Magenta);
+        Assert.AreEqual(Colors.Red + Colors.Blue, Colors.Magenta);
+    }
+
+    [TestCategory("Helpers")]
+    [TestMethod]
+    public void Test_ColorHelper_Subtract()
+    {
+        Assert.AreEqual(Color.Subtract(Colors.Magenta, Colors.Red), Colors.Blue);
+        Assert.AreEqual(Colors.Magenta - Colors.Red, Colors.Blue);
+    }
+
+#endif
+#pragma warning restore 0618
 }
