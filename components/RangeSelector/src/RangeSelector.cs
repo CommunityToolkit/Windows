@@ -258,49 +258,43 @@ public partial class RangeSelector : Control
             return;
         }
 
+        var isHorizontal = Orientation == Orientation.Horizontal;
         var relativeStart = ((RangeStart - Minimum) / (Maximum - Minimum)) * DragWidth();
         var relativeEnd = ((RangeEnd - Minimum) / (Maximum - Minimum)) * DragWidth();
-        var isHorizontal = Orientation == Orientation.Horizontal;
 
-        if (isHorizontal)
-        {
-            // Set horizontal positions
-            Canvas.SetLeft(_minThumb, relativeStart);
-            Canvas.SetLeft(_maxThumb, relativeEnd);
+        // Calculate canvas positions (vertical is inverted: min at bottom, max at top)
+        var minThumbCanvasPos = isHorizontal ? relativeStart : DragWidth() - relativeStart;
+        var maxThumbCanvasPos = isHorizontal ? relativeEnd : DragWidth() - relativeEnd;
 
-            // Clear vertical positions to prevent conflicts
-            _minThumb.ClearValue(Canvas.TopProperty);
-            _maxThumb.ClearValue(Canvas.TopProperty);
-        }
-        else
-        {
-            // Vertical: invert positions so min is at bottom, max is at top
-            Canvas.SetTop(_minThumb, DragWidth() - relativeStart);
-            Canvas.SetTop(_maxThumb, DragWidth() - relativeEnd);
+        // Position thumbs using UVPoint
+        var minPos = new UVPoint(Orientation, minThumbCanvasPos);
+        var maxPos = new UVPoint(Orientation, maxThumbCanvasPos);
+        _minThumb.SetCanvasU(minPos);
+        _maxThumb.SetCanvasU(maxPos);
 
-            // Clear horizontal positions to prevent conflicts
-            _minThumb.ClearValue(Canvas.LeftProperty);
-            _maxThumb.ClearValue(Canvas.LeftProperty);
-        }
+        // Clear the opposite axis positions to prevent conflicts
+        _minThumb.ClearCanvasV(Orientation);
+        _maxThumb.ClearCanvasV(Orientation);
 
         if (fromMinKeyDown || fromMaxKeyDown)
         {
             var thumb = fromMinKeyDown ? _minThumb : _maxThumb;
-            var position = fromMinKeyDown ? relativeStart : relativeEnd;
+            var canvasPos = fromMinKeyDown ? minThumbCanvasPos : maxThumbCanvasPos;
 
+            // Determine bounds for keyboard-driven drag
+            double min, max;
             if (isHorizontal)
             {
-                var min = fromMinKeyDown ? 0 : Canvas.GetLeft(_minThumb);
-                var max = fromMinKeyDown ? Canvas.GetLeft(_maxThumb) : DragWidth();
-                DragThumb(thumb, min, max, position);
+                min = fromMinKeyDown ? 0 : _minThumb.GetCanvasU(Orientation);
+                max = fromMinKeyDown ? _maxThumb.GetCanvasU(Orientation) : DragWidth();
             }
             else
             {
-                var invertedPosition = DragWidth() - position;
-                var min = fromMinKeyDown ? Canvas.GetTop(_maxThumb) : 0;
-                var max = fromMinKeyDown ? DragWidth() : Canvas.GetTop(_minThumb);
-                DragThumbVertical(thumb, min, max, invertedPosition);
+                min = fromMinKeyDown ? _maxThumb.GetCanvasU(Orientation) : 0;
+                max = fromMinKeyDown ? DragWidth() : _minThumb.GetCanvasU(Orientation);
             }
+
+            DragThumb(thumb, min, max, canvasPos);
 
             if (_toolTipText != null)
             {
@@ -318,19 +312,32 @@ public partial class RangeSelector : Control
             return;
         }
 
-        if (Orientation == Orientation.Horizontal)
+        var isHorizontal = Orientation == Orientation.Horizontal;
+        var minThumbPos = _minThumb.GetCanvasU(Orientation);
+        var maxThumbPos = _maxThumb.GetCanvasU(Orientation);
+
+        // For vertical, maxThumb is at top (lower canvas position), minThumb is at bottom
+        var startPos = isHorizontal ? minThumbPos : maxThumbPos;
+        var size = Math.Max(0, isHorizontal ? maxThumbPos - minThumbPos : minThumbPos - maxThumbPos);
+
+        // Position the active rectangle along the primary axis
+        var rectPos = new UVPoint(Orientation, startPos);
+        _activeRectangle.SetCanvasU(rectPos);
+
+        // Center the active rectangle on the secondary axis
+        var containerSecondarySize = isHorizontal ? _containerCanvas.ActualHeight : _containerCanvas.ActualWidth;
+        var rectSecondarySize = isHorizontal ? _activeRectangle.ActualHeight : _activeRectangle.ActualWidth;
+        var secondaryPos = (containerSecondarySize - rectSecondarySize) / 2;
+
+        if (isHorizontal)
         {
-            var relativeLeft = Canvas.GetLeft(_minThumb);
-            Canvas.SetLeft(_activeRectangle, relativeLeft);
-            Canvas.SetTop(_activeRectangle, (_containerCanvas.ActualHeight - _activeRectangle.ActualHeight) / 2);
-            _activeRectangle.Width = Math.Max(0, Canvas.GetLeft(_maxThumb) - relativeLeft);
+            Canvas.SetTop(_activeRectangle, secondaryPos);
+            _activeRectangle.Width = size;
         }
         else
         {
-            var relativeTop = Canvas.GetTop(_maxThumb);
-            Canvas.SetTop(_activeRectangle, relativeTop);
-            Canvas.SetLeft(_activeRectangle, (_containerCanvas.ActualWidth - _activeRectangle.ActualWidth) / 2);
-            _activeRectangle.Height = Math.Max(0, Canvas.GetTop(_minThumb) - relativeTop);
+            Canvas.SetLeft(_activeRectangle, secondaryPos);
+            _activeRectangle.Height = size;
         }
     }
 
