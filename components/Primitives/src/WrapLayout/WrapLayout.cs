@@ -190,8 +190,6 @@ public partial class WrapLayout : VirtualizingLayout
                     context.RecycleElement(item.Element);
                     item.Element = null;
                 }
-
-                continue;
             }
             else if (position.V > realizationBounds.VMax)
             {
