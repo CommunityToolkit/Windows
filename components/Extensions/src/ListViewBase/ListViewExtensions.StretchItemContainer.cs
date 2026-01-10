@@ -20,7 +20,7 @@ public static partial class ListViewExtensions
     /// <param name="obj">The <see cref="ListViewBase"/> to get the associated <see cref="ItemContainerStretchDirection"/> from</param>
     /// <returns>The <see cref="ItemContainerStretchDirection"/> associated with the <see cref="ListViewBase"/></returns>
     public static ItemContainerStretchDirection? GetItemContainerStretchDirection(ListViewBase obj)
-        => (ItemContainerStretchDirection)obj.GetValue(ItemContainerStretchDirectionProperty);
+        => (ItemContainerStretchDirection?)obj.GetValue(ItemContainerStretchDirectionProperty);
 
     /// <summary>
     /// Sets the stretch <see cref="ItemContainerStretchDirection"/> associated with the specified <see cref="ListViewBase"/>
@@ -51,11 +51,11 @@ public static partial class ListViewExtensions
     {
         var stretchDirection = GetItemContainerStretchDirection(sender);
 
-        // Set vertical content stretching
+        // Set horizontal content stretching
         if (stretchDirection is ItemContainerStretchDirection.Horizontal or ItemContainerStretchDirection.Both)
             args.ItemContainer.HorizontalContentAlignment = HorizontalAlignment.Stretch;
 
-        // Set horizontal content stretching
+        // Set vertical content stretching
         if (stretchDirection is ItemContainerStretchDirection.Vertical or ItemContainerStretchDirection.Both)
             args.ItemContainer.VerticalContentAlignment = VerticalAlignment.Stretch;
     }

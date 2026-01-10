@@ -85,8 +85,6 @@ public static partial class ListViewExtensions
         listViewBase.Items.VectorChanged -= OnItemsVectorChanged;
         listViewBase.Unloaded -= OnListViewBaseUnloaded_AltRow;
 
-        _trackedListViews[listViewBase.Items] = listViewBase;
-
         // Resubscribe to events as necessary
         var altColor = GetAlternateColor(listViewBase);
         var altStyle = GetAlternateStyle(listViewBase);
@@ -98,10 +96,16 @@ public static partial class ListViewExtensions
             listViewBase.ContainerContentChanging += OnContainerContentChanging;
             listViewBase.Items.VectorChanged += OnItemsVectorChanged;
             listViewBase.Unloaded += OnListViewBaseUnloaded_AltRow;
+
+            _trackedListViews[listViewBase.Items] = listViewBase;
+        }
+        else
+        {
+            _trackedListViews.Remove(listViewBase.Items);
         }
 
-        // Update all items to apply the new property
-        UpdateItems(listViewBase);
+            // Update all items to apply the new property
+            UpdateItems(listViewBase);
     }
 
     private static void OnContainerContentChanging(ListViewBase sender, ContainerContentChangingEventArgs args) => UpdateItem(sender, args.ItemIndex);
