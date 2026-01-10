@@ -51,11 +51,11 @@ public static partial class ListViewExtensions
     {
         var stretchDirection = GetItemContainerStretchDirection(sender);
 
-        // Set vertical content stretching
+        // Set horizontal content stretching
         if (stretchDirection is ItemContainerStretchDirection.Horizontal or ItemContainerStretchDirection.Both)
             args.ItemContainer.HorizontalContentAlignment = HorizontalAlignment.Stretch;
 
-        // Set horizontal content stretching
+        // Set vertical content stretching
         if (stretchDirection is ItemContainerStretchDirection.Vertical or ItemContainerStretchDirection.Both)
             args.ItemContainer.VerticalContentAlignment = VerticalAlignment.Stretch;
     }
