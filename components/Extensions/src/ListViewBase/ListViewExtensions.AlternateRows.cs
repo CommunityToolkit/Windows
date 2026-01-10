@@ -31,28 +31,28 @@ public static partial class ListViewExtensions
     /// </summary>
     /// <param name="obj">The <see cref="ListViewBase"/> to get the associated <see cref="Brush"/> from</param>
     /// <returns>The <see cref="Brush"/> associated with the <see cref="ListViewBase"/></returns>
-    public static Brush GetAlternateColor(ListViewBase obj) => (Brush)obj.GetValue(AlternateColorProperty);
+    public static Brush? GetAlternateColor(ListViewBase obj) => (Brush?)obj.GetValue(AlternateColorProperty);
 
     /// <summary>
     /// Sets the alternate <see cref="Brush"/> associated with the specified <see cref="DependencyObject"/>
     /// </summary>
     /// <param name="obj">The <see cref="ListViewBase"/> to associate the <see cref="Brush"/> with</param>
     /// <param name="value">The <see cref="Brush"/> for binding to the <see cref="ListViewBase"/></param>
-    public static void SetAlternateColor(ListViewBase obj, Brush value) => obj.SetValue(AlternateColorProperty, value);
+    public static void SetAlternateColor(ListViewBase obj, Brush? value) => obj.SetValue(AlternateColorProperty, value);
 
     /// <summary>
     /// Gets the <see cref="DataTemplate"/> associated with the specified <see cref="ListViewBase"/>
     /// </summary>
     /// <param name="obj">The <see cref="ListViewBase"/> to get the associated <see cref="DataTemplate"/> from</param>
     /// <returns>The <see cref="DataTemplate"/> associated with the <see cref="ListViewBase"/></returns>
-    public static DataTemplate GetAlternateItemTemplate(ListViewBase obj) => (DataTemplate)obj.GetValue(AlternateItemTemplateProperty);
+    public static DataTemplate? GetAlternateItemTemplate(ListViewBase obj) => (DataTemplate?)obj.GetValue(AlternateItemTemplateProperty);
 
     /// <summary>
     /// Sets the <see cref="DataTemplate"/> associated with the specified <see cref="ListViewBase"/>
     /// </summary>
     /// <param name="obj">The <see cref="ListViewBase"/> to associate the <see cref="DataTemplate"/> with</param>
     /// <param name="value">The <see cref="DataTemplate"/> for binding to the <see cref="ListViewBase"/></param>
-    public static void SetAlternateItemTemplate(ListViewBase obj, DataTemplate value) => obj.SetValue(AlternateItemTemplateProperty, value);
+    public static void SetAlternateItemTemplate(ListViewBase obj, DataTemplate? value) => obj.SetValue(AlternateItemTemplateProperty, value);
 
     private static void OnAlternateColorPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
     {
@@ -64,14 +64,18 @@ public static partial class ListViewExtensions
         listViewBase.Items.VectorChanged -= ColorItemsVectorChanged;
         listViewBase.Unloaded -= OnListViewBaseUnloaded_AltRow;
 
-        _trackedListViews[listViewBase.Items] = listViewBase;
-
         // Resubscribe to events as necessary
         if (GetAlternateColor(listViewBase) is not null)
         {
             listViewBase.ContainerContentChanging += ColorContainerContentChanging;
             listViewBase.Items.VectorChanged += ColorItemsVectorChanged;
             listViewBase.Unloaded += OnListViewBaseUnloaded_AltRow;
+
+            _trackedListViews[listViewBase.Items] = listViewBase;
+        }
+        else
+        {
+            _trackedListViews.Remove(listViewBase.Items);
         }
     }
 
