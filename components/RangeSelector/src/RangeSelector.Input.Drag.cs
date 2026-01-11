@@ -29,7 +29,9 @@ public partial class RangeSelector : Control
     {
         var uvChange = new UVCoord(e.HorizontalChange, e.VerticalChange, Orientation);
         _absolutePosition += uvChange.U;
-
+// Adjust the position of the max thumb and update RangeEnd.
+// Note that max thumb has a lower U coordinate than min in vertical orientation,
+// so the valid range changes from between [0, minThumbPos] to [minThumbPos, DragWidth()]
         var minThumbPos = GetCanvasPos(_minThumb).U;
         RangeEnd = Orientation == Orientation.Horizontal
             ? DragThumb(_maxThumb, minThumbPos, DragWidth(), _absolutePosition)
