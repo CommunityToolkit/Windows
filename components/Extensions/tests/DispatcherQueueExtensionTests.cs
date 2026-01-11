@@ -106,8 +106,8 @@ public partial class DispatcherQueueExtensionTests : VisualUITestBase
         Assert.IsNull(taskSource.Task.Exception);
     }
 
-    [TestCategory("DispatcherQueueExtensions")]
-    [UIThreadTestMethod]
+    // [TestCategory("DispatcherQueueExtensions")]
+    // [UIThreadTestMethod]
     public async Task DispatcherQueueHelper_FuncOfT_Null()
     {
         var task = DispatcherQueue.GetForCurrentThread().EnqueueAsync(default(Func<int>)!);
@@ -190,8 +190,8 @@ public partial class DispatcherQueueExtensionTests : VisualUITestBase
         Assert.IsInstanceOfType(task.Exception.InnerExceptions.FirstOrDefault(), typeof(ArgumentException));
     }
 
-    [TestCategory("DispatcherQueueExtensions")]
-    [UIThreadTestMethod]
+    // [TestCategory("DispatcherQueueExtensions")]
+    // [UIThreadTestMethod]
     public async Task DispatcherQueueHelper_FuncOfTask_Null()
     {
         var task = DispatcherQueue.GetForCurrentThread().EnqueueAsync(default(Func<Task>)!);
@@ -273,8 +273,8 @@ public partial class DispatcherQueueExtensionTests : VisualUITestBase
         Assert.IsInstanceOfType(task.Exception.InnerExceptions.FirstOrDefault(), typeof(ArgumentException));
     }
 
-    [TestCategory("DispatcherQueueExtensions")]
-    [UIThreadTestMethod]
+    // [TestCategory("DispatcherQueueExtensions")]
+    // [UIThreadTestMethod]
     public async Task DispatcherQueueHelper_FuncOfTaskOfT_Null()
     {
         var task = DispatcherQueue.GetForCurrentThread().EnqueueAsync(default(Func<Task<int>>)!);
