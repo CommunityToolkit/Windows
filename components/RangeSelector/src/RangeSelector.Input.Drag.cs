@@ -11,9 +11,10 @@ public partial class RangeSelector : Control
 {
     private void MinThumb_DragDelta(object sender, DragDeltaEventArgs e)
     {
-        _absolutePosition += Orientation == Orientation.Horizontal ? e.HorizontalChange : e.VerticalChange;
+        var uvChange = new UVCoord(e.HorizontalChange, e.VerticalChange, Orientation);
+        _absolutePosition += uvChange.U;
 
-        var maxThumbPos = _maxThumb.GetCanvasU(Orientation);
+        var maxThumbPos = GetCanvasPos(_maxThumb).U;
         RangeStart = Orientation == Orientation.Horizontal
             ? DragThumb(_minThumb, 0, maxThumbPos, _absolutePosition)
             : DragThumb(_minThumb, maxThumbPos, DragWidth(), _absolutePosition);
@@ -26,9 +27,10 @@ public partial class RangeSelector : Control
 
     private void MaxThumb_DragDelta(object sender, DragDeltaEventArgs e)
     {
-        _absolutePosition += Orientation == Orientation.Horizontal ? e.HorizontalChange : e.VerticalChange;
+        var uvChange = new UVCoord(e.HorizontalChange, e.VerticalChange, Orientation);
+        _absolutePosition += uvChange.U;
 
-        var minThumbPos = _minThumb.GetCanvasU(Orientation);
+        var minThumbPos = GetCanvasPos(_minThumb).U;
         RangeEnd = Orientation == Orientation.Horizontal
             ? DragThumb(_maxThumb, minThumbPos, DragWidth(), _absolutePosition)
             : DragThumb(_maxThumb, 0, minThumbPos, _absolutePosition);
@@ -73,34 +75,33 @@ public partial class RangeSelector : Control
 
     private double DragWidth()
     {
-        return _containerCanvas.GetActualSizeU(Orientation) - _maxThumb.GetSizeU(Orientation);
+        return new UVCoord(_containerCanvas!.ActualWidth, _containerCanvas.ActualHeight, Orientation).U
+             - new UVCoord(_maxThumb!.Width, _maxThumb.Height, Orientation).U;
     }
 
     private double DragThumb(Thumb? thumb, double min, double max, double nextPos)
     {
-        var isHorizontal = Orientation == Orientation.Horizontal;
-
         nextPos = Math.Max(min, nextPos);
         nextPos = Math.Min(max, nextPos);
 
         // Position the thumb
-        var thumbPos = new UVPoint(Orientation, nextPos);
-        thumb.SetCanvasU(thumbPos);
+        var thumbPos = new UVCoord(Orientation) { U = nextPos };
+        Canvas.SetLeft(thumb, thumbPos.X);
+        Canvas.SetTop(thumb, thumbPos.Y);
 
         // Position the tooltip
         if (_toolTip != null && thumb != null)
         {
-            var thumbSize = thumb.GetSizeU(Orientation);
+            var thumbSize = new UVCoord(thumb.Width, thumb.Height, Orientation).U;
             var thumbCenter = nextPos + (thumbSize / 2);
             _toolTip.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
-            var ttHalfSize = isHorizontal
-                ? _toolTip.ActualWidth / 2
-                : _toolTip.DesiredSize.Height / 2;
+            var ttHalfSize = new UVCoord(_toolTip.DesiredSize, Orientation).U / 2;
 
-            var toolTipPos = new UVPoint(Orientation, thumbCenter - ttHalfSize);
-            _toolTip.SetCanvasU(toolTipPos);
+            var toolTipPos = new UVCoord(Orientation) { U = thumbCenter - ttHalfSize };
+            Canvas.SetLeft(_toolTip, toolTipPos.X);
+            Canvas.SetTop(_toolTip, toolTipPos.Y);
 
-            if (!isHorizontal)
+            if (Orientation == Orientation.Vertical)
             {
                 UpdateToolTipPositionForVertical();
             }
@@ -112,7 +113,7 @@ public partial class RangeSelector : Control
         var ratio = nextPos / DragWidth();
         var range = Maximum - Minimum;
 
-        return isHorizontal
+        return Orientation == Orientation.Horizontal
             ? Minimum + (ratio * range)
             : Maximum - (ratio * range);
     }
@@ -121,16 +122,15 @@ public partial class RangeSelector : Control
     {
         var useMin = thumb == _minThumb;
         var otherThumb = useMin ? _maxThumb : _minThumb;
-        var isHorizontal = Orientation == Orientation.Horizontal;
 
-        _absolutePosition = thumb.GetCanvasU(Orientation);
+        _absolutePosition = GetCanvasPos(thumb).U;
         Canvas.SetZIndex(thumb, 10);
         Canvas.SetZIndex(otherThumb, 0);
         _oldValue = RangeStart;
 
         if (_toolTip != null)
         {
-            if (!isHorizontal && VerticalToolTipPlacement == VerticalToolTipPlacement.None)
+            if (Orientation == Orientation.Vertical && VerticalToolTipPlacement == VerticalToolTipPlacement.None)
             {
                 _toolTip.Visibility = Visibility.Collapsed;
             }
@@ -146,14 +146,15 @@ public partial class RangeSelector : Control
 
                 _toolTip.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
 
-                var thumbSize = thumb.GetSizeU(Orientation);
+                var thumbSize = new UVCoord(thumb.Width, thumb.Height, Orientation).U;
                 var thumbCenter = _absolutePosition + (thumbSize / 2);
-                var ttHalfSize = _toolTip.GetDesiredSizeU(Orientation) / 2;
+                var ttHalfSize = new UVCoord(_toolTip.DesiredSize, Orientation).U / 2;
 
-                var toolTipPos = new UVPoint(Orientation, thumbCenter - ttHalfSize);
-                _toolTip.SetCanvasU(toolTipPos);
+                var toolTipPos = new UVCoord(Orientation) { U = thumbCenter - ttHalfSize };
+                Canvas.SetLeft(_toolTip, toolTipPos.X);
+                Canvas.SetTop(_toolTip, toolTipPos.Y);
 
-                if (!isHorizontal)
+                if (Orientation == Orientation.Vertical)
                 {
                     UpdateToolTipPositionForVertical();
                 }

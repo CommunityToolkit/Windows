@@ -266,15 +266,13 @@ public partial class RangeSelector : Control
         var minThumbCanvasPos = isHorizontal ? relativeStart : DragWidth() - relativeStart;
         var maxThumbCanvasPos = isHorizontal ? relativeEnd : DragWidth() - relativeEnd;
 
-        // Position thumbs using UVPoint
-        var minPos = new UVPoint(Orientation, minThumbCanvasPos);
-        var maxPos = new UVPoint(Orientation, maxThumbCanvasPos);
-        _minThumb.SetCanvasU(minPos);
-        _maxThumb.SetCanvasU(maxPos);
-
-        // Clear the opposite axis positions to prevent conflicts
-        _minThumb.ClearCanvasV(Orientation);
-        _maxThumb.ClearCanvasV(Orientation);
+        // Position thumbs
+        var minPos = new UVCoord(Orientation) { U = minThumbCanvasPos };
+        var maxPos = new UVCoord(Orientation) { U = maxThumbCanvasPos };
+        Canvas.SetLeft(_minThumb, minPos.X);
+        Canvas.SetTop(_minThumb, minPos.Y);
+        Canvas.SetLeft(_maxThumb, maxPos.X);
+        Canvas.SetTop(_maxThumb, maxPos.Y);
 
         if (fromMinKeyDown || fromMaxKeyDown)
         {
@@ -285,13 +283,13 @@ public partial class RangeSelector : Control
             double min, max;
             if (isHorizontal)
             {
-                min = fromMinKeyDown ? 0 : _minThumb.GetCanvasU(Orientation);
-                max = fromMinKeyDown ? _maxThumb.GetCanvasU(Orientation) : DragWidth();
+                min = fromMinKeyDown ? 0 : GetCanvasPos(_minThumb).U;
+                max = fromMinKeyDown ? GetCanvasPos(_maxThumb).U : DragWidth();
             }
             else
             {
-                min = fromMinKeyDown ? _maxThumb.GetCanvasU(Orientation) : 0;
-                max = fromMinKeyDown ? DragWidth() : _minThumb.GetCanvasU(Orientation);
+                min = fromMinKeyDown ? GetCanvasPos(_maxThumb).U : 0;
+                max = fromMinKeyDown ? DragWidth() : GetCanvasPos(_minThumb).U;
             }
 
             DragThumb(thumb, min, max, canvasPos);
@@ -313,21 +311,22 @@ public partial class RangeSelector : Control
         }
 
         var isHorizontal = Orientation == Orientation.Horizontal;
-        var minThumbPos = _minThumb.GetCanvasU(Orientation);
-        var maxThumbPos = _maxThumb.GetCanvasU(Orientation);
+        var minThumbPos = GetCanvasPos(_minThumb).U;
+        var maxThumbPos = GetCanvasPos(_maxThumb).U;
 
         // For vertical, maxThumb is at top (lower canvas position), minThumb is at bottom
         var startPos = isHorizontal ? minThumbPos : maxThumbPos;
         var size = Math.Max(0, isHorizontal ? maxThumbPos - minThumbPos : minThumbPos - maxThumbPos);
 
         // Position the active rectangle along the primary axis
-        var rectPos = new UVPoint(Orientation, startPos);
-        _activeRectangle.SetCanvasU(rectPos);
+        var rectPos = new UVCoord(Orientation) { U = startPos };
+        Canvas.SetLeft(_activeRectangle, rectPos.X);
+        Canvas.SetTop(_activeRectangle, rectPos.Y);
 
         // Center the active rectangle on the secondary axis
-        var containerSecondarySize = isHorizontal ? _containerCanvas.ActualHeight : _containerCanvas.ActualWidth;
-        var rectSecondarySize = isHorizontal ? _activeRectangle.ActualHeight : _activeRectangle.ActualWidth;
-        var secondaryPos = (containerSecondarySize - rectSecondarySize) / 2;
+        var containerSize = new UVCoord(_containerCanvas.ActualWidth, _containerCanvas.ActualHeight, Orientation);
+        var rectSize = new UVCoord(_activeRectangle.ActualWidth, _activeRectangle.ActualHeight, Orientation);
+        var secondaryPos = (containerSize.V - rectSize.V) / 2;
 
         if (isHorizontal)
         {
@@ -344,6 +343,18 @@ public partial class RangeSelector : Control
     private void RangeSelector_IsEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)
     {
         VisualStateManager.GoToState(this, IsEnabled ? NormalState : DisabledState, true);
+    }
+
+    private UVCoord GetCanvasPos(UIElement? element)
+    {
+        if (element == null)
+        {
+            return new UVCoord(Orientation);
+        }
+
+        var x = Canvas.GetLeft(element);
+        var y = Canvas.GetTop(element);
+        return new UVCoord(x, y, Orientation);
     }
 
     private void UpdateToolTipPositionForVertical()
