@@ -77,8 +77,12 @@ public partial class RangeSelector : Control
 
     private double DragWidth()
     {
-        return new UVCoord(_containerCanvas!.ActualWidth, _containerCanvas.ActualHeight, Orientation).U
-             - new UVCoord(_maxThumb!.Width, _maxThumb.Height, Orientation).U;
+        if (_containerCanvas == null || _maxThumb == null)
+        {
+            return 0;
+        }
+        return new UVCoord(_containerCanvas.ActualWidth, _containerCanvas.ActualHeight, Orientation).U
+             - new UVCoord(_maxThumb.Width, _maxThumb.Height, Orientation).U;
     }
 
     private double DragThumb(Thumb? thumb, double min, double max, double nextPos)
