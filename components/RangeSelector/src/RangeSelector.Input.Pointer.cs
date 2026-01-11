@@ -16,7 +16,7 @@ public partial class RangeSelector : Control
 
     private void ContainerCanvas_PointerExited(object sender, PointerRoutedEventArgs e)
     {
-        var point = UVPoint.FromPoint(e.GetCurrentPoint(_containerCanvas).Position, Orientation);
+        var point = new UVCoord(e.GetCurrentPoint(_containerCanvas).Position, Orientation);
         var normalizedPosition = CalculateNormalizedPosition(point.U);
 
         if (_pointerManipulatingMin)
@@ -45,7 +45,7 @@ public partial class RangeSelector : Control
 
     private void ContainerCanvas_PointerReleased(object sender, PointerRoutedEventArgs e)
     {
-        var point = UVPoint.FromPoint(e.GetCurrentPoint(_containerCanvas).Position, Orientation);
+        var point = new UVCoord(e.GetCurrentPoint(_containerCanvas).Position, Orientation);
         var normalizedPosition = CalculateNormalizedPosition(point.U);
 
         if (_pointerManipulatingMin)
@@ -74,11 +74,11 @@ public partial class RangeSelector : Control
 
     private void ContainerCanvas_PointerMoved(object sender, PointerRoutedEventArgs e)
     {
-        var point = UVPoint.FromPoint(e.GetCurrentPoint(_containerCanvas).Position, Orientation);
+        var point = new UVCoord(e.GetCurrentPoint(_containerCanvas).Position, Orientation);
 
         if (_pointerManipulatingMin)
         {
-            var maxThumbPos = _maxThumb.GetCanvasU(Orientation);
+            var maxThumbPos = GetCanvasPos(_maxThumb).U;
             RangeStart = Orientation == Orientation.Horizontal
                 ? DragThumb(_minThumb, 0, maxThumbPos, point.U)
                 : DragThumb(_minThumb, maxThumbPos, DragWidth(), point.U);
@@ -90,7 +90,7 @@ public partial class RangeSelector : Control
         }
         else if (_pointerManipulatingMax)
         {
-            var minThumbPos = _minThumb.GetCanvasU(Orientation);
+            var minThumbPos = GetCanvasPos(_minThumb).U;
             RangeEnd = Orientation == Orientation.Horizontal
                 ? DragThumb(_maxThumb, minThumbPos, DragWidth(), point.U)
                 : DragThumb(_maxThumb, 0, minThumbPos, point.U);
@@ -104,7 +104,7 @@ public partial class RangeSelector : Control
 
     private void ContainerCanvas_PointerPressed(object sender, PointerRoutedEventArgs e)
     {
-        var point = UVPoint.FromPoint(e.GetCurrentPoint(_containerCanvas).Position, Orientation);
+        var point = new UVCoord(e.GetCurrentPoint(_containerCanvas).Position, Orientation);
         var normalizedPosition = CalculateNormalizedPosition(point.U);
 
         double upperValueDiff = Math.Abs(RangeEnd - normalizedPosition);
