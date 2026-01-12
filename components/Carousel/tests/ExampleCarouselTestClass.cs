@@ -57,7 +57,7 @@ public partial class ExampleCarouselTestClass : VisualUITestBase
     public void SimpleUIExamplePageTest(ExampleCarouselTestPage page)
     {
         // You can use the Toolkit Visual Tree helpers here to find the component by type or name:
-        var component = page.FindDescendant<Carousel_ClassicBinding>();
+        var component = page.FindDescendant<Carousel>();
 
         Assert.IsNotNull(component);
 
@@ -74,7 +74,7 @@ public partial class ExampleCarouselTestClass : VisualUITestBase
         // Note, this is already done by loading a Page with the [UIThreadTestMethod] helper.
         await CompositionTargetHelper.ExecuteAfterCompositionRenderingAsync(() => { });
 
-        var component = page.FindDescendant<Carousel_ClassicBinding>();
+        var component = page.FindDescendant<Carousel>();
 
         Assert.IsNotNull(component);
     }
@@ -89,7 +89,7 @@ public partial class ExampleCarouselTestClass : VisualUITestBase
     {
         await EnqueueAsync(() =>
         {
-            var component = new Carousel_ClassicBinding();
+            var component = new Carousel();
             Assert.IsNotNull(component);
         });
     }
@@ -101,7 +101,7 @@ public partial class ExampleCarouselTestClass : VisualUITestBase
     {
         await EnqueueAsync(async () =>
         {
-            var component = new Carousel_ClassicBinding();
+            var component = new Carousel();
             Assert.IsNotNull(component);
             Assert.IsFalse(component.IsLoaded);
 
@@ -119,7 +119,7 @@ public partial class ExampleCarouselTestClass : VisualUITestBase
     [UIThreadTestMethod]
     public async Task ComplexAsyncLoadUIExampleWithoutDispatcherTest()
     {
-        var component = new Carousel_ClassicBinding();
+        var component = new Carousel();
         Assert.IsNotNull(component);
         Assert.IsFalse(component.IsLoaded);
 
