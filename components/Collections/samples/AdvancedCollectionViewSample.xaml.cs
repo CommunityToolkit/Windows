@@ -48,7 +48,7 @@ public sealed partial class AdvancedCollectionViewSample : Page
         // right list
         AdvancedCollectionView acv = new(EmployeeCollection);
         acv.Filter = x => !int.TryParse(((Employee)x).Name, out _);
-        acv.SortDescriptions.Add(new(nameof(Employee.Name), SortDirection.Ascending));
+        acv.SortDescriptions.Add(new SortDescription<Employee>(nameof(Employee.Name), SortDirection.Ascending));
 
         CollectionView = acv;
     }
