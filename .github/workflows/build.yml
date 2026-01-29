@@ -158,6 +158,13 @@ jobs:
         id: test-generator
         run: vstest.console.exe ./tooling/CommunityToolkit.Tooling.SampleGen.Tests/bin/Release/net8.0/CommunityToolkit.Tooling.SampleGen.Tests.dll /logger:"trx;LogFileName=SourceGenerators.trx"
 
+      - name: Start Procdump monitoring for first-chance exceptions
+        if: ${{ (matrix.multitarget == 'uwp' || matrix.multitarget == 'wasdk') && env.ENABLE_DIAGNOSTICS == 'true' }}
+        shell: pwsh
+        run: |
+          $procdumpArgs = @("-accepteula", "-e", "1", "-w", "CommunityToolkit.Tests.${{ matrix.multitarget }}.exe", "-ma", "${{ env.PROCDUMP_PATH }}")
+          Start-Process -FilePath "${{ env.PROCDUMP_PATH }}/procdump64.exe" -ArgumentList $procdumpArgs -NoNewWindow
+
       - name: Run component tests against ${{ matrix.multitarget }}
         if: ${{ matrix.multitarget == 'uwp' || matrix.multitarget == 'wasdk' }}
         id: test-platform
@@ -467,3 +474,4 @@ jobs:
         with:
           name: linux-logs
           path: ./**/*.*log
+
