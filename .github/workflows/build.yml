@@ -17,7 +17,7 @@ on:
   merge_group:
 
 env:
-  DOTNET_VERSION: ${{ '9.0.x' }}
+  DOTNET_VERSION: '9.0.310'  # Only used by jobs that cannot access global.json (no checkout/artifact-only jobs)
   ENABLE_DIAGNOSTICS: true
   MSBUILD_VERBOSITY: normal
   #COREHOST_TRACE: 1
@@ -36,16 +36,16 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - name: Install .NET SDK v${{ env.DOTNET_VERSION }}
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: ${{ env.DOTNET_VERSION }}
-
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout Repository
         uses: actions/checkout@v4
         with:
           submodules: recursive
+
+      - name: Install .NET SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
 
       # Restore Tools from Manifest list in the Repository
       - name: Restore dotnet tools
@@ -85,20 +85,20 @@ jobs:
           maximum-size: 32GB
           disk-root: "C:"
 
-      - name: Install .NET SDK v${{ env.DOTNET_VERSION }}
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: ${{ env.DOTNET_VERSION }}
-
-      - name: .NET Info (if diagnostics)
-        if: ${{ env.ENABLE_DIAGNOSTICS == 'true' }}
-        run: dotnet --info
-
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout Repository
         uses: actions/checkout@v4
         with:
           submodules: recursive
+
+      - name: Install .NET SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+
+      - name: .NET Info (if diagnostics)
+        if: ${{ env.ENABLE_DIAGNOSTICS == 'true' }}
+        run: dotnet --info
 
       - name: Install procdump
         if: ${{ env.ENABLE_DIAGNOSTICS == 'true' }}
@@ -157,6 +157,13 @@ jobs:
       - name: Run SourceGenerators tests
         id: test-generator
         run: vstest.console.exe ./tooling/CommunityToolkit.Tooling.SampleGen.Tests/bin/Release/net8.0/CommunityToolkit.Tooling.SampleGen.Tests.dll /logger:"trx;LogFileName=SourceGenerators.trx"
+
+      - name: Start Procdump monitoring for first-chance exceptions
+        if: ${{ (matrix.multitarget == 'uwp' || matrix.multitarget == 'wasdk') && env.ENABLE_DIAGNOSTICS == 'true' }}
+        shell: pwsh
+        run: |
+          $procdumpArgs = @("-accepteula", "-e", "1", "-w", "CommunityToolkit.Tests.${{ matrix.multitarget }}.exe", "-ma", "${{ env.PROCDUMP_PATH }}")
+          Start-Process -FilePath "${{ env.PROCDUMP_PATH }}/procdump64.exe" -ArgumentList $procdumpArgs -NoNewWindow
 
       - name: Run component tests against ${{ matrix.multitarget }}
         if: ${{ matrix.multitarget == 'uwp' || matrix.multitarget == 'wasdk' }}
@@ -222,20 +229,20 @@ jobs:
       VERSION_PROPERTY: ${{ github.ref == 'refs/heads/main' && format('build.{0}', github.run_number) || format('pull-{0}.{1}', github.event.number, github.run_number) }}
 
     steps:
-      - name: Install .NET SDK v${{ env.DOTNET_VERSION }}
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: ${{ env.DOTNET_VERSION }}
-
-      - name: .NET Info (if diagnostics)
-        if: ${{ env.ENABLE_DIAGNOSTICS == 'true' }}
-        run: dotnet --info
-
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout Repository
         uses: actions/checkout@v4
         with:
           submodules: recursive
+
+      - name: Install .NET SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+
+      - name: .NET Info (if diagnostics)
+        if: ${{ env.ENABLE_DIAGNOSTICS == 'true' }}
+        run: dotnet --info
 
       # Semver regex: https://regex101.com/r/Ly7O1x/3/
       - name: Format Date/Time of Release Package Version
@@ -333,7 +340,7 @@ jobs:
         winui: [2, 3]
 
     steps:
-      - name: Install .NET SDK v${{ env.DOTNET_VERSION }}
+      - name: Install .NET SDK
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
@@ -398,7 +405,7 @@ jobs:
         winui: [2, 3]
 
     steps:
-      - name: Install .NET SDK v${{ env.DOTNET_VERSION }}
+      - name: Install .NET SDK
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
@@ -421,20 +428,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Install .NET SDK v${{ env.DOTNET_VERSION }}
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: ${{ env.DOTNET_VERSION }}
-
-      - name: .NET Info (if diagnostics)
-        if: ${{ env.ENABLE_DIAGNOSTICS == 'true' }}
-        run: dotnet --info
-
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout Repository
         uses: actions/checkout@v4
         with:
           submodules: recursive
+
+      - name: Install .NET SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+
+      - name: .NET Info (if diagnostics)
+        if: ${{ env.ENABLE_DIAGNOSTICS == 'true' }}
+        run: dotnet --info
 
       # Restore Tools from Manifest list in the Repository
       - name: Restore dotnet tools
@@ -467,3 +474,4 @@ jobs:
         with:
           name: linux-logs
           path: ./**/*.*log
+
