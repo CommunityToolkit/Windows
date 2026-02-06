@@ -1,4 +1,4 @@
-<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="using:CommunityToolkit.WinUI.Controls"
                     xmlns:win="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
@@ -405,19 +405,42 @@
                                 <win:BrushTransition Duration="0:0:0.083" />
                             </win:Grid.BackgroundTransition>
                             <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="SegmentedOrientationStates">
+                                    <VisualState x:Name="Horizontal" />
+                                    <VisualState x:Name="Vertical">
+                                        <VisualState.Setters>
+                                            <Setter Target="PART_Pill.HorizontalAlignment" Value="Left" />
+                                            <Setter Target="PART_Pill.VerticalAlignment" Value="Center" />
+                                            <Setter Target="PART_Pill.(UIElement.RenderTransform).(CompositeTransform.Rotation)" Value="90" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                </VisualStateGroup>
                                 <VisualStateGroup x:Name="SegmentedIconPositionStates">
-                                    <VisualState x:Name="IconOnLeft" />
+                                    <VisualState x:Name="IconLeft" />
+                                    <VisualState x:Name="IconTop">
+                                        <VisualState.Setters>
+                                            <Setter Target="ContentHolder.Orientation" Value="Vertical" />
+                                            <Setter Target="ContentHolder.HorizontalAlignment" Value="Stretch" />
+                                            <Setter Target="ContentHolder.Spacing" Value="1" />
+                                            <Setter Target="ContentHolder.Margin" Value="7,11,7,5" />
+                                            <Setter Target="PART_Hover.Margin" Value="1,3,1,3" />
+                                            <Setter Target="PART_IconBox.Width" Value="20" />
+                                            <Setter Target="PART_IconBox.Margin" Value="0" />
+                                            <Setter Target="PART_IconBox.HorizontalAlignment" Value="Center" />
+                                            <Setter Target="PART_IconBox.VerticalAlignment" Value="Center" />
+                                            <Setter Target="PART_ContentPresenter.Margin" Value="0" />
+                                            <Setter Target="PART_ContentPresenter.MaxWidth" Value="48" />
+                                            <Setter Target="PART_ContentPresenter.HorizontalAlignment" Value="Center" />
+                                        </VisualState.Setters>
+                                    </VisualState>
                                     <VisualState x:Name="IconOnly">
                                         <VisualState.Setters>
                                             <Setter Target="PART_ContentPresenter.Visibility" Value="Collapsed" />
-                                            <Setter Target="PART_Pill.(Grid.Column)" Value="0" />
-                                            <Setter Target="ContentHolder.ColumnSpacing" Value="0" />
                                         </VisualState.Setters>
                                     </VisualState>
                                     <VisualState x:Name="ContentOnly">
                                         <VisualState.Setters>
                                             <Setter Target="PART_IconBox.Visibility" Value="Collapsed" />
-                                            <Setter Target="ContentHolder.ColumnSpacing" Value="0" />
                                         </VisualState.Setters>
                                     </VisualState>
                                 </VisualStateGroup>
@@ -625,15 +648,12 @@
                             </Border>
 
                             <!--  Content  -->
-                            <Grid x:Name="ContentHolder"
-                                  Margin="11,0,11,0"
-                                  HorizontalAlignment="Center"
-                                  VerticalAlignment="Stretch"
-                                  ColumnSpacing="8">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
+                            <StackPanel x:Name="ContentHolder"
+                                        Margin="11,0,11,0"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Stretch"
+                                        Orientation="Horizontal"
+                                        Spacing="8">
                                 <Viewbox x:Name="PART_IconBox"
                                          Width="16"
                                          Margin="0,7,0,7"
@@ -645,7 +665,6 @@
                                 </Viewbox>
 
                                 <ContentPresenter x:Name="PART_ContentPresenter"
-                                                  Grid.Column="1"
                                                   Margin="0,5,0,6"
                                                   VerticalAlignment="Center"
                                                   win:HighContrastAdjustment="None"
@@ -655,23 +674,23 @@
                                                   ContentTransitions="{TemplateBinding ContentTransitions}"
                                                   FontWeight="{TemplateBinding FontWeight}"
                                                   Foreground="{TemplateBinding Foreground}" />
-                                <Rectangle x:Name="PART_Pill"
-                                           Grid.Column="1"
-                                           Width="4"
-                                           Height="3"
-                                           HorizontalAlignment="Center"
-                                           VerticalAlignment="Bottom"
-                                           Fill="{ThemeResource SegmentedPillBackground}"
-                                           Opacity="0"
-                                           RadiusX="0.5"
-                                           RadiusY="1"
-                                           RenderTransformOrigin="0.5, 0.5">
-                                    <Rectangle.RenderTransform>
-                                        <CompositeTransform x:Name="PillTransform"
-                                                            ScaleX="1" />
-                                    </Rectangle.RenderTransform>
-                                </Rectangle>
-                            </Grid>
+                            </StackPanel>
+
+                            <Rectangle x:Name="PART_Pill"
+                                       Width="4"
+                                       Height="3"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Bottom"
+                                       Fill="{ThemeResource SegmentedPillBackground}"
+                                       Opacity="0"
+                                       RadiusX="0.5"
+                                       RadiusY="1"
+                                       RenderTransformOrigin="0.5, 0">
+                                <Rectangle.RenderTransform>
+                                    <CompositeTransform x:Name="PillTransform"
+                                                        ScaleX="1" />
+                                </Rectangle.RenderTransform>
+                            </Rectangle>
                         </Grid>
                     </ControlTemplate>
                 </Setter.Value>
@@ -693,19 +712,26 @@
                               Control.IsTemplateFocusTarget="True"
                               CornerRadius="{TemplateBinding CornerRadius}">
                             <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="SegmentedOrientationStates">
+                                    <VisualState x:Name="Horizontal" />
+                                    <VisualState x:Name="Vertical">
+                                        <VisualState.Setters>
+                                            <Setter Target="PART_Pill.HorizontalAlignment" Value="Left" />
+                                            <Setter Target="PART_Pill.VerticalAlignment" Value="Center" />
+                                            <Setter Target="PART_Pill.(UIElement.RenderTransform).(CompositeTransform.Rotation)" Value="90" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                </VisualStateGroup>
                                 <VisualStateGroup x:Name="SegmentedIconPositionStates">
-                                    <VisualState x:Name="IconOnLeft" />
+                                    <VisualState x:Name="IconLeft" />
                                     <VisualState x:Name="IconOnly">
                                         <VisualState.Setters>
                                             <Setter Target="PART_ContentPresenter.Visibility" Value="Collapsed" />
-                                            <Setter Target="PART_Pill.(Grid.Column)" Value="0" />
-                                            <Setter Target="ContentHolder.ColumnSpacing" Value="0" />
                                         </VisualState.Setters>
                                     </VisualState>
                                     <VisualState x:Name="ContentOnly">
                                         <VisualState.Setters>
                                             <Setter Target="PART_IconBox.Visibility" Value="Collapsed" />
-                                            <Setter Target="ContentHolder.ColumnSpacing" Value="0" />
                                         </VisualState.Setters>
                                     </VisualState>
                                 </VisualStateGroup>
@@ -858,15 +884,11 @@
                             </VisualStateManager.VisualStateGroups>
 
                             <!--  Content  -->
-                            <Grid x:Name="ContentHolder"
-                                  Margin="12,0,12,0"
-                                  HorizontalAlignment="Center"
-                                  VerticalAlignment="Stretch"
-                                  ColumnSpacing="8">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
+                            <StackPanel x:Name="ContentHolder"
+                                        Margin="12,0,12,0"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Stretch"
+                                        Spacing="8">
                                 <Viewbox x:Name="PART_IconBox"
                                          Width="16"
                                          Margin="0,11,0,11"
@@ -878,7 +900,6 @@
                                 </Viewbox>
 
                                 <ContentPresenter x:Name="PART_ContentPresenter"
-                                                  Grid.Column="1"
                                                   Margin="0,9,0,10"
                                                   VerticalAlignment="Center"
                                                   win:HighContrastAdjustment="None"
@@ -888,23 +909,23 @@
                                                   ContentTransitions="{TemplateBinding ContentTransitions}"
                                                   FontWeight="{TemplateBinding FontWeight}"
                                                   Foreground="{TemplateBinding Foreground}" />
-                                <Rectangle x:Name="PART_Pill"
-                                           Grid.Column="1"
-                                           Width="4"
-                                           Height="3"
-                                           HorizontalAlignment="Center"
-                                           VerticalAlignment="Bottom"
-                                           Fill="{ThemeResource PivotItemPillBackground}"
-                                           Opacity="0"
-                                           RadiusX="0.5"
-                                           RadiusY="1"
-                                           RenderTransformOrigin="0.5, 0.5">
-                                    <Rectangle.RenderTransform>
-                                        <CompositeTransform x:Name="PillTransform"
-                                                            ScaleX="1" />
-                                    </Rectangle.RenderTransform>
-                                </Rectangle>
-                            </Grid>
+
+                            </StackPanel>
+                            <Rectangle x:Name="PART_Pill"
+                                       Width="4"
+                                       Height="3"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Bottom"
+                                       Fill="{ThemeResource PivotItemPillBackground}"
+                                       Opacity="0"
+                                       RadiusX="0.5"
+                                       RadiusY="1"
+                                       RenderTransformOrigin="0.5, 1">
+                                <Rectangle.RenderTransform>
+                                    <CompositeTransform x:Name="PillTransform"
+                                                        ScaleX="1" />
+                                </Rectangle.RenderTransform>
+                            </Rectangle>
                         </Grid>
                     </ControlTemplate>
                 </Setter.Value>

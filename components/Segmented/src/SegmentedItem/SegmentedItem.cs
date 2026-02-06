@@ -12,8 +12,14 @@ namespace CommunityToolkit.WinUI.Controls;
 public partial class SegmentedItem : ListViewItem
 {
     internal const string IconLeftState = "IconLeft";
+    internal const string IconTopState = "IconTop";
     internal const string IconOnlyState = "IconOnly";
     internal const string ContentOnlyState = "ContentOnly";
+
+    internal const string HorizontalState = "Horizontal";
+    internal const string VerticalState = "Vertical";
+
+    private bool _isVertical = false;
 
     /// <summary>
     /// Creates a new instance of <see cref="SegmentedItem"/>.
@@ -38,8 +44,7 @@ public partial class SegmentedItem : ListViewItem
     protected override void OnApplyTemplate()
     {
         base.OnApplyTemplate();
-        OnIconChanged();
-        ContentChanged();
+        UpdateVisualStates();
     }
 
     /// <summary>
@@ -48,38 +53,32 @@ public partial class SegmentedItem : ListViewItem
     protected override void OnContentChanged(object oldContent, object newContent)
     {
         base.OnContentChanged(oldContent, newContent);
-        ContentChanged();
-    }
-
-    private void ContentChanged()
-    {
-        if (Content != null)
-        {
-            VisualStateManager.GoToState(this, IconLeftState, true);
-        }
-        else
-        {
-            VisualStateManager.GoToState(this, IconOnlyState, true);
-        }
+        UpdateVisualStates();
     }
 
     /// <summary>
     /// Handles changes to the Icon property.
     /// </summary>
-    protected virtual void OnIconPropertyChanged(IconElement oldValue, IconElement newValue)
+    protected virtual void OnIconPropertyChanged(IconElement oldValue, IconElement newValue) => UpdateVisualStates();
+
+    internal void UpdateOrientation(Orientation orientation)
     {
-        OnIconChanged();
+        _isVertical = orientation is Orientation.Vertical;
+        UpdateVisualStates();
     }
 
-    private void OnIconChanged()
+    private void UpdateVisualStates()
     {
-        if (Icon != null)
+        string contentState = (Icon is null, Content is null) switch
         {
-            VisualStateManager.GoToState(this, IconLeftState, true);
-        }
-        else
-        {
-            VisualStateManager.GoToState(this, ContentOnlyState, true);
-        }
+            (false, false) => _isVertical ? IconTopState : IconLeftState,
+            (false, true) => IconOnlyState,
+            (true, false) => ContentOnlyState,
+            (true, true) => ContentOnlyState, // Invalid state. Treat as content only
+        };
+
+        // Update visual states
+        VisualStateManager.GoToState(this, contentState, true);
+        VisualStateManager.GoToState(this, _isVertical ? VerticalState : HorizontalState, true);
     }
 }
