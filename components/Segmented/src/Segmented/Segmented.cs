@@ -22,6 +22,7 @@ public partial class Segmented : ListViewBase
         this.DefaultStyleKey = typeof(Segmented);
 
         RegisterPropertyChangedCallback(SelectedIndexProperty, OnSelectedIndexChanged);
+        RegisterPropertyChangedCallback(OrientationProperty, OnSelectedIndexChanged);
     }
 
     /// <inheritdoc/>
@@ -29,20 +30,20 @@ public partial class Segmented : ListViewBase
 
     /// <inheritdoc/>
     protected override bool IsItemItsOwnContainerOverride(object item)
-    {
-        return item is SegmentedItem;
-    }
+        => item is SegmentedItem;
 
     /// <inheritdoc/>
     protected override void OnApplyTemplate()
     {
         base.OnApplyTemplate();
+
         if (!_hasLoaded)
         {
             SelectedIndex = -1;
             SelectedIndex = _internalSelectedIndex;
             _hasLoaded = true;
         }
+
         PreviewKeyDown -= Segmented_PreviewKeyDown;
         PreviewKeyDown += Segmented_PreviewKeyDown;
     }
@@ -51,86 +52,61 @@ public partial class Segmented : ListViewBase
     protected override void PrepareContainerForItemOverride(DependencyObject element, object item)
     {
         base.PrepareContainerForItemOverride(element, item);
+
         if (element is SegmentedItem segmentedItem)
         {
-            segmentedItem.Loaded += SegmentedItem_Loaded;
+            segmentedItem.UpdateOrientation(Orientation);
         }
     }
 
     private void Segmented_PreviewKeyDown(object sender, KeyRoutedEventArgs e)
     {
-        switch (e.Key)
+        var dir = e.Key switch
         {
-            case VirtualKey.Left: e.Handled = MoveFocus(MoveDirection.Previous); break;
-            case VirtualKey.Right: e.Handled = MoveFocus(MoveDirection.Next); break;
-        }
-    }
+#if !HAS_UNO
+            // Invert left/right when the flow direction is right to left
+            VirtualKey.Left when FlowDirection is FlowDirection.RightToLeft => 1,
+            VirtualKey.Right when FlowDirection is FlowDirection.RightToLeft => -1,
+#endif
 
-    private void SegmentedItem_Loaded(object sender, RoutedEventArgs e)
-    {
-        if (sender is SegmentedItem segmentedItem)
+            // Decrement if left/up or increment if right/up
+            VirtualKey.Left or VirtualKey.Up => -1,
+            VirtualKey.Right or VirtualKey.Down => 1,
+
+            // Otherwise don't adjust
+            _ => 0,
+        };
+
+        if (dir is not 0)
         {
-            segmentedItem.Loaded -= SegmentedItem_Loaded;
+            e.Handled = MoveFocus(dir);
         }
-    }
-
-    /// <inheritdoc/>
-    protected override void OnItemsChanged(object e)
-    {
-        base.OnItemsChanged(e);
-    }
-
-    private enum MoveDirection
-    {
-        Next,
-        Previous
     }
 
     /// <summary>
     /// Adjust the selected item and range based on keyboard input.
     /// This is used to override the ListView behaviors for up/down arrow manipulation vs left/right for a horizontal control
     /// </summary>
-    /// <param name="direction">direction to move the selection</param>
+    /// <param name="adjustment">The signed number of indicies to shift the focus.</param>
     /// <returns>True if the focus was moved, false otherwise</returns>
-    private bool MoveFocus(MoveDirection direction)
+    private bool MoveFocus(int adjustment)
     {
-        bool retVal = false;
         var currentContainerItem = GetCurrentContainerItem();
+        if (currentContainerItem is null)
+            return false;
 
-        if (currentContainerItem != null)
-        {
-            var currentItem = ItemFromContainer(currentContainerItem);
-            var previousIndex = Items.IndexOf(currentItem);
-            var index = previousIndex;
+        var currentItem = ItemFromContainer(currentContainerItem);
+        var previousIndex = Items.IndexOf(currentItem);
 
-            if (direction == MoveDirection.Previous)
-            {
-                if (previousIndex > 0)
-                {
-                    index -= 1;
-                }
-                else
-                {
-                    retVal = true;
-                }
-            }
-            else if (direction == MoveDirection.Next)
-            {
-                if (previousIndex < Items.Count - 1)
-                {
-                    index += 1;
-                }
-            }
+        // Apply the adjustment, with a clamp
+        var index = Math.Clamp(previousIndex + adjustment, 0, Items.Count);
 
-            // Only do stuff if the index is actually changing
-            if (index != previousIndex && ContainerFromIndex(index) is SegmentedItem newItem)
-            {
-                newItem.Focus(FocusState.Keyboard);
-                retVal = true;
-            }
-        }
+        // Only do stuff if the index is actually changing
+        if (index == previousIndex || ContainerFromIndex(index) is not SegmentedItem newItem)
+            return false;
 
-        return retVal;
+        newItem.Focus(FocusState.Keyboard);
+        return true;
     }
 
     private SegmentedItem? GetCurrentContainerItem()
@@ -152,6 +128,17 @@ public partial class Segmented : ListViewBase
         {
             // We catch the correct SelectedIndex and save it.
             _internalSelectedIndex = SelectedIndex;
+        }
+    }
+
+    private void OnOrientationChanged()
+    {
+        for (int i = 0; i < Items.Count; i++)
+        {
+            if (ContainerFromIndex(i) is SegmentedItem item)
+            {
+                item.UpdateOrientation(Orientation);
+            }
         }
     }
 }

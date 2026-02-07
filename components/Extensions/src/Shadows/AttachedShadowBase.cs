@@ -161,8 +161,8 @@ public abstract partial class AttachedShadowBase : DependencyObject, IAttachedSh
     /// <param name="context">The <see cref="AttachedShadowElementContext"/> that is being uninitialized.</param>
     protected internal virtual void OnElementContextUninitialized(AttachedShadowElementContext context)
     {
-        context.ClearAndDisposeResources();
         ElementCompositionPreview.SetElementChildVisual(context.Element, null!);
+        context.ClearAndDisposeResources();
     }
 
     /// <inheritdoc/>
