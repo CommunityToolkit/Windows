@@ -12,7 +12,7 @@
           MinHeight="86"
           MaxWidth="560"
           HorizontalAlignment="Stretch">
-        <!-- Use 'VerticalAlignment="Stretch"' When 'Orientation="Vertical"' -->
+        <!--  Use 'VerticalAlignment="Stretch"' When 'Orientation="Vertical"'  -->
         <controls:RangeSelector x:Name="rangeSelector"
                                 VerticalAlignment="Center"
                                 IsEnabled="{x:Bind Enable, Mode=OneWay}"
