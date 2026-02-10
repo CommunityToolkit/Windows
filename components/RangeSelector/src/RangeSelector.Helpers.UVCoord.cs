@@ -128,7 +128,7 @@ public struct UVCoord: IEquatable<UVCoord>
         return !(measure1 == measure2);
     }
 
-    public override bool Equals(object obj)
+    public override bool Equals(object? obj)
     {
         return obj is UVCoord other && Equals(other);
     }
