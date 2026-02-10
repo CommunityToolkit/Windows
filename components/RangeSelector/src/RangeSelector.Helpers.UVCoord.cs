@@ -105,6 +105,7 @@ public struct UVCoord: IEquatable<UVCoord>
     /// </summary>
     public static implicit operator Size(UVCoord uv) => new(uv.X, uv.Y);
 
+    /// <inheritdoc/>
     public static UVCoord operator +(UVCoord addend1, UVCoord addend2)
     {
         if (addend1.Orientation != addend2.Orientation)
@@ -118,26 +119,32 @@ public struct UVCoord: IEquatable<UVCoord>
         return new UVCoord(xSum, ySum, orientation);
     }
 
+    /// <inheritdoc/>
     public static bool operator ==(UVCoord coord1, UVCoord coord2)
     {
         return coord1.U == coord2.U && coord1.V == coord2.V;
     }
 
+
+    /// <inheritdoc/>
     public static bool operator !=(UVCoord measure1, UVCoord measure2)
     {
         return !(measure1 == measure2);
     }
 
+    /// <inheritdoc/>
     public override bool Equals(object? obj)
     {
         return obj is UVCoord other && Equals(other);
     }
 
+    /// <inheritdoc/>
     public bool Equals(UVCoord other)
     {
         return this == other;
     }
 
+    /// <inheritdoc/>
     public override int GetHashCode()
     {
         return HashCode.Combine(U, V);
