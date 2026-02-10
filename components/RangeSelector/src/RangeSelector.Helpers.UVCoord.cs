@@ -8,7 +8,7 @@ namespace CommunityToolkit.WinUI.Controls;
 /// A struct representing a coordinate in UV adjusted space.
 /// </summary>
 [DebuggerDisplay("({U}u,{V}v)")]
-public struct UVCoord
+public struct UVCoord: IEquatable<UVCoord>
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="UVCoord"/> struct.
@@ -126,5 +126,20 @@ public struct UVCoord
     public static bool operator !=(UVCoord measure1, UVCoord measure2)
     {
         return !(measure1 == measure2);
+    }
+
+    public override bool Equals(object obj)
+    {
+        return obj is UVCoord other && Equals(other);
+    }
+
+    public bool Equals(UVCoord other)
+    {
+        return this == other;
+    }
+
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(U, V);
     }
 }
