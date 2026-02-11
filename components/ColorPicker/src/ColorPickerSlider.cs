@@ -55,7 +55,7 @@ public partial class ColorPickerSlider : Slider
         this.UpdateBackground(hsvColor);
 
         // Calculate and set the foreground ensuring contrast with the background
-        Color rgbColor = Helpers.ColorHelper.FromHsv(hsvColor.H, hsvColor.S, hsvColor.V, hsvColor.A);
+        Color rgbColor = hsvColor;
         Color selectedRgbColor;
         double sliderPercent = this.Value / (this.Maximum - this.Minimum);
 
@@ -64,13 +64,7 @@ public partial class ColorPickerSlider : Slider
             if (this.IsAlphaMaxForced &&
                 this.ColorChannel != ColorChannel.Alpha)
             {
-                hsvColor = new HsvColor()
-                {
-                    H = hsvColor.H,
-                    S = hsvColor.S,
-                    V = hsvColor.V,
-                    A = 1.0
-                };
+                hsvColor.Alpha = 1.0;
             }
 
             switch (this.ColorChannel)
@@ -78,51 +72,39 @@ public partial class ColorPickerSlider : Slider
                 case ColorChannel.Channel1:
                 {
                     var channelValue = Math.Clamp(sliderPercent * 360.0, 0.0, 360.0);
-
-                    hsvColor = new HsvColor()
+                    hsvColor.Hue = channelValue;
+                    if (this.IsSaturationValueMaxForced)
                     {
-                        H = channelValue,
-                        S = this.IsSaturationValueMaxForced ? 1.0 : hsvColor.S,
-                        V = this.IsSaturationValueMaxForced ? 1.0 : hsvColor.V,
-                        A = hsvColor.A
-                    };
+                        hsvColor.Saturation = 1.0;
+                        hsvColor.Value = 1.0;
+                    }
                     break;
                 }
 
                 case ColorChannel.Channel2:
                 {
                     var channelValue = Math.Clamp(sliderPercent * 1.0, 0.0, 1.0);
-
-                    hsvColor = new HsvColor()
+                    hsvColor.Saturation = channelValue;
+                    if (this.IsSaturationValueMaxForced)
                     {
-                        H = hsvColor.H,
-                        S = channelValue,
-                        V = this.IsSaturationValueMaxForced ? 1.0 : hsvColor.V,
-                        A = hsvColor.A
-                    };
+                        hsvColor.Value = 1.0;
+                    }
                     break;
                 }
 
                 case ColorChannel.Channel3:
                 {
                     var channelValue = Math.Clamp(sliderPercent * 1.0, 0.0, 1.0);
-
-                    hsvColor = new HsvColor()
+                    hsvColor.Value = channelValue;
+                    if (this.IsSaturationValueMaxForced)
                     {
-                        H = hsvColor.H,
-                        S = this.IsSaturationValueMaxForced ? 1.0 : hsvColor.S,
-                        V = channelValue,
-                        A = hsvColor.A
-                    };
+                        hsvColor.Saturation = 1.0;
+                    }
                     break;
                 }
             }
 
-            selectedRgbColor = Helpers.ColorHelper.FromHsv(
-                hsvColor.H,
-                hsvColor.S,
-                hsvColor.V,
-                hsvColor.A);
+            selectedRgbColor = hsvColor;
         }
         else
         {
