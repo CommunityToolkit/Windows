@@ -16,8 +16,8 @@ public partial class RangeSelector : Control
 
     private void ContainerCanvas_PointerExited(object sender, PointerRoutedEventArgs e)
     {
-        var position = e.GetCurrentPoint(_containerCanvas).Position.X;
-        var normalizedPosition = ((position / DragWidth()) * (Maximum - Minimum)) + Minimum;
+        var point = new UVCoord(e.GetCurrentPoint(_containerCanvas).Position, Orientation);
+        var normalizedPosition = CalculateNormalizedPosition(point.U);
 
         if (_pointerManipulatingMin)
         {
@@ -40,13 +40,13 @@ public partial class RangeSelector : Control
             _toolTip.Visibility = Visibility.Collapsed;
         }
 
-        VisualStateManager.GoToState(this, "Normal", false);
+        VisualStateManager.GoToState(this, NormalState, false);
     }
 
     private void ContainerCanvas_PointerReleased(object sender, PointerRoutedEventArgs e)
     {
-        var position = e.GetCurrentPoint(_containerCanvas).Position.X;
-        var normalizedPosition = ((position / DragWidth()) * (Maximum - Minimum)) + Minimum;
+        var point = new UVCoord(e.GetCurrentPoint(_containerCanvas).Position, Orientation);
+        var normalizedPosition = CalculateNormalizedPosition(point.U);
 
         if (_pointerManipulatingMin)
         {
@@ -74,12 +74,15 @@ public partial class RangeSelector : Control
 
     private void ContainerCanvas_PointerMoved(object sender, PointerRoutedEventArgs e)
     {
-        var position = e.GetCurrentPoint(_containerCanvas).Position.X;
-        var normalizedPosition = ((position / DragWidth()) * (Maximum - Minimum)) + Minimum;
+        var point = new UVCoord(e.GetCurrentPoint(_containerCanvas).Position, Orientation);
 
         if (_pointerManipulatingMin)
         {
-            RangeStart = DragThumb(_minThumb, 0, DragWidth(), position);
+            var maxThumbPos = GetCanvasPos(_maxThumb).U;
+            RangeStart = Orientation == Orientation.Horizontal
+                ? DragThumb(_minThumb, 0, maxThumbPos, point.U)
+                : DragThumb(_minThumb, maxThumbPos, DragWidth(), point.U);
+
             if (_toolTipText is not null)
             {
                 UpdateToolTipText(this, _toolTipText, RangeStart);
@@ -87,9 +90,13 @@ public partial class RangeSelector : Control
         }
         else if (_pointerManipulatingMax)
         {
+            var minThumbPos = GetCanvasPos(_minThumb).U;
+            RangeEnd = Orientation == Orientation.Horizontal
+                ? DragThumb(_maxThumb, minThumbPos, DragWidth(), point.U)
+                : DragThumb(_maxThumb, 0, minThumbPos, point.U);
+
             if (_toolTipText is not null)
             {
-                RangeEnd = DragThumb(_maxThumb, 0, DragWidth(), position);
                 UpdateToolTipText(this, _toolTipText, RangeEnd);
             }
         }
@@ -97,8 +104,9 @@ public partial class RangeSelector : Control
 
     private void ContainerCanvas_PointerPressed(object sender, PointerRoutedEventArgs e)
     {
-        var position = e.GetCurrentPoint(_containerCanvas).Position.X;
-        var normalizedPosition = position * Math.Abs(Maximum - Minimum) / DragWidth();
+        var point = new UVCoord(e.GetCurrentPoint(_containerCanvas).Position, Orientation);
+        var normalizedPosition = CalculateNormalizedPosition(point.U);
+
         double upperValueDiff = Math.Abs(RangeEnd - normalizedPosition);
         double lowerValueDiff = Math.Abs(RangeStart - normalizedPosition);
 
@@ -122,5 +130,19 @@ public partial class RangeSelector : Control
         }
 
         SyncThumbs();
+    }
+
+    /// <summary>
+    /// Converts a position along the primary axis to a normalized value in the range [Minimum, Maximum].
+    /// Handles vertical inversion automatically.
+    /// </summary>
+    private double CalculateNormalizedPosition(double position)
+    {
+        var ratio = position / DragWidth();
+        var range = Maximum - Minimum;
+
+        return Orientation == Orientation.Horizontal
+            ? (ratio * range) + Minimum
+            : Maximum - (ratio * range);
     }
 }

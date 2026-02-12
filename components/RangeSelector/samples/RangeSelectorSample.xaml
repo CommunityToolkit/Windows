@@ -12,11 +12,13 @@
           MinHeight="86"
           MaxWidth="560"
           HorizontalAlignment="Stretch">
+        <!--  Use 'VerticalAlignment="Stretch"' When 'Orientation="Vertical"'  -->
         <controls:RangeSelector x:Name="rangeSelector"
                                 VerticalAlignment="Center"
                                 IsEnabled="{x:Bind Enable, Mode=OneWay}"
                                 Maximum="{x:Bind Maximum, Mode=OneWay}"
                                 Minimum="{x:Bind Minimum, Mode=OneWay}"
+                                Orientation="{x:Bind OrientationMode, Mode=OneWay}"
                                 RangeEnd="100"
                                 RangeStart="0"
                                 StepFrequency="{x:Bind StepFrequency, Mode=OneWay}" />

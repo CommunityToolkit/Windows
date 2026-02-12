@@ -10,6 +10,10 @@
     <Style BasedOn="{StaticResource DefaultRangeSelectorStyle}"
            TargetType="controls:RangeSelector" />
 
+    <x:Double x:Key="RangeSelectorVerticalMinHeight">150</x:Double>
+    <x:Double x:Key="RangeSelectorVerticalMinWidth">32</x:Double>
+
+
     <Style x:Key="DefaultRangeSelectorStyle"
            TargetType="controls:RangeSelector">
         <Setter Property="Background" Value="{ThemeResource SliderTrackFill}" />
@@ -244,6 +248,48 @@
                                                                     Value="{ThemeResource SliderThumbBackgroundDisabled}" />
                                         </ObjectAnimationUsingKeyFrames>
                                     </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="OrientationStates">
+                                <VisualState x:Name="Horizontal">
+                                    <VisualState.Setters>
+                                        <Setter Target="ControlGrid.Height" Value="{ThemeResource SliderHorizontalHeight}" />
+                                        <Setter Target="ControlGrid.Width" Value="Auto" />
+                                        <Setter Target="ControlGrid.MinHeight" Value="0" />
+                                        <Setter Target="ControlGrid.MinWidth" Value="0" />
+                                        <Setter Target="ControlGrid.VerticalAlignment" Value="Top" />
+                                        <Setter Target="ControlGrid.HorizontalAlignment" Value="Stretch" />
+                                        <Setter Target="BackgroundElement.Height" Value="4" />
+                                        <Setter Target="BackgroundElement.Width" Value="Auto" />
+                                        <Setter Target="ActiveRectangle.Height" Value="4" />
+                                        <Setter Target="MinThumb.Margin" Value="0,7,0,0" />
+                                        <Setter Target="MinThumb.HorizontalAlignment" Value="Left" />
+                                        <Setter Target="MinThumb.VerticalAlignment" Value="Center" />
+                                        <Setter Target="MaxThumb.Margin" Value="0,7,0,0" />
+                                        <Setter Target="MaxThumb.HorizontalAlignment" Value="Left" />
+                                        <Setter Target="MaxThumb.VerticalAlignment" Value="Center" />
+                                        <Setter Target="ToolTip.Margin" Value="0,-52,0,16" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState x:Name="Vertical">
+                                    <VisualState.Setters>
+                                        <Setter Target="ControlGrid.Height" Value="Auto" />
+                                        <Setter Target="ControlGrid.Width" Value="{ThemeResource SliderHorizontalHeight}" />
+                                        <Setter Target="ControlGrid.MinHeight" Value="{StaticResource RangeSelectorVerticalMinHeight}" />
+                                        <Setter Target="ControlGrid.MinWidth" Value="{StaticResource RangeSelectorVerticalMinWidth}" />
+                                        <Setter Target="ControlGrid.VerticalAlignment" Value="Stretch" />
+                                        <Setter Target="ControlGrid.HorizontalAlignment" Value="Center" />
+                                        <Setter Target="BackgroundElement.Height" Value="Auto" />
+                                        <Setter Target="BackgroundElement.Width" Value="4" />
+                                        <Setter Target="ActiveRectangle.Width" Value="4" />
+                                        <Setter Target="MinThumb.Margin" Value="7,0,0,0" />
+                                        <Setter Target="MinThumb.HorizontalAlignment" Value="Center" />
+                                        <Setter Target="MinThumb.VerticalAlignment" Value="Top" />
+                                        <Setter Target="MaxThumb.Margin" Value="7,0,0,0" />
+                                        <Setter Target="MaxThumb.HorizontalAlignment" Value="Center" />
+                                        <Setter Target="MaxThumb.VerticalAlignment" Value="Top" />
+                                        <Setter Target="ToolTip.Margin" Value="0" />
+                                    </VisualState.Setters>
                                 </VisualState>
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
