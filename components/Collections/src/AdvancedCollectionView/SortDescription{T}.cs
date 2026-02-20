@@ -35,5 +35,5 @@ public sealed class SortDescription<
     }
 
     internal override PropertyInfo? GetProperty(Type type) =>
-        _prop.DeclaringType.IsAssignableFrom(type) ? _prop : throw new ArgumentException("This instance of SortDescription is not compatible with the desired type");
+        (_prop.DeclaringType is not null && _prop.DeclaringType.IsAssignableFrom(type)) ? _prop : throw new ArgumentException("This instance of SortDescription is not compatible with the desired type");
 }
