@@ -56,8 +56,10 @@ public class SortDescription
         Comparer = comparer ?? ObjectComparer.Instance;
     }
 
+#if NET8_0_OR_GREATER
     [UnconditionalSuppressMessage("Trimming", "IL2070:'this' argument does not satisfy 'DynamicallyAccessedMembersAttribute' in call to target method. The parameter of method does not have matching annotations.",
         Justification = "The path which does reflection is only triggered if the user uses the constructor with RequiresUnreferencedCode, which will inform them of the risk.")]
+#endif
     internal virtual PropertyInfo? GetProperty(Type type)
         => PropertyName != null ? type.GetProperty(PropertyName) : null;
 

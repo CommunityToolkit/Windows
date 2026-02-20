@@ -25,8 +25,10 @@ public sealed class SortDescription<
     /// <param name="propertyName">Name of property to sort on</param>
     /// <param name="direction">Direction of sort</param>
     /// <param name="comparer">Comparer to use. If null, will use default comparer</param>
+#if NET8_0_OR_GREATER
     [UnconditionalSuppressMessage("Trimming", "IL2026:Members annotated with 'RequiresUnreferencedCodeAttribute' require dynamic access otherwise can break functionality when trimming application code",
         Justification = "This class preserves metadata and ensures at runtime that the received type is compatible.")]
+#endif
     public SortDescription(string propertyName, SortDirection direction, IComparer? comparer = null) : base(propertyName, direction, comparer)
     {
         _prop = typeof(T).GetProperty(propertyName) ?? throw new ArgumentException($"Could not find property {propertyName}");
