@@ -46,7 +46,7 @@ public class SortDescription
     /// <param name="propertyName">Name of property to sort on</param>
     /// <param name="direction">Direction of sort</param>
     /// <param name="comparer">Comparer to use. If null, will use default comparer</param>
-#if NET5_0_OR_GREATER
+#if NET8_0_OR_GREATER
     [RequiresUnreferencedCode("Item sorting with the property name uses reflection to get the property and is not trim-safe. Either use SortDescription<T> to preserve the required metadata, or use the other constructor without a property name.")]
 #endif
     public SortDescription(string propertyName, SortDirection direction, IComparer? comparer = null)

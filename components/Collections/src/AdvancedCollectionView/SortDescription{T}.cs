@@ -12,7 +12,7 @@ namespace CommunityToolkit.WinUI.Collections;
 /// </summary>
 /// <typeparam name="T">The type to sort</typeparam>
 public sealed class SortDescription<
-#if NET5_0_OR_GREATER
+#if NET8_0_OR_GREATER
     [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicProperties)]
 #endif
     T> : SortDescription
