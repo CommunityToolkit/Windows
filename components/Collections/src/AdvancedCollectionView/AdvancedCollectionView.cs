@@ -13,9 +13,6 @@ namespace CommunityToolkit.WinUI.Collections;
 /// <summary>
 /// A collection view implementation that supports filtering, sorting and incremental loading
 /// </summary>
-#if NET8_0_OR_GREATER
-[System.Diagnostics.CodeAnalysis.RequiresUnreferencedCode("Item sorting uses reflection to get property types and may not be AOT compatible.")]
-#endif
 public partial class AdvancedCollectionView : IAdvancedCollectionView, INotifyPropertyChanged, ISupportIncrementalLoading, IComparer<object>
 {
     private readonly List<object> _view;
@@ -383,7 +380,7 @@ public partial class AdvancedCollectionView : IAdvancedCollectionView, INotifyPr
     int IComparer<object>.Compare(object x, object y)
 #pragma warning restore CA1033 // Interface methods should be callable by child types
     {
-        if (!_sortProperties.Any())
+        if (_sortProperties.Count == 0)
         {
             var listType = _source?.GetType();
             Type type;
@@ -401,7 +398,7 @@ public partial class AdvancedCollectionView : IAdvancedCollectionView, INotifyPr
             {
                 if (!string.IsNullOrEmpty(sd.PropertyName))
                 {
-                    _sortProperties[sd.PropertyName] = type.GetProperty(sd.PropertyName);
+                    _sortProperties[sd.PropertyName] = sd.GetProperty(type);
                 }
             }
         }
@@ -419,8 +416,8 @@ public partial class AdvancedCollectionView : IAdvancedCollectionView, INotifyPr
             {
                 var pi = _sortProperties[sd.PropertyName];
 
-                cx = pi.GetValue(x!);
-                cy = pi.GetValue(y!);
+                cx = pi.GetValue(x);
+                cy = pi.GetValue(y);
             }
 
             var cmp = sd.Comparer.Compare(cx, cy);
