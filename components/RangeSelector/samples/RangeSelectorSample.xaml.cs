@@ -9,6 +9,7 @@ namespace RangeSelectorExperiment.Samples;
 [ToolkitSampleNumericOption("Minimum", 0, 0, 100, 1, false, Title = "Minimum")]
 [ToolkitSampleNumericOption("Maximum", 100, 0, 100, 1, false, Title = "Maximum")]
 [ToolkitSampleNumericOption("StepFrequency", 1, 0, 10, 1, false, Title = "StepFrequency")]
+[ToolkitSampleMultiChoiceOption("OrientationMode", "Horizontal", "Vertical", Title = "Orientation")]
 [ToolkitSampleBoolOption("Enable", true, Title = "IsEnabled")]
 
 [ToolkitSample(id: nameof(RangeSelectorSample), "RangeSelector", description: $"A sample for showing how to create and use a {nameof(RangeSelector)} control.")]
