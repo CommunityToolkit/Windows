@@ -64,7 +64,7 @@ public static class ColorExtensions
     /// <param name="original">The original color.</param>
     /// <param name="hue">The new hue.</param>
     /// <returns>A <see cref="HsvColor"/> with a new hue and the same saturation and value.</returns>
-    public static HsvColor WithHue(this Color original, double hue)
+    public static HsvColor WithHue(this Color original, float hue)
     {
         var hsv = (HsvColor)original;
         hsv.Hue = hue;
@@ -77,7 +77,7 @@ public static class ColorExtensions
     /// <param name="original">The original color.</param>
     /// <param name="saturation">The new saturation.</param>
     /// <returns>A <see cref="HsvColor"/> with a new saturation and the same hue and value.</returns>
-    public static HsvColor WithSaturation(this Color original, double saturation)
+    public static HsvColor WithSaturation(this Color original, float saturation)
     {
         var hsv = (HsvColor)original;
         hsv.Saturation = saturation;
@@ -90,7 +90,7 @@ public static class ColorExtensions
     /// <param name="original">The original color.</param>
     /// <param name="value">The new value.</param>
     /// <returns>A <see cref="HsvColor"/> with a new value and the same hue and saturation.</returns>
-    public static HsvColor WithValue(this Color original, double value)
+    public static HsvColor WithValue(this Color original, float value)
     {
         var hsv = (HsvColor)original;
         hsv.Value = value;
@@ -103,7 +103,7 @@ public static class ColorExtensions
     /// <param name="original">The original color.</param>
     /// <param name="lightness">The new lightness.</param>
     /// <returns>A <see cref="HsvColor"/> with a new lightness and the same hue and saturation.</returns>
-    public static HslColor WithLightness(this Color original, double lightness)
+    public static HslColor WithLightness(this Color original, float lightness)
     {
         var hsl = (HslColor)original;
         hsl.Lightness = lightness;
@@ -183,7 +183,7 @@ public static class ColorExtensions
         /// <param name="l">The color's lightness.</param>
         /// <param name="a">The color's alpha value.</param>
         /// <returns>The color as a <see cref="HslColor"/>.</returns>
-        public static HslColor FromAhsl(double a, double h, double s, double l) => HslColor.Create(h, s, l, a);
+        public static HslColor FromAhsl(float a, float h, float s, float l) => HslColor.Create(h, s, l, a);
 
         /// <summary>
         /// Gets a <see cref="HsvColor"/> from alpha, hue, saturation, and value channel info.
@@ -197,7 +197,7 @@ public static class ColorExtensions
         /// <param name="v">The color's value.</param>
         /// <param name="a">The color's alpha value.</param>
         /// <returns>The color as a <see cref="HsvColor"/>.</returns>
-        public static HsvColor FromAhsv(double a, double h, double s, double v) => HsvColor.Create(h, s, v, a);
+        public static HsvColor FromAhsv(float a, float h, float s, float v) => HsvColor.Create(h, s, v, a);
 
         /// <summary>
         /// Mixes two colors using a factor for deciding how much influence each color has.

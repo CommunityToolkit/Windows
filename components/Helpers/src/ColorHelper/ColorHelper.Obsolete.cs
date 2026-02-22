@@ -27,7 +27,7 @@ public static partial class ColorHelper
     /// <returns>The created <see cref="Color"/>.</returns>
     [Obsolete("This method is marked deprecated, and will be removed in a future version. Please replace with (Color)HslColor.Create().")]
     public static Color FromHsl(double hue, double saturation, double lightness, double alpha = 1.0)
-        => HslColor.Create(hue, saturation, lightness, alpha);
+        => HslColor.Create((float)hue, (float)saturation, (float)lightness, alpha);
 
     /// <summary>
     /// Creates a <see cref="Color"/> from the specified hue, saturation, value, and alpha values.
@@ -39,7 +39,7 @@ public static partial class ColorHelper
     /// <returns>The created <see cref="Color"/>.</returns>
     [Obsolete("This method is marked deprecated, and will be removed in a future version. Please replace with (Color)HsvColor.Create().")]
     public static Color FromHsv(double hue, double saturation, double value, double alpha = 1.0)
-        => HsvColor.Create(hue, saturation, value, alpha);
+        => HsvColor.Create((float)hue, (float)saturation, (float)value, (float)alpha);
 
     /// <summary>
     /// Converts a <see cref="Color"/> to a hexadecimal string representation.

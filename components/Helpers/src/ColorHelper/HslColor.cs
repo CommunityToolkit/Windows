@@ -47,11 +47,11 @@ public struct HslColor
     private HslColor(Color color)
     {
         // Calculate hue, chroma, and supplementary values
-        (double h1, double chroma) = ColorHelper.CalculateHueAndChroma(color, out var min, out var max, out var alpha);
+        (float h1, float chroma) = ColorHelper.CalculateHueAndChroma(color, out var min, out var max, out var alpha);
         
         // Calculate saturation and lightness
-        double lightness = 0.5 * (max + min);
-        double saturation = chroma == 0 ? 0 : chroma / (1 - Math.Abs((2 * lightness) - 1));
+        float lightness = 0.5f * (max + min);
+        float saturation = chroma == 0 ? 0 : chroma / (1 - Math.Abs((2 * lightness) - 1));
 
         // Set hsl properties
         Hue = 60 * h1;
@@ -68,7 +68,7 @@ public struct HslColor
     /// <param name="lightness">The color's lightness.</param>
     /// <param name="alpha">The alpha/opacity.</param>
     /// <returns>The new <see cref="HslColor"/>.</returns>
-    public static HslColor Create(double hue, double saturation, double lightness, double alpha = 1)
+    public static HslColor Create(float hue, float saturation, float lightness, double alpha = 1)
     {
         HslColor color = default;
 #pragma warning disable 0618
@@ -90,9 +90,9 @@ public struct HslColor
     /// <remarks>
     /// This value is clamped between 0 and 360.
     /// </remarks>
-    public double Hue
+    public float Hue
     {
-        readonly get => Math.Clamp(H, 0, 360);
+        readonly get => (float)H;
         set => H = Math.Clamp(value, 0, 360);
     }
 
@@ -102,9 +102,9 @@ public struct HslColor
     /// <remarks>
     /// This value is clamped between 0 and 1.
     /// </remarks>
-    public double Saturation
+    public float Saturation
     {
-        readonly get => Math.Clamp(S, 0, 1);
+        readonly get => (float)S;
         set => S = Math.Clamp(value, 0, 1);
     }
 
@@ -114,9 +114,9 @@ public struct HslColor
     /// <remarks>
     /// This value is clamped between 0 and 1.
     /// </remarks>
-    public double Lightness
+    public float Lightness
     {
-        readonly get => Math.Clamp(L, 0, 1);
+        readonly get => (float)L;
         set => L = Math.Clamp(value, 0, 1);
     }
 
@@ -126,9 +126,9 @@ public struct HslColor
     /// <remarks>
     /// This value is clamped between 0 and 1.
     /// </remarks>
-    public double Alpha
+    public float Alpha
     {
-        readonly get => Math.Clamp(A, 0, 1);
+        readonly get => (float)A;
         set => A = Math.Clamp(value, 0, 1);
     }
 
@@ -140,10 +140,10 @@ public struct HslColor
     /// <returns>The <see cref="HslColor"/> as a <see cref="Color"/>.</returns>
     public readonly Color ToColor()
     {
-        double chroma = (1 - Math.Abs((2 * Lightness) - 1)) * Saturation;
-        double h1 = Hue / 60;
-        double x = chroma * (1 - Math.Abs((h1 % 2) - 1));
-        double m = Lightness - (0.5 * chroma);
+        float chroma = (1 - Math.Abs((2 * Lightness) - 1)) * Saturation;
+        float h1 = Hue / 60;
+        float x = chroma * (1 - Math.Abs((h1 % 2) - 1));
+        float m = Lightness - (0.5f * chroma);
         
         return ColorHelper.FromHueChroma(h1, chroma, x, m, Alpha);
     }

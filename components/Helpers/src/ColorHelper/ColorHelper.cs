@@ -299,21 +299,21 @@ public static partial class ColorHelper
         throw new FormatException($"The name '{colorName}' not a valid color");
     }
 
-    internal static (double h1, double chroma) CalculateHueAndChroma(Color color, out double min, out double max, out double alpha)
+    internal static (float h1, float chroma) CalculateHueAndChroma(Color color, out float min, out float max, out float alpha)
     {
         // This code is shared between both the conversion
         // to both HSL and HSV from RGB.
 
-        var r = (double)color.R / 255;
-        var g = (double)color.G / 255;
-        var b = (double)color.B / 255;
-        alpha = (double)color.A / 255;
+        var r = (float)color.R / 255;
+        var g = (float)color.G / 255;
+        var b = (float)color.B / 255;
+        alpha = (float)color.A / 255;
 
         max = Math.Max(Math.Max(r, g), b);
         min = Math.Min(Math.Min(r, g), b);
         var chroma = max - min;
 
-        double h1;
+        float h1;
         if (chroma == 0)
         {
             // No max
@@ -338,20 +338,20 @@ public static partial class ColorHelper
         return (h1, chroma);
     }
 
-    internal static Color FromHueChroma(double h1, double chroma, double x, double m, double alpha)
+    internal static Color FromHueChroma(float h1, float chroma, float x, float m, float alpha)
     {
         // This code is shared between both the conversion
         // from both HSL and HSV to RGB.
 
-        double r1, g1, b1;
+        float r1, g1, b1;
         (r1, g1, b1) = h1 switch
         {
-            < 1 => (chroma, x, 0d),
-            < 2 => (x, chroma, 0d),
-            < 3 => (0d, chroma, x),
-            < 4 => (0d, x, chroma),
-            < 5 => (x, 0d, chroma),
-            _ => (chroma, 0d, x),
+            < 1 => (chroma, x, 0f),
+            < 2 => (x, chroma, 0f),
+            < 3 => (0f, chroma, x),
+            < 4 => (0f, x, chroma),
+            < 5 => (x, 0f, chroma),
+            _ => (chroma, 0f, x),
         };
 
         byte r = (byte)(255 * (r1 + m));
@@ -365,7 +365,7 @@ public static partial class ColorHelper
     /// <summary>
     /// Parses a string to match the argument pattern "<paramref name="funcName"/>(args[0], args[1], ...)"
     /// </summary>
-    private static bool MatchArgPattern(string value, string funcName, out double[] args)
+    private static bool MatchArgPattern(string value, string funcName, out float[] args)
     {
         args = [];
 
@@ -388,10 +388,10 @@ public static partial class ColorHelper
         var argStrings = value.Split(',');
 
         // Parse the args into an array of doubles
-        args = new double[argStrings.Length];
+        args = new float[argStrings.Length];
         for (var i = 0; i < argStrings.Length; i++)
         {
-            if (!double.TryParse(argStrings[i], null, out args[i]))
+            if (!float.TryParse(argStrings[i], null, out args[i]))
                 return false;
         }
 

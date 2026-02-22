@@ -47,11 +47,11 @@ public struct HsvColor
     private HsvColor(Color color)
     {
         // Calculate hue, chroma, and supplementary values
-        (double h1, double chroma) = ColorHelper.CalculateHueAndChroma(color, out var _, out var max, out var alpha);
+        (float h1, float chroma) = ColorHelper.CalculateHueAndChroma(color, out var _, out var max, out var alpha);
 
         // Calculate saturation and value
-        double saturation = chroma == 0 ? 0 : chroma / max;
-        double value = max;
+        float saturation = chroma == 0 ? 0 : chroma / max;
+        float value = max;
 
         // Set hsv properties
         Hue = 60 * h1;
@@ -68,7 +68,7 @@ public struct HsvColor
     /// <param name="value">The color's value.</param>
     /// <param name="alpha">The alpha/opacity.</param>
     /// <returns>The new <see cref="HsvColor"/>.</returns>
-    public static HsvColor Create(double hue, double saturation, double value, double alpha = 1)
+    public static HsvColor Create(float hue, float saturation, float value, float alpha = 1)
     {
         HsvColor color = default;
 #pragma warning disable 0618
@@ -80,7 +80,6 @@ public struct HsvColor
         return color;
     }
 
-
     // This class contains deprecated public backing fields to be removed in a future version.
     // Suppress the warnings from using them in their new wrapping properties.
 #pragma warning disable 0618
@@ -91,9 +90,9 @@ public struct HsvColor
     /// <remarks>
     /// This value is clamped between 0 and 360.
     /// </remarks>
-    public double Hue
+    public float Hue
     {
-        readonly get => Math.Clamp(H, 0, 360);
+        readonly get => (float)H;
         set => H = Math.Clamp(value, 0, 360);
     }
     
@@ -103,9 +102,9 @@ public struct HsvColor
     /// <remarks>
     /// This value is clamped between 0 and 1.
     /// </remarks>
-    public double Saturation
+    public float Saturation
     {
-        readonly get => Math.Clamp(S, 0, 1);
+        readonly get => (float)S;
         set => S = Math.Clamp(value, 0, 1);
     }
     
@@ -115,9 +114,9 @@ public struct HsvColor
     /// <remarks>
     /// This value is clamped between 0 and 1.
     /// </remarks>
-    public double Value
+    public float Value
     {
-        readonly get => Math.Clamp(V, 0, 1);
+        readonly get => (float)V;
         set => V = Math.Clamp(value, 0, 1);
     }
     
@@ -127,9 +126,9 @@ public struct HsvColor
     /// <remarks>
     /// This value is clamped between 0 and 1.
     /// </remarks>
-    public double Alpha
+    public float Alpha
     {
-        readonly get => Math.Clamp(A, 0, 1);
+        readonly get => (float)A;
         set => A = Math.Clamp(value, 0, 1);
     }
 
@@ -142,10 +141,10 @@ public struct HsvColor
     /// <returns>The <see cref="HsvColor"/> as a <see cref="Color"/>.</returns>
     public readonly Color ToColor()
     {
-        double chroma = Value * Saturation;
-        double h1 = Hue / 60;
-        double x = chroma * (1 - Math.Abs((h1 % 2) - 1));
-        double m = Value - chroma;
+        float chroma = Value * Saturation;
+        float h1 = Hue / 60;
+        float x = chroma * (1 - Math.Abs((h1 % 2) - 1));
+        float m = Value - chroma;
 
         return ColorHelper.FromHueChroma(h1, chroma, x, m, Alpha);
     }

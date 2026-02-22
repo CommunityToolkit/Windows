@@ -196,14 +196,14 @@ public class Test_ColorHelper
     [TestMethod]
     public void Test_ColorHelper_CreateHsl()
     {
-        Assert.AreEqual(HslColor.Create(0.0, 1.0, 0.5), Colors.Red);
+        Assert.AreEqual(HslColor.Create(0.0f, 1.0f, 0.5f), Colors.Red);
     }
 
     [TestCategory("Helpers")]
     [TestMethod]
     public void Test_ColorHelper_CreateHsv()
     {
-        Assert.AreEqual(HsvColor.Create(0.0, 1.0, 1.0), Colors.Red);
+        Assert.AreEqual(HsvColor.Create(0.0f, 1.0f, 1.0f), Colors.Red);
     }
 
     [TestCategory("Helpers")]
