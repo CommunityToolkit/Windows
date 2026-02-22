@@ -20,55 +20,68 @@ public partial class RangeSelector : Control
 
     private void MinThumb_KeyDown(object sender, KeyRoutedEventArgs e)
     {
-        switch (e.Key)
+        var change = GetKeyboardChange(e.Key);
+
+        if (change != 0)
         {
-            case VirtualKey.Left:
-                RangeStart -= StepFrequency;
-                SyncThumbs(fromMinKeyDown: true);
-                if (_toolTip != null)
-                {
-                    _toolTip.Visibility = Visibility.Visible;
-                }
+            RangeStart += change;
 
-                e.Handled = true;
-                break;
-            case VirtualKey.Right:
-                RangeStart += StepFrequency;
-                SyncThumbs(fromMinKeyDown: true);
-                if (_toolTip != null)
-                {
-                    _toolTip.Visibility = Visibility.Visible;
-                }
-
-                e.Handled = true;
-                break;
+            SyncThumbs(fromMinKeyDown: true);
+            ShowToolTip();
+            e.Handled = true;
         }
+    }
+
+    private double GetKeyboardChange(VirtualKey key)
+    {
+        var isHorizontal = Orientation == Orientation.Horizontal;
+        var isRtl = FlowDirection == FlowDirection.RightToLeft;
+
+        if (isHorizontal)
+        {
+            switch (key)
+            {
+                case VirtualKey.Left:
+                    return isRtl ? StepFrequency : -StepFrequency;
+                case VirtualKey.Right:
+                    return isRtl ? -StepFrequency : StepFrequency;
+            }
+        }
+        else // Vertical
+        {
+            switch (key)
+            {
+                case VirtualKey.Down:
+                    return -StepFrequency;
+                case VirtualKey.Up:
+                    return StepFrequency;
+            }
+        }
+
+        return 0;
     }
 
     private void MaxThumb_KeyDown(object sender, KeyRoutedEventArgs e)
     {
-        switch (e.Key)
+        var change = GetKeyboardChange(e.Key);
+
+        if (change != 0)
         {
-            case VirtualKey.Left:
-                RangeEnd -= StepFrequency;
-                SyncThumbs(fromMaxKeyDown: true);
-                if (_toolTip != null)
-                {
-                    _toolTip.Visibility = Visibility.Visible;
-                }
+            RangeEnd += change;
 
-                e.Handled = true;
-                break;
-            case VirtualKey.Right:
-                RangeEnd += StepFrequency;
-                SyncThumbs(fromMaxKeyDown: true);
-                if (_toolTip != null)
-                {
-                    _toolTip.Visibility = Visibility.Visible;
-                }
+            SyncThumbs(fromMaxKeyDown: true);
+            ShowToolTip();
+            e.Handled = true;
+        }
+    }
 
-                e.Handled = true;
-                break;
+    private void ShowToolTip()
+    {
+        var isHorizontal = Orientation == Orientation.Horizontal;
+        if (!isHorizontal && VerticalToolTipPlacement == VerticalToolTipPlacement.None) return;
+        if (_toolTip != null)
+        {
+            _toolTip.Visibility = Visibility.Visible;
         }
     }
 
@@ -78,6 +91,8 @@ public partial class RangeSelector : Control
         {
             case VirtualKey.Left:
             case VirtualKey.Right:
+            case VirtualKey.Up:
+            case VirtualKey.Down:
                 if (_toolTip != null)
                 {
                     keyDebounceTimer.Debounce(
