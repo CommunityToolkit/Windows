@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Collections;
+using System.Diagnostics.CodeAnalysis;
 
 namespace CommunityToolkit.WinUI.Collections;
 
@@ -14,7 +15,7 @@ public class SortDescription
     /// <summary>
     /// Gets the name of property to sort on
     /// </summary>
-    public string PropertyName { get; }
+    public string? PropertyName { get; }
 
     /// <summary>
     /// Gets the direction of sort
@@ -33,8 +34,10 @@ public class SortDescription
     /// <param name="direction">Direction of sort</param>
     /// <param name="comparer">Comparer to use. If null, will use default comparer</param>
     public SortDescription(SortDirection direction, IComparer? comparer = null)
-        : this(null!, direction, comparer!)
     {
+        PropertyName = null;
+        Direction = direction;
+        Comparer = comparer ?? ObjectComparer.Instance;
     }
 
     /// <summary>
@@ -43,12 +46,22 @@ public class SortDescription
     /// <param name="propertyName">Name of property to sort on</param>
     /// <param name="direction">Direction of sort</param>
     /// <param name="comparer">Comparer to use. If null, will use default comparer</param>
+#if NET8_0_OR_GREATER
+    [RequiresUnreferencedCode("Item sorting with the property name uses reflection to get the property and is not trim-safe. Either use SortDescription<T> to preserve the required metadata, or use the other constructor without a property name.")]
+#endif
     public SortDescription(string propertyName, SortDirection direction, IComparer? comparer = null)
     {
         PropertyName = propertyName;
         Direction = direction;
         Comparer = comparer ?? ObjectComparer.Instance;
     }
+
+#if NET8_0_OR_GREATER
+    [UnconditionalSuppressMessage("Trimming", "IL2070:'this' argument does not satisfy 'DynamicallyAccessedMembersAttribute' in call to target method. The parameter of method does not have matching annotations.",
+        Justification = "The path which does reflection is only triggered if the user uses the constructor with RequiresUnreferencedCode, which will inform them of the risk.")]
+#endif
+    internal virtual PropertyInfo? GetProperty(Type type)
+        => PropertyName != null ? type.GetProperty(PropertyName) : null;
 
     private class ObjectComparer : IComparer
     {
