@@ -13,6 +13,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ExampleColorPickerTestPage.xaml.cs">
       <DependentUpon>ExampleColorPickerTestPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)PaletteSelectionTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="$(MSBuildThisFileDirectory)ExampleColorPickerTestPage.xaml">
