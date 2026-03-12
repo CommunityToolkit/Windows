@@ -764,6 +764,11 @@ public partial class ColorPicker : Microsoft.UI.Xaml.Controls.ColorPicker
                 }
             }
 
+            if (this.PaletteItemGridView != null)
+            {
+                this.PaletteItemGridView.SelectedItem = (this.CustomPaletteColors?.Contains(rgbColor) ?? false) ? rgbColor : null;
+            }
+
             if (eventsDisconnectedByMethod)
             {
                 this.ConnectEvents(true);
