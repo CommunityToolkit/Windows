@@ -13,13 +13,13 @@
             <ColumnDefinition />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <controls:HeaderedItemsControl Footer="Footer 1"
-                                       Header="Header 1"
+        <controls:HeaderedItemsControl Footer="Plain text footer"
+                                       Header="Default header and footer"
                                        ItemsSource="{x:Bind Items, Mode=OneWay}" />
 
         <controls:HeaderedItemsControl Grid.Column="1"
-                                       Footer="Footer 2"
-                                       Header="Header 2"
+                                       Footer="Styled footer"
+                                       Header="Templated header and footer"
                                        ItemsSource="{x:Bind Items, Mode=OneWay}">
             <controls:HeaderedItemsControl.HeaderTemplate>
                 <DataTemplate>

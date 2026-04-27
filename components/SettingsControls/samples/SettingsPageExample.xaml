@@ -34,8 +34,8 @@
                 </win:StackPanel.ChildrenTransitions>
                 <TextBlock Style="{StaticResource SettingsSectionHeaderTextBlockStyle}"
                            Text="Section 1" />
-                <controls:SettingsCard Description="This is a default card, with the Header, HeaderIcon, Description and Content set"
-                                       Header="This is the Header"
+                <controls:SettingsCard Description="A typical SettingsCard with a toggle for enabling a feature."
+                                       Header="Notifications"
                                        HeaderIcon="{ui:FontIcon Glyph=&#xE716;}">
                     <ToggleSwitch IsOn="True" />
                 </controls:SettingsCard>

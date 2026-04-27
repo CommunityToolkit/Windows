@@ -10,8 +10,8 @@
       mc:Ignorable="d">
 
     <Grid>
-        <controls:HeaderedTreeView Footer="Footer"
-                                   Header="Header"
+        <controls:HeaderedTreeView Footer="Files are read-only"
+                                   Header="Project files"
                                    ItemsSource="{x:Bind Items, Mode=OneWay}">
             <controls:HeaderedTreeView.HeaderTemplate>
                 <DataTemplate>
