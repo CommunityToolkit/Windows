@@ -10,8 +10,8 @@
     <StackPanel Spacing="4">
 
         <controls:SettingsCard x:Name="settingsCard"
-                               Description="This is a default card, with the Header, HeaderIcon, Description and Content set."
-                               Header="This is the Header"
+                               Description="A SettingsCard with Header, HeaderIcon, Description and Content set."
+                               Header="Default SettingsCard"
                                HeaderIcon="{ui:FontIcon Glyph=&#xE799;}"
                                IsEnabled="{x:Bind IsCardEnabled, Mode=OneWay}">
             <ComboBox SelectedIndex="0">
