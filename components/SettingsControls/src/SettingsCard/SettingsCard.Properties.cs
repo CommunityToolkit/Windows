@@ -211,5 +211,10 @@ public enum ContentAlignment
     /// <summary>
     /// The Content is vertically aligned.
     /// </summary>
-    Vertical
+    Vertical,
+
+    /// <summary>
+    /// The Content stretches and fills all the available space.
+    /// </summary>
+    Stretch
 }

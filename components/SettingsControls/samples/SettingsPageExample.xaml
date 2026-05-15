@@ -57,6 +57,16 @@
                         <controls:SettingsCard ContentAlignment="Left">
                             <CheckBox Content="Here the ContentAlignment is set to Left. This is great for e.g. CheckBoxes or RadioButtons" />
                         </controls:SettingsCard>
+                        <controls:SettingsCard ContentAlignment="Stretch">
+                            <Border>
+                                <StackPanel>
+                                    <TextBlock TextWrapping="WrapWholeWords"
+                                               Text="Here the ContentAlignment is set to Stretch, so the content fills the entire card. This is great for controls like Sliders that benefit from having more space." />
+                                    <Slider Margin="0,10,0,0"
+                                            HorizontalAlignment="Stretch" />
+                                </StackPanel>
+                            </Border>
+                        </controls:SettingsCard>
                     </controls:SettingsExpander.Items>
                 </controls:SettingsExpander>
 
