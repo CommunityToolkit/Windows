@@ -57,7 +57,7 @@ jobs:
   # Build both Uno.UI/WinUI2/UWP and Uno.WinUI/WinUI3/WindowsAppSDK versions of our packages using a matrix
   build:
     needs: [Xaml-Style-Check]
-    runs-on: windows-2025-large
+    runs-on: windows-latest-large
 
     env:
       PROCDUMP_PATH: ${{ github.workspace }}
@@ -222,7 +222,7 @@ jobs:
           dotnet-dump analyze ${{ steps.detect-dump.outputs.DUMP_FILE }} -c "clrstack" -c "pe -lines" -c "exit"
 
   package:
-    runs-on: windows-2025-large
+    runs-on: windows-latest-large
     needs: [build]
     strategy:
       fail-fast: false # prevent one matrix pipeline from being cancelled if one fails, we want them all to run to completion.
@@ -334,7 +334,7 @@ jobs:
   sign:
     needs: [package]
     if: ${{ github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/heads/rel/') }}
-    runs-on: windows-2025-large
+    runs-on: windows-latest-large
     permissions:
       id-token: write # Required for requesting the JWT
 
