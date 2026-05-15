@@ -22,7 +22,6 @@ public partial class Segmented : ListViewBase
         this.DefaultStyleKey = typeof(Segmented);
 
         RegisterPropertyChangedCallback(SelectedIndexProperty, OnSelectedIndexChanged);
-        RegisterPropertyChangedCallback(OrientationProperty, OnSelectedIndexChanged);
     }
 
     /// <inheritdoc/>
