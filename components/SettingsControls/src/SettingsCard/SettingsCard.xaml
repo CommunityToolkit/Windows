@@ -370,6 +370,22 @@
                                             <Setter Target="PART_ContentPresenter.HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource TemplatedParent}}" />
                                         </VisualState.Setters>
                                     </VisualState>
+
+                                    <!--  Union Left and Vertical, HeaderIcon/Header/Description collapsed, Content stretches and fills all the available space  -->
+                                    <VisualState x:Name="Stretch">
+                                        <VisualState.StateTriggers>
+                                            <tk:IsEqualStateTrigger Value="{Binding ContentAlignment, RelativeSource={RelativeSource TemplatedParent}}"
+                                                                    To="Stretch" />
+                                        </VisualState.StateTriggers>
+                                        <VisualState.Setters>
+                                            <Setter Target="PART_HeaderIconPresenterHolder.Visibility" Value="Collapsed" />
+                                            <Setter Target="PART_DescriptionPresenter.Visibility" Value="Collapsed" />
+                                            <Setter Target="PART_HeaderPresenter.Visibility" Value="Collapsed" />
+                                            <Setter Target="PART_ContentPresenter.(Grid.Row)" Value="1" />
+                                            <Setter Target="PART_ContentPresenter.(Grid.Column)" Value="1" />
+                                            <Setter Target="PART_ContentPresenter.HorizontalAlignment" Value="Stretch" />
+                                        </VisualState.Setters>
+                                    </VisualState>
                                 </VisualStateGroup>
 
                                 <!--  Collapsing the Content presenter whenever it's empty  -->
