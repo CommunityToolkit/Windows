@@ -32,7 +32,7 @@ env:
 jobs:
   # This workflow contains a single job called "Xaml-Style-Check"
   Xaml-Style-Check:
-    runs-on: windows-2025-large
+    runs-on: windows-2025
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
