@@ -102,6 +102,12 @@
                                         <RowDefinition Height="*" />
                                         <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
+                                    <Grid.ChildrenTransitions>
+                                        <TransitionCollection>
+                                            <ContentThemeTransition />
+                                            <AddDeleteThemeTransition />
+                                        </TransitionCollection>
+                                    </Grid.ChildrenTransitions>
                                     <ContentPresenter Content="{TemplateBinding ItemsHeader}" />
                                     <muxc:ItemsRepeater x:Name="PART_ItemsRepeater"
                                                         Grid.Row="1"
