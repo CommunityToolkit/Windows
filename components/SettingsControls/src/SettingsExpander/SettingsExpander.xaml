@@ -96,18 +96,13 @@
                                                     IsClickEnabled="False" />
                             </muxc:Expander.Header>
                             <muxc:Expander.Content>
-                                <Grid CornerRadius="{Binding CornerRadius, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource CornerRadiusConverter}}">
+                                <Grid ChildrenTransitions="{TemplateBinding ItemsTransitions}"
+                                      CornerRadius="{Binding CornerRadius, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource CornerRadiusConverter}}">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto" />
                                         <RowDefinition Height="*" />
                                         <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
-                                    <Grid.ChildrenTransitions>
-                                        <TransitionCollection>
-                                            <ContentThemeTransition />
-                                            <AddDeleteThemeTransition />
-                                        </TransitionCollection>
-                                    </Grid.ChildrenTransitions>
                                     <ContentPresenter Content="{TemplateBinding ItemsHeader}" />
                                     <muxc:ItemsRepeater x:Name="PART_ItemsRepeater"
                                                         Grid.Row="1"

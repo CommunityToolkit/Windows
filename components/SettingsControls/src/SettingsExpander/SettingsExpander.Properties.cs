@@ -72,6 +72,15 @@ public partial class SettingsExpander
      new PropertyMetadata(defaultValue: false, (d, e) => ((SettingsExpander)d).OnIsExpandedPropertyChanged((bool)e.OldValue, (bool)e.NewValue)));
 
     /// <summary>
+    /// The backing <see cref="DependencyProperty"/> for the <see cref="ItemsTransitions"/> property.
+    /// </summary>
+    public static readonly DependencyProperty ItemsTransitionsProperty = DependencyProperty.Register(
+        nameof(ItemsTransitions), 
+        typeof(TransitionCollection), 
+        typeof(SettingsExpander),
+        new PropertyMetadata(null));
+
+    /// <summary>
     /// Gets or sets the Header.
     /// </summary>
     public object Header
@@ -125,6 +134,15 @@ public partial class SettingsExpander
     {
         get => (UIElement)GetValue(ItemsFooterProperty);
         set => SetValue(ItemsFooterProperty, value);
+    }
+
+    /// <summary>
+    /// Gets or sets the ItemsTransitions.
+    /// </summary>
+    public TransitionCollection ItemsTransitions
+    {
+        get { return (TransitionCollection)GetValue(ItemsTransitionsProperty); }
+        set { SetValue(ItemsTransitionsProperty, value); }
     }
 
     /// <summary>
