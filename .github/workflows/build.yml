@@ -150,7 +150,7 @@ jobs:
         uses: darenm/setup-vstest@3a16d909a1f3bbc65b52f8270d475d905e7d3e44
 
       - name: Install Testspace Module
-        uses: testspace-com/setup-testspace@v1
+        uses: testspace-com/setup-testspace@v1.0.8
         with:
           domain: ${{ github.repository_owner }}
 
