@@ -223,8 +223,7 @@
 
                             <controls:Segmented x:Name="ColorPanelSelector"
                                                 Grid.Row="1"
-                                                HorizontalAlignment="Stretch"
-                                                SelectedIndex="0">
+                                                HorizontalAlignment="Stretch">
                                 <controls:SegmentedItem x:Name="SpectrumItem"
                                                         AutomationProperties.Name="Spectrum"
                                                         Icon="{ui:FontIcon Glyph=&#xE76D;}" />
