@@ -136,7 +136,7 @@ public partial class RangeSelector : Control
 
         if (_toolTip != null)
         {
-            if (Orientation == Orientation.Vertical && VerticalToolTipPlacement == VerticalToolTipPlacement.None)
+            if (!IsThumbToolTipEnabled || (Orientation == Orientation.Vertical && VerticalToolTipPlacement == VerticalToolTipPlacement.None))
             {
                 _toolTip.Visibility = Visibility.Collapsed;
             }
