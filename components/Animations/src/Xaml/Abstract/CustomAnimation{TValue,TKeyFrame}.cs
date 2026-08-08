@@ -50,6 +50,7 @@ public abstract class CustomAnimation<TValue, TKeyFrame> : ImplicitAnimation<TVa
             state: (this, easingTypeHint, easingModeHint),
             delay: Delay ?? delayHint ?? DefaultDelay,
             duration: Duration ?? durationHint ?? DefaultDuration,
+            repeatOption: Repeat,
             delayBehavior: DelayBehavior,
             layer: Layer,
             build: static (b, s) => s.This.AppendToBuilder(b, s.EasingTypeHint, s.EasingModeHint));
