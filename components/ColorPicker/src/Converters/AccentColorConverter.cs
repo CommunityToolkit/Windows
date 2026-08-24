@@ -33,22 +33,13 @@ public partial class AccentColorConverter : IValueConverter
     {
         if (accentStep != 0)
         {
-            double colorValue = hsvColor.V;
+            double colorValue = hsvColor.Value;
             colorValue += accentStep * AccentColorConverter.ValueDelta;
             colorValue = Math.Round(colorValue, 2);
+            hsvColor.Value = colorValue;
+        }
 
-            return new HsvColor()
-            {
-                A = Math.Clamp(hsvColor.A, 0.0, 1.0),
-                H = Math.Clamp(hsvColor.H, 0.0, 360.0),
-                S = Math.Clamp(hsvColor.S, 0.0, 1.0),
-                V = Math.Clamp(colorValue, 0.0, 1.0),
-            };
-        }
-        else
-        {
-            return hsvColor;
-        }
+        return hsvColor;
     }
 
     /// <inheritdoc/>
@@ -63,28 +54,26 @@ public partial class AccentColorConverter : IValueConverter
         HsvColor? hsvColor = null;
 
         // Get the current color in HSV
-        if (value is Color valueColor)
+        switch (value)
         {
-            rgbColor = valueColor;
-        }
-        else if (value is HsvColor valueHsvColor)
-        {
-            hsvColor = valueHsvColor;
-        }
-        else if (value is SolidColorBrush valueBrush)
-        {
-            rgbColor = valueBrush.Color;
-        }
-        else
-        {
-            // Invalid color value provided
-            return DependencyProperty.UnsetValue;
+            case Color valueColor:
+                rgbColor = valueColor;
+                break;
+            case HsvColor valueHsvColor:
+                hsvColor = valueHsvColor;
+                break;
+            case SolidColorBrush valueBrush:
+                rgbColor = valueBrush.Color;
+                break;
+            default:
+                // Invalid color value provided
+                return DependencyProperty.UnsetValue;
         }
 
         // Get the value component delta
         try
         {
-                accentStep = int.Parse(parameter?.ToString()!, CultureInfo.InvariantCulture);
+            accentStep = int.Parse(parameter?.ToString()!, CultureInfo.InvariantCulture);
         }
         catch
         {
@@ -100,9 +89,7 @@ public partial class AccentColorConverter : IValueConverter
 
         if (hsvColor != null)
         {
-            var hsv = AccentColorConverter.GetAccent(hsvColor.Value, accentStep);
-
-            return Helpers.ColorHelper.FromHsv(hsv.H, hsv.S, hsv.V, hsv.A);
+            return (Color)GetAccent(hsvColor.Value, accentStep);
         }
         else
         {
