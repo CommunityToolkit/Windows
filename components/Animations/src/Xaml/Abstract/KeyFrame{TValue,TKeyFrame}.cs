@@ -60,11 +60,14 @@ public abstract partial class KeyFrame<TValue, TKeyFrame> : KeyFrame, IKeyFrame<
     /// <summary>
     /// Identifies the <seealso cref="Value"/> dependency property.
     /// </summary>
+    // typeof(TValue?) is only used as dependency property metadata, not for reflective construction.
+#pragma warning disable IL2087
     public static readonly DependencyProperty ValueProperty = DependencyProperty.Register(
         nameof(Value),
         typeof(TValue?),
         typeof(KeyFrame<TValue, TKeyFrame>),
         new PropertyMetadata(null));
+#pragma warning restore IL2087
 
     /// <summary>
     /// Gets or sets the optional expression for the current keyframe.

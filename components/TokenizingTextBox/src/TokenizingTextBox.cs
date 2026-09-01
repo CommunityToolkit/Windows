@@ -361,7 +361,10 @@ public partial class TokenizingTextBox : ListViewBase
         }
         else
         {
+            // Obsolete on WinUI 3/Uno, but required as a fallback where XamlRoot is unavailable (e.g. UWP).
+#pragma warning disable CS0618
             return FocusManager.GetFocusedElement()!;
+#pragma warning restore CS0618
         }
     }
 

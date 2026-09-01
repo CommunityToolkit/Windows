@@ -30,11 +30,14 @@ public abstract class Animation<TValue, TKeyFrame> : Animation
     /// <summary>
     /// Identifies the <seealso cref="To"/> dependency property.
     /// </summary>
+    // typeof(TValue?) is only used as dependency property metadata, not for reflective construction.
+#pragma warning disable IL2087
     public static readonly DependencyProperty ToProperty = DependencyProperty.Register(
         nameof(To),
         typeof(TValue?),
         typeof(Animation<TValue, TKeyFrame>),
         new PropertyMetadata(null));
+#pragma warning restore IL2087
 
     /// <summary>
     /// Gets or sets the optional starting value for the animation.
@@ -48,11 +51,14 @@ public abstract class Animation<TValue, TKeyFrame> : Animation
     /// <summary>
     /// Identifies the <seealso cref="From"/> dependency property.
     /// </summary>
+    // typeof(TValue?) is only used as dependency property metadata, not for reflective construction.
+#pragma warning disable IL2087
     public static readonly DependencyProperty FromProperty = DependencyProperty.Register(
         nameof(From),
         typeof(TValue?),
         typeof(Animation<TValue, TKeyFrame>),
         new PropertyMetadata(null));
+#pragma warning restore IL2087
 
     /// <summary>
     /// Gets or sets the optional keyframe collection for the current animation.
