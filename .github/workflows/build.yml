@@ -126,10 +126,6 @@ jobs:
           --verbose
           --manifest https://raw.githubusercontent.com/unoplatform/uno.check/21062486af894a55f75e060cffbd91407b669e1e/manifests/uno.ui.manifest.json
 
-      - name: Install Windows SDKs
-        shell: pwsh
-        run: ./tooling/Install-WindowsSdk.ps1
-
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v2
         with:
