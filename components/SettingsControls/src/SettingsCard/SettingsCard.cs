@@ -66,6 +66,9 @@ public partial class SettingsCard : ButtonBase
     public SettingsCard()
     {
         this.DefaultStyleKey = typeof(SettingsCard);
+
+        // This is perhaps indicative of an issue with the action icon requiring a concrete FontElement instead of a template
+        ActionIcon = new FontIcon { Glyph = "\ue974", MirroredWhenRightToLeft = true };
     }
 
     /// <inheritdoc />

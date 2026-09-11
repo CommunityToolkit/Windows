@@ -40,7 +40,7 @@ public partial class SettingsCard : ButtonBase
         nameof(ActionIcon),
         typeof(IconElement),
         typeof(SettingsCard),
-        new PropertyMetadata(defaultValue: "\ue974"));
+        new PropertyMetadata(defaultValue: null));
 
     /// <summary>
     /// The backing <see cref="DependencyProperty"/> for the <see cref="ActionIconToolTip"/> property.
