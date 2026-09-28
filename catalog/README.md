@@ -49,6 +49,12 @@ Each `xaml` value is the sample's markup with the sample app removed from it:
 
 What changes is the environment, never what the sample demonstrates. A sample whose markup cannot be made pasteable is left out and reported rather than published broken.
 
+## The C# is the sample, not the page
+
+A sample that has code-behind also carries a `code` value: the handlers its markup calls and the types its markup binds to, as members to drop into a page. The license header, the sample app's namespace, the page class, the `[ToolkitSample…]` attributes and the `InitializeComponent` call are all scaffolding for an app the reader is not building, so none of them appear. Conditional branches are resolved for WinAppSDK, so the reader is not handed a choice that has already been made.
+
+Most samples have nothing left once that is removed, and those publish no `code` at all rather than a constructor that says nothing. A constructor that does something the sample needs is kept, named after the sample — rename it to your own page, the same adaptation the markup's `x:Class` already asks for.
+
 ## Regenerating
 
 ```shell

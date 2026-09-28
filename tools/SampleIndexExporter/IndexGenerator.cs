@@ -243,11 +243,17 @@ internal static partial class IndexGenerator
             return null;
         }
 
+        var code = SampleCode.Extract(
+            Path.Combine(repoRoot, declaration.RelativePath.Replace('/', Path.DirectorySeparatorChar)),
+            declaration.TypeName);
+
         return new IndexedSample
         {
             Header = declaration.DisplayName,
             Details = document.SampleProse.TryGetValue(declaration.Id, out var prose) ? prose : declaration.Description,
             Xaml = extraction.Xaml,
+            Code = code,
+            Language = code is null ? null : "csharp",
             XmlnsImports = NullIfEmpty(extraction.XmlnsImports),
             Toolkit = new SampleExtension
             {

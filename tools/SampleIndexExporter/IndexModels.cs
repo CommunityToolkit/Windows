@@ -158,6 +158,18 @@ internal sealed class IndexedSample
     public string? Xaml { get; set; }
 
     /// <summary>
+    /// The C# the sample demonstrates: the handlers its markup calls and the types its markup
+    /// binds to, as members a reader drops into their own page. Omitted when the sample's
+    /// code-behind is only the page scaffolding, which is the common case.
+    /// </summary>
+    [JsonPropertyName("code")]
+    public string? Code { get; set; }
+
+    /// <summary>Language of <see cref="Code"/>. Always <c>csharp</c> when code is present.</summary>
+    [JsonPropertyName("language")]
+    public string? Language { get; set; }
+
+    /// <summary>
     /// The XAML namespace declarations this fragment actually uses, emitted verbatim.
     /// </summary>
     /// <remarks>
