@@ -14,6 +14,10 @@
         "Composition",
         "animationset"
       ],
+      "keywords": [
+        "Animations",
+        "Effects"
+      ],
       "docs": [
         {
           "title": "Implicit Animations",
@@ -58,6 +62,10 @@
         "animation",
         "coordinated animations"
       ],
+      "keywords": [
+        "Animations",
+        "Effects"
+      ],
       "docs": [
         {
           "title": "Connected Animations",
@@ -101,6 +109,10 @@
         "xaml",
         "visual",
         "composition"
+      ],
+      "keywords": [
+        "Animations",
+        "Miscellaneous"
       ],
       "docs": [
         {
@@ -152,6 +164,10 @@
       "description": "A behavior is a class that attaches to a XAML control and invokes an Action when triggered.",
       "nugetPackage": "CommunityToolkit.WinUI.Behaviors",
       "curatedKeywords": [
+        "Behaviors"
+      ],
+      "keywords": [
+        "Xaml",
         "Behaviors"
       ],
       "docs": [
@@ -265,6 +281,10 @@
       "curatedKeywords": [
         "Behaviors"
       ],
+      "keywords": [
+        "Xaml",
+        "Behaviors"
+      ],
       "docs": [
         {
           "title": "Header Behaviors",
@@ -363,6 +383,10 @@
         "InfoBar",
         "Behavior"
       ],
+      "keywords": [
+        "Xaml",
+        "Behaviors"
+      ],
       "docs": [
         {
           "title": "StackedNotificationsBehavior",
@@ -421,6 +445,10 @@
         "Control",
         "skommireddi"
       ],
+      "keywords": [
+        "Controls",
+        "Media"
+      ],
       "docs": [
         {
           "title": "CameraPreview",
@@ -468,6 +496,10 @@
         "filtering",
         "Collections"
       ],
+      "keywords": [
+        "Helpers",
+        "Data"
+      ],
       "docs": [
         {
           "title": "AdvancedCollectionView",
@@ -508,6 +540,10 @@
         "Loading",
         "Collections"
       ],
+      "keywords": [
+        "Helpers",
+        "Data"
+      ],
       "docs": [
         {
           "title": "IncrementalLoadingCollection",
@@ -544,6 +580,10 @@
         "ColorPicker",
         "Control",
         "Layout"
+      ],
+      "keywords": [
+        "Controls",
+        "Input"
       ],
       "docs": [
         {
@@ -606,6 +646,10 @@
         "Converters",
         "Control",
         "Layout"
+      ],
+      "keywords": [
+        "Xaml",
+        "Miscellaneous"
       ],
       "docs": [
         {
@@ -823,6 +867,10 @@
         "dev tools",
         "controls"
       ],
+      "keywords": [
+        "Helpers",
+        "Developer"
+      ],
       "docs": [
         {
           "title": "Developer Tools",
@@ -880,6 +928,10 @@
         "Extensions",
         "array"
       ],
+      "keywords": [
+        "Extensions",
+        "Math"
+      ],
       "docs": [
         {
           "title": "Array Extensions",
@@ -908,6 +960,10 @@
         "attachedshadow",
         "attacheddropshadow",
         "attachedcardshadow"
+      ],
+      "keywords": [
+        "Extensions",
+        "Shadows"
       ],
       "docs": [
         {
@@ -975,6 +1031,10 @@
         "attacheddropshadow",
         "attachedcardshadow"
       ],
+      "keywords": [
+        "Extensions",
+        "Shadows"
+      ],
       "docs": [
         {
           "title": "Shadows overview",
@@ -1004,6 +1064,10 @@
         "Visual Tree",
         "extensions"
       ],
+      "keywords": [
+        "Extensions",
+        "Layout"
+      ],
       "docs": [
         {
           "title": "DependencyObjectExtensions",
@@ -1029,6 +1093,10 @@
         "dispatcherqueue",
         "DispatcherHelper",
         "DispatcherQueueExtensions"
+      ],
+      "keywords": [
+        "Extensions",
+        "Miscellaneous"
       ],
       "docs": [
         {
@@ -1057,6 +1125,10 @@
         "DispatcherQueueExtensions",
         "DispatcherQueueTimer",
         "DispatcherQueueTimerExtensions"
+      ],
+      "keywords": [
+        "Extensions",
+        "Miscellaneous"
       ],
       "docs": [
         {
@@ -1106,6 +1178,10 @@
         "markup",
         "enum"
       ],
+      "keywords": [
+        "Extensions",
+        "Markup"
+      ],
       "docs": [
         {
           "title": "EnumValuesExtensions",
@@ -1129,6 +1205,10 @@
       "curatedKeywords": [
         "FrameworkElement",
         "extensions"
+      ],
+      "keywords": [
+        "Extensions",
+        "Layout"
       ],
       "docs": [
         {
@@ -1172,6 +1252,10 @@
         "Hyperlink",
         "extensions"
       ],
+      "keywords": [
+        "Extensions",
+        "Controls"
+      ],
       "docs": [
         {
           "title": "HyperlinkExtensions",
@@ -1200,6 +1284,10 @@
         "fonticonsource",
         "bitmapicon"
       ],
+      "keywords": [
+        "Extensions",
+        "Markup"
+      ],
       "docs": [
         {
           "title": "Icon extensions",
@@ -1223,6 +1311,10 @@
       "curatedKeywords": [
         "ListViewBase",
         "extensions"
+      ],
+      "keywords": [
+        "Extensions",
+        "Controls"
       ],
       "docs": [
         {
@@ -1272,6 +1364,10 @@
         "Extensions",
         "matrix"
       ],
+      "keywords": [
+        "Extensions",
+        "Math"
+      ],
       "docs": [
         {
           "title": "Matrix Extensions",
@@ -1299,6 +1395,10 @@
         "XAML",
         "markup"
       ],
+      "keywords": [
+        "Extensions",
+        "Miscellaneous"
+      ],
       "docs": [
         {
           "title": "NullableBoolExtension",
@@ -1323,6 +1423,10 @@
         "markup extension",
         "XAML",
         "markup"
+      ],
+      "keywords": [
+        "Extensions",
+        "Markup"
       ],
       "docs": [
         {
@@ -1353,6 +1457,10 @@
         "ScrollViewer",
         "extensions"
       ],
+      "keywords": [
+        "Extensions",
+        "Controls"
+      ],
       "docs": [
         {
           "title": "ScrollViewerExtensions",
@@ -1381,6 +1489,10 @@
         "attachedshadow",
         "attacheddropshadow",
         "attachedcardshadow"
+      ],
+      "keywords": [
+        "Animations",
+        "Shadows"
       ],
       "docs": [
         {
@@ -1411,6 +1523,10 @@
         "Extensions",
         "string"
       ],
+      "keywords": [
+        "Extensions",
+        "Miscellaneous"
+      ],
       "docs": [
         {
           "title": "String Extensions",
@@ -1434,6 +1550,10 @@
       "curatedKeywords": [
         "TextBoxMask",
         "XAML"
+      ],
+      "keywords": [
+        "Extensions",
+        "Controls"
       ],
       "docs": [
         {
@@ -1505,6 +1625,10 @@
         "SkewTransform",
         "TranslateTransform"
       ],
+      "keywords": [
+        "Extensions",
+        "Miscellaneous"
+      ],
       "docs": [
         {
           "title": "Transform Extensions",
@@ -1533,6 +1657,10 @@
         "uwp toolkit",
         "UIElement",
         "extensions"
+      ],
+      "keywords": [
+        "Extensions",
+        "Controls"
       ],
       "docs": [
         {
@@ -1576,6 +1704,10 @@
         "xaml",
         "attached property"
       ],
+      "keywords": [
+        "Extensions",
+        "Layout"
+      ],
       "docs": [
         {
           "title": "Composition Visual Extensions",
@@ -1600,6 +1732,10 @@
         "HeaderedContentControl",
         "Control",
         "headered"
+      ],
+      "keywords": [
+        "Controls",
+        "Layout"
       ],
       "docs": [
         {
@@ -1675,6 +1811,10 @@
         "Control",
         "Layout"
       ],
+      "keywords": [
+        "Controls",
+        "Layout"
+      ],
       "docs": [
         {
           "title": "HeaderedItemsControl",
@@ -1715,6 +1855,10 @@
         "Control",
         "Layout",
         "treeview"
+      ],
+      "keywords": [
+        "Controls",
+        "Layout"
       ],
       "docs": [
         {
@@ -1760,6 +1904,10 @@
         "Video Frame",
         "Software Bitmap"
       ],
+      "keywords": [
+        "Helpers",
+        "System"
+      ],
       "docs": [
         {
           "title": "CameraHelper",
@@ -1803,6 +1951,10 @@
         "screenunithelper",
         "colorhelper"
       ],
+      "keywords": [
+        "Helpers",
+        "Converters"
+      ],
       "docs": [
         {
           "title": "ColorHelper",
@@ -1827,6 +1979,10 @@
         "Helpers",
         "designtimehelpers"
       ],
+      "keywords": [
+        "Helpers",
+        "Developer"
+      ],
       "docs": [
         {
           "title": "DesignTimeHelpers",
@@ -1850,6 +2006,10 @@
       "curatedKeywords": [
         "Helpers",
         "NetworkHelper"
+      ],
+      "keywords": [
+        "Helpers",
+        "System"
       ],
       "docs": [
         {
@@ -1887,6 +2047,10 @@
         "Helpers",
         "screenunithelper"
       ],
+      "keywords": [
+        "Helpers",
+        "Converters"
+      ],
       "docs": [
         {
           "title": "ScreenUnitHelper",
@@ -1912,6 +2076,10 @@
         "Theming",
         "theme listener",
         "themes"
+      ],
+      "keywords": [
+        "Helpers",
+        "System"
       ],
       "docs": [
         {
@@ -1949,6 +2117,10 @@
         "Helpers",
         "WeakEventListener"
       ],
+      "keywords": [
+        "Helpers",
+        "Miscellaneous"
+      ],
       "docs": [
         {
           "title": "WeakEventListener",
@@ -1973,6 +2145,10 @@
         "ImageCropper",
         "Control",
         "Layout"
+      ],
+      "keywords": [
+        "Controls",
+        "Media"
       ],
       "docs": [
         {
@@ -2044,6 +2220,10 @@
         "SkewTransform",
         "Transform"
       ],
+      "keywords": [
+        "Controls",
+        "Layout"
+      ],
       "docs": [
         {
           "title": "LayoutTransformControl",
@@ -2092,6 +2272,10 @@
         "attachedshadow",
         "attacheddropshadow",
         "attachedcardshadow"
+      ],
+      "keywords": [
+        "Extensions",
+        "Shadows"
       ],
       "docs": [
         {
@@ -2156,6 +2340,10 @@
         "image",
         "blend",
         "brushes"
+      ],
+      "keywords": [
+        "Xaml",
+        "Effects"
       ],
       "docs": [
         {
@@ -2279,6 +2467,10 @@
         "effects",
         "animations",
         "pipeline"
+      ],
+      "keywords": [
+        "Animations",
+        "Media"
       ],
       "docs": [
         {
@@ -2426,6 +2618,10 @@
         "pipeline",
         "pipe"
       ],
+      "keywords": [
+        "Xaml",
+        "Effects"
+      ],
       "docs": [
         {
           "title": "PipelineBrush",
@@ -2465,6 +2661,10 @@
         "factory",
         "pipe"
       ],
+      "keywords": [
+        "Xaml",
+        "Effects"
+      ],
       "docs": [
         {
           "title": "PipelineVisualFactory",
@@ -2502,6 +2702,10 @@
         "MetadataControl",
         "Control",
         "metadata"
+      ],
+      "keywords": [
+        "Controls",
+        "StatusAndInfo"
       ],
       "docs": [
         {
@@ -2546,6 +2750,10 @@
         "viewbox",
         "content decorator",
         "ConstrainedBox"
+      ],
+      "keywords": [
+        "Layouts",
+        "Media"
       ],
       "docs": [
         {
@@ -2608,6 +2816,10 @@
       "curatedKeywords": [
         "DockPanel"
       ],
+      "keywords": [
+        "Layouts",
+        "Panel"
+      ],
       "docs": [
         {
           "title": "DockPanel",
@@ -2646,6 +2858,10 @@
       "curatedKeywords": [
         "StaggeredPanel",
         "StaggeredLayout",
+        "Layout"
+      ],
+      "keywords": [
+        "Layouts",
         "Layout"
       ],
       "docs": [
@@ -2697,6 +2913,10 @@
         "StaggeredLayout",
         "Layout"
       ],
+      "keywords": [
+        "Layouts",
+        "Panel"
+      ],
       "docs": [
         {
           "title": "StaggeredPanel",
@@ -2745,6 +2965,10 @@
         "visibility",
         "triggers",
         "converters"
+      ],
+      "keywords": [
+        "Layouts",
+        "Miscellaneous"
       ],
       "docs": [
         {
@@ -2851,6 +3075,10 @@
         "layout",
         "responsive"
       ],
+      "keywords": [
+        "Layouts",
+        "Miscellaneous"
+      ],
       "docs": [
         {
           "title": "UniformGrid",
@@ -2895,6 +3123,10 @@
       "curatedKeywords": [
         "WrapLayout"
       ],
+      "keywords": [
+        "Layouts",
+        "Layout"
+      ],
       "docs": [
         {
           "title": "WrapLayout",
@@ -2938,6 +3170,10 @@
       "curatedKeywords": [
         "WrapPanel"
       ],
+      "keywords": [
+        "Layouts",
+        "Panel"
+      ],
       "docs": [
         {
           "title": "WrapPanel",
@@ -2980,6 +3216,10 @@
       "curatedKeywords": [
         "RadialGauge",
         "Control",
+        "Input"
+      ],
+      "keywords": [
+        "Controls",
         "Input"
       ],
       "docs": [
@@ -3040,6 +3280,10 @@
         "double slider",
         "slider rangeslider"
       ],
+      "keywords": [
+        "Controls",
+        "Input"
+      ],
       "docs": [
         {
           "title": "RangeSelector",
@@ -3083,6 +3327,10 @@
       "curatedKeywords": [
         "RichSuggestBox",
         "Control"
+      ],
+      "keywords": [
+        "Controls",
+        "Text"
       ],
       "docs": [
         {
@@ -3140,6 +3388,10 @@
         "Control",
         "Layout",
         "Segmented"
+      ],
+      "keywords": [
+        "Controls",
+        "Input"
       ],
       "docs": [
         {
@@ -3217,6 +3469,10 @@
         "Layout",
         "Settings"
       ],
+      "keywords": [
+        "Controls",
+        "Layout"
+      ],
       "docs": [
         {
           "title": "SettingsCard",
@@ -3292,6 +3548,10 @@
         "Control",
         "Layout",
         "Settings"
+      ],
+      "keywords": [
+        "Controls",
+        "Layout"
       ],
       "docs": [
         {
@@ -3384,6 +3644,10 @@
         "Expander",
         "Splitter"
       ],
+      "keywords": [
+        "Controls",
+        "Sizers"
+      ],
       "docs": [
         {
           "title": "ContentSizer",
@@ -3437,6 +3701,10 @@
         "Layout",
         "Expander"
       ],
+      "keywords": [
+        "Controls",
+        "Sizers"
+      ],
       "docs": [
         {
           "title": "GridSplitter",
@@ -3477,6 +3745,10 @@
         "Layout",
         "NavigationView",
         "Splitter"
+      ],
+      "keywords": [
+        "Controls",
+        "Sizers"
       ],
       "docs": [
         {
@@ -3523,6 +3795,10 @@
         "Grid",
         "Splitter"
       ],
+      "keywords": [
+        "Controls",
+        "Sizers"
+      ],
       "docs": [
         {
           "title": "Sizer overview",
@@ -3562,6 +3838,10 @@
         "Layout",
         "commandbar",
         "ribbon"
+      ],
+      "keywords": [
+        "Controls",
+        "Layout"
       ],
       "docs": [
         {
@@ -3605,6 +3885,10 @@
         "TokenizingTextBox",
         "control",
         "tokens"
+      ],
+      "keywords": [
+        "Controls",
+        "Text"
       ],
       "docs": [
         {
@@ -3653,6 +3937,10 @@
         "RegexStateTrigger",
         "UserHandPreferenceStateTrigger",
         "UserInteractionModeStateTrigger"
+      ],
+      "keywords": [
+        "Xaml",
+        "Miscellaneous"
       ],
       "docs": [
         {

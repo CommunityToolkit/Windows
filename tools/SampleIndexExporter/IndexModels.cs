@@ -88,6 +88,14 @@ internal sealed class IndexedControl
     [JsonPropertyName("curatedKeywords")]
     public List<string>? CuratedKeywords { get; set; }
 
+    /// <summary>
+    /// Keywords derived from the documentation rather than written by its author: the category
+    /// and subcategory the component is filed under. Consumers weight these below
+    /// <see cref="CuratedKeywords"/>, which is correct — nobody chose them for this control.
+    /// </summary>
+    [JsonPropertyName("keywords")]
+    public List<string>? Keywords { get; set; }
+
     [JsonPropertyName("docs")]
     public List<IndexedDocLink>? Docs { get; set; }
 

@@ -130,6 +130,30 @@ internal static partial class IndexGenerator
     /// <summary>Serialize an index exactly as it is committed.</summary>
     public static string Serialize(SampleIndex index) => IndexJsonContext.Serialize(index);
 
+    /// <summary>
+    /// Keywords the documentation implies rather than states.
+    /// </summary>
+    /// <remarks>
+    /// A reader searching for "layout" or "input" is describing what they want to do, not
+    /// naming a control, and the category a component is filed under is the repository's own
+    /// answer to that question. It is kept separate from the author's <c>keywords</c> line,
+    /// which consumers weight more heavily precisely because a person chose those words.
+    /// </remarks>
+    private static List<string> GeneratedKeywords(MarkdownDocument document)
+    {
+        var keywords = new List<string>();
+
+        foreach (var value in new[] { document.Category, document.Subcategory })
+        {
+            if (!string.IsNullOrWhiteSpace(value) && !keywords.Contains(value, StringComparer.OrdinalIgnoreCase))
+            {
+                keywords.Add(value.Trim());
+            }
+        }
+
+        return keywords;
+    }
+
     private static IndexedControl? BuildEntry(
         string repoRoot,
         string component,
@@ -154,6 +178,7 @@ internal static partial class IndexGenerator
             Description = document.Description,
             NuGetPackage = nugetPackage,
             CuratedKeywords = NullIfEmpty(MarkdownDocument.SplitKeywords(document.Keywords)),
+            Keywords = NullIfEmpty(GeneratedKeywords(document)),
             Docs =
             [
                 new IndexedDocLink
