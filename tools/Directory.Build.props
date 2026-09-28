@@ -1,0 +1,11 @@
+<!--
+    Stops MSBuild walking further up to the repository root.
+
+    The root Directory.Build.props exists to ship multitargeted NuGet packages: it sets
+    IsPackable, IsPublishable, package metadata and the MultiTarget machinery. Nothing under
+    tools/ ships as a package, and these are plain platform-agnostic projects that must build
+    on any CI agent without the Uno/WinUI workloads, so they opt out of all of it rather than
+    overriding it property by property.
+-->
+<Project>
+</Project>

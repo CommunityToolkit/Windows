@@ -54,6 +54,27 @@ jobs:
       - name: Check XAML Styling
         run: powershell -version 5.1 -command "./ApplyXamlStyling.ps1 -Passive" -ErrorAction Stop
 
+  # Verifies the published sample index still describes the samples in this branch. Runs on
+  # Linux and needs no workloads, because the exporter reads the samples as text rather than
+  # building them — so it reports a stale index in under a minute instead of after the matrix.
+  Sample-Index:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Install .NET SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+
+      - name: Check the sample index is up to date
+        run: dotnet run --project tools/SampleIndexExporter -- check
+
+      - name: Run sample index tests
+        run: dotnet test tools/SampleIndexExporter.Tests
+
   # Build both Uno.UI/WinUI2/UWP and Uno.WinUI/WinUI3/WindowsAppSDK versions of our packages using a matrix
   build:
     needs: [Xaml-Style-Check]
