@@ -2,6 +2,7 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
+using System.Text.Json;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CommunityToolkit.SampleIndex.Tests;
@@ -35,17 +36,31 @@ public class SampleCodeTests
     [TestMethod]
     public void CodeIsAlwaysTaggedAsCSharp()
     {
-        var mistagged = RepositoryIndex.Samples
-            .Where(s => (s.Sample.Code is null) != (s.Sample.Language is null))
-            .Select(s => s.Sample.Toolkit!.SourcePath)
-            .ToList();
+        // Read back from the committed file: the language tag is what a consumer hands to a
+        // syntax highlighter, so what matters is the value in the artifact. Asserting against
+        // the in-memory object would only restate the line in IndexGenerator that sets it.
+        using var document = JsonDocument.Parse(RepositoryIndex.CommittedJson);
+
+        var mistagged = new List<string>();
+
+        foreach (var control in document.RootElement.GetProperty("controls").EnumerateArray())
+        {
+            foreach (var sample in control.GetProperty("samples").EnumerateArray())
+            {
+                var hasCode = sample.TryGetProperty("code", out var code) && code.GetString() is not null;
+                var language = sample.TryGetProperty("language", out var tag) ? tag.GetString() : null;
+
+                if (hasCode != (language is not null) || language is not (null or "csharp"))
+                {
+                    mistagged.Add($"{control.GetProperty("id").GetString()}: language '{language ?? "(none)"}'");
+                }
+            }
+        }
 
         Assert.AreEqual(
             0,
             mistagged.Count,
             "Samples whose code and language fields disagree:\n  " + string.Join("\n  ", mistagged));
-
-        Assert.IsTrue(RepositoryIndex.Samples.All(s => s.Sample.Language is null or "csharp"));
     }
 
     [TestMethod]

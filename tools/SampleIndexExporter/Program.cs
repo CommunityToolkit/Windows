@@ -20,7 +20,7 @@ namespace CommunityToolkit.SampleIndex;
 /// </remarks>
 internal static class Program
 {
-    private static int Main(string[] args)
+    internal static int Main(string[] args)
     {
         if (args.Length == 0 || (args[0] != "generate" && args[0] != "check"))
         {

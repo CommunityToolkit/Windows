@@ -25,6 +25,15 @@ internal static class RepositoryIndex
 
     public static SampleIndex Index => Result.Index;
 
+    /// <summary>The committed index exactly as a consumer fetches it.</summary>
+    /// <remarks>
+    /// For the contract gates. A test that asks the in-memory object whether a field is correct
+    /// is asking the code that produced it, and gets the answer that code was written to give;
+    /// the artifact is the only place the serialized field names and values can be observed.
+    /// </remarks>
+    public static string CommittedJson =>
+        File.ReadAllText(Path.Combine(Root, IndexGenerator.IndexRelativePath.Replace('/', Path.DirectorySeparatorChar)));
+
     public static IEnumerable<(IndexedControl Control, IndexedSample Sample)> Samples =>
         Index.Controls.SelectMany(control => control.Samples.Select(sample => (control, sample)));
 }

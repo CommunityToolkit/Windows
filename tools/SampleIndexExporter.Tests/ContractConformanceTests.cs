@@ -2,6 +2,7 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
+using System.Text.Json;
 using System.Text.RegularExpressions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -21,8 +22,14 @@ public class ContractConformanceTests
     [TestMethod]
     public void IndexDeclaresItsSourceAndVersion()
     {
-        Assert.AreEqual(1, RepositoryIndex.Index.SchemaVersion);
-        Assert.AreEqual("toolkit", RepositoryIndex.Index.Source);
+        // Read back from the committed file rather than the object that produced it. A consumer
+        // branches on these two fields before it reads anything else, so what matters is that
+        // they survive serialization under the field names the contract publishes — asserting
+        // against the in-memory defaults would only restate their initializers.
+        using var document = JsonDocument.Parse(RepositoryIndex.CommittedJson);
+
+        Assert.AreEqual(1, document.RootElement.GetProperty("schemaVersion").GetInt32());
+        Assert.AreEqual("toolkit", document.RootElement.GetProperty("source").GetString());
     }
 
     [TestMethod]
@@ -134,19 +141,54 @@ public class ContractConformanceTests
     }
 
     [TestMethod]
-    public void CuratedKeywordsAreTrimmedAndNonEmpty()
+    public void KeywordsAreTrimmedAndNonEmpty()
     {
         // Consumers weight curated keywords above generated ones, so a stray empty string or
-        // untrimmed entry becomes a search term that matches nothing.
-        var malformed = RepositoryIndex.Index.Controls
-            .Where(c => c.CuratedKeywords is { } keywords
-                        && keywords.Any(k => string.IsNullOrWhiteSpace(k) || k != k.Trim()))
-            .Select(c => c.Id)
-            .ToList();
+        // untrimmed entry becomes a search term that matches nothing. Read back from the
+        // committed file, and covering both lists: the generated keywords come from the
+        // category frontmatter by a different path than the curated ones, and were not checked
+        // at all.
+        using var document = JsonDocument.Parse(RepositoryIndex.CommittedJson);
+
+        var malformed = new List<string>();
+
+        foreach (var control in document.RootElement.GetProperty("controls").EnumerateArray())
+        {
+            foreach (var field in new[] { "curatedKeywords", "keywords" })
+            {
+                if (!control.TryGetProperty(field, out var keywords))
+                {
+                    continue;
+                }
+
+                malformed.AddRange(keywords
+                    .EnumerateArray()
+                    .Select(k => k.GetString())
+                    .Where(k => string.IsNullOrWhiteSpace(k) || k != k.Trim())
+                    .Select(k => $"{control.GetProperty("id").GetString()}.{field}: '{k}'"));
+            }
+        }
 
         Assert.AreEqual(
             0,
             malformed.Count,
-            "Entries with blank or untrimmed curated keywords:\n  " + string.Join("\n  ", malformed));
+            "Blank or untrimmed keywords:\n  " + string.Join("\n  ", malformed));
+    }
+
+    [TestMethod]
+    public void KeywordSplittingDiscardsPaddingAndEmptyTerms()
+    {
+        // Pins the behaviour the gate above relies on. Frontmatter is hand-written, so a
+        // trailing comma or a space after one is a matter of time rather than a hypothetical.
+        var keywords = MarkdownDocument.SplitKeywords("WrapPanel,  Layout ,, Panel,");
+
+        CollectionAssert.AreEqual(new[] { "WrapPanel", "Layout", "Panel" }, keywords);
+    }
+
+    [TestMethod]
+    public void KeywordSplittingTreatsAnAbsentFieldAsNoKeywords()
+    {
+        Assert.AreEqual(0, MarkdownDocument.SplitKeywords(null).Count);
+        Assert.AreEqual(0, MarkdownDocument.SplitKeywords("   ").Count);
     }
 }
