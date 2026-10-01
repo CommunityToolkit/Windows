@@ -2,6 +2,7 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
+using System.Text.RegularExpressions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CommunityToolkit.SampleIndex.Tests;
@@ -40,6 +41,29 @@ public class ContractConformanceTests
             unsafeIds.Count,
             "Entry ids must be lowercase letters, digits and hyphens:\n  " + string.Join("\n  ", unsafeIds));
     }
+
+    [TestMethod]
+    public void EntryIdDependsOnlyOnItsOwnDocumentFileName()
+    {
+        // An id is published as stable, so it has to be a function of the entry's own document
+        // and nothing else. Deriving it from the set of entries present — qualifying whichever
+        // of two colliding file names happened to be read second — would silently rename an
+        // entry that already shipped the day an unrelated component was added. A collision is
+        // reported as an error instead, so this invariant holds by construction.
+        var unexpected = RepositoryIndex.Index.Controls
+            .Where(c => c.Toolkit?.DocumentPath is { } path && c.Id != ExpectedId(path))
+            .Select(c => $"{c.Id} (expected '{ExpectedId(c.Toolkit!.DocumentPath!)}' from {c.Toolkit!.DocumentPath})")
+            .ToList();
+
+        Assert.AreEqual(
+            0,
+            unexpected.Count,
+            "Entry ids must be derived from their own documentation file name alone:\n  "
+                + string.Join("\n  ", unexpected));
+    }
+
+    private static string ExpectedId(string documentPath) =>
+        Regex.Replace(Path.GetFileNameWithoutExtension(documentPath).ToLowerInvariant(), "[^a-z0-9]+", "-").Trim('-');
 
     [TestMethod]
     public void EveryEntryHasANameAndSourceDocument()

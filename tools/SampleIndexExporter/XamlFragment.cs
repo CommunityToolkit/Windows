@@ -394,6 +394,79 @@ internal static partial class XamlFragment
     private readonly record struct RawAttribute(string Name, string Value, int Start, int End);
 
     /// <summary>
+    /// Index just past the tag beginning at <paramref name="tagStart"/>, for the tags that carry
+    /// no attributes.
+    /// </summary>
+    /// <remarks>
+    /// A comment ends at <c>--&gt;</c> and a CDATA section at <c>]]&gt;</c>, not at the first
+    /// <c>&gt;</c>. Stopping at the first one would resume the scan inside the comment and read
+    /// markup the author commented out as though it were live: an <c>x:Name</c> in a comment
+    /// would count as a declared element, and an option binding in a comment would be rewritten
+    /// or deleted in the published text.
+    /// </remarks>
+    private static int EndOfNonAttributeTag(string text, int tagStart)
+    {
+        var tail = text.AsSpan(tagStart);
+
+        var terminator =
+            tail.StartsWith("<!--", StringComparison.Ordinal) ? "-->"
+            : tail.StartsWith("<![CDATA[", StringComparison.Ordinal) ? "]]>"
+            : tail.StartsWith("<?", StringComparison.Ordinal) ? "?>"
+            : ">";
+
+        var end = text.IndexOf(terminator, tagStart, StringComparison.Ordinal);
+        return end < 0 ? -1 : end + terminator.Length;
+    }
+
+    /// <summary>True when a tag carries no attributes: an end tag, comment, CDATA section or PI.</summary>
+    private static bool IsNonAttributeTag(string text, int tagStart) =>
+        tagStart + 1 < text.Length && text[tagStart + 1] is '/' or '!' or '?';
+
+    /// <summary>True when a tag is a comment, CDATA section, declaration or processing instruction.</summary>
+    /// <remarks>Unlike an end tag, its contents are not markup and must never be rewritten.</remarks>
+    private static bool IsCommentLikeTag(string text, int tagStart) =>
+        tagStart + 1 < text.Length && text[tagStart + 1] is '!' or '?';
+
+    /// <summary>The text with comments, CDATA sections and processing instructions removed.</summary>
+    /// <remarks>
+    /// For the scans that read the raw text looking for markup. What an author commented out is
+    /// prose as far as this tool is concerned, and reading it as markup makes the tool report
+    /// requirements the published fragment does not have.
+    /// </remarks>
+    private static string WithoutComments(string text)
+    {
+        var builder = new StringBuilder();
+        var index = 0;
+
+        while (index < text.Length)
+        {
+            var open = text.IndexOf('<', index);
+            if (open < 0 || !IsCommentLikeTag(text, open))
+            {
+                if (open < 0)
+                {
+                    break;
+                }
+
+                builder.Append(text, index, open + 1 - index);
+                index = open + 1;
+                continue;
+            }
+
+            var end = EndOfNonAttributeTag(text, open);
+            if (end < 0)
+            {
+                return builder.Append(text, index, open - index).ToString();
+            }
+
+            builder.Append(text, index, open - index);
+            index = end;
+        }
+
+        return builder.Append(text, index, text.Length - index).ToString();
+    }
+
+    /// <summary>
     /// Walk the attributes of every start tag in the fragment, in source order.
     /// </summary>
     /// <remarks>
@@ -414,15 +487,15 @@ internal static partial class XamlFragment
             }
 
             // Skip comments, CDATA, processing instructions and end tags: none carry attributes.
-            if (tagStart + 1 < text.Length && text[tagStart + 1] is '/' or '!' or '?')
+            if (IsNonAttributeTag(text, tagStart))
             {
-                var skipTo = text.IndexOf('>', tagStart);
+                var skipTo = EndOfNonAttributeTag(text, tagStart);
                 if (skipTo < 0)
                 {
                     yield break;
                 }
 
-                index = skipTo + 1;
+                index = skipTo;
                 continue;
             }
 
@@ -587,7 +660,7 @@ internal static partial class XamlFragment
             if (separator < 0)
             {
                 // The positional argument is the path, e.g. {x:Bind IsCardEnabled, Mode=OneWay}.
-                path ??= argument.Trim() is { Length: > 0 } value ? value : null;
+                path ??= StripCast(argument.Trim()) is { Length: > 0 } value ? value : null;
                 continue;
             }
 
@@ -596,7 +669,7 @@ internal static partial class XamlFragment
 
             if (key == "Path")
             {
-                path = argumentValue;
+                path = StripCast(argumentValue);
             }
             else if (key == "ElementName")
             {
@@ -605,6 +678,34 @@ internal static partial class XamlFragment
         }
 
         return new BindingExpression(arguments, path, elementName);
+    }
+
+    /// <summary>Remove a cast from the front of a binding path.</summary>
+    /// <remarks>
+    /// <c>x:Bind</c> spells a cast as a parenthesised type ahead of the path, as in
+    /// <c>(x:Int32)Columns</c>, which still binds to <c>Columns</c>. Leaving the cast attached
+    /// means the path matches no option, so a binding that has a perfectly readable default to
+    /// substitute is treated as having none and its attribute is removed instead.
+    ///
+    /// <para>A parenthesised group with nothing after it is an attached property rather than a
+    /// cast — <c>{Binding (Grid.Row)}</c> — and is part of the path, so it is left alone.</para>
+    /// </remarks>
+    private static string StripCast(string path)
+    {
+        var trimmed = path.TrimStart();
+        if (trimmed.Length == 0 || trimmed[0] != '(')
+        {
+            return path;
+        }
+
+        var close = trimmed.IndexOf(')');
+        if (close < 0)
+        {
+            return path;
+        }
+
+        var rest = trimmed[(close + 1)..].TrimStart();
+        return rest.Length == 0 ? path : rest;
     }
 
     /// <summary>Split extension arguments on commas that are not inside a nested extension.</summary>
@@ -792,6 +893,23 @@ internal static partial class XamlFragment
             {
                 builder.Append(fragment, index, fragment.Length - index);
                 break;
+            }
+
+            // A comment or CDATA section declares no prefixes and must not be rewritten. It also
+            // has to be stepped over as a unit: EndOfStartTag reads an apostrophe in prose as an
+            // opening quote, which would swallow the rest of the fragment.
+            if (IsCommentLikeTag(fragment, open))
+            {
+                var skipTo = EndOfNonAttributeTag(fragment, open);
+                if (skipTo < 0)
+                {
+                    builder.Append(fragment, index, fragment.Length - index);
+                    break;
+                }
+
+                builder.Append(fragment, index, skipTo - index);
+                index = skipTo;
+                continue;
             }
 
             var close = EndOfStartTag(fragment, open);
@@ -1019,9 +1137,10 @@ internal static partial class XamlFragment
         }
 
         // Markup extensions live inside attribute values, where the XML parser sees only text,
-        // so their prefixes have to be read from the text.
+        // so their prefixes have to be read from the text. Commented-out markup is excluded:
+        // a prefix used only there is not one the reader has to declare.
         var usedPrefixes = new HashSet<string>(StringComparer.Ordinal);
-        foreach (Match match in MarkupExtensionPrefixRegex().Matches(fragmentText))
+        foreach (Match match in MarkupExtensionPrefixRegex().Matches(WithoutComments(fragmentText)))
         {
             usedPrefixes.Add(match.Groups["prefix"].Value);
         }

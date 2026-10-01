@@ -165,7 +165,7 @@ internal static partial class IndexGenerator
         List<WithheldSample> withheld,
         Dictionary<string, string> usedIds)
     {
-        var id = UniqueId(document, component, issues, usedIds);
+        var id = UniqueId(document, issues, usedIds);
         if (id is null)
         {
             return null;
@@ -361,16 +361,21 @@ internal static partial class IndexGenerator
     }
 
     /// <summary>
-    /// Derive the entry's identifier from the documentation file name, and keep it unique.
+    /// Derive the entry's identifier from the documentation file name.
     /// </summary>
     /// <remarks>
     /// The file name rather than the title, because consumers key sample ids off this and a
-    /// title is prose that gets reworded. When two components document the same name, the
-    /// component qualifies the second one rather than either silently winning.
+    /// title is prose that gets reworded.
+    ///
+    /// <para>Two components documenting the same file name is reported rather than resolved.
+    /// Qualifying one of them with its component name would have to pick which one, and any
+    /// rule for picking depends on the set of components present — so adding a component could
+    /// change the id of an entry that already shipped, which is the one thing an identifier
+    /// documented as stable must never do. A collision is a build failure a contributor settles
+    /// by renaming, and every existing id stays where it is.</para>
     /// </remarks>
     private static string? UniqueId(
         MarkdownDocument document,
-        string component,
         List<IndexIssue> issues,
         Dictionary<string, string> usedIds)
     {
@@ -382,17 +387,10 @@ internal static partial class IndexGenerator
             return id;
         }
 
-        var qualified = $"{Slug(component)}-{id}";
-        if (!usedIds.TryGetValue(qualified, out owner))
-        {
-            usedIds[qualified] = document.RelativePath;
-            return qualified;
-        }
-
         issues.Add(new IndexIssue(
             IssueSeverity.Error,
             document.RelativePath,
-            $"entry id '{qualified}' is already used by {owner}. Rename one of the documentation files."));
+            $"entry id '{id}' is already used by {owner}. Rename one of the documentation files."));
 
         return null;
     }

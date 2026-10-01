@@ -234,6 +234,109 @@ public class XamlFragmentTests
     }
 
     [TestMethod]
+    public void ACastInABindingPathDoesNotHideTheOption()
+    {
+        // x:Bind writes a cast as a parenthesised type ahead of the path. Reading the cast as
+        // part of the path made the lookup miss, so a binding with a readable default was
+        // treated as having none and UniformGrid published without its spans or first column.
+        var result = Extract(
+            "<Border Grid.RowSpan=\"{x:Bind (x:Int32)Item1RowSpan, Mode=OneWay}\" />",
+            new SampleOption("Item1RowSpan", "2"));
+
+        Assert.IsNull(result.Error);
+        StringAssert.Contains(result.Xaml!, "Grid.RowSpan=\"2\"");
+        CollectionAssert.Contains(result.OptionsResolved, "Item1RowSpan=2");
+        Assert.AreEqual(0, result.OptionBindingsDropped.Count);
+    }
+
+    [TestMethod]
+    public void AnAttachedPropertyPathIsNotMistakenForACast()
+    {
+        // {Binding (Grid.Row)} is a path, not a cast: the parentheses are the whole path and
+        // there is nothing after them. Stripping them would turn the path into the empty
+        // string and lose the binding.
+        var result = Extract("<Border Tag=\"{Binding (Grid.Row)}\" />");
+
+        Assert.IsNull(result.Error);
+        StringAssert.Contains(result.Xaml!, "{Binding (Grid.Row)}");
+    }
+
+    [TestMethod]
+    public void MarkupInsideACommentIsNotRewritten()
+    {
+        // A comment ends at '-->', not at the first '>'. Stopping at the first one resumed the
+        // scan inside the comment — here, straight after the <StackPanel> start tag — and
+        // edited the author's commented-out alternative as though it were live markup.
+        var result = Extract(
+            """
+            <!--<StackPanel>
+                <Button IsEnabled="{x:Bind IsCardEnabled}" />
+            </StackPanel>-->
+            <Border Background="Red" />
+            """,
+            new SampleOption("IsCardEnabled", "True"));
+
+        Assert.IsNull(result.Error);
+        StringAssert.Contains(result.Xaml!, "<Button IsEnabled=\"{x:Bind IsCardEnabled}\" />");
+        Assert.AreEqual(0, result.OptionsResolved.Count);
+        Assert.AreEqual(0, result.OptionBindingsDropped.Count);
+    }
+
+    [TestMethod]
+    public void AnElementNameInsideACommentDoesNotCountAsDeclared()
+    {
+        // The commented-out element does not exist, so the binding that names it is dangling
+        // and its attribute has to go. Reading the comment as markup would publish a binding
+        // pointing at nothing.
+        var result = Extract(
+            """
+            <!--<StackPanel>
+                <TextBox x:Name="Source" Text="Hi" />
+            </StackPanel>-->
+            <TextBlock Text="{Binding Text, ElementName=Source}" />
+            """);
+
+        Assert.IsNull(result.Error);
+        Assert.IsFalse(result.Xaml!.Contains("ElementName=Source", StringComparison.Ordinal));
+    }
+
+    [TestMethod]
+    public void APrefixUsedOnlyInsideACommentIsNotPublishedAsAnImport()
+    {
+        // An import tells the reader to reference a package. One needed only by markup the
+        // author commented out is a package the published fragment does not use.
+        var result = Extract(
+            """
+            <!--<Border Background="{controls:SomeExtension}" />-->
+            <Border Background="Red" />
+            """);
+
+        Assert.AreEqual(0, result.XmlnsImports.Count);
+    }
+
+    [TestMethod]
+    public void AnApostropheInACommentDoesNotSwallowTheRestOfTheFragment()
+    {
+        // The prefix stripper tracks quotes so it does not stop at a '>' inside an attribute
+        // value. Prose in a comment is not attribute values, and reading it as such opened a
+        // quote that never closed, abandoning the rest of the fragment.
+        var result = XamlFragment.Extract(
+            """
+            <Page x:Class="Sample.MySample"
+                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                  xmlns:win="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+            <!-- The win: prefix doesn't survive extraction. -->
+            <win:TextBox Text="Hi" />
+            </Page>
+            """,
+            []);
+
+        Assert.IsNull(result.Error);
+        StringAssert.Contains(result.Xaml!, "<TextBox Text=\"Hi\" />");
+    }
+
+    [TestMethod]
     public void UnsettledBindingsAcceptsMarkupWithNoBindings()
     {
         var leftovers = XamlFragment.UnsettledBindings("<Button IsEnabled=\"True\" />", []);
