@@ -78,6 +78,22 @@ internal sealed class IndexedControl
     public string? NuGetPackage { get; set; }
 
     /// <summary>
+    /// Namespaces this entry's published C# needs imported, unioned over its samples.
+    /// </summary>
+    /// <remarks>
+    /// Per control rather than per sample because that is where the contract puts it: a
+    /// consumer prepends the whole list as <c>using X;</c> lines to each of the entry's
+    /// samples, which is also why no sample's <see cref="IndexedSample.Code"/> repeats them.
+    ///
+    /// <para>Narrowed to the imports the published members still use. A sample file imports
+    /// what its whole page needed, and most of that page is scaffolding that is not published,
+    /// so publishing the file's imports verbatim would ask the reader to reference packages for
+    /// code they were never handed.</para>
+    /// </remarks>
+    [JsonPropertyName("usings")]
+    public List<string>? Usings { get; set; }
+
+    /// <summary>
     /// The documentation file's <c>keywords</c> frontmatter field, split on commas.
     /// </summary>
     /// <remarks>
@@ -170,6 +186,11 @@ internal sealed class IndexedSample
     /// binds to, as members a reader drops into their own page. Omitted when the sample's
     /// code-behind is only the page scaffolding, which is the common case.
     /// </summary>
+    /// <remarks>
+    /// Carries no <c>using</c> directives. The namespaces it needs are published once on the
+    /// owning control as <see cref="IndexedControl.Usings"/>, which the contract has consumers
+    /// prepend to every sample of that control.
+    /// </remarks>
     [JsonPropertyName("code")]
     public string? Code { get; set; }
 

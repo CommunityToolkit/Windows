@@ -19,6 +19,7 @@ One entry per documentation page under `components/*/samples/`, and one sample p
       "description": "A card control that can be used to create Windows 11 style settings experiences.",
       "nugetPackage": "CommunityToolkit.WinUI.Controls.SettingsControls",
       "curatedKeywords": ["SettingsCard", "Control", "Layout", "Settings"],
+      "usings": ["System.ComponentModel"],
       "docs": [{ "uri": "https://github.com/CommunityToolkit/Windows/blob/main/components/..." }],
       "samples": [
         {
@@ -55,6 +56,8 @@ A sample that has code-behind also carries a `code` value: the handlers its mark
 
 Most samples have nothing left once that is removed, and those publish no `code` at all rather than a constructor that says nothing. A constructor that does something the sample needs is kept, named after the sample — rename it to your own page, the same adaptation the markup's `x:Class` already asks for.
 
+The namespaces that code needs are published once per entry, as `usings`, rather than repeated as `using` lines inside every snippet — consumers prepend them. The list is narrowed to what the published members actually use: a sample file imports whatever its whole page needed, and most of that page is scaffolding nobody is handed, so publishing the file's imports verbatim would ask you to reference packages for code you never got. Namespaces that exist only in this repository's sample app are never published, since they would not resolve anywhere a snippet is pasted.
+
 ## Regenerating
 
 ```shell
@@ -68,4 +71,4 @@ dotnet run --project tools/SampleIndexExporter -- check
 dotnet test tools/SampleIndexExporter.Tests
 ```
 
-The tests are the guarantees consumers rely on: the committed file matches the samples, generation is deterministic, every published snippet parses and declares the prefixes it uses, and anything excluded is listed by name rather than disappearing quietly.
+The tests are the guarantees consumers rely on: the committed file matches the samples, generation is deterministic, every published snippet parses and declares the prefixes and namespaces it uses, and anything excluded is listed by name rather than disappearing quietly.

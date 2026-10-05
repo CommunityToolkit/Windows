@@ -141,6 +141,36 @@ public class ContractConformanceTests
     }
 
     [TestMethod]
+    public void EveryPublishedUsingIsANamespaceAConsumerCanWriteOut()
+    {
+        // Read back from the committed file: a consumer builds 'using {value};' lines straight
+        // from this array, so anything that is not a namespace name becomes a syntax error in
+        // the reader's file rather than a missing import they could work around.
+        using var document = JsonDocument.Parse(RepositoryIndex.CommittedJson);
+
+        var malformed = new List<string>();
+
+        foreach (var control in document.RootElement.GetProperty("controls").EnumerateArray())
+        {
+            if (!control.TryGetProperty("usings", out var usings))
+            {
+                continue;
+            }
+
+            malformed.AddRange(usings
+                .EnumerateArray()
+                .Select(u => u.GetString())
+                .Where(u => u is null || !Regex.IsMatch(u, @"^[A-Za-z_]\w*(\.[A-Za-z_]\w*)*$"))
+                .Select(u => $"{control.GetProperty("id").GetString()}: '{u}'"));
+        }
+
+        Assert.AreEqual(
+            0,
+            malformed.Count,
+            "Published usings that are not namespace names:\n  " + string.Join("\n  ", malformed));
+    }
+
+    [TestMethod]
     public void KeywordsAreTrimmedAndNonEmpty()
     {
         // Consumers weight curated keywords above generated ones, so a stray empty string or

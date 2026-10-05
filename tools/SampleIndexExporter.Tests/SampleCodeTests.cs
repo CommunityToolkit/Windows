@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Text.Json;
+using System.Text.RegularExpressions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CommunityToolkit.SampleIndex.Tests;
@@ -16,7 +17,7 @@ namespace CommunityToolkit.SampleIndex.Tests;
 /// never heard of.
 /// </remarks>
 [TestClass]
-public class SampleCodeTests
+public partial class SampleCodeTests
 {
     private static IEnumerable<(string Path, string Code)> PublishedCode =>
         RepositoryIndex.Samples
@@ -193,5 +194,147 @@ public class SampleCodeTests
 
         Assert.IsNotNull(sample.Code);
         StringAssert.Contains(sample.Code, "enum Animal");
+    }
+
+    [TestMethod]
+    public void SomeControlsPublishTheNamespacesTheirCodeNeeds()
+    {
+        // Guards every import test below, and the field itself: consumers prepend this list to
+        // each sample's code, so an extractor that quietly stopped filling it would publish C#
+        // that names toolkit types and says nowhere which namespace they come from.
+        var publishing = RepositoryIndex.Index.Controls.Count(c => c.Usings is { Count: > 0 });
+
+        Assert.IsTrue(
+            publishing > 10,
+            $"Only {publishing} entries published any usings, which suggests imports are being dropped.");
+    }
+
+    [TestMethod]
+    public void AControlPublishesTheNamespaceItsCodeCallsInto()
+    {
+        // NetworkHelperSample's code is NetworkHelper.Instance.ConnectionInformation and
+        // nothing else, so the one namespace its file imports is the one the reader needs.
+        var control = RepositoryIndex.Index.Controls.Single(c => c.Id == "networkhelper");
+
+        CollectionAssert.AreEqual(new[] { "CommunityToolkit.WinUI.Helpers" }, control.Usings);
+    }
+
+    [TestMethod]
+    public void AMultiTargetAliasIsPublishedAsTheNamespaceItNames()
+    {
+        // Samples alias a type to name one platform's version of it while multi-targeting. With
+        // the WinAppSDK branch already resolved, what the reader needs is the namespace that
+        // type lives in — nothing in the published code mentions the alias is an alias.
+        var timers = RepositoryIndex.Index.Controls.Single(c => c.Id == "dispatcherqueuetimerextensions");
+        var wrapPanel = RepositoryIndex.Index.Controls.Single(c => c.Id == "wrappanel");
+
+        CollectionAssert.Contains(timers.Usings, "Microsoft.UI.Dispatching");
+        CollectionAssert.Contains(wrapPanel.Usings, "CommunityToolkit.WinUI.Controls");
+
+        // And the extension method the same sample calls, which enters scope through its
+        // namespace without the code ever naming the class that declares it.
+        CollectionAssert.Contains(timers.Usings, "CommunityToolkit.WinUI");
+        CollectionAssert.Contains(wrapPanel.Usings, "CommunityToolkit.WinUI");
+    }
+
+    [TestMethod]
+    public void ImportsOnlyTheScaffoldingNeededAreNotPublished()
+    {
+        // IsNullOrEmptyStateTriggerSample's file imports CommunityToolkit.WinUI for the trigger
+        // its markup uses, but the code that survives extraction is two click handlers that
+        // touch nothing in that namespace. Publishing the import anyway would tell the reader
+        // to add a using for code they were never handed.
+        var control = RepositoryIndex.Index.Controls.Single(c => c.Id == "triggers");
+
+        Assert.IsNull(
+            control.Usings,
+            "Imports that only the discarded page scaffolding needed must not be published: "
+            + string.Join(", ", control.Usings ?? []));
+    }
+
+    [TestMethod]
+    public void NoControlPublishesANamespaceOnlyTheSampleAppHas()
+    {
+        // The Connected Animations sample navigates to pages declared in a namespace of this
+        // repository's sample app. That using resolves here and nowhere else, so prepending it
+        // to a snippet would break the paste in the reader's project.
+        var sampleApp = SampleAppNamespaces();
+
+        var leaked = RepositoryIndex.Index.Controls
+            .SelectMany(c => (c.Usings ?? []).Select(u => (Control: c.Id, Using: u)))
+            .Where(u => sampleApp.Contains(u.Using))
+            .Select(u => $"{u.Control}: {u.Using}")
+            .ToList();
+
+        Assert.AreEqual(
+            0,
+            leaked.Count,
+            "Published usings naming a sample-app namespace:\n  " + string.Join("\n  ", leaked));
+    }
+
+    [TestMethod]
+    public void TheSampleAppNamespacesWereActuallyFound()
+    {
+        // Guards the test above: an empty set would let it pass while checking nothing.
+        Assert.IsTrue(
+            SampleAppNamespaces().Contains("AnimationsExperiment.Samples.ConnectedAnimations"),
+            "The sample app's namespaces could not be read, so the gate above checked nothing.");
+    }
+
+    [TestMethod]
+    public void NoPublishedCodeRepeatsTheImportsTheControlDeclares()
+    {
+        // The contract puts the imports on the control and has consumers prepend them, so a
+        // snippet that carries its own would hand the reader the same using twice.
+        var leaked = PublishedCode
+            .Where(c => UsingDirectiveRegex().IsMatch(c.Code))
+            .Select(c => c.Path)
+            .ToList();
+
+        Assert.AreEqual(
+            0,
+            leaked.Count,
+            "Published code carrying its own using directives:\n  " + string.Join("\n  ", leaked));
+    }
+
+    [TestMethod]
+    public void OnlyControlsThatPublishCodePublishImports()
+    {
+        // Imports exist to make the C# compile. An entry that publishes none but still carries
+        // a usings list would have a consumer prepending using lines to pure markup.
+        var orphaned = RepositoryIndex.Index.Controls
+            .Where(c => c.Usings is { Count: > 0 } && c.Samples.All(s => s.Code is null))
+            .Select(c => c.Id)
+            .ToList();
+
+        Assert.AreEqual(
+            0,
+            orphaned.Count,
+            "Entries publishing usings with no code to import for:\n  " + string.Join("\n  ", orphaned));
+    }
+
+    [GeneratedRegex(@"^\s*using\s+[\w.]+\s*;", RegexOptions.Multiline)]
+    private static partial Regex UsingDirectiveRegex();
+
+    /// <summary>Every namespace this repository's sample app declares.</summary>
+    /// <remarks>
+    /// Read from the sources rather than matched against the <c>…Experiment.Samples</c> naming
+    /// convention, so the gate keeps working if a component ever names its sample pages
+    /// differently.
+    /// </remarks>
+    private static HashSet<string> SampleAppNamespaces()
+    {
+        var samples = $"{Path.DirectorySeparatorChar}samples{Path.DirectorySeparatorChar}";
+
+        return Directory
+            .EnumerateFiles(Path.Combine(RepositoryIndex.Root, "components"), "*.cs", SearchOption.AllDirectories)
+            .Where(path => path.Contains(samples, StringComparison.Ordinal))
+            .SelectMany(path => Microsoft.CodeAnalysis.CSharp.CSharpSyntaxTree
+                .ParseText(File.ReadAllText(path))
+                .GetRoot()
+                .DescendantNodes()
+                .OfType<Microsoft.CodeAnalysis.CSharp.Syntax.BaseNamespaceDeclarationSyntax>()
+                .Select(declaration => declaration.Name.ToString()))
+            .ToHashSet(StringComparer.Ordinal);
     }
 }

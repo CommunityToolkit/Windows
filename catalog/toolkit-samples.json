@@ -7,6 +7,10 @@
       "name": "Implicit Animations",
       "description": "A collection of implicit Composition animations that can be grouped together",
       "nugetPackage": "CommunityToolkit.WinUI.Animations",
+      "usings": [
+        "Microsoft.UI.Xaml.Hosting",
+        "System.Numerics"
+      ],
       "curatedKeywords": [
         "Animations",
         "Effects",
@@ -376,6 +380,9 @@
       "name": "StackedNotificationsBehavior",
       "description": "A behavior to add stacked notifications to a WinUI InfoBar control.",
       "nugetPackage": "CommunityToolkit.WinUI.Behaviors",
+      "usings": [
+        "CommunityToolkit.WinUI.Behaviors"
+      ],
       "curatedKeywords": [
         "StackedNotificationsBehavior",
         "Control",
@@ -440,6 +447,14 @@
       "name": "CameraPreview",
       "description": "The CameraPreview control allows to easily preview video in the MediaPlayerElement from available camera frame source groups. You can subscribe and get real time video frames and software bitmaps as they arrive from the selected camera source. It shows only frame sources that support color video preview or video record streams.",
       "nugetPackage": "CommunityToolkit.WinUI.Controls.CameraPreview",
+      "usings": [
+        "CommunityToolkit.WinUI.Controls",
+        "CommunityToolkit.WinUI.Helpers",
+        "Microsoft.UI.Xaml.Media.Imaging",
+        "Windows.ApplicationModel",
+        "Windows.Graphics.Imaging",
+        "Windows.Media"
+      ],
       "curatedKeywords": [
         "CameraPreview",
         "Control",
@@ -488,6 +503,10 @@
       "name": "AdvancedCollectionView",
       "description": "The AdvancedCollectionView is a collection view implementation that support filtering, sorting and incremental loading. It\u0027s meant to be used in a view or viewmodel.",
       "nugetPackage": "CommunityToolkit.WinUI.Collections",
+      "usings": [
+        "CommunityToolkit.WinUI.Collections",
+        "System.Diagnostics.CodeAnalysis"
+      ],
       "curatedKeywords": [
         "AdvancedCollectionView",
         "CollectionViewSource",
@@ -532,6 +551,9 @@
       "name": "IncrementalLoadingCollection",
       "description": "The IncrementalLoadingCollection helpers greatly simplify the definition and usage of collections whose items can be loaded incrementally only when needed by the view (such as a ScrollViewer).",
       "nugetPackage": "CommunityToolkit.WinUI.Collections",
+      "usings": [
+        "CommunityToolkit.WinUI.Collections"
+      ],
       "curatedKeywords": [
         "IncrementalLoadingCollection",
         "Control",
@@ -1118,6 +1140,10 @@
       "name": "DispatcherQueueTimerExtensions",
       "description": "Helpers for executing code at specific times on a UI thread through a DispatcherQueue instance with a DispatcherQueueTimer.",
       "nugetPackage": "CommunityToolkit.WinUI.Extensions",
+      "usings": [
+        "CommunityToolkit.WinUI",
+        "Microsoft.UI.Dispatching"
+      ],
       "curatedKeywords": [
         "dispatcher",
         "dispatcherqueue",
@@ -1308,6 +1334,10 @@
       "name": "ListViewExtensions",
       "description": "ListViewExtensions extensions provide a lightweight way to extend every control that inherits the ListViewBase class with attached properties.",
       "nugetPackage": "CommunityToolkit.WinUI.Extensions",
+      "usings": [
+        "CommunityToolkit.WinUI",
+        "Microsoft.UI.Xaml.Controls"
+      ],
       "curatedKeywords": [
         "ListViewBase",
         "extensions"
@@ -1896,6 +1926,14 @@
       "name": "CameraHelper",
       "description": "The CameraHelper provides helper methods to easily use the available camera frame sources to preview video, capture video frames and software bitmaps.",
       "nugetPackage": "CommunityToolkit.WinUI.Helpers",
+      "usings": [
+        "CommunityToolkit.WinUI.Helpers",
+        "Microsoft.UI.Xaml.Media.Imaging",
+        "Windows.ApplicationModel",
+        "Windows.Graphics.Imaging",
+        "Windows.Media",
+        "Windows.Media.Capture.Frames"
+      ],
       "curatedKeywords": [
         "Helpers",
         "CameraHelper",
@@ -2003,6 +2041,9 @@
       "name": "NetworkHelper",
       "description": "The NetworkHelper class is used to determine whether the app has Internet, and if it is on a metered Internet connection.",
       "nugetPackage": "CommunityToolkit.WinUI.Helpers",
+      "usings": [
+        "CommunityToolkit.WinUI.Helpers"
+      ],
       "curatedKeywords": [
         "Helpers",
         "NetworkHelper"
@@ -2071,6 +2112,9 @@
       "name": "Theme Listener",
       "description": "The ThemeListener allows you to keep track of changes to the current Application Them, and when it is changed via System Theme changes.",
       "nugetPackage": "CommunityToolkit.WinUI.Helpers",
+      "usings": [
+        "CommunityToolkit.WinUI.Helpers"
+      ],
       "curatedKeywords": [
         "Helpers",
         "Theming",
@@ -2141,6 +2185,11 @@
       "name": "ImageCropper",
       "description": "Control to crop rectangular and circular images.",
       "nugetPackage": "CommunityToolkit.WinUI.Controls.ImageCropper",
+      "usings": [
+        "CommunityToolkit.WinUI.Controls",
+        "Windows.Storage",
+        "Windows.Storage.Pickers"
+      ],
       "curatedKeywords": [
         "ImageCropper",
         "Control",
@@ -2698,6 +2747,10 @@
       "name": "MetadataControl",
       "description": "The MetadataControl control displays a list of labels and hyper-links separated by a bullet.",
       "nugetPackage": "CommunityToolkit.WinUI.Controls.MetadataControl",
+      "usings": [
+        "CommunityToolkit.WinUI.Controls",
+        "System.Windows.Input"
+      ],
       "curatedKeywords": [
         "MetadataControl",
         "Control",
@@ -2813,6 +2866,10 @@
       "name": "DockPanel",
       "description": "Defines an area where you can arrange child elements either horizontally or vertically, relative to each other.",
       "nugetPackage": "CommunityToolkit.WinUI.Controls.Primitives",
+      "usings": [
+        "CommunityToolkit.WinUI.Controls",
+        "Windows.UI"
+      ],
       "curatedKeywords": [
         "DockPanel"
       ],
@@ -2855,6 +2912,9 @@
       "name": "StaggeredLayout",
       "description": "The StaggeredLayout displays items in a column approach where an item will be added to whichever column has used the least amount of space.",
       "nugetPackage": "CommunityToolkit.WinUI.Controls.Primitives",
+      "usings": [
+        "Windows.UI"
+      ],
       "curatedKeywords": [
         "StaggeredPanel",
         "StaggeredLayout",
@@ -2908,6 +2968,9 @@
       "name": "StaggeredPanel",
       "description": "The StaggeredPanel displays items in a column approach where an item will be added to whichever column has used the least amount of space.",
       "nugetPackage": "CommunityToolkit.WinUI.Controls.Primitives",
+      "usings": [
+        "Windows.UI"
+      ],
       "curatedKeywords": [
         "StaggeredPanel",
         "StaggeredLayout",
@@ -3122,6 +3185,9 @@
       "name": "WrapLayout",
       "description": "The WrapLayout virtualizes child elements in sequential position from left to right, breaking content to the next line at the edge of the containing box.",
       "nugetPackage": "CommunityToolkit.WinUI.Controls.Primitives",
+      "usings": [
+        "Windows.UI"
+      ],
       "curatedKeywords": [
         "WrapLayout"
       ],
@@ -3169,6 +3235,10 @@
       "name": "WrapPanel",
       "description": "The WrapPanel Control positions child elements in sequential position from left to right, breaking content to the next line at the edge of the containing box.",
       "nugetPackage": "CommunityToolkit.WinUI.Controls.Primitives",
+      "usings": [
+        "CommunityToolkit.WinUI",
+        "CommunityToolkit.WinUI.Controls"
+      ],
       "curatedKeywords": [
         "WrapPanel"
       ],
@@ -3324,6 +3394,12 @@
       "name": "RichSuggestBox",
       "description": "A rich text input control that auto-suggests and stores token items in a document.",
       "nugetPackage": "CommunityToolkit.WinUI.Controls.RichSuggestBox",
+      "usings": [
+        "CommunityToolkit.WinUI.Controls",
+        "Microsoft.UI",
+        "Microsoft.UI.Dispatching",
+        "Microsoft.UI.Text"
+      ],
       "curatedKeywords": [
         "RichSuggestBox",
         "Control"
@@ -3463,6 +3539,9 @@
       "name": "SettingsCard",
       "description": "A card control that can be used to create Windows 11 style settings experiences.",
       "nugetPackage": "CommunityToolkit.WinUI.Controls.SettingsControls",
+      "usings": [
+        "System.ComponentModel"
+      ],
       "curatedKeywords": [
         "SettingsCard",
         "Control",
@@ -3541,6 +3620,10 @@
       "name": "SettingsExpander",
       "description": "An expander control that can be used to create Windows 11 style settings experiences.",
       "nugetPackage": "CommunityToolkit.WinUI.Controls.SettingsControls",
+      "usings": [
+        "CommunityToolkit.Mvvm.ComponentModel",
+        "Windows.System"
+      ],
       "curatedKeywords": [
         "SettingsCard",
         "SettingsExpander",
@@ -3881,6 +3964,9 @@
       "name": "TokenizingTextBox",
       "description": "A text input control that auto-suggests and displays token items.",
       "nugetPackage": "CommunityToolkit.WinUI.Controls.TokenizingTextBox",
+      "usings": [
+        "CommunityToolkit.WinUI.Controls"
+      ],
       "curatedKeywords": [
         "TokenizingTextBox",
         "control",

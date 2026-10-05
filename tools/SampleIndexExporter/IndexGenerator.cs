@@ -198,6 +198,11 @@ internal static partial class IndexGenerator
             },
         };
 
+        // Imports are published once per entry, unioned over the samples that carry code: the
+        // contract has consumers prepend them to every sample of the control, so collecting
+        // them here is what lets each sample's code leave them out.
+        var usings = new List<string>();
+
         foreach (var sampleId in document.SampleIds)
         {
             if (!declarations.TryGetValue(sampleId, out var declaration))
@@ -221,12 +226,15 @@ internal static partial class IndexGenerator
                     + "so its value cannot be read without compiling. Rewrite it in one of those forms."));
             }
 
-            var sample = BuildSample(repoRoot, declaration, document, issues, withheld);
+            var sample = BuildSample(repoRoot, declaration, document, issues, withheld, usings);
             if (sample is not null)
             {
                 entry.Samples.Add(sample);
             }
         }
+
+        usings.Sort(StringComparer.Ordinal);
+        entry.Usings = NullIfEmpty(usings);
 
         // Documentation pages that present no samples are kept. Several components — Extensions
         // and Helpers especially — document APIs that have no markup to show, and dropping them
@@ -241,7 +249,8 @@ internal static partial class IndexGenerator
         SampleDeclaration declaration,
         MarkdownDocument document,
         List<IndexIssue> issues,
-        List<WithheldSample> withheld)
+        List<WithheldSample> withheld,
+        List<string> usings)
     {
         var xamlPath = Path.ChangeExtension(Path.Combine(repoRoot, declaration.RelativePath.Replace('/', Path.DirectorySeparatorChar)), null);
         if (!File.Exists(xamlPath))
@@ -270,15 +279,24 @@ internal static partial class IndexGenerator
 
         var code = SampleCode.Extract(
             Path.Combine(repoRoot, declaration.RelativePath.Replace('/', Path.DirectorySeparatorChar)),
-            declaration.TypeName);
+            declaration.TypeName,
+            ToolkitApi.ForRepository(repoRoot));
+
+        foreach (var import in code.Usings)
+        {
+            if (!usings.Contains(import, StringComparer.Ordinal))
+            {
+                usings.Add(import);
+            }
+        }
 
         return new IndexedSample
         {
             Header = declaration.DisplayName,
             Details = document.SampleProse.TryGetValue(declaration.Id, out var prose) ? prose : declaration.Description,
             Xaml = extraction.Xaml,
-            Code = code,
-            Language = code is null ? null : "csharp",
+            Code = code.Code,
+            Language = code.Code is null ? null : "csharp",
             XmlnsImports = NullIfEmpty(extraction.XmlnsImports),
             Toolkit = new SampleExtension
             {
