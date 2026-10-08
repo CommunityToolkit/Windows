@@ -2,8 +2,9 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
-using CommunityToolkit.WinUI.Helpers;
 using Windows.UI;
+
+using ColorHelper = CommunityToolkit.WinUI.Helpers.ColorHelper;
 
 namespace CommunityToolkit.WinUI.Controls;
 
@@ -21,22 +22,20 @@ public partial class ColorToHexConverter : IValueConverter
     {
         Color color;
 
-        if (value is Color valueColor)
+        switch (value)
         {
-            color = valueColor;
-        }
-        else if (value is SolidColorBrush valueBrush)
-        {
-            color = valueBrush.Color;
-        }
-        else
-        {
-            // Invalid color value provided
-            return DependencyProperty.UnsetValue;
+            case Color valueColor:
+                color = valueColor;
+                break;
+            case SolidColorBrush valueBrush:
+                color = valueBrush.Color;
+                break;
+            default:
+                // Invalid color value provided
+                return DependencyProperty.UnsetValue;
         }
 
-        string hexColor = color.ToHex().Replace("#", string.Empty);
-        return hexColor;
+        return color.ToString().TrimStart('#');
     }
 
     /// <inheritdoc/>
@@ -48,29 +47,13 @@ public partial class ColorToHexConverter : IValueConverter
     {
         string hexValue = value.ToString()!;
 
-        if (hexValue.StartsWith("#"))
-        {
-            try
-            {
-                return hexValue.ToColor();
-            }
-            catch
-            {
-                // Invalid hex color value provided
-                return DependencyProperty.UnsetValue;
-            }
-        }
-        else
-        {
-            try
-            {
-                return ("#" + hexValue).ToColor();
-            }
-            catch
-            {
-                // Invalid hex color value provided
-                return DependencyProperty.UnsetValue;
-            }
-        }
+        if (!hexValue.StartsWith('#'))
+            hexValue = $"#{hexValue}";
+
+        if (ColorHelper.TryParseHexColor(hexValue, out var color))
+            return color;
+
+        // Invalid hex color value provided
+        return DependencyProperty.UnsetValue;
     }
 }

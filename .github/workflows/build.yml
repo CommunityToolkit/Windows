@@ -17,7 +17,7 @@ on:
   merge_group:
 
 env:
-  DOTNET_VERSION: '9.0.310'  # Only used by jobs that cannot access global.json (no checkout/artifact-only jobs)
+  DOTNET_VERSION: '10.0.101'  # Only used by jobs that cannot access global.json (no checkout/artifact-only jobs)
   ENABLE_DIAGNOSTICS: true
   MSBUILD_VERBOSITY: normal
   #COREHOST_TRACE: 1

@@ -79,23 +79,13 @@ internal class ColorPickerRenderingHelpers
             if (isAlphaMaxForced &&
                 channel != ColorChannel.Alpha)
             {
-                baseHsvColor = new HsvColor()
-                {
-                    H = baseHsvColor.H,
-                    S = baseHsvColor.S,
-                    V = baseHsvColor.V,
-                    A = 1.0
-                };
+                baseHsvColor.Alpha = 1.0;
             }
 
             // Convert HSV to RGB once
             if (colorRepresentation == ColorRepresentation.Rgba)
             {
-                baseRgbColor = Helpers.ColorHelper.FromHsv(
-                    baseHsvColor.H,
-                    baseHsvColor.S,
-                    baseHsvColor.V,
-                    baseHsvColor.A);
+                baseRgbColor = baseHsvColor;
             }
 
             // Maximize Saturation and Value channels when in HSVA mode
@@ -106,31 +96,15 @@ internal class ColorPickerRenderingHelpers
                 switch (channel)
                 {
                     case ColorChannel.Channel1:
-                        baseHsvColor = new HsvColor()
-                        {
-                            H = baseHsvColor.H,
-                            S = 1.0,
-                            V = 1.0,
-                            A = baseHsvColor.A
-                        };
+                        baseHsvColor.Saturation = 1.0;
+                        baseHsvColor.Value = 1.0;
                         break;
                     case ColorChannel.Channel2:
-                        baseHsvColor = new HsvColor()
-                        {
-                            H = baseHsvColor.H,
-                            S = baseHsvColor.S,
-                            V = 1.0,
-                            A = baseHsvColor.A
-                        };
+
+                        baseHsvColor.Value = 1;
                         break;
                     case ColorChannel.Channel3:
-                        baseHsvColor = new HsvColor()
-                        {
-                            H = baseHsvColor.H,
-                            S = 1.0,
-                            V = baseHsvColor.V,
-                            A = baseHsvColor.A
-                        };
+                        baseHsvColor.Saturation = 1;
                         break;
                 }
             }
@@ -300,11 +274,9 @@ internal class ColorPickerRenderingHelpers
                         if (colorRepresentation == ColorRepresentation.Hsva)
                         {
                             // Sweep hue
-                            newRgbColor = Helpers.ColorHelper.FromHsv(
-                                Math.Clamp(channelValue, 0.0, 360.0),
-                                baseHsvColor.S,
-                                baseHsvColor.V,
-                                baseHsvColor.A);
+                            var hsv = baseHsvColor;
+                            hsv.Hue = channelValue;
+                            newRgbColor = hsv;
                         }
                         else
                         {
@@ -326,11 +298,9 @@ internal class ColorPickerRenderingHelpers
                         if (colorRepresentation == ColorRepresentation.Hsva)
                         {
                             // Sweep saturation
-                            newRgbColor = Helpers.ColorHelper.FromHsv(
-                                baseHsvColor.H,
-                                Math.Clamp(channelValue, 0.0, 1.0),
-                                baseHsvColor.V,
-                                baseHsvColor.A);
+                            var hsv = baseHsvColor;
+                            hsv.Saturation = channelValue;
+                            newRgbColor = hsv;
                         }
                         else
                         {
@@ -352,11 +322,9 @@ internal class ColorPickerRenderingHelpers
                         if (colorRepresentation == ColorRepresentation.Hsva)
                         {
                             // Sweep value
-                            newRgbColor = Helpers.ColorHelper.FromHsv(
-                                baseHsvColor.H,
-                                baseHsvColor.S,
-                                Math.Clamp(channelValue, 0.0, 1.0),
-                                baseHsvColor.A);
+                            var hsv = baseHsvColor;
+                            hsv.Value = channelValue;
+                            newRgbColor = hsv;
                         }
                         else
                         {
@@ -378,11 +346,9 @@ internal class ColorPickerRenderingHelpers
                         if (colorRepresentation == ColorRepresentation.Hsva)
                         {
                             // Sweep alpha
-                            newRgbColor = Helpers.ColorHelper.FromHsv(
-                                baseHsvColor.H,
-                                baseHsvColor.S,
-                                baseHsvColor.V,
-                                Math.Clamp(channelValue, 0.0, 1.0));
+                            var hsv = baseHsvColor;
+                            hsv.Alpha = channelValue;
+                            newRgbColor = hsv;
                         }
                         else
                         {
