@@ -3,7 +3,7 @@
   "isRoot": true,
   "tools": {
     "uno.check": {
-      "version": "1.33.1",
+      "version": "1.34.1",
       "commands": [
         "uno-check"
       ]
@@ -15,7 +15,7 @@
       ]
     },
     "microsoft.visualstudio.slngen.tool": {
-      "version": "12.0.13",
+      "version": "12.0.32",
       "commands": [
         "slngen"
       ]
