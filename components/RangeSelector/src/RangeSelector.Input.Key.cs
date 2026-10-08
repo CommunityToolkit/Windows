@@ -77,6 +77,7 @@ public partial class RangeSelector : Control
 
     private void ShowToolTip()
     {
+        if (!IsThumbToolTipEnabled) return;
         var isHorizontal = Orientation == Orientation.Horizontal;
         if (!isHorizontal && VerticalToolTipPlacement == VerticalToolTipPlacement.None) return;
         if (_toolTip != null)
