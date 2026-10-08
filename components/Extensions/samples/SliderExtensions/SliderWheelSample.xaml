@@ -1,0 +1,26 @@
+<Page x:Class="ExtensionsExperiment.Samples.SliderExtensions.SliderWheelSample"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:ui="using:CommunityToolkit.WinUI"
+      Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+      mc:Ignorable="d">
+
+    <StackPanel MaxWidth="320"
+                Spacing="20">
+        <StackPanel Spacing="4">
+            <TextBlock Style="{ThemeResource BodyStrongTextBlockStyle}"
+                       Text="Hover and scroll the wheel" />
+            <TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                       Style="{ThemeResource CaptionTextBlockStyle}"
+                       Text="Each notch changes the value by MouseWheelChange. Try the controls in the sample pane to tweak it." />
+        </StackPanel>
+
+        <Slider Maximum="100"
+                Minimum="0"
+                ui:SliderExtensions.IsMouseWheelEnabled="{x:Bind IsMouseWheelEnabled, Mode=OneWay}"
+                ui:SliderExtensions.MouseWheelChange="{x:Bind MouseWheelChange, Mode=OneWay}"
+                Value="50" />
+    </StackPanel>
+</Page>
