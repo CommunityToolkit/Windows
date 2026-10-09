@@ -17,7 +17,7 @@ on:
   merge_group:
 
 env:
-  DOTNET_VERSION: '9.0.310'  # Only used by jobs that cannot access global.json (no checkout/artifact-only jobs)
+  DOTNET_VERSION: '10.0.401'  # Only used by jobs that cannot access global.json (no checkout/artifact-only jobs)
   ENABLE_DIAGNOSTICS: true
   MSBUILD_VERBOSITY: normal
   #COREHOST_TRACE: 1
@@ -488,7 +488,7 @@ jobs:
 
       # iOS/maccatalyst aren't installable on Linux (Uno.Sdk filters those TFMs
       # there). android + wasm-tools are both required: even a single-TFM build
-      # restores all of the head's TargetFrameworks, validating net9.0-android.
+      # restores all of the head's TargetFrameworks, validating net10.0-android.
       - name: Install .NET workloads
         run: dotnet workload install android wasm-tools
 
@@ -509,12 +509,12 @@ jobs:
       - name: Build Uno head (browserwasm)
         shell: pwsh
         working-directory: ./
-        run: dotnet build tooling/ProjectHeads/AllComponents/Uno/CommunityToolkit.App.Uno.csproj -f net9.0-browserwasm -p:Configuration=Release
+        run: dotnet build tooling/ProjectHeads/AllComponents/Uno/CommunityToolkit.App.Uno.csproj -f net10.0-browserwasm -p:Configuration=Release
 
       - name: Build Uno head (desktop)
         shell: pwsh
         working-directory: ./
-        run: dotnet build tooling/ProjectHeads/AllComponents/Uno/CommunityToolkit.App.Uno.csproj -f net9.0-desktop -p:Configuration=Release
+        run: dotnet build tooling/ProjectHeads/AllComponents/Uno/CommunityToolkit.App.Uno.csproj -f net10.0-desktop -p:Configuration=Release
 
       - name: Artifact - Diagnostic Logs
         uses: actions/upload-artifact@v4
