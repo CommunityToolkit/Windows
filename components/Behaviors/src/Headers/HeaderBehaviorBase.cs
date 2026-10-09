@@ -184,7 +184,10 @@ public abstract class HeaderBehaviorBase : BehaviorBase<FrameworkElement>
         }
         else
         {
+            // Obsolete on WinUI 3/Uno, but required as a fallback where XamlRoot is unavailable (e.g. UWP).
+#pragma warning disable CS0618
             focusedElement = FocusManager.GetFocusedElement()!;
+#pragma warning restore CS0618
         }
 
         // To prevent Popups (Flyouts...) from triggering the autoscroll, we check if the focused element has a valid parent.

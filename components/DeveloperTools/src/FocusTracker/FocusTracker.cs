@@ -83,7 +83,10 @@ public partial class FocusTracker : Control
         }
         else
         {
+            // Obsolete on WinUI 3/Uno, but required as a fallback where XamlRoot is unavailable (e.g. UWP).
+#pragma warning disable CS0618
             if (FocusManager.GetFocusedElement() is FrameworkElement element)
+#pragma warning restore CS0618
             {
                 FocusOnControl(element);
             }
