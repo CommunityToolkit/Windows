@@ -32,8 +32,8 @@ public static class DependencyObjectExtensions
     /// <param name="element">The root element.</param>
     /// <returns>The descendant that was found, or <see langword="null"/>.</returns>
     public static T? FindDescendant<T>(this DependencyObject element)
-#if HAS_UNO
-		where T : class, DependencyObject // Note: In Uno, DependencyObject is an interface, background: https://github.com/unoplatform/uno/issues/25
+#if HAS_UNO && WINUI2
+		where T : class, DependencyObject // Note: In Uno 5 and older, DependencyObject is an interface, background: https://github.com/unoplatform/uno/issues/25
 #else
         where T : notnull, DependencyObject
 #endif
@@ -64,7 +64,7 @@ public static class DependencyObjectExtensions
     /// <param name="predicate">The predicatee to use to match the descendant nodes.</param>
     /// <returns>The descendant that was found, or <see langword="null"/>.</returns>
     public static T? FindDescendant<T>(this DependencyObject element, Func<T, bool> predicate)
-#if HAS_UNO
+#if HAS_UNO && WINUI2
         where T : class, DependencyObject
 #else
         where T : notnull, DependencyObject
@@ -85,7 +85,7 @@ public static class DependencyObjectExtensions
     /// <param name="predicate">The predicatee to use to match the descendant nodes.</param>
     /// <returns>The descendant that was found, or <see langword="null"/>.</returns>
     public static T? FindDescendant<T, TState>(this DependencyObject element, TState state, Func<T, TState, bool> predicate)
-#if HAS_UNO
+#if HAS_UNO && WINUI2
 		where T : class, DependencyObject
 #else
         where T : notnull, DependencyObject
@@ -105,7 +105,7 @@ public static class DependencyObjectExtensions
     /// <param name="predicate">The predicatee to use to match the descendant nodes.</param>
     /// <returns>The descendant that was found, or <see langword="null"/>.</returns>
     private static T? FindDescendant<T, TPredicate>(this DependencyObject element, ref TPredicate predicate)
-#if HAS_UNO
+#if HAS_UNO && WINUI2
         where T : class, DependencyObject
 #else
         where T : notnull, DependencyObject
@@ -158,7 +158,7 @@ public static class DependencyObjectExtensions
     /// <param name="element">The root element.</param>
     /// <returns>The descendant (or self) that was found, or <see langword="null"/>.</returns>
     public static T? FindDescendantOrSelf<T>(this DependencyObject element)
-#if HAS_UNO
+#if HAS_UNO && WINUI2
 		where T : class, DependencyObject
 #else
         where T : notnull, DependencyObject
@@ -196,7 +196,7 @@ public static class DependencyObjectExtensions
     /// <param name="predicate">The predicatee to use to match the descendant nodes.</param>
     /// <returns>The descendant (or self) that was found, or <see langword="null"/>.</returns>
     public static T? FindDescendantOrSelf<T>(this DependencyObject element, Func<T, bool> predicate)
-#if HAS_UNO
+#if HAS_UNO && WINUI2
 		where T : class, DependencyObject
 #else
         where T : notnull, DependencyObject
@@ -220,7 +220,7 @@ public static class DependencyObjectExtensions
     /// <param name="predicate">The predicatee to use to match the descendant nodes.</param>
     /// <returns>The descendant (or self) that was found, or <see langword="null"/>.</returns>
     public static T? FindDescendantOrSelf<T, TState>(this DependencyObject element, TState state, Func<T, TState, bool> predicate)
-#if HAS_UNO
+#if HAS_UNO && WINUI2
 		where T : class, DependencyObject
 #else
         where T : notnull, DependencyObject
@@ -284,7 +284,7 @@ public static class DependencyObjectExtensions
     /// <param name="element">The starting element.</param>
     /// <returns>The ascendant that was found, or <see langword="null"/>.</returns>
     public static T? FindAscendant<T>(this DependencyObject element)
-#if HAS_UNO
+#if HAS_UNO && WINUI2
 		where T : class, DependencyObject
 #else
         where T : notnull, DependencyObject
@@ -316,7 +316,7 @@ public static class DependencyObjectExtensions
     /// <param name="predicate">The predicatee to use to match the ascendant nodes.</param>
     /// <returns>The ascendant that was found, or <see langword="null"/>.</returns>
     public static T? FindAscendant<T>(this DependencyObject element, Func<T, bool> predicate)
-#if HAS_UNO
+#if HAS_UNO && WINUI2
 		where T : class, DependencyObject
 #else
         where T : notnull, DependencyObject
@@ -337,7 +337,7 @@ public static class DependencyObjectExtensions
     /// <param name="predicate">The predicatee to use to match the ascendant nodes.</param>
     /// <returns>The ascendant that was found, or <see langword="null"/>.</returns>
     public static T? FindAscendant<T, TState>(this DependencyObject element, TState state, Func<T, TState, bool> predicate)
-#if HAS_UNO
+#if HAS_UNO && WINUI2
 		where T : class, DependencyObject
 #else
         where T : notnull, DependencyObject
@@ -357,7 +357,7 @@ public static class DependencyObjectExtensions
     /// <param name="predicate">The predicatee to use to match the ascendant nodes.</param>
     /// <returns>The ascendant that was found, or <see langword="null"/>.</returns>
     private static T? FindAscendant<T, TPredicate>(this DependencyObject element, ref TPredicate predicate)
-#if HAS_UNO
+#if HAS_UNO && WINUI2
 		where T : class, DependencyObject
 #else
         where T : notnull, DependencyObject
@@ -406,7 +406,7 @@ public static class DependencyObjectExtensions
     /// <param name="element">The starting element.</param>
     /// <returns>The ascendant (or self) that was found, or <see langword="null"/>.</returns>
     public static T? FindAscendantOrSelf<T>(this DependencyObject element)
-#if HAS_UNO
+#if HAS_UNO && WINUI2
 		where T : class, DependencyObject
 #else
         where T : notnull, DependencyObject
@@ -444,7 +444,7 @@ public static class DependencyObjectExtensions
     /// <param name="predicate">The predicatee to use to match the ascendant nodes.</param>
     /// <returns>The ascendant (or self) that was found, or <see langword="null"/>.</returns>
     public static T? FindAscendantOrSelf<T>(this DependencyObject element, Func<T, bool> predicate)
-#if HAS_UNO
+#if HAS_UNO && WINUI2
         where T : class, DependencyObject
 #else
         where T : notnull, DependencyObject
@@ -468,7 +468,7 @@ public static class DependencyObjectExtensions
     /// <param name="predicate">The predicatee to use to match the ascendant nodes.</param>
     /// <returns>The ascendant (or self) that was found, or <see langword="null"/>.</returns>
     public static T? FindAscendantOrSelf<T, TState>(this DependencyObject element, TState state, Func<T, TState, bool> predicate)
-#if HAS_UNO
+#if HAS_UNO && WINUI2
 		where T : class, DependencyObject
 #else
         where T : notnull, DependencyObject
