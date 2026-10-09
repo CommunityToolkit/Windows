@@ -110,7 +110,12 @@ public partial class TokenizingTextBoxAutomationPeer : ListViewBaseAutomationPee
     /// child elements of the automation peer.
     /// </summary>
     /// <returns>The children elements.</returns>
+#if HAS_UNO && WINUI3
+    // Uno 7 declares ListViewBaseAutomationPeer.GetChildrenCore() as returning List<T> instead of WinUI's IList<T>
+    protected override List<AutomationPeer> GetChildrenCore()
+#else
     protected override IList<AutomationPeer> GetChildrenCore()
+#endif
     {
         TokenizingTextBox owner = this.OwningTokenizingTextBox;
 
