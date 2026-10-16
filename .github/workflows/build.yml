@@ -170,11 +170,6 @@ jobs:
       - name: Setup VSTest Path
         uses: darenm/setup-vstest@3a16d909a1f3bbc65b52f8270d475d905e7d3e44
 
-      - name: Install Testspace Module
-        uses: testspace-com/setup-testspace@v1.0.8
-        with:
-          domain: ${{ github.repository_owner }}
-
       - name: Run SourceGenerators tests
         id: test-generator
         run: vstest.console.exe ./tooling/CommunityToolkit.Tooling.SampleGen.Tests/bin/Release/net8.0/CommunityToolkit.Tooling.SampleGen.Tests.dll /logger:"trx;LogFileName=SourceGenerators.trx"
@@ -190,11 +185,6 @@ jobs:
         if: ${{ matrix.multitarget == 'uwp' || matrix.multitarget == 'wasdk' }}
         id: test-platform
         run:  vstest.console.exe ./tooling/**/CommunityToolkit.Tests.${{ matrix.multitarget }}.build.appxrecipe /Framework:FrameworkUap10 /logger:"trx;LogFileName=${{ matrix.multitarget }}.trx" /Blame:"CollectDump;DumpType=Full;CollectHangDump;TestTimeout=30m;HangDumpType=Full" /Diag:"${{ github.workspace }}/vstest-diagnostic-log.txt"
-
-      - name: Create test reports
-        run: |
-          testspace '[${{ matrix.multitarget }}]./TestResults/*.trx'
-        if: ${{ (matrix.multitarget == 'uwp' || matrix.multitarget == 'wasdk') && (steps.test-generator.conclusion == 'success' || steps.test-platform.conclusion == 'success') }}
 
       - name: Artifact - Diagnostic Logs
         uses: actions/upload-artifact@v4
