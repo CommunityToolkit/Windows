@@ -2445,7 +2445,7 @@
           }
         },
         {
-          "header": "BackdropGammaTransferBrush",
+          "header": "BackdropInvertBrush",
           "details": "A brush that inverts the colors of the brush\u0027s background in the application.",
           "xaml": "\u003CStackPanel VerticalAlignment=\u0022Center\u0022\n            Spacing=\u002232\u0022\u003E\n    \u003CGrid\u003E\n        \u003C!--  Background image  --\u003E\n        \u003CImage Height=\u0022400\u0022\n               Source=\u0022ms-appx:///Assets/Bloom.jpg\u0022 /\u003E\n        \u003C!--  Brush area  --\u003E\n        \u003CBorder Width=\u0022550\u0022\n                Height=\u0022300\u0022\n                HorizontalAlignment=\u0022Center\u0022\n                VerticalAlignment=\u0022Center\u0022\n                BorderBrush=\u0022Black\u0022\n                BorderThickness=\u0022.5\u0022\u003E\n            \u003CBorder.Background\u003E\n                \u003Cmedia:BackdropInvertBrush /\u003E\n            \u003C/Border.Background\u003E\n        \u003C/Border\u003E\n    \u003C/Grid\u003E\n\u003C/StackPanel\u003E",
           "xmlnsImports": [
@@ -2457,7 +2457,7 @@
           }
         },
         {
-          "header": "BackdropGammaTransferBrush",
+          "header": "BackdropSaturationBrush",
           "details": "A brush that can increase or decrease the saturation of the brush\u0027s background in the application. The Saturation property specifies a double value for the amount of Saturation to apply from 0.0 - 1.0. Zero being monochrome, and one being fully saturated. The default is 0.5.",
           "xaml": "\u003CStackPanel VerticalAlignment=\u0022Center\u0022\n            Spacing=\u002232\u0022\u003E\n    \u003CGrid\u003E\n        \u003C!--  Background image  --\u003E\n        \u003CImage Height=\u0022400\u0022\n               Source=\u0022ms-appx:///Assets/Bloom.jpg\u0022 /\u003E\n        \u003C!--  Brush area  --\u003E\n        \u003CBorder Width=\u0022550\u0022\n                Height=\u0022300\u0022\n                HorizontalAlignment=\u0022Center\u0022\n                VerticalAlignment=\u0022Center\u0022\n                BorderBrush=\u0022Black\u0022\n                BorderThickness=\u0022.5\u0022\u003E\n            \u003CBorder.Background\u003E\n                \u003Cmedia:BackdropSaturationBrush Saturation=\u0022.2\u0022 /\u003E\n            \u003C/Border.Background\u003E\n        \u003C/Border\u003E\n    \u003C/Grid\u003E\n\u003C/StackPanel\u003E",
           "xmlnsImports": [
@@ -2469,7 +2469,7 @@
           }
         },
         {
-          "header": "BackdropGammaTransferBrush",
+          "header": "BackdropSepiaBrush",
           "details": "A brush that applies the sepia effect to the brush\u0027s background. The Intensity property specifies a double value for the amount of Sepia to apply from 0.0 - 1.0. Zero being none, and one being full Sepia effect. The default is 0.5.",
           "xaml": "\u003CStackPanel VerticalAlignment=\u0022Center\u0022\n            Spacing=\u002232\u0022\u003E\n    \u003CGrid\u003E\n        \u003C!--  Background image  --\u003E\n        \u003CImage Height=\u0022400\u0022\n               Source=\u0022ms-appx:///Assets/Bloom.jpg\u0022 /\u003E\n        \u003C!--  Brush area  --\u003E\n        \u003CBorder Width=\u0022550\u0022\n                Height=\u0022300\u0022\n                HorizontalAlignment=\u0022Center\u0022\n                VerticalAlignment=\u0022Center\u0022\n                BorderBrush=\u0022Black\u0022\n                BorderThickness=\u0022.5\u0022\u003E\n            \u003CBorder.Background\u003E\n                \u003Cmedia:BackdropSepiaBrush Intensity=\u0022.8\u0022 /\u003E\n            \u003C/Border.Background\u003E\n        \u003C/Border\u003E\n    \u003C/Grid\u003E\n\u003C/StackPanel\u003E",
           "xmlnsImports": [
@@ -2481,7 +2481,7 @@
           }
         },
         {
-          "header": "BackdropGammaTransferBrush",
+          "header": "ImageBlendBrush",
           "details": "A brush that blends the provided image with whatever is behind it in the application with the provided blend mode. The ImageBlendMode property specifies how the image should be blended with the backdrop. More info about the effect modes can be found here.",
           "xaml": "\u003CStackPanel VerticalAlignment=\u0022Center\u0022\n            Spacing=\u002232\u0022\u003E\n    \u003CGrid\u003E\n        \u003C!--  Background image  --\u003E\n        \u003CImage Height=\u0022400\u0022\n               Source=\u0022ms-appx:///Assets/Bloom.jpg\u0022 /\u003E\n        \u003C!--  Brush area  --\u003E\n        \u003CBorder Width=\u0022550\u0022\n                Height=\u0022300\u0022\n                HorizontalAlignment=\u0022Center\u0022\n                VerticalAlignment=\u0022Center\u0022\u003E\n            \u003CBorder.Background\u003E\n                \u003Cmedia:ImageBlendBrush Mode=\u0022ColorDodge\u0022\n                                       Source=\u0022ms-appx:///Assets/BrushAssets/Trex.png\u0022\n                                       Stretch=\u0022None\u0022 /\u003E\n            \u003C/Border.Background\u003E\n        \u003C/Border\u003E\n    \u003C/Grid\u003E\n\u003C/StackPanel\u003E",
           "xmlnsImports": [
@@ -2729,7 +2729,7 @@
       },
       "samples": [
         {
-          "header": "BackdropBlurBrush",
+          "header": "PipelineVisualFactory",
           "details": "PipelineVisualFactory can create the same visual brushes as the PipelineBrush type, but it can attach them directly on the underlying Visual instance backing a UI element. This can make the XAML code less verbose and more efficient, as there is no need to insert additional elements just so that a brush can be applied to them.",
           "xaml": "\u003CGrid\u003E\n    \u003C!--  Background image  --\u003E\n    \u003CImage Height=\u0022400\u0022\n           Source=\u0022ms-appx:///Assets/Bloom.jpg\u0022 /\u003E\n    \u003C!--  Brush area  --\u003E\n    \u003CBorder Width=\u0022550\u0022\n            Height=\u0022300\u0022\n            HorizontalAlignment=\u0022Center\u0022\n            VerticalAlignment=\u0022Center\u0022\n            BorderBrush=\u0022Black\u0022\n            BorderThickness=\u0022.5\u0022\u003E\n        \u003Cmedia:UIElementExtensions.VisualFactory\u003E\n            \u003Cmedia:PipelineVisualFactory Source=\u0022{media:BackdropSource}\u0022\u003E\n                \u003Cmedia:BlurEffect Amount=\u002215\u0022 /\u003E\n                \u003Cmedia:LuminanceToAlphaEffect /\u003E\n                \u003Cmedia:SaturationEffect Value=\u00221.4\u0022 /\u003E\n                \u003Cmedia:BlendEffect Mode=\u0022Multiply\u0022\n                                   Source=\u0022{media:BackdropSource}\u0022 /\u003E\n            \u003C/media:PipelineVisualFactory\u003E\n        \u003C/media:UIElementExtensions.VisualFactory\u003E\n    \u003C/Border\u003E\n\u003C/Grid\u003E",
           "xmlnsImports": [

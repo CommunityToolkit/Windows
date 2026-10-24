@@ -6,7 +6,7 @@ using CommunityToolkit.WinUI.Media;
 
 namespace MediaExperiment.Samples.Brushes;
 
-[ToolkitSample(id: nameof(PipelineVisualFactorySample), "BackdropBlurBrush", description: $"A sample that uses a {nameof(PipelineVisualFactory)} to blur whatever is behind the application.")]
+[ToolkitSample(id: nameof(PipelineVisualFactorySample), "PipelineVisualFactory", description: $"A sample that uses a {nameof(PipelineVisualFactory)} to blur whatever is behind the application.")]
 public sealed partial class PipelineVisualFactorySample : Page
 {
     public PipelineVisualFactorySample()
