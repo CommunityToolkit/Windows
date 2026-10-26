@@ -44,8 +44,7 @@ public partial class FrameworkElementExtensionsTests : VisualUITestBase
 
         Assert.IsNotNull(parent, "Couldn't find parent Grid");
 
-        // Remove all the children from the grid to simulate it unloading.
-        VisualTreeHelper.DisconnectChildrenRecursive(parent);
+        // Let templated controls tear down their internal visual trees through normal unloading.
         parent.Children.Clear();
         parent = null;
 
