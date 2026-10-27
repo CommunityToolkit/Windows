@@ -184,7 +184,7 @@ public partial class RangeSelector : Control
 
         if (Minimum == Maximum)
         {
-            Maximum += Epsilon;
+            // Do nothing
         }
 
         if (!_maxSet)
