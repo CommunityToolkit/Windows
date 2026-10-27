@@ -69,7 +69,9 @@ public sealed partial class SwitchPresenter : ContentPresenter
     /// Identifies the <see cref="TargetType"/> property.
     /// </summary>
     public static readonly DependencyProperty TargetTypeProperty =
+#pragma warning disable IL2111 // Uno 7 annotates propertyType for trimming, which flags System.Type's own annotated members
         DependencyProperty.Register(nameof(TargetType), typeof(Type), typeof(SwitchPresenter), new PropertyMetadata(null));
+#pragma warning restore IL2111
 
     private static void OnValuePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {

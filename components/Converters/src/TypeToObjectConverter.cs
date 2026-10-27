@@ -25,7 +25,9 @@ public partial class TypeToObjectConverter : DependencyObject, IValueConverter
     /// Identifies the <see cref="Type"/> property.
     /// </summary>
     public static readonly DependencyProperty TypeProperty =
+#pragma warning disable IL2111 // Uno 7 annotates propertyType for trimming, which flags System.Type's own annotated members
         DependencyProperty.Register(nameof(Type), typeof(Type), typeof(TypeToObjectConverter), new PropertyMetadata(typeof(object)));
+#pragma warning restore IL2111
 
     /// <summary>
     /// Gets or sets the value to be returned when the type of the provided value matches <see cref="Type"/>.
