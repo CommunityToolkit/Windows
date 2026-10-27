@@ -53,7 +53,9 @@ public sealed partial class SwitchConverter : DependencyObject, IValueConverter
     /// Identifies the <see cref="TargetType"/> property.
     /// </summary>
     public static readonly DependencyProperty TargetTypeProperty =
+#pragma warning disable IL2111 // Uno 7 annotates propertyType for trimming, which flags System.Type's own annotated members
         DependencyProperty.Register(nameof(TargetType), typeof(Type), typeof(SwitchConverter), new PropertyMetadata(null));
+#pragma warning restore IL2111
 
     /// <summary>
     /// Initializes a new instance of the <see cref="SwitchPresenter"/> class.

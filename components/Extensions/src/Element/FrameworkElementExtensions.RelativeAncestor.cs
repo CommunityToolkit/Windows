@@ -54,7 +54,9 @@ public static partial class FrameworkElementExtensions
     /// Attached <see cref="DependencyProperty"/> for retrieving a parent <see cref="object"/> for the <see cref="AncestorProperty"/> based on the provided <see cref="Type"/> in the <see cref="AncestorTypeProperty"/>.
     /// </summary>
     public static readonly DependencyProperty AncestorTypeProperty =
+#pragma warning disable IL2111 // Uno 7 annotates propertyType for trimming, which flags System.Type's own annotated members
         DependencyProperty.RegisterAttached("AncestorType", typeof(Type), typeof(FrameworkElementExtensions), new PropertyMetadata(null, AncestorType_PropertyChanged));
+#pragma warning restore IL2111
 
     private static void AncestorType_PropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs args)
     {

@@ -361,7 +361,10 @@ public partial class TokenizingTextBox : ListViewBase
         }
         else
         {
+            // Obsolete on WinUI 3/Uno, but required as a fallback where XamlRoot is unavailable (e.g. UWP).
+#pragma warning disable CS0618
             return FocusManager.GetFocusedElement()!;
+#pragma warning restore CS0618
         }
     }
 
@@ -626,5 +629,9 @@ public partial class TokenizingTextBox : ListViewBase
     /// <summary>
     /// Checks if the XamlRoot property is available via the current API. 
     /// </summary>
+#if WINUI3
+    public static bool IsXamlRootAvailable => true;
+#else
     public static bool IsXamlRootAvailable { get; } = ApiInformation.IsPropertyPresent("Windows.UI.Xaml.UIElement", "XamlRoot");
+#endif
 }
