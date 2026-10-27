@@ -27,7 +27,8 @@ public partial class RichSuggestBox
         // https://github.com/microsoft/microsoft-ui-xaml/issues/4228
         // TODO: Remove when DisplayInformation.ScreenHeightInRawPixels alternative is available
 #if !WINAPPSDK
-        if (CoreWindow.GetForCurrentThread() == null)
+        var window = Window.Current;
+        if (CoreWindow.GetForCurrentThread() == null || window == null)
         {
             return true;
         }
@@ -40,7 +41,7 @@ public partial class RichSuggestBox
         elementBounds.Y += offsetY;
 
         // Get Window position
-        var windowBounds = Window.Current.Bounds;
+        var windowBounds = window.Bounds;
 
         // Offset Element within Window on Screen
         elementBounds.X += windowBounds.X;
@@ -149,9 +150,9 @@ private static void ForEachLinkInDocument(ITextDocument document, Action<ITextRa
         }
     }
 
-#if WINAPPSDK
-    internal static bool IsXamlRootAvailable { get; } = Windows.Foundation.Metadata.ApiInformation.IsPropertyPresent("Windows.UI.Xaml.UIElement", "XamlRoot");
+#if WINUI3
+    internal static bool IsXamlRootAvailable => true;
 #else
-    internal static bool IsXamlRootAvailable { get; } = Windows.Foundation.Metadata.ApiInformation.IsPropertyPresent("Microsoft.UI.Xaml.UIElement", "XamlRoot");
+    internal static bool IsXamlRootAvailable { get; } = Windows.Foundation.Metadata.ApiInformation.IsPropertyPresent("Windows.UI.Xaml.UIElement", "XamlRoot");
 #endif
 }
