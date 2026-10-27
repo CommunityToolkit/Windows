@@ -6,7 +6,7 @@ using CommunityToolkit.WinUI.Media;
 
 namespace MediaExperiment.Samples.Brushes;
 
-[ToolkitSample(id: nameof(BackdropSaturationBrushSample), "BackdropGammaTransferBrush", description: $"A sample for showing how to apply a {nameof(BackdropSaturationBrush)} effect to a background.")]
+[ToolkitSample(id: nameof(BackdropSaturationBrushSample), "BackdropSaturationBrush", description: $"A sample for showing how to apply a {nameof(BackdropSaturationBrush)} effect to a background.")]
 public sealed partial class BackdropSaturationBrushSample : Page
 {
     public BackdropSaturationBrushSample()

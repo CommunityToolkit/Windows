@@ -6,7 +6,7 @@ using CommunityToolkit.WinUI.Media;
 
 namespace MediaExperiment.Samples.Brushes;
 
-[ToolkitSample(id: nameof(BackdropSepiaBrushSample), "BackdropGammaTransferBrush", description: $"A sample for showing how to apply a {nameof(BackdropSepiaBrush)} effect to a background.")]
+[ToolkitSample(id: nameof(BackdropSepiaBrushSample), "BackdropSepiaBrush", description: $"A sample for showing how to apply a {nameof(BackdropSepiaBrush)} effect to a background.")]
 public sealed partial class BackdropSepiaBrushSample : Page
 {
     public BackdropSepiaBrushSample()

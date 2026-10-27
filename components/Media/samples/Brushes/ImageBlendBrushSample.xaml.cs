@@ -6,7 +6,7 @@ using CommunityToolkit.WinUI.Media;
 
 namespace MediaExperiment.Samples.Brushes;
 
-[ToolkitSample(id: nameof(ImageBlendBrushSample), "BackdropGammaTransferBrush", description: $"A sample for showing how to apply a {nameof(ImageBlendBrush)} effect to a background.")]
+[ToolkitSample(id: nameof(ImageBlendBrushSample), "ImageBlendBrush", description: $"A sample for showing how to apply a {nameof(ImageBlendBrush)} effect to a background.")]
 public sealed partial class ImageBlendBrushSample : Page
 {
     public ImageBlendBrushSample()
