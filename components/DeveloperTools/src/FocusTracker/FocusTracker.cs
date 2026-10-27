@@ -74,7 +74,11 @@ public partial class FocusTracker : Control
     private void Start()
     {
         // Get currently focused control once when we start
+#if WINUI3
+        if (XamlRoot != null)
+#else
         if (Windows.Foundation.Metadata.ApiInformation.IsPropertyPresent("Windows.UI.Xaml.UIElement", "XamlRoot") && XamlRoot != null)
+#endif
         {
             if (FocusManager.GetFocusedElement(XamlRoot) is FrameworkElement element)
             {

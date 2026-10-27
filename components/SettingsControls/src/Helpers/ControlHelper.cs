@@ -5,5 +5,9 @@
 namespace CommunityToolkit.WinUI.Controls;
 internal static partial class ControlHelpers
 {
+#if WINUI3
+    internal static bool IsXamlRootAvailable => true;
+#else
     internal static bool IsXamlRootAvailable { get; } = Windows.Foundation.Metadata.ApiInformation.IsPropertyPresent("Windows.UI.Xaml.UIElement", "XamlRoot");
+#endif
 }

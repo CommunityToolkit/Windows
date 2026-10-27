@@ -629,5 +629,9 @@ public partial class TokenizingTextBox : ListViewBase
     /// <summary>
     /// Checks if the XamlRoot property is available via the current API. 
     /// </summary>
+#if WINUI3
+    public static bool IsXamlRootAvailable => true;
+#else
     public static bool IsXamlRootAvailable { get; } = ApiInformation.IsPropertyPresent("Windows.UI.Xaml.UIElement", "XamlRoot");
+#endif
 }
