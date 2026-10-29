@@ -16,6 +16,7 @@ This package contains the following in the `CommunityToolkit.WinUI.Behaviors` na
 - KeyDownTriggerBehavior
 - NavigateToUriAction
 - QuickReturnHeaderBehavior
+- SelectTextOnFocusBehavior
 - StartAnimationAction
 - StackedNotificationBehavior
 - StopAnimationAction
