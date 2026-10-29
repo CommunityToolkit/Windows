@@ -165,7 +165,9 @@ public partial class RangeSelector : Control
     {
         if (toolTip != null)
         {
-            toolTip.Text = string.Format("{0:0.##}", newValue);
+            var converter = rangeSelector.ThumbToolTipValueConverter;
+            var convertedText = converter?.Convert(newValue, typeof(string), null, string.Empty) as string;
+            toolTip.Text = convertedText ?? string.Format("{0:0.##}", newValue);
         }
     }
 

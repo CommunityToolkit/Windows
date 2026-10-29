@@ -80,6 +80,26 @@ public partial class RangeSelector : Control
             new PropertyMetadata(VerticalToolTipPlacement.Right));
 
     /// <summary>
+    /// Identifies the <see cref="IsThumbToolTipEnabled"/> property.
+    /// </summary>
+    public static readonly DependencyProperty IsThumbToolTipEnabledProperty =
+        DependencyProperty.Register(
+            nameof(IsThumbToolTipEnabled),
+            typeof(bool),
+            typeof(RangeSelector),
+            new PropertyMetadata(true));
+
+    /// <summary>
+    /// Identifies the <see cref="ThumbToolTipValueConverter"/> property.
+    /// </summary>
+    public static readonly DependencyProperty ThumbToolTipValueConverterProperty =
+        DependencyProperty.Register(
+            nameof(ThumbToolTipValueConverter),
+            typeof(IValueConverter),
+            typeof(RangeSelector),
+            new PropertyMetadata(null));
+
+    /// <summary>
     /// Gets or sets the absolute minimum value of the range.
     /// </summary>
     /// <value>
@@ -162,6 +182,32 @@ public partial class RangeSelector : Control
     {
         get => (VerticalToolTipPlacement)GetValue(VerticalToolTipPlacementProperty);
         set => SetValue(VerticalToolTipPlacementProperty, value);
+    }
+
+    /// <summary>
+    /// Gets or sets a value that indicates whether a tooltip that displays the current value
+    /// is shown for the min and max thumbs.
+    /// </summary>
+    /// <value>
+    /// true if a tooltip is shown for the min and max thumbs; otherwise, false. The default is true.
+    /// </value>
+    public bool IsThumbToolTipEnabled
+    {
+        get => (bool)GetValue(IsThumbToolTipEnabledProperty);
+        set => SetValue(IsThumbToolTipEnabledProperty, value);
+    }
+
+    /// <summary>
+    /// Gets or sets a custom <see cref="IValueConverter"/> to be used for the tooltip text conversion
+    /// when <see cref="IsThumbToolTipEnabled"/> is set to true.
+    /// </summary>
+    /// <value>
+    /// The converter used to convert the thumb value to a display string. The default is null.
+    /// </value>
+    public IValueConverter ThumbToolTipValueConverter
+    {
+        get => (IValueConverter)GetValue(ThumbToolTipValueConverterProperty);
+        set => SetValue(ThumbToolTipValueConverterProperty, value);
     }
 
     private static void OrientationChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
