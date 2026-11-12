@@ -69,10 +69,14 @@ public sealed partial class ThemeListener : IDisposable
     {
         CurrentTheme = Application.Current.RequestedTheme;
 
+#if WINUI3
+        IsHighContrast = _accessible.HighContrast;
+#else
         if (ApiInformation.IsPropertyPresent("Windows.UI.ViewManagement.AccessibilitySettings", "HighContrast"))
         {
             IsHighContrast = _accessible.HighContrast;
         }
+#endif
 
         DispatcherQueue = dispatcherQueue ?? DispatcherQueue.GetForCurrentThread();
 

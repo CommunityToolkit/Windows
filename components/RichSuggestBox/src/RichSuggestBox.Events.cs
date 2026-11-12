@@ -43,5 +43,9 @@ public partial class RichSuggestBox
     /// <summary>
     /// Event raised when text is pasted into the control.
     /// </summary>
+#if WINUI2 && (__IOS__ || __MACOS__) // Uno 5 Apple controls are native views with a member of this name
+    public new event TypedEventHandler<RichSuggestBox, TextControlPasteEventArgs> Paste;
+#else
     public event TypedEventHandler<RichSuggestBox, TextControlPasteEventArgs> Paste;
+#endif
 }

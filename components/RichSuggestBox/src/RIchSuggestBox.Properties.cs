@@ -232,7 +232,11 @@ public partial class RichSuggestBox
     /// Suggestion popup relies on the actual size of the text control to calculate its placement on the screen.
     /// It is recommended to set the description using this property instead of using <see cref="RichEditBox.Description"/>.
     /// </remarks>
+#if WINUI2 && (__IOS__ || __MACOS__) // Uno 5 Apple controls are native views with a member of this name
+    public new object Description
+#else
     public object Description
+#endif
     {
         get => GetValue(DescriptionProperty);
         set => SetValue(DescriptionProperty, value);
