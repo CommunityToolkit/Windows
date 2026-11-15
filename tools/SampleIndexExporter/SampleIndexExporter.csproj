@@ -1,0 +1,43 @@
+<!--  Licensed to the .NET Foundation under one or more agreements. See License.md in the project root for license information.  -->
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <!--
+      Deliberately not a Windows target. The exporter reads markdown, C# and XAML as text; it
+      never loads WinUI. Keeping it platform-agnostic means the staleness check can run as a
+      fast standalone CI job instead of waiting on the Uno/WinUI build matrix.
+    -->
+    <TargetFramework>net9.0</TargetFramework>
+    <RootNamespace>CommunityToolkit.SampleIndex</RootNamespace>
+    <AssemblyName>CommunityToolkit.SampleIndexExporter</AssemblyName>
+    <Nullable>enable</Nullable>
+    <WarningsAsErrors>nullable</WarningsAsErrors>
+    <LangVersion>latest</LangVersion>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <InvariantGlobalization>true</InvariantGlobalization>
+    <IsPackable>false</IsPackable>
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <!--
+      Makes the source-generated context in IndexJsonContext.cs a guarantee rather than a
+      convention: with reflection off, any type the serializer reaches that the context does not
+      cover throws instead of silently falling back.
+    -->
+    <JsonSerializerIsReflectionEnabledByDefault>false</JsonSerializerIsReflectionEnabledByDefault>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!--
+      [ToolkitSample] display names are written as nameof(...) and interpolated strings, so
+      reading them with a regex would mean reimplementing C#'s lexer and getting a different
+      answer from the sample app for every form it failed to model. The compiler's own parser
+      models all of them.
+    -->
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.11.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="CommunityToolkit.SampleIndexExporter.Tests" />
+  </ItemGroup>
+
+</Project>

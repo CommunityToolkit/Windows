@@ -32,7 +32,7 @@ env:
 jobs:
   # This workflow contains a single job called "Xaml-Style-Check"
   Xaml-Style-Check:
-    runs-on: windows-2022
+    runs-on: windows-2025
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -54,10 +54,31 @@ jobs:
       - name: Check XAML Styling
         run: powershell -version 5.1 -command "./ApplyXamlStyling.ps1 -Passive" -ErrorAction Stop
 
+  # Verifies the published sample index still describes the samples in this branch. Runs on
+  # Linux and needs no workloads, because the exporter reads the samples as text rather than
+  # building them — so it reports a stale index in under a minute instead of after the matrix.
+  Sample-Index:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Install .NET SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+
+      - name: Check the sample index is up to date
+        run: dotnet run --project tools/SampleIndexExporter -- check
+
+      - name: Run sample index tests
+        run: dotnet test tools/SampleIndexExporter.Tests
+
   # Build both Uno.UI/WinUI2/UWP and Uno.WinUI/WinUI3/WindowsAppSDK versions of our packages using a matrix
   build:
     needs: [Xaml-Style-Check]
-    runs-on: windows-2022
+    runs-on: windows-2025-large
 
     env:
       PROCDUMP_PATH: ${{ github.workspace }}
@@ -149,11 +170,6 @@ jobs:
       - name: Setup VSTest Path
         uses: darenm/setup-vstest@3a16d909a1f3bbc65b52f8270d475d905e7d3e44
 
-      - name: Install Testspace Module
-        uses: testspace-com/setup-testspace@v1.0.8
-        with:
-          domain: ${{ github.repository_owner }}
-
       - name: Run SourceGenerators tests
         id: test-generator
         run: vstest.console.exe ./tooling/CommunityToolkit.Tooling.SampleGen.Tests/bin/Release/net8.0/CommunityToolkit.Tooling.SampleGen.Tests.dll /logger:"trx;LogFileName=SourceGenerators.trx"
@@ -169,11 +185,6 @@ jobs:
         if: ${{ matrix.multitarget == 'uwp' || matrix.multitarget == 'wasdk' }}
         id: test-platform
         run:  vstest.console.exe ./tooling/**/CommunityToolkit.Tests.${{ matrix.multitarget }}.build.appxrecipe /Framework:FrameworkUap10 /logger:"trx;LogFileName=${{ matrix.multitarget }}.trx" /Blame:"CollectDump;DumpType=Full;CollectHangDump;TestTimeout=30m;HangDumpType=Full" /Diag:"${{ github.workspace }}/vstest-diagnostic-log.txt"
-
-      - name: Create test reports
-        run: |
-          testspace '[${{ matrix.multitarget }}]./TestResults/*.trx'
-        if: ${{ (matrix.multitarget == 'uwp' || matrix.multitarget == 'wasdk') && (steps.test-generator.conclusion == 'success' || steps.test-platform.conclusion == 'success') }}
 
       - name: Artifact - Diagnostic Logs
         uses: actions/upload-artifact@v4
@@ -218,7 +229,7 @@ jobs:
           dotnet-dump analyze ${{ steps.detect-dump.outputs.DUMP_FILE }} -c "clrstack" -c "pe -lines" -c "exit"
 
   package:
-    runs-on: windows-2022
+    runs-on: windows-2025-large
     needs: [build]
     strategy:
       fail-fast: false # prevent one matrix pipeline from being cancelled if one fails, we want them all to run to completion.
@@ -330,7 +341,7 @@ jobs:
   sign:
     needs: [package]
     if: ${{ github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/heads/rel/') }}
-    runs-on: windows-2022
+    runs-on: windows-2025-large
     permissions:
       id-token: write # Required for requesting the JWT
 
