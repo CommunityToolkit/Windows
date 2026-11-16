@@ -24,7 +24,13 @@ internal sealed class CompositionObjectCache<TKey, TValue>
     /// <summary>
     /// The cache of weak references of type <typeparamref name="TValue"/> to <typeparamref name="TKey"/> instances, to avoid memory leaks
     /// </summary>
-    private readonly ConditionalWeakTable<Compositor, Dictionary<TKey, WeakReference<TValue>>> cache = new ConditionalWeakTable<Compositor, Dictionary<TKey, WeakReference<TValue>>>();
+    /// <remarks>
+    /// The values are always <c>Dictionary&lt;TKey, WeakReference&lt;TValue&gt;&gt;</c> instances. They are typed as <see cref="object"/> because the
+    /// <c>[DynamicallyAccessedMembers(PublicParameterlessConstructor)]</c> annotation on the value type of <see cref="ConditionalWeakTable{TKey, TValue}"/>
+    /// would otherwise make trimming and NativeAOT keep the parameterless constructors of all generic instantiations (binary size).
+    /// This field is private and only accessed here, so <see cref="Unsafe.As{T}(object)"/> is safe.
+    /// </remarks>
+    private readonly ConditionalWeakTable<Compositor, object> cache = new ConditionalWeakTable<Compositor, object>();
 
     /// <summary>
     /// Tries to retrieve a valid instance from the cache, and uses the provided factory if an existing item is not found
@@ -38,7 +44,7 @@ internal sealed class CompositionObjectCache<TKey, TValue>
         lock (this.cache)
         {
             if (this.cache.TryGetValue(compositor, out var map) &&
-                map.TryGetValue(key, out var reference) &&
+                Unsafe.As<Dictionary<TKey, WeakReference<TValue>>>(map).TryGetValue(key, out var reference) &&
                 reference.TryGetTarget(out result))
             {
                 return true;
@@ -61,15 +67,15 @@ internal sealed class CompositionObjectCache<TKey, TValue>
         {
             if (this.cache.TryGetValue(compositor, out var map))
             {
-                _ = map.Remove(key);
+                Dictionary<TKey, WeakReference<TValue>> dictionary = Unsafe.As<Dictionary<TKey, WeakReference<TValue>>>(map);
 
-                map.Add(key, new WeakReference<TValue>(value));
+                _ = dictionary.Remove(key);
+
+                dictionary.Add(key, new WeakReference<TValue>(value));
             }
             else
             {
-                map = new Dictionary<TKey, WeakReference<TValue>> { [key] = new WeakReference<TValue>(value) };
-
-                this.cache.Add(compositor, map);
+                this.cache.Add(compositor, new Dictionary<TKey, WeakReference<TValue>> { [key] = new WeakReference<TValue>(value) });
             }
         }
     }
