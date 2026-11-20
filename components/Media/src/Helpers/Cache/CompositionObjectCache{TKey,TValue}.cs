@@ -73,9 +73,7 @@ internal sealed class CompositionObjectCache<TKey, TValue>
                 Dictionary<TKey, WeakReference<TValue>> dictionary = Unsafe.As<Dictionary<TKey, WeakReference<TValue>>>(map);
 
 #if NET6_0_OR_GREATER
-                WeakReference<TValue> reference = new(value);
-
-                CollectionsMarshal.GetValueRefOrAddDefault(dictionary, key, out _) = reference;
+                CollectionsMarshal.GetValueRefOrAddDefault(dictionary, key, out _) = new WeakReference<TValue>(value);
 #else
                 _ = dictionary.Remove(key);
 
