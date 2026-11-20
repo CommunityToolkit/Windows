@@ -3,6 +3,9 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Runtime.CompilerServices;
+#if NET6_0_OR_GREATER
+using System.Runtime.InteropServices;
+#endif
 
 #if WINUI2
 using Windows.UI.Composition;
@@ -69,9 +72,15 @@ internal sealed class CompositionObjectCache<TKey, TValue>
             {
                 Dictionary<TKey, WeakReference<TValue>> dictionary = Unsafe.As<Dictionary<TKey, WeakReference<TValue>>>(map);
 
+#if NET6_0_OR_GREATER
+                WeakReference<TValue> reference = new(value);
+
+                CollectionsMarshal.GetValueRefOrAddDefault(dictionary, key, out _) = reference;
+#else
                 _ = dictionary.Remove(key);
 
                 dictionary.Add(key, new WeakReference<TValue>(value));
+#endif
             }
             else
             {
