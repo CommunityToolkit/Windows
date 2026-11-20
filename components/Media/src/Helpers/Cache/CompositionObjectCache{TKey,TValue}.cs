@@ -82,7 +82,9 @@ internal sealed class CompositionObjectCache<TKey, TValue>
             }
             else
             {
-                this.cache.Add(compositor, new Dictionary<TKey, WeakReference<TValue>> { [key] = new WeakReference<TValue>(value) });
+                map = new Dictionary<TKey, WeakReference<TValue>> { [key] = new WeakReference<TValue>(value) };
+
+                this.cache.Add(compositor, map);
             }
         }
     }
