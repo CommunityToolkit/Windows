@@ -2,6 +2,7 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
+using CommunityToolkit.WinUI.Automation.Peers;
 using Windows.System;
 
 namespace CommunityToolkit.WinUI.Controls;
@@ -23,6 +24,9 @@ public partial class Segmented : ListViewBase
 
         RegisterPropertyChangedCallback(SelectedIndexProperty, OnSelectedIndexChanged);
     }
+
+    /// <inheritdoc/>
+    protected override AutomationPeer OnCreateAutomationPeer() => new SegmentedAutomationPeer(this);
 
     /// <inheritdoc/>
     protected override DependencyObject GetContainerForItemOverride() => new SegmentedItem();
