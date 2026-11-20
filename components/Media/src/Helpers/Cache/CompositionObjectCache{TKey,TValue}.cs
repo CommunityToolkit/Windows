@@ -3,7 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Runtime.CompilerServices;
-#if NET6_0_OR_GREATER
+#if NET8_0_OR_GREATER
 using System.Runtime.InteropServices;
 #endif
 
@@ -72,7 +72,7 @@ internal sealed class CompositionObjectCache<TKey, TValue>
             {
                 Dictionary<TKey, WeakReference<TValue>> dictionary = Unsafe.As<Dictionary<TKey, WeakReference<TValue>>>(map);
 
-#if NET6_0_OR_GREATER
+#if NET8_0_OR_GREATER
                 CollectionsMarshal.GetValueRefOrAddDefault(dictionary, key, out _) = new WeakReference<TValue>(value);
 #else
                 _ = dictionary.Remove(key);
