@@ -56,7 +56,7 @@ public partial class Test_Segmented_AutomationPeer : VisualUITestBase
             control.SelectedIndex = selectedIndex;
 
             Assert.AreSame(items[selectedIndex], control.SelectedItem);
-            AssertSelection(selection, itemProviders, selectedIndex);
+            AssertSelection(selection, itemProviders, selectedIndex, selectedIndex == 0 ? "List" : "Grid");
         }
     }
 
@@ -74,14 +74,14 @@ public partial class Test_Segmented_AutomationPeer : VisualUITestBase
 
         Assert.AreEqual(1, control.SelectedIndex);
         Assert.AreSame(items[1], control.SelectedItem);
-        AssertSelection(selection, itemProviders, 1);
+        AssertSelection(selection, itemProviders, 1, "Grid");
 
         control.IsEnabled = false;
         Assert.ThrowsException<ElementNotEnabledException>(() => itemProviders[0].Select());
 
         Assert.AreEqual(1, control.SelectedIndex);
         Assert.AreSame(items[1], control.SelectedItem);
-        AssertSelection(selection, itemProviders, 1);
+        AssertSelection(selection, itemProviders, 1, "Grid");
     }
 
     private async Task VerifyCollectionChangesAsync(bool explicitContainers)
@@ -100,8 +100,8 @@ public partial class Test_Segmented_AutomationPeer : VisualUITestBase
 
         Assert.AreEqual(2, control.SelectedIndex);
         Assert.AreSame(selectedItem, control.SelectedItem);
-        AssertSelection(selection, GetItemProviders(peer, "Details", "List", "Grid"), 2);
-        AssertSelection(selection, originalProviders, 1);
+        AssertSelection(selection, GetItemProviders(peer, "Details", "List", "Grid"), 2, "Grid");
+        AssertSelection(selection, originalProviders, 1, "Grid");
 
         items.Remove(selectedItem);
         await CompositionTargetHelper.ExecuteAfterCompositionRenderingAsync(() => { });
@@ -111,8 +111,8 @@ public partial class Test_Segmented_AutomationPeer : VisualUITestBase
 
         Assert.AreEqual(1, control.SelectedIndex);
         Assert.AreSame(items[1], control.SelectedItem);
-        AssertSelection(selection, GetItemProviders(peer, "Details", "List"), 1);
-        AssertSelection(selection, originalProviders, 0);
+        AssertSelection(selection, GetItemProviders(peer, "Details", "List"), 1, "List");
+        AssertSelection(selection, originalProviders, 0, "List");
     }
 
     private static (Segmented Control, ObservableCollection<object> Items) CreateControl(bool explicitContainers)
@@ -175,16 +175,31 @@ public partial class Test_Segmented_AutomationPeer : VisualUITestBase
         return providers;
     }
 
-    private static void AssertSelection(ISelectionProvider selection, ISelectionItemProvider[] items, int selectedIndex)
+    private static void AssertSelection(ISelectionProvider selection, ISelectionItemProvider[] items, int selectedIndex, string expectedSelectedName)
     {
         var selectedItems = selection.GetSelection();
         Assert.IsNotNull(selectedItems);
         Assert.AreEqual(1, selectedItems.Length);
 
+        var selectedPeer = new ProviderPeerAccess().Resolve(selectedItems[0]);
+        Assert.IsNotNull(selectedPeer);
+        Assert.AreEqual(expectedSelectedName, selectedPeer.GetName(), "The root must return the selected item's provider.");
+
         for (var index = 0; index < items.Length; index++)
         {
             Assert.AreEqual(index == selectedIndex, items[index].IsSelected, $"Selection identity at item {index}.");
         }
+    }
+
+    // Exposes the protected conversion on a detached element, without replacing any control or item peer.
+    private sealed partial class ProviderPeerAccess : FrameworkElementAutomationPeer
+    {
+        public ProviderPeerAccess()
+            : base(new Grid())
+        {
+        }
+
+        public AutomationPeer Resolve(IRawElementProviderSimple provider) => PeerFromProvider(provider);
     }
 }
 #endif
