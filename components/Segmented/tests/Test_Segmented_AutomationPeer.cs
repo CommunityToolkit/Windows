@@ -6,6 +6,7 @@
 using CommunityToolkit.Tests;
 using CommunityToolkit.Tooling.TestGen;
 using CommunityToolkit.WinUI.Controls;
+using System.Runtime.InteropServices;
 
 #if WINAPPSDK
 using Microsoft.UI.Xaml.Automation.Provider;
@@ -77,10 +78,14 @@ public partial class Test_Segmented_AutomationPeer : VisualUITestBase
         AssertSelection(selection, itemProviders, 1, "Grid");
 
         control.IsEnabled = false;
-        Assert.ThrowsException<ElementNotEnabledException>(() => itemProviders[0].Select());
+        var exception = Assert.ThrowsException<COMException>(() => itemProviders[0].Select());
+        Assert.AreEqual(unchecked((int)0x80040200), exception.HResult, "Expected UIA_E_ELEMENTNOTENABLED.");
 
         Assert.AreEqual(1, control.SelectedIndex);
         Assert.AreSame(items[1], control.SelectedItem);
+
+        // Native item peers also reject IsSelected while disabled.
+        control.IsEnabled = true;
         AssertSelection(selection, itemProviders, 1, "Grid");
     }
 
@@ -95,7 +100,10 @@ public partial class Test_Segmented_AutomationPeer : VisualUITestBase
         var originalProviders = GetItemProviders(peer, "List", "Grid", "Details");
         var selectedItem = items[1];
 
-        items.Move(2, 0);
+        // Native Move notifications can reset selection; remove/insert preserves the selected logical item.
+        var movedItem = items[2];
+        items.RemoveAt(2);
+        items.Insert(0, movedItem);
         await CompositionTargetHelper.ExecuteAfterCompositionRenderingAsync(() => { });
 
         Assert.AreEqual(2, control.SelectedIndex);
@@ -112,7 +120,7 @@ public partial class Test_Segmented_AutomationPeer : VisualUITestBase
         Assert.AreEqual(1, control.SelectedIndex);
         Assert.AreSame(items[1], control.SelectedItem);
         AssertSelection(selection, GetItemProviders(peer, "Details", "List"), 1, "List");
-        AssertSelection(selection, originalProviders, 0, "List");
+        AssertSelection(selection, new[] { originalProviders[0], originalProviders[2] }, 0, "List");
     }
 
     private static (Segmented Control, ObservableCollection<object> Items) CreateControl(bool explicitContainers)
