@@ -9,6 +9,7 @@
     <Import_RootNamespace>SegmentedTests</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Test_Segmented_AutomationPeer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ExampleSegmentedTestClass.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ExampleSegmentedTestPage.xaml.cs">
       <DependentUpon>ExampleSegmentedTestPage.xaml</DependentUpon>
