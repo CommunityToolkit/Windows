@@ -2,6 +2,7 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
+using CommunityToolkit.Common.Deferred;
 using CommunityToolkit.Tests;
 using CommunityToolkit.WinUI.Controls;
 
@@ -309,6 +310,62 @@ public class Test_RichSuggestBox : VisualUITestBase
             Assert.AreEqual("Hello \u200b@Michael Hawker\u200b from \u200b@Tung Huynh\u200b\r", text, "Unexpected document text.");
             AssertToken(rsb, token1);
             AssertToken(rsb, token2);
+        });
+    }
+
+    [TestCategory(nameof(RichSuggestBox))]
+    [TestMethod]
+    [DataRow(true, DisplayName = "Popup open, request pending")]
+    [DataRow(false, DisplayName = "Popup closed, request pending")]
+    public async Task Test_RichSuggestBox_UnloadClosesSuggestionPopup(bool openPopupBeforeUnload)
+    {
+        await App.DispatcherQueue.EnqueueAsync(async () =>
+        {
+            var rsb = new RichSuggestBox()
+            {
+                Prefixes = "@",
+                ItemsSource = new List<string> { "Ada", "Alan", "Grace", "Linus" },
+            };
+
+            var deferRequests = !openPopupBeforeUnload;
+            EventDeferral? pendingDeferral = null;
+            rsb.SuggestionRequested += (sender, args) =>
+            {
+                if (deferRequests)
+                {
+                    pendingDeferral = args.GetDeferral();
+                }
+            };
+
+            await LoadTestContentAsync(rsb);
+            var popup = (rsb.FindDescendant("SuggestionsPopup") as Popup)!;
+            Assert.IsNotNull(popup, "Suggestion popup template part was not found.");
+
+            var selection = rsb.TextDocument!.Selection;
+            if (openPopupBeforeUnload)
+            {
+                selection.TypeText("@");
+                await CompositionTargetHelper.ExecuteAfterCompositionRenderingAsync(() => { });
+                Assert.IsTrue(popup.IsOpen, "Suggestion popup did not open for the initial query.");
+
+                deferRequests = true;
+                selection.TypeText("A");
+            }
+            else
+            {
+                selection.TypeText("@");
+            }
+
+            await CompositionTargetHelper.ExecuteAfterCompositionRenderingAsync(() => { });
+            Assert.IsNotNull(pendingDeferral, "Suggestion request was not left pending.");
+            Assert.AreEqual(openPopupBeforeUnload, popup.IsOpen, "Unexpected popup state while the request is pending.");
+
+            await UnloadTestContentAsync(rsb);
+            Assert.IsFalse(popup.IsOpen, "Suggestion popup is still open after the control was unloaded.");
+
+            pendingDeferral!.Complete();
+            await CompositionTargetHelper.ExecuteAfterCompositionRenderingAsync(() => { });
+            Assert.IsFalse(popup.IsOpen, "Suggestion popup reopened after a pending request completed on an unloaded control.");
         });
     }
 
