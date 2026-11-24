@@ -1,0 +1,144 @@
+name: Uno bootstrap baseline
+
+# This measures the main commit underlying PR #892, not the diagnostic PR's code.
+# Keep the runner, SDK selection, tool manifest and Uno arguments aligned with
+# build.yml at that commit. Stop before solution generation, builds or packaging.
+on:
+  pull_request:
+    branches: [main]
+    paths: ['.github/workflows/bootstrap-baseline.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  BASELINE_SHA: a2fa47ad72cb95ed81f3ff0885da627a5fd6c14e
+
+jobs:
+  uno-bootstrap:
+    # The existing CI uses this organization's larger runner, not a fork runner.
+    if: ${{ github.repository == 'CommunityToolkit/Windows' }}
+    runs-on: windows-2025-large
+    timeout-minutes: 30
+    defaults:
+      run:
+        shell: pwsh
+
+    steps:
+      - name: Checkout pinned baseline
+        id: checkout
+        uses: actions/checkout@v4
+        with:
+          repository: CommunityToolkit/Windows
+          ref: ${{ env.BASELINE_SHA }}
+          submodules: recursive
+          persist-credentials: false
+
+      - name: Identify source and runner
+        id: source
+        env:
+          WORKFLOW_REF: ${{ github.workflow_ref }}
+          WORKFLOW_SHA: ${{ github.workflow_sha }}
+          TRIGGER_SHA: ${{ github.sha }}
+          RUNNER_NAME: ${{ runner.name }}
+        run: |
+          $PSNativeCommandUseErrorActionPreference = $true
+          $actual = git rev-parse HEAD
+          if ($actual -ne $env:BASELINE_SHA) {
+            throw "Expected baseline $env:BASELINE_SHA, checked out $actual."
+          }
+          $sdk = (Get-Content global.json -Raw | ConvertFrom-Json).sdk
+          $uno = (Get-Content .config\dotnet-tools.json -Raw | ConvertFrom-Json).tools.'uno.check'.version
+          @"
+          ## Pinned Uno bootstrap baseline
+          | Input | Value |
+          | --- | --- |
+          | Source repository | CommunityToolkit/Windows |
+          | Source commit | $actual |
+          | Workflow ref | $env:WORKFLOW_REF |
+          | Workflow commit | $env:WORKFLOW_SHA |
+          | Trigger commit (not the measured source) | $env:TRIGGER_SHA |
+          | Run / attempt | $env:GITHUB_RUN_ID / $env:GITHUB_RUN_ATTEMPT |
+          | Started (UTC) | $([DateTime]::UtcNow.ToString('o')) |
+          | Target | wasm (the WinUI 3 job fails before WinUI selection) |
+          | Runner label | windows-2025-large |
+          | Runner instance | $env:RUNNER_NAME |
+          | Runner OS / architecture | $env:RUNNER_OS / $env:RUNNER_ARCH |
+          | Runner image / version | $env:ImageOS / $env:ImageVersion |
+          | PowerShell | $($PSVersionTable.PSVersion) |
+          | Requested SDK / roll-forward | $($sdk.version) / $($sdk.rollForward) |
+          | Requested uno.check | $uno |
+          "@ | Tee-Object -FilePath $env:GITHUB_STEP_SUMMARY -Append
+          git ls-tree HEAD -- global.json .config/dotnet-tools.json .github/workflows/build.yml tooling
+          dotnet --list-sdks
+
+      - name: Install .NET SDK
+        id: sdk
+        uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+
+      - name: Record selected SDK
+        id: info
+        run: |
+          $PSNativeCommandUseErrorActionPreference = $true
+          $selected = dotnet --version
+          "Selected SDK: $selected" | Tee-Object -FilePath $env:GITHUB_STEP_SUMMARY -Append
+          dotnet --info
+
+      - name: Restore dotnet tools
+        id: tools
+        run: dotnet tool restore
+
+      - name: Record restored tools
+        id: tool_info
+        run: dotnet tool list --local
+
+      - name: Run Uno Check to Install Dependencies
+        id: uno
+        run: >
+          dotnet tool run uno-check
+          --ci
+          --target wasm
+          --fix
+          --non-interactive
+          --skip wsl
+          --skip androidemulator
+          --skip vswinworkloads
+          --skip vswin
+          --verbose
+
+      - name: Record SDK inventory after bootstrap
+        if: ${{ always() && steps.sdk.outcome == 'success' }}
+        run: dotnet --list-sdks
+
+      - name: Summarize bootstrap result
+        if: ${{ always() }}
+        env:
+          CHECKOUT_OUTCOME: ${{ steps.checkout.outcome }}
+          SOURCE_OUTCOME: ${{ steps.source.outcome }}
+          SDK_OUTCOME: ${{ steps.sdk.outcome }}
+          INFO_OUTCOME: ${{ steps.info.outcome }}
+          TOOLS_OUTCOME: ${{ steps.tools.outcome }}
+          TOOL_INFO_OUTCOME: ${{ steps.tool_info.outcome }}
+          UNO_OUTCOME: ${{ steps.uno.outcome }}
+        run: |
+          @"
+          ## Step outcomes
+          | Step | Outcome |
+          | --- | --- |
+          | Checkout pinned baseline | $env:CHECKOUT_OUTCOME |
+          | Identify source and runner | $env:SOURCE_OUTCOME |
+          | Install .NET SDK | $env:SDK_OUTCOME |
+          | Record selected SDK | $env:INFO_OUTCOME |
+          | Restore dotnet tools | $env:TOOLS_OUTCOME |
+          | Record restored tools | $env:TOOL_INFO_OUTCOME |
+          | Run Uno Check to Install Dependencies | $env:UNO_OUTCOME |
+          "@ | Tee-Object -FilePath $env:GITHUB_STEP_SUMMARY -Append
+          $result = switch ($env:UNO_OUTCOME) {
+            'success' { 'The pinned baseline completed Uno bootstrap. This does not establish component build or test success.' }
+            'failure' { 'The pinned baseline failed in Uno Check. Compare that step log with PR #892 before attributing the failure to the same workload conflict.' }
+            default { 'Uno bootstrap did not complete. Use the step outcomes and logs above; no baseline conclusion is available.' }
+          }
+          $result | Tee-Object -FilePath $env:GITHUB_STEP_SUMMARY -Append
