@@ -4,6 +4,7 @@
 
 using CommunityToolkit.Tests;
 using CommunityToolkit.WinUI.Controls;
+using Windows.UI;
 
 namespace TokenizingTextBoxTests;
 
@@ -155,6 +156,93 @@ $@"<Page
             // The last token should be removed to account for the reduced maximum.
             Assert.AreEqual(startingItemsCount + 1, tokenBox.Items.Count);
             Assert.AreEqual("TokenItem1", tokenBox.Items[0]);
+        });
+    }
+
+    [TestCategory("Test_TokenizingTextBox_General")]
+    [DataTestMethod]
+    [DataRow(0)]
+    [DataRow(3)]
+    public async Task Test_TokenCounterForegroundFollowsLocalTheme(int initialTokens)
+    {
+        await App.DispatcherQueue.EnqueueAsync(async () =>
+        {
+            var treeRoot = XamlReader.Load(
+@"<Page
+    xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""
+    xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml""
+    xmlns:controls=""using:CommunityToolkit.WinUI.Controls""
+    RequestedTheme=""Light"">
+    <StackPanel>
+        <controls:TokenizingTextBox x:Name=""tokenboxname"" MaximumTokens=""3""
+                                   PlaceholderText=""Tokens"" Width=""400"" />
+        <TextBlock x:Name=""secondaryProbe"" Text=""Secondary""
+                   Foreground=""{ThemeResource TextFillColorSecondaryBrush}"" />
+        <TextBlock x:Name=""criticalProbe"" Text=""Critical""
+                   Foreground=""{ThemeResource SystemFillColorCriticalBrush}"" />
+    </StackPanel>
+</Page>") as FrameworkElement;
+
+            Assert.IsNotNull(treeRoot, "Could not load XAML tree.");
+            await LoadTestContentAsync(treeRoot);
+
+            var tokenBox = treeRoot.FindChild("tokenboxname") as TokenizingTextBox;
+            var secondaryProbe = treeRoot.FindChild("secondaryProbe") as TextBlock;
+            var criticalProbe = treeRoot.FindChild("criticalProbe") as TextBlock;
+
+            Assert.IsNotNull(tokenBox, "Could not find TokenizingTextBox in tree.");
+            Assert.IsNotNull(secondaryProbe, "Could not find the secondary theme resource probe.");
+            Assert.IsNotNull(criticalProbe, "Could not find the critical theme resource probe.");
+            Assert.AreEqual(ElementTheme.Light, secondaryProbe.ActualTheme);
+            Assert.AreEqual(ElementTheme.Light, criticalProbe.ActualTheme);
+
+            var lightSecondary = ((SolidColorBrush)secondaryProbe.Foreground).Color;
+            var lightCritical = ((SolidColorBrush)criticalProbe.Foreground).Color;
+
+            treeRoot.RequestedTheme = ElementTheme.Dark;
+            await CompositionTargetHelper.ExecuteAfterCompositionRenderingAsync(() => { });
+
+            Assert.AreEqual(ElementTheme.Dark, secondaryProbe.ActualTheme);
+            Assert.AreEqual(ElementTheme.Dark, criticalProbe.ActualTheme);
+            var darkSecondary = ((SolidColorBrush)secondaryProbe.Foreground).Color;
+            var darkCritical = ((SolidColorBrush)criticalProbe.Foreground).Color;
+
+            Assert.AreNotEqual(lightSecondary, darkSecondary, "The secondary brush oracle must distinguish Light and Dark.");
+            Assert.AreNotEqual(lightCritical, darkCritical, "The critical brush oracle must distinguish Light and Dark.");
+
+            for (var i = 0; i < initialTokens; i++)
+            {
+                tokenBox.AddTokenItem($"Token {i}");
+            }
+
+            if (initialTokens == tokenBox.MaximumTokens)
+            {
+                await AssertCounterThemesAsync(criticalProbe, lightCritical, darkCritical, "3/3");
+                await tokenBox.ClearAsync();
+            }
+
+            await AssertCounterThemesAsync(secondaryProbe, lightSecondary, darkSecondary, "0/3");
+
+            async Task AssertCounterThemesAsync(TextBlock probe, Color lightColor, Color darkColor, string expectedText)
+            {
+                foreach (var theme in new[] { ElementTheme.Light, ElementTheme.Dark, ElementTheme.Light })
+                {
+                    treeRoot.RequestedTheme = theme;
+                    await CompositionTargetHelper.ExecuteAfterCompositionRenderingAsync(() => { });
+
+                    var counter = tokenBox.FindDescendant("PART_TokensCounter") as TextBlock;
+                    Assert.IsNotNull(counter, "Could not find the native token counter.");
+                    Assert.AreEqual(theme, tokenBox.ActualTheme);
+                    Assert.AreEqual(theme, counter.ActualTheme);
+                    Assert.AreEqual(theme, probe.ActualTheme);
+                    Assert.AreEqual(Visibility.Visible, counter.Visibility);
+                    Assert.AreEqual(expectedText, counter.Text);
+
+                    var expectedColor = theme == ElementTheme.Light ? lightColor : darkColor;
+                    Assert.AreEqual(expectedColor, ((SolidColorBrush)probe.Foreground).Color, "The element-local probe did not follow the requested theme.");
+                    Assert.AreEqual(expectedColor, ((SolidColorBrush)counter.Foreground).Color, $"Counter {expectedText} did not follow the local {theme} theme.");
+                }
+            }
         });
     }
 
