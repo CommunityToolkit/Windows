@@ -60,7 +60,8 @@ public partial class RichSuggestBox
                 }
             }
 
-            if (!eventArgs.Cancel)
+            // The request may have been superseded or the control unloaded while awaiting.
+            if (!eventArgs.Cancel && !cancellationToken.IsCancellationRequested)
             {
                 _suggestionChoice = 0;
                 ShowSuggestionsPopup(_suggestionsList?.Items?.Count > 0);
