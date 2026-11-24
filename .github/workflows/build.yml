@@ -145,6 +145,7 @@ jobs:
           --skip vswinworkloads
           --skip vswin
           --verbose
+          --manifest https://raw.githubusercontent.com/unoplatform/uno.check/d84980d73c7fb9b5188589972db4f7c4d39f086b/manifests/uno.ui.manifest.json
 
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v2
