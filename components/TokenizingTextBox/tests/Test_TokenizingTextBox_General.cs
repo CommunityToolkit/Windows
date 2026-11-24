@@ -171,15 +171,14 @@ $@"<Page
 @"<Page
     xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""
     xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml""
-    xmlns:controls=""using:CommunityToolkit.WinUI.Controls""
-    RequestedTheme=""Light"">
+    xmlns:controls=""using:CommunityToolkit.WinUI.Controls"">
     <StackPanel>
         <controls:TokenizingTextBox x:Name=""tokenboxname"" MaximumTokens=""3""
-                                   PlaceholderText=""Tokens"" Width=""400"" />
+                                   PlaceholderText=""Tokens"" Width=""400"" RequestedTheme=""Light"" />
         <TextBlock x:Name=""secondaryProbe"" Text=""Secondary""
-                   Foreground=""{ThemeResource TextFillColorSecondaryBrush}"" />
+                   Foreground=""{ThemeResource TextFillColorSecondaryBrush}"" RequestedTheme=""Light"" />
         <TextBlock x:Name=""criticalProbe"" Text=""Critical""
-                   Foreground=""{ThemeResource SystemFillColorCriticalBrush}"" />
+                   Foreground=""{ThemeResource SystemFillColorCriticalBrush}"" RequestedTheme=""Light"" />
     </StackPanel>
 </Page>") as FrameworkElement;
 
@@ -199,7 +198,9 @@ $@"<Page
             var lightSecondary = ((SolidColorBrush)secondaryProbe.Foreground).Color;
             var lightCritical = ((SolidColorBrush)criticalProbe.Foreground).Color;
 
-            treeRoot.RequestedTheme = ElementTheme.Dark;
+            tokenBox.RequestedTheme = ElementTheme.Dark;
+            secondaryProbe.RequestedTheme = ElementTheme.Dark;
+            criticalProbe.RequestedTheme = ElementTheme.Dark;
             await CompositionTargetHelper.ExecuteAfterCompositionRenderingAsync(() => { });
 
             Assert.AreEqual(ElementTheme.Dark, secondaryProbe.ActualTheme);
@@ -227,7 +228,9 @@ $@"<Page
             {
                 foreach (var theme in new[] { ElementTheme.Light, ElementTheme.Dark, ElementTheme.Light })
                 {
-                    treeRoot.RequestedTheme = theme;
+                    tokenBox.RequestedTheme = theme;
+                    secondaryProbe.RequestedTheme = theme;
+                    criticalProbe.RequestedTheme = theme;
                     await CompositionTargetHelper.ExecuteAfterCompositionRenderingAsync(() => { });
 
                     var counter = tokenBox.FindDescendant("PART_TokensCounter") as TextBlock;
