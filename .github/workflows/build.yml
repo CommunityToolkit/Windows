@@ -132,6 +132,18 @@ jobs:
       - name: Restore dotnet tools
         run: dotnet tool restore
 
+      # uno-check ignores global.json and installs workloads with the newest SDK on the machine.
+      # Remove SDKs newer than the global.json one so workloads match the SDK we build with.
+      - name: Remove .NET SDKs newer than global.json
+        if: ${{ matrix.multitarget != 'wasdk' && matrix.multitarget != 'linuxgtk' && matrix.multitarget != 'wpf' }}
+        shell: pwsh
+        run: |
+          $selected = [System.Management.Automation.SemanticVersion](dotnet --version)
+          Get-ChildItem (Join-Path $env:DOTNET_ROOT 'sdk') -Directory |
+            Where-Object { $v = $null; [System.Management.Automation.SemanticVersion]::TryParse($_.Name, [ref]$v) -and $v -gt $selected } |
+            ForEach-Object { Write-Host "Removing $($_.FullName)"; Remove-Item $_.FullName -Recurse -Force }
+          dotnet --list-sdks
+
       - name: Run Uno Check to Install Dependencies
         if: ${{ matrix.multitarget != 'wasdk' && matrix.multitarget != 'linuxgtk' && matrix.multitarget != 'wpf' }}
         run: >
@@ -271,6 +283,16 @@ jobs:
 
       - name: Restore dotnet tools
         run: dotnet tool restore
+
+      # See the matching step in the build job.
+      - name: Remove .NET SDKs newer than global.json
+        shell: pwsh
+        run: |
+          $selected = [System.Management.Automation.SemanticVersion](dotnet --version)
+          Get-ChildItem (Join-Path $env:DOTNET_ROOT 'sdk') -Directory |
+            Where-Object { $v = $null; [System.Management.Automation.SemanticVersion]::TryParse($_.Name, [ref]$v) -and $v -gt $selected } |
+            ForEach-Object { Write-Host "Removing $($_.FullName)"; Remove-Item $_.FullName -Recurse -Force }
+          dotnet --list-sdks
 
       - name: Run Uno Check to Install Dependencies
         run: >
