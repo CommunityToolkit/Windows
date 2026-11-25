@@ -132,6 +132,19 @@ jobs:
       - name: Restore dotnet tools
         run: dotnet tool restore
 
+      # uno-check installs workloads with the newest SDK it finds, ignoring global.json, while the build
+      # uses the SDK pinned in global.json. The runner images ship a newer SDK too (.NET 11), so the
+      # workloads would land in the wrong feature band. Remove SDKs newer than the pinned one first.
+      - name: Remove .NET SDKs newer than global.json
+        if: ${{ matrix.multitarget != 'wasdk' && matrix.multitarget != 'linuxgtk' && matrix.multitarget != 'wpf' }}
+        shell: pwsh
+        run: |
+          $pinnedMajor = ([version](Get-Content global.json -Raw | ConvertFrom-Json).sdk.version.Split('-')[0]).Major
+          Get-ChildItem "$env:ProgramFiles\dotnet\sdk" -Directory |
+            Where-Object { $_.Name -match '^\d+\.' -and [int]($_.Name.Split('.')[0]) -gt $pinnedMajor } |
+            ForEach-Object { Write-Host "Removing $($_.FullName)"; Remove-Item $_.FullName -Recurse -Force }
+          dotnet --list-sdks
+
       - name: Run Uno Check to Install Dependencies
         if: ${{ matrix.multitarget != 'wasdk' && matrix.multitarget != 'linuxgtk' && matrix.multitarget != 'wpf' }}
         run: >
@@ -271,6 +284,16 @@ jobs:
 
       - name: Restore dotnet tools
         run: dotnet tool restore
+
+      # See the comment in the build job: keep uno-check from using a newer SDK than the one in global.json.
+      - name: Remove .NET SDKs newer than global.json
+        shell: pwsh
+        run: |
+          $pinnedMajor = ([version](Get-Content global.json -Raw | ConvertFrom-Json).sdk.version.Split('-')[0]).Major
+          Get-ChildItem "$env:ProgramFiles\dotnet\sdk" -Directory |
+            Where-Object { $_.Name -match '^\d+\.' -and [int]($_.Name.Split('.')[0]) -gt $pinnedMajor } |
+            ForEach-Object { Write-Host "Removing $($_.FullName)"; Remove-Item $_.FullName -Recurse -Force }
+          dotnet --list-sdks
 
       - name: Run Uno Check to Install Dependencies
         run: >
