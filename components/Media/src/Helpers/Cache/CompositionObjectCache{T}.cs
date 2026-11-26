@@ -22,7 +22,12 @@ internal sealed class CompositionObjectCache<T>
     /// <summary>
     /// The cache of weak references of type <typeparamref name="T"/>, to avoid memory leaks
     /// </summary>
-    private readonly ConditionalWeakTable<Compositor, WeakReference<T>> cache = new ConditionalWeakTable<Compositor, WeakReference<T>>();
+    /// <remarks>
+    /// The values are always <see cref="WeakReference{T}"/> instances. They are typed as <see cref="object"/> for consistency with
+    /// <see cref="CompositionObjectCache{TKey, TValue}"/>, to avoid generic <see cref="ConditionalWeakTable{TKey, TValue}"/> value types
+    /// (see the remarks there). This field is private and only accessed here, so <see cref="Unsafe.As{T}(object)"/> is safe.
+    /// </remarks>
+    private readonly ConditionalWeakTable<Compositor, object> cache = new ConditionalWeakTable<Compositor, object>();
 
     /// <summary>
     /// Tries to retrieve a valid <typeparamref name="T"/> instance from the cache, and uses the provided factory if an existing item is not found
@@ -35,7 +40,7 @@ internal sealed class CompositionObjectCache<T>
         lock (cache)
         {
             if (this.cache.TryGetValue(compositor, out var reference) &&
-                reference.TryGetTarget(out var instance))
+                Unsafe.As<WeakReference<T>>(reference).TryGetTarget(out var instance))
             {
                 return instance;
             }
