@@ -395,9 +395,11 @@ public partial class TokenizingTextBoxItem
                     maxTokensCounter.Text = $"{currentTokens}/{maxTokens}";
                     maxTokensCounter.Visibility = Visibility.Visible;
 
-                    maxTokensCounter.Foreground = (currentTokens >= maxTokens)
-                        ? (SolidColorBrush)Application.Current.Resources["SystemFillColorCriticalBrush"]
-                        : (SolidColorBrush)Application.Current.Resources["TextFillColorSecondaryBrush"];
+                    if (maxTokensCounter.FindAscendant<TextBox>() is TextBox textBox)
+                    {
+                        // Keep the template's ThemeResource expressions active across local theme changes.
+                        VisualStateManager.GoToState(textBox, currentTokens >= maxTokens ? TokenizingTextBox.PART_MaxReachedState : "Default", false);
+                    }
                 }
             }
 
