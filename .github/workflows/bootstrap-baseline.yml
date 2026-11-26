@@ -1,0 +1,197 @@
+name: Uno bootstrap baseline
+
+# This measures the main commit underlying PR #892, not the diagnostic PR's code.
+# The baseline keeps build.yml's bootstrap inputs. The candidate only adds the
+# exact SDK requested by uno.check 1.34.1's embedded manifest, so its SDK check
+# need not fall back to the newest installed major version.
+# https://github.com/unoplatform/uno.check/blob/79d3dfce8fa13e86c0f37d0538087d8450fe4e91/UnoCheck/Checkups/DotNetCheckup.cs#L54-L86
+# Stop before solution generation, builds or packaging.
+on:
+  pull_request:
+    branches: [main]
+    paths: ['.github/workflows/bootstrap-baseline.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  BASELINE_SHA: a2fa47ad72cb95ed81f3ff0885da627a5fd6c14e
+
+jobs:
+  uno-bootstrap:
+    name: WASM bootstrap (${{ matrix.experiment }})
+    # The existing CI uses this organization's larger runner, not a fork runner.
+    if: ${{ github.repository == 'CommunityToolkit/Windows' }}
+    runs-on: windows-2025-large
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        experiment: [baseline, candidate-manifest-sdk]
+    env:
+      EXPERIMENT: ${{ matrix.experiment }}
+      # https://github.com/unoplatform/uno.check/blob/79d3dfce8fa13e86c0f37d0538087d8450fe4e91/manifests/uno.ui.manifest.json#L6
+      ADDITIONAL_SDK: ${{ matrix.experiment == 'candidate-manifest-sdk' && '10.0.101' || '' }}
+    defaults:
+      run:
+        shell: pwsh
+
+    steps:
+      - name: Checkout pinned baseline
+        id: checkout
+        uses: actions/checkout@v4
+        with:
+          repository: CommunityToolkit/Windows
+          ref: ${{ env.BASELINE_SHA }}
+          submodules: recursive
+          persist-credentials: false
+
+      - name: Identify source and runner
+        id: source
+        env:
+          WORKFLOW_REF: ${{ github.workflow_ref }}
+          WORKFLOW_SHA: ${{ github.workflow_sha }}
+          TRIGGER_SHA: ${{ github.sha }}
+          RUNNER_NAME: ${{ runner.name }}
+        run: |
+          $PSNativeCommandUseErrorActionPreference = $true
+          $actual = git rev-parse HEAD
+          if ($actual -ne $env:BASELINE_SHA) {
+            throw "Expected baseline $env:BASELINE_SHA, checked out $actual."
+          }
+          $sdk = (Get-Content global.json -Raw | ConvertFrom-Json).sdk
+          $uno = (Get-Content .config\dotnet-tools.json -Raw | ConvertFrom-Json).tools.'uno.check'.version
+          @"
+          ## Pinned Uno bootstrap experiment
+          | Input | Value |
+          | --- | --- |
+          | Source repository | CommunityToolkit/Windows |
+          | Source commit | $actual |
+          | Experiment | $env:EXPERIMENT |
+          | Additional SDK (empty for baseline) | $env:ADDITIONAL_SDK |
+          | Workflow ref | $env:WORKFLOW_REF |
+          | Workflow commit | $env:WORKFLOW_SHA |
+          | Trigger commit (not the measured source) | $env:TRIGGER_SHA |
+          | Run / attempt | $env:GITHUB_RUN_ID / $env:GITHUB_RUN_ATTEMPT |
+          | Started (UTC) | $([DateTime]::UtcNow.ToString('o')) |
+          | Target | wasm (the WinUI 3 job fails before WinUI selection) |
+          | Runner label | windows-2025-large |
+          | Runner instance | $env:RUNNER_NAME |
+          | Runner OS / architecture | $env:RUNNER_OS / $env:RUNNER_ARCH |
+          | Runner image / version | $env:ImageOS / $env:ImageVersion |
+          | PowerShell | $($PSVersionTable.PSVersion) |
+          | Requested SDK / roll-forward | $($sdk.version) / $($sdk.rollForward) |
+          | Requested uno.check | $uno |
+          "@ | Tee-Object -FilePath $env:GITHUB_STEP_SUMMARY -Append
+          git ls-tree HEAD -- global.json .config/dotnet-tools.json .github/workflows/build.yml tooling
+          dotnet --list-sdks
+
+      - name: Install .NET SDK
+        id: sdk
+        uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+          dotnet-version: ${{ env.ADDITIONAL_SDK }}
+
+      - name: Record selected SDK
+        id: info
+        run: |
+          $PSNativeCommandUseErrorActionPreference = $true
+          $selected = dotnet --version
+          "Selected SDK: $selected" | Tee-Object -FilePath $env:GITHUB_STEP_SUMMARY -Append
+          dotnet --info
+
+      - name: Restore dotnet tools
+        id: tools
+        run: dotnet tool restore
+
+      - name: Record restored tools
+        id: tool_info
+        run: dotnet tool list --local
+
+      - name: Run Uno Check to Install Dependencies
+        id: uno
+        env:
+          DOTNET_HOST_TRACE: '1'
+          DOTNET_HOST_TRACEFILE: ${{ runner.temp }}\uno-host.log
+        run: >
+          dotnet tool run uno-check
+          --ci
+          --target wasm
+          --fix
+          --non-interactive
+          --skip wsl
+          --skip androidemulator
+          --skip vswinworkloads
+          --skip vswin
+          --verbose
+
+      - name: Record SDK inventory after bootstrap
+        if: ${{ always() && steps.sdk.outcome == 'success' }}
+        run: |
+          $PSNativeCommandUseErrorActionPreference = $true
+          dotnet --list-sdks
+          dotnet --list-runtimes
+
+      - name: Record Uno SDK and runtime selections
+        id: selections
+        if: ${{ always() && (steps.uno.outcome == 'success' || steps.uno.outcome == 'failure') }}
+        run: |
+          $PSNativeCommandUseErrorActionPreference = $true
+          $contexts = Get-ChildItem -LiteralPath ([IO.Path]::GetTempPath()) -Directory -Filter 'uno-check-*' |
+            Where-Object { Test-Path -LiteralPath (Join-Path $_.FullName 'global.json') }
+          foreach ($context in $contexts) {
+            $config = Get-Content -LiteralPath (Join-Path $context.FullName 'global.json') -Raw | ConvertFrom-Json
+            Push-Location $context.FullName
+            try {
+              $selected = dotnet --version
+              "Uno context $($context.Name): requested $($config.sdk.version), roll-forward $($config.sdk.rollForward), resolved SDK $selected" |
+                Tee-Object -FilePath $env:GITHUB_STEP_SUMMARY -Append
+            } finally {
+              Pop-Location
+            }
+          }
+          if (-not $contexts) {
+            Write-Warning 'No Uno SDK contexts were created; inspect the Uno step failure.'
+          }
+          # Report only SDK/framework choices, not the full host trace.
+          $choices = Get-Content -LiteralPath (Join-Path $env:RUNNER_TEMP 'uno-host.log') |
+            Select-String -Pattern 'Chose FX version|Using .NET SDK dll|Resolved SDK dir' |
+            Select-Object -ExpandProperty Line
+          if (-not $choices) {
+            throw 'Host trace did not record SDK/runtime choices.'
+          }
+          $choices
+
+      - name: Summarize bootstrap result
+        if: ${{ always() }}
+        env:
+          CHECKOUT_OUTCOME: ${{ steps.checkout.outcome }}
+          SOURCE_OUTCOME: ${{ steps.source.outcome }}
+          SDK_OUTCOME: ${{ steps.sdk.outcome }}
+          INFO_OUTCOME: ${{ steps.info.outcome }}
+          TOOLS_OUTCOME: ${{ steps.tools.outcome }}
+          TOOL_INFO_OUTCOME: ${{ steps.tool_info.outcome }}
+          UNO_OUTCOME: ${{ steps.uno.outcome }}
+          SELECTIONS_OUTCOME: ${{ steps.selections.outcome }}
+        run: |
+          @"
+          ## Step outcomes ($env:EXPERIMENT)
+          | Step | Outcome |
+          | --- | --- |
+          | Checkout pinned baseline | $env:CHECKOUT_OUTCOME |
+          | Identify source and runner | $env:SOURCE_OUTCOME |
+          | Install .NET SDK | $env:SDK_OUTCOME |
+          | Record selected SDK | $env:INFO_OUTCOME |
+          | Restore dotnet tools | $env:TOOLS_OUTCOME |
+          | Record restored tools | $env:TOOL_INFO_OUTCOME |
+          | Run Uno Check to Install Dependencies | $env:UNO_OUTCOME |
+          | Record Uno SDK and runtime selections | $env:SELECTIONS_OUTCOME |
+          "@ | Tee-Object -FilePath $env:GITHUB_STEP_SUMMARY -Append
+          $result = switch ($env:UNO_OUTCOME) {
+            'success' { "The $env:EXPERIMENT experiment completed Uno bootstrap on the pinned source. This does not establish component build or test success." }
+            'failure' { "The $env:EXPERIMENT experiment failed in Uno Check. Inspect that step log before attributing the failure to the same workload conflict." }
+            default { "Uno bootstrap did not complete for $env:EXPERIMENT. Use the step outcomes and logs above; no bootstrap conclusion is available." }
+          }
+          $result | Tee-Object -FilePath $env:GITHUB_STEP_SUMMARY -Append
