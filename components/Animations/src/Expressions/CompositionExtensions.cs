@@ -186,7 +186,14 @@ public static class CompositionExtensions
     {
         expressionNode.ClearReferenceInfo();
 
-        keyframeAnimation.InsertExpressionKeyFrame(normalizedProgressKey, expressionNode.ToExpressionString(), easing);
+        if (easing is null)
+        {
+            keyframeAnimation.InsertExpressionKeyFrame(normalizedProgressKey, expressionNode.ToExpressionString());
+        }
+        else
+        {
+            keyframeAnimation.InsertExpressionKeyFrame(normalizedProgressKey, expressionNode.ToExpressionString(), easing);
+        }
 
         expressionNode.SetAllParameters(keyframeAnimation);
     }
