@@ -9,6 +9,10 @@ This package contains the following controls in the `CommunityToolkit.WinUI.Cont
 
 - Segmented
 
+On Windows, `Segmented` exposes the UI Automation Selection pattern and its items
+expose the SelectionItem pattern through native list automation peers. Set
+`AutomationProperties.Name` on the control to provide an accessible name.
+
 ## Which Package is for me?
 
 If you're developing with _UWP/WinUI 2 or Uno.UI_ you should be using the `CommunityToolkit.Uwp.Controls.Segmented` package.
