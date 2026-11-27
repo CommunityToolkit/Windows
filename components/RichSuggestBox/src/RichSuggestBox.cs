@@ -64,6 +64,7 @@ public partial class RichSuggestBox : ItemsControl
         RegisterPropertyChangedCallback(PopupCornerRadiusProperty, OnCornerRadiusChanged);
         LostFocus += OnLostFocus;
         Loaded += OnLoaded;
+        Unloaded += OnUnloaded;
     }
 
     /// <summary>
@@ -265,6 +266,17 @@ public partial class RichSuggestBox : ItemsControl
     private void OnLoaded(object sender, RoutedEventArgs e)
     {
         _scrollViewer = _richEditBox?.FindDescendant<ScrollViewer>()!;
+    }
+
+    private void OnUnloaded(object sender, RoutedEventArgs e)
+    {
+        var tokenSource = _currentQuery?.CancellationTokenSource;
+        if (!(tokenSource?.IsCancellationRequested ?? true))
+        {
+            tokenSource.Cancel();
+        }
+
+        ShowSuggestionsPopup(false);
     }
 
     private void OnLostFocus(object sender, RoutedEventArgs e)
