@@ -28,6 +28,12 @@ The AutoSelectBehavior automatically selects the entire content of its associate
 
 > [!Sample AutoSelectBehaviorSample]
 
+## SelectTextOnFocusBehavior
+
+The SelectTextOnFocusBehavior automatically selects the entire content of its associated TextBox when it receives focus.
+
+> [!Sample SelectTextOnFocusBehaviorSample]
+
 ## ViewportBehavior
 
 This behavior allows you to listen an element enter or exit the ScrollViewer viewport.
